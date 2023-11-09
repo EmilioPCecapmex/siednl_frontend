@@ -16,180 +16,202 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
+import { IComponentesFT } from "./Interfaces";
 
 //funcion main
 export const TabActividadesFT = ({
   show,
-  componentes,
-  asignarCValor,
+
+  //asignarCValor,
   compAct,
   showMirFnc,
   setTxtShowFnc,
   FT,
+  setFTcomponentesActividadPadre,
+  componentesActividad,
+  setComponenteActividadFT,
 }: {
   show: boolean;
-  componentes: number[];
-  asignarCValor: Function;
+
+  //asignarCValor: Function;
   compAct: Array<IComponenteActividad>;
   showMirFnc: Function;
   setTxtShowFnc: Function;
   FT: string;
+  setFTcomponentesActividadPadre: Function;
+  componentesActividad: IComponentesFT[];
+  setComponenteActividadFT: Function;
 }) => {
   // business logic-------------------------------------------------------------------------------
 
-  const componenteActividad = [
-    {
-      componentes: componentes.map((x) => compAct),
-    },
-  ];
+  // const componenteActividad = [
+  //   {
+  //     componentes: componentes.map((x) => compAct),
+  //   },
+  // ];
+
+  const [componentesActividadValues, setComponentesActividadValues] =
+    useState<IComponentesFT[]>(componentesActividad);
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
   let jsonFT = FT === undefined || FT === "" ? "" : JSON.parse(FT);
 
-  const [aValorFT, setAValorFT] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                tipoDeIndicador: "",
-                claridad: "",
-                relevancia: "",
-                economia: "",
-                monitoreable: "",
-                adecuado: "",
-                aporte_marginal: "",
-                dimension: "",
-                unidadDeMedida: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
+  useEffect(() => {
+    // valoresComponenteFTFnc(componentesValues);
+    setComponentesActividadValues(componentesActividad);
+  }, []);
 
   useEffect(() => {
-    asignarCValor(aValorFT);
-  }, [aValorFT]);
+    setFTcomponentesActividadPadre(componentesActividadValues);
+  }, [componentesActividadValues]);
 
   useEffect(() => {
-    if (componentes.length > aValorFT[0].componentes.length) {
-      let restantes = componentes.length - aValorFT[0].componentes.length;
-      let prevState = [...aValorFT];
-      for (let index = 1; index <= restantes; index++) {
-        prevState[0].componentes.push({
-          actividades: [
-            {
-              actividad: "A1" + "C" + (prevState[0].componentes.length + 1),
-              tipoDeIndicador: "",
-              claridad: "",
-              relevancia: "",
-              economia: "",
-              monitoreable: "",
-              adecuado: "",
-              aporte_marginal: "",
-              dimension: "",
-              unidadDeMedida: "",
-            },
-            {
-              actividad: "A2" + "C" + (prevState[0].componentes.length + 1),
-              tipoDeIndicador: "",
-              claridad: "",
-              relevancia: "",
-              economia: "",
-              monitoreable: "",
-              adecuado: "",
-              aporte_marginal: "",
-              dimension: "",
-              unidadDeMedida: "",
-            },
-          ],
-        });
-        setAValorFT(prevState);
-      }
-    } else if (componentes.length < aValorFT[0].componentes.length) {
-      let prevState = [...aValorFT];
-      let restantes = aValorFT[0].componentes.length - componentes.length;
-      for (let index = 1; index <= restantes; index++) {
-        prevState[0].componentes.pop();
-        setAValorFT(prevState);
-      }
-      setComponenteSelect(0);
-    }
-  }, [compAct]);
+    setFTcomponentesActividadPadre(componentesActividadValues);
+  }, []);
+  // const [aValorFT, setAValorFT] = useState(
+  //   componenteActividad.map((item) => {
+  //     return {
+  //       componentes: item.componentes.map((x, index) => {
+  //         return {
+  //           actividades: x.map((c, index2) => {
+  //             return {
+  //               actividad: "A" + (index2 + 1) + "C" + (index + 1),
+  //               tipoDeIndicador: "",
+  //               claridad: "",
+  //               relevancia: "",
+  //               economia: "",
+  //               monitoreable: "",
+  //               adecuado: "",
+  //               aporte_marginal: "",
+  //               dimension: "",
+  //               unidadDeMedida: "",
+  //             };
+  //           }),
+  //         };
+  //       }),
+  //     };
+  //   })
+  // );
 
-  useEffect(() => {
-    if (compAct.length > 0) {
-      loadActividadesFT();
-    }
-  }, [compAct]);
+  // useEffect(() => {
+  //   asignarCValor(aValorFT);
+  // }, [aValorFT]);
 
-  useEffect(() => {
-    asignarCValor(aValorFT);
-  }, [aValorFT]);
+  // useEffect(() => {
+  //   if (componentes.length > componentesActividadValues.length) {
+  //     let restantes = componentes.length - aValorFT[0].componentes.length;
+  //     let prevState = [...componentesActividadValues];
+  //     for (let index = 1; index <= restantes; index++) {
+  //       prevState[0].componentes.push({
+  //         actividades: [
+  //           {
+  //             actividad: "A1" + "C" + (prevState[0].componentes.length + 1),
+  //             tipoDeIndicador: "",
+  //             claridad: "",
+  //             relevancia: "",
+  //             economia: "",
+  //             monitoreable: "",
+  //             adecuado: "",
+  //             aporte_marginal: "",
+  //             dimension: "",
+  //             unidadDeMedida: "",
+  //           },
+  //           {
+  //             actividad: "A2" + "C" + (prevState[0].componentes.length + 1),
+  //             tipoDeIndicador: "",
+  //             claridad: "",
+  //             relevancia: "",
+  //             economia: "",
+  //             monitoreable: "",
+  //             adecuado: "",
+  //             aporte_marginal: "",
+  //             dimension: "",
+  //             unidadDeMedida: "",
+  //           },
+  //         ],
+  //       });
+  //       setAValorFT(prevState);
+  //     }
+  //   } else if (componentes.length < aValorFT[0].componentes.length) {
+  //     let prevState = [...componentesActividadValues];
+  //     let restantes = aValorFT[0].componentes.length - componentes.length;
+  //     for (let index = 1; index <= restantes; index++) {
+  //       prevState[0].componentes.pop();
+  //       setAValorFT(prevState);
+  //     }
+  //     setComponenteSelect(0);
+  //   }
+  // }, [compAct]);
+
+  // useEffect(() => {
+  //   if (compAct.length > 0) {
+  //     loadActividadesFT();
+  //   }
+  // }, [compAct]);
+
+  // useEffect(() => {
+  //   asignarCValor(aValorFT);
+  // }, [aValorFT]);
 
   let aument_number = -1;
 
-  const loadActividadesFT = () => {
-    let y = componenteActividad.map((item) => {
-      return {
-        componentes: compAct.map((x, index) => {
-          return {
-            actividades: x.actividades.map((c, index2) => {
-              aument_number++;
+  // const loadActividadesFT = () => {
+  //   let y = componenteActividad.map((item) => {
+  //     return {
+  //       componentes: compAct.map((x, index) => {
+  //         return {
+  //           actividades: x.actividades.map((c, index2) => {
+  //             aument_number++;
 
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                tipoDeIndicador:
-                  FT === ""
-                    ? ""
-                    : jsonFT?.actividades[aument_number]?.tipoDeIndicador || "",
-                claridad:
-                  FT === ""
-                    ? ""
-                    : jsonFT?.actividades[aument_number]?.claridad || "",
-                relevancia:
-                  FT === ""
-                    ? ""
-                    : jsonFT?.actividades[aument_number]?.relevancia || "",
-                economia:
-                  FT === ""
-                    ? ""
-                    : jsonFT?.actividades[aument_number]?.economia || "",
-                monitoreable:
-                  FT === ""
-                    ? ""
-                    : jsonFT?.actividades[aument_number]?.monitoreable || "",
-                adecuado:
-                  FT === ""
-                    ? ""
-                    : jsonFT?.actividades[aument_number]?.adecuado || "",
-                aporte_marginal:
-                  FT === ""
-                    ? ""
-                    : jsonFT?.actividades[aument_number]?.aporte_marginal || "",
-                dimension:
-                  FT === ""
-                    ? ""
-                    : jsonFT?.actividades[aument_number]?.dimension || "",
-                unidadDeMedida:
-                  FT === ""
-                    ? ""
-                    : jsonFT?.actividades[aument_number]?.unidadDeMedida || "",
-              };
-            }),
-          };
-        }),
-      };
-    });
+  //             return {
+  //               actividad: "A" + (index2 + 1) + "C" + (index + 1),
+  //               tipoDeIndicador:
+  //                 FT === ""
+  //                   ? ""
+  //                   : jsonFT?.actividades[aument_number]?.tipoDeIndicador || "",
+  //               claridad:
+  //                 FT === ""
+  //                   ? ""
+  //                   : jsonFT?.actividades[aument_number]?.claridad || "",
+  //               relevancia:
+  //                 FT === ""
+  //                   ? ""
+  //                   : jsonFT?.actividades[aument_number]?.relevancia || "",
+  //               economia:
+  //                 FT === ""
+  //                   ? ""
+  //                   : jsonFT?.actividades[aument_number]?.economia || "",
+  //               monitoreable:
+  //                 FT === ""
+  //                   ? ""
+  //                   : jsonFT?.actividades[aument_number]?.monitoreable || "",
+  //               adecuado:
+  //                 FT === ""
+  //                   ? ""
+  //                   : jsonFT?.actividades[aument_number]?.adecuado || "",
+  //               aporte_marginal:
+  //                 FT === ""
+  //                   ? ""
+  //                   : jsonFT?.actividades[aument_number]?.aporte_marginal || "",
+  //               dimension:
+  //                 FT === ""
+  //                   ? ""
+  //                   : jsonFT?.actividades[aument_number]?.dimension || "",
+  //               unidadDeMedida:
+  //                 FT === ""
+  //                   ? ""
+  //                   : jsonFT?.actividades[aument_number]?.unidadDeMedida || "",
+  //             };
+  //           }),
+  //         };
+  //       }),
+  //     };
+  //   });
 
-    setAValorFT(y);
-  };
+  //  setComponentesActividadValues(y);
+  // };
 
   const [open, setOpen] = useState(1);
 
@@ -262,17 +284,17 @@ export const TabActividadesFT = ({
               },
             }}
           >
-            {componentes.map((item, index) => {
+            {componentesActividadValues.map((componente, index) => {
               return (
                 <Grid key={index}>
                   <Divider />
 
                   <ListItemButton
-                    selected={item === componenteSelect + 1 ? true : false}
-                    key={item}
+                    selected={index === componenteSelect ? true : false}
+                    key={index}
                     onClick={() => {
-                      setComponenteSelect(item - 1);
-                      handleClickComponente(item);
+                      setComponenteSelect(index);
+                      handleClickComponente(index);
                       setActividadSelect(0);
                     }}
                     sx={{
@@ -291,16 +313,14 @@ export const TabActividadesFT = ({
                         fontSize: [10, 10, 12, 15, 18, 20],
                       }}
                     >
-                      COMPONENTE {item}
+                      COMPONENTE {index + 1}
                     </Typography>
 
-                    {open === item ? <ExpandLess /> : <ExpandMore />}
+                    {open === index ? <ExpandLess /> : <ExpandMore />}
                   </ListItemButton>
-                  <Collapse in={open === item} timeout="auto" unmountOnExit>
+                  <Collapse in={open === index} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                      {aValorFT[0].componentes[
-                        componenteSelect
-                      ].actividades.map((value, x) => {
+                      {componente.actividades.map((value, x) => {
                         return (
                           <ListItemButton
                             selected={x === actividadSelect ? true : false}
@@ -359,17 +379,17 @@ export const TabActividadesFT = ({
         >
           {isSmallScreen && (
             <List>
-              {componentes.map((item, index) => {
+              {componentesActividadValues.map((componente, index) => {
                 return (
                   <Grid key={index}>
                     <Divider />
 
                     <ListItemButton
-                      selected={item === componenteSelect + 1 ? true : false}
-                      key={item}
+                      selected={index === componenteSelect ? true : false}
+                      key={index}
                       onClick={() => {
-                        setComponenteSelect(item - 1);
-                        handleClickComponente(item);
+                        setComponenteSelect(index);
+                        handleClickComponente(index);
                         setActividadSelect(0);
                       }}
                       sx={{
@@ -388,16 +408,14 @@ export const TabActividadesFT = ({
                           fontSize: [10, 10, 12, 15, 18, 20],
                         }}
                       >
-                        COMPONENTE {item}
+                        COMPONENTE {index + 1}
                       </Typography>
 
-                      {open === item ? <ExpandLess /> : <ExpandMore />}
+                      {open === index ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
-                    <Collapse in={open === item} timeout="auto" unmountOnExit>
+                    <Collapse in={open === index} timeout="auto" unmountOnExit>
                       <List component="div" disablePadding>
-                        {aValorFT[0].componentes[
-                          componenteSelect
-                        ].actividades.map((value, x) => {
+                        {componente.actividades.map((value, x) => {
                           return (
                             <ListItemButton
                               selected={x === actividadSelect ? true : false}
@@ -439,8 +457,8 @@ export const TabActividadesFT = ({
 
           <Grid
             item
-           xl={3.5}
-           lg={3.5}
+            xl={3.5}
+            lg={3.5}
             md={3.5}
             sm={3.5}
             xs={11}
@@ -451,7 +469,7 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
-            fullWidth
+              fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
                 boxShadow: 2,
@@ -487,16 +505,16 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.tipoDeIndicador ===
+                        "SELECCIÓN ESTRATEGICO"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].tipoDeIndicador = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -519,16 +537,16 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.tipoDeIndicador === "DE GESTIÓN"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.tipoDeIndicador ===
+                        "DE GESTIÓN"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].tipoDeIndicador = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -539,8 +557,8 @@ export const TabActividadesFT = ({
 
           <Grid
             item
-           xl={3.5}
-           lg={3.5}
+            xl={3.5}
+            lg={3.5}
             md={3.5}
             sm={3.5}
             xs={11}
@@ -551,7 +569,7 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
-            fullWidth
+              fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
                 boxShadow: 2,
@@ -590,16 +608,16 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.dimension === "EFICIENCIA"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.dimension ===
+                        "EFICIENCIA"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].dimension = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -622,16 +640,16 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.dimension === "EFICACIA"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.dimension ===
+                        "EFICACIA"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].dimension = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -654,16 +672,15 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.dimension === "CALIDAD"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.dimension === "CALIDAD"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].dimension = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -687,16 +704,16 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.dimension === "ECONOMÍA"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.dimension ===
+                        "ECONOMÍA"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].dimension = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -707,8 +724,8 @@ export const TabActividadesFT = ({
 
           <Grid
             item
-           xl={3.5}
-           lg={3.5}
+            xl={3.5}
+            lg={3.5}
             md={3.5}
             sm={3.5}
             xs={11}
@@ -741,17 +758,17 @@ export const TabActividadesFT = ({
                 },
               }}
               onChange={(c) => {
-                let y = [...aValorFT];
-                y[0].componentes[componenteSelect].actividades[
+                let y = [...componentesActividadValues];
+                y[componenteSelect].actividades[
                   actividadSelect
                 ].unidadDeMedida = c.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
                   .replaceAll("\n", "");
-                setAValorFT(y);
+                setComponentesActividadValues(y);
               }}
               value={
-                aValorFT[0].componentes[componenteSelect]?.actividades[
+                componentesActividadValues[componenteSelect]?.actividades[
                   actividadSelect
                 ]?.unidadDeMedida || ""
               }
@@ -760,8 +777,8 @@ export const TabActividadesFT = ({
 
           <Grid
             item
-           xl={3.5}
-           lg={3.5}
+            xl={3.5}
+            lg={3.5}
             md={3.5}
             sm={3.5}
             xs={11}
@@ -808,16 +825,15 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.claridad === "SI"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.claridad === "SI"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].claridad = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -840,16 +856,15 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.claridad === "NO"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.claridad === "NO"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].claridad = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -860,8 +875,8 @@ export const TabActividadesFT = ({
 
           <Grid
             item
-           xl={3.5}
-           lg={3.5}
+            xl={3.5}
+            lg={3.5}
             md={3.5}
             sm={3.5}
             xs={11}
@@ -908,16 +923,15 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.relevancia === "SI"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.relevancia === "SI"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].relevancia = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -940,16 +954,15 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.relevancia === "NO"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.relevancia === "NO"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].relevancia = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -960,8 +973,8 @@ export const TabActividadesFT = ({
 
           <Grid
             item
-           xl={3.5}
-           lg={3.5}
+            xl={3.5}
+            lg={3.5}
             md={3.5}
             sm={3.5}
             xs={11}
@@ -1008,16 +1021,15 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.economia === "SI"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.economia === "SI"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].economia = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -1040,16 +1052,15 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.economia === "NO"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.economia === "NO"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].economia = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -1060,8 +1071,8 @@ export const TabActividadesFT = ({
 
           <Grid
             item
-           xl={3.5}
-           lg={3.5}
+            xl={3.5}
+            lg={3.5}
             md={3.5}
             sm={3.5}
             xs={11}
@@ -1108,16 +1119,15 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.monitoreable === "SI"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.monitoreable === "SI"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].monitoreable = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -1140,16 +1150,15 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.monitoreable === "NO"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.monitoreable === "NO"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].monitoreable = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -1160,8 +1169,8 @@ export const TabActividadesFT = ({
 
           <Grid
             item
-           xl={3.5}
-           lg={3.5}
+            xl={3.5}
+            lg={3.5}
             md={3.5}
             sm={3.5}
             xs={11}
@@ -1208,16 +1217,15 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.adecuado === "SI"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.adecuado === "SI"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].adecuado = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -1240,16 +1248,15 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.adecuado === "NO"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.adecuado === "NO"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].adecuado = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -1260,8 +1267,8 @@ export const TabActividadesFT = ({
 
           <Grid
             item
-           xl={3.5}
-           lg={3.5}
+            xl={3.5}
+            lg={3.5}
             md={3.5}
             sm={3.5}
             xs={11}
@@ -1308,16 +1315,16 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.aporte_marginal === "SI"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.aporte_marginal ===
+                        "SI"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].aporte_marginal = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -1340,16 +1347,16 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.aporte_marginal === "NO"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.aporte_marginal ===
+                        "NO"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].aporte_marginal = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }
@@ -1372,16 +1379,16 @@ export const TabActividadesFT = ({
                   control={
                     <Radio
                       checked={
-                        aValorFT[0].componentes[componenteSelect].actividades[
-                          actividadSelect
-                        ]?.aporte_marginal === "NA"
+                        componentesActividadValues[componenteSelect]
+                          .actividades[actividadSelect]?.aporte_marginal ===
+                        "NA"
                       }
                       onChange={(c) => {
-                        let y = [...aValorFT];
-                        y[0].componentes[componenteSelect].actividades[
+                        let y = [...componentesActividadValues];
+                        y[componenteSelect].actividades[
                           actividadSelect
                         ].aporte_marginal = c.target.value;
-                        setAValorFT(y);
+                        setComponentesActividadValues(y);
                       }}
                     />
                   }

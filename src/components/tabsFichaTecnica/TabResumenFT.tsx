@@ -21,27 +21,31 @@ export function TabResumenFT({
   encabezado,
   fin,
   proposito,
+  //componentes,
   componentes,
-  componenteValor,
   cValor,
   IdMir,
   IdFT,
   IdMA,
   showResume,
   MIR,
+  setFTPadre,
+  ftPadre,
 }: {
   show: boolean;
-  encabezado: Array<IEncabezadoFT>;
-  fin: Array<IFinFT>;
-  proposito: Array<IPropositoFT>;
-  componentes: number[];
-  componenteValor: Array<IComponentesFT>;
+  encabezado: IEncabezadoFT;
+  fin: IFinFT;
+  proposito: IPropositoFT;
+  //componentes: number[];
+  componentes: Array<IComponentesFT>;
   cValor: Array<ICValorFT>;
   IdMir: string;
   IdFT: string;
   IdMA: string;
   MIR: string;
   showResume: Function;
+  setFTPadre: Function;
+  ftPadre: IFT;
 }) {
   const [FT, setFT] = useState<IFT>();
 
@@ -60,50 +64,54 @@ export function TabResumenFT({
      
     });
   };
+useEffect(() => {
+  console.log("ftPadre: ",ftPadre);
+  
+}, [ftPadre])
 
-  useEffect(() => {
-    let arr: any[] = [];
-    cValor[0].componentes.map((a) => {
-      a.actividades.map((b) => {
-        Object.assign(b);
-        arr.push(b);
-      });
-    });
-    let cEdit = componenteValor.map((item) => {
-      return {
-        componentes: item.componentes,
-        tipoDeIndicador: true,
-        claridad: true,
-        relevancia: true,
-        economia: true,
-        monitoreable: true,
-        adecuado: true,
-        aporte_marginal: true,
-        dimension: true,
-        unidadDeMedida: true,
-      };
-    });
-    setEditComponentes(cEdit);
+  // useEffect(() => {
+  //   let arr: any[] = [];
+  //   cValor[0].componentes.map((a) => {
+  //     a.actividades.map((b) => {
+  //       Object.assign(b);
+  //       arr.push(b);
+  //     });
+  //   });
+  //   let cEdit = componenteValor.map((item) => {
+  //     return {
+  //       componentes: item.componentes,
+  //       tipoDeIndicador: true,
+  //       claridad: true,
+  //       relevancia: true,
+  //       economia: true,
+  //       monitoreable: true,
+  //       adecuado: true,
+  //       aporte_marginal: true,
+  //       dimension: true,
+  //       unidadDeMedida: true,
+  //     };
+  //   });
+  //   setEditComponentes(cEdit);
 
-    let aEdit = arr.map((item) => {
-      return {
-        actividad: item.actividad,
-        tipoDeIndicador: true,
-        claridad: true,
-        relevancia: true,
-        economia: true,
-        monitoreable: true,
-        adecuado: true,
-        aporte_marginal: true,
-        dimension: true,
-        unidadDeMedida: true,
-      };
-    });
+  //   let aEdit = arr.map((item) => {
+  //     return {
+  //       actividad: item.actividad,
+  //       tipoDeIndicador: true,
+  //       claridad: true,
+  //       relevancia: true,
+  //       economia: true,
+  //       monitoreable: true,
+  //       adecuado: true,
+  //       aporte_marginal: true,
+  //       dimension: true,
+  //       unidadDeMedida: true,
+  //     };
+  //   });
 
-    setEditActividades(aEdit);
+  //   setEditActividades(aEdit);
 
-    asignarFT(encabezado, fin, proposito, componenteValor );
-  }, [encabezado, componenteValor, proposito, fin, cValor]);
+  //   asignarFT(encabezado, fin, proposito, componenteValor );
+  // }, [encabezado, componenteValor, proposito, fin, cValor]);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
@@ -241,7 +249,7 @@ export function TabResumenFT({
         }),
       }}
     >
-      <Grid
+      {/* <Grid
         item
         container
         xl={12}
@@ -268,10 +276,7 @@ export function TabResumenFT({
           sm={12}
           xs={12}
           sx={{
-            //display: "flex",
-            //flexDirection: "row",
-
-            //mt: 1,
+          
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -460,7 +465,7 @@ export function TabResumenFT({
           </Grid>
         </Grid>
 
-        {/*FIN INICIO*/}
+      
         <Grid
           item
           xl={11}
@@ -878,9 +883,9 @@ export function TabResumenFT({
             </Typography>
           </Grid>
         </Grid>
-        {/*FIN DE FIN QUE IRÓNICO NO?*/}
+        {/*FIN DE FIN QUE IRÓNICO NO?
 
-        {/*PROPÓSITO INICIO*/}
+       
         <Grid
           item
           xl={11}
@@ -1295,9 +1300,9 @@ export function TabResumenFT({
             </Typography>
           </Grid>
         </Grid>
-        {/*PROPÓSITO FIN*/}
+       
 
-        {/*---------------------------------Componentes--------------------------------------- */}
+    
         <Grid
           item
           xl={11}
@@ -1735,7 +1740,7 @@ export function TabResumenFT({
                   </Typography>
                 </Grid>
               </Grid>
-              {/*COMPONENTE*/}
+              
             </Grid>
           );
         })}
@@ -2230,7 +2235,7 @@ export function TabResumenFT({
             );
           });
         })}
-      </Grid>
+      </Grid> */}
 
       <Grid
         item

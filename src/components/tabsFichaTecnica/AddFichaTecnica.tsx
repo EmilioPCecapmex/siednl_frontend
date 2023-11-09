@@ -286,40 +286,39 @@ export default function AddFichaTecnica({
   // }, []);
 
   // const [ValueEncabezado, setValueEncabezado] = useState<IEncabezadoFT>(
-  
+
   // );
 
-  const [ValueFin, setValueFin] = useState<Array<IFinFT>>([]);
-
-  const [ValueProposito, setValueProposito] = useState<Array<IPropositoFT>>([]);
+  
 
   const setFTEncabezadoPadre = (EncabezadoValues: IEncabezadoFT) => {
-    //console.log("st: ",st);
-    
-   // setValueEncabezado(st);
     setFTPadre({
-        ...ftPadre,
-          encabezado: EncabezadoValues,
-      });
+      ...ftPadre,
+      encabezado: EncabezadoValues,
+    });
   };
 
   const setFTFinPadre = (FinValues: IFinFT) => {
-    //console.log("st: ",st);
-    
-   // setValueEncabezado(st);
     setFTPadre({
-        ...ftPadre,
-          fin: FinValues,
-      });
+      ...ftPadre,
+      fin: FinValues,
+    });
   };
-
 
   const setFTPropositoPadre = (PropositoValues: IPropositoFT) => {
     setFTPadre({
       ...ftPadre,
-        fin: PropositoValues,
+      proposito: PropositoValues,
     });
   };
+
+  const setFTcomponentesActividadPadre = (componentesActividadValues: IComponentesFT[]) => {
+    setFTPadre({
+      ...ftPadre,
+      componentes: componentesActividadValues,
+    });
+  };
+  
 
   const query = {
     isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
@@ -327,11 +326,11 @@ export default function AddFichaTecnica({
     isMobile: useMediaQuery("(min-width: 0px) and (max-width: 600px)"),
   };
 
-  const setFTcomponentesPadre = (componentesValues: IComponentesFT[]) =>{
+  const setFTcomponentesPadre = (componentesValues: IComponentesFT[]) => {
     setFTPadre({
-        ...ftPadre,
-          componentes: componentesValues,
-      });
+      ...ftPadre,
+      componentes: componentesValues,
+    });
   };
 
   useEffect(() => {
@@ -365,7 +364,6 @@ export default function AddFichaTecnica({
       >
         <GenericTabs tabSelect={setValue} tabsData={tabs} />
 
-
         <Grid
           sx={{
             width: "93vw",
@@ -376,7 +374,7 @@ export default function AddFichaTecnica({
             <TabEncabezado
               show={value === 0 ? true : false}
               setFTEncabezadoPadre={setFTEncabezadoPadre}
-              setEncabezadoFT ={setFTPadre}
+              setEncabezadoFT={setFTPadre}
               EncabezadoValues={ftPadre.encabezado}
               FT={FT}
               MIR={MIR}
@@ -388,7 +386,7 @@ export default function AddFichaTecnica({
               show={value === 1 ? true : false}
               setFTPropositoPadre={setFTPropositoPadre}
               setFTFinPadre={setFTFinPadre}
-              setFinPropositoFT ={setFTPadre}
+              setFinPropositoFT={setFTPadre}
               FinValues={ftPadre.fin}
               PropositoValues={ftPadre.proposito}
               FT={FT}
@@ -398,32 +396,36 @@ export default function AddFichaTecnica({
             <TabComponenteFT
               show={value === 2 ? true : false}
               setFTcomponentesPadre={setFTcomponentesPadre}
-              setComponenteFT={setFTPadre }
+              setComponenteFT={setFTPadre}
               ComponentesFT={ftPadre.componentes}
               showFnc={setTxtShowFnc}
               showMirFnc={showMirFnc}
               FT={FT}
             ></TabComponenteFT>
           ) : null}
-          {/* {value === 3 ? (
+          {value === 3 ? (
             <TabActividadesFT
               show={value === 3 ? true : false}
               setTxtShowFnc={setTxtShowFnc}
               showMirFnc={showMirFnc}
               compAct={compAct}
-              componentes={ftPadre.componentes}
-              asignarCValor={[asignarCValorFT]}
+              setFTcomponentesActividadPadre={setFTcomponentesActividadPadre}
+              setComponenteActividadFT={setFTPadre}
+              componentesActividad={ftPadre.componentes}
+              //asignarCValor={[asignarCValorFT]}
               FT={FT}
             ></TabActividadesFT>
           ) : null}
           {value === 4 ? (
             <TabResumenFT
               show={value === 4 ? true : false}
-              encabezado={ValueEncabezado}
-              fin={ValueFin}
-              proposito={ValueProposito}
+              encabezado={ftPadre.encabezado}
+              fin={ftPadre.fin}
+              proposito={ftPadre.proposito}
+              //componentes={ftPadre.componentes}
+              setFTPadre={setFTPadre}
+              ftPadre={ftPadre}
               componentes={ftPadre.componentes}
-              componenteValor={ftPadre.componentes}
               cValor={[]}
               IdMir={IdMir}
               IdFT={IdFT}
@@ -431,7 +433,7 @@ export default function AddFichaTecnica({
               showResume={showResume}
               MIR={MIR}
             ></TabResumenFT>
-          ) : null} */}
+          ) : null}
         </Grid>
       </Grid>
     </Grid>

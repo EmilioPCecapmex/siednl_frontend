@@ -46,7 +46,7 @@ export function TabFinPropositoFT({
   //     unidadDeMedida: jsonFT?.fin?.unidadDeMedida || "",
   //   },
   // ]
-  const [fin, setFin] = useState<Array<IFinFT>>();
+  const [fin, setFin] = useState<IFinFT>(FinValues);
 
   // [
   //   {
@@ -70,9 +70,31 @@ export function TabFinPropositoFT({
     //resumenFinFT(fin);
     //resumenPropositoFT(proposito);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    setFTPropositoPadre(proposito)
-    setFTFinPadre(fin)
-  }, [fin, proposito]);
+
+    setFin(FinValues);
+  }, []);
+
+  useEffect(() => {
+    //resumenFinFT(fin);
+    //resumenPropositoFT(proposito);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    setFTFinPadre(fin);
+  }, [fin]);
+
+  useEffect(() => {
+    //resumenFinFT(fin);
+    //resumenPropositoFT(proposito);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setProposito(PropositoValues);
+  }, []);
+
+  useEffect(() => {
+    //resumenFinFT(fin);
+    //resumenPropositoFT(proposito);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setFTPropositoPadre(proposito);
+  }, [proposito]);
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
@@ -353,11 +375,15 @@ export function TabFinPropositoFT({
                       control={
                         <Radio
                           checked={
-                            fin[0].tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
+                            fin.tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
                           }
                           onChange={(c) => {
-                            fin[0].tipoDeIndicador = c.target.value;
-                            setFin([...fin]);
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, tipoDeIndicador: finvalue });
                           }}
                         />
                       }
@@ -379,12 +405,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].tipoDeIndicador === "DE GESTIÓN"}
+                          checked={fin.tipoDeIndicador === "DE GESTIÓN"}
                           onChange={(c) => {
-                            fin[0].tipoDeIndicador = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, tipoDeIndicador: finvalue });
                           }}
                         />
                       }
@@ -448,12 +476,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].dimension === "EFICIENCIA"}
+                          checked={fin.dimension === "EFICIENCIA"}
                           onChange={(c) => {
-                            fin[0].dimension = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, dimension: finvalue });
                           }}
                         />
                       }
@@ -475,12 +505,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].dimension === "EFICACIA"}
+                          checked={fin.dimension === "EFICACIA"}
                           onChange={(c) => {
-                            fin[0].dimension = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, dimension: finvalue });
                           }}
                         />
                       }
@@ -502,12 +534,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].dimension === "CALIDAD"}
+                          checked={fin.dimension === "CALIDAD"}
                           onChange={(c) => {
-                            fin[0].dimension = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, dimension: finvalue });
                           }}
                         />
                       }
@@ -530,12 +564,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].dimension === "ECONOMÍA"}
+                          checked={fin.dimension === "ECONOMÍA"}
                           onChange={(c) => {
-                            fin[0].dimension = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, dimension: finvalue });
                           }}
                         />
                       }
@@ -579,15 +615,14 @@ export function TabFinPropositoFT({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  value={fin[0].unidadDeMedida}
+                  value={fin.unidadDeMedida}
                   onChange={(c) => {
-                    fin[0].unidadDeMedida = c.target.value
+                    let finvalue = c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", "");
-                    setFin({
-                      ...fin,
-                    });
+
+                    setFin({ ...fin, unidadDeMedida: finvalue });
                   }}
                 />
               </Grid>
@@ -641,12 +676,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].claridad === "SI"}
+                          checked={fin.claridad === "SI"}
                           onChange={(c) => {
-                            fin[0].claridad = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, claridad: finvalue });
                           }}
                         />
                       }
@@ -668,12 +705,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].claridad === "NO"}
+                          checked={fin.claridad === "NO"}
                           onChange={(c) => {
-                            fin[0].claridad = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, claridad: finvalue });
                           }}
                         />
                       }
@@ -731,12 +770,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].relevancia === "SI"}
+                          checked={fin.relevancia === "SI"}
                           onChange={(c) => {
-                            fin[0].relevancia = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, relevancia: finvalue });
                           }}
                         />
                       }
@@ -758,12 +799,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].relevancia === "NO"}
+                          checked={fin.relevancia === "NO"}
                           onChange={(c) => {
-                            fin[0].relevancia = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, relevancia: finvalue });
                           }}
                         />
                       }
@@ -821,12 +864,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].economia === "SI"}
+                          checked={fin.economia === "SI"}
                           onChange={(c) => {
-                            fin[0].economia = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, economia: finvalue });
                           }}
                         />
                       }
@@ -848,12 +893,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].economia === "NO"}
+                          checked={fin.economia === "NO"}
                           onChange={(c) => {
-                            fin[0].economia = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, economia: finvalue });
                           }}
                         />
                       }
@@ -911,12 +958,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].monitoreable === "SI"}
+                          checked={fin.monitoreable === "SI"}
                           onChange={(c) => {
-                            fin[0].monitoreable = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, monitoreable: finvalue });
                           }}
                         />
                       }
@@ -938,12 +987,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].monitoreable === "NO"}
+                          checked={fin.monitoreable === "NO"}
                           onChange={(c) => {
-                            fin[0].monitoreable = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, monitoreable: finvalue });
                           }}
                         />
                       }
@@ -1001,12 +1052,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].adecuado === "SI"}
+                          checked={fin.adecuado === "SI"}
                           onChange={(c) => {
-                            fin[0].adecuado = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, adecuado: finvalue });
                           }}
                         />
                       }
@@ -1028,12 +1081,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].adecuado === "NO"}
+                          checked={fin.adecuado === "NO"}
                           onChange={(c) => {
-                            fin[0].adecuado = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, adecuado: finvalue });
                           }}
                         />
                       }
@@ -1091,12 +1146,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].aporte_marginal === "SI"}
+                          checked={fin.aporte_marginal === "SI"}
                           onChange={(c) => {
-                            fin[0].aporte_marginal = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, aporte_marginal: finvalue });
                           }}
                         />
                       }
@@ -1118,12 +1175,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].aporte_marginal === "NO"}
+                          checked={fin.aporte_marginal === "NO"}
                           onChange={(c) => {
-                            fin[0].aporte_marginal = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, aporte_marginal: finvalue });
                           }}
                         />
                       }
@@ -1145,12 +1204,14 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={fin[0].aporte_marginal === "NA"}
+                          checked={fin.aporte_marginal === "NA"}
                           onChange={(c) => {
-                            fin[0].aporte_marginal = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            let finvalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
+                            setFin({ ...fin, aporte_marginal: finvalue });
                           }}
                         />
                       }
@@ -1299,13 +1360,18 @@ export function TabFinPropositoFT({
                       control={
                         <Radio
                           checked={
-                            proposito[0].tipoDeIndicador ===
+                            proposito.tipoDeIndicador ===
                             "SELECCIÓN ESTRATEGICO"
                           }
                           onChange={(c) => {
-                            proposito[0].tipoDeIndicador = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
                             setProposito({
                               ...proposito,
+                              tipoDeIndicador: propositovalue,
                             });
                           }}
                         />
@@ -1328,13 +1394,16 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={
-                            proposito[0].tipoDeIndicador === "DE GESTIÓN"
-                          }
+                          checked={proposito.tipoDeIndicador === "DE GESTIÓN"}
                           onChange={(c) => {
-                            proposito[0].tipoDeIndicador = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
                             setProposito({
                               ...proposito,
+                              tipoDeIndicador: propositovalue,
                             });
                           }}
                         />
@@ -1399,11 +1468,16 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].dimension === "EFICIENCIA"}
+                          checked={proposito.dimension === "EFICIENCIA"}
                           onChange={(c) => {
-                            proposito[0].dimension = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
                             setProposito({
                               ...proposito,
+                              dimension: propositovalue,
                             });
                           }}
                         />
@@ -1426,11 +1500,16 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].dimension === "EFICACIA"}
+                          checked={proposito.dimension === "EFICACIA"}
                           onChange={(c) => {
-                            proposito[0].dimension = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
                             setProposito({
                               ...proposito,
+                              dimension: propositovalue,
                             });
                           }}
                         />
@@ -1453,11 +1532,16 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].dimension === "CALIDAD"}
+                          checked={proposito.dimension === "CALIDAD"}
                           onChange={(c) => {
-                            proposito[0].dimension = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
                             setProposito({
                               ...proposito,
+                              dimension: propositovalue,
                             });
                           }}
                         />
@@ -1481,11 +1565,16 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].dimension === "ECONOMÍA"}
+                          checked={proposito.dimension === "ECONOMÍA"}
                           onChange={(c) => {
-                            proposito[0].dimension = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
+
                             setProposito({
                               ...proposito,
+                              dimension: propositovalue,
                             });
                           }}
                         />
@@ -1524,14 +1613,15 @@ export function TabFinPropositoFT({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  value={proposito[0].unidadDeMedida}
+                  value={proposito.unidadDeMedida}
                   onChange={(c) => {
-                    proposito[0].unidadDeMedida = c.target.value
+                    let propositovalue = c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", "");
                     setProposito({
                       ...proposito,
+                      unidadDeMedida: propositovalue,
                     });
                   }}
                 />
@@ -1585,11 +1675,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].claridad === "SI"}
+                          checked={proposito.claridad === "SI"}
                           onChange={(c) => {
-                            proposito[0].claridad = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              claridad: propositovalue,
                             });
                           }}
                         />
@@ -1612,11 +1706,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].claridad === "NO"}
+                          checked={proposito.claridad === "NO"}
                           onChange={(c) => {
-                            proposito[0].claridad = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              claridad: propositovalue,
                             });
                           }}
                         />
@@ -1675,11 +1773,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].relevancia === "SI"}
+                          checked={proposito.relevancia === "SI"}
                           onChange={(c) => {
-                            proposito[0].relevancia = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              relevancia: propositovalue,
                             });
                           }}
                         />
@@ -1702,11 +1804,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].relevancia === "NO"}
+                          checked={proposito.relevancia === "NO"}
                           onChange={(c) => {
-                            proposito[0].relevancia = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              relevancia: propositovalue,
                             });
                           }}
                         />
@@ -1764,11 +1870,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].economia === "SI"}
+                          checked={proposito.economia === "SI"}
                           onChange={(c) => {
-                            proposito[0].economia = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              economia: propositovalue,
                             });
                           }}
                         />
@@ -1791,11 +1901,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].economia === "NO"}
+                          checked={proposito.economia === "NO"}
                           onChange={(c) => {
-                            proposito[0].economia = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              economia: propositovalue,
                             });
                           }}
                         />
@@ -1853,11 +1967,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].monitoreable === "SI"}
+                          checked={proposito.monitoreable === "SI"}
                           onChange={(c) => {
-                            proposito[0].monitoreable = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              monitoreable: propositovalue,
                             });
                           }}
                         />
@@ -1880,11 +1998,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].monitoreable === "NO"}
+                          checked={proposito.monitoreable === "NO"}
                           onChange={(c) => {
-                            proposito[0].monitoreable = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              monitoreable: propositovalue,
                             });
                           }}
                         />
@@ -1943,11 +2065,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].adecuado === "SI"}
+                          checked={proposito.adecuado === "SI"}
                           onChange={(c) => {
-                            proposito[0].adecuado = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              adecuado: propositovalue,
                             });
                           }}
                         />
@@ -1970,11 +2096,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].adecuado === "NO"}
+                          checked={proposito.adecuado === "NO"}
                           onChange={(c) => {
-                            proposito[0].adecuado = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              adecuado: propositovalue,
                             });
                           }}
                         />
@@ -2033,11 +2163,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].aporte_marginal === "SI"}
+                          checked={proposito.aporte_marginal === "SI"}
                           onChange={(c) => {
-                            proposito[0].aporte_marginal = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              aporte_marginal: propositovalue,
                             });
                           }}
                         />
@@ -2060,11 +2194,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].aporte_marginal === "NO"}
+                          checked={proposito.aporte_marginal === "NO"}
                           onChange={(c) => {
-                            proposito[0].aporte_marginal = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              aporte_marginal: propositovalue,
                             });
                           }}
                         />
@@ -2087,11 +2225,15 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={proposito[0].aporte_marginal === "NA"}
+                          checked={proposito.aporte_marginal === "NA"}
                           onChange={(c) => {
-                            proposito[0].aporte_marginal = c.target.value;
+                            let propositovalue = c.target.value
+                              .replaceAll('"', "")
+                              .replaceAll("'", "")
+                              .replaceAll("\n", "");
                             setProposito({
                               ...proposito,
+                              aporte_marginal: propositovalue,
                             });
                           }}
                         />
