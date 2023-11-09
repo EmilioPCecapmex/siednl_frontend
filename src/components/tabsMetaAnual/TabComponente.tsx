@@ -26,10 +26,9 @@ import { IMA } from "./IMA";
 export const TabComponenteMA = ({
   //show,
   setComponenteMA,
-
+  setMAcomponentesPadre,
   showMirFnc,
   setTxtShowFnc,
-  setMAcomponentesPadre,
   MA,
   MIR,
   ComponentesMA,

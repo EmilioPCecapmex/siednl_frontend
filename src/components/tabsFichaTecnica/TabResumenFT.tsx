@@ -50,14 +50,14 @@ export function TabResumenFT({
     finM: Array<IFinFT>,
     propositoM: Array<IPropositoFT>,
     componentesM: Array<IComponentesFT>,
-    actividadesM: Array<IActividadesFT>
+    
   ) => {
     setFT({
       encabezado: encabezado[0],
       fin: finM[0],
       proposito: propositoM[0],
       componentes: componentesM,
-      actividades: actividadesM,
+     
     });
   };
 
@@ -102,7 +102,7 @@ export function TabResumenFT({
 
     setEditActividades(aEdit);
 
-    asignarFT(encabezado, fin, proposito, componenteValor, arr);
+    asignarFT(encabezado, fin, proposito, componenteValor );
   }, [encabezado, componenteValor, proposito, fin, cValor]);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);

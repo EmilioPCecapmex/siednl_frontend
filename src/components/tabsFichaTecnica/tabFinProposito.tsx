@@ -16,51 +16,62 @@ import { IFinFT, IPropositoFT } from "./Interfaces";
 
 export function TabFinPropositoFT({
   show,
-  resumenFinFT,
-  resumenPropositoFT,
+  setFTPropositoPadre,
+  setFTFinPadre,
+  setFinPropositoFT,
+  FinValues,
+  PropositoValues,
   FT,
 }: {
   show: boolean;
-  resumenFinFT: Function;
-  resumenPropositoFT: Function;
+  setFTPropositoPadre: Function;
+  setFTFinPadre: Function;
+  setFinPropositoFT: Function;
+  FinValues: IFinFT;
+  PropositoValues: IPropositoFT;
   FT: string;
 }) {
   let jsonFT = FT === "" ? "" : JSON.parse(FT);
 
-  const [fin, setFin] = useState<Array<IFinFT>>([
-    {
-      tipoDeIndicador: jsonFT?.fin?.tipoDeIndicador || "",
-      claridad: jsonFT?.fin?.claridad || "",
-      relevancia: jsonFT?.fin?.relevancia || "",
-      economia: jsonFT?.fin?.economia || "",
-      monitoreable: jsonFT?.fin?.monitoreable || "",
-      adecuado: jsonFT?.fin?.adecuado || "",
-      aporte_marginal: jsonFT?.fin?.aporte_marginal || "",
-      dimension: jsonFT?.fin?.dimension || "",
-      unidadDeMedida: jsonFT?.fin?.unidadDeMedida || "",
-    },
-  ]);
+  // [
+  //   {
+  //     tipoDeIndicador: jsonFT?.fin?.tipoDeIndicador || "",
+  //     claridad: jsonFT?.fin?.claridad || "",
+  //     relevancia: jsonFT?.fin?.relevancia || "",
+  //     economia: jsonFT?.fin?.economia || "",
+  //     monitoreable: jsonFT?.fin?.monitoreable || "",
+  //     adecuado: jsonFT?.fin?.adecuado || "",
+  //     aporte_marginal: jsonFT?.fin?.aporte_marginal || "",
+  //     dimension: jsonFT?.fin?.dimension || "",
+  //     unidadDeMedida: jsonFT?.fin?.unidadDeMedida || "",
+  //   },
+  // ]
+  const [fin, setFin] = useState<Array<IFinFT>>();
 
-  const [proposito, setProposito] = useState<Array<IPropositoFT>>([
-    {
-      tipoDeIndicador: jsonFT?.proposito?.tipoDeIndicador || "",
-      claridad: jsonFT?.proposito?.claridad || "",
-      relevancia: jsonFT?.proposito?.relevancia || "",
-      economia: jsonFT?.proposito?.economia || "",
-      monitoreable: jsonFT?.proposito?.monitoreable || "",
-      adecuado: jsonFT?.proposito?.adecuado || "",
-      aporte_marginal: jsonFT?.proposito?.aporte_marginal || "",
-      dimension: jsonFT?.proposito?.dimension || "",
-      unidadDeMedida: jsonFT?.proposito?.unidadDeMedida || "",
-    },
-  ]);
+  // [
+  //   {
+  //     tipoDeIndicador: jsonFT?.proposito?.tipoDeIndicador || "",
+  //     claridad: jsonFT?.proposito?.claridad || "",
+  //     relevancia: jsonFT?.proposito?.relevancia || "",
+  //     economia: jsonFT?.proposito?.economia || "",
+  //     monitoreable: jsonFT?.proposito?.monitoreable || "",
+  //     adecuado: jsonFT?.proposito?.adecuado || "",
+  //     aporte_marginal: jsonFT?.proposito?.aporte_marginal || "",
+  //     dimension: jsonFT?.proposito?.dimension || "",
+  //     unidadDeMedida: jsonFT?.proposito?.unidadDeMedida || "",
+  //   },
+  // ]
+  const [proposito, setProposito] = useState<IPropositoFT>(PropositoValues);
 
   const [showFin, setShowFin] = useState(true);
   const [showProposito, setShowProposito] = useState(false);
 
   useEffect(() => {
-    resumenFinFT(fin);
-    resumenPropositoFT(proposito);
+    //resumenFinFT(fin);
+    //resumenPropositoFT(proposito);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setFTPropositoPadre(proposito)
+    setFTFinPadre(fin)
   }, [fin, proposito]);
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
@@ -305,7 +316,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
                     //
                     backgroundColor: "#f0f0f0",
@@ -346,9 +357,7 @@ export function TabFinPropositoFT({
                           }
                           onChange={(c) => {
                             fin[0].tipoDeIndicador = c.target.value;
-                            setFin({
-                              ...fin,
-                            });
+                            setFin([...fin]);
                           }}
                         />
                       }
@@ -398,9 +407,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                    
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -550,7 +558,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <TextField
-                fullWidth
+                  fullWidth
                   rows={5}
                   multiline
                   variant="filled"
@@ -598,9 +606,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                    
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -689,9 +696,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                   
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -780,9 +786,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                   
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -871,9 +876,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                   
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -962,9 +966,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                   
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -1053,9 +1056,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                   
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -1261,9 +1263,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                    
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -1357,9 +1358,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                    
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -1550,9 +1550,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                   
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -1641,9 +1640,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                   
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -1731,9 +1729,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                   
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -1821,9 +1818,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                   
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -1912,9 +1908,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                   
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",
@@ -2003,9 +1998,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
-                fullWidth
+                  fullWidth
                   sx={{
-                   
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
                     fontFamily: "MontserratMedium",

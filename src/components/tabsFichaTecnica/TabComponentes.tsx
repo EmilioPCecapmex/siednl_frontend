@@ -16,15 +16,17 @@ import { IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 
 export const TabComponenteFT = ({
   show,
-  valoresComponenteFTFnc,
-  noComponentes,
+  setFTcomponentesPadre,
+  ComponentesFT,
+  setComponenteFT,
   showMirFnc,
   showFnc,
   FT,
 }: {
   show: boolean;
-  valoresComponenteFTFnc: Function;
-  noComponentes: number[];
+  setFTcomponentesPadre: Function;
+  setComponenteFT: Function;
+  ComponentesFT: IComponentesFT[];
   showMirFnc: Function;
   showFnc: Function;
   FT: string;
@@ -32,39 +34,46 @@ export const TabComponenteFT = ({
   const [componentSelect, setComponentSelect] = useState(1);
 
   const [componentesValues, setComponentesValues] = useState<
-    Array<IComponentesFT>
-  >([]);
+   IComponentesFT[]>(ComponentesFT);
 
   let jsonFT = FT === "" ? "" : JSON.parse(FT);
 
+  // useEffect(() => {
+  //   let comp: IComponentesFT[] = [];
+
+  //   noComponentes.map((x, index) => {
+  //     return comp.push({
+  //       componentes: "C" + (index + 1),
+  //       tipoDeIndicador:
+  //         FT === "" ? "" : jsonFT?.componentes[index]?.tipoDeIndicador || "",
+  //       claridad: FT === "" ? "" : jsonFT?.componentes[index]?.claridad || "",
+  //       relevancia:
+  //         FT === "" ? "" : jsonFT?.componentes[index]?.relevancia || "",
+  //       economia: FT === "" ? "" : jsonFT?.componentes[index]?.economia || "",
+  //       monitoreable:
+  //         FT === "" ? "" : jsonFT?.componentes[index]?.monitoreable || "",
+  //       adecuado: FT === "" ? "" : jsonFT?.componentes[index]?.adecuado || "",
+  //       aporte_marginal:
+  //         FT === "" ? "" : jsonFT?.componentes[index]?.aporte_marginal || "",
+  //       dimension: FT === "" ? "" : jsonFT?.componentes[index]?.dimension || "",
+  //       unidadDeMedida:
+  //         FT === "" ? "" : jsonFT?.componentes[index]?.unidadDeMedida || "",
+  //     });
+  //   });
+
+  //   setComponentesValues(comp);
+  // }, [noComponentes]);
+
   useEffect(() => {
-    let comp: IComponentesFT[] = [];
-
-    noComponentes.map((x, index) => {
-      return comp.push({
-        componentes: "C" + (index + 1),
-        tipoDeIndicador:
-          FT === "" ? "" : jsonFT?.componentes[index]?.tipoDeIndicador || "",
-        claridad: FT === "" ? "" : jsonFT?.componentes[index]?.claridad || "",
-        relevancia:
-          FT === "" ? "" : jsonFT?.componentes[index]?.relevancia || "",
-        economia: FT === "" ? "" : jsonFT?.componentes[index]?.economia || "",
-        monitoreable:
-          FT === "" ? "" : jsonFT?.componentes[index]?.monitoreable || "",
-        adecuado: FT === "" ? "" : jsonFT?.componentes[index]?.adecuado || "",
-        aporte_marginal:
-          FT === "" ? "" : jsonFT?.componentes[index]?.aporte_marginal || "",
-        dimension: FT === "" ? "" : jsonFT?.componentes[index]?.dimension || "",
-        unidadDeMedida:
-          FT === "" ? "" : jsonFT?.componentes[index]?.unidadDeMedida || "",
-      });
-    });
-
-    setComponentesValues(comp);
-  }, [noComponentes]);
+   // valoresComponenteFTFnc(componentesValues);
+   setComponentesValues(ComponentesFT)
+  }, []);
 
   useEffect(() => {
-    valoresComponenteFTFnc(componentesValues);
+    console.log("componentesValues: ",componentesValues);
+    
+    setFTcomponentesPadre(componentesValues)
+    
   }, [componentesValues]);
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
@@ -101,7 +110,7 @@ export const TabComponenteFT = ({
               fontSize: [10, 10, 15, 18, 25, 25],
             }}
           >
-            COMPONENTE {componentSelect}
+            COMPONENTE {componentSelect + 1}
           </Typography>
         </Grid>
       ) : null}
@@ -133,10 +142,10 @@ export const TabComponenteFT = ({
               },
             }}
           >
-            {noComponentes.map((item) => {
+            {componentesValues.map((item, index) => {
               return (
                 <Grid
-                  key={item}
+                  key={index}
                   sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -146,10 +155,10 @@ export const TabComponenteFT = ({
                   <Divider />
 
                   <ListItemButton
-                    selected={item === componentSelect ? true : false}
-                    key={item}
+                    selected={index === componentSelect ? true : false}
+                    key={index}
                     onClick={() => {
-                      setComponentSelect(item);
+                      setComponentSelect(index);
                     }}
                     sx={{
                       height: "7vh",
@@ -167,7 +176,7 @@ export const TabComponenteFT = ({
                         fontFamily: "MontserratMedium",
                       }}
                     >
-                      COMPONENTE {item}
+                      COMPONENTE {index + 1}
                     </Typography>
                   </ListItemButton>
 
@@ -196,16 +205,16 @@ export const TabComponenteFT = ({
         >
           {isSmallScreen && (
             <List>
-              {noComponentes.map((item) => {
+              {componentesValues.map((item, index) => {
                 return (
-                  <Grid key={item}>
+                  <Grid key={index}>
                     <Divider />
 
                     <ListItemButton
-                      selected={item === componentSelect ? true : false}
-                      key={item}
+                      selected={index === componentSelect ? true : false}
+                      key={index}
                       onClick={() => {
-                        setComponentSelect(item);
+                        setComponentSelect(index);
                       }}
                       sx={{
                         height: "7vh",
@@ -223,7 +232,7 @@ export const TabComponenteFT = ({
                           fontFamily: "MontserratMedium",
                         }}
                       >
-                        COMPONENTE {item}
+                        COMPONENTE {index + 1}
                       </Typography>
                     </ListItemButton>
 
@@ -284,11 +293,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]
+                        componentesValues[componentSelect ]
                           ?.tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].tipoDeIndicador =
+                        componentesValues[componentSelect ].tipoDeIndicador =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -314,11 +323,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]
+                        componentesValues[componentSelect ]
                           ?.tipoDeIndicador === "DE GESTIÓN"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].tipoDeIndicador =
+                        componentesValues[componentSelect ].tipoDeIndicador =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -382,11 +391,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.dimension ===
+                        componentesValues[componentSelect ]?.dimension ===
                         "EFICIENCIA"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].dimension =
+                        componentesValues[componentSelect ].dimension =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -411,11 +420,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.dimension ===
+                        componentesValues[componentSelect ]?.dimension ===
                         "EFICACIA"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].dimension =
+                        componentesValues[componentSelect ].dimension =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -440,11 +449,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.dimension ===
+                        componentesValues[componentSelect ]?.dimension ===
                         "CALIDAD"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].dimension =
+                        componentesValues[componentSelect ].dimension =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -470,11 +479,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.dimension ===
+                        componentesValues[componentSelect ]?.dimension ===
                         "ECONOMÍA"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].dimension =
+                        componentesValues[componentSelect ].dimension =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -521,10 +530,10 @@ export const TabComponenteFT = ({
                 },
               }}
               value={
-                componentesValues[componentSelect - 1]?.unidadDeMedida || ""
+                componentesValues[componentSelect ]?.unidadDeMedida || ""
               }
               onChange={(c) => {
-                componentesValues[componentSelect - 1].unidadDeMedida =
+                componentesValues[componentSelect ].unidadDeMedida =
                   c.target.value
                     .replaceAll('"', "")
                     .replaceAll("'", "")
@@ -584,11 +593,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.claridad ===
+                        componentesValues[componentSelect ]?.claridad ===
                         "SI"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].claridad =
+                        componentesValues[componentSelect ].claridad =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -614,11 +623,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.claridad ===
+                        componentesValues[componentSelect ]?.claridad ===
                         "NO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].claridad =
+                        componentesValues[componentSelect ].claridad =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -679,11 +688,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.relevancia ===
+                        componentesValues[componentSelect ]?.relevancia ===
                         "SI"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].relevancia =
+                        componentesValues[componentSelect ].relevancia =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -709,11 +718,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.relevancia ===
+                        componentesValues[componentSelect ]?.relevancia ===
                         "NO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].relevancia =
+                        componentesValues[componentSelect ].relevancia =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -774,11 +783,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.economia ===
+                        componentesValues[componentSelect ]?.economia ===
                         "SI"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].economia =
+                        componentesValues[componentSelect ].economia =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -804,11 +813,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.economia ===
+                        componentesValues[componentSelect ]?.economia ===
                         "NO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].economia =
+                        componentesValues[componentSelect ].economia =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -869,11 +878,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.monitoreable ===
+                        componentesValues[componentSelect ]?.monitoreable ===
                         "SI"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].monitoreable =
+                        componentesValues[componentSelect ].monitoreable =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -899,11 +908,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.monitoreable ===
+                        componentesValues[componentSelect ]?.monitoreable ===
                         "NO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].monitoreable =
+                        componentesValues[componentSelect ].monitoreable =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -964,11 +973,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.adecuado ===
+                        componentesValues[componentSelect ]?.adecuado ===
                         "SI"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].adecuado =
+                        componentesValues[componentSelect ].adecuado =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -994,11 +1003,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]?.adecuado ===
+                        componentesValues[componentSelect ]?.adecuado ===
                         "NO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].adecuado =
+                        componentesValues[componentSelect ].adecuado =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -1059,11 +1068,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]
+                        componentesValues[componentSelect ]
                           ?.aporte_marginal === "SI"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].aporte_marginal =
+                        componentesValues[componentSelect ].aporte_marginal =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -1089,11 +1098,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]
+                        componentesValues[componentSelect ]
                           ?.aporte_marginal === "NO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].aporte_marginal =
+                        componentesValues[componentSelect ].aporte_marginal =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -1118,11 +1127,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect - 1]
+                        componentesValues[componentSelect ]
                           ?.aporte_marginal === "NA"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect - 1].aporte_marginal =
+                        componentesValues[componentSelect ].aporte_marginal =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}

@@ -52,7 +52,7 @@ function newFichaTecnica(MIR: string) {
   };
 }
 
-export function newFinPropositoFT() {
+export function newEncabezadoFT() {
   return {
     programaSER: "",
     objetivoSER: "",
@@ -61,7 +61,7 @@ export function newFinPropositoFT() {
   };
 }
 
-export function newEncabezadoFT() {
+export function newFinPropositoFT() {
   return {
     tipoDeIndicador: "",
     claridad: "",
@@ -187,69 +187,84 @@ export default function AddFichaTecnica({
   // }, []);
 
   ////////////////// Componentes //////////////////////////
-  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
+  // const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
-  const [valoresComponenteFT, setValoresComponenteFT] = useState<
-    Array<IComponentesFT>
-  >(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        tipoDeIndicador: "",
-        claridad: "",
-        relevancia: "",
-        economia: "",
-        monitoreable: "",
-        adecuado: "",
-        aporte_marginal: "",
-        dimension: "",
-        unidadDeMedida: "",
-        actividades: [],
-      };
-    })
-  );
+  // const [valoresComponenteFT, setValoresComponenteFT] = useState<
+  //   Array<IComponentesFT>
+  // >(
+  //   noComponentes.map((x, index) => {
+  //     return {
+  //       componentes: "C" + (index + 1),
+  //       tipoDeIndicador: "",
+  //       claridad: "",
+  //       relevancia: "",
+  //       economia: "",
+  //       monitoreable: "",
+  //       adecuado: "",
+  //       aporte_marginal: "",
+  //       dimension: "",
+  //       unidadDeMedida: "",
+  //       actividades: [],
+  //     };
+  //   })
+  // );
 
-  const valoresComponenteFTFnc = (state: Array<IComponentesFT>) => {
-    setValoresComponenteFT(state);
-  };
+  // const valoresComponenteFTFnc = (state: Array<IComponentesFT>) => {
+  //   setValoresComponenteFT(state);
+  // };
   ////////////////////Actividades/////////////////////////////////
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-  const [componenteActividad, setComponenteActividad] = useState([
-    {
-      componentes: noComponentes.map((x) => [1, 2]),
-    },
-  ]);
+  // const [componenteActividad, setComponenteActividad] = useState([
+  //   {
+  //     componentes: noComponentes.map((x) => [1, 2]),
+  //   },
+  // ]);
 
-  const [cValorFT, setCValorFT] = useState(
-    componenteActividad.map((item) => {
-      return {
-        componentes: item.componentes.map((x, index) => {
-          return {
-            actividades: x.map((c, index2) => {
-              return {
-                actividad: "",
-                tipoDeIndicador: "",
-                claridad: "",
-                relevancia: "",
-                economia: "",
-                monitoreable: "",
-                adecuado: "",
-                aporte_marginal: "",
-                dimension: "",
-                unidadDeMedida: "",
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
-  const [ftPadre, setFTPadre] = useState<IFT
-  >(newFichaTecnica(MIR));
+  // const [cValorFT, setCValorFT] = useState(
+  //   componenteActividad.map((item) => {
+  //     return {
+  //       componentes: item.componentes.map((x, index) => {
+  //         return {
+  //           actividades: x.map((c, index2) => {
+  //             return {
+  //               actividad: "",
+  //               tipoDeIndicador: "",
+  //               claridad: "",
+  //               relevancia: "",
+  //               economia: "",
+  //               monitoreable: "",
+  //               adecuado: "",
+  //               aporte_marginal: "",
+  //               dimension: "",
+  //               unidadDeMedida: "",
+  //             };
+  //           }),
+  //         };
+  //       }),
+  //     };
+  //   })
+  // );
+  const [ftPadre, setFTPadre] = useState<IFT>(newFichaTecnica(MIR));
   //////////// Actividades/////////////////////7
-  const asignarCValorFT = (state: Array<ICValorFT>) => {
-    setCValorFT(state);
-  };
+  // const asignarCValorFT = (state: Array<ICValorFT>) => {
+  //   setCValorFT(state);
+  // };
+
+  useEffect(() => {
+    if (FT !== "") {
+      let auxFT = JSON.parse(FT);
+      setFTPadre(auxFT);
+      // if (isValidIMA(auxMA)) {
+      //   setMAPadre(auxMA);
+      // } else {
+      //   alertaError("La información puede estar dañada");
+      // }
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("ftPadre", ftPadre);
+  }, [ftPadre]);
 
   // useEffect(() => {
   //   let arrayFT = noComponentes.map((x, index) => {
@@ -270,24 +285,40 @@ export default function AddFichaTecnica({
   //   setValoresComponenteFT(arrayFT);
   // }, []);
 
-  const [ValueEncabezado, setValueEncabezado] = useState<Array<IEncabezadoFT>>(
-    []
-  );
+  // const [ValueEncabezado, setValueEncabezado] = useState<IEncabezadoFT>(
+  
+  // );
 
   const [ValueFin, setValueFin] = useState<Array<IFinFT>>([]);
 
   const [ValueProposito, setValueProposito] = useState<Array<IPropositoFT>>([]);
 
-  const resumenEncabezadoFT = (st: Array<IEncabezadoFT>) => {
-    setValueEncabezado(st);
+  const setFTEncabezadoPadre = (EncabezadoValues: IEncabezadoFT) => {
+    //console.log("st: ",st);
+    
+   // setValueEncabezado(st);
+    setFTPadre({
+        ...ftPadre,
+          encabezado: EncabezadoValues,
+      });
   };
 
-  const resumenFinFT = (st: Array<IFinFT>) => {
-    setValueFin(st);
+  const setFTFinPadre = (FinValues: IFinFT) => {
+    //console.log("st: ",st);
+    
+   // setValueEncabezado(st);
+    setFTPadre({
+        ...ftPadre,
+          fin: FinValues,
+      });
   };
 
-  const resumenPropositoFT = (st: Array<IPropositoFT>) => {
-    setValueProposito(st);
+
+  const setFTPropositoPadre = (PropositoValues: IPropositoFT) => {
+    setFTPadre({
+      ...ftPadre,
+        fin: PropositoValues,
+    });
   };
 
   const query = {
@@ -296,6 +327,16 @@ export default function AddFichaTecnica({
     isMobile: useMediaQuery("(min-width: 0px) and (max-width: 600px)"),
   };
 
+  const setFTcomponentesPadre = (componentesValues: IComponentesFT[]) =>{
+    setFTPadre({
+        ...ftPadre,
+          componentes: componentesValues,
+      });
+  };
+
+  useEffect(() => {
+    console.log("ftPadre", ftPadre);
+  }, [ftPadre]);
   return (
     <Grid
       container
@@ -324,120 +365,6 @@ export default function AddFichaTecnica({
       >
         <GenericTabs tabSelect={setValue} tabsData={tabs} />
 
-        {/* <Tabs
-          value={value}
-          onChange={handleChange}
-          textColor="inherit"
-          variant={query.isScrollable ? "scrollable" : "standard"}
-            // centered={query.isScrollable ? false : true}
-            scrollButtons="auto"
-            allowScrollButtonsMobile
-            sx={{
-              backgroundColor: "#e0e0e0",
-              borderRadius: "10px 10px 0 0",
-              GridShadow: 20,
-              width: ["300px", "628px", "900px", "1120px", "1250px", "1450px"],
-              //height: ["30px", "20px", "30px", "40px", "50px"],
-            }}
-        >
-          <Tab
-            label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "#af8c55",
-              fontFamily: "MontserratSemiBold",
-              backgroundColor: "#ccc",
-              width: ["0px", "65px", "130px", "160px", "175px"],
-              display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
-            }}
-            onClick={() => {
-              cambiarTab("atras");
-            }}
-          />
-          <Tab
-            label="Encabezado"
-            value={10}
-            onClick={() => {
-              setValue(10);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-              width: ["15px", "65px", "130px", "160px", "180px"],
-              fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-            }}
-          />
-          <Tab
-            label="Fin / Propósito"
-            value={20}
-            onClick={() => {
-              setValue(20);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-              width: ["15px", "65px", "130px", "160px", "180px"],
-              fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-            }}
-          />
-          <Tab
-            label="Componentes"
-            value={30}
-            onClick={() => {
-              setValue(30);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-              width: ["15px", "65px", "130px", "160px", "180px"],
-              fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-            }}
-          />
-          <Tab
-            label="Actividades"
-            value={40}
-            onClick={() => {
-              setValue(40);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-              width: ["15px", "65px", "130px", "160px", "180px"],
-              fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-            }}
-          />
-          <Tab
-            label="Resumen"
-            value={50}
-            onClick={() => {
-              setValue(50);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-              width: ["15px", "65px", "130px", "160px", "180px"],
-              fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-            }}
-          />
-          <Tab
-            label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
-            sx={{
-              //borderRight: "5px solid #b3afaf",
-              color: "#af8c55",
-              backgroundColor: "#ccc",
-              width: ["0px", "65px", "130px", "160px", "175px"],
-              display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
-            }}
-            onClick={() => {
-              cambiarTab("adelante");
-            }}
-          />
-        </Tabs> */}
 
         <Grid
           sx={{
@@ -448,7 +375,9 @@ export default function AddFichaTecnica({
           {value === 0 ? (
             <TabEncabezado
               show={value === 0 ? true : false}
-              resumenEncabezadoFT={resumenEncabezadoFT}
+              setFTEncabezadoPadre={setFTEncabezadoPadre}
+              setEncabezadoFT ={setFTPadre}
+              EncabezadoValues={ftPadre.encabezado}
               FT={FT}
               MIR={MIR}
             ></TabEncabezado>
@@ -457,29 +386,33 @@ export default function AddFichaTecnica({
           {value === 1 ? (
             <TabFinPropositoFT
               show={value === 1 ? true : false}
-              resumenFinFT={resumenFinFT}
-              resumenPropositoFT={resumenPropositoFT}
+              setFTPropositoPadre={setFTPropositoPadre}
+              setFTFinPadre={setFTFinPadre}
+              setFinPropositoFT ={setFTPadre}
+              FinValues={ftPadre.fin}
+              PropositoValues={ftPadre.proposito}
               FT={FT}
             ></TabFinPropositoFT>
           ) : null}
           {value === 2 ? (
             <TabComponenteFT
               show={value === 2 ? true : false}
-              valoresComponenteFTFnc={valoresComponenteFTFnc}
-              noComponentes={noComponentes}
+              setFTcomponentesPadre={setFTcomponentesPadre}
+              setComponenteFT={setFTPadre }
+              ComponentesFT={ftPadre.componentes}
               showFnc={setTxtShowFnc}
               showMirFnc={showMirFnc}
               FT={FT}
             ></TabComponenteFT>
           ) : null}
-          {value === 3 ? (
+          {/* {value === 3 ? (
             <TabActividadesFT
               show={value === 3 ? true : false}
               setTxtShowFnc={setTxtShowFnc}
               showMirFnc={showMirFnc}
               compAct={compAct}
-              componentes={noComponentes}
-              asignarCValor={asignarCValorFT}
+              componentes={ftPadre.componentes}
+              asignarCValor={[asignarCValorFT]}
               FT={FT}
             ></TabActividadesFT>
           ) : null}
@@ -489,16 +422,16 @@ export default function AddFichaTecnica({
               encabezado={ValueEncabezado}
               fin={ValueFin}
               proposito={ValueProposito}
-              componentes={noComponentes}
-              componenteValor={valoresComponenteFT}
-              cValor={cValorFT}
+              componentes={ftPadre.componentes}
+              componenteValor={ftPadre.componentes}
+              cValor={[]}
               IdMir={IdMir}
               IdFT={IdFT}
               IdMA={IdMA}
               showResume={showResume}
               MIR={MIR}
             ></TabResumenFT>
-          ) : null}
+          ) : null} */}
         </Grid>
       </Grid>
     </Grid>

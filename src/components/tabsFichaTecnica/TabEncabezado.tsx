@@ -16,16 +16,20 @@ import { IEncabezadoFT } from "./Interfaces";
 
 export function TabEncabezado({
   show,
-  resumenEncabezadoFT,
+  setFTEncabezadoPadre,
   FT,
   MIR,
+  setEncabezadoFT,
+  EncabezadoValues,
 }: {
   show: boolean;
-  resumenEncabezadoFT: Function;
+  setFTEncabezadoPadre: Function;
   FT: string;
   MIR: string;
+  setEncabezadoFT: Function;
+  EncabezadoValues: IEncabezadoFT;
 }) {
-  const [encabezado, setEncabezado] = useState<Array<IEncabezadoFT>>([]);
+  const [encabezado, setEncabezado] = useState<IEncabezadoFT>(EncabezadoValues);
 
   const [programaSER, setProgramaSER] = useState(
     FT === "" ? "" : JSON.parse(FT).encabezado.programaSER || ""
@@ -50,7 +54,33 @@ export function TabEncabezado({
     { Id: "", MetaODS: "" },
   ]);
 
+  const [objetivoODSselected, setObjetivoODSSelected] = useState({
+    Id: "",
+    ObjetivoDS: "",
+  });
+
+  const [metasODSselected, setMetasODSSelected] = useState({
+    Id: "",
+    MetaODS: "",
+  });
+
+  // useEffect(() => {
+  //   console.log("catalogoObjetivosDS: ", catalogoObjetivosDS);
+    
+  //   let auxcatalogo = catalogoObjetivosDS;
+
+  //   //let aux = auxcatalogo.find((item) => (item.Id = encabezado.objetivoODS));
+
+  //   //if (aux) {
+  //     setObjetivoODSSelected(objetivoODSselected);
+  //     setEncabezado({ ...encabezado, objetivoODS: objetivoODSselected.ObjetivoDS });
+  //   //}
+  //   console.log("catalogoObjetivosDS", catalogoObjetivosDS);
+  // }, [catalogoObjetivosDS]);
+
   function enCambioObjetivo(Id: string, objetivo: string) {
+    setObjetivoODSSelected(objetivoODSselected);
+    setEncabezado({ ...encabezado, objetivoODS: objetivo });
     setObjetivoDSSel(objetivo);
     setMetaODSSel("");
     setDisabledMetas(false);
@@ -71,6 +101,8 @@ export function TabEncabezado({
     console.log("id: ", id);
 
     id.map((value, index) => {
+      console.log("value axios: ", value);
+
       axios
         .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
           params: {
@@ -111,18 +143,13 @@ export function TabEncabezado({
   };
 
   useEffect(() => {
-    resumenEncabezadoFT(encabezado);
-  }, [resumenEncabezadoFT]);
+    setFTEncabezadoPadre(encabezado);
+    //setValueFin(encabezado)
+    console.log("encabezado1: ", encabezado);
+  }, [encabezado]);
 
   useEffect(() => {
-    setEncabezado([
-      {
-        programaSER: programaSER,
-        objetivoSER: objetivoSER,
-        metaODS: metaODSSel,
-        objetivoODS: objetivoODSSel,
-      },
-    ]);
+    setEncabezado(encabezado);
   }, [programaSER, objetivoSER, metaODSSel, objetivoODSSel]);
 
   return (
@@ -195,8 +222,17 @@ export function TabEncabezado({
             sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
           >
             <TextField
-              onChange={(a) => setProgramaSER(a.target.value)}
-              value={programaSER
+              onChange={(a) => {
+                //setProgramaSER(a.target.value)
+                encabezado.programaSER = a.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setEncabezado({
+                  ...encabezado,
+                });
+              }}
+              value={encabezado.programaSER
                 .replaceAll('"', "")
                 .replaceAll("'", "")
                 .replaceAll("\n", "")}
@@ -229,8 +265,17 @@ export function TabEncabezado({
             sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
           >
             <TextField
-              onChange={(v) => setObjetivoSER(v.target.value)}
-              value={objetivoSER
+              onChange={(a) => {
+                //setProgramaSER(a.target.value)
+                encabezado.objetivoSER = a.target.value
+                  .replaceAll('"', "")
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "");
+                setEncabezado({
+                  ...encabezado,
+                });
+              }}
+              value={encabezado.objetivoSER
                 .replaceAll('"', "")
                 .replaceAll("'", "")
                 .replaceAll("\n", "")}
@@ -270,10 +315,7 @@ export function TabEncabezado({
                 openText="Abrir"
                 options={catalogoObjetivosDS}
                 getOptionLabel={(option) => option.ObjetivoDS}
-                value={{
-                  Id: catalogoObjetivosDS[0].Id,
-                  ObjetivoDS: objetivoODSSel,
-                }}
+                value={objetivoODSselected}
                 renderOption={(props, option) => {
                   return (
                     <li {...props} key={option.Id}>
