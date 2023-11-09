@@ -67,32 +67,23 @@ export function TabFinPropositoFT({
   const [showProposito, setShowProposito] = useState(false);
 
   useEffect(() => {
-    //resumenFinFT(fin);
-    //resumenPropositoFT(proposito);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-
+   
     setFin(FinValues);
   }, []);
 
   useEffect(() => {
-    //resumenFinFT(fin);
-    //resumenPropositoFT(proposito);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
 
     setFTFinPadre(fin);
   }, [fin]);
 
   useEffect(() => {
-    //resumenFinFT(fin);
-    //resumenPropositoFT(proposito);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  
     setProposito(PropositoValues);
   }, []);
 
   useEffect(() => {
-    //resumenFinFT(fin);
-    //resumenPropositoFT(proposito);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
     setFTPropositoPadre(proposito);
   }, [proposito]);
 
