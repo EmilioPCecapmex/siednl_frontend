@@ -156,138 +156,22 @@ export default function AddFichaTecnica({
   };
 
   const jsonMir = JSON.parse(MIR);
-
-  // useEffect(() => {
-  //   let act: number[] = [];
-  //   let comp: string[] = [];
-  //   let ambos: any = [];
-  //   let i = 1;
-  //   let j = 1;
-
-  //   jsonMir.componentes.map((x: any) => {
-  //     comp.push("C" + j);
-  //     jsonMir.actividades.map((a: any) => {
-  //       if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
-  //         act.push(i);
-  //         i++;
-  //       }
-  //     });
-  //     ambos.push({ actividades: act, componente: "C" + j });
-  //     act = [];
-  //     i = 1;
-  //     j++;
-  //   });
-
-  //   setCompAct(ambos);
-
-  //   jsonMir.componentes.map((value: any, index: number) => {
-  //     if (index > 1 && index < 6)
-  //       setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
-  //   });
-  // }, []);
-
-  ////////////////// Componentes //////////////////////////
-  // const [noComponentes, setNoComponentes] = React.useState([1, 2]);
-
-  // const [valoresComponenteFT, setValoresComponenteFT] = useState<
-  //   Array<IComponentesFT>
-  // >(
-  //   noComponentes.map((x, index) => {
-  //     return {
-  //       componentes: "C" + (index + 1),
-  //       tipoDeIndicador: "",
-  //       claridad: "",
-  //       relevancia: "",
-  //       economia: "",
-  //       monitoreable: "",
-  //       adecuado: "",
-  //       aporte_marginal: "",
-  //       dimension: "",
-  //       unidadDeMedida: "",
-  //       actividades: [],
-  //     };
-  //   })
-  // );
-
-  // const valoresComponenteFTFnc = (state: Array<IComponentesFT>) => {
-  //   setValoresComponenteFT(state);
-  // };
-  ////////////////////Actividades/////////////////////////////////
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-  // const [componenteActividad, setComponenteActividad] = useState([
-  //   {
-  //     componentes: noComponentes.map((x) => [1, 2]),
-  //   },
-  // ]);
 
-  // const [cValorFT, setCValorFT] = useState(
-  //   componenteActividad.map((item) => {
-  //     return {
-  //       componentes: item.componentes.map((x, index) => {
-  //         return {
-  //           actividades: x.map((c, index2) => {
-  //             return {
-  //               actividad: "",
-  //               tipoDeIndicador: "",
-  //               claridad: "",
-  //               relevancia: "",
-  //               economia: "",
-  //               monitoreable: "",
-  //               adecuado: "",
-  //               aporte_marginal: "",
-  //               dimension: "",
-  //               unidadDeMedida: "",
-  //             };
-  //           }),
-  //         };
-  //       }),
-  //     };
-  //   })
-  // );
   const [ftPadre, setFTPadre] = useState<IFT>(newFichaTecnica(MIR));
-  //////////// Actividades/////////////////////7
-  // const asignarCValorFT = (state: Array<ICValorFT>) => {
-  //   setCValorFT(state);
-  // };
+ 
 
   useEffect(() => {
     if (FT !== "") {
       let auxFT = JSON.parse(FT);
       setFTPadre(auxFT);
-      // if (isValidIMA(auxMA)) {
-      //   setMAPadre(auxMA);
-      // } else {
-      //   alertaError("La información puede estar dañada");
-      // }
+     
     }
   }, []);
 
   useEffect(() => {
     console.log("ftPadre", ftPadre);
   }, [ftPadre]);
-
-  // useEffect(() => {
-  //   let arrayFT = noComponentes.map((x, index) => {
-  //     return {
-  //       componentes: "C" + (index + 1),
-  //       tipoDeIndicador: "",
-  //       claridad: "",
-  //       relevancia: "",
-  //       economia: "",
-  //       monitoreable: "",
-  //       adecuado: "",
-  //       aporte_marginal: "",
-  //       dimension: "",
-  //       unidadDeMedida: "",
-  //       actiidad: [],
-  //     };
-  //   });
-  //   setValoresComponenteFT(arrayFT);
-  // }, []);
-
-  // const [ValueEncabezado, setValueEncabezado] = useState<IEncabezadoFT>(
-
-  // );
 
   
 
@@ -345,11 +229,6 @@ export default function AddFichaTecnica({
         height: "100%",
       }}
     >
-      {/* {value === 10 ? <TutorialBox initialState={49} endState={50} /> : null}
-      {value === 20 ? <TutorialBox initialState={50} endState={51} /> : null}
-      {value === 30 ? <TutorialBox initialState={51} endState={52} /> : null}
-      {value === 40 ? <TutorialBox initialState={52} endState={53} /> : null}
-      {value === 50 ? <TutorialBox initialState={53} endState={56} /> : null} */}
       <Grid
         sx={{
           //width: "93vw",
@@ -372,9 +251,7 @@ export default function AddFichaTecnica({
         >
           {value === 0 ? (
             <TabEncabezado
-              show={value === 0 ? true : false}
               setFTEncabezadoPadre={setFTEncabezadoPadre}
-              setEncabezadoFT={setFTPadre}
               EncabezadoValues={ftPadre.encabezado}
               FT={FT}
               MIR={MIR}
