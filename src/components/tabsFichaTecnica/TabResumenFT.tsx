@@ -268,7 +268,7 @@ useEffect(() => {
           }),
         }}
       >
-        {/* <Grid
+        <Grid
           item
           xl={11}
           lg={11}
@@ -328,7 +328,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {encabezado[0]?.programaSER}
+              {ftPadre.encabezado.programaSER}
             </Typography>
           </Grid>
         </Grid>
@@ -372,7 +372,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {encabezado[0]?.objetivoSER}
+              {ftPadre.encabezado.objetivoSER}
             </Typography>
           </Grid>
         </Grid>
@@ -416,7 +416,7 @@ useEffect(() => {
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {encabezado[0]?.objetivoODS}
+              {ftPadre.encabezado.objetivoODS}
             </Typography>
           </Grid>
         </Grid>
@@ -460,10 +460,10 @@ useEffect(() => {
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {encabezado[0]?.metaODS}
+              {ftPadre.encabezado.metaODS}
             </Typography>
           </Grid>
-        </Grid> */}
+        </Grid>
 
       
         <Grid

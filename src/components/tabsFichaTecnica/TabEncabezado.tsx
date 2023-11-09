@@ -39,10 +39,8 @@ export function TabEncabezado({
   // const [objetivoODSSel, setObjetivoDSSel] = useState(
   //   FT === "" ? "" : JSON.parse(FT).encabezado.objetivoODS || ""
   // );
-  
 
   const [disabledMetas, setDisabledMetas] = useState(true);
-
 
   const [catalogoMetasODS, setCatalogoMetasODS] = useState<IMetaODS[]>([]);
   const [metaODSSelected, setMetaODSSelected] = useState<IMetaODS>(newMetaODS);
@@ -75,26 +73,11 @@ export function TabEncabezado({
     }
   },[metaODSSelected])
 
-  // useEffect(() => {
-  //   console.log("catalogoObjetivosDS: ", catalogoObjetivosDS);
-
-  //   let auxcatalogo = catalogoObjetivosDS;
-
-  //   //let aux = auxcatalogo.find((item) => (item.Id = encabezado.objetivoODS));
-
-  //   //if (aux) {
-  //     setObjetivoODSSelected(objetivoODSselected);
-  //     setEncabezado({ ...encabezado, objetivoODS: objetivoODSselected.ObjetivoDS });
-  //   //}
-  //   console.log("catalogoObjetivosDS", catalogoObjetivosDS);
-  // }, [catalogoObjetivosDS]);
-
-  // function enCambioObjetivo(Id: string, objetivo: string) {
-  //   setEncabezado({ ...encabezado, objetivoODS: objetivo });
-  //   setMetaODSSelected(newMetaODS);
-  //   setDisabledMetas(false);
-  //   getMetas(Id);
-  // }
+  useEffect(() => {
+    setEncabezado(EncabezadoValues)
+  }, [EncabezadoValues])
+  
+  
 
   let jsonMir = JSON.parse(MIR);
 
@@ -157,9 +140,7 @@ export function TabEncabezado({
     console.log("encabezado1: ", encabezado);
   }, [encabezado]);
 
-  // useEffect(() => {
-  //   setEncabezado(encabezado);
-  // }, [programaSER, objetivoSER, metaODSSel, objetivoODSSel]);
+
 
   return (
     <Grid
@@ -174,7 +155,7 @@ export function TabEncabezado({
         backgroundColor: "#fff",
       }}
     >
-      {/* <Grid
+      <Grid
         sx={{
           width: "100%",
           display: "flex",
@@ -193,7 +174,7 @@ export function TabEncabezado({
           ENCABEZADO
         </Typography>
 
-      </Grid> */}
+      </Grid>
 
       <Grid
         sx={{
