@@ -31,7 +31,7 @@ export const TabComponenteFT = ({
   showFnc: Function;
   FT: string;
 }) => {
-  const [componentSelect, setComponentSelect] = useState(1);
+  const [componentSelect, setComponentSelect] = useState(0);
 
   const [componentesValues, setComponentesValues] = useState<
    IComponentesFT[]>(ComponentesFT);

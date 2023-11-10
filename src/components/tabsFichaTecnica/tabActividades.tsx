@@ -213,7 +213,7 @@ export const TabActividadesFT = ({
   //  setComponentesActividadValues(y);
   // };
 
-  const [open, setOpen] = useState(1);
+  const [open, setOpen] = useState(0);
 
   const handleClickComponente = (index: number) => {
     setOpen(index);
