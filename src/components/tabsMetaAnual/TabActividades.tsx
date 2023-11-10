@@ -78,7 +78,7 @@ export const TabActividadesMA = ({
     setMAActividadesPadre(componentesActividadValues);
   }, []);
 
-  const [open, setOpen] = useState(1);
+  const [open, setOpen] = useState(0);
 
   const handleClickComponente = (index: number) => {
     setOpen(index);
