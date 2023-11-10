@@ -73,6 +73,14 @@ export function TabFinPropositoMA({
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [valueFin, valueProposito]);
 
+  useEffect(() => {
+    setValueFin(finPadre)
+  }, [finPadre])
+
+  useEffect(() => {
+    setValueProposito(propositoPadre)
+  }, [propositoPadre])
+
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
@@ -173,26 +181,7 @@ export function TabFinPropositoMA({
   };
 
   const getUnidades = () => {
-    // axios
-    //   .get(
-    //     process.env.REACT_APP_APPLICATION_BACK + "/api/listadoUnidadesInst",
-    //     {
-    //       params: {
-    //         Institucion: JSON.parse(MIR).encabezado.institucion,
-    //       },
-
-    //       headers: {
-    //         Authorization: localStorage.getItem("jwtToken") || "",
-    //       },
-    //     }
-    //   )
-
-    //   .then((r) => {
-    //     setCatalogounidadResponsable(r.data.data);
-    //   })
-
-    //   .catch((err) => {});
-
+  
     axios
       .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
         params: {
@@ -223,8 +212,22 @@ export function TabFinPropositoMA({
 
   useEffect(() => {
     // getUnidades();
-    getListasLogin({ Tabla: "EntidadesHijas", ValorCondicion: JSON.parse(MIR).encabezado.entidad.Id }, setCatalogounidadResponsable);
-  }, []);
+    
+    setMAFinPadre(valueFin)
+    
+    
+   // getListasLogin({ Tabla: "EntidadesHijas", ValorCondicion: JSON.parse(MIR).encabezado.entidad.Id }, setCatalogounidadResponsable);
+  }, [valueFin]);
+
+  useEffect(() => {
+   
+    if(valueProposito.lineaBase!==""){
+       setMAPropositoPadre(valueProposito)
+    }
+   
+    
+   // getListasLogin({ Tabla: "EntidadesHijas", ValorCondicion: JSON.parse(MIR).encabezado.entidad.Id }, setCatalogounidadResponsable);
+  }, [valueProposito]);
 
   const style = {
     fontFamily: "MontserratSemiBold",
@@ -621,7 +624,7 @@ export function TabFinPropositoMA({
                 />
               </Grid>
 
-              {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
+               {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
                 JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice") ? (
                 <Grid
                   item
@@ -767,7 +770,7 @@ export function TabFinPropositoMA({
                     value={valueFin?.valorDenominador || ""}
                   />
                 </Grid>
-              )}
+              )} 
 
               <Grid
                 item

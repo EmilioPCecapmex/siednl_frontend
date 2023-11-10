@@ -402,7 +402,7 @@ export function TabResumenMA({
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {maPadre.fin.metaAnual}
+              {maPadre.fin?.metaAnual}
             </Typography>
           </Grid>
         </Grid>
@@ -442,7 +442,7 @@ export function TabResumenMA({
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {maPadre.fin.lineaBase}
+              {maPadre.fin?.lineaBase}
             </Typography>
           </Grid>
         </Grid>
@@ -487,7 +487,7 @@ export function TabResumenMA({
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {maPadre.fin.valorNumerador}
+              {maPadre.fin?.valorNumerador}
             </Typography>
           </Grid>
         </Grid>
@@ -535,7 +535,7 @@ export function TabResumenMA({
 
             <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
               <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {maPadre.fin.valorDenominador}
+                {maPadre.fin?.valorDenominador}
               </Typography>
             </Grid>
           </Grid>
@@ -580,7 +580,7 @@ export function TabResumenMA({
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {maPadre.fin.sentidoDelIndicador}
+              {maPadre.fin?.sentidoDelIndicador}
             </Typography>
           </Grid>
         </Grid>
@@ -624,7 +624,7 @@ export function TabResumenMA({
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {maPadre.fin.unidadResponsable}
+              {maPadre.fin?.unidadResponsable}
             </Typography>
           </Grid>
         </Grid>
@@ -664,7 +664,7 @@ export function TabResumenMA({
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {maPadre.fin.descIndicador}
+              {maPadre.fin?.descIndicador}
             </Typography>
           </Grid>
         </Grid>
@@ -704,7 +704,7 @@ export function TabResumenMA({
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {maPadre.fin.descNumerador}
+              {maPadre.fin?.descNumerador}
             </Typography>
           </Grid>
         </Grid>
@@ -748,7 +748,7 @@ export function TabResumenMA({
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {maPadre.fin.descDenominador}
+              {maPadre.fin?.descDenominador}
             </Typography>
           </Grid>
         </Grid>
