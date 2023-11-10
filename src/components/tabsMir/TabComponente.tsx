@@ -46,7 +46,7 @@ export const TabComponente = ({
   const [errorIndicador, setErrorIndicador] = useState(-1);
 
   const handleClickOpen = () => {
-    setPrevTextFormula(MIR.componentes[componentSelect ].formula);
+    setPrevTextFormula(MIR.componentes[componentSelect - 1].formula);
     setOpenFormulaDialog(true);
   };
 
@@ -56,13 +56,13 @@ export const TabComponente = ({
 
   const changeFormula = (txt: string) => {
     let prevLocal = [...MIR.componentes];
-    prevLocal[componentSelect ].formula = txt;
+    prevLocal[componentSelect - 1].formula = txt;
     setComponentes(prevLocal);
   };
 
   const evalueTxtIndicador = () => {
     const cIndicador =
-      MIR.componentes[componentSelect ].indicador?.toLowerCase();
+      MIR.componentes[componentSelect - 1].indicador?.toLowerCase();
     if (cIndicador !== undefined) {
       if (cIndicador.includes("porcentaje" || "PORCENTAJE")) {
         setTipoFormula("Porcentaje");
@@ -85,9 +85,9 @@ export const TabComponente = ({
         handleClickOpen();
         setErrorIndicador(-1);
       } else {
-        setErrorIndicador(componentSelect );
+        setErrorIndicador(componentSelect - 1);
         let prevLocal = [...MIR.componentes];
-        prevLocal[componentSelect ].indicador = "";
+        prevLocal[componentSelect - 1].indicador = "";
         setComponentes(prevLocal);
       }
     }
@@ -407,9 +407,9 @@ export const TabComponente = ({
               }}
               // onBlur={() => evalueTxtIndicador()}
               label={"INDICADOR"}
-              error={errorIndicador === componentSelect  ? true : false}
+              error={errorIndicador === componentSelect -1 ? true : false}
               helperText={
-                errorIndicador === componentSelect 
+                errorIndicador === componentSelect -1
                   ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
                   : null
               }

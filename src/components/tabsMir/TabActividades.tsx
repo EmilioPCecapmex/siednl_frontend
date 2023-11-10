@@ -196,7 +196,7 @@ export const TabActividades = ({
           onClick={() => {
             addActividad(componenteSelect + 1);
             setActividadSelect(
-              MIR.componentes[componenteSelect - 1].actividades.length
+              MIR.componentes[componenteSelect].actividades.length - 1
             );
             // setAddA(!addA);
           }}
@@ -208,7 +208,7 @@ export const TabActividades = ({
       tipoelemento={"actividad"}
       numerocomponente={componenteSelect+1}
       numeroactividad={actividadSelect+1}
-      functelim={() => removeActividad(componenteSelect + 1, actividadSelect + 1)}
+      functelim={() => {removeActividad(componenteSelect + 1, actividadSelect + 1);setActividadSelect(0);} }
       idMir={idMir}
     />
 
