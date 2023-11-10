@@ -16,6 +16,7 @@ import {
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { queries } from "../../queries";
 import { log } from "console";
+import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -374,7 +375,8 @@ export default function ModalSolicitaModif({
 
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
-    JSON.parse(FT)?.actividades.map((actividad: any, index: number) => {
+    JSON.parse(FT)?.componentes.map((componente: IComponentesFT, indexC: number) => {
+      componente.actividades.map((actividad: IActividadesFT,indexA: number) =>{
       if (
         actividad.tipoDeIndicador === undefined ||
         actividad.tipoDeIndicador === null ||
@@ -382,13 +384,13 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong>actividad ${actividad.actividad}  </strong>: Tipo de indicador sin información`
+          `<strong>actividad ${actividad.actividades}  </strong>: Tipo de indicador sin información`
         );
       }
       if (actividad.dimension === undefined || actividad.dimension === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${actividad.actividad}  </strong>: Tipo de Dimensíon sin información`
+          `<strong>actividad ${actividad.actividades}  </strong>: Tipo de Dimensíon sin información`
         );
       }
       if (
@@ -397,25 +399,25 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong>actividad ${actividad.actividad}  </strong>: Tipo de Unidad de medida sin información`
+          `<strong>actividad ${actividad.actividades}  </strong>: Tipo de Unidad de medida sin información`
         );
       }
       if (actividad.claridad === undefined || actividad.claridad === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${actividad.actividad}  </strong>: Claridad sin información`
+          `<strong>actividad ${actividad.actividades}  </strong>: Claridad sin información`
         );
       }
       if (actividad.relevancia === undefined || actividad.relevancia === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${actividad.actividad}  </strong>: Relevancia sin información`
+          `<strong>actividad ${actividad.actividades}  </strong>: Relevancia sin información`
         );
       }
       if (actividad.economia === undefined || actividad.economia === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${actividad.actividad}  </strong>: Economía sin información`
+          `<strong>actividad ${actividad.actividades}  </strong>: Economía sin información`
         );
       }
       if (
@@ -424,13 +426,13 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong>actividad ${actividad.actividad}  </strong>: Monitoreable sin información`
+          `<strong>actividad ${actividad.actividades}  </strong>: Monitoreable sin información`
         );
       }
       if (actividad.adecuado === undefined || actividad.adecuado === "") {
         err = 1;
         errores.push(
-          `<strong>actividad ${actividad.actividad}  </strong>: Adecuado sin información`
+          `<strong>actividad ${actividad.actividades}  </strong>: Adecuado sin información`
         );
       }
       if (
@@ -439,9 +441,10 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong>actividad ${actividad.actividad}  </strong>: Adecuado sin información`
+          `<strong>actividad ${actividad.actividades}  </strong>: Adecuado sin información`
         );
       }
+      })
     });
 
     if (err === 0) {

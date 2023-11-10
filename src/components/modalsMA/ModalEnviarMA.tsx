@@ -65,7 +65,7 @@ export default function ModalEnviarMA({
   };
 
   let err = 0;
-
+  console.log("MA");
   const checkMA = (v: string) => {
     errores = [];
     if (JSON.parse(MA)?.fin === null) {

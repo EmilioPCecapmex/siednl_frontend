@@ -283,6 +283,7 @@ export default function ModalSolicitaModif({
 
   const checkActividades = (v: string) => {
     JSON.parse(MIR)?.actividades.map((actividad: any, index: number) => {
+      
       if (
         actividad.resumen === undefined ||
         actividad.resumen === "" ||

@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
+import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 export let errores: string[] = [];
 
 export default function ModalEnviarFT({
@@ -61,6 +62,7 @@ export default function ModalEnviarFT({
   };
 
   let err = 0;
+console.log("FT");
 
   const checkFT = (v: string) => {
     errores = [];
@@ -292,16 +294,17 @@ export default function ModalEnviarFT({
 
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
-    JSON.parse(FT)?.actividades.map((actividad: any, index: number) => {
-      if (actividad.tipoDeIndicador === "") {
+    JSON.parse(FT)?.componentes.map((componente: IComponentesFT, indexC: number) => {
+      componente.actividades.map((actividad: IActividadesFT,indexA: number) =>{
+         if (actividad.tipoDeIndicador === "") {
         errores.push(
-          `<strong>Actividad ${actividad.actividad} </strong>: Tipo de indicador no seleccionado.`
+          `<strong>Actividad ${actividad.tipoDeIndicador} </strong>: Tipo de indicador no seleccionado.`
         );
         err = 1;
       }
       if (actividad.dimension === "") {
         errores.push(
-          `<strong>Actividad ${actividad.actividad} </strong>: Dimension no seleccionado.`
+          `<strong>Actividad ${actividad.actividades} </strong>: Dimension no seleccionado.`
         );
         err = 1;
       }
@@ -311,46 +314,48 @@ export default function ModalEnviarFT({
         actividad.unidadDeMedida === ""
       ) {
         errores.push(
-          `<strong>Actividad ${actividad.actividad} </strong>: Unidad de medida sin información.`
+          `<strong>Actividad ${actividad.actividades} </strong>: Unidad de medida sin información.`
         );
         err = 1;
       }
       if (actividad.claridad === "") {
         errores.push(
-          `<strong>Actividad ${actividad.actividad} </strong>: Claridad no seleccionado.`
+          `<strong>Actividad ${actividad.actividades} </strong>: Claridad no seleccionado.`
         );
         err = 1;
       }
       if (actividad.relevancia === "") {
         errores.push(
-          `<strong>Actividad ${actividad.actividad} </strong>: Relevancia no seleccionado.`
+          `<strong>Actividad ${actividad.actividades} </strong>: Relevancia no seleccionado.`
         );
         err = 1;
       }
       if (actividad.economia === "") {
         errores.push(
-          `<strong>Actividad ${actividad.actividad} </strong>: Economia no seleccionado.`
+          `<strong>Actividad ${actividad.actividades} </strong>: Economia no seleccionado.`
         );
         err = 1;
       }
       if (actividad.monitoreable === "") {
         errores.push(
-          `<strong>Actividad ${actividad.actividad} </strong>: Monitoreable no seleccionado.`
+          `<strong>Actividad ${actividad.actividades} </strong>: Monitoreable no seleccionado.`
         );
         err = 1;
       }
       if (actividad.adecuado === "") {
         errores.push(
-          `<strong>Actividad ${actividad.actividad} </strong>: Adecuado no seleccionado.`
+          `<strong>Actividad ${actividad.actividades} </strong>: Adecuado no seleccionado.`
         );
         err = 1;
       }
       if (actividad.aporte_marginal === "") {
         errores.push(
-          `<strong>Actividad ${actividad.actividad} </strong>: Aporte marginal no seleccionado.`
+          `<strong>Actividad ${actividad.actividades} </strong>: Aporte marginal no seleccionado.`
         );
         err = 1;
       }
+      })
+     
     });
     if (err === 0) {
       crearFichaTecnica(v);

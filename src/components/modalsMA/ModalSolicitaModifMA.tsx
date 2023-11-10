@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { queries } from "../../queries";
+import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
 
 export let errores: string[] = [];
 
@@ -391,7 +392,8 @@ export default function ModalSolicitaModif({
   ///////////////////////////////////////////////////////////////////
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
-    JSON.parse(MA)?.actividades.every((actividad: any, index: number) => {
+    JSON.parse(MA)?.componentes.map((componente: IComponenteMA, indexC: number) => {
+      componente.actividades.map((actividad: IActividadesMA, indexA: number) => {
       if (
         actividad.metaAnual === undefined ||
         /^[\s]*$/.test(actividad.metaAnual)
@@ -411,10 +413,8 @@ export default function ModalSolicitaModif({
         err = 1;
       }
       if (
-        (actividad.metasPorFrecuencia[0].semestre1 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre1) ||
-          actividad.metasPorFrecuencia[0].semestre2 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre2)) &&
+        
+         
         (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
           /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
           actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
@@ -439,8 +439,7 @@ export default function ModalSolicitaModif({
         err = 1;
       }
       if (
-        !JSON.parse(MIR)
-          .actividades[index].indicador.toLowerCase()
+        !JSON.parse(MIR).componentes[indexC].actividades[indexA].indicador.toUpperCase()
           .includes("indice" || "índice") &&
         (actividad.valorDenominador === undefined ||
           /^[\s]*$/.test(actividad.valorDenominador))
@@ -495,6 +494,7 @@ export default function ModalSolicitaModif({
         );
         err = 1;
       }
+    });
     });
     //////////////////////////////////////////777
     if (err === 0) {
