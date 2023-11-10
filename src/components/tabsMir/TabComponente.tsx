@@ -37,7 +37,7 @@ export const TabComponente = ({
   setMIR: Function;
   idMir:string;
 }) => {
-  const [componentSelect, setComponentSelect] = useState(0);
+  const [componentSelect, setComponentSelect] = useState(1);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [prevTextFormula, setPrevTextFormula] = useState("");
@@ -126,8 +126,8 @@ export const TabComponente = ({
     // setComponentSelect(1);
     if(MIR.componentes.length>2){
       removeComponente(componentSelect);
-      let num = MIR.componentes.length
-      setComponentSelect(num);
+      // let num = MIR.componentes.length
+      setComponentSelect(1);
     }else
       alertaError("El minimo de componentes son dos.");
   }
@@ -247,7 +247,7 @@ export const TabComponente = ({
                   <ListItemButton
                     selected={index + 1 === componentSelect ? true : false}
                     key={index + 1}
-                    onClick={() => setComponentSelect(index)}
+                    onClick={() => setComponentSelect(index+1)}
                     sx={{
                       height: "7vh",
                       "&.Mui-selected ": {
@@ -363,13 +363,13 @@ export const TabComponente = ({
               }}
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect ].resumen = c.target.value
+                prevLocal[componentSelect - 1].resumen = c.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
                   .replaceAll("\n", "");
                 setComponentes(prevLocal);
               }}
-              value={componentes[componentSelect ]?.resumen}
+              value={componentes[componentSelect - 1]?.resumen}
             />
           </Grid>
 
@@ -415,14 +415,14 @@ export const TabComponente = ({
               }
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect ].indicador = c.target.value
+                prevLocal[componentSelect - 1].indicador = c.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
                   .replaceAll("\n", "");
-                prevLocal[componentSelect ].formula = "";
+                prevLocal[componentSelect - 1].formula = "";
                 setComponentes(prevLocal);
               }}
-              value={componentes[componentSelect ]?.indicador}
+              value={componentes[componentSelect - 1]?.indicador}
             />
           </Grid>
 
@@ -463,7 +463,7 @@ export const TabComponente = ({
               onClick={() => {
                 evalueTxtIndicador();
               }}
-              value={componentes[componentSelect ]?.formula}
+              value={componentes[componentSelect - 1]?.formula}
             />
           </Grid>
 
@@ -500,12 +500,12 @@ export const TabComponente = ({
                 control={
                   <Radio
                     checked={
-                      componentes[componentSelect ]?.frecuencia ===
+                      componentes[componentSelect - 1]?.frecuencia ===
                       "SEMESTRAL"
                     }
                     onChange={(c) => {
                       let prevLocal = [...componentes];
-                      prevLocal[componentSelect ].frecuencia = c.target.value
+                      prevLocal[componentSelect - 1].frecuencia = c.target.value
                         .replaceAll('"', "")
                         .replaceAll("'", "")
                         .replaceAll("\n", "");
@@ -523,12 +523,12 @@ export const TabComponente = ({
                 control={
                   <Radio
                     checked={
-                      componentes[componentSelect ]?.frecuencia ===
+                      componentes[componentSelect - 1]?.frecuencia ===
                       "TRIMESTRAL"
                     }
                     onChange={(c) => {
                       let prevLocal = [...componentes];
-                      prevLocal[componentSelect ].frecuencia = c.target.value
+                      prevLocal[componentSelect - 1].frecuencia = c.target.value
                         .replaceAll('"', "")
                         .replaceAll("'", "")
                         .replaceAll("\n", "");
@@ -576,13 +576,13 @@ export const TabComponente = ({
               }}
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect ].medios = c.target.value
+                prevLocal[componentSelect - 1].medios = c.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
                   .replaceAll("\n", "");
                 setComponentes(prevLocal);
               }}
-              value={componentes[componentSelect ]?.medios}
+              value={componentes[componentSelect - 1]?.medios}
             />
           </Grid>
 
@@ -622,13 +622,13 @@ export const TabComponente = ({
               }}
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect ].supuestos = c.target.value
+                prevLocal[componentSelect - 1].supuestos = c.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
                   .replaceAll("\n", "");
                 setComponentes(prevLocal);
               }}
-              value={componentes[componentSelect ]?.supuestos}
+              value={componentes[componentSelect - 1]?.supuestos}
             />
           </Grid>
         </Grid>

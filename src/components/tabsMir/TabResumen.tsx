@@ -1555,18 +1555,21 @@ export function TabResumen({
                 }}
                 key={index}
               >
-                <Grid item>
+                <Grid item xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}>
                   <Typography
                     sx={{
                       fontFamily: "MontserratMedium",
                       borderBottom: 1,
 
-                      textAlign: "center",
+                      // textAlign: "center",
                       textTransform: "uppercase",
                     }}
                   >
                     Componente {index + 1}
-                    {JSON.stringify(editComponentes)}
                   </Typography>
                 </Grid>
 
@@ -1581,8 +1584,7 @@ export function TabResumen({
                   sx={{
                     display: "flex",
                     flexDirection: "row",
-
-                    //mt: 1,
+                    whiteSpace:"pre-wrap",
                     alignItems: "center",
                     borderBottom: 1,
                     borderColor: "#cfcfcf",
@@ -1594,7 +1596,6 @@ export function TabResumen({
                         value={editComponentes[index - 1]?.resumen}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          console.log(past);
                           past[index - 1].resumen = v.target.checked;
                           setEditComponentes(past);
                         }}
@@ -1919,13 +1920,18 @@ export function TabResumen({
                   }}
                   key={Math.random()}
                 >
-                  <Grid item>
+                  <Grid item 
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}>
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
                         borderBottom: 1,
                         mt: 1,
-                        textAlign: "center",
+                        // textAlign: "center",
                         textTransform: "uppercase",
                       }}
                     >
