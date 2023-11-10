@@ -90,6 +90,8 @@ export function TabResumen({
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
   const checkMir = (estado: string) => {
+    console.log("estado: ",estado);
+    
     if (MIR?.encabezado.ejercicioFiscal === objetoVacio) {
       return Toast.fire({
         icon: "error",
@@ -109,6 +111,8 @@ export function TabResumen({
       createMIR(estado);
     }
   };
+
+  
 
   const createMIR = (estado: string) => {
     console.log("Estado: ", estado);
@@ -157,6 +161,7 @@ export function TabResumen({
   useEffect(() => {
     setMIR(MIRPADRE);
     console.log("idMir", idMir);
+    //console.log("Estado: ", estado);
   }, [MIRPADRE, idMir]);
 
   
@@ -2335,7 +2340,7 @@ export function TabResumen({
                 estado = "Borrador Autorizador";
               }
               console.log("Boton Guardar Borrador y estado: ", estado);
-
+              
               checkMir(estado);
             }}
             //al menos un opcion
