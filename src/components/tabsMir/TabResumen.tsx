@@ -76,6 +76,7 @@ export function TabResumen({
     let indexActividades = 0;
     MIRPADRE.componentes.map((v, index) => {
       let aux: Array<IActividad> = [];
+      indexActividades=0;
       v.actividades.map((x) => {
         aux.push(MIRPADRE.componentes[index].actividades[indexActividades]);
         indexActividades++;
@@ -159,6 +160,8 @@ export function TabResumen({
     console.log("idMir", idMir);
   }, [MIRPADRE, idMir]);
 
+  
+
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -228,7 +231,7 @@ export function TabResumen({
     let arrayEncabezado = Object.entries(editEncabezado);
     let arrayFin = Object.entries(editFin);
     let arrayProposito = Object.entries(editProposito);
-
+    
     let arrayComponentes = editComponentes.map((item) => {
       let a = [
         item.formula,
@@ -242,7 +245,6 @@ export function TabResumen({
       let x = a.every((value) => value === true);
       return x;
     });
-
     let arrayActividad = editActividades.map((item) => {
       let a = [
         //item.actividad,
@@ -280,6 +282,8 @@ export function TabResumen({
     editComponentes,
     editActividades,
   ]);
+
+  
 
   const isCapturador = localStorage.getItem("Rol") === "Capturador";
   const isAutorizador = localStorage.getItem("Rol") === "Administrador";
@@ -1551,13 +1555,17 @@ export function TabResumen({
                 }}
                 key={index}
               >
-                <Grid item>
+                <Grid item xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}>
                   <Typography
                     sx={{
                       fontFamily: "MontserratMedium",
                       borderBottom: 1,
 
-                      textAlign: "center",
+                      // textAlign: "center",
                       textTransform: "uppercase",
                     }}
                   >
@@ -1576,8 +1584,7 @@ export function TabResumen({
                   sx={{
                     display: "flex",
                     flexDirection: "row",
-
-                    //mt: 1,
+                    whiteSpace:"pre-wrap",
                     alignItems: "center",
                     borderBottom: 1,
                     borderColor: "#cfcfcf",
@@ -1890,9 +1897,9 @@ export function TabResumen({
               Actividades
             </Typography>
           </Grid>
-
           {valoresComponenteActividad.map((comps, index) => {
             return comps.map((acts, index2) => {
+              
               return (
                 <Grid
                   item
@@ -1913,13 +1920,18 @@ export function TabResumen({
                   }}
                   key={Math.random()}
                 >
-                  <Grid item>
+                  <Grid item 
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}>
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
                         borderBottom: 1,
                         mt: 1,
-                        textAlign: "center",
+                        // textAlign: "center",
                         textTransform: "uppercase",
                       }}
                     >
@@ -1948,6 +1960,7 @@ export function TabResumen({
                     {localStorage.getItem("Rol") !== "Administrador" ? null : (
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
+                          
                           value={!editComponentes[index - 1]?.resumen}
                           onChange={(v) => {
                             let past = [...editComponentes];

@@ -24,7 +24,7 @@ const GenericTabs = ({ tabsData,tabSelect }:{tabsData:string[];tabSelect:Functio
         backgroundColor: '#e0e0e0',
         borderRadius: '10px 10px 0 0',
         boxShadow: 20,
-        width: '90vw',
+        maxWidth: '90vw',
       }}
       variant="scrollable"
       scrollButtons="auto"
