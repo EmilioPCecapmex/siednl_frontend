@@ -172,14 +172,16 @@ export const MIR = () => {
         }
       )
       .then((r) => {
-        if(r.data.data.valida === "true"){
+        if (r.data.data.valida === "true") {
           setValidaFecha(true);
-          setTitle("EDITAR");}
-        else{
+          setTitle("EDITAR");
+        }
+        else {
           setValidaFecha(false);
-          setTitle("FECHA CAPTURA FINALIZADA");}
+          setTitle("FECHA CAPTURA FINALIZADA");
+        }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -462,7 +464,7 @@ export const MIR = () => {
         xs={12}
         // height={"7vh"}
         sx={{ height: "7vh", whitespace: "nowrap" }}
-        // sx={{ mr: showResume ? 8 : 0 }}
+      // sx={{ mr: showResume ? 8 : 0 }}
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
       </Grid>
@@ -471,7 +473,7 @@ export const MIR = () => {
       <Grid
         // justifyContent={"center"}
         // display={"flex"}
-        // height={"93vh"}
+         height={"93vh"}
         // alignItems={"center"}
 
         container
@@ -485,7 +487,7 @@ export const MIR = () => {
           //backgroundColor:"blue",
           justifyContent: "center",
           display: "flex",
-          height: "90vh",
+          // height: "90vh",
           alignItems: "center",
         }}
       >
@@ -806,7 +808,7 @@ export const MIR = () => {
             {/* TABLA */}
 
             <Grid
-              
+
               item
               xl={10}
               lg={10}
@@ -929,15 +931,15 @@ export const MIR = () => {
                             scope="row"
                           >
                             {(row.Estado === "En Captura" &&
-                            localStorage.getItem("Rol") === "Capturador"
+                              localStorage.getItem("Rol") === "Capturador"
                               ? "Borrador Capturador"
                               : row.Estado === "En Revisión" &&
                                 localStorage.getItem("Rol") === "Verificador"
-                              ? "Esperando revisión"
-                              : row.Estado === "En Autorización" &&
-                                localStorage.getItem("Rol") === "Administrador"
-                              ? "En Autorización"
-                              : row.Estado
+                                ? "Esperando revisión"
+                                : row.Estado === "En Autorización" &&
+                                  localStorage.getItem("Rol") === "Administrador"
+                                  ? "En Autorización"
+                                  : row.Estado
                             ).toUpperCase()}
                           </TableCell>
 
@@ -983,185 +985,185 @@ export const MIR = () => {
                             component="th"
                             scope="row"
                           >
-<Grid sx={{display: "flex",}}>
-                            <Tooltip
-                              PopperProps={{
-                                modifiers: [
-                                  {
-                                    name: "offset",
-                                    options: {
-                                      offset: [0, -13],
-                                    },
-                                  },
-                                ],
-                              }}
-                              title="DESCARGAR MIR"
-                            >
-                              <span>
-                                <IconButton
-                                  disabled={
-                                    row.Estado === "Autorizada" && validaFecha
-                                      ? false
-                                      : true
-                                  }
-                                  onClick={() =>
-                                    downloadMIR(
-                                      row.AnioFiscal,
-                                      row.Entidad,
-                                      row.Programa,
-                                      row.MIR
-                                    )
-                                  }
-                                >
-                                  <DownloadIcon
-                                    sx={{
-                                      fontSize: "24px", // Tamaño predeterminado del icono
-
-                                      "@media (max-width: 600px)": {
-                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                            <Grid sx={{ display: "flex", }}>
+                              <Tooltip
+                                PopperProps={{
+                                  modifiers: [
+                                    {
+                                      name: "offset",
+                                      options: {
+                                        offset: [0, -13],
                                       },
+                                    },
+                                  ],
+                                }}
+                                title="DESCARGAR MIR"
+                              >
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" && validaFecha
+                                        ? false
+                                        : true
+                                    }
+                                    onClick={() =>
+                                      downloadMIR(
+                                        row.AnioFiscal,
+                                        row.Entidad,
+                                        row.Programa,
+                                        row.MIR
+                                      )
+                                    }
+                                  >
+                                    <DownloadIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
 
-                                      "@media (min-width: 601px) and (max-width: 960px)":
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
+
+                                        "@media (min-width: 601px) and (max-width: 960px)":
                                         {
                                           fontSize: 20, // Pantalla pequeña (md)
                                         },
 
-                                      "@media (min-width: 961px) and (max-width: 1280px)":
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
                                         {
                                           fontSize: 20, // Pantalla mediana (lg)
                                         },
 
-                                      "@media (min-width: 1281px)": {
-                                        fontSize: 25, // Pantalla grande (xl)
-                                      },
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
 
-                                      "@media (min-width: 2200px)": {
-                                        ffontSize: 25, // Pantalla grande (xl)
-                                      },
-                                    }}
-                                  />
-                                </IconButton>
-                              </span>
-                            </Tooltip>
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
 
-                            <ComentDialogMir
-                              estado={row.Estado}
-                              id={row.Id}
-                              actualizado={actualizaContador}
-                            />
+                              <ComentDialogMir
+                                estado={row.Estado}
+                                id={row.Id}
+                                actualizado={actualizaContador}
+                              />
 
-                            <DeleteDialogMIR
-                              disab={
-                                row.Estado === "En Captura" &&
-                                validaFecha &&
-                                localStorage.getItem("Rol") === "Capturador"
-                                  ? false
-                                  : row.Estado === "En Revisión" &&
-                                    localStorage.getItem("Rol") ===
+                              <DeleteDialogMIR
+                                disab={
+                                  row.Estado === "En Captura" &&
+                                    validaFecha &&
+                                    localStorage.getItem("Rol") === "Capturador"
+                                    ? false
+                                    : row.Estado === "En Revisión" &&
+                                      localStorage.getItem("Rol") ===
                                       "Verificador"
-                                  ? false
-                                  : row.Estado === "En Autorización" &&
-                                    localStorage.getItem("Rol") ===
-                                      "Administrador"
-                                  ? false
-                                  : true
-                              }
-                              id={row.Id}
-                              actualizado={actualizaContador}
-                            />
-                            <Tooltip
-                              title={title_texto}
-                              PopperProps={{
-                                modifiers: [
-                                  {
-                                    name: "offset",
-                                    options: {
-                                      offset: [0, -13],
-                                    },
-                                  },
-                                ],
-                              }}
-                            >
-                              <span>
-                                <IconButton
-                                  disabled={
-                                    (row.Estado === "En Captura" &&
-                                      validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Capturador") ||
-                                    (row.Estado === "En Revisión" &&
-                                      validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Verificador") ||
-                                    (row.Estado === "Borrador Verificador" &&
-                                      validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Verificador") ||
-                                    ((row.Estado === "En Autorización" ||
-                                      row.Estado === "Autorizada") &&
-                                      validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador") ||
-                                    (row.Estado === "Borrador Autorizador" &&
-                                      validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador")
                                       ? false
-                                      : true
-                                  }
-                                  onClick={() => {
-                                    setMirEdit([
-                                      {
-                                        Id: row.Id,
-                                        AnioFiscal: row.AnioFiscal,
-                                        Entidad: row.Entidad,
-                                        Programa: row.Programa,
-                                        Eje: row.Eje,
-                                        Tematica: row.Tematica,
-                                        MIR: row.MIR,
-                                        Estado: row.Estado,
-                                        FechaCreacion: row.FechaCreacion,
-                                        CreadoPor: row.CreadoPor,
-                                        Conac: row.Conac,
-                                        Consecutivo: row.Consecutivo,
-                                        Opciones: row.Opciones,
+                                      : row.Estado === "En Autorización" &&
+                                        localStorage.getItem("Rol") ===
+                                        "Administrador"
+                                        ? false
+                                        : true
+                                }
+                                id={row.Id}
+                                actualizado={actualizaContador}
+                              />
+                              <Tooltip
+                                title={title_texto}
+                                PopperProps={{
+                                  modifiers: [
+                                    {
+                                      name: "offset",
+                                      options: {
+                                        offset: [0, -13],
                                       },
-                                    ]);
-                                    setShowResume(false);
-                                    setActionNumber(1);
-                                  }}
-                                >
-                                  <EditIcon
-                                    sx={{
-                                      fontSize: "24px", // Tamaño predeterminado del icono
+                                    },
+                                  ],
+                                }}
+                              >
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      (row.Estado === "En Captura" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                        "Capturador") ||
+                                        (row.Estado === "En Revisión" &&
+                                          validaFecha &&
+                                          localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                        (row.Estado === "Borrador Verificador" &&
+                                          validaFecha &&
+                                          localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                        ((row.Estado === "En Autorización" ||
+                                          row.Estado === "Autorizada") &&
+                                          validaFecha &&
+                                          localStorage.getItem("Rol") ===
+                                          "Administrador") ||
+                                        (row.Estado === "Borrador Autorizador" &&
+                                          validaFecha &&
+                                          localStorage.getItem("Rol") ===
+                                          "Administrador")
+                                        ? false
+                                        : true
+                                    }
+                                    onClick={() => {
+                                      setMirEdit([
+                                        {
+                                          Id: row.Id,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Entidad: row.Entidad,
+                                          Programa: row.Programa,
+                                          Eje: row.Eje,
+                                          Tematica: row.Tematica,
+                                          MIR: row.MIR,
+                                          Estado: row.Estado,
+                                          FechaCreacion: row.FechaCreacion,
+                                          CreadoPor: row.CreadoPor,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
+                                          Opciones: row.Opciones,
+                                        },
+                                      ]);
+                                      setShowResume(false);
+                                      setActionNumber(1);
+                                    }}
+                                  >
+                                    <EditIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
 
-                                      "@media (max-width: 600px)": {
-                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                      },
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
 
-                                      "@media (min-width: 601px) and (max-width: 960px)":
+                                        "@media (min-width: 601px) and (max-width: 960px)":
                                         {
                                           fontSize: 20, // Pantalla pequeña (md)
                                         },
 
-                                      "@media (min-width: 961px) and (max-width: 1280px)":
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
                                         {
                                           fontSize: 20, // Pantalla mediana (lg)
                                         },
 
-                                      "@media (min-width: 1281px)": {
-                                        fontSize: 25, // Pantalla grande (xl)
-                                      },
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
 
-                                      "@media (min-width: 2200px)": {
-                                        ffontSize: 25, // Pantalla grande (xl)
-                                      },
-                                    }}
-                                  />
-                                </IconButton>
-                              </span>
-                            </Tooltip>
-</Grid>
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                            </Grid>
 
                           </TableCell>
                         </TableRow>
@@ -1192,7 +1194,7 @@ export const MIR = () => {
               flexDirection: "column",
               justifyContent: "space-evenly",
               alignItems: "center",
-              height: "92vh",
+              height: "93vh",
             }}
             gridArea={"main"}
           >

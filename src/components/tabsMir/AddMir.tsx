@@ -1,18 +1,17 @@
 /* eslint-disase array-callback-return */
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import { Grid, useMediaQuery } from "@mui/material";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import React, { SyntheticEvent, useEffect, useState } from "react";
-import { IActividad, IComponente, IMIR, IMIREdit } from "./interfaces mir/IMIR";
+import { Grid } from "@mui/material";
+import { useEffect, useState } from "react";
+import { IComponente, IMIR, IMIREdit } from "./interfaces mir/IMIR";
 import { TabActividades } from "./TabActividades";
 import { TabComponente } from "./TabComponente";
 import TabEncabezado from "./TabEncabezado";
 import TabFinProposito from "./TabFinProposito";
 import TabResumen, { IComponenteMirEdit } from "./TabResumen";
-
 import { alertaError } from "../genericComponents/Alertas";
+import GenericTabs from "../genericComponents/genericTabs";
+import { getMAyFT } from "../../services/mir_services/MIR_services";
+
+const tabs=["Encabezado","Fin / Propósito","Componentes","Actividades","Resumen"]
 
 function newActividad(indexComponente: number, indexActividad: number) {
   return {
@@ -79,14 +78,15 @@ export default function FullModalMir({
   IdMir: string;
   anioFiscalEdit: string;
 }) {
-  const [value, setValue] = React.useState(10);
+
+  useEffect(() => {
+    getMAyFT(IdMir);
+  }, [])
+  
+  const [value, setValue] = useState(0);
 
   const noComponentes = [1, 2];
-  const [noActividades, setNoActividades] = useState(
-    noComponentes.map((v, index) => {
-      return [1, 2];
-    })
-  );
+
 
   let mir: IMIR =
     MIR !== ""
@@ -127,50 +127,7 @@ export default function FullModalMir({
           componentes: noComponentes.map((item) => {
             return newComponente(item);
           }),
-          // actividades: [
-          //   {
-          //     actividad: "A1C1",
-          //     resumen: "",
-          //     indicador: "",
-          //     frecuencia: "TRIMESTRAL",
-          //     formula: "",
-          //     medios: "",
-          //     supuestos: "",
-          //   },
-          //   {
-          //     actividad: "A2C1",
-          //     resumen: "",
-          //     indicador: "",
-          //     frecuencia: "TRIMESTRAL",
-          //     formula: "",
-          //     medios: "",
-          //     supuestos: "",
-          //   },
-          //   {
-          //     actividad: "A1C2",
-          //     resumen: "",
-          //     indicador: "",
-          //     frecuencia: "TRIMESTRAL",
-          //     formula: "",
-          //     medios: "",
-          //     supuestos: "",
-          //   },
-          //   {
-          //     actividad: "A2C2",
-          //     resumen: "",
-          //     indicador: "",
-          //     frecuencia: "TRIMESTRAL",
-          //     formula: "",
-          //     medios: "",
-          //     supuestos: "",
-          //   },
-          // ],
-          // componenteActividad: noComponentes.map((x, index) => {
-          //   return {
-          //     actividades: noActividades[index],
-          //     componente: `C${index + 1}`,
-          //   };
-          // }),
+        
         };
 
   let mirEdit: IMIREdit =
@@ -209,72 +166,9 @@ export default function FullModalMir({
           componentes: noComponentes.map((x, index) => {
             return newComponenteboolean(index);
           }),
-          // actividades: [
-          //   {
-          //     actividad: "A1C1",
-          //     resumen: false,
-          //     indicador: false,
-          //     frecuencia: false,
-          //     formula: false,
-          //     medios: false,
-          //     supuestos: false,
-          //   },
-          //   {
-          //     actividad: "A2C1",
-          //     resumen: false,
-          //     indicador: false,
-          //     frecuencia: false,
-          //     formula: false,
-          //     medios: false,
-          //     supuestos: false,
-          //   },
-          //   {
-          //     actividad: "A1C2",
-          //     resumen: false,
-          //     indicador: false,
-          //     frecuencia: false,
-          //     formula: false,
-          //     medios: false,
-          //     supuestos: false,
-          //   },
-          //   {
-          //     actividad: "A2C2",
-          //     resumen: false,
-          //     indicador: false,
-          //     frecuencia: false,
-          //     formula: false,
-          //     medios: false,
-          //     supuestos: false,
-          //   },
-          // ],
         };
 
-  const cambiarTab = (option: string) => {
-    if (option === "adelante") {
-      if (value < 50) setValue(value + 10);
-    } else {
-      if (value > 10) setValue(value - 10);
-    }
-  };
-
   const [MIRPADRE, setMIRPADRE] = useState<IMIR>(mir);
-
-  // ESTE USE EFFECT ES PARA CUANDO ENTRAMOS DE UNA NUEVA MIR
-  // useEffect(() => {
-  //   let arr: Array<number> = [];
-  //   MIRPADRE?.componentes?.map((x, index) => {
-  //     return arr.push(index + 1);
-  //   });
-
-  // setNoComponentes(arr);
-
-  //   let arr2: Array<Array<number>> = [];
-  //   MIRPADRE.componenteActividad.map((v, index) => {
-  //     return arr2.push(v.actividades);
-  //   });
-
-  //   setNoActividades(arr2);
-  // }, [MIR, MIRPADRE]);
 
   const addComponente = () => {
     console.log("componentes", MIRPADRE.componentes);
@@ -353,12 +247,6 @@ export default function FullModalMir({
     }
   };
 
-  const query = {
-    isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
-
-    isMobile: useMediaQuery("(min-width: 0px) and (max-width: 600px)"),
-  };
-
   return (
     <Grid
       container
@@ -379,12 +267,6 @@ export default function FullModalMir({
         sx={{
           width: "auto",
           height: "100%",
-
-          // height: "93vh",
-          // borderRadius: 5,
-          // display: "flex",
-          // flexDirection: "column",
-          // alignItems: "center",
         }}
       >
         <Grid
@@ -399,127 +281,13 @@ export default function FullModalMir({
             alignItems: "center",
           }}
         >
-          <Tabs
-            value={value}
-            textColor="inherit"
-            variant={query.isScrollable ? "scrollable" : "standard"}
-            // centered={query.isScrollable ? false : true}
-            scrollButtons="auto"
-            allowScrollButtonsMobile
-            sx={{
-              backgroundColor: "#e0e0e0",
-              borderRadius: "10px 10px 0 0",
-              GridShadow: 20,
-              width: ["300px", "628px", "900px", "1120px", "1250px", "1450px"],
-              //height: ["30px", "20px", "30px", "40px", "50px"],
-            }}
-          >
-            <Tab
-              label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "#af8c55",
-                fontFamily: "MontserratSemiBold",
-                backgroundColor: "#ccc",
-                width: ["0px", "65px", "130px", "160px", "175px"],
-                display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
-              }}
-              onClick={() => {
-                cambiarTab("atras");
-              }}
-            />
-            <Tab
-              label="Encabezado"
-              value={10}
-              onClick={() => {
-                setValue(10);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                width: ["15px", "65px", "130px", "160px", "180px"],
-                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-              }}
-            />
-            <Tab
-              label="Fin / Propósito"
-              value={20}
-              onClick={() => {
-                setValue(20);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                width: ["15px", "65px", "130px", "160px", "180px"],
-                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-              }}
-            />
-            <Tab
-              label="Componentes"
-              value={30}
-              onClick={() => {
-                setValue(30);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                width: ["15px", "65px", "130px", "160px", "180px"],
-                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-              }}
-            />
-            <Tab
-              label="Actividades"
-              value={40}
-              onClick={() => {
-                setValue(40);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                width: ["15px", "65px", "130px", "160px", "180px"],
-                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-              }}
-            />
-            <Tab
-              label="Resumen"
-              value={50}
-              onClick={() => {
-                setValue(50);
-              }}
-              sx={{
-                borderRight: "5px solid #b3afaf",
-                color: "black",
-                fontFamily: "MontserratBold",
-                width: ["15px", "65px", "130px", "160px", "180px"],
-                fontSize: [8, 10, 13, 14, 15, 18], // Tamaños de fuente para diferentes breakpoints
-              }}
-            />
-
-            <Tab
-              label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
-              sx={{
-                //borderRight: "5px solid #b3afaf",
-                color: "#af8c55",
-                backgroundColor: "#ccc",
-                width: ["0px", "65px", "130px", "160px", "175px"],
-                display: ["none", "block", "block", "block"], // Oculta el Tab en pantallas más pequeñas
-              }}
-              onClick={() => {
-                cambiarTab("adelante");
-              }}
-            />
-          </Tabs>
+          
+          <GenericTabs tabsData={tabs} tabSelect={setValue} />
 
           <Grid
             sx={{
-              //width: "93vw",
               width: ["300px", "650px", "900px", "1000px", "1100px", "1300px"],
               height: "82vh",
-              //justifyContent: "center",
               borderRadius: 5,
               display: "flex",
               flexDirection: "column",
@@ -527,25 +295,17 @@ export default function FullModalMir({
             }}
           >
             <TabEncabezado
-              show={value === 10 ? true : false}
+              show={value === 0 ? true : false}
               MIR={MIRPADRE}
               setMIR={setMIRPADRE}
               mirEdit={mirEdit}
-            ></TabEncabezado>
+            />
 
-            {value === 20 && (
+            {value === 1 && (
               <TabFinProposito MIR={MIRPADRE} setMIR={setMIRPADRE} />
             )}
 
-            {value === 50 && (
-              <TabResumen
-                showResume={showResume}
-                MIRPADRE={MIRPADRE}
-                idMir={IdMir}
-              />
-            )}
-
-            {value === 30 && (
+            {value === 2 && (
               <TabComponente
                 noComponentes={noComponentes}
                 addComponente={addComponente}
@@ -553,26 +313,30 @@ export default function FullModalMir({
                 MIR={MIRPADRE}
                 setMIR={setMIRPADRE}
                 idMir={IdMir}
-              ></TabComponente>
+              />
             )}
 
-            {/* {value === 40 && ( */}
-            {value === 40 && (
+            {value === 3 && (
               <TabActividades
-                // noActividades={noActividades}
                 addActividad={addActividad}
                 removeActividad={removeActividad}
                 MIR={MIRPADRE}
                 setMIR={setMIRPADRE}
                 idMir={IdMir}
-              // noComponentes={noComponentes}
-              ></TabActividades>
+              />
+            )}
+            
+            {value === 4 && (
+              <TabResumen
+                showResume={showResume}
+                MIRPADRE={MIRPADRE}
+                idMir={IdMir}
+              />
             )}
           </Grid>
-
-          {/* )} */}
         </Grid>
       </Grid>
     </Grid>
   );
 }
+

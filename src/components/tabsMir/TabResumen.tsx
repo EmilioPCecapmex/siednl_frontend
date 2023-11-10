@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable array-callback-return */
 import { Grid, Button, Checkbox, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -10,6 +8,7 @@ import { IActividad, ILista, IMIR } from "./interfaces mir/IMIR";
 import { queries } from "../../queries";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+
 export function TabResumen({
   MIRPADRE,
   showResume,

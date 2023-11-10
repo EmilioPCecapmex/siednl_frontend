@@ -512,9 +512,7 @@ export default function ModalEnviarMIR({
         });
 
         if (estado === "Autorizada") {
-         CrearMetaAnual(r.data.data.ID, IdMir);
-          console.log("r.data.data.ID",r.data.data);
-          
+         CrearMetaAnual(r.data.data.ID, IdMir); 
         }
 
         Toast.fire({
