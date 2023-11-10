@@ -16,6 +16,8 @@ import {
 } from "@mui/material";
 import { queries } from "../../queries";
 import { IActividad, IComponente } from "../tabsMir/interfaces mir/IMIR";
+import { getMAyFT } from "../../services/mir_services/MIR_services";
+
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -370,7 +372,7 @@ export default function ModalSolicitaModif({
       estado = "En Captura";
     } 
 
-    console.log("estado: ",estado);
+   // console.log("estado: ",estado);
     
     axios
       .post(
@@ -489,6 +491,10 @@ export default function ModalSolicitaModif({
       }
     );
   };
+
+  useEffect(() => {
+    getMAyFT(IdMir);
+  }, [])
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>

@@ -79,9 +79,9 @@ export default function FullModalMir({
   anioFiscalEdit: string;
 }) {
 
-  useEffect(() => {
-    getMAyFT(IdMir);
-  }, [])
+  // useEffect(() => {
+  //   getMAyFT(IdMir);
+  // }, [])
   
   const [value, setValue] = useState(0);
 

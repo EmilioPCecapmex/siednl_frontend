@@ -36,9 +36,6 @@ export default function ModalEnviarMIR({
   let err = 0;
 
   const [newComent, setNewComent] = React.useState(false);
-
-  const [estadoMir, setestadoMir] = useState("");
-
   const enviarMensaje = "Se ha creado una nueva";
 
   const comentMir = (id: string) => {
@@ -468,7 +465,7 @@ export default function ModalEnviarMIR({
   const createMIR = (estado: string) => {
     console.log("Entre al create MetaAnual ModalEnviarMA");
     console.log("IdEntidad",localStorage.getItem("IdEntidad"),);
-    console.log("estado: ",estado);
+    //console.log("estado: ",estado);
     console.log("Create mir de Modalenviarmir");
     
 
@@ -503,7 +500,7 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
           console.log("IdMir: ", r.data.data.ID);
-          console.log("estado: ", estado);
+          //console.log("estado: ", estado);
           console.log("create MIR r.data.data: ", r.data.data);
           console.log("user: ", user);
 
@@ -706,22 +703,11 @@ export default function ModalEnviarMIR({
               </Typography>
             </Button>
 
-            {/* <Button
-              sx={{ display: "flex", width: "11vw" }}
-              variant="contained"
-              color="info"
-              onClick={() => {
-                newComent ? setComment("") : setNewComent(!newComent);
-                newComent ? setNewComent(!newComent) : setNewComent(!newComent);
-              }}
-            >
-              {newComent ? "Cancelar comentario" : "Nuevo comentario"}
-            </Button> */}
 
             <Button
               sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
-                //setestadoMir("borrador")
+                
                 checkMir(
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
