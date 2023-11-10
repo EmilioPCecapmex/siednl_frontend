@@ -141,32 +141,34 @@ export function TabFinPropositoMA({
   };
 
   const changeFormula = (txt: string) => {
+    let auxFin = valueFin;
+    let auxProposito = valueProposito;
     if (elementoFormula === "Fin") {
       if (
         JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
         JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice")
       ) {
-        valueFin.valorNumerador = txt.split(",")[0];
-        valueFin.metaAnual = txt.split(",")[0];
+        auxFin.valorNumerador = txt.split(",")[0];
+        auxFin.metaAnual = txt.split(",")[0];
       } else {
-        valueFin.valorNumerador = txt.split(",")[0];
-        valueFin.valorDenominador = txt.split(",")[1];
-        valueFin.metaAnual = txt.split(",")[2];
+        auxFin.valorNumerador = txt.split(",")[0];
+        auxFin.valorDenominador = txt.split(",")[1];
+        auxFin.metaAnual = txt.split(",")[2];
       }
-      setValueFin([...valueFin]);
+      setValueFin({ ...auxFin });
     } else if (elementoFormula === "Propósito") {
       if (
         JSON.parse(MIR).proposito.indicador.toLowerCase().includes("indice") ||
         JSON.parse(MIR).proposito.indicador.toLowerCase().includes("índice")
       ) {
-       valueProposito.valorNumerador = txt.split(",")[0];
-       valueProposito.metaAnual = txt.split(",")[0];
+        auxProposito.valorNumerador = txt.split(",")[0];
+        auxProposito.metaAnual = txt.split(",")[0];
       } else {
-       valueProposito.valorNumerador = txt.split(",")[0];
-       valueProposito.valorDenominador = txt.split(",")[1];
-       valueProposito.metaAnual = txt.split(",")[2];
+        auxProposito.valorNumerador = txt.split(",")[0];
+        auxProposito.valorDenominador = txt.split(",")[1];
+        auxProposito.metaAnual = txt.split(",")[2];
       }
-      setValueProposito([...valueProposito]);
+      setValueProposito({ ...auxProposito });
     }
   };
 
@@ -608,11 +610,12 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onChange={(c) => {
-                    valueFin.lineaBase = c.target.value
+                    let auxFin = valueFin
+                    auxFin.lineaBase = c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", "");
-                    setValueFin([...valueFin]);
+                    setValueFin({ ...auxFin });
                   }}
                   value={valueFin?.lineaBase || ""}
                 />
@@ -1223,7 +1226,7 @@ export function TabFinPropositoMA({
                 <TextField
                   disabled={
                     MAEdit?.proposito?.metaAnual &&
-                   valueProposito.metaAnual !== ""
+                    valueProposito.metaAnual !== ""
                   }
                   sx={{ boxShadow: 2 }}
                   variant={"filled"}
@@ -1249,7 +1252,7 @@ export function TabFinPropositoMA({
                   }}
                   onClick={() =>
                     MAEdit?.proposito?.metaAnual &&
-                     valueProposito.metaAnual !== ""
+                      valueProposito.metaAnual !== ""
                       ? ""
                       : handleClickOpen()
                   }
@@ -1281,7 +1284,7 @@ export function TabFinPropositoMA({
                 <TextField
                   disabled={
                     MAEdit?.proposito?.lineaBase &&
-                   valueProposito.lineaBase !== ""
+                    valueProposito.lineaBase !== ""
                   }
                   sx={{
                     fontSize: [10, 10, 10, 13, 15, 18],
@@ -1301,14 +1304,14 @@ export function TabFinPropositoMA({
                   error={
                     parseFloat(valueProposito.lineaBase) < 0 ||
                       (isNaN(parseFloat(valueProposito.lineaBase)) &&
-                       valueProposito.lineaBase !== "")
+                        valueProposito.lineaBase !== "")
                       ? true
                       : false
                   }
                   helperText={
                     parseFloat(valueProposito.lineaBase) < 0 ||
                       (isNaN(parseFloat(valueProposito.lineaBase)) &&
-                       valueProposito.lineaBase !== "")
+                        valueProposito.lineaBase !== "")
                       ? "Introducir valor mayor que 0"
                       : null
                   }
@@ -1323,11 +1326,12 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onChange={(c) => {
-                   valueProposito.lineaBase = c.target.value
+                    let auxProposito = valueProposito
+                    auxProposito.lineaBase = c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", "");
-                    setValueProposito([...valueProposito]);
+                    setValueProposito({ ...auxProposito });
                   }}
                   value={valueProposito?.lineaBase || ""}
                 />
@@ -1355,7 +1359,7 @@ export function TabFinPropositoMA({
                   <TextField
                     disabled={
                       MAEdit?.proposito?.valorNumerador &&
-                     valueProposito.valorNumerador !== ""
+                      valueProposito.valorNumerador !== ""
                     }
                     sx={{
                       boxShadow: 2,
@@ -1383,7 +1387,7 @@ export function TabFinPropositoMA({
                     }}
                     onClick={() =>
                       MAEdit?.proposito?.valorNumerador &&
-                       valueProposito.valorNumerador !== ""
+                        valueProposito.valorNumerador !== ""
                         ? ""
                         : handleClickOpen()
                     }
@@ -1407,7 +1411,7 @@ export function TabFinPropositoMA({
                   <TextField
                     disabled={
                       MAEdit?.proposito?.valorNumerador &&
-                     valueProposito.valorNumerador !== ""
+                      valueProposito.valorNumerador !== ""
                     }
                     sx={{
                       fontSize: [10, 10, 10, 13, 15, 18],
@@ -1438,7 +1442,7 @@ export function TabFinPropositoMA({
                     }}
                     onClick={() =>
                       MAEdit?.proposito?.valorNumerador &&
-                       valueProposito.valorNumerador !== ""
+                        valueProposito.valorNumerador !== ""
                         ? ""
                         : handleClickOpen()
                     }
@@ -1447,7 +1451,7 @@ export function TabFinPropositoMA({
                   <TextField
                     disabled={
                       MAEdit?.proposito?.valorDenominador &&
-                     valueProposito.valorDenominador !== ""
+                      valueProposito.valorDenominador !== ""
                     }
                     sx={{ fontSize: [10, 10, 10, 13, 15, 18], boxShadow: 2 }}
                     variant={"filled"}
@@ -1473,7 +1477,7 @@ export function TabFinPropositoMA({
                     }}
                     onClick={() =>
                       MAEdit?.proposito?.valorDenominador &&
-                       valueProposito.valorDenominador !== ""
+                        valueProposito.valorDenominador !== ""
                         ? ""
                         : handleClickOpen()
                     }
@@ -1498,7 +1502,7 @@ export function TabFinPropositoMA({
                 <FormControl
                   disabled={
                     MAEdit?.proposito?.sentidoDelIndicador &&
-                   valueProposito.sentidoDelIndicador !== ""
+                    valueProposito.sentidoDelIndicador !== ""
                   }
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -1534,13 +1538,13 @@ export function TabFinPropositoMA({
                     control={
                       <Radio
                         checked={
-                         valueProposito?.sentidoDelIndicador ===
+                          valueProposito?.sentidoDelIndicador ===
                           "ASCENDENTE"
                         }
                         onChange={(c) => {
-                         valueProposito.sentidoDelIndicador =
-                            c.target.value;
-                          setValueProposito([...valueProposito]);
+                          let auxProposito = valueProposito
+                          auxProposito.sentidoDelIndicador = c.target.value;
+                          setValueProposito({ ...auxProposito });
                         }}
                       />
                     }
@@ -1560,13 +1564,13 @@ export function TabFinPropositoMA({
                     control={
                       <Radio
                         checked={
-                         valueProposito?.sentidoDelIndicador ===
+                          valueProposito?.sentidoDelIndicador ===
                           "DESCENDENTE"
                         }
                         onChange={(c) => {
-                         valueProposito.sentidoDelIndicador =
-                            c.target.value;
-                          setValueProposito([...valueProposito]);
+                          let auxProposito = valueProposito
+                          auxProposito.sentidoDelIndicador = c.target.value;
+                          setValueProposito({ ...auxProposito });
                         }}
                       />
                     }
@@ -1586,12 +1590,13 @@ export function TabFinPropositoMA({
                     control={
                       <Radio
                         checked={
-                         valueProposito?.sentidoDelIndicador === "NORMAL"
+                          valueProposito?.sentidoDelIndicador === "NORMAL"
                         }
                         onChange={(c) => {
-                         valueProposito.sentidoDelIndicador =
+                          let auxProposito = valueProposito
+                          auxProposito.sentidoDelIndicador =
                             c.target.value;
-                          setValueProposito([...valueProposito]);
+                          setValueProposito({ ...auxProposito });
                         }}
                       />
                     }
@@ -1620,13 +1625,13 @@ export function TabFinPropositoMA({
                     openText="Abrir"
                     disabled={
                       MAEdit?.fin?.unidadResponsable &&
-                     valueProposito.unidadResponsable !== ""
+                      valueProposito.unidadResponsable !== ""
                     }
                     options={catalogoUnidadResponsable}
                     getOptionLabel={(option) => option.Label}
                     value={{
                       Id: catalogoUnidadResponsable[0].Id || "",
-                      Label:valueProposito.unidadResponsable || "",
+                      Label: valueProposito.unidadResponsable || "",
                     }}
                     renderOption={(props, option) => {
                       return (
@@ -1661,9 +1666,10 @@ export function TabFinPropositoMA({
                     )}
                     style={style}
                     onChange={(event, value) => {
-                     valueProposito.unidadResponsable =
+                      let auxProposito = valueProposito
+                      auxProposito.unidadResponsable =
                         (value?.Label as string) || "";
-                      setValueProposito([...valueProposito]);
+                      setValueProposito({ ...auxProposito });
                     }}
                     isOptionEqualToValue={(option, value) =>
                       option.Id === value.Id
@@ -1688,7 +1694,7 @@ export function TabFinPropositoMA({
                 <TextField
                   disabled={
                     MAEdit?.proposito?.descIndicador &&
-                   valueProposito.descIndicador !== ""
+                    valueProposito.descIndicador !== ""
                   }
                   rows={5}
                   multiline
@@ -1715,11 +1721,12 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onChange={(c) => {
-                   valueProposito.descIndicador = c.target.value
+                    let auxProposito = valueProposito
+                    auxProposito.descIndicador = c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", "");
-                    setValueProposito([...valueProposito]);
+                    setValueProposito({ ...auxProposito });
                   }}
                   value={valueProposito?.descIndicador || ""}
                 />
@@ -1741,7 +1748,7 @@ export function TabFinPropositoMA({
                 <TextField
                   disabled={
                     MAEdit?.proposito?.descNumerador &&
-                   valueProposito.descNumerador !== ""
+                    valueProposito.descNumerador !== ""
                   }
                   rows={5}
                   multiline
@@ -1768,11 +1775,12 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onChange={(c) => {
-                   valueProposito.descNumerador = c.target.value
+                    let auxProposito = valueProposito
+                    auxProposito.descNumerador = c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", "");
-                    setValueProposito([...valueProposito]);
+                    setValueProposito({ ...auxProposito });
                   }}
                   value={valueProposito.descNumerador || ""}
                 />
@@ -1793,7 +1801,7 @@ export function TabFinPropositoMA({
                 <TextField
                   disabled={
                     MAEdit?.proposito?.descDenominador &&
-                   valueProposito.descDenominador !== ""
+                    valueProposito.descDenominador !== ""
                   }
                   rows={5}
                   multiline
@@ -1820,11 +1828,13 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onChange={(c) => {
-                   valueProposito.descDenominador = c.target.value
+
+                    let auxProposito = valueProposito
+                    auxProposito.descDenominador = c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", "");
-                    setValueProposito([...valueProposito]);
+                    setValueProposito({ ...auxProposito });
                   }}
                   value={valueProposito.descDenominador || ""}
                 />
