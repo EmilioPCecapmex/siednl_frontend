@@ -415,12 +415,7 @@ export default function AddMetaAnual({
 
             {value === 3 ? (
               <TabResumenMA
-                show={value === 3 ? true : false}
-                componentes={[]}
-                componenteValor={maPadre.componentes}
-                cValor={[]}
-                fin={maPadre.fin}
-                proposito={maPadre.proposito}
+                maPadre={maPadre}
                 IdMir={IdMir}
                 IdMA={IdMA}
                 showResume={showResume}

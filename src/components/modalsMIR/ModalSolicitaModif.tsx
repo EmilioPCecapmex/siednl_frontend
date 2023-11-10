@@ -15,6 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import { queries } from "../../queries";
+import { IActividad, IComponente } from "../tabsMir/interfaces mir/IMIR";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -282,8 +283,8 @@ export default function ModalSolicitaModif({
   };
 
   const checkActividades = (v: string) => {
-    JSON.parse(MIR)?.actividades.map((actividad: any, index: number) => {
-      
+    JSON.parse(MIR)?.componentes.map((componente: IComponente, indexC: number) => {
+      componente.actividades.map((actividad: IActividad,indexA: number) =>{
       if (
         actividad.resumen === undefined ||
         actividad.resumen === "" ||
@@ -328,6 +329,7 @@ export default function ModalSolicitaModif({
         );
         err = 1;
       }
+    })
     });
     if (err === 0) {
       createMIR(v);
