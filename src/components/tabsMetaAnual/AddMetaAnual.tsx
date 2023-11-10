@@ -161,7 +161,20 @@ export default function AddMetaAnual({
 
   const jsonMir = JSON.parse(MIR);
 
-
+  const setMAFinPadre = (FinValues: IFinMA) =>{
+    setMAPadre({
+        ...maPadre,
+          fin: FinValues,
+        
+      });
+  };
+  const setMAPropositoPadre = (propositoValues: IPropositoMA) =>{
+    setMAPadre({
+        ...maPadre,
+          proposito: propositoValues,
+        
+      });
+  };
   const setMAcomponentesPadre = (componentesValues: IComponenteMA[]) =>{
     setMAPadre({
         ...maPadre,
@@ -288,15 +301,15 @@ export default function AddMetaAnual({
 
   // }, []);
 
-  const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
-  const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
+  // const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
+  // const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
 
-  const resumenFinMa = (arr: Array<IFinMA>) => {
-    setValueFin(arr);
-  };
-  const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
-    setValueProposito(arr);
-  };
+  // const resumenFinMa = (arr: Array<IFinMA>) => {
+  //   setValueFin(arr);
+  // };
+  // const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
+  //   setValueProposito(arr);
+  // };
 
   const query = {
     isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
@@ -364,10 +377,13 @@ export default function AddMetaAnual({
                 MA={MA}
                 MIR={MIR}
                 setTxtShowFnc={showFnc}
+                finPadre={maPadre.fin}
+                propositoPadre={maPadre.proposito}
                 //show={value === 0 ? true : false}
-                resumenFinMa={resumenFinMa}
-                resumenPropositoMa={resumenPropositoMa}
+                setMAFinPadre={setMAFinPadre}
+                setMAPropositoPadre={setMAPropositoPadre}
                 showMirFnc={showMirFnc}
+                
               />
             ) : null}
             {value === 1 ? (
@@ -403,8 +419,8 @@ export default function AddMetaAnual({
                 componentes={[]}
                 componenteValor={maPadre.componentes}
                 cValor={[]}
-                fin={ValueFin}
-                proposito={ValueProposito}
+                fin={maPadre.fin}
+                proposito={maPadre.proposito}
                 IdMir={IdMir}
                 IdMA={IdMA}
                 showResume={showResume}
