@@ -1,7 +1,12 @@
 /* eslint-disase array-callback-return */
 import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
-import { IComponente, IMIR, IMIREdit } from "./interfaces mir/IMIR";
+import {
+  IComponente,
+  IMIR,
+  IMIREdit,
+  IMovimientos,
+} from "./interfaces mir/IMIR";
 import { TabActividades } from "./TabActividades";
 import { TabComponente } from "./TabComponente";
 import TabEncabezado from "./TabEncabezado";
@@ -11,7 +16,13 @@ import { alertaError } from "../genericComponents/Alertas";
 import GenericTabs from "../genericComponents/genericTabs";
 import { getMAyFT } from "../../services/mir_services/MIR_services";
 
-const tabs=["Encabezado","Fin / Propósito","Componentes","Actividades","Resumen"]
+const tabs = [
+  "Encabezado",
+  "Fin / Propósito",
+  "Componentes",
+  "Actividades",
+  "Resumen",
+];
 
 function newActividad(indexComponente: number, indexActividad: number) {
   return {
@@ -80,15 +91,37 @@ export default function FullModalMir({
   anioFiscalEdit: string;
   estado: string;
 }) {
-
   // useEffect(() => {
   //   getMAyFT(IdMir);
   // }, [])
-  
+
   const [value, setValue] = useState(0);
 
   const noComponentes = [1, 2];
 
+  //let mDocumentos: IMovimientos[] = []
+  
+
+  const movimientos = (movimientos: string, indices: string) => {
+    let Documentos: IMovimientos = {
+       movimiento: movimientos, 
+      indice: indices 
+    };
+    
+    let auxMDocumentos: IMovimientos[] =mDocumentos
+    auxMDocumentos.push(Documentos)
+    console.log("auxMDocumentos: ",auxMDocumentos);
+    
+    SetMDocumentos(auxMDocumentos);
+    console.log("mDocumentos: ",mDocumentos);
+   // return Documentos
+  };
+
+  const [mDocumentos, SetMDocumentos] = useState<IMovimientos[]>([]);
+ 
+  useEffect(() => {
+    console.log("useEffect Documentos: ",mDocumentos);
+  }, [mDocumentos])
   
 
   let mir: IMIR =
@@ -130,7 +163,6 @@ export default function FullModalMir({
           componentes: noComponentes.map((item) => {
             return newComponente(item);
           }),
-        
         };
 
   let mirEdit: IMIREdit =
@@ -181,13 +213,14 @@ export default function FullModalMir({
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
 
     console.log("componentes actualizados", arrComponentes);
+    movimientos("Add", ("C"+ MIRPADRE.componentes.length))
   };
 
   const removeComponente = (componenteSelected: number) => {
     let arrComponentes: IComponente[] = MIRPADRE.componentes.filter(
       (componente) => !componente.componente.includes(`C${componenteSelected}`)
     );
-
+    movimientos("remove", ("C" + componenteSelected))
     arrComponentes = arrComponentes.map((componente, index) => {
       if (parseInt(componente.componente.split("C")[1]) >= componenteSelected) {
         let aux = {
@@ -200,8 +233,13 @@ export default function FullModalMir({
             };
           }),
         };
+        
         return aux;
-      } else return componente;
+      } else 
+     
+      return componente;
+
+      
     });
 
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
@@ -229,10 +267,13 @@ export default function FullModalMir({
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
   };
 
-  const removeActividad = (componenteSelect: number, actividadSelect: number) => {
-    console.log("idmir",IdMir);
-    
-    let arrComponentes: IComponente[] = MIRPADRE.componentes
+  const removeActividad = (
+    componenteSelect: number,
+    actividadSelect: number
+  ) => {
+    console.log("idmir", IdMir);
+
+    let arrComponentes: IComponente[] = MIRPADRE.componentes;
     if (arrComponentes[componenteSelect - 1].actividades.length > 2) {
       arrComponentes = arrComponentes.map((componente, index) => {
         let arrActividades = componente.actividades.filter(
@@ -284,7 +325,6 @@ export default function FullModalMir({
             alignItems: "center",
           }}
         >
-          
           <GenericTabs tabsData={tabs} tabSelect={setValue} />
 
           <Grid
@@ -328,13 +368,14 @@ export default function FullModalMir({
                 idMir={IdMir}
               />
             )}
-            
+
             {value === 4 && (
               <TabResumen
                 showResume={showResume}
                 MIRPADRE={MIRPADRE}
                 idMir={IdMir}
                 estadoMIR={estado}
+                mDocumentos={mDocumentos}
               />
             )}
           </Grid>
@@ -343,4 +384,3 @@ export default function FullModalMir({
     </Grid>
   );
 }
-

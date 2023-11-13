@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
-import { IActividad, IComponente } from "../tabsMir/interfaces mir/IMIR";
+import { IActividad, IComponente, IMovimientos } from "../tabsMir/interfaces mir/IMIR";
 export let errores: string[] = [];
 
 export default function ModalEnviarMIR({
@@ -24,6 +24,7 @@ export default function ModalEnviarMIR({
   showResume,
   estadoMIR,
   RestructuraMAyFT,
+  mDocumentos,
 }: {
   open: boolean;
   handleClose: Function;
@@ -32,6 +33,7 @@ export default function ModalEnviarMIR({
   showResume: Function;
   estadoMIR: string;
   RestructuraMAyFT: Function;
+  mDocumentos: IMovimientos[]
 }) {
   const [comment, setComment] = useState("");
 

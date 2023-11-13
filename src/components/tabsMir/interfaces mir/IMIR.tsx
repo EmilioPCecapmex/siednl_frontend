@@ -37,47 +37,49 @@ export interface IComponente {
   frecuencia: string;
   medios: string;
   supuestos: string;
-  actividades:IActividad[]
+  actividades: IActividad[];
 }
 
 export interface IActividad {
-    actividad:string;
-    resumen: string;
-    indicador: string;
-    formula: string;
-    frecuencia: string;
-    medios: string;
-    supuestos: string;
+  actividad: string;
+  resumen: string;
+  indicador: string;
+  formula: string;
+  frecuencia: string;
+  medios: string;
+  supuestos: string;
 }
 
-
-
-
-export interface ICValor {
-  [x: string]: any;
-  componentes: {
-    actividades: {
-      actividad: string;
-      resumen: string;
-      indicador: string;
-      formula: string;
-      frecuencia: string;
-      medios: string;
-      supuestos: string;
-    }[];
-  }[];
+export interface IMovimientos {
+  movimiento: string;
+  indice: string;
 }
 
-export interface ILista{
-  Id:string;
-  Label:string;
+// export interface ICValor {
+//   [x: string]: any;
+//   componentes: {
+//     actividades: {
+//       actividad: string;
+//       resumen: string;
+//       indicador: string;
+//       formula: string;
+//       frecuencia: string;
+//       medios: string;
+//       supuestos: string;
+//     }[];
+//   }[];
+// }
+
+export interface ILista {
+  Id: string;
+  Label: string;
 }
 
-export interface IListaProgramas{
-  Id:string;
-  Label:string;
-  Conac:string;
-  Consecutivo:string;
+export interface IListaProgramas {
+  Id: string;
+  Label: string;
+  Conac: string;
+  Consecutivo: string;
 }
 
 export interface IComponenteActividad {

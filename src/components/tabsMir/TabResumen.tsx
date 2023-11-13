@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
-import { IActividad, ILista, IMIR } from "./interfaces mir/IMIR";
+import { IActividad, ILista, IMIR, IMovimientos } from "./interfaces mir/IMIR";
 import { queries } from "../../queries";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -14,11 +14,13 @@ export function TabResumen({
   showResume,
   idMir,
   estadoMIR,
+  mDocumentos
 }: {
   MIRPADRE: IMIR;
   showResume: Function;
   idMir: string;
   estadoMIR: string;
+  mDocumentos: IMovimientos[]
 }) {
   const [MIR, setMIR] = useState<IMIR>(MIRPADRE);
   const theme = useTheme();
@@ -2378,6 +2380,7 @@ export function TabResumen({
           IdMir={idMir}
           estadoMIR={estadoMIR}
           RestructuraMAyFT={RestructuraMAyFT}
+          mDocumentos={mDocumentos}
         ></ModalEnviarMIR>
       </Grid>
     </Grid>
