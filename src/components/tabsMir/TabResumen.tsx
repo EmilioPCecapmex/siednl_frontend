@@ -13,15 +13,15 @@ export function TabResumen({
   MIRPADRE,
   showResume,
   idMir,
+  estadoMIR,
 }: {
   MIRPADRE: IMIR;
   showResume: Function;
   idMir: string;
+  estadoMIR: string;
 }) {
   const [MIR, setMIR] = useState<IMIR>(MIRPADRE);
   const theme = useTheme();
-
-  
 
   const [valoresComponenteActividad, setValoresComponenteActividad] = useState<
     Array<Array<IActividad>>
@@ -75,7 +75,7 @@ export function TabResumen({
     let indexActividades = 0;
     MIRPADRE.componentes.map((v, index) => {
       let aux: Array<IActividad> = [];
-      indexActividades=0;
+      indexActividades = 0;
       v.actividades.map((x) => {
         aux.push(MIRPADRE.componentes[index].actividades[indexActividades]);
         indexActividades++;
@@ -85,13 +85,17 @@ export function TabResumen({
     });
   }, []);
 
+  useEffect(() => {
+    console.log("estadoMIR: ", estadoMIR);
+  }, []);
+
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
   const checkMir = (estado: string) => {
-    console.log("estado: ",estado);
-    
+    console.log("estado: ", estado);
+
     if (MIR?.encabezado.ejercicioFiscal === objetoVacio) {
       return Toast.fire({
         icon: "error",
@@ -111,8 +115,6 @@ export function TabResumen({
       createMIR(estado);
     }
   };
-
-  
 
   const createMIR = (estado: string) => {
     console.log("Estado: ", estado);
@@ -163,8 +165,6 @@ export function TabResumen({
     console.log("idMir", idMir);
     //console.log("Estado: ", estado);
   }, [MIRPADRE, idMir]);
-
-  
 
   const Toast = Swal.mixin({
     toast: true,
@@ -235,7 +235,7 @@ export function TabResumen({
     let arrayEncabezado = Object.entries(editEncabezado);
     let arrayFin = Object.entries(editFin);
     let arrayProposito = Object.entries(editProposito);
-    
+
     let arrayComponentes = editComponentes.map((item) => {
       let a = [
         item.formula,
@@ -287,8 +287,6 @@ export function TabResumen({
     editActividades,
   ]);
 
-  
-
   const isCapturador = localStorage.getItem("Rol") === "Capturador";
   const isAutorizador = localStorage.getItem("Rol") === "Administrador";
 
@@ -317,15 +315,20 @@ export function TabResumen({
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
+  const RestructuraMAyFT =()=>{
+    console.log("Hola");
+    
+  }
+
   //const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Grid
       // visibility={show ? "visible" : "hidden"}
-      
+
       position="absolute"
       sx={{
-       // display: "flex",
+        // display: "flex",
         width: "93vw",
         height: "82vh",
         boxShadow: 10,
@@ -335,1210 +338,1558 @@ export function TabResumen({
         flexDirection: "column",
         backgroundColor: "#fff",
         ...(!isSmallScreen && {
-            height:"85%",
-            overflow: "auto"
-            // Otros estilos específicos para pantallas pequeñas
-          })
-        
-        
+          height: "85%",
+          overflow: "auto",
+          // Otros estilos específicos para pantallas pequeñas
+        }),
       }}
     >
-
-     
-      
+      <Grid
+        item
+        container
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        display={"flex"}
+        justifyContent={"space-evenly"}
+        alignItems={"center"}
+        sx={{
+          ...(isSmallScreen && {
+            height: "85%",
+            overflow: "auto",
+            // Otros estilos específicos para pantallas pequeñas
+          }),
+        }}
+      >
         <Grid
           item
-          container
-          xl={12}
-          lg={12}
+          xl={11}
+          lg={11}
           md={12}
           sm={12}
           xs={12}
-          display={"flex"}
-          justifyContent={"space-evenly"}
-          alignItems={"center"}
           sx={{
+            //display: "flex",
+            //flexDirection: "row",
 
-          ...(isSmallScreen && {
-            height:"85%",
-            overflow: "auto"
-            // Otros estilos específicos para pantallas pequeñas
-          })
-        }}
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
         >
-          <Grid
-            item
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
+          <Typography
             sx={{
-              //display: "flex",
-              //flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
+              fontFamily: "MontserratBold",
               borderBottom: 1,
-              borderColor: "#cfcfcf",
+              mt: 1,
+              textTransform: "uppercase",
             }}
           >
+            Datos Generales
+          </Typography>
+        </Grid>
+
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editEncabezado.ejercicioFiscal}
+                onChange={(v) => {
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    ejercicioFiscal: v.target.checked,
+                  });
+                }}
+              />
+            </Grid>
+          )}
+
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
             <Typography
               sx={{
-                fontFamily: "MontserratBold",
-                borderBottom: 1,
-                mt: 1,
+                fontFamily: "MontserratMedium",
+
                 textTransform: "uppercase",
               }}
             >
-              Datos Generales
+              Ejercicio Fiscal:
             </Typography>
           </Grid>
 
-          <Grid
-            item
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editEncabezado.ejercicioFiscal}
-                  onChange={(v) => {
-                    setEditEncabezado({
-                      ...editEncabezado,
-                      ejercicioFiscal: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
-
-                  textTransform: "uppercase",
-                }}
-              >
-                Ejercicio Fiscal:
-              </Typography>
-            </Grid>
-
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.encabezado?.ejercicioFiscal?.Label}
-              </Typography>
-            </Grid>
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.encabezado?.ejercicioFiscal?.Label}
+            </Typography>
           </Grid>
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
+        </Grid>
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
 
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editEncabezado.institucion}
-                  onChange={(v) => {
-                    setEditEncabezado({
-                      ...editEncabezado,
-                      institucion: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
-                  textTransform: "uppercase",
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editEncabezado.institucion}
+                onChange={(v) => {
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    institucion: v.target.checked,
+                  });
                 }}
-              >
-                Entidad:
-              </Typography>
+              />
             </Grid>
+          )}
 
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratLight",
-
-                  textTransform: "uppercase",
-                }}
-              >
-                {MIRPADRE.encabezado?.entidad?.Label}
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editEncabezado.nombre_del_programa}
-                  onChange={(v) => {
-                    setEditEncabezado({
-                      ...editEncabezado,
-                      nombre_del_programa: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
-
-                  textTransform: "uppercase",
-                }}
-              >
-                Programa:
-              </Typography>
-            </Grid>
-
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.encabezado?.programa?.Label}
-              </Typography>
-            </Grid>
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+                textTransform: "uppercase",
+              }}
+            >
+              Entidad:
+            </Typography>
           </Grid>
 
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratLight",
 
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editEncabezado.eje}
-                  onChange={(v) => {
-                    setEditEncabezado({
-                      ...editEncabezado,
-                      eje: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
+                textTransform: "uppercase",
+              }}
+            >
+              {MIRPADRE.encabezado?.entidad?.Label}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
 
-                  textTransform: "uppercase",
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editEncabezado.nombre_del_programa}
+                onChange={(v) => {
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    nombre_del_programa: v.target.checked,
+                  });
                 }}
-              >
-                Eje:
-              </Typography>
+              />
             </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
 
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.encabezado?.eje?.Label}
-              </Typography>
-            </Grid>
+                textTransform: "uppercase",
+              }}
+            >
+              Programa:
+            </Typography>
           </Grid>
 
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.encabezado?.programa?.Label}
+            </Typography>
+          </Grid>
+        </Grid>
 
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editEncabezado.tema}
-                  onChange={(v) => {
-                    setEditEncabezado({
-                      ...editEncabezado,
-                      tema: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
 
-                  textTransform: "uppercase",
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editEncabezado.eje}
+                onChange={(v) => {
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    eje: v.target.checked,
+                  });
                 }}
-              >
-                Temática:
-              </Typography>
+              />
             </Grid>
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratLight",
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
 
-                  textTransform: "uppercase",
-                }}
-              >
-                {MIRPADRE.encabezado?.tema?.Label}
-              </Typography>
-            </Grid>
+                textTransform: "uppercase",
+              }}
+            >
+              Eje:
+            </Typography>
           </Grid>
 
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.encabezado?.eje?.Label}
+            </Typography>
+          </Grid>
+        </Grid>
 
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editEncabezado.objetivo}
-                  onChange={(v) => {
-                    setEditEncabezado({
-                      ...editEncabezado,
-                      objetivo: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
 
-                  textTransform: "uppercase",
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editEncabezado.tema}
+                onChange={(v) => {
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    tema: v.target.checked,
+                  });
                 }}
-              >
-                Objetivo:
-              </Typography>
+              />
             </Grid>
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.encabezado?.objetivo?.Label}
-              </Typography>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Temática:
+            </Typography>
+          </Grid>
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratLight",
+
+                textTransform: "uppercase",
+              }}
+            >
+              {MIRPADRE.encabezado?.tema?.Label}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editEncabezado.objetivo}
+                onChange={(v) => {
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    objetivo: v.target.checked,
+                  });
+                }}
+              />
             </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Objetivo:
+            </Typography>
+          </Grid>
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.encabezado?.objetivo?.Label}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editEncabezado.estrategia}
+                onChange={(v) => {
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    estrategia: v.target.checked,
+                  });
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Estrategia:
+            </Typography>
+          </Grid>
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.encabezado?.estrategia?.Label}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editEncabezado.beneficiario}
+                onChange={(v) => {
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    beneficiario: v.target.checked,
+                  });
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Beneficiario:
+            </Typography>
           </Grid>
 
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.encabezado?.beneficiario?.Label}
+            </Typography>
+          </Grid>
+        </Grid>
 
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editEncabezado.estrategia}
-                  onChange={(v) => {
-                    setEditEncabezado({
-                      ...editEncabezado,
-                      estrategia: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
 
-                  textTransform: "uppercase",
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editEncabezado.lineas_de_accion}
+                onChange={(v) => {
+                  setEditEncabezado({
+                    ...editEncabezado,
+                    lineas_de_accion: v.target.checked,
+                  });
                 }}
-              >
-                Estrategia:
-              </Typography>
+              />
             </Grid>
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.encabezado?.estrategia?.Label}
-              </Typography>
-            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Lineas de Acción:
+            </Typography>
           </Grid>
 
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            {MIRPADRE.encabezado?.lineas_de_accion.map(
+              (value: { Id: string; Label: string }, x: any) => {
+                return (
+                  <Typography
+                    key={x}
+                    sx={{
+                      fontFamily: "MontserratLight",
 
-              //mt: 1,
-              alignItems: "center",
+                      borderBottom: "1px solid lightGrey",
+                      "&:last-Child": { borderBottom: 0 },
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {value?.Label}
+                  </Typography>
+                );
+              }
+            )}
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            //display: "flex",
+            //flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "MontserratBold",
               borderBottom: 1,
-              borderColor: "#cfcfcf",
+              mt: 1,
+              textTransform: "uppercase",
             }}
           >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editEncabezado.beneficiario}
-                  onChange={(v) => {
-                    setEditEncabezado({
-                      ...editEncabezado,
-                      beneficiario: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
+            Fin
+          </Typography>
+        </Grid>
 
-                  textTransform: "uppercase",
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editFin.resumen}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, resumen: v.target.checked });
                 }}
-              >
-                Beneficiario:
-              </Typography>
+              />
             </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
 
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.encabezado?.beneficiario?.Label}
-              </Typography>
-            </Grid>
+                textTransform: "uppercase",
+              }}
+            >
+              Resumen Narrativo:
+            </Typography>
           </Grid>
 
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.fin?.resumen}
+            </Typography>
+          </Grid>
+        </Grid>
 
-              //mt: 1,
-              alignItems: "center",
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editFin.indicador}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, indicador: v.target.checked });
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Indicador:
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.fin?.indicador}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editFin.formula}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, formula: v.target.checked });
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Fórmula:
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.fin?.formula}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editFin.frecuencia}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, frecuencia: v.target.checked });
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Frecuencia:
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.fin?.frecuencia}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editFin.medios}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, medios: v.target.checked });
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Medios de Verificación:
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.fin?.medios}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editFin.supuestos}
+                onChange={(v) => {
+                  setEditFin({ ...editFin, supuestos: v.target.checked });
+                }}
+              />
+            </Grid>
+          )}
+
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Supuestos:
+            </Typography>
+          </Grid>
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.fin?.supuestos}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            //display: "flex",
+            //flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "MontserratBold",
               borderBottom: 1,
-              borderColor: "#cfcfcf",
+              mt: 1,
+              textTransform: "uppercase",
             }}
           >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editEncabezado.lineas_de_accion}
-                  onChange={(v) => {
-                    setEditEncabezado({
-                      ...editEncabezado,
-                      lineas_de_accion: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
+            Propósito
+          </Typography>
+        </Grid>
 
-                  textTransform: "uppercase",
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editProposito.resumen}
+                onChange={(v) => {
+                  setEditProposito({
+                    ...editProposito,
+                    resumen: v.target.checked,
+                  });
+                }}
+              />
+            </Grid>
+          )}
+
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Resumen Narrativo:
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.proposito?.resumen}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editProposito.indicador}
+                onChange={(v) => {
+                  setEditProposito({
+                    ...editProposito,
+                    indicador: v.target.checked,
+                  });
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Indicador:
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.proposito?.indicador}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editProposito.formula}
+                onChange={(v) => {
+                  setEditProposito({
+                    ...editProposito,
+                    formula: v.target.checked,
+                  });
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Fórmula:
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.proposito?.formula}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editProposito.frecuencia}
+                onChange={(v) => {
+                  setEditProposito({
+                    ...editProposito,
+                    frecuencia: v.target.checked,
+                  });
+                }}
+              />
+            </Grid>
+          )}
+
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Frecuencia:
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.proposito?.frecuencia}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editProposito.medios_verificacion}
+                onChange={(v) => {
+                  setEditProposito({
+                    ...editProposito,
+                    medios_verificacion: v.target.checked,
+                  });
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Medios de Verificación:
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.proposito?.medios_verificacion}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                value={editProposito.supuestos}
+                onChange={(v) => {
+                  setEditProposito({
+                    ...editProposito,
+                    supuestos: v.target.checked,
+                  });
+                }}
+              />
+            </Grid>
+          )}
+
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratMedium",
+
+                textTransform: "uppercase",
+              }}
+            >
+              Supuestos:
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {MIRPADRE.proposito?.supuestos}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            //display: "flex",
+            //flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "MontserratBold",
+              borderBottom: 1,
+              mt: 1,
+              textTransform: "uppercase",
+            }}
+          >
+            Componentes
+          </Typography>
+        </Grid>
+
+        {MIRPADRE.componentes.map((v, index) => {
+          return (
+            <Grid
+              item
+              container
+              xl={11}
+              lg={11}
+              md={12}
+              sm={12}
+              xs={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+
+                mt: 1,
+                alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
+              }}
+              key={index}
+            >
+              <Grid item xl={11} lg={11} md={12} sm={12} xs={12}>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                    borderBottom: 1,
+
+                    // textAlign: "center",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Componente {index + 1}
+                </Typography>
+              </Grid>
+
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  whiteSpace: "pre-wrap",
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
                 }}
               >
-                Lineas de Acción:
-              </Typography>
-            </Grid>
-
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              {MIRPADRE.encabezado?.lineas_de_accion.map(
-                (value: { Id: string; Label: string }, x: any) => {
-                  return (
-                    <Typography
-                      key={x}
-                      sx={{
-                        fontFamily: "MontserratLight",
-
-                        borderBottom: "1px solid lightGrey",
-                        "&:last-Child": { borderBottom: 0 },
-                        textTransform: "uppercase",
+                {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                    <Checkbox
+                      value={editComponentes[index - 1]?.resumen}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].resumen = v.target.checked;
+                        setEditComponentes(past);
                       }}
-                    >
-                      {value?.Label}
-                    </Typography>
-                  );
-                }
-              )}
-            </Grid>
-          </Grid>
+                    />
+                  </Grid>
+                )}
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
 
-          <Grid
-            item
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              //display: "flex",
-              //flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography
-              sx={{
-                fontFamily: "MontserratBold",
-                borderBottom: 1,
-                mt: 1,
-                textTransform: "uppercase",
-              }}
-            >
-              Fin
-            </Typography>
-          </Grid>
-
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editFin.resumen}
-                  onChange={(v) => {
-                    setEditFin({ ...editFin, resumen: v.target.checked });
-                  }}
-                />
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Resumen Narrativo:
+                  </Typography>
+                </Grid>
+                <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                    {v?.resumen}
+                  </Typography>
+                </Grid>
               </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  display: "flex",
+                  flexDirection: "row",
 
-                  textTransform: "uppercase",
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
                 }}
               >
-                Resumen Narrativo:
-              </Typography>
-            </Grid>
+                {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                    <Checkbox
+                      value={editComponentes[index - 1]?.indicador}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].indicador = v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  </Grid>
+                )}
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
 
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.fin?.resumen}
-              </Typography>
-            </Grid>
-          </Grid>
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Indicador:
+                  </Typography>
+                </Grid>
 
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editFin.indicador}
-                  onChange={(v) => {
-                    setEditFin({ ...editFin, indicador: v.target.checked });
-                  }}
-                />
+                <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                    {v?.indicador}
+                  </Typography>
+                </Grid>
               </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  display: "flex",
+                  flexDirection: "row",
 
-                  textTransform: "uppercase",
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
                 }}
               >
-                Indicador:
-              </Typography>
-            </Grid>
+                {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                    <Checkbox
+                      value={editComponentes[index - 1]?.formula}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].formula = v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  </Grid>
+                )}
 
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.fin?.indicador}
-              </Typography>
-            </Grid>
-          </Grid>
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
 
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Fórmula:
+                  </Typography>
+                </Grid>
 
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editFin.formula}
-                  onChange={(v) => {
-                    setEditFin({ ...editFin, formula: v.target.checked });
-                  }}
-                />
+                <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                    {v?.formula}
+                  </Typography>
+                </Grid>
               </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
                 sx={{
-                  fontFamily: "MontserratMedium",
-                  
-                  textTransform: "uppercase",
+                  display: "flex",
+                  flexDirection: "row",
+
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
                 }}
               >
-                Fórmula:
-              </Typography>
-            </Grid>
+                {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                    <Checkbox
+                      value={editComponentes[index - 1]?.frecuencia}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].frecuencia = v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  </Grid>
+                )}
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
 
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight",  }}>
-                {MIRPADRE.fin?.formula}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editFin.frecuencia}
-                  onChange={(v) => {
-                    setEditFin({ ...editFin, frecuencia: v.target.checked });
-                  }}
-                />
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Frecuencia:
+                  </Typography>
+                </Grid>
+                <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                    {v?.frecuencia}
+                  </Typography>
+                </Grid>
               </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  display: "flex",
+                  flexDirection: "row",
 
-                  textTransform: "uppercase",
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
                 }}
               >
-                Frecuencia:
-              </Typography>
-            </Grid>
+                {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                    <Checkbox
+                      value={editComponentes[index - 1]?.medios}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].medios = v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  </Grid>
+                )}
 
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.fin?.frecuencia}
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
 
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editFin.medios}
-                  onChange={(v) => {
-                    setEditFin({ ...editFin, medios: v.target.checked });
-                  }}
-                />
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Medios de Verificación:
+                  </Typography>
+                </Grid>
+
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                    {v?.medios}
+                  </Typography>
+                </Grid>
               </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
+              <Grid
+                item
+                container
+                xl={11}
+                lg={11}
+                md={12}
+                sm={12}
+                xs={12}
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  display: "flex",
+                  flexDirection: "row",
 
-                  textTransform: "uppercase",
+                  //mt: 1,
+                  alignItems: "center",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
                 }}
               >
-                Medios de Verificación:
-              </Typography>
-            </Grid>
+                {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                    <Checkbox
+                      value={editComponentes[index - 1]?.supuestos}
+                      onChange={(v) => {
+                        let past = [...editComponentes];
+                        past[index - 1].supuestos = v.target.checked;
+                        setEditComponentes(past);
+                      }}
+                    />
+                  </Grid>
+                )}
+                <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
 
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.fin?.medios}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editFin.supuestos}
-                  onChange={(v) => {
-                    setEditFin({ ...editFin, supuestos: v.target.checked });
-                  }}
-                />
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Supuestos:
+                  </Typography>
+                </Grid>
+                <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                    {v?.supuestos}
+                  </Typography>
+                </Grid>
               </Grid>
-            )}
-
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
-
-                  textTransform: "uppercase",
-                }}
-              >
-                Supuestos:
-              </Typography>
             </Grid>
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.fin?.supuestos}
-              </Typography>
-            </Grid>
-          </Grid>
+          );
+        })}
 
-          <Grid
-            item
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            //display: "flex",
+            //flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
             sx={{
-              //display: "flex",
-              //flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
+              fontFamily: "MontserratBold",
               borderBottom: 1,
-              borderColor: "#cfcfcf",
+              mt: 1,
+              textTransform: "uppercase",
             }}
           >
-            <Typography
-              sx={{
-                fontFamily: "MontserratBold",
-                borderBottom: 1,
-                mt: 1,
-                textTransform: "uppercase",
-              }}
-            >
-              Propósito
-            </Typography>
-          </Grid>
-
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editProposito.resumen}
-                  onChange={(v) => {
-                    setEditProposito({
-                      ...editProposito,
-                      resumen: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
-
-                  textTransform: "uppercase",
-                }}
-              >
-                Resumen Narrativo:
-              </Typography>
-            </Grid>
-
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.proposito?.resumen}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editProposito.indicador}
-                  onChange={(v) => {
-                    setEditProposito({
-                      ...editProposito,
-                      indicador: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
-
-                  textTransform: "uppercase",
-                }}
-              >
-                Indicador:
-              </Typography>
-            </Grid>
-
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.proposito?.indicador}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editProposito.formula}
-                  onChange={(v) => {
-                    setEditProposito({
-                      ...editProposito,
-                      formula: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
-                  
-                  textTransform: "uppercase",
-                }}
-              >
-                Fórmula:
-              </Typography>
-            </Grid>
-
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight",  }}>
-                {MIRPADRE.proposito?.formula}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editProposito.frecuencia}
-                  onChange={(v) => {
-                    setEditProposito({
-                      ...editProposito,
-                      frecuencia: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
-
-                  textTransform: "uppercase",
-                }}
-              >
-                Frecuencia:
-              </Typography>
-            </Grid>
-
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.proposito?.frecuencia}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editProposito.medios_verificacion}
-                  onChange={(v) => {
-                    setEditProposito({
-                      ...editProposito,
-                      medios_verificacion: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
-                  
-                  textTransform: "uppercase",
-                }}
-              >
-                Medios de Verificación:
-              </Typography>
-            </Grid>
-
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight",  }}>
-                {MIRPADRE.proposito?.medios_verificacion}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid
-            item
-            container
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            {localStorage.getItem("Rol") !== "Administrador" ? null : (
-              <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                <Checkbox
-                  value={editProposito.supuestos}
-                  onChange={(v) => {
-                    setEditProposito({
-                      ...editProposito,
-                      supuestos: v.target.checked,
-                    });
-                  }}
-                />
-              </Grid>
-            )}
-
-            <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography
-                sx={{
-                  fontFamily: "MontserratMedium",
-
-                  textTransform: "uppercase",
-                }}
-              >
-                Supuestos:
-              </Typography>
-            </Grid>
-
-            <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
-                {MIRPADRE.proposito?.supuestos}
-              </Typography>
-            </Grid>
-          </Grid>
-
-          <Grid
-            item
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              //display: "flex",
-              //flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography
-              sx={{
-                fontFamily: "MontserratBold",
-                borderBottom: 1,
-                mt: 1,
-                textTransform: "uppercase",
-              }}
-            >
-              Componentes
-            </Typography>
-          </Grid>
-
-          {MIRPADRE.componentes.map((v, index) => {
+            Actividades
+          </Typography>
+        </Grid>
+        {valoresComponenteActividad.map((comps, index) => {
+          return comps.map((acts, index2) => {
             return (
               <Grid
                 item
@@ -1552,28 +1903,24 @@ export function TabResumen({
                   display: "flex",
                   flexDirection: "row",
 
-                  mt: 1,
+                  //mb: 1,
                   alignItems: "center",
                   borderBottom: 1,
                   borderColor: "#cfcfcf",
                 }}
-                key={index}
+                key={Math.random()}
               >
-                <Grid item xl={11}
-                lg={11}
-                md={12}
-                sm={12}
-                xs={12}>
+                <Grid item xl={11} lg={11} md={12} sm={12} xs={12}>
                   <Typography
                     sx={{
                       fontFamily: "MontserratMedium",
                       borderBottom: 1,
-
+                      mt: 1,
                       // textAlign: "center",
                       textTransform: "uppercase",
                     }}
                   >
-                    Componente {index + 1}
+                    Actividad {index2 + 1} Componente {index + 1}
                   </Typography>
                 </Grid>
 
@@ -1588,7 +1935,8 @@ export function TabResumen({
                   sx={{
                     display: "flex",
                     flexDirection: "row",
-                    whiteSpace:"pre-wrap",
+
+                    //mt: 1,
                     alignItems: "center",
                     borderBottom: 1,
                     borderColor: "#cfcfcf",
@@ -1597,7 +1945,7 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        value={editComponentes[index - 1]?.resumen}
+                        value={!editComponentes[index - 1]?.resumen}
                         onChange={(v) => {
                           let past = [...editComponentes];
                           past[index - 1].resumen = v.target.checked;
@@ -1610,7 +1958,7 @@ export function TabResumen({
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
-                        
+
                         textTransform: "uppercase",
                       }}
                     >
@@ -1618,10 +1966,8 @@ export function TabResumen({
                     </Typography>
                   </Grid>
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight",  }}
-                    >
-                      {v?.resumen}
+                    <Typography sx={{ fontFamily: "MontserratLight" }}>
+                      {valoresComponenteActividad[index][index2]?.resumen}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -1646,7 +1992,7 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        value={editComponentes[index - 1]?.indicador}
+                        value={!editComponentes[index - 1]?.indicador}
                         onChange={(v) => {
                           let past = [...editComponentes];
                           past[index - 1].indicador = v.target.checked;
@@ -1655,11 +2001,11 @@ export function TabResumen({
                       />
                     </Grid>
                   )}
-                  <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
-                        
+
                         textTransform: "uppercase",
                       }}
                     >
@@ -1668,10 +2014,8 @@ export function TabResumen({
                   </Grid>
 
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight",  }}
-                    >
-                      {v?.indicador}
+                    <Typography sx={{ fontFamily: "MontserratLight" }}>
+                      {valoresComponenteActividad[index][index2]?.indicador}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -1696,7 +2040,7 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        value={editComponentes[index - 1]?.formula}
+                        value={!editComponentes[index - 1]?.formula}
                         onChange={(v) => {
                           let past = [...editComponentes];
                           past[index - 1].formula = v.target.checked;
@@ -1705,7 +2049,6 @@ export function TabResumen({
                       />
                     </Grid>
                   )}
-
                   <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
                     <Typography
                       sx={{
@@ -1720,7 +2063,7 @@ export function TabResumen({
 
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography sx={{ fontFamily: "MontserratLight" }}>
-                      {v?.formula}
+                      {valoresComponenteActividad[index][index2]?.formula}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -1745,7 +2088,7 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        value={editComponentes[index - 1]?.frecuencia}
+                        value={!editComponentes[index - 1]?.frecuencia}
                         onChange={(v) => {
                           let past = [...editComponentes];
                           past[index - 1].frecuencia = v.target.checked;
@@ -1765,9 +2108,10 @@ export function TabResumen({
                       Frecuencia:
                     </Typography>
                   </Grid>
+
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography sx={{ fontFamily: "MontserratLight" }}>
-                      {v?.frecuencia}
+                      {valoresComponenteActividad[index][index2]?.frecuencia}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -1792,7 +2136,7 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        value={editComponentes[index - 1]?.medios}
+                        value={!editComponentes[index - 1]?.medios}
                         onChange={(v) => {
                           let past = [...editComponentes];
                           past[index - 1].medios = v.target.checked;
@@ -1814,9 +2158,9 @@ export function TabResumen({
                     </Typography>
                   </Grid>
 
-                  <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+                  <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                     <Typography sx={{ fontFamily: "MontserratLight" }}>
-                      {v?.medios}
+                      {valoresComponenteActividad[index][index2]?.medios}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -1841,7 +2185,7 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        value={editComponentes[index - 1]?.supuestos}
+                        value={!editComponentes[index - 1]?.supuestos}
                         onChange={(v) => {
                           let past = [...editComponentes];
                           past[index - 1].supuestos = v.target.checked;
@@ -1850,398 +2194,30 @@ export function TabResumen({
                       />
                     </Grid>
                   )}
+
                   <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
-                        
+
                         textTransform: "uppercase",
                       }}
                     >
                       Supuestos:
                     </Typography>
                   </Grid>
+
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                    <Typography
-                      sx={{ fontFamily: "MontserratLight",  }}
-                    >
-                      {v?.supuestos}
+                    <Typography sx={{ fontFamily: "MontserratLight" }}>
+                      {valoresComponenteActividad[index][index2]?.supuestos}
                     </Typography>
                   </Grid>
                 </Grid>
               </Grid>
             );
-          })}
-
-          <Grid
-            item
-            xl={11}
-            lg={11}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              //display: "flex",
-              //flexDirection: "row",
-
-              //mt: 1,
-              alignItems: "center",
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
-            }}
-          >
-            <Typography
-              sx={{
-                fontFamily: "MontserratBold",
-                borderBottom: 1,
-                mt: 1,
-                textTransform: "uppercase",
-              }}
-            >
-              Actividades
-            </Typography>
-          </Grid>
-          {valoresComponenteActividad.map((comps, index) => {
-            return comps.map((acts, index2) => {
-              
-              return (
-                <Grid
-                  item
-                  container
-                  xl={11}
-                  lg={11}
-                  md={12}
-                  sm={12}
-                  xs={12}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-
-                    //mb: 1,
-                    alignItems: "center",
-                    borderBottom: 1,
-                    borderColor: "#cfcfcf",
-                  }}
-                  key={Math.random()}
-                >
-                  <Grid item 
-                  xl={11}
-                  lg={11}
-                  md={12}
-                  sm={12}
-                  xs={12}>
-                    <Typography
-                      sx={{
-                        fontFamily: "MontserratMedium",
-                        borderBottom: 1,
-                        mt: 1,
-                        // textAlign: "center",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      Actividad {index2 + 1} Componente {index + 1}
-                    </Typography>
-                  </Grid>
-
-                  <Grid
-                    item
-                    container
-                    xl={11}
-                    lg={11}
-                    md={12}
-                    sm={12}
-                    xs={12}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-
-                      //mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
-                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                        <Checkbox
-                          
-                          value={!editComponentes[index - 1]?.resumen}
-                          onChange={(v) => {
-                            let past = [...editComponentes];
-                            past[index - 1].resumen = v.target.checked;
-                            setEditComponentes(past);
-                          }}
-                        />
-                      </Grid>
-                    )}
-                    <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                      <Typography
-                        sx={{
-                          fontFamily: "MontserratMedium",
-
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        Resumen Narrativo:
-                      </Typography>
-                    </Grid>
-                    <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight" }}>
-                        {valoresComponenteActividad[index][index2]?.resumen}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    item
-                    container
-                    xl={11}
-                    lg={11}
-                    md={12}
-                    sm={12}
-                    xs={12}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-
-                      //mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
-                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                        <Checkbox
-                          value={!editComponentes[index - 1]?.indicador}
-                          onChange={(v) => {
-                            let past = [...editComponentes];
-                            past[index - 1].indicador = v.target.checked;
-                            setEditComponentes(past);
-                          }}
-                        />
-                      </Grid>
-                    )}
-                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                      <Typography
-                        sx={{
-                          fontFamily: "MontserratMedium",
-
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        Indicador:
-                      </Typography>
-                    </Grid>
-
-                    <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight" }}>
-                        {valoresComponenteActividad[index][index2]?.indicador}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    item
-                    container
-                    xl={11}
-                    lg={11}
-                    md={12}
-                    sm={12}
-                    xs={12}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-
-                      //mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
-                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                        <Checkbox
-                          value={!editComponentes[index - 1]?.formula}
-                          onChange={(v) => {
-                            let past = [...editComponentes];
-                            past[index - 1].formula = v.target.checked;
-                            setEditComponentes(past);
-                          }}
-                        />
-                      </Grid>
-                    )}
-                    <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                      <Typography
-                        sx={{
-                          fontFamily: "MontserratMedium",
-
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        Fórmula:
-                      </Typography>
-                    </Grid>
-
-                    <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight" }}>
-                        {valoresComponenteActividad[index][index2]?.formula}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    item
-                    container
-                    xl={11}
-                    lg={11}
-                    md={12}
-                    sm={12}
-                    xs={12}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-
-                      //mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
-                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                        <Checkbox
-                          value={!editComponentes[index - 1]?.frecuencia}
-                          onChange={(v) => {
-                            let past = [...editComponentes];
-                            past[index - 1].frecuencia = v.target.checked;
-                            setEditComponentes(past);
-                          }}
-                        />
-                      </Grid>
-                    )}
-                    <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                      <Typography
-                        sx={{
-                          fontFamily: "MontserratMedium",
-
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        Frecuencia:
-                      </Typography>
-                    </Grid>
-
-                    <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight" }}>
-                        {valoresComponenteActividad[index][index2]?.frecuencia}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    item
-                    container
-                    xl={11}
-                    lg={11}
-                    md={12}
-                    sm={12}
-                    xs={12}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-
-                      //mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
-                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                        <Checkbox
-                          value={!editComponentes[index - 1]?.medios}
-                          onChange={(v) => {
-                            let past = [...editComponentes];
-                            past[index - 1].medios = v.target.checked;
-                            setEditComponentes(past);
-                          }}
-                        />
-                      </Grid>
-                    )}
-
-                    <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                      <Typography
-                        sx={{
-                          fontFamily: "MontserratMedium",
-
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        Medios de Verificación:
-                      </Typography>
-                    </Grid>
-
-                    <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight" }}>
-                        {valoresComponenteActividad[index][index2]?.medios}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    item
-                    container
-                    xl={11}
-                    lg={11}
-                    md={12}
-                    sm={12}
-                    xs={12}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-
-                      //mt: 1,
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    {localStorage.getItem("Rol") !== "Administrador" ? null : (
-                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                        <Checkbox
-                          value={!editComponentes[index - 1]?.supuestos}
-                          onChange={(v) => {
-                            let past = [...editComponentes];
-                            past[index - 1].supuestos = v.target.checked;
-                            setEditComponentes(past);
-                          }}
-                        />
-                      </Grid>
-                    )}
-
-                    <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                      <Typography
-                        sx={{
-                          fontFamily: "MontserratMedium",
-
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        Supuestos:
-                      </Typography>
-                    </Grid>
-
-                    <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight" }}>
-                        {valoresComponenteActividad[index][index2]?.supuestos}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              );
-            });
-          })}
-        </Grid>
-
-
-
-      
+          });
+        })}
+      </Grid>
 
       <Grid
         item
@@ -2265,10 +2241,8 @@ export function TabResumen({
           borderColor: "#cfcfcf",
 
           ...(isSmallScreen && {
-            height:"15%"
-            
+            height: "15%",
           }),
-          
         }}
       >
         <Grid
@@ -2340,7 +2314,7 @@ export function TabResumen({
                 estado = "Borrador Autorizador";
               }
               console.log("Boton Guardar Borrador y estado: ", estado);
-              
+
               checkMir(estado);
             }}
             //al menos un opcion
@@ -2368,7 +2342,9 @@ export function TabResumen({
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
               {localStorage.getItem("Rol") === "Administrador"
-                ? "Autorizar"
+                ? estadoMIR === "Autorizada"
+                  ? "Modificar mir autorizada"
+                  : "Autorizar"
                 : "Enviar"}
             </Typography>
           </Button>
@@ -2400,9 +2376,10 @@ export function TabResumen({
           handleClose={setOpenModalEnviar}
           MIR={JSON.stringify(MIR)}
           IdMir={idMir}
+          estadoMIR={estadoMIR}
+          RestructuraMAyFT={RestructuraMAyFT}
         ></ModalEnviarMIR>
       </Grid>
-      
     </Grid>
   );
 }
@@ -2448,7 +2425,7 @@ export interface IComponenteMirEdit {
   frecuencia: boolean;
   medios: boolean;
   supuestos: boolean;
-  actividades: IActividadesMirEdit[]
+  actividades: IActividadesMirEdit[];
 }
 
 export interface IActividadesMirEdit {

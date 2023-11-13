@@ -22,12 +22,16 @@ export default function ModalEnviarMIR({
   MIR,
   IdMir,
   showResume,
+  estadoMIR,
+  RestructuraMAyFT,
 }: {
   open: boolean;
   handleClose: Function;
   MIR: string;
   IdMir: string;
   showResume: Function;
+  estadoMIR: string;
+  RestructuraMAyFT: Function;
 }) {
   const [comment, setComment] = useState("");
 
@@ -247,9 +251,9 @@ export default function ModalEnviarMIR({
 
   const checkComponentes = (v: string) => {
     JSON.parse(MIR)?.componentes.map((componente: any, index: number) => {
-      console.log("componente.indicador: ",componente.indicador);
-      //console.log(" en check componentes componente.actividades[index].actividad: ",componente.actividades[index][0].actividad);
-      
+
+   
+
       if (
         componente.resumen === undefined ||
         /^[\s]*$/.test(componente.resumen) ||
@@ -321,77 +325,86 @@ export default function ModalEnviarMIR({
   };
 
   const checkActividades = (v: string) => {
-    JSON.parse(MIR)?.componentes.map((componente: IComponente, indexC: number) => {
-      componente.actividades.map((actividad: IActividad, indexA: number) =>{
-        console.log("actividades.actividad: ",actividad.actividad);
-        if (
-          actividad.resumen === undefined ||
-          /^[\s]*$/.test(actividad.resumen) ||
-          actividad.resumen === null ||
-          actividad.indicador === undefined ||
-          /^[\s]*$/.test(actividad.indicador) ||
-          actividad.formula === undefined ||
-          /^[\s]*$/.test(componente.actividades[indexA].formula) ||
-          actividad.frecuencia === undefined ||
-          /^[\s]*$/.test(componente.actividades[indexA].frecuencia) ||
-          actividad.medios === undefined ||
-          /^[\s]*$/.test( actividad.medios) ||
-          actividad.supuestos === undefined ||
-          /^[\s]*$/.test(actividad.supuestos)
-        ) {
-          err = 1;
-          errores.push(
-            `<hr><strong>ACTIVIDAD ${actividad.actividad, indexA + 1} </strong> INCOMPLETA.`
-          );
-        }
-        if (
-          actividad.resumen === undefined ||
-          /^[\s]*$/.test(actividad.resumen) ||
-          componente.actividades[indexA].resumen === null
-        ) {
-          errores.push(`<strong> RESUMEN NARRATIVO</strong> SIN INFORMACIÓN.`);
-          err = 1;
-        }
-        console.log("componente.actividades[indexA].indicador: ",componente.actividades[indexA].indicador);
-        
-        if (
+    JSON.parse(MIR)?.componentes.map(
+      (componente: IComponente, indexC: number) => {
+        componente.actividades.map((actividad: IActividad, indexA: number) => {
+       
+          if (
+            actividad.resumen === undefined ||
+            /^[\s]*$/.test(actividad.resumen) ||
+            actividad.resumen === null ||
+            actividad.indicador === undefined ||
+            /^[\s]*$/.test(actividad.indicador) ||
+            actividad.formula === undefined ||
+            /^[\s]*$/.test(componente.actividades[indexA].formula) ||
+            actividad.frecuencia === undefined ||
+            /^[\s]*$/.test(componente.actividades[indexA].frecuencia) ||
+            actividad.medios === undefined ||
+            /^[\s]*$/.test(actividad.medios) ||
+            actividad.supuestos === undefined ||
+            /^[\s]*$/.test(actividad.supuestos)
+          ) {
+            err = 1;
+            errores.push(
+              `<hr><strong>ACTIVIDAD ${
+                (actividad.actividad, indexA + 1)
+              } </strong> INCOMPLETA.`
+            );
+          }
+          if (
+            actividad.resumen === undefined ||
+            /^[\s]*$/.test(actividad.resumen) ||
+            componente.actividades[indexA].resumen === null
+          ) {
+            errores.push(
+              `<strong> RESUMEN NARRATIVO</strong> SIN INFORMACIÓN.`
+            );
+            err = 1;
+          }
+          
+
+          if (
+            componente.actividades[indexA].indicador === undefined ||
+            /^[\s]*$/.test(componente.actividades[indexA].indicador)
+          ) {
+            err = 1;
+            errores.push(`<strong> INDICADOR </strong> SIN INFORMACIÓN.`);
+          }
+          if (
+            componente.actividades[indexA].formula === undefined ||
+            /^[\s]*$/.test(componente.actividades[indexA].formula)
+          ) {
+            errores.push(`<strong> FÓRMULA</strong> SIN INFORMACIÓN.`);
+            err = 1;
+          }
+          if (
+            componente.actividades[indexA].frecuencia === undefined ||
+            componente.actividades[indexA].frecuencia === ""
+          ) {
+            errores.push(`<strong> FRECUENCIA</strong> SIN INFORMACIÓN.`);
+            err = 1;
+          }
+          if (
+            componente.actividades[indexA].medios === undefined ||
+            /^[\s]*$/.test(componente.actividades[indexA].medios)
+          ) {
+            errores.push(
+              `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
+            );
+            err = 1;
+          }
+          if (
+            componente.actividades[indexA].supuestos === undefined ||
+            /^[\s]*$/.test(componente.actividades[indexA].supuestos)
+          ) {
+            errores.push(`<strong> SUPUESTOS</strong> SIN INFORMACIÓN.`);
+            err = 1;
+          }
+        });
+
   
-          componente.actividades[indexA].indicador === undefined ||
-          /^[\s]*$/.test(componente.actividades[indexA].indicador)
-        ) {
-          err = 1;
-          errores.push(`<strong> INDICADOR </strong> SIN INFORMACIÓN.`);
-        }
-        if (
-          componente.actividades[indexA].formula === undefined ||
-          /^[\s]*$/.test(componente.actividades[indexA].formula)
-        ) {
-          errores.push(`<strong> FÓRMULA</strong> SIN INFORMACIÓN.`);
-          err = 1;
-        }
-        if (componente.actividades[indexA].frecuencia === undefined || componente.actividades[indexA].frecuencia === "") {
-          errores.push(`<strong> FRECUENCIA</strong> SIN INFORMACIÓN.`);
-          err = 1;
-        }
-        if ( componente.actividades[indexA].medios === undefined || /^[\s]*$/.test( componente.actividades[indexA].medios)) {
-          errores.push(
-            `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
-          );
-          err = 1;
-        }
-        if (
-          componente.actividades[indexA].supuestos === undefined ||
-          /^[\s]*$/.test(componente.actividades[indexA].supuestos)
-        ) {
-          errores.push(`<strong> SUPUESTOS</strong> SIN INFORMACIÓN.`);
-          err = 1;
-        }
-        
-      });
-      
-      //console.log("componente.actividades.resumen: ",componente.actividades[index].resumen);
-      
-    });
+      }
+    );
     if (err === 0) {
       createMIR(v);
     } else {
@@ -411,17 +424,12 @@ export default function ModalEnviarMIR({
     }
   };
   useEffect(() => {
-    console.log("USEFFECT: ",IdMir);
-  }, [IdMir])
-  
+    console.log("estadoMIR: ", estadoMIR);
+  }, []);
 
   const CrearMetaAnual = (mensaje: string, IdMir: string) => {
-    console.log(
-      "IdEntidad:localStorage.getItem(IdEntidad): ModalEnviarMIR",
-      localStorage.getItem("IdEntidad")
-    );
-    console.log("Entre modal enviar y este es el idmir sexo: ",IdMir);
     
+
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
@@ -443,11 +451,10 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
-        console.log("Create MA r.data.Id: ", r.data.data);
-        console.log("r: ", r);
+      
 
         userXInst.map((user) => {
-          console.log("userInst", userXInst);
+          
 
           enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
           sendMail(user.CorreoElectronico, enviarMensaje, "MA");
@@ -460,14 +467,8 @@ export default function ModalEnviarMIR({
       });
   };
 
-  
-
   const createMIR = (estado: string) => {
-    console.log("Entre al create MetaAnual ModalEnviarMA");
-    console.log("IdEntidad",localStorage.getItem("IdEntidad"),);
-    //console.log("estado: ",estado);
-    console.log("Create mir de Modalenviarmir");
-    
+
 
     axios
       .post(
@@ -499,17 +500,13 @@ export default function ModalEnviarMIR({
       .then((r) => {
         userXInst.map((user) => {
           //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
-          console.log("IdMir: ", r.data.data.ID);
-          //console.log("estado: ", estado);
-          console.log("create MIR r.data.data: ", r.data.data);
-          console.log("user: ", user);
 
           sendMail(user.CorreoElectronico, enviarMensaje, "MIR");
           enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
         });
 
         if (estado === "Autorizada") {
-         CrearMetaAnual(r.data.data.ID, IdMir); 
+          CrearMetaAnual(r.data.data.ID, IdMir);
         }
 
         Toast.fire({
@@ -547,13 +544,7 @@ export default function ModalEnviarMIR({
   useEffect(() => {
     if (open) {
       let inst = JSON.parse(MIR)?.encabezado.entidad;
-      //inst = "admin";
-      //  if (localStorage.getItem("Rol") === "Verificador") {
-      //    inst = "admin";
-      //  }
-      console.log("Entre al tipo usuario en useEffect");
-      console.log("IdEntidad: ", localStorage.getItem("IdEntidad"));
-      console.log("IdApp: ", localStorage.getItem("IdApp"));
+   
       axios
 
         /////listado
@@ -573,7 +564,7 @@ export default function ModalEnviarMIR({
           }
         )
         .then((r) => {
-          console.log("r", r);
+       
 
           if (r.status === 200) {
             setUserXInst(r.data.data);
@@ -587,9 +578,7 @@ export default function ModalEnviarMIR({
     IdDoc = "",
     Nombre = ""
   ) => {
-    console.log("IdDoc: ", IdDoc);
-    console.log("IdUsuarioDestino: ", IdUsuarioDestino);
-    console.log("Nombre: ", Nombre);
+ 
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
 
@@ -660,22 +649,26 @@ export default function ModalEnviarMIR({
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
             {localStorage.getItem("Rol") === "Administrador"
-              ? "Al confirmar, la MIR se autorizará y el apartado de la Meta Anual será habilitado"
+              ? estadoMIR === "Autorizada"
+                ? "Al confirmar, la MIR se autorizará y el apartado de la Meta Anual será habilitado. Al confirmar los cambios se modificará la MIR y afectará la información de la Meta Anual y Ficha Técnica."
+                : "Al confirmar, la MIR se autorizará y el apartado de la Meta Anual será habilitado."
               : localStorage.getItem("Rol") === "Verificador"
-              ? "Al confirmar, la MIR se enviará a los usuarios correspondientes para autorización"
-              : "Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión"}
+              ? "Al confirmar, la MIR se enviará a los usuarios correspondientes para autorización."
+              : "Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión."}
           </Typography>
         </Box>
 
-        <Box sx={{ width: "30vw" }}>
-          <TextField
-            multiline
-            rows={3}
-            label={"Agregar Comentario"}
-            sx={{ width: "30vw" }}
-            onChange={(v) => setComment(v.target.value)}
-          ></TextField>
-        </Box>
+        {estadoMIR !== "Autorizada" && (
+          <Box sx={{ width: "30vw" }}>
+            <TextField
+              multiline
+              rows={3}
+              label={"Agregar Comentario"}
+              sx={{ width: "30vw" }}
+              onChange={(v) => setComment(v.target.value)}
+            />
+          </Box>
+        )}
 
         <Box
           sx={{
@@ -703,11 +696,9 @@ export default function ModalEnviarMIR({
               </Typography>
             </Button>
 
-
             <Button
               sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
-                
                 checkMir(
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
@@ -716,11 +707,9 @@ export default function ModalEnviarMIR({
                     : "Autorizada"
                 );
 
-               
-
-                
                 handleClose(false);
                 setNewComent(false);
+                RestructuraMAyFT()
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>

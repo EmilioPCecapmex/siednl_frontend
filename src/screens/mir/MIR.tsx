@@ -453,6 +453,8 @@ export const MIR = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [findTextStr]);
 
+  const [estado, setEstado] = useState("");
+
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
       <Grid
@@ -1131,6 +1133,7 @@ export const MIR = () => {
                                       ]);
                                       setShowResume(false);
                                       setActionNumber(1);
+                                      setEstado(row.Estado)
                                     }}
                                   >
                                     <EditIcon
@@ -1203,6 +1206,7 @@ export const MIR = () => {
               MIR={mirEdit[0]?.MIR || ""}
               showResume={returnMain}
               IdMir={mirEdit[0]?.Id || ""}
+              estado={estado}
             />
           </Grid>
         )}

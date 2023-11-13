@@ -72,11 +72,13 @@ export default function FullModalMir({
   showResume,
   IdMir,
   anioFiscalEdit,
+  estado,
 }: {
   MIR: string;
   showResume: Function;
   IdMir: string;
   anioFiscalEdit: string;
+  estado: string;
 }) {
 
   // useEffect(() => {
@@ -87,6 +89,7 @@ export default function FullModalMir({
 
   const noComponentes = [1, 2];
 
+  
 
   let mir: IMIR =
     MIR !== ""
@@ -331,6 +334,7 @@ export default function FullModalMir({
                 showResume={showResume}
                 MIRPADRE={MIRPADRE}
                 idMir={IdMir}
+                estadoMIR={estado}
               />
             )}
           </Grid>
