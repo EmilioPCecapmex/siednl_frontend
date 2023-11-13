@@ -17,6 +17,8 @@ import {
 import { queries } from "../../queries";
 import { IActividad, IComponente } from "../tabsMir/interfaces mir/IMIR";
 import { getMAyFT } from "../../services/mir_services/MIR_services";
+import { IMA } from "../tabsMetaAnual/IMA";
+import { IFT } from "../tabsFichaTecnica/Interfaces";
 
 export let errores: string[] = [];
 
@@ -492,9 +494,18 @@ export default function ModalSolicitaModif({
     );
   };
 
+  const [ma,setMA]=useState<IMA>();
+  const [ft,setFT]=useState<IFT>();
+
   useEffect(() => {
-    getMAyFT(IdMir);
+    getMAyFT(IdMir,setMA,setFT);
   }, [])
+
+  useEffect(()=>{
+    
+    console.log("ma",ma);
+    console.log("ft",ft);
+  },[ma,ft])
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
