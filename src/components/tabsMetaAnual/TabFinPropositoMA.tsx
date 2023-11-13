@@ -36,8 +36,8 @@ export function TabFinPropositoMA({
   setMAPropositoPadre: Function;
   showMirFnc: Function;
   setTxtShowFnc: Function;
-  finPadre: IFinMA,
-  propositoPadre: IPropositoMA,
+  finPadre: IFinMA;
+  propositoPadre: IPropositoMA;
   MA: string;
   MIR: string;
 }) {
@@ -45,8 +45,8 @@ export function TabFinPropositoMA({
     MA === ""
       ? ""
       : JSON.parse(MA).length > 1
-        ? JSON.parse(MA)[0]
-        : JSON.parse(MA);
+      ? JSON.parse(MA)[0]
+      : JSON.parse(MA);
 
   let MAEdit =
     MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";
@@ -54,7 +54,8 @@ export function TabFinPropositoMA({
   const [valueFin, setValueFin] = useState<IFinMA>(finPadre);
 
   //values
-  const [valueProposito, setValueProposito] = useState<IPropositoMA>(propositoPadre);
+  const [valueProposito, setValueProposito] =
+    useState<IPropositoMA>(propositoPadre);
 
   const [showFin, setShowFin] = useState(true);
 
@@ -74,12 +75,12 @@ export function TabFinPropositoMA({
   // }, [valueFin, valueProposito]);
 
   useEffect(() => {
-    setValueFin(finPadre)
-  }, [finPadre])
+    setValueFin(finPadre);
+  }, [finPadre]);
 
   useEffect(() => {
-    setValueProposito(propositoPadre)
-  }, [propositoPadre])
+    setValueProposito(propositoPadre);
+  }, [propositoPadre]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");
@@ -93,17 +94,17 @@ export function TabFinPropositoMA({
           ? "Porcentaje"
           : JSON.parse(MIR).fin.indicador.toUpperCase().includes("TASA") ||
             JSON.parse(MIR).fin.indicador.toUpperCase().includes("TASA")
-            ? "Tasa"
-            : JSON.parse(MIR)
+          ? "Tasa"
+          : JSON.parse(MIR)
               .fin.indicador.toUpperCase()
               .includes("INDICE" || "ÍNDICE") ||
-              JSON.parse(MIR).fin.indicador.toUpperCase().includes("INDICE") ||
-              JSON.parse(MIR).fin.indicador.toUpperCase().includes("ÍNDICE")
-              ? "Indice"
-              : JSON.parse(MIR).fin.indicador.toUpperCase().includes("PROMEDIO") ||
-                JSON.parse(MIR).fin.indicador.toUpperCase().includes("PROMEDIO")
-                ? "Promedio"
-                : ""
+            JSON.parse(MIR).fin.indicador.toUpperCase().includes("INDICE") ||
+            JSON.parse(MIR).fin.indicador.toUpperCase().includes("ÍNDICE")
+          ? "Indice"
+          : JSON.parse(MIR).fin.indicador.toUpperCase().includes("PROMEDIO") ||
+            JSON.parse(MIR).fin.indicador.toUpperCase().includes("PROMEDIO")
+          ? "Promedio"
+          : ""
       );
       setElementoFormula("Fin");
       setOpenFormulaDialog(true);
@@ -118,26 +119,26 @@ export function TabFinPropositoMA({
             .includes("PORCENTAJE")
           ? "Porcentaje"
           : JSON.parse(MIR)
-            .proposito.indicador.toUpperCase()
-            .includes("TASA") ||
+              .proposito.indicador.toUpperCase()
+              .includes("TASA") ||
             JSON.parse(MIR).proposito.indicador.toUpperCase().includes("TASA")
-            ? "Tasa"
-            : JSON.parse(MIR)
+          ? "Tasa"
+          : JSON.parse(MIR)
               .proposito.indicador.toUpperCase()
               .includes("INDICE" || "ÍNDICE") ||
-              JSON.parse(MIR)
-                .proposito.indicador.toUpperCase()
-                .includes("INDICE") ||
-              JSON.parse(MIR).proposito.indicador.toUpperCase().includes("ÍNDICE")
-              ? "Índice"
-              : JSON.parse(MIR)
-                .proposito.indicador.toUpperCase()
-                .includes("PROMEDIO") ||
-                JSON.parse(MIR)
-                  .proposito.indicador.toUpperCase()
-                  .includes("PROMEDIO")
-                ? "Promedio"
-                : ""
+            JSON.parse(MIR)
+              .proposito.indicador.toUpperCase()
+              .includes("INDICE") ||
+            JSON.parse(MIR).proposito.indicador.toUpperCase().includes("ÍNDICE")
+          ? "Índice"
+          : JSON.parse(MIR)
+              .proposito.indicador.toUpperCase()
+              .includes("PROMEDIO") ||
+            JSON.parse(MIR)
+              .proposito.indicador.toUpperCase()
+              .includes("PROMEDIO")
+          ? "Promedio"
+          : ""
       );
       setElementoFormula("Propósito");
       setOpenFormulaDialog(true);
@@ -181,7 +182,6 @@ export function TabFinPropositoMA({
   };
 
   const getUnidades = () => {
-  
     axios
       .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
         params: {
@@ -212,21 +212,30 @@ export function TabFinPropositoMA({
 
   useEffect(() => {
     // getUnidades();
-    
-    setMAFinPadre(valueFin)
-    
-    
-   // getListasLogin({ Tabla: "EntidadesHijas", ValorCondicion: JSON.parse(MIR).encabezado.entidad.Id }, setCatalogounidadResponsable);
+
+    setMAFinPadre(valueFin);
+
+    getListasLogin(
+      {
+        Tabla: "EntidadesHijas",
+        ValorCondicion: JSON.parse(MIR).encabezado.entidad.Id,
+      },
+      setCatalogounidadResponsable
+    );
   }, [valueFin]);
 
   useEffect(() => {
-   
-    if(valueProposito.lineaBase!==""){
-       setMAPropositoPadre(valueProposito)
+    if (valueProposito.lineaBase !== "") {
+      setMAPropositoPadre(valueProposito);
     }
-   
-    
-   // getListasLogin({ Tabla: "EntidadesHijas", ValorCondicion: JSON.parse(MIR).encabezado.entidad.Id }, setCatalogounidadResponsable);
+
+    getListasLogin(
+      {
+        Tabla: "EntidadesHijas",
+        ValorCondicion: JSON.parse(MIR).encabezado.entidad.Id,
+      },
+      setCatalogounidadResponsable
+    );
   }, [valueProposito]);
 
   const style = {
@@ -513,9 +522,7 @@ export function TabFinPropositoMA({
                 }}
               >
                 <TextField
-                  disabled={
-                    MAEdit?.fin?.metaAnual && valueFin.metaAnual !== ""
-                  }
+                  disabled={MAEdit?.fin?.metaAnual && valueFin.metaAnual !== ""}
                   sx={{
                     boxShadow: 2,
                     fontSize: [10, 10, 10, 15, 15, 18],
@@ -570,9 +577,7 @@ export function TabFinPropositoMA({
                 }}
               >
                 <TextField
-                  disabled={
-                    MAEdit?.fin?.lineaBase && valueFin.lineaBase !== ""
-                  }
+                  disabled={MAEdit?.fin?.lineaBase && valueFin.lineaBase !== ""}
                   sx={{
                     boxShadow: 2,
                     fontSize: [10, 10, 10, 15, 15, 18],
@@ -590,15 +595,15 @@ export function TabFinPropositoMA({
                   }
                   error={
                     parseFloat(valueFin.lineaBase) < 0 ||
-                      (isNaN(parseFloat(valueFin.lineaBase)) &&
-                        valueFin.lineaBase !== "")
+                    (isNaN(parseFloat(valueFin.lineaBase)) &&
+                      valueFin.lineaBase !== "")
                       ? true
                       : false
                   }
                   helperText={
                     parseFloat(valueFin.lineaBase) < 0 ||
-                      (isNaN(parseFloat(valueFin.lineaBase)) &&
-                        valueFin.lineaBase !== "")
+                    (isNaN(parseFloat(valueFin.lineaBase)) &&
+                      valueFin.lineaBase !== "")
                       ? "Introducir valor mayor que 0"
                       : null
                   }
@@ -613,7 +618,7 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onChange={(c) => {
-                    let auxFin = valueFin
+                    let auxFin = valueFin;
                     auxFin.lineaBase = c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -624,8 +629,8 @@ export function TabFinPropositoMA({
                 />
               </Grid>
 
-               {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
-                JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice") ? (
+              {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
+              JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice") ? (
                 <Grid
                   item
                   xl={3}
@@ -671,7 +676,7 @@ export function TabFinPropositoMA({
                     }}
                     onClick={() =>
                       MAEdit?.fin?.valorNumerador &&
-                        valueFin.valorNumerador !== ""
+                      valueFin.valorNumerador !== ""
                         ? ""
                         : handleClickOpen()
                     }
@@ -725,7 +730,7 @@ export function TabFinPropositoMA({
                     }}
                     onClick={() =>
                       MAEdit?.fin?.valorNumerador &&
-                        valueFin.valorNumerador !== ""
+                      valueFin.valorNumerador !== ""
                         ? ""
                         : handleClickOpen()
                     }
@@ -763,14 +768,14 @@ export function TabFinPropositoMA({
                     }}
                     onClick={() =>
                       MAEdit?.fin?.valorDenominador &&
-                        valueFin.valorDenominador !== ""
+                      valueFin.valorDenominador !== ""
                         ? ""
                         : handleClickOpen()
                     }
                     value={valueFin?.valorDenominador || ""}
                   />
                 </Grid>
-              )} 
+              )}
 
               <Grid
                 item
@@ -823,13 +828,11 @@ export function TabFinPropositoMA({
                     }}
                     control={
                       <Radio
-                        checked={
-                          valueFin?.sentidoDelIndicador === "ASCENDENTE"
-                        }
+                        checked={valueFin?.sentidoDelIndicador === "ASCENDENTE"}
                         onChange={(c) => {
                           let auxFin = valueFin;
                           auxFin.sentidoDelIndicador = c.target.value;
-                          setValueFin(auxFin);
+                          setValueFin({ ...auxFin });
                         }}
                       />
                     }
@@ -854,8 +857,7 @@ export function TabFinPropositoMA({
                         onChange={(c) => {
                           let auxFin = valueFin;
                           auxFin.sentidoDelIndicador = c.target.value;
-                          setValueFin(auxFin);
-
+                          setValueFin({ ...auxFin });
                         }}
                       />
                     }
@@ -878,7 +880,7 @@ export function TabFinPropositoMA({
                         onChange={(c) => {
                           let auxFin = valueFin;
                           auxFin.sentidoDelIndicador = c.target.value;
-                          setValueFin(auxFin);
+                          setValueFin({ ...auxFin });
                         }}
                       />
                     }
@@ -948,8 +950,10 @@ export function TabFinPropositoMA({
                     )}
                     onChange={(event, value) => {
                       let auxFin = valueFin;
-                      auxFin.unidadResponsable = (value?.Label as string) || "";
-                      setValueFin(auxFin);
+                      valueFin.unidadResponsable =
+                        (value?.Label as string) || "";
+
+                      setValueFin({ ...auxFin });
                     }}
                     isOptionEqualToValue={(option, value) =>
                       option.Id === value.Id
@@ -957,7 +961,6 @@ export function TabFinPropositoMA({
                   />
                 </FormControl>{" "}
               </Grid>
-
 
               <Grid
                 item
@@ -974,8 +977,7 @@ export function TabFinPropositoMA({
               >
                 <TextField
                   disabled={
-                    MAEdit?.fin?.descIndicador &&
-                    valueFin.descIndicador !== ""
+                    MAEdit?.fin?.descIndicador && valueFin.descIndicador !== ""
                   }
                   rows={5}
                   multiline
@@ -1007,7 +1009,7 @@ export function TabFinPropositoMA({
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", "");
-                    setValueFin(auxFin);
+                    setValueFin({ ...auxFin });
                   }}
                   value={valueFin?.descIndicador || ""}
                 />
@@ -1028,8 +1030,7 @@ export function TabFinPropositoMA({
               >
                 <TextField
                   disabled={
-                    MAEdit?.fin?.descNumerador &&
-                    valueFin.descNumerador !== ""
+                    MAEdit?.fin?.descNumerador && valueFin.descNumerador !== ""
                   }
                   rows={5}
                   multiline
@@ -1061,7 +1062,7 @@ export function TabFinPropositoMA({
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", "");
-                    setValueFin(auxFin);
+                    setValueFin({ ...auxFin });
                   }}
                   value={valueFin?.descNumerador || ""}
                 />
@@ -1115,12 +1116,11 @@ export function TabFinPropositoMA({
                       .replaceAll('"', "")
                       .replaceAll("'", "")
                       .replaceAll("\n", "");
-                    setValueFin(auxFin);
+                    setValueFin({ ...auxFin });
                   }}
                   value={valueFin?.descDenominador || ""}
                 />
               </Grid>
-
             </Grid>
           </>
         ) : null}
@@ -1255,7 +1255,7 @@ export function TabFinPropositoMA({
                   }}
                   onClick={() =>
                     MAEdit?.proposito?.metaAnual &&
-                      valueProposito.metaAnual !== ""
+                    valueProposito.metaAnual !== ""
                       ? ""
                       : handleClickOpen()
                   }
@@ -1306,15 +1306,15 @@ export function TabFinPropositoMA({
                   }
                   error={
                     parseFloat(valueProposito.lineaBase) < 0 ||
-                      (isNaN(parseFloat(valueProposito.lineaBase)) &&
-                        valueProposito.lineaBase !== "")
+                    (isNaN(parseFloat(valueProposito.lineaBase)) &&
+                      valueProposito.lineaBase !== "")
                       ? true
                       : false
                   }
                   helperText={
                     parseFloat(valueProposito.lineaBase) < 0 ||
-                      (isNaN(parseFloat(valueProposito.lineaBase)) &&
-                        valueProposito.lineaBase !== "")
+                    (isNaN(parseFloat(valueProposito.lineaBase)) &&
+                      valueProposito.lineaBase !== "")
                       ? "Introducir valor mayor que 0"
                       : null
                   }
@@ -1329,7 +1329,7 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onChange={(c) => {
-                    let auxProposito = valueProposito
+                    let auxProposito = valueProposito;
                     auxProposito.lineaBase = c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -1343,9 +1343,9 @@ export function TabFinPropositoMA({
               {JSON.parse(MIR)
                 .proposito.indicador.toLowerCase()
                 .includes("indice") ||
-                JSON.parse(MIR)
-                  .proposito.indicador.toLowerCase()
-                  .includes("índice") ? (
+              JSON.parse(MIR)
+                .proposito.indicador.toLowerCase()
+                .includes("índice") ? (
                 <Grid
                   item
                   xl={3}
@@ -1390,7 +1390,7 @@ export function TabFinPropositoMA({
                     }}
                     onClick={() =>
                       MAEdit?.proposito?.valorNumerador &&
-                        valueProposito.valorNumerador !== ""
+                      valueProposito.valorNumerador !== ""
                         ? ""
                         : handleClickOpen()
                     }
@@ -1445,7 +1445,7 @@ export function TabFinPropositoMA({
                     }}
                     onClick={() =>
                       MAEdit?.proposito?.valorNumerador &&
-                        valueProposito.valorNumerador !== ""
+                      valueProposito.valorNumerador !== ""
                         ? ""
                         : handleClickOpen()
                     }
@@ -1480,7 +1480,7 @@ export function TabFinPropositoMA({
                     }}
                     onClick={() =>
                       MAEdit?.proposito?.valorDenominador &&
-                        valueProposito.valorDenominador !== ""
+                      valueProposito.valorDenominador !== ""
                         ? ""
                         : handleClickOpen()
                     }
@@ -1541,11 +1541,10 @@ export function TabFinPropositoMA({
                     control={
                       <Radio
                         checked={
-                          valueProposito?.sentidoDelIndicador ===
-                          "ASCENDENTE"
+                          valueProposito?.sentidoDelIndicador === "ASCENDENTE"
                         }
                         onChange={(c) => {
-                          let auxProposito = valueProposito
+                          let auxProposito = valueProposito;
                           auxProposito.sentidoDelIndicador = c.target.value;
                           setValueProposito({ ...auxProposito });
                         }}
@@ -1567,11 +1566,10 @@ export function TabFinPropositoMA({
                     control={
                       <Radio
                         checked={
-                          valueProposito?.sentidoDelIndicador ===
-                          "DESCENDENTE"
+                          valueProposito?.sentidoDelIndicador === "DESCENDENTE"
                         }
                         onChange={(c) => {
-                          let auxProposito = valueProposito
+                          let auxProposito = valueProposito;
                           auxProposito.sentidoDelIndicador = c.target.value;
                           setValueProposito({ ...auxProposito });
                         }}
@@ -1596,9 +1594,8 @@ export function TabFinPropositoMA({
                           valueProposito?.sentidoDelIndicador === "NORMAL"
                         }
                         onChange={(c) => {
-                          let auxProposito = valueProposito
-                          auxProposito.sentidoDelIndicador =
-                            c.target.value;
+                          let auxProposito = valueProposito;
+                          auxProposito.sentidoDelIndicador = c.target.value;
                           setValueProposito({ ...auxProposito });
                         }}
                       />
@@ -1620,7 +1617,7 @@ export function TabFinPropositoMA({
                   justifyContent: "center",
                 }}
               >
-                <FormControl required fullWidth >
+                <FormControl required fullWidth>
                   <Autocomplete
                     clearText="Borrar"
                     noOptionsText="Sin opciones"
@@ -1642,7 +1639,6 @@ export function TabFinPropositoMA({
                           <p
                             style={{
                               fontFamily: "MontserratRegular",
-
                             }}
                           >
                             {option.Label}
@@ -1658,7 +1654,6 @@ export function TabFinPropositoMA({
                         InputLabelProps={{
                           style: {
                             fontFamily: "MontserratSemiBold",
-
                           },
                         }}
                         sx={{
@@ -1669,7 +1664,7 @@ export function TabFinPropositoMA({
                     )}
                     style={style}
                     onChange={(event, value) => {
-                      let auxProposito = valueProposito
+                      let auxProposito = valueProposito;
                       auxProposito.unidadResponsable =
                         (value?.Label as string) || "";
                       setValueProposito({ ...auxProposito });
@@ -1724,7 +1719,7 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onChange={(c) => {
-                    let auxProposito = valueProposito
+                    let auxProposito = valueProposito;
                     auxProposito.descIndicador = c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -1778,7 +1773,7 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onChange={(c) => {
-                    let auxProposito = valueProposito
+                    let auxProposito = valueProposito;
                     auxProposito.descNumerador = c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -1831,8 +1826,7 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onChange={(c) => {
-
-                    let auxProposito = valueProposito
+                    let auxProposito = valueProposito;
                     auxProposito.descDenominador = c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")

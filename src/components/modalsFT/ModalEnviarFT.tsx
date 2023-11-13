@@ -377,7 +377,7 @@ console.log("FT");
   };
 
   const crearFichaTecnica = (estado: string) => {
-    console.log("Entre en enviarNotificacions ");
+    console.log("estado: ",estado);
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",

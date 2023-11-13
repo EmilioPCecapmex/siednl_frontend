@@ -25,7 +25,9 @@ export function TabResumenMA({
   showResume: Function;
   maPadre: IMA;
 }) {
-  const [MA, setMA] = useState<IMA>();
+  const [MA, setMA] = useState<IMA>(maPadre);
+
+  
 
   let asignarMA = (
     finM: Array<IFinMA>,

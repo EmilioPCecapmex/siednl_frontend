@@ -7,9 +7,14 @@ import { Grid, useMediaQuery } from "@mui/material";
 import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
-import { IComponenteMA, ICValorMA } from "./Interfaces";
+import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
 import TabResumenMA from "./TabResumenMA";
-import { IComponenteActividad, IMIR } from "../tabsMir/interfaces mir/IMIR";
+import {
+  IActividad,
+  IComponente,
+  IComponenteActividad,
+  IMIR,
+} from "../tabsMir/interfaces mir/IMIR";
 import TabResumenMIR from "../modalsMA/ModalResumenMA";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
@@ -26,13 +31,38 @@ const tabs = ["Fin / Propósito", "Componentes", "Actividades", "Resumen"];
 
 function getNumComponents(MIR: string) {
   let aux = JSON.parse(MIR).componentes?.length;
+
   let arrayComponents = [];
   for (let i = 0; i < aux; i++) {
     arrayComponents.push(i + 1);
   }
+  //getNumActividades(MIR)
 
   return arrayComponents;
 }
+
+function getNumActividades(MIR: string, indexComponente: number) {
+  let aux = JSON.parse(MIR).componentes;
+
+  let arrayActividades: number[] = [];
+
+  aux.map((componente: IComponente, indexC: number) => {
+    if (indexComponente === indexC) {
+      componente.actividades.map((actividad: IActividad, index: number) => {
+        arrayActividades.push(index + 1);
+      });
+    }
+  });
+
+  // for (let i = 0; i < aux; i++) {
+  //   arrayComponents.push(i + 1);
+
+  // }
+  //getNumActividades(MIR)
+
+  return arrayActividades;
+}
+
 function newFinPropositoMA() {
   return {
     metaAnual: "",
@@ -48,16 +78,19 @@ function newFinPropositoMA() {
 }
 
 function newMetaAnual(MIR: string) {
+  let componentes: IComponente[] = JSON.parse(MIR).componentes
+  console.log("MIR.COMPONENS:",JSON.parse(MIR).componentes);
+  
   return {
     fin: newFinPropositoMA(),
     proposito: newFinPropositoMA(),
-    componentes: getNumComponents(MIR).map((item) => newComponente(item)),
+    componentes: componentes?.map((item) => newComponente(item)),
   };
 }
 
-export function newActividad(indexComponente: number, indexActividad: number) {
+export function newActividad(ActividadMIR: IActividad) {
   return {
-    actividad: `A${indexActividad}C${indexComponente}`,
+    actividad: ActividadMIR.actividad,
     metaAnual: "",
     lineaBase: "",
     metasPorFrecuencia: [
@@ -80,10 +113,10 @@ export function newActividad(indexComponente: number, indexActividad: number) {
   };
 }
 
-export function newComponente(index: number) {
+export function newComponente(ComponenteMIR: IComponente) {
   let componente: IComponenteMA;
   componente = {
-    componentes: "C" + index,
+    componentes: ComponenteMIR.componente,
     metaAnual: "",
     lineaBase: "",
     metasPorFrecuencia: [
@@ -103,8 +136,8 @@ export function newComponente(index: number) {
     descIndicador: "",
     descNumerador: "",
     descDenominador: "",
-    actividades: actividadesObligatorias.map((item) =>
-      newActividad(index, item)
+    actividades:ComponenteMIR.actividades.map((item) =>
+      newActividad(item)
     ),
   };
   return componente;
@@ -133,7 +166,7 @@ export default function AddMetaAnual({
     console.log("IdMA", IdMA);
     //getNumComponents();
     //console.log("numero de componentes de la mir", getNumComponents());
-    //setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
+    //setMAPadre({ ...maPadre, componentes: arrComponentes });
     //setMAPadre({...maPadre,componentes: });
   }, []);
 
@@ -151,44 +184,37 @@ export default function AddMetaAnual({
     setShowSt(st);
   };
 
-  const cambiarTab = (option: string) => {
-    if (option === "adelante") {
-      if (value < 50) setValue(value + 10);
-    } else {
-      if (value > 20) setValue(value - 10);
-    }
-  };
-
   const jsonMir = JSON.parse(MIR);
 
-  const setMAFinPadre = (FinValues: IFinMA) =>{
+  const setMAFinPadre = (FinValues: IFinMA) => {
+    console.log("FinValues: ", FinValues);
+
     setMAPadre({
-        ...maPadre,
-          fin: FinValues,
-        
-      });
+      ...maPadre,
+      fin: FinValues,
+    });
   };
-  const setMAPropositoPadre = (propositoValues: IPropositoMA) =>{
+  const setMAPropositoPadre = (propositoValues: IPropositoMA) => {
+    console.log("FinValues: ", propositoValues);
     setMAPadre({
-        ...maPadre,
-          proposito: propositoValues,
-        
-      });
+      ...maPadre,
+      proposito: propositoValues,
+    });
   };
-  const setMAcomponentesPadre = (componentesValues: IComponenteMA[]) =>{
+  const setMAcomponentesPadre = (componentesValues: IComponenteMA[]) => {
     setMAPadre({
-        ...maPadre,
-          componentes: componentesValues,
-        
-      });
+      ...maPadre,
+      componentes: componentesValues,
+    });
   };
 
-  const setMAActividadesPadre = (componentesActividadesValues: IComponenteMA[]) =>{
+  const setMAActividadesPadre = (
+    componentesActividadesValues: IComponenteMA[]
+  ) => {
     setMAPadre({
-        ...maPadre,
-          componentes: componentesActividadesValues,
-        
-      });
+      ...maPadre,
+      componentes: componentesActividadesValues,
+    });
   };
   // useEffect(() => {
   //   let act: number[] = [];
@@ -326,7 +352,6 @@ export default function AddMetaAnual({
         height: "100%",
       }}
     >
-    
       <Grid
         container
         item
@@ -383,7 +408,6 @@ export default function AddMetaAnual({
                 setMAFinPadre={setMAFinPadre}
                 setMAPropositoPadre={setMAPropositoPadre}
                 showMirFnc={showMirFnc}
-                
               />
             ) : null}
             {value === 1 ? (
@@ -391,8 +415,8 @@ export default function AddMetaAnual({
                 setTxtShowFnc={showFnc}
                 showMirFnc={showMirFnc}
                 //show={value === 1 ? true : false}
-                setMAcomponentesPadre= {setMAcomponentesPadre}
-                setComponenteMA={setMAPadre }
+                setMAcomponentesPadre={setMAcomponentesPadre}
+                setComponenteMA={setMAPadre}
                 ComponentesMA={maPadre.componentes}
                 MA={MA}
                 MIR={MIR}
@@ -405,8 +429,8 @@ export default function AddMetaAnual({
                 showMirFnc={showMirFnc}
                 compAct={[]}
                 // show={value === 2 ? true : false}
-                setMAActividadesPadre = {setMAActividadesPadre}
-                ComponentesActividadMA ={maPadre.componentes}
+                setMAActividadesPadre={setMAActividadesPadre}
+                ComponentesActividadMA={maPadre.componentes}
                 asignarCValor={() => {}}
                 MA={MA}
                 MIR={MIR}

@@ -67,23 +67,18 @@ export function TabFinPropositoFT({
   const [showProposito, setShowProposito] = useState(false);
 
   useEffect(() => {
-   
     setFin(FinValues);
   }, []);
 
   useEffect(() => {
-   
-
     setFTFinPadre(fin);
   }, [fin]);
 
   useEffect(() => {
-  
     setProposito(PropositoValues);
   }, []);
 
   useEffect(() => {
- 
     setFTPropositoPadre(proposito);
   }, [proposito]);
 
@@ -598,7 +593,7 @@ export function TabFinPropositoFT({
                   InputLabelProps={{
                     style: {
                       fontFamily: "MontserratMedium",
-                      fontSize: "1vw",
+                      //fontSize: "1vw",
                     },
                   }}
                   InputProps={{
@@ -1588,15 +1583,16 @@ export function TabFinPropositoFT({
                 }}
               >
                 <TextField
+                  fullWidth
                   rows={5}
                   multiline
                   variant="filled"
-                  sx={{ boxShadow: 2 }}
+                  sx={{ boxShadow: 2, fontSize: [10, 10, 13, 15, 18] }}
                   label={"UNIDAD DE MEDIDA"}
                   InputLabelProps={{
                     style: {
                       fontFamily: "MontserratMedium",
-                      fontSize: "1vw",
+                      //fontSize: "1vw",
                     },
                   }}
                   InputProps={{

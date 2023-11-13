@@ -6,7 +6,7 @@ import { Grid, IconButton, useMediaQuery } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
-import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
+import { IActividad, IComponente, IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 import GenericTabs from "../genericComponents/genericTabs";
 import {
   actividadesObligatorias,
@@ -44,11 +44,13 @@ function getNumComponents(MIR: string) {
 }
 
 function newFichaTecnica(MIR: string) {
+  let componentes: IComponente[] = JSON.parse(MIR).componentes
+  console.log("MIR.COMPONENS:",JSON.parse(MIR).componentes);
   return {
     encabezado: newEncabezadoFT(),
     fin: newFinPropositoFT(),
     proposito: newFinPropositoFT(),
-    componentes: getNumComponents(MIR).map((item) => newComponente(item)),
+    componentes: componentes?.map((item) => newComponente(item)),
   };
 }
 
@@ -75,10 +77,10 @@ export function newFinPropositoFT() {
   };
 }
 
-export function newActividad(indexComponente: number, indexActividad: number) {
+export function newActividad(ActividadMIR: IActividad) {
   return {
     //componentes: "C" + (index + 1),
-    actividades: `A${indexActividad}C${indexComponente}`,
+    actividades: ActividadMIR.actividad,
     tipoDeIndicador: "",
     claridad: "",
     relevancia: "",
@@ -91,10 +93,10 @@ export function newActividad(indexComponente: number, indexActividad: number) {
   };
 }
 
-export function newComponente(index: number) {
+export function newComponente(ComponenteMIR: IComponente) {
   let componente: IComponentesFT;
   componente = {
-    componentes: "C" + (index + 1),
+    componentes: ComponenteMIR.componente,
     tipoDeIndicador: "",
     claridad: "",
     relevancia: "",
@@ -104,8 +106,8 @@ export function newComponente(index: number) {
     aporte_marginal: "",
     dimension: "",
     unidadDeMedida: "",
-    actividades: actividadesObligatorias.map((item) =>
-      newActividad(index, item)
+    actividades: ComponenteMIR.actividades.map((item) =>
+    newActividad(item)
     ),
   };
   return componente;

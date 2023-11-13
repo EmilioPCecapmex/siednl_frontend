@@ -1379,7 +1379,7 @@ export const TabComponenteMA = ({
                       <p
                         style={{
                           fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
+                          //fontSize: ".7vw",
                         }}
                       >
                         {option.Label}
@@ -1395,7 +1395,7 @@ export const TabComponenteMA = ({
                     InputLabelProps={{
                       style: {
                         fontFamily: "MontserratSemiBold",
-                        fontSize: "1vw",
+                       // fontSize: "1vw",
                       },
                     }}
                     sx={{
@@ -1409,6 +1409,8 @@ export const TabComponenteMA = ({
                   componentesValues[componentSelect].unidadResponsable =
                     value?.Label || "";
                   setComponentesValues([...componentesValues]);
+                  console.log(" componentesValues[componentSelect].unidadResponsable =value?.Label: ",   value?.Label);
+                  
                 }}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />

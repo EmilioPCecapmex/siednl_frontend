@@ -518,6 +518,7 @@ export default function ModalSolicitaModif({
   ///////////////////////////////////////////////////////////////////////
   const createMA = (estado: string) => {
     console.log("IdEntidad:localStorage.getItem(IdEntidad): ",localStorage.getItem("IdEntidad"));
+    console.log("MA: ",MA);
     
     let rolusuario = userXInst.find((user) =>user.IdUsuario===userSelected)
 

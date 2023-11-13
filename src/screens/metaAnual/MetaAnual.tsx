@@ -231,11 +231,14 @@ export const MetaAnual = () => {
     const fullMA = [JSON.parse(MIR), JSON.parse(MetaAnual)];
 
     axios
-      .post("http://10.200.4.164:9090/api/fill_ma", fullMA, {
+      .post(
+        //"http://10.200.4.164:9090/api/fill_ma", 
+        "http://192.168.137.152:7001/api/fill_ma",
+      fullMA, {
         responseType: "blob",
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
+        // headers: {
+        //   Authorization: localStorage.getItem("jwtToken") || "",
+        // },
       })
       .then((r) => {
         Toast.fire({
