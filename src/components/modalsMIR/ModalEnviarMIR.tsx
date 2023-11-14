@@ -19,6 +19,7 @@ import { IMA } from "../tabsMetaAnual/IMA";
 import { IFT } from "../tabsFichaTecnica/Interfaces";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { newComponenteMA, newFinPropositoMA } from "../tabsMetaAnual/AddMetaAnual";
+import { alertaEliminar } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -52,48 +53,50 @@ export default function ModalEnviarMIR({
   }, [])
 
   ///////////////////////////////////////////////////////////////////////////////////////////
-  const addComponenteMA = (ComponenteMIR:IComponente) => {
-    //se recibe el C5
-    // console.log("componentes", MIRPADRE.componentes);
+  // const addComponenteMA = (ComponenteMIR:IComponente) => {
+  //   //se recibe el C5
+  //   // console.log("componentes", MIRPADRE.componentes);
 
-    let arrComponentes: IComponenteMA[] = ma?.componentes||[];
-    arrComponentes.push(newComponenteMA(ComponenteMIR));
-    
-    if(ma?.fin||ma?.proposito){
-      setMA({...ma,componentes:arrComponentes});
-    }
-  };
+  //   let arrComponentes: IComponenteMA[] = ma?.componentes||[];
+  //   arrComponentes.push(newComponenteMA(ComponenteMIR));
 
-///////////////////////////////////////////////////////////////////////////////////////////
+  //   if(ma?.fin||ma?.proposito){
+  //     setMA({...ma,componentes:arrComponentes});
+  //   }
+  // };
+
+  ///////////////////////////////////////////////////////////////////////////////////////////
   const removeComponenteMA = (componenteSelected: number) => {
-    let arrComponentes: IComponente[] = MIRPADRE.componentes.filter(
-      (componente) => !componente.componente.includes(`C${componenteSelected}`)
-    );
-    movimientos("remove", ("C" + componenteSelected))
-    arrComponentes = arrComponentes.map((componente, index) => {
-      if (parseInt(componente.componente.split("C")[1]) >= componenteSelected) {
-        let aux = {
-          ...componente,
-          componente: `C${index + 1}`,
-          actividades: componente.actividades.map((item) => {
-            return {
-              ...item,
-              actividad: item.actividad.replace(/C\d+/, `C${index + 1}`),
-            };
-          }),
-        };
-        
-        return aux;
-      } else 
-     
-      return componente;
 
-      
-    });
+    if (ma) {
+      let arrComponentes: IComponenteMA[] = ma.componentes.filter(
+        (componente) => !componente.componentes.includes(`C${componenteSelected}`)
+      );
 
-    setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
-    console.log("componentes", MIRPADRE.componentes);
+      arrComponentes = arrComponentes.map((componente, index) => {
+        if (parseInt(componente.componentes.split("C")[1]) >= componenteSelected) {
+          let aux = {
+            ...componente,
+            componente: `C${index + 1}`,
+            actividades: componente.actividades.map((item) => {
+              return {
+                ...item,
+                actividad: item.actividad.replace(/C\d+/, `C${index + 1}`),
+              };
+            }),
+          };
+
+          return aux;
+        } else
+
+          return componente;
+      });
+      setMA({ ...ma, componentes: arrComponentes });
+    console.log("componentes", ma.componentes);
     console.log("componentes actualizados", arrComponentes);
+    }
+
+    // movimientos("remove", ("C" + componenteSelected
   };
   ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -673,6 +676,12 @@ export default function ModalEnviarMIR({
     },
   });
 
+  const mirFuncionAutorizada = () =>{
+    mDocumentos.map((item)=>{
+      removeComponenteMA(Number(item.indice.split('C')[1]));
+    })
+  }
+
   return (
     <Dialog
       fullWidth
@@ -770,10 +779,13 @@ export default function ModalEnviarMIR({
                       ? "En Autorización"
                       : "Autorizada"
                 );
-
+                
                 handleClose(false);
                 setNewComent(false);
                 RestructuraMAyFT()
+                if(estadoMIR === "Autorizada"){
+                  mirFuncionAutorizada()
+                }
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>

@@ -158,17 +158,17 @@ export default function AddMetaAnual({
 }) {
   const [maPadre, setMAPadre] = useState<IMA>(newMetaAnual(MIR));
 
-  useEffect(() => {
-    console.log("MIR", MIR);
-    console.log("MA", MA);
-    // console.log("showResume",showResume);
-    console.log("IdMir", IdMir);
-    console.log("IdMA", IdMA);
-    //getNumComponents();
-    //console.log("numero de componentes de la mir", getNumComponents());
-    //setMAPadre({ ...maPadre, componentes: arrComponentes });
-    //setMAPadre({...maPadre,componentes: });
-  }, []);
+  // useEffect(() => {
+  //   console.log("MIR", MIR);
+  //   console.log("MA", MA);
+  //   // console.log("showResume",showResume);
+  //   console.log("IdMir", IdMir);
+  //   console.log("IdMA", IdMA);
+  //   //getNumComponents();
+  //   //console.log("numero de componentes de la mir", getNumComponents());
+  //   //setMAPadre({ ...maPadre, componentes: arrComponentes });
+  //   //setMAPadre({...maPadre,componentes: });
+  // }, []);
 
   const [value, setValue] = React.useState(0);
 
@@ -184,7 +184,7 @@ export default function AddMetaAnual({
     setShowSt(st);
   };
 
-  const jsonMir = JSON.parse(MIR);
+  // const jsonMir = JSON.parse(MIR);
 
   const setMAFinPadre = (FinValues: IFinMA) => {
     console.log("FinValues: ", FinValues);
