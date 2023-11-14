@@ -63,7 +63,7 @@ function getNumActividades(MIR: string, indexComponente: number) {
   return arrayActividades;
 }
 
-function newFinPropositoMA() {
+export function newFinPropositoMA() {
   return {
     metaAnual: "",
     lineaBase: "",
@@ -84,7 +84,7 @@ function newMetaAnual(MIR: string) {
   return {
     fin: newFinPropositoMA(),
     proposito: newFinPropositoMA(),
-    componentes: componentes?.map((item) => newComponente(item)),
+    componentes: componentes?.map((item) => newComponenteMA(item)),
   };
 }
 
@@ -113,7 +113,7 @@ export function newActividad(ActividadMIR: IActividad) {
   };
 }
 
-export function newComponente(ComponenteMIR: IComponente) {
+export function newComponenteMA(ComponenteMIR: IComponente) {
   let componente: IComponenteMA;
   componente = {
     componentes: ComponenteMIR.componente,
@@ -249,7 +249,7 @@ export default function AddMetaAnual({
   // COMPONENTES ------------------ No me sirve para FichaTecnica
   // const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
-  // const [ComponentesMA, setComponentesMA] = useState<IComponenteMA[]>(componentesObligatorios.map((item) => newComponente(item)));
+  // const [ComponentesMA, setComponentesMA] = useState<IComponenteMA[]>(componentesObligatorios.map((item) => newComponenteMAMA(item)));
 
   useEffect(() => {
     if (MA !== "") {
@@ -318,7 +318,7 @@ export default function AddMetaAnual({
 
   // useEffect(() => {
   //   let arrayMA = noComponentes.map((x, index) => {
-  //     return newComponente(x)
+  //     return newComponenteMAMA(x)
   //   });
   //   setComponentesMA(arrayMA);
   //   eslint-disable-next-line react-hooks/exhaustive-deps
