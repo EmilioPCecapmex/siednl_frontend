@@ -27,8 +27,6 @@ export function TabResumenMA({
 }) {
   const [MA, setMA] = useState<IMA>(maPadre);
 
-  
-
   let asignarMA = (
     finM: Array<IFinMA>,
     propositoM: Array<IPropositoMA>,
@@ -127,6 +125,28 @@ export function TabResumenMA({
         descIndicador: true,
         descNumerador: true,
         descDenominador: true,
+        actividades: item.actividades.map(actividad => ({
+          actividad: actividad.actividad,  // Reemplaza con la propiedad correcta de IActividadesEditMA
+          metaAnual: true,
+          lineaBase: true,
+          metasPorFrecuencia: [
+            {
+              semestre1: true,
+              semestre2: true,
+              trimestre1: true,
+              trimestre2: true,
+              trimestre3: true,
+              trimestre4: true,
+            },
+          ],
+          valorNumerador: true,
+          valorDenominador: true,
+          sentidoDelIndicador: true,
+          unidadResponsable: true,
+          descIndicador: true,
+          descNumerador: true,
+          descDenominador: true,
+        })),
       };
     });
     setEditComponentes(cEdit);
@@ -2344,9 +2364,7 @@ export function TabResumenMA({
                         </Grid>
                         <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
                           <Typography sx={{ fontFamily: "MontserratLight" }}>
-                            {
-                              actividad.valorDenominador
-                            }
+                            {actividad.valorDenominador}
                           </Typography>
                         </Grid>
                       </Grid>
@@ -2793,6 +2811,7 @@ export interface IComponenteEditMA {
   descIndicador: boolean;
   descNumerador: boolean;
   descDenominador: boolean;
+  actividades: IActividadesEditMA[];
 }
 
 export interface IFrecuenciasEdit {
