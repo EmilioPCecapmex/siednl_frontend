@@ -212,7 +212,7 @@ export default function FullModalMir({
     arrComponentes.push(newComponente(MIRPADRE.componentes.length + 1));
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
 
-    movimientos("Add", ("C"+ MIRPADRE.componentes.length))
+    movimientos("add", ("C"+ MIRPADRE.componentes.length))
   };
 
   const removeComponente = (componenteSelected: number) => {

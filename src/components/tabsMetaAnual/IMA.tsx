@@ -1,5 +1,5 @@
 import { IFinMA, IPropositoMA } from "./IFin";
-import { IActividadesMA, IComponenteMA } from "./Interfaces";
+import { IComponenteMA } from "./Interfaces";
 
 export interface IMA {
   fin: IFinMA;
