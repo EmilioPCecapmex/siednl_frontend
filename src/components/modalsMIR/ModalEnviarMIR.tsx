@@ -11,7 +11,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMail } from "../../funcs/sendMailCustomMessage";
+//import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
 import { IActividad, IComponente, IMovimientos } from "../tabsMir/interfaces mir/IMIR";
 import { getMAyFT } from "../../services/mir_services/MIR_services";
@@ -46,6 +46,8 @@ export default function ModalEnviarMIR({
   const [ft, setFT] = useState<IFT>();
 
   useEffect(() => {
+    console.log("MIR: ",);
+    
     if (estadoMIR === 'Autorizada') {
       getMAyFT(IdMir, setMA, setFT);
     };
@@ -69,7 +71,7 @@ export default function ModalEnviarMIR({
     let arrComponentes: IComponente[] = MIRPADRE.componentes.filter(
       (componente) => !componente.componente.includes(`C${componenteSelected}`)
     );
-    movimientos("remove", ("C" + componenteSelected))
+   // movimientos("remove", ("C" + componenteSelected))
     arrComponentes = arrComponentes.map((componente, index) => {
       if (parseInt(componente.componente.split("C")[1]) >= componenteSelected) {
         let aux = {
@@ -91,8 +93,8 @@ export default function ModalEnviarMIR({
       
     });
 
-    setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
-    console.log("componentes", MIRPADRE.componentes);
+    //setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
+    //console.log("componentes", MIRPADRE.componentes);
     console.log("componentes actualizados", arrComponentes);
   };
   ///////////////////////////////////////////////////////////////////////////////////////////
@@ -521,7 +523,7 @@ export default function ModalEnviarMIR({
 
 
           enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
-          sendMail(user.CorreoElectronico, enviarMensaje, "MA");
+          //sendMail(user.CorreoElectronico, enviarMensaje, "MA");
         });
         showResume();
       })
@@ -565,7 +567,7 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
 
-          sendMail(user.CorreoElectronico, enviarMensaje, "MIR");
+          //sendMail(user.CorreoElectronico, enviarMensaje, "MIR");
           enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
         });
 

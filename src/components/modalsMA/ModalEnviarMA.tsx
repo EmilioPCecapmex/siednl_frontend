@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMail } from "../../funcs/sendMailCustomMessage";
+//import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { IActividad } from "../tabsMir/interfaces mir/IMIR";
@@ -546,7 +546,7 @@ export default function ModalEnviarMA({
             "MA",
             "Meta Anual"
           );
-          sendMail(user.CorreoElectronico, enviarMensaje, "MA");
+          //sendMail(user.CorreoElectronico, enviarMensaje, "MA");
         });
         if (estado === "Autorizada") {
           CrearFichaTecnica();
@@ -602,7 +602,7 @@ export default function ModalEnviarMA({
             "FT",
             "Ficha Tecnica"
           );
-          sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
+          //sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
         });
 
         showResume();

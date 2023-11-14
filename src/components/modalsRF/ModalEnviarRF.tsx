@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMail} from "../../funcs/sendMailCustomMessage";
+//import { sendMail} from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
 
 export let errores: string[] = [];
@@ -540,7 +540,7 @@ export default function ModalEnviarMA({
           
           
           enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA", "Meta Anual");
-          sendMail(user.CorreoElectronico,enviarMensaje,"MA")
+          //sendMail(user.CorreoElectronico,enviarMensaje,"MA")
         });
         if (estado === "Autorizada") {
           CrearFichaTecnica();  
@@ -593,7 +593,7 @@ export default function ModalEnviarMA({
           console.log("user.IdUsuario: ",user.IdUsuario);
 
           enviarNotificacion(user.IdUsuario,r.data.data.Id, "FT", "Ficha Tecnica");
-          sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
+          //sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
         });
         
         showResume();
