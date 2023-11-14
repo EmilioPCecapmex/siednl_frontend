@@ -128,5 +128,4 @@ export interface IFT {
   fin: IFinFT;
   proposito: IPropositoFT;
   componentes: Array<IComponentesFT>;
-  //actividades: Array<IActividadesFT>;
 }

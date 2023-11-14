@@ -253,20 +253,19 @@ export default function AddMetaAnual({
 
   useEffect(() => {
     if (MA !== "") {
-      
+
       let auxMA: IMA = JSON.parse(MA);
       let auxMIR: IMIR = JSON.parse(MIR);
 
-      let lengthMA=auxMA.componentes.length
-      let lengthMIR=auxMIR.componentes.length
-      if (lengthMA === lengthMIR) {
-        setMAPadre(auxMA);
-      } else {
-        for(let i=lengthMA;i<lengthMIR;i++){
+      let lengthMA = auxMA.componentes.length
+      let lengthMIR = auxMIR.componentes.length
+
+      if (lengthMA !== lengthMIR) {
+        for (let i = lengthMA; i < lengthMIR; i++) {
           auxMA.componentes.push(newComponenteMA(auxMIR.componentes[i]))
         }
-        setMAPadre(auxMA);
       }
+      setMAPadre(auxMA);
     }
   }, []);
 

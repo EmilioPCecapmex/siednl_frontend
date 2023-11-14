@@ -6,7 +6,7 @@ import { Grid, IconButton, useMediaQuery } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
-import { IActividad, IComponente, IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
+import { IActividad, IComponente, IComponenteActividad, IMIR } from "../tabsMir/interfaces mir/IMIR";
 import GenericTabs from "../genericComponents/genericTabs";
 import {
   actividadesObligatorias,
@@ -45,12 +45,12 @@ function getNumComponents(MIR: string) {
 
 function newFichaTecnica(MIR: string) {
   let componentes: IComponente[] = JSON.parse(MIR).componentes
-  console.log("MIR.COMPONENS:",JSON.parse(MIR).componentes);
+  console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
   return {
     encabezado: newEncabezadoFT(),
     fin: newFinPropositoFT(),
     proposito: newFinPropositoFT(),
-    componentes: componentes?.map((item) => newComponente(item)),
+    componentes: componentes?.map((item) => newComponenteFT(item)),
   };
 }
 
@@ -77,7 +77,7 @@ export function newFinPropositoFT() {
   };
 }
 
-export function newActividad(ActividadMIR: IActividad) {
+export function newActividadFT(ActividadMIR: IActividad) {
   return {
     //componentes: "C" + (index + 1),
     actividades: ActividadMIR.actividad,
@@ -93,7 +93,7 @@ export function newActividad(ActividadMIR: IActividad) {
   };
 }
 
-export function newComponente(ComponenteMIR: IComponente) {
+export function newComponenteFT(ComponenteMIR: IComponente) {
   let componente: IComponentesFT;
   componente = {
     componentes: ComponenteMIR.componente,
@@ -107,7 +107,7 @@ export function newComponente(ComponenteMIR: IComponente) {
     dimension: "",
     unidadDeMedida: "",
     actividades: ComponenteMIR.actividades.map((item) =>
-    newActividad(item)
+      newActividadFT(item)
     ),
   };
   return componente;
@@ -161,13 +161,22 @@ export default function AddFichaTecnica({
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
   const [ftPadre, setFTPadre] = useState<IFT>(newFichaTecnica(MIR));
- 
+
 
   useEffect(() => {
     if (FT !== "") {
-      let auxFT = JSON.parse(FT);
+      let auxFT: IFT = JSON.parse(FT);
+      let auxMIR: IMIR = JSON.parse(MIR);
+
+      let lengthFT = auxFT.componentes.length
+      let lengthMIR = auxMIR.componentes.length
+
+      if (lengthFT !== lengthMIR) {
+        for (let i = lengthFT; i < lengthMIR; i++) {
+          auxFT.componentes.push(newComponenteFT(auxMIR.componentes[i]))
+        }
+      }
       setFTPadre(auxFT);
-     
     }
   }, []);
 
@@ -175,7 +184,7 @@ export default function AddFichaTecnica({
     console.log("ftPadre", ftPadre);
   }, [ftPadre]);
 
-  
+
 
   const setFTEncabezadoPadre = (EncabezadoValues: IEncabezadoFT) => {
     setFTPadre({
@@ -204,7 +213,7 @@ export default function AddFichaTecnica({
       componentes: componentesActividadValues,
     });
   };
-  
+
 
   const query = {
     isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
