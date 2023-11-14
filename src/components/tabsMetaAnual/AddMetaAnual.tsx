@@ -63,7 +63,7 @@ function getNumActividades(MIR: string, indexComponente: number) {
   return arrayActividades;
 }
 
-function newFinPropositoMA() {
+export function newFinPropositoMA() {
   return {
     metaAnual: "",
     lineaBase: "",
@@ -251,7 +251,7 @@ export default function AddMetaAnual({
   // COMPONENTES ------------------ No me sirve para FichaTecnica
   // const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
-  // const [ComponentesMA, setComponentesMA] = useState<IComponenteMA[]>(componentesObligatorios.map((item) => newComponente(item)));
+  // const [ComponentesMA, setComponentesMA] = useState<IComponenteMA[]>(componentesObligatorios.map((item) => newComponenteMAMA(item)));
 
   useEffect(() => {
     if (MA !== "") {
@@ -320,7 +320,7 @@ export default function AddMetaAnual({
 
   // useEffect(() => {
   //   let arrayMA = noComponentes.map((x, index) => {
-  //     return newComponente(x)
+  //     return newComponenteMAMA(x)
   //   });
   //   setComponentesMA(arrayMA);
   //   eslint-disable-next-line react-hooks/exhaustive-deps

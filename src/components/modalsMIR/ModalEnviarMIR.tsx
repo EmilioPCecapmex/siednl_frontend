@@ -17,6 +17,8 @@ import { IActividad, IComponente, IMovimientos } from "../tabsMir/interfaces mir
 import { getMAyFT } from "../../services/mir_services/MIR_services";
 import { IMA } from "../tabsMetaAnual/IMA";
 import { IFT } from "../tabsFichaTecnica/Interfaces";
+import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
+import { newComponenteMA, newFinPropositoMA } from "../tabsMetaAnual/AddMetaAnual";
 
 export let errores: string[] = [];
 
@@ -49,9 +51,51 @@ export default function ModalEnviarMIR({
     };
   }, [])
 
-  const editMAandFT=()=>{
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  const addComponenteMA = (ComponenteMIR:IComponente) => {
+    //se recibe el C5
+    // console.log("componentes", MIRPADRE.componentes);
+
+    let arrComponentes: IComponenteMA[] = ma?.componentes||[];
+    arrComponentes.push(newComponenteMA(ComponenteMIR));
     
-  }
+    if(ma?.fin||ma?.proposito){
+      setMA({...ma,componentes:arrComponentes});
+    }
+  };
+
+///////////////////////////////////////////////////////////////////////////////////////////
+  const removeComponenteMA = (componenteSelected: number) => {
+    let arrComponentes: IComponente[] = MIRPADRE.componentes.filter(
+      (componente) => !componente.componente.includes(`C${componenteSelected}`)
+    );
+    movimientos("remove", ("C" + componenteSelected))
+    arrComponentes = arrComponentes.map((componente, index) => {
+      if (parseInt(componente.componente.split("C")[1]) >= componenteSelected) {
+        let aux = {
+          ...componente,
+          componente: `C${index + 1}`,
+          actividades: componente.actividades.map((item) => {
+            return {
+              ...item,
+              actividad: item.actividad.replace(/C\d+/, `C${index + 1}`),
+            };
+          }),
+        };
+        
+        return aux;
+      } else 
+     
+      return componente;
+
+      
+    });
+
+    setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
+    console.log("componentes", MIRPADRE.componentes);
+    console.log("componentes actualizados", arrComponentes);
+  };
+  ///////////////////////////////////////////////////////////////////////////////////////////
 
 
   const [comment, setComment] = useState("");

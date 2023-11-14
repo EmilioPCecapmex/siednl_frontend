@@ -212,7 +212,6 @@ export default function FullModalMir({
     arrComponentes.push(newComponente(MIRPADRE.componentes.length + 1));
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
 
-    console.log("componentes actualizados", arrComponentes);
     movimientos("Add", ("C"+ MIRPADRE.componentes.length))
   };
 
