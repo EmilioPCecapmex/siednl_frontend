@@ -84,7 +84,7 @@ function newMetaAnual(MIR: string) {
   return {
     fin: newFinPropositoMA(),
     proposito: newFinPropositoMA(),
-    componentes: componentes?.map((item) => newComponente(item)),
+    componentes: componentes?.map((item) => newComponenteMA(item)),
   };
 }
 
@@ -113,7 +113,7 @@ export function newActividad(ActividadMIR: IActividad) {
   };
 }
 
-export function newComponente(ComponenteMIR: IComponente) {
+export function newComponenteMA(ComponenteMIR: IComponente) {
   let componente: IComponenteMA;
   componente = {
     componentes: ComponenteMIR.componente,
@@ -142,6 +142,8 @@ export function newComponente(ComponenteMIR: IComponente) {
   };
   return componente;
 }
+
+
 
 export default function AddMetaAnual({
   MIR,
