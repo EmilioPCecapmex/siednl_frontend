@@ -16,7 +16,7 @@ import { queries } from "../../queries";
 import { IActividad, IComponente, IMovimientos } from "../tabsMir/interfaces mir/IMIR";
 import { getMAyFT } from "../../services/mir_services/MIR_services";
 import { IMA } from "../tabsMetaAnual/IMA";
-import { IFT } from "../tabsFichaTecnica/Interfaces";
+import { IComponentesFT, IFT } from "../tabsFichaTecnica/Interfaces";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { newComponenteMA, newFinPropositoMA } from "../tabsMetaAnual/AddMetaAnual";
 import { alertaEliminar } from "../genericComponents/Alertas";
@@ -55,17 +55,36 @@ export default function ModalEnviarMIR({
   }, [])
 
   ///////////////////////////////////////////////////////////////////////////////////////////
-  // const addComponenteMA = (ComponenteMIR:IComponente) => {
-  //   //se recibe el C5
-  //   // console.log("componentes", MIRPADRE.componentes);
+  const removeComponenteFT = (componenteSelected: number) => {
 
-  //   let arrComponentes: IComponenteMA[] = ma?.componentes||[];
-  //   arrComponentes.push(newComponenteMA(ComponenteMIR));
+    if (ft) {
+      let arrComponentes: IComponentesFT[] = ft.componentes.filter(
+        (componente) => !componente.componentes.includes(`C${componenteSelected}`)
+      );
 
-  //   if(ma?.fin||ma?.proposito){
-  //     setMA({...ma,componentes:arrComponentes});
-  //   }
-  // };
+      arrComponentes = arrComponentes.map((componente, index) => {
+        if (parseInt(componente.componentes.split("C")[1]) >= componenteSelected) {
+          let aux = {
+            ...componente,
+            componentes: `C${index + 1}`,
+            actividades: componente.actividades.map((item) => {
+              return {
+                ...item,
+                actividades: item.actividades.replace(/C\d+/, `C${index + 1}`),
+              };
+            }),
+          };
+
+          return aux;
+        } else
+
+          return componente;
+      });
+      console.log("componentes actualizados", arrComponentes);
+      setFT({ ...ft, componentes: arrComponentes });
+      console.log("MA actualizada", JSON.stringify({ ...ft, componentes: arrComponentes }));
+    }
+  };
 
   ///////////////////////////////////////////////////////////////////////////////////////////
   const removeComponenteMA = (componenteSelected: number) => {
@@ -79,7 +98,7 @@ export default function ModalEnviarMIR({
         if (parseInt(componente.componentes.split("C")[1]) >= componenteSelected) {
           let aux = {
             ...componente,
-            componente: `C${index + 1}`,
+            componentes: `C${index + 1}`,
             actividades: componente.actividades.map((item) => {
               return {
                 ...item,
@@ -93,12 +112,10 @@ export default function ModalEnviarMIR({
 
           return componente;
       });
+      console.log("componentes actualizados", arrComponentes);
       setMA({ ...ma, componentes: arrComponentes });
-    console.log("componentes", ma.componentes);
-    console.log("componentes actualizados", arrComponentes);
+      console.log("MA actualizada", JSON.stringify({ ...ma, componentes: arrComponentes }));
     }
-
-    // movimientos("remove", ("C" + componenteSelected
   };
   ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -678,10 +695,14 @@ export default function ModalEnviarMIR({
     },
   });
 
-  const mirFuncionAutorizada = () =>{
-    mDocumentos.map((item)=>{
-      removeComponenteMA(Number(item.indice.split('C')[1]));
+  const mirFuncionAutorizada = () => {
+    mDocumentos.map((item) => {
+      if (item.movimiento === "remove") {
+        removeComponenteMA(Number(item.indice.split('C')[1]));
+        removeComponenteFT(Number(item.indice.split('C')[1]));
+      }
     })
+    
   }
 
   return (
@@ -781,11 +802,11 @@ export default function ModalEnviarMIR({
                       ? "En Autorización"
                       : "Autorizada"
                 );
-                
+
                 handleClose(false);
                 setNewComent(false);
                 RestructuraMAyFT()
-                if(estadoMIR === "Autorizada"){
+                if (estadoMIR === "Autorizada") {
                   mirFuncionAutorizada()
                 }
               }}

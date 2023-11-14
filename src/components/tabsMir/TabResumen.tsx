@@ -286,7 +286,7 @@ export function TabResumen({
     editFin,
     editProposito,
     editComponentes,
-    editActividades,
+    //editActividades,
   ]);
 
   const isCapturador = localStorage.getItem("Rol") === "Capturador";
@@ -2367,7 +2367,7 @@ export function TabResumen({
               fin: editFin,
               proposito: editProposito,
               componentes: editComponentes,
-              actividades: editActividades,
+              //actividades: editActividades,
             })
           }
         ></ModalSolicitaModif>

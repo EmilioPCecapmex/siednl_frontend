@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
-import { IMIR } from "./interfaces mir/IMIR";
+import { IMIR, IMIREdit } from "./interfaces mir/IMIR";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
@@ -20,10 +20,12 @@ export function TabFinProposito({
   // show,
   MIR,
   setMIR,
+  mirEdit,
 }: {
   // show: boolean;
   MIR: IMIR;
   setMIR: Function;
+  mirEdit: IMIREdit;
 }) {
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
@@ -474,6 +476,9 @@ export function TabFinProposito({
                   rows={8}
                   multiline
                   variant="filled"
+                  disabled={
+                    mirEdit?.fin.resumen && fin.resumen !== ""
+                  }
                   sx={{
                     boxShadow: 2,
                     width: ["none", "30vh", "40vh", "50vh", "50vh"],
@@ -517,9 +522,9 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  // disabled={
-                  //   mirEdit?.fin.indicador && fin.indicador !== ""
-                  // }
+                  disabled={
+                    mirEdit?.fin.indicador && fin.indicador !== ""
+                  }
                   rows={8}
                   multiline
                   sx={{
@@ -576,9 +581,9 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  // disabled={
-                  //   mirEdit?.fin.formula && fin.formula !== ""
-                  // }
+                  disabled={
+                    mirEdit?.fin.formula && fin.formula !== ""
+                  }
                   rows={8}
                   multiline
                   variant="filled"
@@ -682,10 +687,10 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  // disabled={
-                  //   mirEdit?.fin.medios_verificacion &&
-                  //   fin.medios_verificacion !== ""
-                  // }
+                  disabled={
+                    mirEdit?.fin.medios &&
+                    fin.medios !== ""
+                  }
                   rows={8}
                   multiline
                   variant="filled"
@@ -732,9 +737,9 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  // disabled={
-                  //   mirEdit?.fin.supuestos && fin.supuestos !== ""
-                  // }
+                  disabled={
+                    mirEdit?.fin.supuestos && fin.supuestos !== ""
+                  }
                   rows={8}
                   multiline
                   variant="filled"
@@ -870,9 +875,9 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  // disabled={
-                  //   mirEdit?.proposito.resumen && proposito.resumen !== ""
-                  // }
+                  disabled={
+                    mirEdit?.proposito.resumen && proposito.resumen !== ""
+                  }
                   rows={8}
                   multiline
                   variant="filled"
@@ -918,9 +923,9 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  // disabled={
-                  //   mirEdit?.proposito.indicador && proposito.indicador !== ""
-                  // }
+                  disabled={
+                    mirEdit?.proposito.indicador && proposito.indicador !== ""
+                  }
                   rows={8}
                   multiline
                   sx={{
@@ -978,9 +983,9 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  // disabled={
-                  //   mirEdit?.proposito.formula && proposito.formula !== ""
-                  // }
+                  disabled={
+                    mirEdit?.proposito.formula && proposito.formula !== ""
+                  }
                   rows={8}
                   multiline
                   variant="filled"
@@ -1064,10 +1069,10 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  // disabled={
-                  //   mirEdit?.proposito.medios_verificacion &&
-                  //   proposito.medios_verificacion !== ""
-                  // }
+                  disabled={
+                    mirEdit?.proposito.medios_verificacion &&
+                    proposito.medios_verificacion !== ""
+                  }
                   rows={8}
                   multiline
                   variant="filled"
@@ -1113,9 +1118,9 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  // disabled={
-                  //   mirEdit?.proposito.supuestos && proposito.supuestos !== ""
-                  // }
+                  disabled={
+                    mirEdit?.proposito.supuestos && proposito.supuestos !== ""
+                  }
                   rows={8}
                   multiline
                   variant="filled"

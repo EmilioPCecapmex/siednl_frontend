@@ -19,7 +19,7 @@ import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import axios from "axios";
-
+import { newComponente, newActividad } from "./AddMetaAnual";
 import { isValidComponenteMA } from "../../funcs/ValidatorMA";
 import { alertaError } from "../genericComponents/Alertas";
 import { IMA } from "./IMA";

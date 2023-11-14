@@ -79,8 +79,8 @@ export function newFinPropositoMA() {
 
 function newMetaAnual(MIR: string) {
   let componentes: IComponente[] = JSON.parse(MIR).componentes
-  console.log("MIR.COMPONENS:",JSON.parse(MIR).componentes);
-  
+  console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
+
   return {
     fin: newFinPropositoMA(),
     proposito: newFinPropositoMA(),
@@ -136,7 +136,7 @@ export function newComponenteMA(ComponenteMIR: IComponente) {
     descIndicador: "",
     descNumerador: "",
     descDenominador: "",
-    actividades:ComponenteMIR.actividades.map((item) =>
+    actividades: ComponenteMIR.actividades.map((item) =>
       newActividad(item)
     ),
   };
@@ -255,13 +255,19 @@ export default function AddMetaAnual({
 
   useEffect(() => {
     if (MA !== "") {
-      let auxMA = JSON.parse(MA);
+
+      let auxMA: IMA = JSON.parse(MA);
+      let auxMIR: IMIR = JSON.parse(MIR);
+
+      let lengthMA = auxMA.componentes.length
+      let lengthMIR = auxMIR.componentes.length
+
+      if (lengthMA !== lengthMIR) {
+        for (let i = lengthMA; i < lengthMIR; i++) {
+          auxMA.componentes.push(newComponenteMA(auxMIR.componentes[i]))
+        }
+      }
       setMAPadre(auxMA);
-      // if (isValidIMA(auxMA)) {
-      //   setMAPadre(auxMA);
-      // } else {
-      //   alertaError("La información puede estar dañada");
-      // }
     }
   }, []);
 
@@ -433,7 +439,7 @@ export default function AddMetaAnual({
                 // show={value === 2 ? true : false}
                 setMAActividadesPadre={setMAActividadesPadre}
                 ComponentesActividadMA={maPadre.componentes}
-                asignarCValor={() => {}}
+                asignarCValor={() => { }}
                 MA={MA}
                 MIR={MIR}
               ></TabActividadesMA>

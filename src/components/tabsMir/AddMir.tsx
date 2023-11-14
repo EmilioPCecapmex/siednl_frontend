@@ -100,29 +100,27 @@ export default function FullModalMir({
   const noComponentes = [1, 2];
 
   //let mDocumentos: IMovimientos[] = []
-  
 
   const movimientos = (movimientos: string, indices: string) => {
     let Documentos: IMovimientos = {
-       movimiento: movimientos, 
-      indice: indices 
+      movimiento: movimientos,
+      indice: indices,
     };
-    
-    let auxMDocumentos: IMovimientos[] =mDocumentos
-    auxMDocumentos.push(Documentos)
-    console.log("auxMDocumentos: ",auxMDocumentos);
-    
+
+    let auxMDocumentos: IMovimientos[] = mDocumentos;
+    auxMDocumentos.push(Documentos);
+    console.log("auxMDocumentos: ", auxMDocumentos);
+
     SetMDocumentos(auxMDocumentos);
-    console.log("mDocumentos: ",mDocumentos);
-   // return Documentos
+    console.log("mDocumentos: ", mDocumentos);
+    // return Documentos
   };
 
   const [mDocumentos, SetMDocumentos] = useState<IMovimientos[]>([]);
- 
+
   useEffect(() => {
-    console.log("useEffect Documentos: ",mDocumentos);
-  }, [mDocumentos])
-  
+    console.log("useEffect Documentos: ", mDocumentos);
+  }, [mDocumentos]);
 
   let mir: IMIR =
     MIR !== ""
@@ -212,14 +210,14 @@ export default function FullModalMir({
     arrComponentes.push(newComponente(MIRPADRE.componentes.length + 1));
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
 
-    movimientos("Add", ("C"+ MIRPADRE.componentes.length))
+    movimientos("add", "C" + MIRPADRE.componentes.length);
   };
 
   const removeComponente = (componenteSelected: number) => {
     let arrComponentes: IComponente[] = MIRPADRE.componentes.filter(
       (componente) => !componente.componente.includes(`C${componenteSelected}`)
     );
-    movimientos("remove", ("C" + componenteSelected))
+    movimientos("remove", "C" + componenteSelected);
     arrComponentes = arrComponentes.map((componente, index) => {
       if (parseInt(componente.componente.split("C")[1]) >= componenteSelected) {
         let aux = {
@@ -232,13 +230,9 @@ export default function FullModalMir({
             };
           }),
         };
-        
-        return aux;
-      } else 
-     
-      return componente;
 
-      
+        return aux;
+      } else return componente;
     });
 
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
@@ -344,7 +338,11 @@ export default function FullModalMir({
             />
 
             {value === 1 && (
-              <TabFinProposito MIR={MIRPADRE} setMIR={setMIRPADRE} />
+              <TabFinProposito
+                MIR={MIRPADRE}
+                setMIR={setMIRPADRE}
+                mirEdit={mirEdit}
+              />
             )}
 
             {value === 2 && (
