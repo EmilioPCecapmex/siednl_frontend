@@ -97,6 +97,7 @@ export interface IPropositoEditFT {
   unidadDeMedida: boolean;
 }
 
+
 export interface IComponenteEditFT {
   componentes: string;
   tipoDeIndicador: boolean;
@@ -108,6 +109,7 @@ export interface IComponenteEditFT {
   aporte_marginal: boolean;
   dimension: boolean;
   unidadDeMedida: boolean;
+  actividades: IActividadesEditFT[];
 }
 
 export interface IActividadesEditFT {
@@ -123,9 +125,23 @@ export interface IActividadesEditFT {
   unidadDeMedida: boolean;
 }
 
+export interface IEncabezadoEditFT {
+  programaSER: boolean;
+  objetivoSER: boolean;
+  objetivoODS: boolean;
+  metaODS: boolean;
+}
+
 export interface IFT {
   encabezado: IEncabezadoFT;
   fin: IFinFT;
   proposito: IPropositoFT;
   componentes: Array<IComponentesFT>;
+}
+
+export interface IFTEdit {
+  encabezado: IEncabezadoEditFT;
+  fin: IFinEditFT;
+  proposito: IPropositoEditFT;
+  componentes: IComponenteEditFT;
 }
