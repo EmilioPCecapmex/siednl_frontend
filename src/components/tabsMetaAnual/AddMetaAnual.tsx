@@ -268,6 +268,7 @@ export default function AddMetaAnual({
         }
       }
       setMAPadre(auxMA);
+      //newMetaAnual(auxMIR)
     }
   }, []);
 
