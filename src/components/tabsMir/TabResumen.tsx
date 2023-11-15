@@ -2421,7 +2421,7 @@ export function TabResumen({
             </Typography>
           </Button>
         </Grid>
-            {"a"+JSON.stringify(editComponentes)}
+        
         <ModalSolicitaModif
           open={openModalSolicitarModif}
           IdMir={idMir}

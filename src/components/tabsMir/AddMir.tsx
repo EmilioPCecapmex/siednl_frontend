@@ -320,7 +320,6 @@ export default function FullModalMir({
           }}
         >
           <GenericTabs tabsData={tabs} tabSelect={setValue} />
-{JSON.stringify(mirEdit)}
           <Grid
             sx={{
               width: ["300px", "650px", "900px", "1000px", "1100px", "1300px"],
