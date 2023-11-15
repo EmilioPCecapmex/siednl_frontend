@@ -143,6 +143,8 @@ export function newComponenteMA(ComponenteMIR: IComponente) {
   return componente;
 }
 
+
+
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -266,6 +268,7 @@ export default function AddMetaAnual({
         }
       }
       setMAPadre(auxMA);
+      //newMetaAnual(auxMIR)
     }
   }, []);
 

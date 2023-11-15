@@ -6,7 +6,12 @@ import { Grid, IconButton, useMediaQuery } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
-import { IActividad, IComponente, IComponenteActividad, IMIR } from "../tabsMir/interfaces mir/IMIR";
+import {
+  IActividad,
+  IComponente,
+  IComponenteActividad,
+  IMIR,
+} from "../tabsMir/interfaces mir/IMIR";
 import GenericTabs from "../genericComponents/genericTabs";
 import {
   actividadesObligatorias,
@@ -19,6 +24,9 @@ import {
   IComponentesFT,
   IEncabezadoFT,
   IFT,
+  IFTEdit,
+  IComponenteEditFT,
+  IActividadesEditFT,
 } from "./Interfaces";
 import { TabEncabezado } from "./TabEncabezado";
 import { TabComponenteFT } from "./TabComponentes";
@@ -44,7 +52,7 @@ function getNumComponents(MIR: string) {
 }
 
 function newFichaTecnica(MIR: string) {
-  let componentes: IComponente[] = JSON.parse(MIR).componentes
+  let componentes: IComponente[] = JSON.parse(MIR).componentes;
   console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
   return {
     encabezado: newEncabezadoFT(),
@@ -106,9 +114,41 @@ export function newComponenteFT(ComponenteMIR: IComponente) {
     aporte_marginal: "",
     dimension: "",
     unidadDeMedida: "",
-    actividades: ComponenteMIR.actividades.map((item) =>
-      newActividadFT(item)
-    ),
+    actividades: ComponenteMIR.actividades.map((item) => newActividadFT(item)),
+  };
+  return componente;
+}
+
+function newActividadbooleanFT(ActividadMIR: IActividad) {
+  return {
+    actividad:  ActividadMIR.actividad,
+    tipoDeIndicador: false,
+    claridad: false,
+    relevancia: false,
+    economia: false,
+    monitoreable: false,
+    adecuado: false,
+    aporte_marginal: false,
+    dimension: false,
+    unidadDeMedida: false,
+  };
+}
+
+function newComponentebooleanFT(ComponenteMir: IComponente) {
+  
+  let componente: IComponenteEditFT;
+  componente = {
+    componentes: ComponenteMir.componente,
+    tipoDeIndicador: false,
+    claridad: false,
+    relevancia: false,
+    economia: false,
+    monitoreable: false,
+    adecuado: false,
+    aporte_marginal: false,
+    dimension: false,
+    unidadDeMedida: false,
+    actividades: ComponenteMir.actividades.map((item) => newActividadbooleanFT(item)),
   };
   return componente;
 }
@@ -162,18 +202,17 @@ export default function AddFichaTecnica({
 
   const [ftPadre, setFTPadre] = useState<IFT>(newFichaTecnica(MIR));
 
-
   useEffect(() => {
     if (FT !== "") {
       let auxFT: IFT = JSON.parse(FT);
       let auxMIR: IMIR = JSON.parse(MIR);
 
-      let lengthFT = auxFT.componentes.length
-      let lengthMIR = auxMIR.componentes.length
+      let lengthFT = auxFT.componentes.length;
+      let lengthMIR = auxMIR.componentes.length;
 
       if (lengthFT !== lengthMIR) {
         for (let i = lengthFT; i < lengthMIR; i++) {
-          auxFT.componentes.push(newComponenteFT(auxMIR.componentes[i]))
+          auxFT.componentes.push(newComponenteFT(auxMIR.componentes[i]));
         }
       }
       setFTPadre(auxFT);
@@ -183,8 +222,6 @@ export default function AddFichaTecnica({
   useEffect(() => {
     console.log("ftPadre", ftPadre);
   }, [ftPadre]);
-
-
 
   const setFTEncabezadoPadre = (EncabezadoValues: IEncabezadoFT) => {
     setFTPadre({
@@ -207,13 +244,14 @@ export default function AddFichaTecnica({
     });
   };
 
-  const setFTcomponentesActividadPadre = (componentesActividadValues: IComponentesFT[]) => {
+  const setFTcomponentesActividadPadre = (
+    componentesActividadValues: IComponentesFT[]
+  ) => {
     setFTPadre({
       ...ftPadre,
       componentes: componentesActividadValues,
     });
   };
-
 
   const query = {
     isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
@@ -227,10 +265,44 @@ export default function AddFichaTecnica({
       componentes: componentesValues,
     });
   };
+  let componentesMir: IComponente[] = JSON.parse(MIR).componentes;
+  let ftEdit: IFTEdit =
+    FT !== "" && JSON.parse(FT).length > 1
+      ? JSON.parse(FT)[1]
+      : {
+          encabezado: {
+            programaSER: false,
+            objetivoSER: false,
+            objetivoODS: false,
+            metaODS: false,
+          },
+          fin: {
+            tipoDeIndicador: false,
+            claridad: false,
+            relevancia: false,
+            economia: false,
+            monitoreable: false,
+            adecuado: false,
+            aporte_marginal: false,
+            dimension: false,
+            unidadDeMedida: false,
+          },
+          proposito: {
+            tipoDeIndicador: false,
+            claridad: false,
+            relevancia: false,
+            economia: false,
+            monitoreable: false,
+            adecuado: false,
+            aporte_marginal: false,
+            dimension: false,
+            unidadDeMedida: false,
+          },
 
-  useEffect(() => {
-    console.log("ftPadre", ftPadre);
-  }, [ftPadre]);
+          componentes: componentesMir.map((item, index) => {
+            return newComponentebooleanFT(item);
+          }),
+        };
   return (
     <Grid
       container
@@ -253,7 +325,7 @@ export default function AddFichaTecnica({
         }}
       >
         <GenericTabs tabSelect={setValue} tabsData={tabs} />
-
+        {JSON.stringify(ftEdit)}
         <Grid
           sx={{
             width: "93vw",
@@ -266,6 +338,7 @@ export default function AddFichaTecnica({
               EncabezadoValues={ftPadre.encabezado}
               FT={FT}
               MIR={MIR}
+              ftEdit={ftEdit}
             ></TabEncabezado>
           ) : null}
 

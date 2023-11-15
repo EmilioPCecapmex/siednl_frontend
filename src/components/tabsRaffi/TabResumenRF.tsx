@@ -2,7 +2,7 @@ import { Grid, TextField, ListItemButton, Typography, Divider, List, Box, Paper,
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
+//import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
 import ModalsSolicitModifFT from "../modalsFT/ModalsSolicitModifFT";
 import { IActividadesRF, IComponenteRF, ICValorRF, IEncabezadoRF, IRF} from "./Interfaces";
 import { queries } from "../../queries";

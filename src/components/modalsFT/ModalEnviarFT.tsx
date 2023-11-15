@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMail } from "../../funcs/sendMailCustomMessage";
+//import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
 import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 export let errores: string[] = [];
@@ -403,7 +403,7 @@ console.log("FT");
         console.log("ModalEnviaFT r.data.data: ", r.data.data);
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario, IdFT, "FT", "Ficha Tecnica");
-          sendMail(user.CorreoElectronico, enviarMensaje, "FT");
+          //sendMail(user.CorreoElectronico, enviarMensaje, "FT");
         });
 
         Toast.fire({

@@ -11,14 +11,21 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { sendMail } from "../../funcs/sendMailCustomMessage";
+//import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
-import { IActividad, IComponente, IMovimientos } from "../tabsMir/interfaces mir/IMIR";
+import {
+  IActividad,
+  IComponente,
+  IMovimientos,
+} from "../tabsMir/interfaces mir/IMIR";
 import { getMAyFT } from "../../services/mir_services/MIR_services";
 import { IMA } from "../tabsMetaAnual/IMA";
 import { IComponentesFT, IFT } from "../tabsFichaTecnica/Interfaces";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
-import { newComponenteMA, newFinPropositoMA } from "../tabsMetaAnual/AddMetaAnual";
+import {
+  newComponenteMA,
+  newFinPropositoMA,
+} from "../tabsMetaAnual/AddMetaAnual";
 import { alertaEliminar } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
@@ -40,28 +47,36 @@ export default function ModalEnviarMIR({
   showResume: Function;
   estadoMIR: string;
   RestructuraMAyFT: Function;
-  mDocumentos: IMovimientos[]
+  mDocumentos: IMovimientos[];
 }) {
-
   const [ma, setMA] = useState<IMA>();
   const [ft, setFT] = useState<IFT>();
 
+  const [Idma, setIdMA] = useState("");
+  const [Idft, setIdFT] = useState("");
+
   useEffect(() => {
-    if (estadoMIR === 'Autorizada') {
-      getMAyFT(IdMir, setMA, setFT);
-    };
-  }, [])
+    console.log("MIR: ");
+
+    if (estadoMIR === "Autorizada") {
+      getMAyFT(IdMir, setMA, setFT, setIdMA, setIdFT);
+    }
+    console.log(ma);
+    console.log(ft);
+  }, []);
 
   ///////////////////////////////////////////////////////////////////////////////////////////
   const removeComponenteFT = (componenteSelected: number) => {
-
     if (ft) {
       let arrComponentes: IComponentesFT[] = ft.componentes.filter(
-        (componente) => !componente.componentes.includes(`C${componenteSelected}`)
+        (componente) =>
+          !componente.componentes.includes(`C${componenteSelected}`)
       );
 
       arrComponentes = arrComponentes.map((componente, index) => {
-        if (parseInt(componente.componentes.split("C")[1]) >= componenteSelected) {
+        if (
+          parseInt(componente.componentes.split("C")[1]) >= componenteSelected
+        ) {
           let aux = {
             ...componente,
             componentes: `C${index + 1}`,
@@ -74,26 +89,31 @@ export default function ModalEnviarMIR({
           };
 
           return aux;
-        } else
-
-          return componente;
+        } else return componente;
       });
       console.log("componentes actualizados", arrComponentes);
       setFT({ ...ft, componentes: arrComponentes });
-      console.log("MA actualizada", JSON.stringify({ ...ft, componentes: arrComponentes }));
+      return { ...ft, componentes: arrComponentes }
+      // console.log(
+      //   "MA actualizada",
+      //   JSON.stringify({ ...ft, componentes: arrComponentes })
+      // );
     }
+    return ft
   };
 
   ///////////////////////////////////////////////////////////////////////////////////////////
   const removeComponenteMA = (componenteSelected: number) => {
-
     if (ma) {
       let arrComponentes: IComponenteMA[] = ma.componentes.filter(
-        (componente) => !componente.componentes.includes(`C${componenteSelected}`)
+        (componente) =>
+          !componente.componentes.includes(`C${componenteSelected}`)
       );
 
       arrComponentes = arrComponentes.map((componente, index) => {
-        if (parseInt(componente.componentes.split("C")[1]) >= componenteSelected) {
+        if (
+          parseInt(componente.componentes.split("C")[1]) >= componenteSelected
+        ) {
           let aux = {
             ...componente,
             componentes: `C${index + 1}`,
@@ -106,17 +126,20 @@ export default function ModalEnviarMIR({
           };
 
           return aux;
-        } else
-
-          return componente;
+        } else return componente;
       });
       console.log("componentes actualizados", arrComponentes);
+      
       setMA({ ...ma, componentes: arrComponentes });
-      console.log("MA actualizada", JSON.stringify({ ...ma, componentes: arrComponentes }));
+      return { ...ma, componentes: arrComponentes }
+      // console.log(
+      //   "MA actualizada",
+      //   JSON.stringify({ ...ma, componentes: arrComponentes })
+      // );
     }
+    return ma
   };
   ///////////////////////////////////////////////////////////////////////////////////////////
-
 
   const [comment, setComment] = useState("");
 
@@ -148,7 +171,7 @@ export default function ModalEnviarMIR({
         setNewComent(false);
         setComment("");
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   const checkMir = (v: string) => {
@@ -336,9 +359,6 @@ export default function ModalEnviarMIR({
 
   const checkComponentes = (v: string) => {
     JSON.parse(MIR)?.componentes.map((componente: any, index: number) => {
-
-
-
       if (
         componente.resumen === undefined ||
         /^[\s]*$/.test(componente.resumen) ||
@@ -413,7 +433,6 @@ export default function ModalEnviarMIR({
     JSON.parse(MIR)?.componentes.map(
       (componente: IComponente, indexC: number) => {
         componente.actividades.map((actividad: IActividad, indexA: number) => {
-
           if (
             actividad.resumen === undefined ||
             /^[\s]*$/.test(actividad.resumen) ||
@@ -431,7 +450,8 @@ export default function ModalEnviarMIR({
           ) {
             err = 1;
             errores.push(
-              `<hr><strong>ACTIVIDAD ${(actividad.actividad, indexA + 1)
+              `<hr><strong>ACTIVIDAD ${
+                (actividad.actividad, indexA + 1)
               } </strong> INCOMPLETA.`
             );
           }
@@ -445,7 +465,6 @@ export default function ModalEnviarMIR({
             );
             err = 1;
           }
-
 
           if (
             componente.actividades[indexA].indicador === undefined ||
@@ -485,8 +504,6 @@ export default function ModalEnviarMIR({
             err = 1;
           }
         });
-
-
       }
     );
     if (err === 0) {
@@ -512,8 +529,6 @@ export default function ModalEnviarMIR({
   }, []);
 
   const CrearMetaAnual = (mensaje: string, IdMir: string) => {
-
-
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
@@ -535,13 +550,9 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
-
-
         userXInst.map((user) => {
-
-
           enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
-          sendMail(user.CorreoElectronico, enviarMensaje, "MA");
+          //sendMail(user.CorreoElectronico, enviarMensaje, "MA");
         });
         showResume();
       })
@@ -552,8 +563,6 @@ export default function ModalEnviarMIR({
   };
 
   const createMIR = (estado: string) => {
-
-
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
@@ -565,7 +574,7 @@ export default function ModalEnviarMIR({
             userSelected !== "0"
               ? userSelected
               : //se va a modificar
-              localStorage.getItem("IdUsuario"),
+                localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
           IdEntidad: localStorage.getItem("IdEntidad"),
           Programa: JSON.parse(MIR)?.encabezado.programa.Label,
@@ -585,7 +594,7 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
           //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
 
-          sendMail(user.CorreoElectronico, enviarMensaje, "MIR");
+          //sendMail(user.CorreoElectronico, enviarMensaje, "MIR");
           enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
         });
 
@@ -648,8 +657,6 @@ export default function ModalEnviarMIR({
           }
         )
         .then((r) => {
-
-
           if (r.status === 200) {
             setUserXInst(r.data.data);
           }
@@ -662,7 +669,6 @@ export default function ModalEnviarMIR({
     IdDoc = "",
     Nombre = ""
   ) => {
-
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
 
@@ -694,14 +700,35 @@ export default function ModalEnviarMIR({
   });
 
   const mirFuncionAutorizada = () => {
+    let auxMA: string
+    let auxFT: string
     mDocumentos.map((item) => {
       if (item.movimiento === "remove") {
-        removeComponenteMA(Number(item.indice.split('C')[1]));
-        removeComponenteFT(Number(item.indice.split('C')[1]));
+
+        auxMA =  JSON.stringify(removeComponenteMA(Number(item.indice.split("C")[1]))) 
+        auxFT =  JSON.stringify(removeComponenteFT(Number(item.indice.split("C")[1])))
       }
-    })
-    
-  }
+      console.log("estoy arriba del axios")
+      axios.post(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/update-info",
+        {
+          IdMir: IdMir,
+          IdMa: Idma,
+          IdFT: Idft,
+          MIR: MIR,
+          MA: auxMA,
+          FT: auxFT,
+          Rol: localStorage.getItem("Rol"),
+          CreadoPor: localStorage.getItem("IdUsuario"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      );
+    });
+  };
 
   return (
     <Dialog
@@ -747,8 +774,8 @@ export default function ModalEnviarMIR({
                 ? "Al confirmar, la MIR se autorizará y el apartado de la Meta Anual será habilitado. Al confirmar los cambios se modificará la MIR y afectará la información de la Meta Anual y Ficha Técnica."
                 : "Al confirmar, la MIR se autorizará y el apartado de la Meta Anual será habilitado."
               : localStorage.getItem("Rol") === "Verificador"
-                ? "Al confirmar, la MIR se enviará a los usuarios correspondientes para autorización."
-                : "Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión."}
+              ? "Al confirmar, la MIR se enviará a los usuarios correspondientes para autorización."
+              : "Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión."}
           </Typography>
         </Box>
 
@@ -797,15 +824,15 @@ export default function ModalEnviarMIR({
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
                     : localStorage.getItem("Rol") === "Verificador"
-                      ? "En Autorización"
-                      : "Autorizada"
+                    ? "En Autorización"
+                    : "Autorizada"
                 );
 
                 handleClose(false);
                 setNewComent(false);
-                RestructuraMAyFT()
+                RestructuraMAyFT();
                 if (estadoMIR === "Autorizada") {
-                  mirFuncionAutorizada()
+                  mirFuncionAutorizada();
                 }
               }}
             >
