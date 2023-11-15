@@ -212,9 +212,73 @@ export function TabResumen({
     supuestos: true,
   });
 
-  const [editComponentes, setEditComponentes] = useState<
-    Array<IComponenteMirEdit>
-  >([]);
+
+  const [editComponentes, setEditComponentes] = useState<Array<IComponenteMirEdit>>([
+    {
+      componentes: "C1",
+      formula: true,
+      frecuencia: true,
+      indicador: true,
+      medios: true,
+      resumen: true,
+      supuestos: true,
+      actividades: [
+        {
+          actividad: "A1",
+          formula: true,
+          frecuencia: true,
+          indicador: true,
+          medios: true,
+          resumen: true,
+          supuestos: true,
+        },
+        {
+          actividad: "A2",
+          formula: true,
+          frecuencia: true,
+          indicador: true,
+          medios: true,
+          resumen: true,
+          supuestos: true,
+        },
+      ],
+    },
+    {
+      componentes: "C2",
+      formula: true,
+      frecuencia: true,
+      indicador: true,
+      medios: true,
+      resumen: true,
+      supuestos: true,
+      actividades: [
+        {
+          actividad: "A1",
+          formula: true,
+          frecuencia: true,
+          indicador: true,
+          medios: true,
+          resumen: true,
+          supuestos: true,
+        },
+        {
+          actividad: "A2",
+          formula: true,
+          frecuencia: true,
+          indicador: true,
+          medios: true,
+          resumen: true,
+          supuestos: true,
+        },
+      ],
+    },
+  ]);
+
+
+
+//   const [editComponentes, setEditComponentes] = useState<
+//   Array<IComponenteMirEdit>
+// >([]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [editActividades, setEditActividades] = useState<
@@ -233,49 +297,7 @@ export function TabResumen({
   const [disablebuttonactividades, setDisablebuttonactividades] =
     useState(false);
 
-    useEffect(() => {
-      
-      console.log("a");
-      let cEdit = editComponentes.map((item) => {
-        
-        return {
-          componentes: item.componentes,
-          formula: true,
-          frecuencia: true,
-          indicador: true,
-          medios: true,
-          resumen: true,
-          supuestos: true,
-          actividades: [
-            {
-              actividad: "A1",
-              formula: true,
-              frecuencia: true,
-              indicador: true,
-              medios: true,
-              resumen: true,
-              supuestos: true,
-            },
-          ],
-        };
-      });
-      setEditComponentes(cEdit);
-      
-      // let aEdit = arr.map((item) => {
-      //   return {
-      //     actividad: item.actividad,
-      //     formula: true,
-      //     frecuencia: true,
-      //     indicador: true,
-      //     medios: true,
-      //     resumen: true,
-      //     supuestos: true,
-      //   };
-      // });
-  
-      // setEditActividades(aEdit);
-  
-    }, [openModalSolicitarModif, editComponentes]);
+
 
 
 
@@ -1640,10 +1662,10 @@ export function TabResumen({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={editComponentes[index - 1]?.resumen}
+                      value={editComponentes[index]?.resumen}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].resumen = !v.target.checked;
+                        past[index].resumen = !v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1687,10 +1709,10 @@ export function TabResumen({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={editComponentes[index - 1]?.indicador}
+                      value={editComponentes[index]?.indicador}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].indicador = !v.target.checked;
+                        past[index].indicador = !v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1735,10 +1757,10 @@ export function TabResumen({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={editComponentes[index - 1]?.formula}
+                      value={editComponentes[index]?.formula}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].formula = !v.target.checked;
+                        past[index].formula = !v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1784,10 +1806,10 @@ export function TabResumen({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={editComponentes[index - 1]?.frecuencia}
+                      value={editComponentes[index]?.frecuencia}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].frecuencia = !v.target.checked;
+                        past[index].frecuencia = !v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1831,10 +1853,10 @@ export function TabResumen({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={editComponentes[index - 1]?.medios}
+                      value={editComponentes[index]?.medios}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].medios = !v.target.checked;
+                        past[index].medios = !v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1880,10 +1902,10 @@ export function TabResumen({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={editComponentes[index - 1]?.supuestos}
+                      value={editComponentes[index]?.supuestos}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].supuestos = !v.target.checked;
+                        past[index].supuestos = !v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
