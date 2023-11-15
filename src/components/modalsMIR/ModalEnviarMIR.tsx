@@ -11,22 +11,14 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-//import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
-import {
-  IActividad,
-  IComponente,
-  IMovimientos,
-} from "../tabsMir/interfaces mir/IMIR";
+
 import { getMAyFT } from "../../services/mir_services/MIR_services";
 import { IMA } from "../tabsMetaAnual/IMA";
 import { IComponentesFT, IFT } from "../tabsFichaTecnica/Interfaces";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
-import {
-  newComponenteMA,
-  newFinPropositoMA,
-} from "../tabsMetaAnual/AddMetaAnual";
-import { alertaEliminar } from "../genericComponents/Alertas";
+import { IActividad, IComponente, IMovimientos } from "../tabsMir/interfaces mir/IMIR";
+
 
 export let errores: string[] = [];
 

@@ -88,7 +88,7 @@ function newMetaAnual(MIR: string) {
   };
 }
 
-export function newActividad(ActividadMIR: IActividad) {
+export function newActividadMA(ActividadMIR: IActividad) {
   return {
     actividad: ActividadMIR.actividad,
     metaAnual: "",
@@ -137,7 +137,7 @@ export function newComponenteMA(ComponenteMIR: IComponente) {
     descNumerador: "",
     descDenominador: "",
     actividades: ComponenteMIR.actividades.map((item) =>
-      newActividad(item)
+      newActividadMA(item)
     ),
   };
   return componente;
@@ -256,19 +256,26 @@ export default function AddMetaAnual({
   useEffect(() => {
     if (MA !== "") {
 
-      let auxMA: IMA = JSON.parse(MA);
+      let auxDBMA: IMA = JSON.parse(MA);
+
       let auxMIR: IMIR = JSON.parse(MIR);
+      let auxMA:IMA = newMetaAnual(MIR);
 
-      let lengthMA = auxMA.componentes.length
-      let lengthMIR = auxMIR.componentes.length
+      // let lengthMA = auxMA.componentes.length
+      // let lengthMIR = auxMIR.componentes.length
 
-      if (lengthMA !== lengthMIR) {
-        for (let i = lengthMA; i < lengthMIR; i++) {
-          auxMA.componentes.push(newComponenteMA(auxMIR.componentes[i]))
-        }
-      }
-      setMAPadre(auxMA);
-      //newMetaAnual(auxMIR)
+      let auxComponentes= auxMA.componentes.map((itemComponente,indexC)=>{
+          let auxActividades:IActividadesMA[]= itemComponente.actividades.map((itemActividad,indexA)=>{
+            return auxDBMA.componentes[indexC].actividades[indexA]||newActividadMA(auxMIR.componentes[indexC].actividades[indexA])
+          })
+          return {...itemComponente,actividades:auxActividades}
+      })
+      // if (lengthMA !== lengthMIR) {
+      //   for (let i = lengthMA; i < lengthMIR; i++) {
+      //     auxMA.componentes.push(newComponenteMA(auxMIR.componentes[i]))
+      //   }
+      // }
+      setMAPadre({...auxDBMA,componentes:auxComponentes});
     }
   }, []);
 
