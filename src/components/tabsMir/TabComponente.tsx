@@ -13,7 +13,7 @@ import {
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
-import { IComponente, IMIR } from "./interfaces mir/IMIR";
+import { IComponente, IMIR, IMIREdit } from "./interfaces mir/IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
@@ -28,6 +28,7 @@ export const TabComponente = ({
   MIR,
   setMIR,
   idMir,
+  mirEdit,
 }: {
   // show: boolean;
   noComponentes: number[];
@@ -35,7 +36,8 @@ export const TabComponente = ({
   removeComponente: Function;
   MIR: IMIR;
   setMIR: Function;
-  idMir:string;
+  idMir: string;
+  mirEdit: IMIREdit;
 }) => {
   const [componentSelect, setComponentSelect] = useState(1);
 
@@ -342,7 +344,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              // disabled={mirEdit?.componentes[componentSelect ].resumen}
+              disabled={mirEdit?.componentes[componentSelect - 1].resumen}
               rows={8}
               multiline
               sx={{
@@ -387,7 +389,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              // disabled={mirEdit?.componentes[componentSelect ].indicador}
+              disabled={mirEdit?.componentes[componentSelect - 1].indicador}
               rows={8}
               multiline
               sx={{
@@ -440,7 +442,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              // disabled={mirEdit?.componentes[componentSelect ].formula}
+              disabled={mirEdit?.componentes[componentSelect - 1].formula}
               rows={8}
               multiline
               variant="filled"
@@ -554,7 +556,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              // disabled={mirEdit?.componentes[componentSelect ].medios}
+              disabled={mirEdit?.componentes[componentSelect - 1].medios}
               rows={8}
               multiline
               variant="filled"
@@ -600,7 +602,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              // disabled={mirEdit?.componentes[componentSelect ].supuestos}
+              disabled={mirEdit?.componentes[componentSelect - 1].supuestos}
               rows={8}
               multiline
               variant="filled"

@@ -233,6 +233,54 @@ export function TabResumen({
   const [disablebuttonactividades, setDisablebuttonactividades] =
     useState(false);
 
+    useEffect(() => {
+      
+      console.log("a");
+      let cEdit = editComponentes.map((item) => {
+        
+        return {
+          componentes: item.componentes,
+          formula: true,
+          frecuencia: true,
+          indicador: true,
+          medios: true,
+          resumen: true,
+          supuestos: true,
+          actividades: [
+            {
+              actividad: "A1",
+              formula: true,
+              frecuencia: true,
+              indicador: true,
+              medios: true,
+              resumen: true,
+              supuestos: true,
+            },
+          ],
+        };
+      });
+      setEditComponentes(cEdit);
+      
+      // let aEdit = arr.map((item) => {
+      //   return {
+      //     actividad: item.actividad,
+      //     formula: true,
+      //     frecuencia: true,
+      //     indicador: true,
+      //     medios: true,
+      //     resumen: true,
+      //     supuestos: true,
+      //   };
+      // });
+  
+      // setEditActividades(aEdit);
+  
+    }, [openModalSolicitarModif, editComponentes]);
+
+
+
+
+
   useEffect(() => {
     let arrayEncabezado = Object.entries(editEncabezado);
     let arrayFin = Object.entries(editFin);
@@ -286,7 +334,7 @@ export function TabResumen({
     editFin,
     editProposito,
     editComponentes,
-    //editActividades,
+    editActividades,
   ]);
 
   const isCapturador = localStorage.getItem("Rol") === "Capturador";
@@ -418,7 +466,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditEncabezado({
                     ...editEncabezado,
-                    ejercicioFiscal: v.target.checked,
+                    ejercicioFiscal: !v.target.checked,
                   });
                 }}
               />
@@ -468,7 +516,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditEncabezado({
                     ...editEncabezado,
-                    institucion: v.target.checked,
+                    institucion: !v.target.checked,
                   });
                 }}
               />
@@ -523,7 +571,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditEncabezado({
                     ...editEncabezado,
-                    nombre_del_programa: v.target.checked,
+                    nombre_del_programa: !v.target.checked,
                   });
                 }}
               />
@@ -573,7 +621,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditEncabezado({
                     ...editEncabezado,
-                    eje: v.target.checked,
+                    eje: !v.target.checked,
                   });
                 }}
               />
@@ -623,7 +671,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditEncabezado({
                     ...editEncabezado,
-                    tema: v.target.checked,
+                    tema: !v.target.checked,
                   });
                 }}
               />
@@ -678,7 +726,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditEncabezado({
                     ...editEncabezado,
-                    objetivo: v.target.checked,
+                    objetivo: !v.target.checked,
                   });
                 }}
               />
@@ -727,7 +775,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditEncabezado({
                     ...editEncabezado,
-                    estrategia: v.target.checked,
+                    estrategia: !v.target.checked,
                   });
                 }}
               />
@@ -776,7 +824,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditEncabezado({
                     ...editEncabezado,
-                    beneficiario: v.target.checked,
+                    beneficiario: !v.target.checked,
                   });
                 }}
               />
@@ -826,7 +874,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditEncabezado({
                     ...editEncabezado,
-                    lineas_de_accion: v.target.checked,
+                    lineas_de_accion: !v.target.checked,
                   });
                 }}
               />
@@ -918,7 +966,7 @@ export function TabResumen({
               <Checkbox
                 value={editFin.resumen}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, resumen: v.target.checked });
+                  setEditFin({ ...editFin, resumen: !v.target.checked });
                 }}
               />
             </Grid>
@@ -965,7 +1013,7 @@ export function TabResumen({
               <Checkbox
                 value={editFin.indicador}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, indicador: v.target.checked });
+                  setEditFin({ ...editFin, indicador: !v.target.checked });
                 }}
               />
             </Grid>
@@ -1012,7 +1060,7 @@ export function TabResumen({
               <Checkbox
                 value={editFin.formula}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, formula: v.target.checked });
+                  setEditFin({ ...editFin, formula: !v.target.checked });
                 }}
               />
             </Grid>
@@ -1059,7 +1107,7 @@ export function TabResumen({
               <Checkbox
                 value={editFin.frecuencia}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, frecuencia: v.target.checked });
+                  setEditFin({ ...editFin, frecuencia: !v.target.checked });
                 }}
               />
             </Grid>
@@ -1105,7 +1153,7 @@ export function TabResumen({
               <Checkbox
                 value={editFin.medios}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, medios: v.target.checked });
+                  setEditFin({ ...editFin, medios: !v.target.checked });
                 }}
               />
             </Grid>
@@ -1152,7 +1200,7 @@ export function TabResumen({
               <Checkbox
                 value={editFin.supuestos}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, supuestos: v.target.checked });
+                  setEditFin({ ...editFin, supuestos: !v.target.checked });
                 }}
               />
             </Grid>
@@ -1230,7 +1278,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    resumen: v.target.checked,
+                    resumen: !v.target.checked,
                   });
                 }}
               />
@@ -1281,7 +1329,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    indicador: v.target.checked,
+                    indicador: !v.target.checked,
                   });
                 }}
               />
@@ -1331,7 +1379,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    formula: v.target.checked,
+                    formula: !v.target.checked,
                   });
                 }}
               />
@@ -1381,7 +1429,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    frecuencia: v.target.checked,
+                    frecuencia: !v.target.checked,
                   });
                 }}
               />
@@ -1432,7 +1480,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    medios_verificacion: v.target.checked,
+                    medios_verificacion: !v.target.checked,
                   });
                 }}
               />
@@ -1482,7 +1530,7 @@ export function TabResumen({
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    supuestos: v.target.checked,
+                    supuestos: !v.target.checked,
                   });
                 }}
               />
@@ -1595,7 +1643,7 @@ export function TabResumen({
                       value={editComponentes[index - 1]?.resumen}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].resumen = v.target.checked;
+                        past[index - 1].resumen = !v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1642,7 +1690,7 @@ export function TabResumen({
                       value={editComponentes[index - 1]?.indicador}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].indicador = v.target.checked;
+                        past[index - 1].indicador = !v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1690,7 +1738,7 @@ export function TabResumen({
                       value={editComponentes[index - 1]?.formula}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].formula = v.target.checked;
+                        past[index - 1].formula = !v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1739,7 +1787,7 @@ export function TabResumen({
                       value={editComponentes[index - 1]?.frecuencia}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].frecuencia = v.target.checked;
+                        past[index - 1].frecuencia = !v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1786,7 +1834,7 @@ export function TabResumen({
                       value={editComponentes[index - 1]?.medios}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].medios = v.target.checked;
+                        past[index - 1].medios = !v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1835,7 +1883,7 @@ export function TabResumen({
                       value={editComponentes[index - 1]?.supuestos}
                       onChange={(v) => {
                         let past = [...editComponentes];
-                        past[index - 1].supuestos = v.target.checked;
+                        past[index - 1].supuestos = !v.target.checked;
                         setEditComponentes(past);
                       }}
                     />
@@ -1950,7 +1998,7 @@ export function TabResumen({
                         value={!editComponentes[index - 1]?.resumen}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          past[index - 1].resumen = v.target.checked;
+                          past[index - 1].resumen = !v.target.checked;
                           setEditComponentes(past);
                         }}
                       />
@@ -1997,7 +2045,7 @@ export function TabResumen({
                         value={!editComponentes[index - 1]?.indicador}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          past[index - 1].indicador = v.target.checked;
+                          past[index - 1].indicador = !v.target.checked;
                           setEditComponentes(past);
                         }}
                       />
@@ -2045,7 +2093,7 @@ export function TabResumen({
                         value={!editComponentes[index - 1]?.formula}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          past[index - 1].formula = v.target.checked;
+                          past[index - 1].formula = !v.target.checked;
                           setEditComponentes(past);
                         }}
                       />
@@ -2093,7 +2141,7 @@ export function TabResumen({
                         value={!editComponentes[index - 1]?.frecuencia}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          past[index - 1].frecuencia = v.target.checked;
+                          past[index - 1].frecuencia = !v.target.checked;
                           setEditComponentes(past);
                         }}
                       />
@@ -2141,7 +2189,7 @@ export function TabResumen({
                         value={!editComponentes[index - 1]?.medios}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          past[index - 1].medios = v.target.checked;
+                          past[index - 1].medios = !v.target.checked;
                           setEditComponentes(past);
                         }}
                       />
@@ -2190,7 +2238,7 @@ export function TabResumen({
                         value={!editComponentes[index - 1]?.supuestos}
                         onChange={(v) => {
                           let past = [...editComponentes];
-                          past[index - 1].supuestos = v.target.checked;
+                          past[index - 1].supuestos = !v.target.checked;
                           setEditComponentes(past);
                         }}
                       />
@@ -2351,7 +2399,7 @@ export function TabResumen({
             </Typography>
           </Button>
         </Grid>
-
+            {"a"+JSON.stringify(editComponentes)}
         <ModalSolicitaModif
           open={openModalSolicitarModif}
           IdMir={idMir}

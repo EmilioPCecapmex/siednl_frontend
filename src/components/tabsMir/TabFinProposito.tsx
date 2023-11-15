@@ -472,6 +472,7 @@ export function TabFinProposito({
                   justifyContent: "center",
                 }}
               >
+
                 <TextField
                   rows={8}
                   multiline
@@ -521,6 +522,7 @@ export function TabFinProposito({
                   justifyContent: "center",
                 }}
               >
+
                 <TextField
                   disabled={
                     mirEdit?.fin.indicador && fin.indicador !== ""
