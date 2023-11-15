@@ -24,6 +24,9 @@ import {
   IComponentesFT,
   IEncabezadoFT,
   IFT,
+  IFTEdit,
+  IComponenteEditFT,
+  IActividadesEditFT,
 } from "./Interfaces";
 import { TabEncabezado } from "./TabEncabezado";
 import { TabComponenteFT } from "./TabComponentes";
@@ -112,6 +115,40 @@ export function newComponenteFT(ComponenteMIR: IComponente) {
     dimension: "",
     unidadDeMedida: "",
     actividades: ComponenteMIR.actividades.map((item) => newActividadFT(item)),
+  };
+  return componente;
+}
+
+function newActividadbooleanFT(ActividadMIR: IActividad) {
+  return {
+    actividad:  ActividadMIR.actividad,
+    tipoDeIndicador: false,
+    claridad: false,
+    relevancia: false,
+    economia: false,
+    monitoreable: false,
+    adecuado: false,
+    aporte_marginal: false,
+    dimension: false,
+    unidadDeMedida: false,
+  };
+}
+
+function newComponentebooleanFT(ComponenteMir: IComponente) {
+  
+  let componente: IComponenteEditFT;
+  componente = {
+    componentes: ComponenteMir.componente,
+    tipoDeIndicador: false,
+    claridad: false,
+    relevancia: false,
+    economia: false,
+    monitoreable: false,
+    adecuado: false,
+    aporte_marginal: false,
+    dimension: false,
+    unidadDeMedida: false,
+    actividades: ComponenteMir.actividades.map((item) => newActividadbooleanFT(item)),
   };
   return componente;
 }
@@ -228,29 +265,44 @@ export default function AddFichaTecnica({
       componentes: componentesValues,
     });
   };
+  let componentesMir: IComponente[] = JSON.parse(MIR).componentes;
+  let ftEdit: IFTEdit =
+    FT !== "" && JSON.parse(FT).length > 1
+      ? JSON.parse(FT)[1]
+      : {
+          encabezado: {
+            programaSER: false,
+            objetivoSER: false,
+            objetivoODS: false,
+            metaODS: false,
+          },
+          fin: {
+            tipoDeIndicador: false,
+            claridad: false,
+            relevancia: false,
+            economia: false,
+            monitoreable: false,
+            adecuado: false,
+            aporte_marginal: false,
+            dimension: false,
+            unidadDeMedida: false,
+          },
+          proposito: {
+            tipoDeIndicador: false,
+            claridad: false,
+            relevancia: false,
+            economia: false,
+            monitoreable: false,
+            adecuado: false,
+            aporte_marginal: false,
+            dimension: false,
+            unidadDeMedida: false,
+          },
 
-  // let ftEdit: IFTEdit =
-  //   FT !== "" && JSON.parse(FT).length > 1
-  //     ? JSON.parse(FT)[1]
-  //     : {
-  //         encabezado: {
-  //           programaSER: false,
-  //           objetivoSER: false,
-  //           objetivoODS: false,
-  //           metaODS: false,
-  //         },
-  //         fin: {
-  //           tipoDeIndicador: false,
-  //           claridad: false,
-  //           relevancia: false,
-  //           economia: false,
-  //           monitoreable: false,
-  //           adecuado: false,
-  //           aporte_marginal: false,
-  //           dimension: false,
-  //           unidadDeMedida: false,
-  //         }
-  //       };
+          componentes: componentesMir.map((item, index) => {
+            return newComponentebooleanFT(item);
+          }),
+        };
   return (
     <Grid
       container
@@ -273,7 +325,7 @@ export default function AddFichaTecnica({
         }}
       >
         <GenericTabs tabSelect={setValue} tabsData={tabs} />
-
+        {JSON.stringify(ftEdit)}
         <Grid
           sx={{
             width: "93vw",
@@ -286,6 +338,7 @@ export default function AddFichaTecnica({
               EncabezadoValues={ftPadre.encabezado}
               FT={FT}
               MIR={MIR}
+              ftEdit={ftEdit}
             ></TabEncabezado>
           ) : null}
 

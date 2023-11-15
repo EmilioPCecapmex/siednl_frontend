@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import { IEncabezadoFT } from "./Interfaces";
+import { IEncabezadoFT, IFTEdit } from "./Interfaces";
 
 interface IObjetivoDS { Id: string, ObjetivoDS: string, }
 interface IMetaODS { Id: string, MetaODS: string }
@@ -22,11 +22,13 @@ export function TabEncabezado({
   FT,
   MIR,
   EncabezadoValues,
+  ftEdit,
 }: {
   setFTEncabezadoPadre: Function;
   FT: string;
   MIR: string;
   EncabezadoValues: IEncabezadoFT;
+  ftEdit: IFTEdit;
 }) {
   const [encabezado, setEncabezado] = useState<IEncabezadoFT>(EncabezadoValues);
 
