@@ -486,7 +486,7 @@ export default function ModalSolicitaModif({
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
         {
-          FichaTecnica: FT,
+          FichaTecnica:FTEdit || FTEdit==="" ? FT : "[" + FT + "," + FTEdit + "]",
           CreadoPor:
             userSelected !== "0"
               ? userSelected
