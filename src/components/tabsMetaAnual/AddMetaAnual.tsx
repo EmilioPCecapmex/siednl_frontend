@@ -79,7 +79,7 @@ export function newFinPropositoMA() {
 
 function newMetaAnual(MIR: string) {
   let componentes: IComponente[] = JSON.parse(MIR).componentes
-  console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
+  // console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
 
   return {
     fin: newFinPropositoMA(),
@@ -278,17 +278,17 @@ export default function AddMetaAnual({
         let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
           if (auxDBMA.componentes[indexC]) {
             let auxActividades: IActividadesMA[] = itemComponente.actividades.map((itemActividad, indexA) => {
-              // console.log("iteracion: ", auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA]));
-
               return auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA])
             })
-            return { ...itemComponente, actividades: auxActividades }
+            console.log("componente opcional:",{...auxDBMA.componentes[indexC],actividades: auxActividades});
+            
+            return {...auxDBMA.componentes[indexC],actividades: auxActividades}||{ ...itemComponente, actividades: auxActividades }
           } else {
             return newComponenteMA(auxMIR.componentes[indexC])
           }
 
         })
-        // console.log("MA: ", { ...auxDBMA, componentes: auxComponentes });
+        
         setMAPadre({ ...auxDBMA, componentes: auxComponentes });
       } else {
         let auxDBMA: IMA = JSON.parse(MA);
@@ -305,7 +305,9 @@ export default function AddMetaAnual({
 
               return auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA])
             })
-            return { ...itemComponente, actividades: auxActividades }
+            console.log("componente opcional:",{...auxDBMA.componentes[indexC],actividades: auxActividades});
+            
+            return {...auxDBMA.componentes[indexC],actividades: auxActividades}||{ ...itemComponente, actividades: auxActividades }
           } else {
             return newComponenteMA(auxMIR.componentes[indexC])
           }
@@ -318,9 +320,9 @@ export default function AddMetaAnual({
     }
   }, []);
 
-  useEffect(() => {
-    console.log("maPadre", maPadre);
-  }, [maPadre]);
+  // useEffect(() => {
+  //   console.log("maPadre", maPadre);
+  // }, [maPadre]);
 
   // const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
   //   setComponentesMA(state);
