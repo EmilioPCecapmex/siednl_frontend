@@ -248,20 +248,20 @@ export default function FullModalMir({
   const [mirEdirPadre, setMIREDITPADRE] = useState<IMIREdit>(newMIREDIT(MIR));
 
   useEffect(() => {
-    let auxMIREDIT: IMIREdit = mirEdirPadre;
+    // let auxMIREDIT: IMIREdit = mirEdirPadre;
 
-    let lengthMIR = MIRPADRE.componentes.length;
-    let lengthMIREDIT = mirEdirPadre.componentes.length;
+    // let lengthMIR = MIRPADRE.componentes.length;
+    // let lengthMIREDIT = mirEdirPadre.componentes.length;
 
-    if (lengthMIR !== lengthMIREDIT) {
-      for (let i = lengthMIREDIT; i < lengthMIR; i++)
-        auxMIREDIT.componentes.push(
-          newComponenteboolean(MIRPADRE.componentes[i])
-        );
-    }
-    console.log("auxMIREDIT: ", auxMIREDIT);
+    // if (lengthMIR !== lengthMIREDIT) {
+    //   for (let i = lengthMIREDIT; i < lengthMIR; i++)
+    //     auxMIREDIT.componentes.push(
+    //       newComponenteboolean(MIRPADRE.componentes[i])
+    //     );
+    // }
+    // console.log("auxMIREDIT: ", auxMIREDIT);
 
-    setMIREDITPADRE(auxMIREDIT);
+    // setMIREDITPADRE(auxMIREDIT);
     console.log("mirEdirPadre: ", mirEdirPadre);
   }, []);
 
@@ -274,12 +274,7 @@ export default function FullModalMir({
 
     movimientos("add", "C" + MIRPADRE.componentes.length);
 
-    let arrComponentesboolean: IComponenteMirEdit[] = mirEdirPadre.componentes;
-    // arrComponentesboolean.push(
-    //   newComponenteboolean(MIRPADRE.componentes.length)
-    // );
-    setMIREDITPADRE({ ...mirEdirPadre, componentes: arrComponentesboolean });
-    console.log("mirEdirPadre: ", mirEdirPadre);
+    
   };
 
   const removeComponente = (componenteSelected: number) => {
@@ -315,27 +310,27 @@ export default function FullModalMir({
           !componente.componente.includes(`C${componenteSelected}`)
       );
 
-    arrComponentesboolean = arrComponentesboolean.map((componente, index) => {
-      if (parseInt(componente.componente.split("C")[1]) >= componenteSelected) {
-        let aux = {
-          ...componente,
-          componente: `C${index + 1}`,
-          actividades: componente.actividades.map((item) => {
-            return {
-              ...item,
-              actividad: item.actividad.replace(/C\d+/, `C${index + 1}`),
-            };
-          }),
-        };
+    // arrComponentesboolean = arrComponentesboolean.map((componente, index) => {
+    //   if (parseInt(componente.componente.split("C")[1]) >= componenteSelected) {
+    //     let aux = {
+    //       ...componente,
+    //       componente: `C${index + 1}`,
+    //       actividades: componente.actividades.map((item) => {
+    //         return {
+    //           ...item,
+    //           actividad: item.actividad.replace(/C\d+/, `C${index + 1}`),
+    //         };
+    //       }),
+    //     };
 
-        return aux;
-      } else {
-        return componente;
-      }
-    });
-    setMIREDITPADRE({ ...mirEdirPadre, componentes: arrComponentesboolean });
-    console.log("componentes", mirEdirPadre.componentes);
-    console.log("componentes actualizados", arrComponentesboolean);
+    //     return aux;
+    //   } else {
+    //     return componente;
+    //   }
+    // });
+    // setMIREDITPADRE({ ...mirEdirPadre, componentes: arrComponentesboolean });
+    // console.log("componentes", mirEdirPadre.componentes);
+    // console.log("componentes actualizados", arrComponentesboolean);
   };
 
   const addActividad = (componenteSelect: number) => {
@@ -357,25 +352,6 @@ export default function FullModalMir({
 
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
 
-    let arrComponentesboolean: IComponenteMirEdit[] = mirEdirPadre.componentes;
-
-    arrComponentesboolean = arrComponentesboolean.map((item, index) => {
-      if (index + 1 === componenteSelect) {
-        let aux = item.actividades;
-
-        console.log("componenteSelect", componenteSelect);
-        console.log("item.actividades.length", item.actividades.length);
-        // aux.push(
-        //   newActividadboolean(componenteSelect, item.actividades)
-        // );
-        return { ...item, actividades: aux };
-      } else {
-        return item;
-      }
-    });
-    console.log("arrComponentesboolean", arrComponentesboolean);
-
-    setMIREDITPADRE({ ...mirEdirPadre, componentes: arrComponentesboolean });
   };
 
   const removeActividad = (
@@ -401,20 +377,7 @@ export default function FullModalMir({
       alertaError("El minimo de componentes son dos.");
     }
 
-    let arrComponentesboolean: IComponenteMirEdit[] = mirEdirPadre.componentes;
-    if (arrComponentesboolean[componenteSelect - 1].actividades.length > 2) {
-      arrComponentesboolean = arrComponentesboolean.map((componente, index) => {
-        let arrActividades = componente.actividades.filter(
-          (item) => item.actividad !== `A${actividadSelect}C${componenteSelect}`
-        );
-        arrActividades = arrActividades.map((item, current) => {
-          return { ...item, actividad: `A${current + 1}C${index + 1}` };
-        });
-        return { ...componente, actividades: arrActividades };
-      });
-      setMIREDITPADRE({ ...mirEdirPadre, componentes: arrComponentesboolean });
-      console.log("Objeto", arrComponentesboolean);
-    }
+   
   };
 
   return (

@@ -63,12 +63,33 @@ function newFichaTecnica(MIR: string) {
   };
 }
 
+function newFichaTecnicaboolean(MIR: string) {
+  let componentes: IComponente[] = JSON.parse(MIR).componentes;
+  console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
+  return {
+    encabezado: newEncabezadoFTboolean(),
+    fin: newFinPropositoFTboolean(),
+    proposito: newFinPropositoFTboolean(),
+    componentes: componentes?.map((item) => newComponentebooleanFT(item)),
+  };
+}
+
+
 export function newEncabezadoFT() {
   return {
     programaSER: "",
     objetivoSER: "",
     objetivoODS: "",
     metaODS: "",
+  };
+}
+
+export function newEncabezadoFTboolean() {
+  return {
+    programaSER: false,
+    objetivoSER: false,
+    objetivoODS: false,
+    metaODS: false,
   };
 }
 
@@ -83,6 +104,20 @@ export function newFinPropositoFT() {
     aporte_marginal: "",
     dimension: "",
     unidadDeMedida: "",
+  };
+}
+
+export function newFinPropositoFTboolean() {
+  return {
+    tipoDeIndicador: false,
+    claridad: false,
+    relevancia: false,
+    economia: false,
+    monitoreable: false,
+    adecuado: false,
+    aporte_marginal: false,
+    dimension: false,
+    unidadDeMedida: false,
   };
 }
 
@@ -202,6 +237,8 @@ export default function AddFichaTecnica({
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
   const [ftPadre, setFTPadre] = useState<IFT>(newFichaTecnica(MIR));
+
+  const [ftEditPadre, setFTEditPadre] = useState<IFTEdit>(newFichaTecnicaboolean(MIR));
 
   useEffect(() => {
     // if (FT !== "") {
