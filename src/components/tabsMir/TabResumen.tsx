@@ -2447,15 +2447,9 @@ export function TabResumen({
             // localStorage.getItem("Rol") !== "Administrador"
             //   ? JSON.stringify(mirEdit)
             //   :
-            JSON.stringify({
-              encabezado: editEncabezado,
-              fin: editFin,
-              proposito: editProposito,
-              componentes: editComponentes,
-              //actividades: editActividades,
-            })
+            JSON.stringify(mirEdit)
           }
-        ></ModalSolicitaModif>
+        />
 
         <ModalEnviarMIR
           showResume={showResume}
@@ -2466,7 +2460,7 @@ export function TabResumen({
           estadoMIR={estadoMIR}
           RestructuraMAyFT={RestructuraMAyFT}
           mDocumentos={mDocumentos}
-        ></ModalEnviarMIR>
+        />
       </Grid>
     </Grid>
   );
