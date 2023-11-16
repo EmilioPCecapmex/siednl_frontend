@@ -878,7 +878,6 @@ export function TabResumenMA({
               Linea Base:
             </Typography>
           </Grid>
-
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
               {maPadre.proposito.lineaBase}

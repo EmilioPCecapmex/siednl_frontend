@@ -213,72 +213,72 @@ export function TabResumen({
   });
 
 
-  const [editComponentes, setEditComponentes] = useState<Array<IComponenteMirEdit>>([
-    {
-      componentes: "C1",
-      formula: true,
-      frecuencia: true,
-      indicador: true,
-      medios: true,
-      resumen: true,
-      supuestos: true,
-      actividades: [
-        {
-          actividad: "A1",
-          formula: true,
-          frecuencia: true,
-          indicador: true,
-          medios: true,
-          resumen: true,
-          supuestos: true,
-        },
-        {
-          actividad: "A2",
-          formula: true,
-          frecuencia: true,
-          indicador: true,
-          medios: true,
-          resumen: true,
-          supuestos: true,
-        },
-      ],
-    },
-    {
-      componentes: "C2",
-      formula: true,
-      frecuencia: true,
-      indicador: true,
-      medios: true,
-      resumen: true,
-      supuestos: true,
-      actividades: [
-        {
-          actividad: "A1",
-          formula: true,
-          frecuencia: true,
-          indicador: true,
-          medios: true,
-          resumen: true,
-          supuestos: true,
-        },
-        {
-          actividad: "A2",
-          formula: true,
-          frecuencia: true,
-          indicador: true,
-          medios: true,
-          resumen: true,
-          supuestos: true,
-        },
-      ],
-    },
-  ]);
+  // const [editComponentes, setEditComponentes] = useState<Array<IComponenteMirEdit>>([
+  //   {
+  //     componentes: "C1",
+  //     formula: true,
+  //     frecuencia: true,
+  //     indicador: true,
+  //     medios: true,
+  //     resumen: true,
+  //     supuestos: true,
+  //     actividades: [
+  //       {
+  //         actividad: "A1",
+  //         formula: true,
+  //         frecuencia: true,
+  //         indicador: true,
+  //         medios: true,
+  //         resumen: true,
+  //         supuestos: true,
+  //       },
+  //       {
+  //         actividad: "A2",
+  //         formula: true,
+  //         frecuencia: true,
+  //         indicador: true,
+  //         medios: true,
+  //         resumen: true,
+  //         supuestos: true,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     componentes: "C2",
+  //     formula: true,
+  //     frecuencia: true,
+  //     indicador: true,
+  //     medios: true,
+  //     resumen: true,
+  //     supuestos: true,
+  //     actividades: [
+  //       {
+  //         actividad: "A1",
+  //         formula: true,
+  //         frecuencia: true,
+  //         indicador: true,
+  //         medios: true,
+  //         resumen: true,
+  //         supuestos: true,
+  //       },
+  //       {
+  //         actividad: "A2",
+  //         formula: true,
+  //         frecuencia: true,
+  //         indicador: true,
+  //         medios: true,
+  //         resumen: true,
+  //         supuestos: true,
+  //       },
+  //     ],
+  //   },
+  // ]);
 
 
 
-//   const [editComponentes, setEditComponentes] = useState<
-//   Array<IComponenteMirEdit>
-// >([]);
+  const [editComponentes, setEditComponentes] = useState<
+  Array<IComponenteMirEdit>
+>([]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [editActividades, setEditActividades] = useState<

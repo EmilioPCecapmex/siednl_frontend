@@ -225,7 +225,7 @@ export function TabFinPropositoMA({
   }, [valueFin]);
 
   useEffect(() => {
-    if (valueProposito.lineaBase !== "") {
+    if (valueProposito?.lineaBase !== "") {
       setMAPropositoPadre(valueProposito);
     }
 
@@ -522,7 +522,7 @@ export function TabFinPropositoMA({
                 }}
               >
                 <TextField
-                  disabled={MAEdit?.fin?.metaAnual && valueFin.metaAnual !== ""}
+                  disabled={MAEdit?.fin?.metaAnual && valueFin?.metaAnual !== ""}
                   sx={{
                     boxShadow: 2,
                     fontSize: [10, 10, 10, 15, 15, 18],
@@ -549,7 +549,7 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onClick={() =>
-                    MAEdit?.fin?.metaAnual && valueFin.metaAnual !== ""
+                    MAEdit?.fin?.metaAnual && valueFin?.metaAnual !== ""
                       ? ""
                       : handleClickOpen()
                   }
@@ -577,7 +577,7 @@ export function TabFinPropositoMA({
                 }}
               >
                 <TextField
-                  disabled={MAEdit?.fin?.lineaBase && valueFin.lineaBase !== ""}
+                  disabled={MAEdit?.fin?.lineaBase && valueFin?.lineaBase !== ""}
                   sx={{
                     boxShadow: 2,
                     fontSize: [10, 10, 10, 15, 15, 18],
@@ -594,16 +594,16 @@ export function TabFinPropositoMA({
                     </Typography>
                   }
                   error={
-                    parseFloat(valueFin.lineaBase) < 0 ||
-                    (isNaN(parseFloat(valueFin.lineaBase)) &&
-                      valueFin.lineaBase !== "")
+                    parseFloat(valueFin?.lineaBase) < 0 ||
+                    (isNaN(parseFloat(valueFin?.lineaBase)) &&
+                      valueFin?.lineaBase !== "")
                       ? true
                       : false
                   }
                   helperText={
-                    parseFloat(valueFin.lineaBase) < 0 ||
-                    (isNaN(parseFloat(valueFin.lineaBase)) &&
-                      valueFin.lineaBase !== "")
+                    parseFloat(valueFin?.lineaBase) < 0 ||
+                    (isNaN(parseFloat(valueFin?.lineaBase)) &&
+                      valueFin?.lineaBase !== "")
                       ? "Introducir valor mayor que 0"
                       : null
                   }
@@ -647,7 +647,7 @@ export function TabFinPropositoMA({
                   <TextField
                     disabled={
                       MAEdit?.fin?.valorNumerador &&
-                      valueFin.valorNumerador !== ""
+                      valueFin?.valorNumerador !== ""
                     }
                     sx={{
                       fontSize: [10, 10, 10, 15, 15, 18],
@@ -676,7 +676,7 @@ export function TabFinPropositoMA({
                     }}
                     onClick={() =>
                       MAEdit?.fin?.valorNumerador &&
-                      valueFin.valorNumerador !== ""
+                      valueFin?.valorNumerador !== ""
                         ? ""
                         : handleClickOpen()
                     }
@@ -700,7 +700,7 @@ export function TabFinPropositoMA({
                   <TextField
                     disabled={
                       MAEdit?.fin?.valorNumerador &&
-                      valueFin.valorNumerador !== ""
+                      valueFin?.valorNumerador !== ""
                     }
                     sx={{
                       boxShadow: 2,
@@ -730,7 +730,7 @@ export function TabFinPropositoMA({
                     }}
                     onClick={() =>
                       MAEdit?.fin?.valorNumerador &&
-                      valueFin.valorNumerador !== ""
+                      valueFin?.valorNumerador !== ""
                         ? ""
                         : handleClickOpen()
                     }
@@ -739,7 +739,7 @@ export function TabFinPropositoMA({
                   <TextField
                     disabled={
                       MAEdit?.fin?.valorDenominador &&
-                      valueFin.valorDenominador !== ""
+                      valueFin?.valorDenominador !== ""
                     }
                     sx={{
                       boxShadow: 2,
@@ -768,7 +768,7 @@ export function TabFinPropositoMA({
                     }}
                     onClick={() =>
                       MAEdit?.fin?.valorDenominador &&
-                      valueFin.valorDenominador !== ""
+                      valueFin?.valorDenominador !== ""
                         ? ""
                         : handleClickOpen()
                     }
@@ -793,7 +793,7 @@ export function TabFinPropositoMA({
                 <FormControl
                   disabled={
                     MAEdit?.fin?.sentidoDelIndicador &&
-                    valueFin.sentidoDelIndicador !== ""
+                    valueFin?.sentidoDelIndicador !== ""
                   }
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -909,13 +909,13 @@ export function TabFinPropositoMA({
                     openText="Abrir"
                     disabled={
                       MAEdit?.fin?.unidadResponsable &&
-                      valueFin.unidadResponsable !== ""
+                      valueFin?.unidadResponsable !== ""
                     }
                     options={catalogoUnidadResponsable}
                     getOptionLabel={(option) => option.Label}
                     value={{
                       Id: catalogoUnidadResponsable[0].Id || "",
-                      Label: valueFin.unidadResponsable || "",
+                      Label: valueFin?.unidadResponsable || "",
                     }}
                     renderOption={(props, option) => {
                       return (
@@ -977,7 +977,7 @@ export function TabFinPropositoMA({
               >
                 <TextField
                   disabled={
-                    MAEdit?.fin?.descIndicador && valueFin.descIndicador !== ""
+                    MAEdit?.fin?.descIndicador && valueFin?.descIndicador !== ""
                   }
                   rows={5}
                   multiline
@@ -1030,7 +1030,7 @@ export function TabFinPropositoMA({
               >
                 <TextField
                   disabled={
-                    MAEdit?.fin?.descNumerador && valueFin.descNumerador !== ""
+                    MAEdit?.fin?.descNumerador && valueFin?.descNumerador !== ""
                   }
                   rows={5}
                   multiline
@@ -1084,7 +1084,7 @@ export function TabFinPropositoMA({
                 <TextField
                   disabled={
                     MAEdit?.fin?.descDenominador &&
-                    valueFin.descDenominador !== ""
+                    valueFin?.descDenominador !== ""
                   }
                   rows={5}
                   multiline
@@ -1229,7 +1229,7 @@ export function TabFinPropositoMA({
                 <TextField
                   disabled={
                     MAEdit?.proposito?.metaAnual &&
-                    valueProposito.metaAnual !== ""
+                    valueProposito?.metaAnual !== ""
                   }
                   sx={{ boxShadow: 2 }}
                   variant={"filled"}
@@ -1287,7 +1287,7 @@ export function TabFinPropositoMA({
                 <TextField
                   disabled={
                     MAEdit?.proposito?.lineaBase &&
-                    valueProposito.lineaBase !== ""
+                    valueProposito?.lineaBase !== ""
                   }
                   sx={{
                     fontSize: [10, 10, 10, 13, 15, 18],
@@ -1305,16 +1305,16 @@ export function TabFinPropositoMA({
                     </Typography>
                   }
                   error={
-                    parseFloat(valueProposito.lineaBase) < 0 ||
-                    (isNaN(parseFloat(valueProposito.lineaBase)) &&
-                      valueProposito.lineaBase !== "")
+                    parseFloat(valueProposito?.lineaBase) < 0 ||
+                    (isNaN(parseFloat(valueProposito?.lineaBase)) &&
+                      valueProposito?.lineaBase !== "")
                       ? true
                       : false
                   }
                   helperText={
-                    parseFloat(valueProposito.lineaBase) < 0 ||
-                    (isNaN(parseFloat(valueProposito.lineaBase)) &&
-                      valueProposito.lineaBase !== "")
+                    parseFloat(valueProposito?.lineaBase) < 0 ||
+                    (isNaN(parseFloat(valueProposito?.lineaBase)) &&
+                      valueProposito?.lineaBase !== "")
                       ? "Introducir valor mayor que 0"
                       : null
                   }

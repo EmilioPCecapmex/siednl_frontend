@@ -294,6 +294,7 @@ export default function FullModalMir({
         height: "100%",
       }}
     >
+      
       <Grid
         container
         item

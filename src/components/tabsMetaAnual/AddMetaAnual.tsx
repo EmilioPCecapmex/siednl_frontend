@@ -259,8 +259,8 @@ export default function AddMetaAnual({
       let auxMA: IMA = JSON.parse(MA);
       let auxMIR: IMIR = JSON.parse(MIR);
 
-      let lengthMA = auxMA.componentes.length
-      let lengthMIR = auxMIR.componentes.length
+      let lengthMA = auxMA.componentes?.length
+      let lengthMIR = auxMIR.componentes?.length
 
       if (lengthMA !== lengthMIR) {
         for (let i = lengthMA; i < lengthMIR; i++) {
@@ -393,7 +393,6 @@ export default function AddMetaAnual({
           }}
         >
           <GenericTabs tabSelect={setValue} tabsData={tabs} />
-
           <Grid
             sx={{
               //width: "93vw",

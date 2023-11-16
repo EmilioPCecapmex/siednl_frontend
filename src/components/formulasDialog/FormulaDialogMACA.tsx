@@ -307,7 +307,7 @@ export const FormulaDialogMACA = ({
             : elemento === "Propósito"
             ? JSON.parse(MIR).proposito.formula
             : elemento.includes("Componente")
-            ? JSON.parse(MIR).componentes[noComponente].formula
+            ? JSON.parse(MIR).componentes[noComponente]?.formula
             : elemento.includes("A")
             ? JSON.parse(MIR).componentes[noComponente].actividades[noActividad]?.formula
             : null}

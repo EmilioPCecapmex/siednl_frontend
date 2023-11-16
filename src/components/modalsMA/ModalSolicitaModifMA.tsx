@@ -392,6 +392,7 @@ export default function ModalSolicitaModif({
   ///////////////////////////////////////////////////////////////////
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
+    
     JSON.parse(MA)?.componentes.map((componente: IComponenteMA, indexC: number) => {
       componente.actividades.map((actividad: IActividadesMA, indexA: number) => {
       if (
@@ -439,7 +440,7 @@ export default function ModalSolicitaModif({
         err = 1;
       }
       if (
-        !JSON.parse(MIR).componentes[indexC].actividades[indexA].indicador.toUpperCase()
+        !JSON.parse(MIR).componentes[indexC].actividades[indexA].indicador.toLowerCase()
           .includes("indice" || "índice") &&
         (actividad.valorDenominador === undefined ||
           /^[\s]*$/.test(actividad.valorDenominador))
