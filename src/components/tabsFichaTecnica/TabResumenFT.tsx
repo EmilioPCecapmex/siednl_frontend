@@ -2373,9 +2373,7 @@ export function TabResumenFT({
           IdMa={IdMA}
           IdMIR={IdMir}
           FTEdit={
-            localStorage.getItem("Rol") !== "Administrador"
-              ? ""
-              : JSON.stringify(ftEditPadre)
+           JSON.stringify(ftEditPadre)
           }
           FT={JSON.stringify(FT)}
         />
