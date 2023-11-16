@@ -27,6 +27,7 @@ import {
   IFTEdit,
   IComponenteEditFT,
   IActividadesEditFT,
+  IActividadesFT,
 } from "./Interfaces";
 import { TabEncabezado } from "./TabEncabezado";
 import { TabComponenteFT } from "./TabComponentes";
@@ -203,19 +204,47 @@ export default function AddFichaTecnica({
   const [ftPadre, setFTPadre] = useState<IFT>(newFichaTecnica(MIR));
 
   useEffect(() => {
+    // if (FT !== "") {
+    //   let auxFT: IFT = JSON.parse(FT);
+    //   let auxMIR: IMIR = JSON.parse(MIR);
+
+    //   let lengthFT = auxFT.componentes.length
+    //   let lengthMIR = auxMIR.componentes.length
+
+    //   if (lengthFT !== lengthMIR) {
+    //     for (let i = lengthFT; i < lengthMIR; i++) {
+    //       auxFT.componentes.push(newComponenteFT(auxMIR.componentes[i]))
+    //     }
+    //   }
+    //   setFTPadre(auxFT);
+    // }
     if (FT !== "") {
-      let auxFT: IFT = JSON.parse(FT);
+
+      let auxDBFT: IFT = JSON.parse(FT);
+
       let auxMIR: IMIR = JSON.parse(MIR);
+      let auxFT: IFT = newFichaTecnica(MIR);
+      console.log("FT original: ", auxDBFT);
 
-      let lengthFT = auxFT.componentes.length;
-      let lengthMIR = auxMIR.componentes.length;
+      let auxComponentes = auxFT.componentes.map((itemComponente, indexC) => {
+        
+        if (auxDBFT.componentes[indexC]) {
+          let auxActividades: IActividadesFT[] = itemComponente.actividades.map((itemActividad, indexA) => {
+            console.log("iteracion: ", auxDBFT.componentes[indexC].actividades[indexA] || newActividadFT(auxMIR.componentes[indexC].actividades[indexA]));
 
-      if (lengthFT !== lengthMIR) {
-        for (let i = lengthFT; i < lengthMIR; i++) {
-          auxFT.componentes.push(newComponenteFT(auxMIR.componentes[i]));
+            return auxDBFT.componentes[indexC].actividades[indexA] || newActividadFT(auxMIR.componentes[indexC].actividades[indexA])
+          })
+          console.log("Componente:", auxActividades);
+          return { ...itemComponente, actividades: auxActividades }
+
+
+        } else {
+          return newComponenteFT(auxMIR.componentes[indexC])
         }
-      }
-      setFTPadre(auxFT);
+
+      })
+      console.log("FT: ", { ...auxDBFT, componentes: auxComponentes });
+      setFTPadre({ ...auxDBFT, componentes: auxComponentes });
     }
   }, []);
 
