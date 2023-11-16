@@ -232,20 +232,7 @@ export default function AddFichaTecnica({
   const [ftEditPadre, setFTEditPadre] = useState<IFTEdit>(newFichaTecnicaboolean(MIR));
 
   useEffect(() => {
-    // if (FT !== "") {
-    //   let auxFT: IFT = JSON.parse(FT);
-    //   let auxMIR: IMIR = JSON.parse(MIR);
-
-    //   let lengthFT = auxFT.componentes.length
-    //   let lengthMIR = auxMIR.componentes.length
-
-    //   if (lengthFT !== lengthMIR) {
-    //     for (let i = lengthFT; i < lengthMIR; i++) {
-    //       auxFT.componentes.push(newComponenteFT(auxMIR.componentes[i]))
-    //     }
-    //   }
-    //   setFTPadre(auxFT);
-    // }
+   
     if (FT !== "") {
 
       let auxArrayFT = JSON.parse(FT);
@@ -270,6 +257,8 @@ export default function AddFichaTecnica({
           }
 
         })
+        setFTEditPadre({...auxArrayFT[1]})
+        console.log("auxArrayFT",auxArrayFT[1]);
         
         setFTPadre({ ...auxDBMA, componentes: auxComponentes });
       } else {
@@ -302,9 +291,7 @@ export default function AddFichaTecnica({
     }
   }, []);
 
-  useEffect(() => {
-    console.log("ftPadre", ftPadre);
-  }, [ftPadre]);
+
 
   const setFTEncabezadoPadre = (EncabezadoValues: IEncabezadoFT) => {
     setFTPadre({
@@ -349,43 +336,44 @@ export default function AddFichaTecnica({
     });
   };
   let componentesMir: IComponente[] = JSON.parse(MIR).componentes;
-  let ftEdit: IFTEdit =
-    FT !== "" && JSON.parse(FT).length > 1
-      ? JSON.parse(FT)[1]
-      : {
-          encabezado: {
-            programaSER: false,
-            objetivoSER: false,
-            objetivoODS: false,
-            metaODS: false,
-          },
-          fin: {
-            tipoDeIndicador: false,
-            claridad: false,
-            relevancia: false,
-            economia: false,
-            monitoreable: false,
-            adecuado: false,
-            aporte_marginal: false,
-            dimension: false,
-            unidadDeMedida: false,
-          },
-          proposito: {
-            tipoDeIndicador: false,
-            claridad: false,
-            relevancia: false,
-            economia: false,
-            monitoreable: false,
-            adecuado: false,
-            aporte_marginal: false,
-            dimension: false,
-            unidadDeMedida: false,
-          },
 
-          componentes: componentesMir.map((item, index) => {
-            return newComponentebooleanFT(item);
-          }),
-        };
+  // let ftEdit: IFTEdit =
+  //   FT !== "" && JSON.parse(FT).length > 1
+  //     ? JSON.parse(FT)[1]
+  //     : {
+  //         encabezado: {
+  //           programaSER: false,
+  //           objetivoSER: false,
+  //           objetivoODS: false,
+  //           metaODS: false,
+  //         },
+  //         fin: {
+  //           tipoDeIndicador: false,
+  //           claridad: false,
+  //           relevancia: false,
+  //           economia: false,
+  //           monitoreable: false,
+  //           adecuado: false,
+  //           aporte_marginal: false,
+  //           dimension: false,
+  //           unidadDeMedida: false,
+  //         },
+  //         proposito: {
+  //           tipoDeIndicador: false,
+  //           claridad: false,
+  //           relevancia: false,
+  //           economia: false,
+  //           monitoreable: false,
+  //           adecuado: false,
+  //           aporte_marginal: false,
+  //           dimension: false,
+  //           unidadDeMedida: false,
+  //         },
+
+  //         componentes: componentesMir.map((item, index) => {
+  //           return newComponentebooleanFT(item);
+  //         }),
+  //       };
   return (
     <Grid
       container
@@ -408,7 +396,7 @@ export default function AddFichaTecnica({
         }}
       >
         <GenericTabs tabSelect={setValue} tabsData={tabs} />
-        {JSON.stringify(ftEdit)}
+        {JSON.stringify(ftEditPadre)}
         <Grid
           sx={{
             width: "93vw",
@@ -421,7 +409,7 @@ export default function AddFichaTecnica({
               EncabezadoValues={ftPadre.encabezado}
               FT={FT}
               MIR={MIR}
-              ftEdit={ftEdit}
+              ftEditPadre={ftEditPadre}
             ></TabEncabezado>
           ) : null}
 
@@ -434,6 +422,7 @@ export default function AddFichaTecnica({
               FinValues={ftPadre.fin}
               PropositoValues={ftPadre.proposito}
               FT={FT}
+              ftEditPadre={ftEditPadre}
             ></TabFinPropositoFT>
           ) : null}
           {value === 2 ? (
@@ -445,6 +434,7 @@ export default function AddFichaTecnica({
               showFnc={setTxtShowFnc}
               showMirFnc={showMirFnc}
               FT={FT}
+              ftEditPadre={ftEditPadre}
             ></TabComponenteFT>
           ) : null}
           {value === 3 ? (
@@ -458,6 +448,7 @@ export default function AddFichaTecnica({
               componentesActividad={ftPadre.componentes}
               //asignarCValor={[asignarCValorFT]}
               FT={FT}
+              ftEditPadre={ftEditPadre}
             ></TabActividadesFT>
           ) : null}
           {value === 4 ? (
@@ -476,6 +467,8 @@ export default function AddFichaTecnica({
               IdMA={IdMA}
               showResume={showResume}
               MIR={MIR}
+              ftEditPadre={ftEditPadre}
+              setFTEditPadre={setFTEditPadre}
             ></TabResumenFT>
           ) : null}
         </Grid>

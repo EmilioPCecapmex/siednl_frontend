@@ -16,7 +16,7 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
-import { IMIR } from "./interfaces mir/IMIR";
+import { IMIR, IMIREdit } from "./interfaces mir/IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
@@ -28,14 +28,14 @@ export const TabActividades = ({
   MIR,
   setMIR,
   idMir,
-  
+  mirEdit,
 }: {
   addActividad: Function;
   removeActividad: Function;
- 
   MIR: IMIR;
   setMIR: Function;
   idMir: string;
+  mirEdit: IMIREdit;
 }) => {
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
@@ -460,7 +460,8 @@ export const TabActividades = ({
             }}
           >
             <TextField
-              // disabled={mirEdit?.actividades[componenteSelect].resumen}
+              disabled={mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.resumen}
+
               rows={8}
               multiline
               sx={{

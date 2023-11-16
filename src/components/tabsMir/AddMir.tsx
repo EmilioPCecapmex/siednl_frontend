@@ -248,6 +248,54 @@ export default function FullModalMir({
   const [mirEdirPadre, setMIREDITPADRE] = useState<IMIREdit>(newMIREDIT(MIR));
 
   useEffect(() => {
+   
+    if (MIR !== "") {
+
+      let auxArrayMIR = JSON.parse(MIR);
+      if (auxArrayMIR[1]) {
+        //let auxDBMA: IFT =auxArrayFT[0];
+        let auxMIR: IMIR = JSON.parse(MIR);
+        //let auxMA: IFT = newFichaTecnica(MIR);
+
+        // let lengthMA = auxMA.componentes.length
+        // let lengthMIR = auxMIR.componentes.length
+
+        
+        setMIREDITPADRE({...auxArrayMIR[1]})
+        console.log("auxArrayFT",auxArrayMIR[1]);
+        
+        setMIRPADRE(auxArrayMIR[0]);
+      } else {
+        
+        //let auxMIR: IMIR = JSON.parse(MIR);
+        //let auxMA: IFT = newFichaTecnica(MIR);
+
+        // let lengthMA = auxMA.componentes.length
+        // let lengthMIR = auxMIR.componentes.length
+
+        // let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
+        //   if (auxDBMA.componentes[indexC]) {
+        //     let auxActividades: IActividadesFT[] = itemComponente.actividades.map((itemActividad, indexA) => {
+        //       // console.log("iteracion: ", auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA]));
+
+        //       return auxDBMA.componentes[indexC].actividades[indexA] || newActividadFT(auxMIR.componentes[indexC].actividades[indexA])
+        //     })
+        //     console.log("componente opcional:",{...auxDBMA.componentes[indexC],actividades: auxActividades});
+            
+        //     return {...auxDBMA.componentes[indexC],actividades: auxActividades}||{ ...itemComponente, actividades: auxActividades }
+        //   } else {
+        //     return newComponenteFT(auxMIR.componentes[indexC])
+        //   }
+
+        // })
+        // console.log("MA: ", { ...auxDBMA, componentes: auxComponentes });
+        setMIRPADRE(auxArrayMIR);
+      }
+
+    }
+  }, []);
+
+  useEffect(() => {
     // let auxMIREDIT: IMIREdit = mirEdirPadre;
 
     // let lengthMIR = MIRPADRE.componentes.length;
@@ -460,6 +508,7 @@ export default function FullModalMir({
                 MIR={MIRPADRE}
                 setMIR={setMIRPADRE}
                 idMir={IdMir}
+                mirEdit={mirEdirPadre}
               />
             )}
 
@@ -470,6 +519,8 @@ export default function FullModalMir({
                 idMir={IdMir}
                 estadoMIR={estado}
                 mDocumentos={mDocumentos}
+                mirEdit={mirEdirPadre}
+                setMIREDITPADRE={setMIREDITPADRE}
               />
             )}
           </Grid>

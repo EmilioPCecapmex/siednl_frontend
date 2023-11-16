@@ -12,7 +12,7 @@ import {
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
-import { IComponentesFT } from "../tabsFichaTecnica/Interfaces";
+import { IComponentesFT, IFTEdit } from "../tabsFichaTecnica/Interfaces";
 
 export const TabComponenteFT = ({
   show,
@@ -22,6 +22,7 @@ export const TabComponenteFT = ({
   showMirFnc,
   showFnc,
   FT,
+  ftEditPadre,
 }: {
   show: boolean;
   setFTcomponentesPadre: Function;
@@ -30,6 +31,7 @@ export const TabComponenteFT = ({
   showMirFnc: Function;
   showFnc: Function;
   FT: string;
+  ftEditPadre: IFTEdit;
 }) => {
   const [componentSelect, setComponentSelect] = useState(0);
 

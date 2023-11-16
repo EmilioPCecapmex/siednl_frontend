@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import { IFinFT, IPropositoFT } from "./Interfaces";
+import { IFTEdit, IFinFT, IPropositoFT } from "./Interfaces";
 
 export function TabFinPropositoFT({
   show,
@@ -22,6 +22,7 @@ export function TabFinPropositoFT({
   FinValues,
   PropositoValues,
   FT,
+  ftEditPadre,
 }: {
   show: boolean;
   setFTPropositoPadre: Function;
@@ -30,6 +31,7 @@ export function TabFinPropositoFT({
   FinValues: IFinFT;
   PropositoValues: IPropositoFT;
   FT: string;
+  ftEditPadre: IFTEdit;
 }) {
   let jsonFT = FT === "" ? "" : JSON.parse(FT);
 

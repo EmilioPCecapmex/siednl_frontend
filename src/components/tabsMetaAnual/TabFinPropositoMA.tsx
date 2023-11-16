@@ -19,6 +19,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import axios from "axios";
+import { IMAEdit } from "./IMA";
 
 export function TabFinPropositoMA({
   //show,
@@ -30,6 +31,7 @@ export function TabFinPropositoMA({
   propositoPadre,
   MA,
   MIR,
+  maPadreEdit,
 }: {
   //show: boolean;
   setMAFinPadre: Function;
@@ -40,6 +42,7 @@ export function TabFinPropositoMA({
   propositoPadre: IPropositoMA;
   MA: string;
   MIR: string;
+  maPadreEdit: IMAEdit;
 }) {
   let jsonMA =
     MA === ""

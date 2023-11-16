@@ -21,7 +21,7 @@ import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import axios from "axios";
 import { isValidComponenteMA } from "../../funcs/ValidatorMA";
 import { alertaError } from "../genericComponents/Alertas";
-import { IMA } from "./IMA";
+import { IMA, IMAEdit } from "./IMA";
 export const TabComponenteMA = ({
   //show,
   setComponenteMA,
@@ -31,6 +31,7 @@ export const TabComponenteMA = ({
   MA,
   MIR,
   ComponentesMA,
+  maPadreEdit,
 }: {
   //show: boolean;
   setComponenteMA: Function;
@@ -40,6 +41,7 @@ export const TabComponenteMA = ({
   MA: string;
   MIR: string;
   ComponentesMA: IComponenteMA[];
+  maPadreEdit: IMAEdit;
 }) => {
   const [componentSelect, setComponentSelect] = useState(0);
 

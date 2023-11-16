@@ -23,6 +23,7 @@ import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 import axios from "axios";
 import { IComponenteMA } from "./Interfaces";
+import { IMAEdit } from "./IMA";
 
 //funcion main
 export const TabActividadesMA = ({
@@ -36,6 +37,7 @@ export const TabActividadesMA = ({
   setTxtShowFnc,
   MA,
   MIR,
+  maPadreEdit,
 }: {
   //show: boolean;
   //componentes: number[];
@@ -47,6 +49,7 @@ export const TabActividadesMA = ({
   setTxtShowFnc: Function;
   MA: string;
   MIR: string;
+  maPadreEdit: IMAEdit;
 }) => {
   // business logic-------------------------------------------------------------------------------
   // const componenteActividad = [

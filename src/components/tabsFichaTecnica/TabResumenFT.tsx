@@ -14,6 +14,7 @@ import {
   IFinEditFT,
   IFinFT,
   IFT,
+  IFTEdit,
   IPropositoEditFT,
   IPropositoFT,
 } from "./Interfaces";
@@ -37,6 +38,8 @@ export function TabResumenFT({
   MIR,
   setFTPadre,
   ftPadre,
+  ftEditPadre,
+  setFTEditPadre,
 }: {
   show: boolean;
   encabezado: IEncabezadoFT;
@@ -52,6 +55,8 @@ export function TabResumenFT({
   showResume: Function;
   setFTPadre: Function;
   ftPadre: IFT;
+  ftEditPadre: IFTEdit;
+  setFTEditPadre: Function;
 }) {
   const [FT, setFT] = useState<IFT>(ftPadre);
 
