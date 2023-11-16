@@ -79,7 +79,7 @@ export function newFinPropositoMA() {
 
 function newMetaAnual(MIR: string) {
   let componentes: IComponente[] = JSON.parse(MIR).componentes
-  console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
+  // console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
 
   return {
     fin: newFinPropositoMA(),
@@ -88,7 +88,7 @@ function newMetaAnual(MIR: string) {
   };
 }
 
-export function newActividad(ActividadMIR: IActividad) {
+export function newActividadMA(ActividadMIR: IActividad) {
   return {
     actividad: ActividadMIR.actividad,
     metaAnual: "",
@@ -137,7 +137,7 @@ export function newComponenteMA(ComponenteMIR: IComponente) {
     descNumerador: "",
     descDenominador: "",
     actividades: ComponenteMIR.actividades.map((item) =>
-      newActividad(item)
+      newActividadMA(item)
     ),
   };
   return componente;
@@ -256,25 +256,63 @@ export default function AddMetaAnual({
   useEffect(() => {
     if (MA !== "") {
 
-      let auxMA: IMA = JSON.parse(MA);
-      let auxMIR: IMIR = JSON.parse(MIR);
+      let auxArrayMA = JSON.parse(MA);
+      if (auxArrayMA[1]) {
+        let auxDBMA: IMA =auxArrayMA[0];
+        let auxMIR: IMIR = JSON.parse(MIR);
+        let auxMA: IMA = newMetaAnual(MIR);
 
-      let lengthMA = auxMA.componentes?.length
-      let lengthMIR = auxMIR.componentes?.length
+        // let lengthMA = auxMA.componentes.length
+        // let lengthMIR = auxMIR.componentes.length
 
-      if (lengthMA !== lengthMIR) {
-        for (let i = lengthMA; i < lengthMIR; i++) {
-          auxMA.componentes.push(newComponenteMA(auxMIR.componentes[i]))
-        }
+        let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
+          if (auxDBMA.componentes[indexC]) {
+            let auxActividades: IActividadesMA[] = itemComponente.actividades.map((itemActividad, indexA) => {
+              return auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA])
+            })
+            console.log("componente opcional:",{...auxDBMA.componentes[indexC],actividades: auxActividades});
+            
+            return {...auxDBMA.componentes[indexC],actividades: auxActividades}||{ ...itemComponente, actividades: auxActividades }
+          } else {
+            return newComponenteMA(auxMIR.componentes[indexC])
+          }
+
+        })
+        
+        setMAPadre({ ...auxDBMA, componentes: auxComponentes });
+      } else {
+        let auxDBMA: IMA = JSON.parse(MA);
+        let auxMIR: IMIR = JSON.parse(MIR);
+        let auxMA: IMA = newMetaAnual(MIR);
+
+        // let lengthMA = auxMA.componentes.length
+        // let lengthMIR = auxMIR.componentes.length
+
+        let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
+          if (auxDBMA.componentes[indexC]) {
+            let auxActividades: IActividadesMA[] = itemComponente.actividades.map((itemActividad, indexA) => {
+              // console.log("iteracion: ", auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA]));
+
+              return auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA])
+            })
+            console.log("componente opcional:",{...auxDBMA.componentes[indexC],actividades: auxActividades});
+            
+            return {...auxDBMA.componentes[indexC],actividades: auxActividades}||{ ...itemComponente, actividades: auxActividades }
+          } else {
+            return newComponenteMA(auxMIR.componentes[indexC])
+          }
+
+        })
+        // console.log("MA: ", { ...auxDBMA, componentes: auxComponentes });
+        setMAPadre({ ...auxDBMA, componentes: auxComponentes });
       }
-      setMAPadre(auxMA);
-      //newMetaAnual(auxMIR)
+
     }
   }, []);
 
-  useEffect(() => {
-    console.log("maPadre", maPadre);
-  }, [maPadre]);
+  // useEffect(() => {
+  //   console.log("maPadre", maPadre);
+  // }, [maPadre]);
 
   // const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
   //   setComponentesMA(state);
