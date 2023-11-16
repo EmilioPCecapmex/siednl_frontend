@@ -2375,15 +2375,10 @@ export function TabResumenFT({
           FTEdit={
             localStorage.getItem("Rol") !== "Administrador"
               ? ""
-              : JSON.stringify({
-                  fin: editFin,
-                  proposito: editProposito,
-                  componentes: editComponentes,
-                  actividades: editActividades,
-                })
+              : JSON.stringify(ftEditPadre)
           }
           FT={JSON.stringify(FT)}
-        ></ModalsSolicitModifFT>
+        />
 
         <ModalEnviarFT
           open={openModalEnviar}
@@ -2394,7 +2389,7 @@ export function TabResumenFT({
           showResume={showResume}
           FT={JSON.stringify(FT)}
           IdMA={IdMA}
-        ></ModalEnviarFT>
+        />
       </Grid>
     </Grid>
   );
