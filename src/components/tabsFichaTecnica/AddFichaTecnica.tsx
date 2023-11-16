@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import TabResumenFT from "./TabResumenFT";
 import { Grid, IconButton, useMediaQuery } from "@mui/material";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { TabActividadesFT } from "./tabActividades";
 import { IActividad, IComponente, IComponenteActividad, IMIR } from "../tabsMir/interfaces mir/IMIR";
 import GenericTabs from "../genericComponents/genericTabs";
+
 import {
-  actividadesObligatorias,
-  componentesObligatorios,
-} from "../../services/statesGlobals";
-import {
-  ICValorFT,
   IFinFT,
   IPropositoFT,
   IComponentesFT,
@@ -24,7 +16,6 @@ import {
 import { TabEncabezado } from "./TabEncabezado";
 import { TabComponenteFT } from "./TabComponentes";
 import { TabFinPropositoFT } from "./tabFinProposito";
-import { TutorialBox } from "../tutorialBox/tutorialBox";
 
 const tabs = [
   "Encabezado",
@@ -181,31 +172,57 @@ export default function AddFichaTecnica({
     // }
     if (FT !== "") {
 
-      let auxDBFT: IFT = JSON.parse(FT);
+      let auxArrayFT = JSON.parse(FT);
+      if (auxArrayFT[1]) {
+        let auxDBMA: IFT =auxArrayFT[0];
+        let auxMIR: IMIR = JSON.parse(MIR);
+        let auxMA: IFT = newFichaTecnica(MIR);
 
-      let auxMIR: IMIR = JSON.parse(MIR);
-      let auxFT: IFT = newFichaTecnica(MIR);
-      console.log("FT original: ", auxDBFT);
+        // let lengthMA = auxMA.componentes.length
+        // let lengthMIR = auxMIR.componentes.length
 
-      let auxComponentes = auxFT.componentes.map((itemComponente, indexC) => {
+        let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
+          if (auxDBMA.componentes[indexC]) {
+            let auxActividades: IActividadesFT[] = itemComponente.actividades.map((itemActividad, indexA) => {
+              return auxDBMA.componentes[indexC].actividades[indexA] || newActividadFT(auxMIR.componentes[indexC].actividades[indexA])
+            })
+            console.log("componente opcional:",{...auxDBMA.componentes[indexC],actividades: auxActividades});
+            
+            return {...auxDBMA.componentes[indexC],actividades: auxActividades}||{ ...itemComponente, actividades: auxActividades }
+          } else {
+            return newComponenteFT(auxMIR.componentes[indexC])
+          }
+
+        })
         
-        if (auxDBFT.componentes[indexC]) {
-          let auxActividades: IActividadesFT[] = itemComponente.actividades.map((itemActividad, indexA) => {
-            console.log("iteracion: ", auxDBFT.componentes[indexC].actividades[indexA] || newActividadFT(auxMIR.componentes[indexC].actividades[indexA]));
+        setFTPadre({ ...auxDBMA, componentes: auxComponentes });
+      } else {
+        let auxDBMA: IFT = JSON.parse(FT);
+        let auxMIR: IMIR = JSON.parse(MIR);
+        let auxMA: IFT = newFichaTecnica(MIR);
 
-            return auxDBFT.componentes[indexC].actividades[indexA] || newActividadFT(auxMIR.componentes[indexC].actividades[indexA])
-          })
-          console.log("Componente:", auxActividades);
-          return { ...itemComponente, actividades: auxActividades }
+        // let lengthMA = auxMA.componentes.length
+        // let lengthMIR = auxMIR.componentes.length
 
+        let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
+          if (auxDBMA.componentes[indexC]) {
+            let auxActividades: IActividadesFT[] = itemComponente.actividades.map((itemActividad, indexA) => {
+              // console.log("iteracion: ", auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA]));
 
-        } else {
-          return newComponenteFT(auxMIR.componentes[indexC])
-        }
+              return auxDBMA.componentes[indexC].actividades[indexA] || newActividadFT(auxMIR.componentes[indexC].actividades[indexA])
+            })
+            console.log("componente opcional:",{...auxDBMA.componentes[indexC],actividades: auxActividades});
+            
+            return {...auxDBMA.componentes[indexC],actividades: auxActividades}||{ ...itemComponente, actividades: auxActividades }
+          } else {
+            return newComponenteFT(auxMIR.componentes[indexC])
+          }
 
-      })
-      console.log("FT: ", { ...auxDBFT, componentes: auxComponentes });
-      setFTPadre({ ...auxDBFT, componentes: auxComponentes });
+        })
+        // console.log("MA: ", { ...auxDBMA, componentes: auxComponentes });
+        setFTPadre({ ...auxDBMA, componentes: auxComponentes });
+      }
+
     }
   }, []);
 
