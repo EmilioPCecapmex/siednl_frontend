@@ -77,14 +77,15 @@ export default function ModalSolicitaModif({
 
   const checkFT = (v: string) => {
     errores = [];
-    console.log("prueba de vacio: ",JSON.parse(FT)?.encabezado.programaSER);
-    console.log("prueba de vacio 2: ",JSON.parse(FT)?.encabezado.unidadDeMedida);
-    
-    
+    console.log("prueba de vacio: ", JSON.parse(FT)?.encabezado.programaSER);
+    console.log(
+      "prueba de vacio 2: ",
+      JSON.parse(FT)?.encabezado.unidadDeMedida
+    );
 
     if (
       JSON.parse(FT)?.encabezado === null ||
-      JSON.parse(FT)?.encabezado === undefined 
+      JSON.parse(FT)?.encabezado === undefined
       //|| /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER)
     ) {
       err = 1;
@@ -96,8 +97,8 @@ export default function ModalSolicitaModif({
     if (
       JSON.parse(FT)?.encabezado.programaSER === undefined ||
       JSON.parse(FT)?.encabezado.programaSER === "" ||
-      JSON.parse(FT)?.encabezado.programaSER === null 
-      || /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER)
+      JSON.parse(FT)?.encabezado.programaSER === null ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER)
     ) {
       err = 1;
       errores.push(
@@ -375,77 +376,87 @@ export default function ModalSolicitaModif({
 
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
-    JSON.parse(FT)?.componentes.map((componente: IComponentesFT, indexC: number) => {
-      componente.actividades.map((actividad: IActividadesFT,indexA: number) =>{
-      if (
-        actividad.tipoDeIndicador === undefined ||
-        actividad.tipoDeIndicador === null ||
-        actividad.tipoDeIndicador === ""
-      ) {
-        err = 1;
-        errores.push(
-          `<strong>actividad ${actividad.actividades}  </strong>: Tipo de indicador sin información`
+    JSON.parse(FT)?.componentes.map(
+      (componente: IComponentesFT, indexC: number) => {
+        componente.actividades.map(
+          (actividad: IActividadesFT, indexA: number) => {
+            if (
+              actividad.tipoDeIndicador === undefined ||
+              actividad.tipoDeIndicador === null ||
+              actividad.tipoDeIndicador === ""
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>actividad ${actividad.actividades}  </strong>: Tipo de indicador sin información`
+              );
+            }
+            if (
+              actividad.dimension === undefined ||
+              actividad.dimension === ""
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>actividad ${actividad.actividades}  </strong>: Tipo de Dimensíon sin información`
+              );
+            }
+            if (
+              actividad.unidadDeMedida === undefined ||
+              actividad.unidadDeMedida === ""
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>actividad ${actividad.actividades}  </strong>: Tipo de Unidad de medida sin información`
+              );
+            }
+            if (actividad.claridad === undefined || actividad.claridad === "") {
+              err = 1;
+              errores.push(
+                `<strong>actividad ${actividad.actividades}  </strong>: Claridad sin información`
+              );
+            }
+            if (
+              actividad.relevancia === undefined ||
+              actividad.relevancia === ""
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>actividad ${actividad.actividades}  </strong>: Relevancia sin información`
+              );
+            }
+            if (actividad.economia === undefined || actividad.economia === "") {
+              err = 1;
+              errores.push(
+                `<strong>actividad ${actividad.actividades}  </strong>: Economía sin información`
+              );
+            }
+            if (
+              actividad.monitoreable === undefined ||
+              actividad.monitoreable === ""
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>actividad ${actividad.actividades}  </strong>: Monitoreable sin información`
+              );
+            }
+            if (actividad.adecuado === undefined || actividad.adecuado === "") {
+              err = 1;
+              errores.push(
+                `<strong>actividad ${actividad.actividades}  </strong>: Adecuado sin información`
+              );
+            }
+            if (
+              actividad.aporte_marginal === undefined ||
+              actividad.aporte_marginal === ""
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>actividad ${actividad.actividades}  </strong>: Adecuado sin información`
+              );
+            }
+          }
         );
       }
-      if (actividad.dimension === undefined || actividad.dimension === "") {
-        err = 1;
-        errores.push(
-          `<strong>actividad ${actividad.actividades}  </strong>: Tipo de Dimensíon sin información`
-        );
-      }
-      if (
-        actividad.unidadDeMedida === undefined ||
-        actividad.unidadDeMedida === ""
-      ) {
-        err = 1;
-        errores.push(
-          `<strong>actividad ${actividad.actividades}  </strong>: Tipo de Unidad de medida sin información`
-        );
-      }
-      if (actividad.claridad === undefined || actividad.claridad === "") {
-        err = 1;
-        errores.push(
-          `<strong>actividad ${actividad.actividades}  </strong>: Claridad sin información`
-        );
-      }
-      if (actividad.relevancia === undefined || actividad.relevancia === "") {
-        err = 1;
-        errores.push(
-          `<strong>actividad ${actividad.actividades}  </strong>: Relevancia sin información`
-        );
-      }
-      if (actividad.economia === undefined || actividad.economia === "") {
-        err = 1;
-        errores.push(
-          `<strong>actividad ${actividad.actividades}  </strong>: Economía sin información`
-        );
-      }
-      if (
-        actividad.monitoreable === undefined ||
-        actividad.monitoreable === ""
-      ) {
-        err = 1;
-        errores.push(
-          `<strong>actividad ${actividad.actividades}  </strong>: Monitoreable sin información`
-        );
-      }
-      if (actividad.adecuado === undefined || actividad.adecuado === "") {
-        err = 1;
-        errores.push(
-          `<strong>actividad ${actividad.actividades}  </strong>: Adecuado sin información`
-        );
-      }
-      if (
-        actividad.aporte_marginal === undefined ||
-        actividad.aporte_marginal === ""
-      ) {
-        err = 1;
-        errores.push(
-          `<strong>actividad ${actividad.actividades}  </strong>: Adecuado sin información`
-        );
-      }
-      })
-    });
+    );
 
     if (err === 0) {
       createFT(v);
@@ -467,26 +478,43 @@ export default function ModalSolicitaModif({
   };
 
   const createFT = (estado: string) => {
-    let rolusuario = userXInst.find((user) =>user.IdUsuario===userSelected)
+    let rolusuario = userXInst.find((user) => user.IdUsuario === userSelected);
 
-    if (estado === "Autorizada" && userSelected !== "0" && rolusuario?.Rol === "Verificador") {
+    if (
+      estado === "Autorizada" &&
+      userSelected !== "0" &&
+      rolusuario?.Rol === "Verificador"
+    ) {
       estado = "En Revisión";
       console.log("Entre al primer if");
-    } else if (estado === "En Autorización" && userSelected !== "0" && rolusuario?.Rol === "Capturador") {
+    } else if (
+      estado === "En Autorización" &&
+      userSelected !== "0" &&
+      rolusuario?.Rol === "Capturador"
+    ) {
       estado = "En Captura";
       console.log("Entre al segundo if");
     } else if (estado === "En Autorización" && userSelected !== "0") {
       console.log("Entre al tercero if");
       estado = "En Captura";
-    } else if (estado === "Autorizada" && userSelected !== "0" && rolusuario?.Rol === "Capturador") {
+    } else if (
+      estado === "Autorizada" &&
+      userSelected !== "0" &&
+      rolusuario?.Rol === "Capturador"
+    ) {
       console.log("Entre al cuarto if");
       estado = "En Captura";
-    } 
+    }
+    console.log("ftEditPadre: ", FTEdit);
+
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
         {
-          FichaTecnica:FTEdit || FTEdit==="" ? FT : "[" + FT + "," + FTEdit + "]",
+          FichaTecnica:
+            FTEdit === undefined || FTEdit === ""
+              ? FT
+              : "[" + FT + "," + FTEdit + "]",
           CreadoPor:
             userSelected !== "0"
               ? userSelected

@@ -144,6 +144,8 @@ export const FormulaDialogMA = ({
             ? JSON.parse(MIR).componentes[noComponente].actividades[noActividad]
                 ?.formula
             : null}
+            {console.log("noComponente: ",noComponente)
+            }
         </Typography>
       </Grid>
 
