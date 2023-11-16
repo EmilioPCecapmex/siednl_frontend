@@ -1072,7 +1072,7 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    mirEdit?.proposito.medios_verificacion &&
+                    mirEdit?.proposito.medios &&
                     proposito.medios_verificacion !== ""
                   }
                   rows={8}
