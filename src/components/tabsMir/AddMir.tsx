@@ -2,6 +2,7 @@
 import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import {
+  IActividad,
   IComponente,
   IMIR,
   IMIREdit,
@@ -51,9 +52,9 @@ function newComponente(index: number) {
   return componente;
 }
 
-function newActividadboolean(indexComponente: number, indexActividad: number) {
+function newActividadboolean(ActividadMIR: IActividad) {
   return {
-    actividad: `A${indexActividad}C${indexComponente}`,
+    actividad: ActividadMIR.actividad,
     resumen: false,
     indicador: false,
     frecuencia: false,
@@ -63,19 +64,59 @@ function newActividadboolean(indexComponente: number, indexActividad: number) {
   };
 }
 
-function newComponenteboolean(index: number) {
+function newComponenteboolean(ComponenteMIR: IComponente) {
   let componente: IComponenteMirEdit;
   componente = {
-    componentes: "C" + index,
+    componente: ComponenteMIR.componente,
     resumen: false,
     indicador: false,
     frecuencia: false,
     formula: false,
     medios: false,
     supuestos: false,
-    actividades: [1, 2].map((item) => newActividadboolean(index, item)),
+    actividades: ComponenteMIR.actividades.map((item) =>
+      newActividadboolean(item)
+    ),
   };
   return componente;
+}
+
+function newEncabezadoboolean() {
+  return {
+    ejercicioFiscal: false,
+    institucion: false,
+    nombre_del_programa: false,
+    eje: false,
+    tema: false,
+    objetivo: false,
+    estrategia: false,
+    lineas_de_accion: false,
+    beneficiario: false,
+    conac: false,
+    consecutivo: false,
+  };
+}
+
+function newFinPropositoboolean() {
+  return {
+    resumen: false,
+    indicador: false,
+    formula: false,
+    frecuencia: false,
+    medios: false,
+    supuestos: false,
+  };
+}
+
+function newMIREDIT(MIR: string) {
+  let componentes: IComponente[] = JSON.parse(MIR).componentes;
+
+  return {
+    encabezado: newEncabezadoboolean(),
+    fin: newFinPropositoboolean(),
+    proposito: newFinPropositoboolean(),
+    componentes: componentes?.map((item) => newComponenteboolean(item)),
+  };
 }
 
 export default function FullModalMir({
@@ -163,46 +204,114 @@ export default function FullModalMir({
           }),
         };
 
-  let mirEdit: IMIREdit =
-    MIR !== "" && JSON.parse(MIR).length > 1
-      ? JSON.parse(MIR)[1]
-      : {
-          encabezado: {
-            ejercicioFiscal: false,
-            institucion: false,
-            nombre_del_programa: false,
-            eje: false,
-            tema: false,
-            objetivo: false,
-            estrategia: false,
-            lineas_de_accion: false,
-            beneficiario: false,
-            conac: false,
-            consecutivo: false,
-          },
-          fin: {
-            resumen: false,
-            indicador: false,
-            formula: false,
-            frecuencia: false,
-            medios: false,
-            supuestos: false,
-          },
-          proposito: {
-            resumen: false,
-            indicador: false,
-            formula: false,
-            frecuencia: false,
-            medios_verificacion: false,
-            supuestos: false,
-          },
-          
-          componentes: noComponentes.map((x, index) => {
-            return newComponenteboolean(index);
-          }),
-        };
+  // let mirEdit: IMIREdit =
+  //   MIR !== "" && JSON.parse(MIR).length > 1
+  //     ? JSON.parse(MIR)[1]
+  //     : {
+  //         encabezado: {
+  //           ejercicioFiscal: false,
+  //           institucion: false,
+  //           nombre_del_programa: false,
+  //           eje: false,
+  //           tema: false,
+  //           objetivo: false,
+  //           estrategia: false,
+  //           lineas_de_accion: false,
+  //           beneficiario: false,
+  //           conac: false,
+  //           consecutivo: false,
+  //         },
+  //         fin: {
+  //           resumen: false,
+  //           indicador: false,
+  //           formula: false,
+  //           frecuencia: false,
+  //           medios: false,
+  //           supuestos: false,
+  //         },
+  //         proposito: {
+  //           resumen: false,
+  //           indicador: false,
+  //           formula: false,
+  //           frecuencia: false,
+  //           medios: false,
+  //           supuestos: false,
+  //         },
+
+  //         componentes: noComponentes.map((index) => {
+  //           return newComponenteboolean(index);
+  //         }),
+  //       };
 
   const [MIRPADRE, setMIRPADRE] = useState<IMIR>(mir);
+
+  const [mirEdirPadre, setMIREDITPADRE] = useState<IMIREdit>(newMIREDIT(MIR));
+
+  useEffect(() => {
+   
+    if (MIR !== "") {
+
+      let auxArrayMIR = JSON.parse(MIR);
+      if (auxArrayMIR[1]) {
+        //let auxDBMA: IFT =auxArrayFT[0];
+        let auxMIR: IMIR = JSON.parse(MIR);
+        //let auxMA: IFT = newFichaTecnica(MIR);
+
+        // let lengthMA = auxMA.componentes.length
+        // let lengthMIR = auxMIR.componentes.length
+
+        
+        setMIREDITPADRE({...auxArrayMIR[1]})
+        console.log("auxArrayFT",auxArrayMIR[1]);
+        
+        setMIRPADRE(auxArrayMIR[0]);
+      } else {
+        
+        //let auxMIR: IMIR = JSON.parse(MIR);
+        //let auxMA: IFT = newFichaTecnica(MIR);
+
+        // let lengthMA = auxMA.componentes.length
+        // let lengthMIR = auxMIR.componentes.length
+
+        // let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
+        //   if (auxDBMA.componentes[indexC]) {
+        //     let auxActividades: IActividadesFT[] = itemComponente.actividades.map((itemActividad, indexA) => {
+        //       // console.log("iteracion: ", auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA]));
+
+        //       return auxDBMA.componentes[indexC].actividades[indexA] || newActividadFT(auxMIR.componentes[indexC].actividades[indexA])
+        //     })
+        //     console.log("componente opcional:",{...auxDBMA.componentes[indexC],actividades: auxActividades});
+            
+        //     return {...auxDBMA.componentes[indexC],actividades: auxActividades}||{ ...itemComponente, actividades: auxActividades }
+        //   } else {
+        //     return newComponenteFT(auxMIR.componentes[indexC])
+        //   }
+
+        // })
+        // console.log("MA: ", { ...auxDBMA, componentes: auxComponentes });
+        setMIRPADRE(auxArrayMIR);
+      }
+
+    }
+  }, []);
+
+  useEffect(() => {
+    // let auxMIREDIT: IMIREdit = mirEdirPadre;
+
+    // let lengthMIR = MIRPADRE.componentes.length;
+    // let lengthMIREDIT = mirEdirPadre.componentes.length;
+
+    // if (lengthMIR !== lengthMIREDIT) {
+    //   for (let i = lengthMIREDIT; i < lengthMIR; i++)
+    //     auxMIREDIT.componentes.push(
+    //       newComponenteboolean(MIRPADRE.componentes[i])
+    //     );
+    // }
+    // console.log("auxMIREDIT: ", auxMIREDIT);
+
+    // setMIREDITPADRE(auxMIREDIT);
+    console.log("mirEdirPadre: ", mirEdirPadre);
+  }, []);
 
   const addComponente = () => {
     console.log("componentes", MIRPADRE.componentes);
@@ -212,6 +321,8 @@ export default function FullModalMir({
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
 
     movimientos("add", "C" + MIRPADRE.componentes.length);
+
+    
   };
 
   const removeComponente = (componenteSelected: number) => {
@@ -233,12 +344,41 @@ export default function FullModalMir({
         };
 
         return aux;
-      } else return componente;
+      } else {
+        return componente;
+      }
     });
 
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
-    console.log("componentes", MIRPADRE.componentes);
-    console.log("componentes actualizados", arrComponentes);
+    // console.log("componentes", MIRPADRE.componentes);
+    // console.log("componentes actualizados", arrComponentes);
+    let arrComponentesboolean: IComponenteMirEdit[] =
+      mirEdirPadre.componentes.filter(
+        (componente) =>
+          !componente.componente.includes(`C${componenteSelected}`)
+      );
+
+    // arrComponentesboolean = arrComponentesboolean.map((componente, index) => {
+    //   if (parseInt(componente.componente.split("C")[1]) >= componenteSelected) {
+    //     let aux = {
+    //       ...componente,
+    //       componente: `C${index + 1}`,
+    //       actividades: componente.actividades.map((item) => {
+    //         return {
+    //           ...item,
+    //           actividad: item.actividad.replace(/C\d+/, `C${index + 1}`),
+    //         };
+    //       }),
+    //     };
+
+    //     return aux;
+    //   } else {
+    //     return componente;
+    //   }
+    // });
+    // setMIREDITPADRE({ ...mirEdirPadre, componentes: arrComponentesboolean });
+    // console.log("componentes", mirEdirPadre.componentes);
+    // console.log("componentes actualizados", arrComponentesboolean);
   };
 
   const addActividad = (componenteSelect: number) => {
@@ -259,6 +399,7 @@ export default function FullModalMir({
     console.log("actividades", arrComponentes);
 
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
+
   };
 
   const removeActividad = (
@@ -283,6 +424,8 @@ export default function FullModalMir({
     } else {
       alertaError("El minimo de componentes son dos.");
     }
+
+   
   };
 
   return (
@@ -321,6 +464,7 @@ export default function FullModalMir({
           }}
         >
           <GenericTabs tabsData={tabs} tabSelect={setValue} />
+          {JSON.stringify(mirEdirPadre)}
           <Grid
             sx={{
               width: ["300px", "650px", "900px", "1000px", "1100px", "1300px"],
@@ -335,14 +479,14 @@ export default function FullModalMir({
               show={value === 0 ? true : false}
               MIR={MIRPADRE}
               setMIR={setMIRPADRE}
-              mirEdit={mirEdit}
+              mirEdit={mirEdirPadre}
             />
 
             {value === 1 && (
               <TabFinProposito
                 MIR={MIRPADRE}
                 setMIR={setMIRPADRE}
-                mirEdit={mirEdit}
+                mirEdit={mirEdirPadre}
               />
             )}
 
@@ -354,7 +498,7 @@ export default function FullModalMir({
                 MIR={MIRPADRE}
                 setMIR={setMIRPADRE}
                 idMir={IdMir}
-                mirEdit={mirEdit}
+                mirEdit={mirEdirPadre}
               />
             )}
 
@@ -365,6 +509,7 @@ export default function FullModalMir({
                 MIR={MIRPADRE}
                 setMIR={setMIRPADRE}
                 idMir={IdMir}
+                mirEdit={mirEdirPadre}
               />
             )}
 
@@ -375,6 +520,8 @@ export default function FullModalMir({
                 idMir={IdMir}
                 estadoMIR={estado}
                 mDocumentos={mDocumentos}
+                mirEdit={mirEdirPadre}
+                setMIREDITPADRE={setMIREDITPADRE}
               />
             )}
           </Grid>

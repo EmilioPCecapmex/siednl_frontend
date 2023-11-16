@@ -22,13 +22,13 @@ export function TabEncabezado({
   FT,
   MIR,
   EncabezadoValues,
-  ftEdit,
+  ftEditPadre
 }: {
   setFTEncabezadoPadre: Function;
   FT: string;
   MIR: string;
   EncabezadoValues: IEncabezadoFT;
-  ftEdit: IFTEdit;
+  ftEditPadre: IFTEdit;
 }) {
   const [encabezado, setEncabezado] = useState<IEncabezadoFT>(EncabezadoValues);
 

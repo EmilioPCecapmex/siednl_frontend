@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
-import { IActividad, ILista, IMIR, IMovimientos } from "./interfaces mir/IMIR";
+import { IActividad, ILista, IMIR, IMIREdit, IMovimientos } from "./interfaces mir/IMIR";
 import { queries } from "../../queries";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -14,13 +14,17 @@ export function TabResumen({
   showResume,
   idMir,
   estadoMIR,
-  mDocumentos
+  mDocumentos,
+  mirEdit,
+  setMIREDITPADRE,
 }: {
   MIRPADRE: IMIR;
   showResume: Function;
   idMir: string;
   estadoMIR: string;
   mDocumentos: IMovimientos[]
+  mirEdit: IMIREdit;
+  setMIREDITPADRE: Function;
 }) {
   const [MIR, setMIR] = useState<IMIR>(MIRPADRE);
   const theme = useTheme();
@@ -208,71 +212,71 @@ export function TabResumen({
     indicador: true,
     formula: true,
     frecuencia: true,
-    medios_verificacion: true,
+    medios: true,
     supuestos: true,
   });
 
 
-  // const [editComponentes, setEditComponentes] = useState<Array<IComponenteMirEdit>>([
-  //   {
-  //     componentes: "C1",
-  //     formula: true,
-  //     frecuencia: true,
-  //     indicador: true,
-  //     medios: true,
-  //     resumen: true,
-  //     supuestos: true,
-  //     actividades: [
-  //       {
-  //         actividad: "A1",
-  //         formula: true,
-  //         frecuencia: true,
-  //         indicador: true,
-  //         medios: true,
-  //         resumen: true,
-  //         supuestos: true,
-  //       },
-  //       {
-  //         actividad: "A2",
-  //         formula: true,
-  //         frecuencia: true,
-  //         indicador: true,
-  //         medios: true,
-  //         resumen: true,
-  //         supuestos: true,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     componentes: "C2",
-  //     formula: true,
-  //     frecuencia: true,
-  //     indicador: true,
-  //     medios: true,
-  //     resumen: true,
-  //     supuestos: true,
-  //     actividades: [
-  //       {
-  //         actividad: "A1",
-  //         formula: true,
-  //         frecuencia: true,
-  //         indicador: true,
-  //         medios: true,
-  //         resumen: true,
-  //         supuestos: true,
-  //       },
-  //       {
-  //         actividad: "A2",
-  //         formula: true,
-  //         frecuencia: true,
-  //         indicador: true,
-  //         medios: true,
-  //         resumen: true,
-  //         supuestos: true,
-  //       },
-  //     ],
-  //   },
-  // ]);
+  const [editComponentes, setEditComponentes] = useState<Array<IComponenteMirEdit>>([]);
+    // {
+    //   componentes: "C1",
+    //   formula: true,
+    //   frecuencia: true,
+    //   indicador: true,
+    //   medios: true,
+    //   resumen: true,
+    //   supuestos: true,
+    //   actividades: [
+    //     {
+    //       actividad: "A1",
+    //       formula: true,
+    //       frecuencia: true,
+    //       indicador: true,
+    //       medios: true,
+    //       resumen: true,
+    //       supuestos: true,
+    //     },
+    //     {
+    //       actividad: "A2",
+    //       formula: true,
+    //       frecuencia: true,
+    //       indicador: true,
+    //       medios: true,
+    //       resumen: true,
+    //       supuestos: true,
+    //     },
+    //   ],
+    // },
+    // {
+    //   componentes: "C2",
+    //   formula: true,
+    //   frecuencia: true,
+    //   indicador: true,
+    //   medios: true,
+    //   resumen: true,
+    //   supuestos: true,
+    //   actividades: [
+    //     {
+    //       actividad: "A1",
+    //       formula: true,
+    //       frecuencia: true,
+    //       indicador: true,
+    //       medios: true,
+    //       resumen: true,
+    //       supuestos: true,
+    //     },
+    //     {
+    //       actividad: "A2",
+    //       formula: true,
+    //       frecuencia: true,
+    //       indicador: true,
+    //       medios: true,
+    //       resumen: true,
+    //       supuestos: true,
+    //     },
+    //   ],
+    // },
+  
 
 
 
@@ -319,8 +323,11 @@ export function TabResumen({
       ];
 
       let x = a.every((value) => value === true);
+      console.log("x: ",x);
+      //setEditComponentes(arrayComponentes)
       return x;
     });
+    console.log("setEditComponentes: ",arrayComponentes);
     let arrayActividad = editActividades.map((item) => {
       let a = [
         //item.actividad,
@@ -484,12 +491,12 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editEncabezado.ejercicioFiscal}
+ 
+               value={mirEdit.encabezado.ejercicioFiscal}
                 onChange={(v) => {
-                  setEditEncabezado({
-                    ...editEncabezado,
-                    ejercicioFiscal: !v.target.checked,
-                  });
+                  let aux = mirEdit.encabezado
+                  aux = {...aux, ejercicioFiscal: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
                 }}
               />
             </Grid>
@@ -1498,11 +1505,11 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editProposito.medios_verificacion}
+                value={editProposito.medios}
                 onChange={(v) => {
                   setEditProposito({
                     ...editProposito,
-                    medios_verificacion: !v.target.checked,
+                    medios: !v.target.checked,
                   });
                 }}
               />
@@ -1662,11 +1669,19 @@ export function TabResumen({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={editComponentes[index]?.resumen}
+                      // value={editComponentes[index]?.resumen}
+                      // onChange={(v) => {
+                      //   let past = [...editComponentes];
+                      //   past[index].resumen = !v.target.checked;
+                      //   setEditComponentes(past);
+                      // }}
+
+
+                      value={mirEdit.componentes[index]?.resumen}
                       onChange={(v) => {
-                        let past = [...editComponentes];
-                        past[index].resumen = !v.target.checked;
-                        setEditComponentes(past);
+                        let aux = mirEdit.componentes[index]
+                        aux = {...aux, resumen: v.target.checked }
+                        setMIREDITPADRE({...mirEdit, componentes: aux  })
                       }}
                     />
                   </Grid>
@@ -2486,12 +2501,12 @@ export interface IPropositoEdit {
   indicador: boolean;
   formula: boolean;
   frecuencia: boolean;
-  medios_verificacion: boolean;
+  medios: boolean;
   supuestos: boolean;
 }
 
 export interface IComponenteMirEdit {
-  componentes: string;
+  componente: string;
   resumen: boolean;
   indicador: boolean;
   formula: boolean;

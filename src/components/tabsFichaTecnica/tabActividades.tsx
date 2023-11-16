@@ -16,7 +16,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
-import { IComponentesFT } from "./Interfaces";
+import { IComponentesFT, IFTEdit } from "./Interfaces";
 
 //funcion main
 export const TabActividadesFT = ({
@@ -30,6 +30,7 @@ export const TabActividadesFT = ({
   setFTcomponentesActividadPadre,
   componentesActividad,
   setComponenteActividadFT,
+  ftEditPadre,
 }: {
   show: boolean;
 
@@ -41,6 +42,7 @@ export const TabActividadesFT = ({
   setFTcomponentesActividadPadre: Function;
   componentesActividad: IComponentesFT[];
   setComponenteActividadFT: Function;
+  ftEditPadre: IFTEdit;
 }) => {
   // business logic-------------------------------------------------------------------------------
 

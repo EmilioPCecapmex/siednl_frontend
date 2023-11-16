@@ -8,7 +8,7 @@ import { TabComponenteMA } from "./TabComponente";
 import { TabActividadesMA } from "./TabActividades";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
-import TabResumenMA from "./TabResumenMA";
+import TabResumenMA, { IComponenteEditMA } from "./TabResumenMA";
 import {
   IActividad,
   IComponente,
@@ -22,7 +22,7 @@ import {
   actividadesObligatorias,
   componentesObligatorios,
 } from "../../services/statesGlobals";
-import { IMA } from "./IMA";
+import { IMA, IMAEdit } from "./IMA";
 import { alertaError } from "../genericComponents/Alertas";
 import { isValidIMA } from "../../funcs/ValidatorMA";
 import GenericTabs from "../genericComponents/genericTabs";
@@ -143,6 +143,87 @@ export function newComponenteMA(ComponenteMIR: IComponente) {
   return componente;
 }
 
+function newMetaAnualboolean(MIR: string) {
+  let componentes: IComponente[] = JSON.parse(MIR).componentes
+  console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
+
+  return {
+    fin: newFinPropositoMAboolean(),
+    proposito: newFinPropositoMAboolean(),
+    componentes: componentes?.map((item) => newComponenteMAboolean(item)),
+  };
+}
+
+export function newFinPropositoMAboolean() {
+  return {
+    metaAnual: false,
+    lineaBase: false,
+    valorNumerador: false,
+    valorDenominador: false,
+    sentidoDelIndicador: false,
+    unidadResponsable: false,
+    descIndicador: false,
+    descNumerador: false,
+    descDenominador: false,
+  };
+}
+
+export function newComponenteMAboolean(ComponenteMIR: IComponente) {
+  let componente: IComponenteEditMA;
+  componente = {
+    componentes: ComponenteMIR.componente,
+    metaAnual: false,
+    lineaBase: false,
+    metasPorFrecuencia: [
+      {
+        semestre1: false,
+        semestre2: false,
+        trimestre1: false,
+        trimestre2: false,
+        trimestre3: false,
+        trimestre4: false,
+      },
+    ],
+    valorNumerador: false,
+    valorDenominador: false,
+    sentidoDelIndicador: false,
+    unidadResponsable: false,
+    descIndicador: false,
+    descNumerador: false,
+    descDenominador: false,
+    actividades: ComponenteMIR.actividades.map((item) =>
+    newActividadMAboolean(item)
+    ),
+  };
+  return componente;
+}
+
+export function newActividadMAboolean(ActividadMIR: IActividad) {
+  return {
+    actividad: ActividadMIR.actividad,
+    metaAnual: false,
+    lineaBase: false,
+    metasPorFrecuencia: [
+      {
+        semestre1: false,
+        semestre2: false,
+        trimestre1: false,
+        trimestre2: false,
+        trimestre3: false,
+        trimestre4: false,
+      },
+    ],
+    valorNumerador: false,
+    valorDenominador: false,
+    sentidoDelIndicador: false,
+    unidadResponsable: false,
+    descIndicador: false,
+    descNumerador: false,
+    descDenominador: false,
+  };
+}
+
+
 
 
 export default function AddMetaAnual({
@@ -159,6 +240,7 @@ export default function AddMetaAnual({
   IdMA: string;
 }) {
   const [maPadre, setMAPadre] = useState<IMA>(newMetaAnual(MIR));
+  const [maPadreEdit, setMAPadreEdit] = useState<IMAEdit>(newMetaAnualboolean(MIR));
 
   // useEffect(() => {
   //   console.log("MIR", MIR);
@@ -218,6 +300,8 @@ export default function AddMetaAnual({
       componentes: componentesActividadesValues,
     });
   };
+
+
   // useEffect(() => {
   //   let act: number[] = [];
   //   let comp: string[] = [];
@@ -454,6 +538,7 @@ export default function AddMetaAnual({
                 setMAFinPadre={setMAFinPadre}
                 setMAPropositoPadre={setMAPropositoPadre}
                 showMirFnc={showMirFnc}
+                maPadreEdit={maPadreEdit}
               />
             ) : null}
             {value === 1 ? (
@@ -466,6 +551,7 @@ export default function AddMetaAnual({
                 ComponentesMA={maPadre.componentes}
                 MA={MA}
                 MIR={MIR}
+                maPadreEdit={maPadreEdit}
               />
             ) : null}
 
@@ -480,6 +566,7 @@ export default function AddMetaAnual({
                 asignarCValor={() => { }}
                 MA={MA}
                 MIR={MIR}
+                maPadreEdit={maPadreEdit}
               ></TabActividadesMA>
             ) : null}
 
@@ -490,6 +577,8 @@ export default function AddMetaAnual({
                 IdMA={IdMA}
                 showResume={showResume}
                 MIR={MIR}
+                maPadreEdit={maPadreEdit}
+                setMAPadreEdit={setMAPadreEdit}
               ></TabResumenMA>
             ) : null}
             {/* <TabResumenMIR

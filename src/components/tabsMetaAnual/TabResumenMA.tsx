@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import ModalEnviarMA from "../modalsMA/ModalEnviarMA";
 import ModalSolicitaModif from "../modalsMA/ModalSolicitaModifMA";
 import { IFinMA, IPropositoMA } from "./IFin";
-import { IMA } from "./IMA";
+import { IMA, IMAEdit } from "./IMA";
 import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
 import { queries } from "../../queries";
 import { useTheme } from "@mui/material/styles";
@@ -18,12 +18,16 @@ export function TabResumenMA({
   IdMA,
   MIR,
   showResume,
+  maPadreEdit,
+  setMAPadreEdit,
 }: {
   IdMir: string;
   IdMA: string;
   MIR: string;
   showResume: Function;
   maPadre: IMA;
+  maPadreEdit: IMAEdit;
+  setMAPadreEdit: Function;
 }) {
   const [MA, setMA] = useState<IMA>(maPadre);
 

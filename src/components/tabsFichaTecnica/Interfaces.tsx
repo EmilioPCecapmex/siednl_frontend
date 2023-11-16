@@ -143,5 +143,5 @@ export interface IFTEdit {
   encabezado: IEncabezadoEditFT;
   fin: IFinEditFT;
   proposito: IPropositoEditFT;
-  componentes: IComponenteEditFT;
+  componentes: Array<IComponenteEditFT>;
 }
