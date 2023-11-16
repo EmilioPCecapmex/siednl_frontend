@@ -143,6 +143,16 @@ export function newComponenteMA(ComponenteMIR: IComponente) {
   return componente;
 }
 
+// function newMetaAnual(MIR: string) {
+//   let componentes: IComponente[] = JSON.parse(MIR).componentes
+//   console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
+
+//   return {
+//     fin: newFinPropositoMA(),
+//     proposito: newFinPropositoMA(),
+//     componentes: componentes?.map((item) => newComponenteMA(item)),
+//   };
+// }
 
 
 export default function AddMetaAnual({
