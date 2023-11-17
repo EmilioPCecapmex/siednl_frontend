@@ -1400,17 +1400,17 @@ export function TabResumenMA({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={!editComponentes[index - 1]?.metaAnual}
+                      // value={!maPadreEdit.componentes[index]?.metaAnual}
                       // onChange={(v) => {
-                      //   let past = [...editComponentes];
-                      //   past[index - 1].metaAnual = !v.target.checked;
-                      //   setEditComponentes(past);
+                      //   let aux = maPadreEdit.componentes[index]
+                      //   aux = {...aux, metaAnual: v.target.checked }
+                      //   setMAPadreEdit({...maPadreEdit, componentes: aux  })
                       // }}
-                      value={!maPadreEdit.componentes[index]?.metaAnual}
+                      value={maPadreEdit.componentes[index]?.metaAnual}
                       onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]
-                        aux = {...aux, metaAnual: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
+                        let auxC = maPadreEdit.componentes
+                        auxC[index].metaAnual = v.target.checked;
+                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1456,10 +1456,15 @@ export function TabResumenMA({
                       //   setEditComponentes(past);
                       // }}
                       value={!maPadreEdit.componentes[index]?.lineaBase}
+                      // onChange={(v) => {
+                      //   let aux = maPadreEdit.componentes[index]
+                      //   aux = {...aux, lineaBase: v.target.checked }
+                      //   setMAPadreEdit({...maPadreEdit, componentes: aux  })
+                      // }}
                       onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]
-                        aux = {...aux, lineaBase: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
+                        let auxC = maPadreEdit.componentes
+                        auxC[index].lineaBase = v.target.checked;
+                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1538,11 +1543,11 @@ export function TabResumenMA({
                           //   setEditComponentes(past);
                           // }}
                           value={!maPadreEdit.componentes[index]?.metasPorFrecuencia[0].semestre1}
-                      onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]?.metasPorFrecuencia[0]
-                        aux = {...aux, semestre1: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
-                      }}
+                          onChange={(v) => {
+                            let auxC = maPadreEdit.componentes
+                            auxC[index].metasPorFrecuencia[0].semestre1 = v.target.checked;
+                            setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                          }}
                         />
                       </Grid>
                     )}
@@ -1572,11 +1577,11 @@ export function TabResumenMA({
                           //   setEditComponentes(past);
                           // }}
                           value={!maPadreEdit.componentes[index]?.metasPorFrecuencia[0].semestre2}
-                      onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]?.metasPorFrecuencia[0]
-                        aux = {...aux, semestre2: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
-                      }}
+                          onChange={(v) => {
+                            let auxC = maPadreEdit.componentes
+                            auxC[index].metasPorFrecuencia[0].semestre2 = v.target.checked;
+                            setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                          }}
                         />
                       </Grid>
                     )}
@@ -1624,11 +1629,11 @@ export function TabResumenMA({
                           //   setEditComponentes(past);
                           // }}
                           value={!maPadreEdit.componentes[index]?.metasPorFrecuencia[0].trimestre1}
-                      onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]?.metasPorFrecuencia[0]
-                        aux = {...aux, trimestre1: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
-                      }}
+                          onChange={(v) => {
+                            let auxC = maPadreEdit.componentes
+                            auxC[index].metasPorFrecuencia[0].trimestre1 = v.target.checked;
+                            setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                          }}
                         />
                       </Grid>
                     )}
@@ -1659,11 +1664,11 @@ export function TabResumenMA({
                           //   setEditComponentes(past);
                           // }}
                           value={!maPadreEdit.componentes[index]?.metasPorFrecuencia[0].trimestre2}
-                      onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]?.metasPorFrecuencia[0]
-                        aux = {...aux, trimestre2: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
-                      }}
+                          onChange={(v) => {
+                            let auxC = maPadreEdit.componentes
+                            auxC[index].metasPorFrecuencia[0].trimestre2 = v.target.checked;
+                            setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                          }}
                         />
                       </Grid>
                     )}
@@ -1693,11 +1698,11 @@ export function TabResumenMA({
                           //   setEditComponentes(past);
                           // }}
                           value={!maPadreEdit.componentes[index]?.metasPorFrecuencia[0].trimestre3}
-                      onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]?.metasPorFrecuencia[0]
-                        aux = {...aux, trimestre3: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
-                      }}
+                          onChange={(v) => {
+                            let auxC = maPadreEdit.componentes
+                            auxC[index].metasPorFrecuencia[0].trimestre3 = v.target.checked;
+                            setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                          }}
                         />
                       </Grid>
                     )}
@@ -1727,11 +1732,11 @@ export function TabResumenMA({
                           //   setEditComponentes(past);
                           // }}
                           value={!maPadreEdit.componentes[index]?.metasPorFrecuencia[0].trimestre4}
-                      onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]?.metasPorFrecuencia[0]
-                        aux = {...aux, trimestre4: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
-                      }}
+                          onChange={(v) => {
+                            let auxC = maPadreEdit.componentes
+                            auxC[index].metasPorFrecuencia[0].trimestre4 = v.target.checked;
+                            setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                          }}
                         />
                       </Grid>
                     )}
@@ -1779,9 +1784,9 @@ export function TabResumenMA({
                       // }}
                       value={!maPadreEdit.componentes[index]?.valorNumerador}
                       onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]
-                        aux = {...aux, valorNumerador: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
+                        let auxC = maPadreEdit.componentes
+                        auxC[index].valorNumerador = v.target.checked;
+                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1839,11 +1844,11 @@ export function TabResumenMA({
                         //   setEditComponentes(past);
                         // }}
                         value={!maPadreEdit.componentes[index]?.valorDenominador}
-                      onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]
-                        aux = {...aux, valorDenominador: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
-                      }}
+                        onChange={(v) => {
+                          let auxC = maPadreEdit.componentes
+                          auxC[index].valorDenominador = v.target.checked;
+                          setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                        }}
                       />
                     </Grid>
                   )}
@@ -1889,9 +1894,9 @@ export function TabResumenMA({
                       // }}
                       value={!maPadreEdit.componentes[index]?.sentidoDelIndicador}
                       onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]
-                        aux = {...aux, sentidoDelIndicador: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
+                        let auxC = maPadreEdit.componentes
+                        auxC[index].sentidoDelIndicador = v.target.checked;
+                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1938,9 +1943,9 @@ export function TabResumenMA({
                       // }}
                       value={!maPadreEdit.componentes[index]?.unidadResponsable}
                       onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]
-                        aux = {...aux, unidadResponsable: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
+                        let auxC = maPadreEdit.componentes
+                        auxC[index].unidadResponsable = v.target.checked;
+                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1986,9 +1991,9 @@ export function TabResumenMA({
                       // }}
                       value={!maPadreEdit.componentes[index]?.descIndicador}
                       onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]
-                        aux = {...aux, descIndicador: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
+                        let auxC = maPadreEdit.componentes
+                        auxC[index].descIndicador = v.target.checked;
+                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -2034,9 +2039,9 @@ export function TabResumenMA({
                       // }}
                       value={!maPadreEdit.componentes[index]?.descNumerador}
                       onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]
-                        aux = {...aux, descNumerador: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
+                        let auxC = maPadreEdit.componentes
+                        auxC[index].descNumerador = v.target.checked;
+                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -2081,9 +2086,9 @@ export function TabResumenMA({
                       // }}
                       value={!maPadreEdit.componentes[index]?.descDenominador}
                       onChange={(v) => {
-                        let aux = maPadreEdit.componentes[index]
-                        aux = {...aux, descDenominador: v.target.checked }
-                        setMAPadreEdit({...maPadreEdit, componentes: aux  })
+                        let auxC = maPadreEdit.componentes
+                        auxC[index].descDenominador = v.target.checked;
+                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -2195,21 +2200,13 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
-                            //   !editActividades[indexComponentes]?.metaAnual
-                            // }
-                            // onChange={(v) => {
-                            //   let past = [...editActividades];
-                            //   past[indexComponentes].metaAnual =
-                            //     !v.target.checked;
-                            //   setEditActividades(past);
-                            // }}
-                            value={!maPadreEdit.proposito?.metaAnual}
-                onChange={(v) => {
-                  let aux = maPadreEdit.proposito
-                  aux = {...aux, metaAnual: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, proposito: aux  })
-                }}
+                            
+                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.metaAnual}
+                            onChange={(v) => {
+                              let auxC = maPadreEdit.componentes
+                              auxC[indexComponentes].actividades[indexActividades].metaAnual = v.target.checked;
+                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                            }}
                           />
                         </Grid>
                       )}
@@ -2255,12 +2252,12 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={!maPadreEdit.proposito?.metaAnual}
-                onChange={(v) => {
-                  let aux = maPadreEdit.proposito
-                  aux = {...aux, metaAnual: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, proposito: aux  })
-                }}
+                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.lineaBase}
+                            onChange={(v) => {
+                              let auxC = maPadreEdit.componentes
+                              auxC[indexComponentes].actividades[indexActividades].lineaBase = v.target.checked;
+                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                            }}
                           />
                         </Grid>
                       )}
@@ -2342,12 +2339,12 @@ export function TabResumenMA({
                               //     !v.target.checked;
                               //   setEditActividades(past);
                               // }}
-                              value={!maPadreEdit.proposito?.metaAnual}
-                onChange={(v) => {
-                  let aux = maPadreEdit.proposito
-                  aux = {...aux, metaAnual: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, proposito: aux  })
-                }}
+                              value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.metasPorFrecuencia[0].trimestre1}
+                              onChange={(v) => {
+                                let auxC = maPadreEdit.componentes
+                                auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre1 = v.target.checked;
+                                setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                              }}
                             />
                           </Grid>
                         )}
@@ -2386,6 +2383,12 @@ export function TabResumenMA({
                               //     !v.target.checked;
                               //   setEditActividades(past);
                               // }}
+                              value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.metasPorFrecuencia[0].trimestre2}
+                              onChange={(v) => {
+                                let auxC = maPadreEdit.componentes
+                                auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre2 = v.target.checked;
+                                setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                              }}
                             />
                           </Grid>
                         )}
@@ -2405,24 +2408,30 @@ export function TabResumenMA({
                         {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                             <Checkbox
-                              value={
-                                !editActividades[
-                                  mapeaindice(
-                                    indexComponentes,
-                                    indexActividades
-                                  )
-                                ]?.metasPorFrecuencia[0].trimestre3
-                              }
+                              // value={
+                              //   !editActividades[
+                              //     mapeaindice(
+                              //       indexComponentes,
+                              //       indexActividades
+                              //     )
+                              //   ]?.metasPorFrecuencia[0].trimestre3
+                              // }
+                              // onChange={(v) => {
+                              //   let past = [...editActividades];
+                              //   past[
+                              //     mapeaindice(
+                              //       indexComponentes,
+                              //       indexActividades
+                              //     )
+                              //   ].metasPorFrecuencia[0].trimestre3 =
+                              //     !v.target.checked;
+                              //   setEditActividades(past);
+                              // }}
+                              value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.metasPorFrecuencia[0].trimestre3}
                               onChange={(v) => {
-                                let past = [...editActividades];
-                                past[
-                                  mapeaindice(
-                                    indexComponentes,
-                                    indexActividades
-                                  )
-                                ].metasPorFrecuencia[0].trimestre3 =
-                                  !v.target.checked;
-                                setEditActividades(past);
+                                let auxC = maPadreEdit.componentes
+                                auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre3 = v.target.checked;
+                                setMAPadreEdit({...maPadreEdit,componentes:auxC});
                               }}
                             />
                           </Grid>
@@ -2443,24 +2452,30 @@ export function TabResumenMA({
                         {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                             <Checkbox
-                              value={
-                                !editActividades[
-                                  mapeaindice(
-                                    indexComponentes,
-                                    indexActividades
-                                  )
-                                ]?.metasPorFrecuencia[0].trimestre4
-                              }
+                              // value={
+                              //   !editActividades[
+                              //     mapeaindice(
+                              //       indexComponentes,
+                              //       indexActividades
+                              //     )
+                              //   ]?.metasPorFrecuencia[0].trimestre4
+                              // }
+                              // onChange={(v) => {
+                              //   let past = [...editActividades];
+                              //   past[
+                              //     mapeaindice(
+                              //       indexComponentes,
+                              //       indexActividades
+                              //     )
+                              //   ].metasPorFrecuencia[0].trimestre4 =
+                              //     !v.target.checked;
+                              //   setEditActividades(past);
+                              // }}
+                              value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.metasPorFrecuencia[0].trimestre4}
                               onChange={(v) => {
-                                let past = [...editActividades];
-                                past[
-                                  mapeaindice(
-                                    indexComponentes,
-                                    indexActividades
-                                  )
-                                ].metasPorFrecuencia[0].trimestre4 =
-                                  !v.target.checked;
-                                setEditActividades(past);
+                                let auxC = maPadreEdit.componentes
+                                auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre4 = v.target.checked;
+                                setMAPadreEdit({...maPadreEdit,componentes:auxC});
                               }}
                             />
                           </Grid>
@@ -2502,14 +2517,11 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            value={
-                              !editActividades[indexComponentes]?.valorNumerador
-                            }
+                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.metaAnual}
                             onChange={(v) => {
-                              let past = [...editActividades];
-                              past[indexComponentes].valorNumerador =
-                                !v.target.checked;
-                              setEditActividades(past);
+                              let auxC = maPadreEdit.componentes
+                              auxC[indexComponentes].actividades[indexActividades].metaAnual = v.target.checked;
+                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2568,15 +2580,21 @@ export function TabResumenMA({
                         {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                             <Checkbox
-                              value={
-                                !editActividades[indexComponentes]
-                                  ?.valorDenominador
-                              }
+                              // value={
+                              //   !editActividades[indexComponentes]
+                              //     ?.valorDenominador
+                              // }
+                              // onChange={(v) => {
+                              //   let past = [...editActividades];
+                              //   past[indexComponentes].valorDenominador =
+                              //     !v.target.checked;
+                              //   setEditActividades(past);
+                              // }}
+                              value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.valorDenominador}
                               onChange={(v) => {
-                                let past = [...editActividades];
-                                past[indexComponentes].valorDenominador =
-                                  !v.target.checked;
-                                setEditActividades(past);
+                                let auxC = maPadreEdit.componentes
+                                auxC[indexComponentes].actividades[indexActividades].valorDenominador = v.target.checked;
+                                setMAPadreEdit({...maPadreEdit,componentes:auxC});
                               }}
                             />
                           </Grid>
@@ -2615,15 +2633,21 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            value={
-                              !editActividades[indexComponentes]
-                                ?.sentidoDelIndicador
-                            }
+                            // value={
+                            //   !editActividades[indexComponentes]
+                            //     ?.sentidoDelIndicador
+                            // }
+                            // onChange={(v) => {
+                            //   let past = [...editActividades];
+                            //   past[indexComponentes].sentidoDelIndicador =
+                            //     !v.target.checked;
+                            //   setEditActividades(past);
+                            // }}
+                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.sentidoDelIndicador}
                             onChange={(v) => {
-                              let past = [...editActividades];
-                              past[indexComponentes].sentidoDelIndicador =
-                                !v.target.checked;
-                              setEditActividades(past);
+                              let auxC = maPadreEdit.componentes
+                              auxC[indexComponentes].actividades[indexActividades].sentidoDelIndicador = v.target.checked;
+                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2661,15 +2685,21 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            value={
-                              !editActividades[indexComponentes]
-                                ?.unidadResponsable
-                            }
+                            // value={
+                            //   !editActividades[indexComponentes]
+                            //     ?.unidadResponsable
+                            // }
+                            // onChange={(v) => {
+                            //   let past = [...editActividades];
+                            //   past[indexComponentes].unidadResponsable =
+                            //     !v.target.checked;
+                            //   setEditActividades(past);
+                            // }}
+                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.unidadResponsable}
                             onChange={(v) => {
-                              let past = [...editActividades];
-                              past[indexComponentes].unidadResponsable =
-                                !v.target.checked;
-                              setEditActividades(past);
+                              let auxC = maPadreEdit.componentes
+                              auxC[indexComponentes].actividades[indexActividades].unidadResponsable = v.target.checked;
+                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2707,14 +2737,20 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            value={
-                              !editActividades[indexComponentes]?.descIndicador
-                            }
+                            // value={
+                            //   !editActividades[indexComponentes]?.descIndicador
+                            // }
+                            // onChange={(v) => {
+                            //   let past = [...editActividades];
+                            //   past[indexComponentes].descIndicador =
+                            //     !v.target.checked;
+                            //   setEditActividades(past);
+                            // }}
+                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.descIndicador}
                             onChange={(v) => {
-                              let past = [...editActividades];
-                              past[indexComponentes].descIndicador =
-                                !v.target.checked;
-                              setEditActividades(past);
+                              let auxC = maPadreEdit.componentes
+                              auxC[indexComponentes].actividades[indexActividades].descIndicador = v.target.checked;
+                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2752,14 +2788,20 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            value={
-                              !editActividades[indexComponentes]?.descNumerador
-                            }
+                            // value={
+                            //   !editActividades[indexComponentes]?.descNumerador
+                            // }
+                            // onChange={(v) => {
+                            //   let past = [...editActividades];
+                            //   past[indexComponentes].descNumerador =
+                            //     !v.target.checked;
+                            //   setEditActividades(past);
+                            // }}
+                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.descNumerador}
                             onChange={(v) => {
-                              let past = [...editActividades];
-                              past[indexComponentes].descNumerador =
-                                !v.target.checked;
-                              setEditActividades(past);
+                              let auxC = maPadreEdit.componentes
+                              auxC[indexComponentes].actividades[indexActividades].descNumerador = v.target.checked;
+                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2797,15 +2839,21 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            value={
-                              !editActividades[indexComponentes]
-                                ?.descDenominador
-                            }
+                            // value={
+                            //   !editActividades[indexComponentes]
+                            //     ?.descDenominador
+                            // }
+                            // onChange={(v) => {
+                            //   let past = [...editActividades];
+                            //   past[indexComponentes].descDenominador =
+                            //     !v.target.checked;
+                            //   setEditActividades(past);
+                            // }}
+                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.descDenominador}
                             onChange={(v) => {
-                              let past = [...editActividades];
-                              past[indexComponentes].descDenominador =
-                                !v.target.checked;
-                              setEditActividades(past);
+                              let auxC = maPadreEdit.componentes
+                              auxC[indexComponentes].actividades[indexActividades].descDenominador = v.target.checked;
+                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
                             }}
                           />
                         </Grid>
