@@ -129,7 +129,7 @@ export const TabComponenteMA = ({
         ? "Promedio"
         : ""
     );
-    setElementoFormula("Componente " + (componentSelect + 1).toString());
+    setElementoFormula("Componente " + (componentSelect).toString());
     setOpenFormulaDialog(true);
   };
 
@@ -175,7 +175,7 @@ export const TabComponenteMA = ({
         ? "Promedio"
         : ""
     );
-    setElementoFormula("Componente " + (componentSelect + 1).toString());
+    setElementoFormula("Componente " + (componentSelect ).toString());
     setOpenFormulaDialogMACA(true);
   };
 
