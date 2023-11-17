@@ -1530,17 +1530,17 @@ export function TabResumenFT({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={!editComponentes[index - 1]?.tipoDeIndicador}
+                      // value={!ftEditPadre.componentes[index]?.tipoDeIndicador}
                       // onChange={(v) => {
-                      //   let past = [...editComponentes];
-                      //   past[index - 1].tipoDeIndicador = !v.target.checked;
-                      //   setEditComponentes(past);
+                      //   let aux = ftEditPadre.componentes[index]
+                      //   aux = {...aux, tipoDeIndicador: v.target.checked }
+                      //   setFTEditPadre({...ftEditPadre, componentes: aux  })
                       // }}
-                      value={!ftEditPadre.componentes[index]?.tipoDeIndicador}
+                      value={ftEditPadre.componentes[index]?.tipoDeIndicador}
                       onChange={(v) => {
-                        let aux = ftEditPadre.componentes[index]
-                        aux = {...aux, tipoDeIndicador: v.target.checked }
-                        setFTEditPadre({...ftEditPadre, componentes: aux  })
+                        let auxC = ftEditPadre.componentes
+                        auxC[index].tipoDeIndicador = v.target.checked;
+                        setFTEditPadre({...ftEditPadre,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1584,11 +1584,11 @@ export function TabResumenFT({
                       //   past[index - 1].dimension = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!ftEditPadre.componentes[index]?.dimension}
+                      value={ftEditPadre.componentes[index]?.dimension}
                       onChange={(v) => {
-                        let aux = ftEditPadre.componentes[index]
-                        aux = {...aux, dimension: v.target.checked }
-                        setFTEditPadre({...ftEditPadre, componentes: aux  })
+                        let auxC = ftEditPadre.componentes
+                        auxC[index].dimension = v.target.checked;
+                        setFTEditPadre({...ftEditPadre,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1633,11 +1633,11 @@ export function TabResumenFT({
                       //   past[index - 1].unidadDeMedida = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!ftEditPadre.componentes[index]?.unidadDeMedida}
+                      value={ftEditPadre.componentes[index]?.unidadDeMedida}
                       onChange={(v) => {
-                        let aux = ftEditPadre.componentes[index]
-                        aux = {...aux, unidadDeMedida: v.target.checked }
-                        setFTEditPadre({...ftEditPadre, componentes: aux  })
+                        let auxC = ftEditPadre.componentes
+                        auxC[index].unidadDeMedida = v.target.checked;
+                        setFTEditPadre({...ftEditPadre,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1681,11 +1681,11 @@ export function TabResumenFT({
                       //   past[index - 1].claridad = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!ftEditPadre.componentes[index]?.claridad}
+                      value={ftEditPadre.componentes[index]?.claridad}
                       onChange={(v) => {
-                        let aux = ftEditPadre.componentes[index]
-                        aux = {...aux, claridad: v.target.checked }
-                        setFTEditPadre({...ftEditPadre, componentes: aux  })
+                        let auxC = ftEditPadre.componentes
+                        auxC[index].claridad = v.target.checked;
+                        setFTEditPadre({...ftEditPadre,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1729,11 +1729,11 @@ export function TabResumenFT({
                       //   past[index - 1].relevancia = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!ftEditPadre.componentes[index]?.relevancia}
+                      value={ftEditPadre.componentes[index]?.relevancia}
                       onChange={(v) => {
-                        let aux = ftEditPadre.componentes[index]
-                        aux = {...aux, relevancia: v.target.checked }
-                        setFTEditPadre({...ftEditPadre, componentes: aux  })
+                        let auxC = ftEditPadre.componentes
+                        auxC[index].relevancia = v.target.checked;
+                        setFTEditPadre({...ftEditPadre,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1778,11 +1778,11 @@ export function TabResumenFT({
                       //   past[index - 1].economia = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!ftEditPadre.componentes[index]?.economia}
+                      value={ftEditPadre.componentes[index]?.economia}
                       onChange={(v) => {
-                        let aux = ftEditPadre.componentes[index]
-                        aux = {...aux, economia: v.target.checked }
-                        setFTEditPadre({...ftEditPadre, componentes: aux  })
+                        let auxC = ftEditPadre.componentes
+                        auxC[index].economia = v.target.checked;
+                        setFTEditPadre({...ftEditPadre,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1826,11 +1826,11 @@ export function TabResumenFT({
                       //   past[index - 1].monitoreable = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!ftEditPadre.componentes[index]?.monitoreable}
+                      value={ftEditPadre.componentes[index]?.monitoreable}
                       onChange={(v) => {
-                        let aux = ftEditPadre.componentes[index]
-                        aux = {...aux, monitoreable: v.target.checked }
-                        setFTEditPadre({...ftEditPadre, componentes: aux  })
+                        let auxC = ftEditPadre.componentes
+                        auxC[index].monitoreable = v.target.checked;
+                        setFTEditPadre({...ftEditPadre,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1874,11 +1874,11 @@ export function TabResumenFT({
                       //   past[index - 1].adecuado = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!ftEditPadre.componentes[index]?.adecuado}
+                      value={ftEditPadre.componentes[index]?.adecuado}
                       onChange={(v) => {
-                        let aux = ftEditPadre.componentes[index]
-                        aux = {...aux, adecuado: v.target.checked }
-                        setFTEditPadre({...ftEditPadre, componentes: aux  })
+                        let auxC = ftEditPadre.componentes
+                        auxC[index].adecuado = v.target.checked;
+                        setFTEditPadre({...ftEditPadre,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -1922,11 +1922,11 @@ export function TabResumenFT({
                       //   past[index - 1].aporte_marginal = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!ftEditPadre.componentes[index]?.aporte_marginal}
+                      value={ftEditPadre.componentes[index]?.aporte_marginal}
                       onChange={(v) => {
-                        let aux = ftEditPadre.componentes[index]
-                        aux = {...aux, aporte_marginal: v.target.checked }
-                        setFTEditPadre({...ftEditPadre, componentes: aux  })
+                        let auxC = ftEditPadre.componentes
+                        auxC[index].aporte_marginal = v.target.checked;
+                        setFTEditPadre({...ftEditPadre,componentes:auxC});
                       }}
                     />
                   </Grid>
@@ -2032,21 +2032,17 @@ export function TabResumenFT({
                       "Administrador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
-                            //   !editComponentes[indexComponentes]
-                            //     ?.actividades[indexActividades].tipoDeIndicador
-                            // }
+                            // value={!ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]?.tipoDeIndicador}
                             // onChange={(v) => {
-                            //   let past = [...editActividades];
-                            //   past[indexComponentes].tipoDeIndicador =
-                            //     !v.target.checked;
-                            //   setEditActividades(past);
+                            //   let aux = ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]
+                            //   aux = {...aux, tipoDeIndicador: v.target.checked }
+                            //   setFTEditPadre({...ftEditPadre, componentes: aux  })
                             // }}
                             value={!ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]?.tipoDeIndicador}
                             onChange={(v) => {
-                              let aux = ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]
-                              aux = {...aux, tipoDeIndicador: v.target.checked }
-                              setFTEditPadre({...ftEditPadre, componentes: aux  })
+                              let auxC = ftEditPadre.componentes
+                              auxC[indexComponentes].actividades[indexActividades].tipoDeIndicador = v.target.checked;
+                              setFTEditPadre({...ftEditPadre,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2096,9 +2092,9 @@ export function TabResumenFT({
                             // }}
                             value={!ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]?.dimension}
                             onChange={(v) => {
-                              let aux = ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]
-                              aux = {...aux, dimension: v.target.checked }
-                              setFTEditPadre({...ftEditPadre, componentes: aux  })
+                              let auxC = ftEditPadre.componentes
+                              auxC[indexComponentes].actividades[indexActividades].dimension = v.target.checked;
+                              setFTEditPadre({...ftEditPadre,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2148,9 +2144,9 @@ export function TabResumenFT({
                             // }}
                             value={!ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]?.unidadDeMedida}
                             onChange={(v) => {
-                              let aux = ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]
-                              aux = {...aux, unidadDeMedida: v.target.checked }
-                              setFTEditPadre({...ftEditPadre, componentes: aux  })
+                              let auxC = ftEditPadre.componentes
+                              auxC[indexComponentes].actividades[indexActividades].unidadDeMedida = v.target.checked;
+                              setFTEditPadre({...ftEditPadre,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2198,9 +2194,9 @@ export function TabResumenFT({
                             // }}
                             value={!ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]?.claridad}
                             onChange={(v) => {
-                              let aux = ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]
-                              aux = {...aux, claridad: v.target.checked }
-                              setFTEditPadre({...ftEditPadre, componentes: aux  })
+                              let auxC = ftEditPadre.componentes
+                              auxC[indexComponentes].actividades[indexActividades].claridad = v.target.checked;
+                              setFTEditPadre({...ftEditPadre,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2250,9 +2246,9 @@ export function TabResumenFT({
                             // }}
                             value={!ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]?.relevancia}
                             onChange={(v) => {
-                              let aux = ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]
-                              aux = {...aux, relevancia: v.target.checked }
-                              setFTEditPadre({...ftEditPadre, componentes: aux  })
+                              let auxC = ftEditPadre.componentes
+                              auxC[indexComponentes].actividades[indexActividades].relevancia = v.target.checked;
+                              setFTEditPadre({...ftEditPadre,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2300,9 +2296,9 @@ export function TabResumenFT({
                             // }}
                             value={!ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]?.economia}
                             onChange={(v) => {
-                              let aux = ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]
-                              aux = {...aux, economia: v.target.checked }
-                              setFTEditPadre({...ftEditPadre, componentes: aux  })
+                              let auxC = ftEditPadre.componentes
+                              auxC[indexComponentes].actividades[indexActividades].economia = v.target.checked;
+                              setFTEditPadre({...ftEditPadre,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2352,9 +2348,9 @@ export function TabResumenFT({
                             // }}
                             value={!ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]?.monitoreable}
                             onChange={(v) => {
-                              let aux = ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]
-                              aux = {...aux, monitoreable: v.target.checked }
-                              setFTEditPadre({...ftEditPadre, componentes: aux  })
+                              let auxC = ftEditPadre.componentes
+                              auxC[indexComponentes].actividades[indexActividades].monitoreable = v.target.checked;
+                              setFTEditPadre({...ftEditPadre,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2403,9 +2399,9 @@ export function TabResumenFT({
                             // }}
                             value={!ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]?.adecuado}
                             onChange={(v) => {
-                              let aux = ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]
-                              aux = {...aux, adecuado: v.target.checked }
-                              setFTEditPadre({...ftEditPadre, componentes: aux  })
+                              let auxC = ftEditPadre.componentes
+                              auxC[indexComponentes].actividades[indexActividades].adecuado = v.target.checked;
+                              setFTEditPadre({...ftEditPadre,componentes:auxC});
                             }}
                           />
                         </Grid>
@@ -2456,9 +2452,9 @@ export function TabResumenFT({
                             // }}
                             value={!ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]?.aporte_marginal}
                             onChange={(v) => {
-                              let aux = ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]
-                              aux = {...aux, aporte_marginal: v.target.checked }
-                              setFTEditPadre({...ftEditPadre, componentes: aux  })
+                              let auxC = ftEditPadre.componentes
+                              auxC[indexComponentes].actividades[indexActividades].aporte_marginal = v.target.checked;
+                              setFTEditPadre({...ftEditPadre,componentes:auxC});
                             }}
                           />
                         </Grid>
