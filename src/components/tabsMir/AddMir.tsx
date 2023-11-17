@@ -245,7 +245,7 @@ export default function FullModalMir({
 
   const [MIRPADRE, setMIRPADRE] = useState<IMIR>(mir);
 
-  const [mirEdirPadre, setMIREDITPADRE] = useState<IMIREdit>(newMIREDIT(MIR));
+  const [mirEdirPadre, setMIREDITPADRE] = useState<IMIREdit>(newMIREDIT(JSON.stringify(mir)));
 
   useEffect(() => {
    
@@ -464,7 +464,7 @@ export default function FullModalMir({
           }}
         >
           <GenericTabs tabsData={tabs} tabSelect={setValue} />
-          {JSON.stringify(mirEdirPadre)}
+        
           <Grid
             sx={{
               width: ["300px", "650px", "900px", "1000px", "1100px", "1300px"],

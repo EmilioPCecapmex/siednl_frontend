@@ -396,7 +396,7 @@ export default function AddFichaTecnica({
         }}
       >
         <GenericTabs tabSelect={setValue} tabsData={tabs} />
-        {JSON.stringify(ftEditPadre)}
+        
         <Grid
           sx={{
             width: "93vw",
