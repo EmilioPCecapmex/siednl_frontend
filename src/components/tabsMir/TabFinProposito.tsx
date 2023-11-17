@@ -527,7 +527,7 @@ export function TabFinProposito({
 
                 <TextField
                   disabled={
-                    mirEdit?.fin.indicador && fin.indicador !== ""
+                    edit && !mirEdit?.fin.indicador && fin.indicador !== ""
                   }
                   rows={8}
                   multiline
@@ -586,7 +586,7 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    mirEdit?.fin.formula && fin.formula !== ""
+                    edit && !mirEdit?.fin.formula && fin.formula !== ""
                   }
                   rows={8}
                   multiline
@@ -692,7 +692,7 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    mirEdit?.fin.medios &&
+                    edit && !mirEdit?.fin.medios &&
                     fin.medios !== ""
                   }
                   rows={8}
@@ -742,7 +742,7 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    mirEdit?.fin.supuestos && fin.supuestos !== ""
+                    edit && !mirEdit?.fin.supuestos && fin.supuestos !== ""
                   }
                   rows={8}
                   multiline
@@ -880,7 +880,7 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    mirEdit?.proposito.resumen && proposito.resumen !== ""
+                    edit && !mirEdit?.proposito.resumen && proposito.resumen !== ""
                   }
                   rows={8}
                   multiline
@@ -928,7 +928,7 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    mirEdit?.proposito.indicador && proposito.indicador !== ""
+                    edit && !mirEdit?.proposito.indicador && proposito.indicador !== ""
                   }
                   rows={8}
                   multiline
@@ -988,7 +988,7 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    mirEdit?.proposito.formula && proposito.formula !== ""
+                    edit && !mirEdit?.proposito.formula && proposito.formula !== ""
                   }
                   rows={8}
                   multiline
@@ -1074,7 +1074,7 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    mirEdit?.proposito.medios &&
+                    edit && !mirEdit?.proposito.medios &&
                     proposito.medios_verificacion !== ""
                   }
                   rows={8}
@@ -1123,7 +1123,7 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    mirEdit?.proposito.supuestos && proposito.supuestos !== ""
+                    edit && !mirEdit?.proposito.supuestos && proposito.supuestos !== ""
                   }
                   rows={8}
                   multiline

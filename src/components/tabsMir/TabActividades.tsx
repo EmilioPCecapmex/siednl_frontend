@@ -23,6 +23,7 @@ import FormLabel from "@mui/material/FormLabel";
 import DeleteCompActMir from "../modalsMIR/ModalEliminarCompActMir";
 import { IComponente } from "./interfaces mir/IMIR";
 export const TabActividades = ({
+  edit,
   addActividad,
   removeActividad,
   MIR,
@@ -30,6 +31,7 @@ export const TabActividades = ({
   idMir,
   mirEdit,
 }: {
+  edit: boolean;
   addActividad: Function;
   removeActividad: Function;
   MIR: IMIR;
@@ -460,7 +462,7 @@ export const TabActividades = ({
             }}
           >
             <TextField
-              disabled={mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.resumen}
+              disabled={edit && !mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.resumen}
 
               rows={8}
               multiline
@@ -525,7 +527,7 @@ export const TabActividades = ({
           >
             <TextField
               // disabled={mirEdit?.actividades[componenteSelect].indicador}
-              disabled={mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.indicador}
+              disabled={edit && !mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.indicador}
               rows={8}
               multiline
               sx={{
@@ -592,7 +594,7 @@ export const TabActividades = ({
           >
             <TextField
               // disabled={mirEdit?.actividades[componenteSelect].formula}
-              disabled={mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.formula}
+              disabled={edit && !mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.formula}
               rows={8}
               multiline
               variant="filled"
@@ -691,7 +693,7 @@ export const TabActividades = ({
           >
             <TextField
               // disabled={mirEdit?.actividades[componenteSelect].medios}
-              disabled={mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.medios}
+              disabled={edit && !mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.medios}
               rows={8}
               multiline
               variant="filled"
@@ -744,7 +746,7 @@ export const TabActividades = ({
           >
             <TextField
               // disabled={mirEdit?.actividades[componenteSelect].supuestos}
-              disabled={mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.supuestos}
+              disabled={edit && !mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.supuestos}
               rows={8}
               multiline
               variant="filled"

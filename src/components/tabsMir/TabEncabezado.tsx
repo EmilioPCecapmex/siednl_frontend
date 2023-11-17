@@ -19,11 +19,13 @@ import {
 } from "./services mir/servicesMIR";
 
 export function TabEncabezado({
+  edit,
   show,
   MIR,
   setMIR,
   mirEdit,
 }: {
+  edit: boolean;
   show: boolean;
   MIR: IMIR;
   setMIR: Function;
@@ -702,7 +704,7 @@ export function TabEncabezado({
         >
           <FormControl required fullWidth>
             <Autocomplete
-              disabled={mirEdit?.encabezado.ejercicioFiscal}
+              disabled={edit && !mirEdit?.encabezado.ejercicioFiscal}
               clearText="Borrar"
               noOptionsText="Sin opciones"
               closeText="Cerrar"
@@ -766,7 +768,7 @@ export function TabEncabezado({
           <FormControl required fullWidth>
             <Autocomplete
               disabled={
-                mirEdit?.encabezado.institucion ||
+                edit && !mirEdit?.encabezado.institucion ||
                 localStorage.getItem("Rol") !== "Administrador"
               }
               clearText="Borrar"
@@ -832,7 +834,7 @@ export function TabEncabezado({
               closeText="Cerrar"
               openText="Abrir"
               disabled={
-                mirEdit?.encabezado.nombre_del_programa || disabledProgramas
+                edit && !mirEdit?.encabezado.nombre_del_programa || disabledProgramas
               }
               options={catalogoProgramas}
               size="small"
@@ -924,7 +926,7 @@ export function TabEncabezado({
               closeText="Cerrar"
               openText="Abrir"
               disablePortal
-              disabled={mirEdit?.encabezado.eje}
+              disabled={edit && !mirEdit?.encabezado.eje}
               size="small"
               options={catalogoEjes}
               getOptionLabel={(option) => option.Label || ""}
@@ -983,7 +985,7 @@ export function TabEncabezado({
               closeText="Cerrar"
               openText="Abrir"
               disabled={
-                (mirEdit?.encabezado.tema && tematica.Id !== "") ||
+                (edit && !mirEdit?.encabezado.tema && tematica.Id !== "") ||
                 disabledTematicas
               }
               options={catalogoTematicas}
@@ -1045,7 +1047,7 @@ export function TabEncabezado({
               closeText="Cerrar"
               openText="Abrir"
               disabled={
-                (mirEdit?.encabezado.objetivo && objetivo.Id !== "") ||
+                (edit && !mirEdit?.encabezado.objetivo && objetivo.Id !== "") ||
                 disabledObjetivos
               }
               options={catalogoObjetivos}
@@ -1101,7 +1103,7 @@ export function TabEncabezado({
               closeText="Cerrar"
               openText="Abrir"
               disabled={
-                (mirEdit?.encabezado.estrategia && estrategia.Id !== "") ||
+                (edit && !mirEdit?.encabezado.estrategia && estrategia.Id !== "") ||
                 disabledEstrategias
               }
               options={catalogoEstrategias}
@@ -1158,7 +1160,7 @@ export function TabEncabezado({
                 closeText="Cerrar"
                 openText="Abrir"
                 disabled={
-                  (mirEdit?.encabezado.lineas_de_accion &&
+                  (edit && !mirEdit?.encabezado.lineas_de_accion &&
                     lineaDeAccion[0]?.Id === "") ||
                   disabledLineasDeAccion
                 }
@@ -1227,7 +1229,7 @@ export function TabEncabezado({
         <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
           <FormControl required fullWidth>
             <Autocomplete
-              disabled={mirEdit?.encabezado.beneficiario}
+              disabled={edit && !mirEdit?.encabezado.beneficiario}
               clearText="Borrar"
               noOptionsText="Sin opciones"
               closeText="Cerrar"

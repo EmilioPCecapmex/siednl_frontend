@@ -337,6 +337,8 @@ export default function AddMetaAnual({
 
   // const [ComponentesMA, setComponentesMA] = useState<IComponenteMA[]>(componentesObligatorios.map((item) => newComponenteMAMA(item)));
 
+  const [editMA,setEditMA]=useState(false)
+
   useEffect(() => {
     if (MA !== "") {
 
@@ -345,7 +347,7 @@ export default function AddMetaAnual({
         let auxDBMA: IMA =auxArrayMA[0];
         let auxMIR: IMIR = JSON.parse(MIR);
         let auxMA: IMA = newMetaAnual(MIR);
-
+        setEditMA(true);
         // let lengthMA = auxMA.componentes.length
         // let lengthMIR = auxMIR.componentes.length
 
@@ -529,6 +531,7 @@ export default function AddMetaAnual({
           >
             {value === 0 ? (
               <TabFinPropositoMA
+                edit={editMA}
                 MA={MA}
                 MIR={MIR}
                 setTxtShowFnc={showFnc}
@@ -543,6 +546,7 @@ export default function AddMetaAnual({
             ) : null}
             {value === 1 ? (
               <TabComponenteMA
+                edit={editMA}
                 setTxtShowFnc={showFnc}
                 showMirFnc={showMirFnc}
                 //show={value === 1 ? true : false}
@@ -557,6 +561,7 @@ export default function AddMetaAnual({
 
             {value === 2 ? (
               <TabActividadesMA
+                edit={editMA}
                 setTxtShowFnc={showFnc}
                 showMirFnc={showMirFnc}
                 compAct={[]}

@@ -21,6 +21,7 @@ import DeleteCompActMir from "../modalsMIR/ModalEliminarCompActMir";
 import { alertaError } from "../genericComponents/Alertas";
 
 export const TabComponente = ({
+  edit,
   // show,
   noComponentes,
   addComponente,
@@ -30,6 +31,7 @@ export const TabComponente = ({
   idMir,
   mirEdit,
 }: {
+  edit: boolean;
   // show: boolean;
   noComponentes: number[];
   addComponente: Function;
@@ -344,7 +346,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              disabled={mirEdit?.componentes[componentSelect - 1]?.resumen}
+              disabled={edit && !mirEdit?.componentes[componentSelect - 1]?.resumen}
               rows={8}
               multiline
               sx={{
@@ -389,7 +391,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              disabled={mirEdit?.componentes[componentSelect - 1]?.indicador}
+              disabled={edit && !mirEdit?.componentes[componentSelect - 1]?.indicador}
               rows={8}
               multiline
               sx={{
@@ -442,7 +444,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              disabled={mirEdit?.componentes[componentSelect - 1]?.formula}
+              disabled={edit && !mirEdit?.componentes[componentSelect - 1]?.formula}
               rows={8}
               multiline
               variant="filled"
@@ -556,7 +558,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              disabled={mirEdit?.componentes[componentSelect - 1]?.medios}
+              disabled={edit && !mirEdit?.componentes[componentSelect - 1]?.medios}
               rows={8}
               multiline
               variant="filled"
@@ -602,7 +604,7 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              disabled={mirEdit?.componentes[componentSelect - 1]?.supuestos}
+              disabled={edit && !mirEdit?.componentes[componentSelect - 1]?.supuestos}
               rows={8}
               multiline
               variant="filled"

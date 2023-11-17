@@ -448,6 +448,7 @@ export default function FullModalMir({
             }}
           >
             <TabEncabezado
+              edit={editMIR}
               show={value === 0 ? true : false}
               MIR={MIRPADRE}
               setMIR={setMIRPADRE}
@@ -465,6 +466,7 @@ export default function FullModalMir({
 
             {value === 2 && (
               <TabComponente
+                edit={editMIR}
                 noComponentes={noComponentes}
                 addComponente={addComponente}
                 removeComponente={removeComponente}
@@ -477,6 +479,7 @@ export default function FullModalMir({
 
             {value === 3 && (
               <TabActividades
+                edit={editMIR}
                 addActividad={addActividad}
                 removeActividad={removeActividad}
                 MIR={MIRPADRE}

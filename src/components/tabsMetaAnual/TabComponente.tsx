@@ -24,6 +24,7 @@ import { alertaError } from "../genericComponents/Alertas";
 import { IMA, IMAEdit } from "./IMA";
 export const TabComponenteMA = ({
   //show,
+  edit,
   setComponenteMA,
   setMAcomponentesPadre,
   showMirFnc,
@@ -33,6 +34,7 @@ export const TabComponenteMA = ({
   ComponentesMA,
   maPadreEdit,
 }: {
+  edit:boolean;
   //show: boolean;
   setComponenteMA: Function;
   setMAcomponentesPadre: Function;
@@ -507,7 +509,7 @@ export const TabComponenteMA = ({
             <TextField
               disabled={
                 (MAEdit !== ""
-                  ? MAEdit?.componentes[componentSelect].metaAnual
+                  ? edit && !MAEdit?.componentes[componentSelect].metaAnual
                   : false) &&
                 componentesValues[componentSelect]?.metaAnual !== ""
               }
@@ -589,7 +591,7 @@ export const TabComponenteMA = ({
             <TextField
             disabled={
               (MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect].lineaBase
+                ? edit && !MAEdit?.componentes[componentSelect].lineaBase
                 : false) &&
               componentesValues[componentSelect]?.lineaBase !== ""
             }
@@ -673,7 +675,7 @@ export const TabComponenteMA = ({
               <TextField
               disabled={
                 (MAEdit !== ""
-                  ? MAEdit?.componentes[componentSelect].valorNumerador
+                  ? edit && !MAEdit?.componentes[componentSelect].valorNumerador
                   : false) &&
                 componentesValues[componentSelect]?.valorNumerador !== ""
               }
@@ -731,7 +733,7 @@ export const TabComponenteMA = ({
               <TextField
               disabled={
                 (MAEdit !== ""
-                  ? MAEdit?.componentes[componentSelect].valorNumerador
+                  ? edit && !MAEdit?.componentes[componentSelect].valorNumerador
                   : false) &&
                 componentesValues[componentSelect]?.valorNumerador !== ""
               }
@@ -775,7 +777,7 @@ export const TabComponenteMA = ({
               <TextField
               disabled={
                 (MAEdit !== ""
-                  ? MAEdit?.componentes[componentSelect ].valorDenominador
+                  ? edit && !MAEdit?.componentes[componentSelect ].valorDenominador
                   : false) &&
                 componentesValues[componentSelect ]?.valorDenominador !==
                   ""
@@ -834,7 +836,7 @@ export const TabComponenteMA = ({
             <FormControl
             disabled={
               (MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect ].sentidoDelIndicador
+                ? edit && !MAEdit?.componentes[componentSelect ].sentidoDelIndicador
                 : false) &&
               componentesValues[componentSelect ]?.sentidoDelIndicador !==
                 ""
@@ -974,7 +976,7 @@ export const TabComponenteMA = ({
                 <TextField
                   disabled={
                     (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect]
+                      ? edit && !MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].trimestre1
                       : false) &&
                     componentesValues[componentSelect]
@@ -1035,7 +1037,7 @@ export const TabComponenteMA = ({
                 <TextField
                   disabled={
                     (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect - 1]
+                      ? edit && !MAEdit?.componentes[componentSelect - 1]
                           .metasPorFrecuencia[0].trimestre2
                       : false) &&
                     componentesValues[componentSelect - 1]
@@ -1096,7 +1098,7 @@ export const TabComponenteMA = ({
                 <TextField
                   disabled={
                     (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect - 1]
+                      ? edit && !MAEdit?.componentes[componentSelect - 1]
                           .metasPorFrecuencia[0].trimestre3
                       : false) &&
                     componentesValues[componentSelect - 1]
@@ -1157,7 +1159,7 @@ export const TabComponenteMA = ({
                 <TextField
                   disabled={
                     (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect]
+                      ? edit && !MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].trimestre4
                       : false) &&
                     componentesValues[componentSelect]
@@ -1232,7 +1234,7 @@ export const TabComponenteMA = ({
                 <TextField
                   disabled={
                     (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect]
+                      ? edit && !MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].semestre1
                       : false) &&
                     componentesValues[componentSelect]
@@ -1293,7 +1295,7 @@ export const TabComponenteMA = ({
                 <TextField
                   disabled={
                     (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect]
+                      ? edit && !MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].semestre2
                       : false) &&
                     componentesValues[componentSelect]
@@ -1361,7 +1363,7 @@ export const TabComponenteMA = ({
                 openText="Abrir"
                 disabled={
                   (MAEdit !== ""
-                    ? MAEdit?.componentes[componentSelect].unidadResponsable
+                    ? edit && !MAEdit?.componentes[componentSelect].unidadResponsable
                     : false) &&
                   componentesValues[componentSelect]?.unidadResponsable !==
                     ""
@@ -1434,7 +1436,7 @@ export const TabComponenteMA = ({
             <TextField
             disabled={
               (MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect].descIndicador
+                ? edit && !MAEdit?.componentes[componentSelect].descIndicador
                 : false) &&
               componentesValues[componentSelect]?.descIndicador !== ""
             }
@@ -1492,7 +1494,7 @@ export const TabComponenteMA = ({
             <TextField
             disabled={
               (MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect].descNumerador
+                ? edit && !MAEdit?.componentes[componentSelect].descNumerador
                 : false) &&
               componentesValues[componentSelect]?.descNumerador !== ""
             }
@@ -1550,7 +1552,7 @@ export const TabComponenteMA = ({
             <TextField
             disabled={
               (MAEdit !== ""
-                ? MAEdit?.componentes[componentSelect].descDenominador
+                ? edit && !MAEdit?.componentes[componentSelect].descDenominador
                 : false) &&
               componentesValues[componentSelect]?.descDenominador !== ""
             }
