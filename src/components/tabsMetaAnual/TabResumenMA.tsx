@@ -2960,14 +2960,9 @@ export function TabResumenMA({
           MAEdit={
             localStorage.getItem("Rol") === "Capturador"
               ? ""
-              : JSON.stringify({
-                  fin: editFin,
-                  proposito: editProposito,
-                  componentes: editComponentes,
-                  actividades: editActividades,
-                })
+              : JSON.stringify(maPadreEdit)
           }
-        ></ModalSolicitaModif>
+        />
 
         <ModalEnviarMA
           open={openModalEnviar}

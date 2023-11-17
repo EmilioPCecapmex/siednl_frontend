@@ -270,7 +270,7 @@ export const FormulaDialogMACA = ({
         <Typography sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}>
           {elementoA
             ? `${elementoA} - Fórmula - ${tipo}`
-            : `${elemento } - Fórmula - ${tipo}`}
+            : `${"Componente" + " " + (noComponente + 1) } - Fórmula - ${tipo}`}
         </Typography>
 
         <Typography
