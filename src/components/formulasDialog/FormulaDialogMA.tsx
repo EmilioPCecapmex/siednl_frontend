@@ -83,6 +83,11 @@ export const FormulaDialogMA = ({
   let noComponente = parseFloat(elemento.split(" ")[1]);
   let noActividad = parseFloat(elemento.split("")[3]);
 
+  useLayoutEffect(() => {
+    console.log("noComponenteDialog: ",noComponente + 1);
+    
+  }, [noComponente]);
+
   return (
     <Dialog open={open} fullWidth>
       <Grid
@@ -102,7 +107,7 @@ export const FormulaDialogMA = ({
         >
           {elementoA
             ? `${elementoA} - Fórmula - ${tipo}`
-            : `${elemento } - Fórmula - ${tipo}`}
+            : `${"Componente" + " " + (noComponente + 1) } - Fórmula - ${tipo}`}
         </Typography>
 
         <Typography
