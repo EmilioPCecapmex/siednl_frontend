@@ -280,9 +280,9 @@ export function TabResumen({
 
 
 
-  const [editComponentes, setEditComponentes] = useState<
-  Array<IComponenteMirEdit>
->([]);
+//   const [editComponentes, setEditComponentes] = useState<
+//   Array<IComponenteMirEdit>
+// >([]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [editActividades, setEditActividades] = useState<
@@ -541,13 +541,18 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editEncabezado.institucion}
+                value={mirEdit.encabezado?.institucion}
                 onChange={(v) => {
-                  setEditEncabezado({
-                    ...editEncabezado,
-                    institucion: !v.target.checked,
-                  });
+                  let aux = mirEdit.encabezado
+                  aux = {...aux, institucion: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditEncabezado({
+                //     ...editEncabezado,
+                //     institucion: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -596,13 +601,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editEncabezado.nombre_del_programa}
+                // value={editEncabezado.nombre_del_programa}
+                value={mirEdit.encabezado?.nombre_del_programa}
                 onChange={(v) => {
-                  setEditEncabezado({
-                    ...editEncabezado,
-                    nombre_del_programa: !v.target.checked,
-                  });
+                  let aux = mirEdit.encabezado
+                  aux = {...aux, nombre_del_programa: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditEncabezado({
+                //     ...editEncabezado,
+                //     nombre_del_programa: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -646,13 +657,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editEncabezado.eje}
+                // value={editEncabezado.eje}
+                value={mirEdit.encabezado?.eje}
                 onChange={(v) => {
-                  setEditEncabezado({
-                    ...editEncabezado,
-                    eje: !v.target.checked,
-                  });
+                  let aux = mirEdit.encabezado
+                  aux = {...aux, eje: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditEncabezado({
+                //     ...editEncabezado,
+                //     eje: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -696,13 +713,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editEncabezado.tema}
+                // value={editEncabezado.tema}
+                value={mirEdit.encabezado?.tema}
                 onChange={(v) => {
-                  setEditEncabezado({
-                    ...editEncabezado,
-                    tema: !v.target.checked,
-                  });
+                  let aux = mirEdit.encabezado
+                  aux = {...aux, tema: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditEncabezado({
+                //     ...editEncabezado,
+                //     tema: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -751,13 +774,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editEncabezado.objetivo}
+                // value={editEncabezado.objetivo}
+                value={mirEdit.encabezado?.objetivo}
                 onChange={(v) => {
-                  setEditEncabezado({
-                    ...editEncabezado,
-                    objetivo: !v.target.checked,
-                  });
+                  let aux = mirEdit.encabezado
+                  aux = {...aux, objetivo: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditEncabezado({
+                //     ...editEncabezado,
+                //     objetivo: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -800,13 +829,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editEncabezado.estrategia}
+                // value={editEncabezado.estrategia}
+                value={mirEdit.encabezado?.estrategia}
                 onChange={(v) => {
-                  setEditEncabezado({
-                    ...editEncabezado,
-                    estrategia: !v.target.checked,
-                  });
+                  let aux = mirEdit.encabezado
+                  aux = {...aux, estrategia: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditEncabezado({
+                //     ...editEncabezado,
+                //     estrategia: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -849,13 +884,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editEncabezado.beneficiario}
+                // value={editEncabezado.beneficiario}
+                value={mirEdit.encabezado?.beneficiario}
                 onChange={(v) => {
-                  setEditEncabezado({
-                    ...editEncabezado,
-                    beneficiario: !v.target.checked,
-                  });
+                  let aux = mirEdit.encabezado
+                  aux = {...aux, beneficiario: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditEncabezado({
+                //     ...editEncabezado,
+                //     beneficiario: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -899,13 +940,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editEncabezado.lineas_de_accion}
+                // value={editEncabezado.lineas_de_accion}
+                value={mirEdit.encabezado?.lineas_de_accion}
                 onChange={(v) => {
-                  setEditEncabezado({
-                    ...editEncabezado,
-                    lineas_de_accion: !v.target.checked,
-                  });
+                  let aux = mirEdit.encabezado
+                  aux = {...aux, lineas_de_accion: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditEncabezado({
+                //     ...editEncabezado,
+                //     lineas_de_accion: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -993,9 +1040,15 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editFin.resumen}
+                // value={editFin.resumen}
+                value={mirEdit.fin?.resumen}
+                // onChange={(v) => {
+                //   setEditFin({ ...editFin, resumen: !v.target.checked });
+                // }}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, resumen: !v.target.checked });
+                  let aux = mirEdit.fin
+                  aux = {...aux, resumen: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, fin: aux  })
                 }}
               />
             </Grid>
@@ -1040,10 +1093,16 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editFin.indicador}
+                // value={editFin.indicador}
+                value={mirEdit.fin?.indicador}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, indicador: !v.target.checked });
+                  let aux = mirEdit.fin
+                  aux = {...aux, indicador: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, fin: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditFin({ ...editFin, indicador: !v.target.checked });
+                // }}
               />
             </Grid>
           )}
@@ -1087,10 +1146,16 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editFin.formula}
+                // value={editFin.formula}
+                value={mirEdit.fin?.formula}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, formula: !v.target.checked });
+                  let aux = mirEdit.fin
+                  aux = {...aux, formula: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, fin: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditFin({ ...editFin, formula: !v.target.checked });
+                // }}
               />
             </Grid>
           )}
@@ -1134,10 +1199,16 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editFin.frecuencia}
+                // value={editFin.frecuencia}
+                value={mirEdit.fin?.frecuencia}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, frecuencia: !v.target.checked });
+                  let aux = mirEdit.fin
+                  aux = {...aux, frecuencia: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, fin: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditFin({ ...editFin, frecuencia: !v.target.checked });
+                // }}
               />
             </Grid>
           )}
@@ -1180,10 +1251,16 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editFin.medios}
+                // value={editFin.medios}
+                value={mirEdit.fin?.medios}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, medios: !v.target.checked });
+                  let aux = mirEdit.fin
+                  aux = {...aux, medios: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, fin: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditFin({ ...editFin, medios: !v.target.checked });
+                // }}
               />
             </Grid>
           )}
@@ -1227,10 +1304,16 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editFin.supuestos}
+                // value={editFin.supuestos}
+                value={mirEdit.fin?.supuestos}
                 onChange={(v) => {
-                  setEditFin({ ...editFin, supuestos: !v.target.checked });
+                  let aux = mirEdit.fin
+                  aux = {...aux, supuestos: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, fin: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditFin({ ...editFin, supuestos: !v.target.checked });
+                // }}
               />
             </Grid>
           )}
@@ -1303,13 +1386,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editProposito.resumen}
+                // value={editProposito.resumen}
+                value={mirEdit.proposito?.resumen}
                 onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    resumen: !v.target.checked,
-                  });
+                  let aux = mirEdit.proposito
+                  aux = {...aux, resumen: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, proposito: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditProposito({
+                //     ...editProposito,
+                //     resumen: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -1354,13 +1443,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editProposito.indicador}
+                // value={editProposito.indicador}
+                value={mirEdit.proposito?.indicador}
                 onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    indicador: !v.target.checked,
-                  });
+                  let aux = mirEdit.proposito
+                  aux = {...aux, indicador: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, proposito: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditProposito({
+                //     ...editProposito,
+                //     indicador: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -1404,13 +1499,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editProposito.formula}
+                // value={editProposito.formula}
+                value={mirEdit.proposito?.formula}
                 onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    formula: !v.target.checked,
-                  });
+                  let aux = mirEdit.proposito
+                  aux = {...aux, formula: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, proposito: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditProposito({
+                //     ...editProposito,
+                //     formula: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -1454,13 +1555,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editProposito.frecuencia}
+                // value={editProposito.frecuencia}
+                value={mirEdit.proposito?.frecuencia}
                 onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    frecuencia: !v.target.checked,
-                  });
+                  let aux = mirEdit.proposito
+                  aux = {...aux, frecuencia: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, proposito: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditProposito({
+                //     ...editProposito,
+                //     frecuencia: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -1505,13 +1612,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editProposito.medios}
+                // value={editProposito.medios}
+                value={mirEdit.proposito?.medios}
                 onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    medios: !v.target.checked,
-                  });
+                  let aux = mirEdit.proposito
+                  aux = {...aux, medios: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, proposito: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditProposito({
+                //     ...editProposito,
+                //     medios: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -1555,13 +1668,19 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={editProposito.supuestos}
+                // value={editProposito.supuestos}
+                value={mirEdit.proposito?.supuestos}
                 onChange={(v) => {
-                  setEditProposito({
-                    ...editProposito,
-                    supuestos: !v.target.checked,
-                  });
+                  let aux = mirEdit.proposito
+                  aux = {...aux, supuestos: v.target.checked }
+                  setMIREDITPADRE({...mirEdit, proposito: aux  })
                 }}
+                // onChange={(v) => {
+                //   setEditProposito({
+                //     ...editProposito,
+                //     supuestos: !v.target.checked,
+                //   });
+                // }}
               />
             </Grid>
           )}
@@ -1677,12 +1796,18 @@ export function TabResumen({
                       // }}
 
 
+                      // value={mirEdit.componentes[index]?.resumen}
                       value={mirEdit.componentes[index]?.resumen}
                       onChange={(v) => {
                         let aux = mirEdit.componentes[index]
                         aux = {...aux, resumen: v.target.checked }
                         setMIREDITPADRE({...mirEdit, componentes: aux  })
                       }}
+                      // onChange={(v) => {
+                      //   let aux = mirEdit.componentes[index]
+                      //   aux = {...aux, resumen: v.target.checked }
+                      //   setMIREDITPADRE({...mirEdit, componentes: aux  })
+                      // }}
                     />
                   </Grid>
                 )}
@@ -1724,12 +1849,18 @@ export function TabResumen({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={editComponentes[index]?.indicador}
+                      // value={editComponentes[index]?.indicador}
+                      value={mirEdit.componentes[index]?.indicador}
                       onChange={(v) => {
-                        let past = [...editComponentes];
-                        past[index].indicador = !v.target.checked;
-                        setEditComponentes(past);
+                        let aux = mirEdit.componentes[index]
+                        aux = {...aux, indicador: v.target.checked }
+                        setMIREDITPADRE({...mirEdit, componentes: aux  })
                       }}
+                      // onChange={(v) => {
+                      //   let past = [...editComponentes];
+                      //   past[index].indicador = !v.target.checked;
+                      //   setEditComponentes(past);
+                      // }}
                     />
                   </Grid>
                 )}
@@ -1772,12 +1903,18 @@ export function TabResumen({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={editComponentes[index]?.formula}
+                      // value={editComponentes[index]?.formula}
+                      value={mirEdit.componentes[index]?.formula}
                       onChange={(v) => {
-                        let past = [...editComponentes];
-                        past[index].formula = !v.target.checked;
-                        setEditComponentes(past);
+                        let aux = mirEdit.componentes[index]
+                        aux = {...aux, formula: v.target.checked }
+                        setMIREDITPADRE({...mirEdit, componentes: aux  })
                       }}
+                      // onChange={(v) => {
+                      //   let past = [...editComponentes];
+                      //   past[index].formula = !v.target.checked;
+                      //   setEditComponentes(past);
+                      // }}
                     />
                   </Grid>
                 )}
@@ -1821,12 +1958,18 @@ export function TabResumen({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={editComponentes[index]?.frecuencia}
+                      // value={editComponentes[index]?.frecuencia}
+                      value={mirEdit.componentes[index]?.frecuencia}
                       onChange={(v) => {
-                        let past = [...editComponentes];
-                        past[index].frecuencia = !v.target.checked;
-                        setEditComponentes(past);
+                        let aux = mirEdit.componentes[index]
+                        aux = {...aux, frecuencia: v.target.checked }
+                        setMIREDITPADRE({...mirEdit, componentes: aux  })
                       }}
+                      // onChange={(v) => {
+                      //   let past = [...editComponentes];
+                      //   past[index].frecuencia = !v.target.checked;
+                      //   setEditComponentes(past);
+                      // }}
                     />
                   </Grid>
                 )}
@@ -1868,12 +2011,18 @@ export function TabResumen({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={editComponentes[index]?.medios}
+                      // value={editComponentes[index]?.medios}
+                      value={mirEdit.componentes[index]?.medios}
                       onChange={(v) => {
-                        let past = [...editComponentes];
-                        past[index].medios = !v.target.checked;
-                        setEditComponentes(past);
+                        let aux = mirEdit.componentes[index]
+                        aux = {...aux, medios: v.target.checked }
+                        setMIREDITPADRE({...mirEdit, componentes: aux  })
                       }}
+                      // onChange={(v) => {
+                      //   let past = [...editComponentes];
+                      //   past[index].medios = !v.target.checked;
+                      //   setEditComponentes(past);
+                      // }}
                     />
                   </Grid>
                 )}
@@ -1917,12 +2066,18 @@ export function TabResumen({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={editComponentes[index]?.supuestos}
+                      // value={editComponentes[index]?.supuestos}
+                      value={mirEdit.componentes[index]?.supuestos}
                       onChange={(v) => {
-                        let past = [...editComponentes];
-                        past[index].supuestos = !v.target.checked;
-                        setEditComponentes(past);
+                        let aux = mirEdit.componentes[index]
+                        aux = {...aux, supuestos: v.target.checked }
+                        setMIREDITPADRE({...mirEdit, componentes: aux  })
                       }}
+                      // onChange={(v) => {
+                      //   let past = [...editComponentes];
+                      //   past[index].supuestos = !v.target.checked;
+                      //   setEditComponentes(past);
+                      // }}
                     />
                   </Grid>
                 )}
@@ -2032,12 +2187,18 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        value={!editComponentes[index - 1]?.resumen}
+                        // value={!editComponentes[index - 1]?.resumen}
+                        value={mirEdit.componentes[index]?.actividades[index2]?.resumen}
                         onChange={(v) => {
-                          let past = [...editComponentes];
-                          past[index - 1].resumen = !v.target.checked;
-                          setEditComponentes(past);
+                          let aux = mirEdit.componentes[index]?.actividades[index2]
+                          aux = {...aux, resumen: v.target.checked }
+                          setMIREDITPADRE({...mirEdit, componentes: aux  })
                         }}
+                        // onChange={(v) => {
+                        //   let past = [...editComponentes];
+                        //   past[index - 1].resumen = !v.target.checked;
+                        //   setEditComponentes(past);
+                        // }}
                       />
                     </Grid>
                   )}
@@ -2079,12 +2240,18 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        value={!editComponentes[index - 1]?.indicador}
+                        // value={!editComponentes[index - 1]?.indicador}
+                        value={mirEdit.componentes[index]?.actividades[index2]?.indicador}
                         onChange={(v) => {
-                          let past = [...editComponentes];
-                          past[index - 1].indicador = !v.target.checked;
-                          setEditComponentes(past);
+                          let aux = mirEdit.componentes[index]?.actividades[index2]
+                          aux = {...aux, indicador: v.target.checked }
+                          setMIREDITPADRE({...mirEdit, componentes: aux  })
                         }}
+                        // onChange={(v) => {
+                        //   let past = [...editComponentes];
+                        //   past[index - 1].indicador = !v.target.checked;
+                        //   setEditComponentes(past);
+                        // }}
                       />
                     </Grid>
                   )}
@@ -2127,12 +2294,18 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        value={!editComponentes[index - 1]?.formula}
+                        // value={!editComponentes[index - 1]?.formula}
+                        value={mirEdit.componentes[index]?.actividades[index2]?.formula}
                         onChange={(v) => {
-                          let past = [...editComponentes];
-                          past[index - 1].formula = !v.target.checked;
-                          setEditComponentes(past);
+                          let aux = mirEdit.componentes[index]?.actividades[index2]
+                          aux = {...aux, formula: v.target.checked }
+                          setMIREDITPADRE({...mirEdit, componentes: aux  })
                         }}
+                        // onChange={(v) => {
+                        //   let past = [...editComponentes];
+                        //   past[index - 1].formula = !v.target.checked;
+                        //   setEditComponentes(past);
+                        // }}
                       />
                     </Grid>
                   )}
@@ -2175,12 +2348,18 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        value={!editComponentes[index - 1]?.frecuencia}
+                        // value={!editComponentes[index - 1]?.frecuencia}
+                        value={mirEdit.componentes[index]?.actividades[index2]?.frecuencia}
                         onChange={(v) => {
-                          let past = [...editComponentes];
-                          past[index - 1].frecuencia = !v.target.checked;
-                          setEditComponentes(past);
+                          let aux = mirEdit.componentes[index]?.actividades[index2]
+                          aux = {...aux, frecuencia: v.target.checked }
+                          setMIREDITPADRE({...mirEdit, componentes: aux  })
                         }}
+                        // onChange={(v) => {
+                        //   let past = [...editComponentes];
+                        //   past[index - 1].frecuencia = !v.target.checked;
+                        //   setEditComponentes(past);
+                        // }}
                       />
                     </Grid>
                   )}
@@ -2223,12 +2402,18 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        value={!editComponentes[index - 1]?.medios}
+                        // value={!editComponentes[index - 1]?.medios}
+                        value={mirEdit.componentes[index]?.actividades[index2]?.medios}
                         onChange={(v) => {
-                          let past = [...editComponentes];
-                          past[index - 1].medios = !v.target.checked;
-                          setEditComponentes(past);
+                          let aux = mirEdit.componentes[index]?.actividades[index2]
+                          aux = {...aux, medios: v.target.checked }
+                          setMIREDITPADRE({...mirEdit, componentes: aux  })
                         }}
+                        // onChange={(v) => {
+                        //   let past = [...editComponentes];
+                        //   past[index - 1].medios = !v.target.checked;
+                        //   setEditComponentes(past);
+                        // }}
                       />
                     </Grid>
                   )}
@@ -2272,12 +2457,18 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        value={!editComponentes[index - 1]?.supuestos}
+                        // value={!editComponentes[index - 1]?.supuestos}
+                        value={mirEdit.componentes[index]?.actividades[index2]?.supuestos}
                         onChange={(v) => {
-                          let past = [...editComponentes];
-                          past[index - 1].supuestos = !v.target.checked;
-                          setEditComponentes(past);
+                          let aux = mirEdit.componentes[index]?.actividades[index2]
+                          aux = {...aux, supuestos: v.target.checked }
+                          setMIREDITPADRE({...mirEdit, componentes: aux  })
                         }}
+                        // onChange={(v) => {
+                        //   let past = [...editComponentes];
+                        //   past[index - 1].supuestos = !v.target.checked;
+                        //   setEditComponentes(past);
+                        // }}
                       />
                     </Grid>
                   )}

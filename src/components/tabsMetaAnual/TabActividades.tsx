@@ -651,9 +651,19 @@ export const TabActividadesMA = ({
             }}
           >
             <TextField
+              // disabled={
+              //   (MAEdit !== ""
+              //     ? MAEdit?.actividades[
+              //         mapeaindice(componenteSelect, actividadSelect)
+              //       ]?.metaAnual
+              //     : false) &&
+              //   componentesActividadValues[componenteSelect].actividades[
+              //     actividadSelect
+              //   ]?.metaAnual !== ""
+              // }
               disabled={
-                (MAEdit !== ""
-                  ? MAEdit?.actividades[
+                (maPadreEdit !== null
+                  ? maPadreEdit.componentes[componenteSelect].actividades[
                       mapeaindice(componenteSelect, actividadSelect)
                     ]?.metaAnual
                   : false) &&
@@ -747,16 +757,16 @@ export const TabActividadesMA = ({
             }}
           >
             <TextField
-              disabled={
-                (MAEdit !== ""
-                  ? MAEdit?.actividades[
-                      mapeaindice(componenteSelect, actividadSelect)
-                    ]?.lineaBase
-                  : false) &&
-                componentesActividadValues[componenteSelect].actividades[
-                  actividadSelect
-                ]?.lineaBase !== ""
-              }
+              // disabled={
+              //   (MAEdit !== ""
+              //     ? MAEdit?.actividades[
+              //         mapeaindice(componenteSelect, actividadSelect)
+              //       ]?.lineaBase
+              //     : false) &&
+              //   componentesActividadValues[componenteSelect].actividades[
+              //     actividadSelect
+              //   ]?.lineaBase !== ""
+              // }
               sx={{ boxShadow: 2 }}
               variant={"filled"}
               label={
@@ -859,16 +869,16 @@ export const TabActividadesMA = ({
               }}
             >
               <TextField
-                disabled={
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.valorNumerador
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.valorNumerador !== ""
-                }
+                // disabled={
+                //   (MAEdit !== ""
+                //     ? MAEdit?.actividades[
+                //         mapeaindice(componenteSelect, actividadSelect)
+                //       ]?.valorNumerador
+                //     : false) &&
+                //   componentesActividadValues[componenteSelect].actividades[
+                //     actividadSelect
+                //   ]?.valorNumerador !== ""
+                // }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -925,16 +935,16 @@ export const TabActividadesMA = ({
               }}
             >
               <TextField
-                disabled={
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.valorNumerador
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.valorNumerador !== ""
-                }
+                // disabled={
+                //   (MAEdit !== ""
+                //     ? MAEdit?.actividades[
+                //         mapeaindice(componenteSelect, actividadSelect)
+                //       ]?.valorNumerador
+                //     : false) &&
+                //   componentesActividadValues[componenteSelect].actividades[
+                //     actividadSelect
+                //   ]?.valorNumerador !== ""
+                // }
                 sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
                 variant={"filled"}
                 label={
@@ -976,16 +986,16 @@ export const TabActividadesMA = ({
                 }
               />
               <TextField
-                disabled={
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.valorDenominador
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.valorDenominador !== ""
-                }
+                // disabled={
+                //   (MAEdit !== ""
+                //     ? MAEdit?.actividades[
+                //         mapeaindice(componenteSelect, actividadSelect)
+                //       ]?.valorDenominador
+                //     : false) &&
+                //   componentesActividadValues[componenteSelect].actividades[
+                //     actividadSelect
+                //   ]?.valorDenominador !== ""
+                // }
                 sx={{ width: "45%", boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -1043,16 +1053,16 @@ export const TabActividadesMA = ({
             }}
           >
             <FormControl
-              disabled={
-                (MAEdit !== ""
-                  ? MAEdit?.actividades[
-                      mapeaindice(componenteSelect, actividadSelect)
-                    ]?.sentidoDelIndicador
-                  : false) &&
-                componentesActividadValues[componenteSelect].actividades[
-                  actividadSelect
-                ]?.sentidoDelIndicador !== ""
-              }
+              // disabled={
+              //   (MAEdit !== ""
+              //     ? MAEdit?.actividades[
+              //         mapeaindice(componenteSelect, actividadSelect)
+              //       ]?.sentidoDelIndicador
+              //     : false) &&
+              //   componentesActividadValues[componenteSelect].actividades[
+              //     actividadSelect
+              //   ]?.sentidoDelIndicador !== ""
+              // }
               sx={{
                 backgroundColor: "#f0f0f0",
                 boxShadow: 6,
@@ -1189,16 +1199,16 @@ export const TabActividadesMA = ({
               }}
             >
               <TextField
-                disabled={
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.metasPorFrecuencia[0].trimestre1
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.metasPorFrecuencia[0].trimestre1 !== ""
-                }
+                // disabled={
+                //   (MAEdit !== ""
+                //     ? MAEdit?.actividades[
+                //         mapeaindice(componenteSelect, actividadSelect)
+                //       ]?.metasPorFrecuencia[0].trimestre1
+                //     : false) &&
+                //   componentesActividadValues[componenteSelect].actividades[
+                //     actividadSelect
+                //   ]?.metasPorFrecuencia[0].trimestre1 !== ""
+                // }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() =>
@@ -1255,16 +1265,16 @@ export const TabActividadesMA = ({
               }}
             >
               <TextField
-                disabled={
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.metasPorFrecuencia[0].trimestre2
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.metasPorFrecuencia[0].trimestre2 !== ""
-                }
+                // disabled={
+                //   (MAEdit !== ""
+                //     ? MAEdit?.actividades[
+                //         mapeaindice(componenteSelect, actividadSelect)
+                //       ]?.metasPorFrecuencia[0].trimestre2
+                //     : false) &&
+                //   componentesActividadValues[componenteSelect].actividades[
+                //     actividadSelect
+                //   ]?.metasPorFrecuencia[0].trimestre2 !== ""
+                // }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() =>
@@ -1321,16 +1331,16 @@ export const TabActividadesMA = ({
               }}
             >
               <TextField
-                disabled={
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.metasPorFrecuencia[0].trimestre3
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.metasPorFrecuencia[0].trimestre3 !== ""
-                }
+                // disabled={
+                //   (MAEdit !== ""
+                //     ? MAEdit?.actividades[
+                //         mapeaindice(componenteSelect, actividadSelect)
+                //       ]?.metasPorFrecuencia[0].trimestre3
+                //     : false) &&
+                //   componentesActividadValues[componenteSelect].actividades[
+                //     actividadSelect
+                //   ]?.metasPorFrecuencia[0].trimestre3 !== ""
+                // }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() =>
@@ -1387,16 +1397,16 @@ export const TabActividadesMA = ({
               }}
             >
               <TextField
-                disabled={
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.metasPorFrecuencia[0].trimestre4
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.metasPorFrecuencia[0].trimestre4 !== ""
-                }
+                // disabled={
+                //   (MAEdit !== ""
+                //     ? MAEdit?.actividades[
+                //         mapeaindice(componenteSelect, actividadSelect)
+                //       ]?.metasPorFrecuencia[0].trimestre4
+                //     : false) &&
+                //   componentesActividadValues[componenteSelect].actividades[
+                //     actividadSelect
+                //   ]?.metasPorFrecuencia[0].trimestre4 !== ""
+                // }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() =>
@@ -1459,16 +1469,16 @@ export const TabActividadesMA = ({
                 noOptionsText="Sin opciones"
                 closeText="Cerrar"
                 openText="Abrir"
-                disabled={
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.unidadResponsable
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.unidadResponsable !== ""
-                }
+                // disabled={
+                //   (MAEdit !== ""
+                //     ? MAEdit?.actividades[
+                //         mapeaindice(componenteSelect, actividadSelect)
+                //       ]?.unidadResponsable
+                //     : false) &&
+                //   componentesActividadValues[componenteSelect].actividades[
+                //     actividadSelect
+                //   ]?.unidadResponsable !== ""
+                // }
                 options={catalogoUnidadResponsable}
                 getOptionLabel={(option) => option.Label}
                 value={{
@@ -1536,16 +1546,16 @@ export const TabActividadesMA = ({
             }}
           >
             <TextField
-              disabled={
-                (MAEdit !== ""
-                  ? MAEdit?.actividades[
-                      mapeaindice(componenteSelect, actividadSelect)
-                    ]?.descIndicador
-                  : false) &&
-                componentesActividadValues[componenteSelect].actividades[
-                  actividadSelect
-                ]?.descIndicador !== ""
-              }
+              // disabled={
+              //   (MAEdit !== ""
+              //     ? MAEdit?.actividades[
+              //         mapeaindice(componenteSelect, actividadSelect)
+              //       ]?.descIndicador
+              //     : false) &&
+              //   componentesActividadValues[componenteSelect].actividades[
+              //     actividadSelect
+              //   ]?.descIndicador !== ""
+              // }
               rows={5}
               multiline
               sx={{ boxShadow: 2 }}
@@ -1602,16 +1612,16 @@ export const TabActividadesMA = ({
             }}
           >
             <TextField
-              disabled={
-                (MAEdit !== ""
-                  ? MAEdit?.actividades[
-                      mapeaindice(componenteSelect, actividadSelect)
-                    ]?.descNumerador
-                  : false) &&
-                componentesActividadValues[componenteSelect].actividades[
-                  actividadSelect
-                ]?.descNumerador !== ""
-              }
+              // disabled={
+              //   (MAEdit !== ""
+              //     ? MAEdit?.actividades[
+              //         mapeaindice(componenteSelect, actividadSelect)
+              //       ]?.descNumerador
+              //     : false) &&
+              //   componentesActividadValues[componenteSelect].actividades[
+              //     actividadSelect
+              //   ]?.descNumerador !== ""
+              // }
               rows={5}
               multiline
               sx={{ boxShadow: 2 }}
@@ -1668,16 +1678,16 @@ export const TabActividadesMA = ({
             }}
           >
             <TextField
-              disabled={
-                (MAEdit !== ""
-                  ? MAEdit?.actividades[
-                      mapeaindice(componenteSelect, actividadSelect)
-                    ]?.descDenominador
-                  : false) &&
-                componentesActividadValues[componenteSelect].actividades[
-                  actividadSelect
-                ]?.descDenominador !== ""
-              }
+              // disabled={
+              //   (MAEdit !== ""
+              //     ? MAEdit?.actividades[
+              //         mapeaindice(componenteSelect, actividadSelect)
+              //       ]?.descDenominador
+              //     : false) &&
+              //   componentesActividadValues[componenteSelect].actividades[
+              //     actividadSelect
+              //   ]?.descDenominador !== ""
+              // }
               rows={5}
               multiline
               sx={{ boxShadow: 2 }}

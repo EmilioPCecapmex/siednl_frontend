@@ -525,6 +525,7 @@ export const TabActividades = ({
           >
             <TextField
               // disabled={mirEdit?.actividades[componenteSelect].indicador}
+              disabled={mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.indicador}
               rows={8}
               multiline
               sx={{
@@ -591,6 +592,7 @@ export const TabActividades = ({
           >
             <TextField
               // disabled={mirEdit?.actividades[componenteSelect].formula}
+              disabled={mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.formula}
               rows={8}
               multiline
               variant="filled"
@@ -689,6 +691,7 @@ export const TabActividades = ({
           >
             <TextField
               // disabled={mirEdit?.actividades[componenteSelect].medios}
+              disabled={mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.medios}
               rows={8}
               multiline
               variant="filled"
@@ -741,6 +744,7 @@ export const TabActividades = ({
           >
             <TextField
               // disabled={mirEdit?.actividades[componenteSelect].supuestos}
+              disabled={mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.supuestos}
               rows={8}
               multiline
               variant="filled"
