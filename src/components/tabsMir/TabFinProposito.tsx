@@ -21,8 +21,10 @@ export function TabFinProposito({
   MIR,
   setMIR,
   mirEdit,
+  edit,
 }: {
   // show: boolean;
+  edit:boolean;
   MIR: IMIR;
   setMIR: Function;
   mirEdit: IMIREdit;
@@ -478,7 +480,7 @@ export function TabFinProposito({
                   multiline
                   variant="filled"
                   disabled={
-                    mirEdit?.fin.resumen && fin.resumen !== ""
+                    edit && !mirEdit?.fin.resumen && fin.resumen !== ""
                   }
                   sx={{
                     boxShadow: 2,
