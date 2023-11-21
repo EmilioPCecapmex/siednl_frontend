@@ -20,6 +20,7 @@ import { IComponentesFT, IFTEdit } from "./Interfaces";
 
 //funcion main
 export const TabActividadesFT = ({
+  edit,
   show,
 
   //asignarCValor,
@@ -32,6 +33,7 @@ export const TabActividadesFT = ({
   setComponenteActividadFT,
   ftEditPadre,
 }: {
+  edit: boolean;
   show: boolean;
 
   //asignarCValor: Function;
@@ -471,6 +473,7 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.tipoDeIndicador}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -571,6 +574,7 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.dimension}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -738,6 +742,7 @@ export const TabActividadesFT = ({
             }}
           >
             <TextField
+              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.unidadDeMedida}
               fullWidth
               rows={5}
               multiline
@@ -791,6 +796,7 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.claridad}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -889,6 +895,7 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.relevancia}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -987,6 +994,7 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.economia}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -1085,6 +1093,7 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.monitoreable}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -1183,6 +1192,7 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.adecuado}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -1281,6 +1291,7 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.aporte_marginal}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",

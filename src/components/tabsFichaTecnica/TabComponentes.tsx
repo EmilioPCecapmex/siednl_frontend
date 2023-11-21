@@ -15,6 +15,7 @@ import Radio from "@mui/material/Radio";
 import { IComponentesFT, IFTEdit } from "../tabsFichaTecnica/Interfaces";
 
 export const TabComponenteFT = ({
+  edit,
   show,
   setFTcomponentesPadre,
   ComponentesFT,
@@ -24,6 +25,7 @@ export const TabComponenteFT = ({
   FT,
   ftEditPadre,
 }: {
+  edit: boolean;
   show: boolean;
   setFTcomponentesPadre: Function;
   setComponenteFT: Function;
@@ -36,7 +38,7 @@ export const TabComponenteFT = ({
   const [componentSelect, setComponentSelect] = useState(0);
 
   const [componentesValues, setComponentesValues] = useState<
-   IComponentesFT[]>(ComponentesFT);
+    IComponentesFT[]>(ComponentesFT);
 
   let jsonFT = FT === "" ? "" : JSON.parse(FT);
 
@@ -67,15 +69,15 @@ export const TabComponenteFT = ({
   // }, [noComponentes]);
 
   useEffect(() => {
-   // valoresComponenteFTFnc(componentesValues);
-   setComponentesValues(ComponentesFT)
+    // valoresComponenteFTFnc(componentesValues);
+    setComponentesValues(ComponentesFT)
   }, []);
 
   useEffect(() => {
-    console.log("componentesValues: ",componentesValues);
-    
+    console.log("componentesValues: ", componentesValues);
+
     setFTcomponentesPadre(componentesValues)
-    
+
   }, [componentesValues]);
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
@@ -259,6 +261,7 @@ export const TabComponenteFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componentSelect]?.tipoDeIndicador}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -295,11 +298,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]
+                        componentesValues[componentSelect]
                           ?.tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].tipoDeIndicador =
+                        componentesValues[componentSelect].tipoDeIndicador =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -325,11 +328,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]
+                        componentesValues[componentSelect]
                           ?.tipoDeIndicador === "DE GESTIÓN"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].tipoDeIndicador =
+                        componentesValues[componentSelect].tipoDeIndicador =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -354,6 +357,7 @@ export const TabComponenteFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componentSelect]?.dimension}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -393,11 +397,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.dimension ===
+                        componentesValues[componentSelect]?.dimension ===
                         "EFICIENCIA"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].dimension =
+                        componentesValues[componentSelect].dimension =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -422,11 +426,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.dimension ===
+                        componentesValues[componentSelect]?.dimension ===
                         "EFICACIA"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].dimension =
+                        componentesValues[componentSelect].dimension =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -451,11 +455,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.dimension ===
+                        componentesValues[componentSelect]?.dimension ===
                         "CALIDAD"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].dimension =
+                        componentesValues[componentSelect].dimension =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -481,11 +485,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.dimension ===
+                        componentesValues[componentSelect]?.dimension ===
                         "ECONOMÍA"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].dimension =
+                        componentesValues[componentSelect].dimension =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -510,6 +514,7 @@ export const TabComponenteFT = ({
             }}
           >
             <TextField
+              disabled={edit && !ftEditPadre?.componentes[componentSelect]?.unidadDeMedida}
               fullWidth
               rows={5}
               multiline
@@ -532,10 +537,10 @@ export const TabComponenteFT = ({
                 },
               }}
               value={
-                componentesValues[componentSelect ]?.unidadDeMedida || ""
+                componentesValues[componentSelect]?.unidadDeMedida || ""
               }
               onChange={(c) => {
-                componentesValues[componentSelect ].unidadDeMedida =
+                componentesValues[componentSelect].unidadDeMedida =
                   c.target.value
                     .replaceAll('"', "")
                     .replaceAll("'", "")
@@ -559,6 +564,7 @@ export const TabComponenteFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componentSelect]?.claridad}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -595,11 +601,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.claridad ===
+                        componentesValues[componentSelect]?.claridad ===
                         "SI"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].claridad =
+                        componentesValues[componentSelect].claridad =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -625,11 +631,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.claridad ===
+                        componentesValues[componentSelect]?.claridad ===
                         "NO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].claridad =
+                        componentesValues[componentSelect].claridad =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -654,6 +660,7 @@ export const TabComponenteFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componentSelect]?.relevancia}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -690,11 +697,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.relevancia ===
+                        componentesValues[componentSelect]?.relevancia ===
                         "SI"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].relevancia =
+                        componentesValues[componentSelect].relevancia =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -720,11 +727,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.relevancia ===
+                        componentesValues[componentSelect]?.relevancia ===
                         "NO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].relevancia =
+                        componentesValues[componentSelect].relevancia =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -749,6 +756,7 @@ export const TabComponenteFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componentSelect]?.economia}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -785,11 +793,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.economia ===
+                        componentesValues[componentSelect]?.economia ===
                         "SI"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].economia =
+                        componentesValues[componentSelect].economia =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -815,11 +823,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.economia ===
+                        componentesValues[componentSelect]?.economia ===
                         "NO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].economia =
+                        componentesValues[componentSelect].economia =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -844,6 +852,7 @@ export const TabComponenteFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componentSelect]?.monitoreable}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -880,11 +889,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.monitoreable ===
+                        componentesValues[componentSelect]?.monitoreable ===
                         "SI"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].monitoreable =
+                        componentesValues[componentSelect].monitoreable =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -910,11 +919,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.monitoreable ===
+                        componentesValues[componentSelect]?.monitoreable ===
                         "NO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].monitoreable =
+                        componentesValues[componentSelect].monitoreable =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -939,6 +948,7 @@ export const TabComponenteFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componentSelect]?.adecuado}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -975,11 +985,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.adecuado ===
+                        componentesValues[componentSelect]?.adecuado ===
                         "SI"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].adecuado =
+                        componentesValues[componentSelect].adecuado =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -1005,11 +1015,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]?.adecuado ===
+                        componentesValues[componentSelect]?.adecuado ===
                         "NO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].adecuado =
+                        componentesValues[componentSelect].adecuado =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -1034,6 +1044,7 @@ export const TabComponenteFT = ({
             }}
           >
             <FormControl
+              disabled={edit && !ftEditPadre?.componentes[componentSelect]?.aporte_marginal}
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -1070,11 +1081,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]
+                        componentesValues[componentSelect]
                           ?.aporte_marginal === "SI"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].aporte_marginal =
+                        componentesValues[componentSelect].aporte_marginal =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -1100,11 +1111,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]
+                        componentesValues[componentSelect]
                           ?.aporte_marginal === "NO"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].aporte_marginal =
+                        componentesValues[componentSelect].aporte_marginal =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}
@@ -1129,11 +1140,11 @@ export const TabComponenteFT = ({
                   control={
                     <Radio
                       checked={
-                        componentesValues[componentSelect ]
+                        componentesValues[componentSelect]
                           ?.aporte_marginal === "NA"
                       }
                       onChange={(c) => {
-                        componentesValues[componentSelect ].aporte_marginal =
+                        componentesValues[componentSelect].aporte_marginal =
                           c.target.value;
                         setComponentesValues([...componentesValues]);
                       }}

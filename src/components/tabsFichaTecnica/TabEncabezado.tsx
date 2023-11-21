@@ -18,12 +18,14 @@ const newObjetivoDS = { Id: "", ObjetivoDS: "", }
 const newMetaODS = { Id: "", MetaODS: "" }
 
 export function TabEncabezado({
+  edit,
   setFTEncabezadoPadre,
   FT,
   MIR,
   EncabezadoValues,
   ftEditPadre
 }: {
+  edit: boolean;
   setFTEncabezadoPadre: Function;
   FT: string;
   MIR: string;
@@ -46,40 +48,41 @@ export function TabEncabezado({
 
   const [catalogoMetasODS, setCatalogoMetasODS] = useState<IMetaODS[]>([]);
   const [metaODSSelected, setMetaODSSelected] = useState<IMetaODS>(newMetaODS);
-  
+
   const [catalogoObjetivosDS, setCatalogoObjetivosDS] = useState<IObjetivoDS[]>([]);
   const [objetivoODSselected, setObjetivoODSSelected] = useState<IObjetivoDS>(newObjetivoDS);
 
   useEffect(() => {
-    let findObjetivoODS = catalogoObjetivosDS.find((item) => item.ObjetivoDS===encabezado.objetivoODS)
-    setObjetivoODSSelected(findObjetivoODS||newObjetivoDS)
- 
+    let findObjetivoODS = catalogoObjetivosDS.find((item) => item.ObjetivoDS === encabezado.objetivoODS)
+    setObjetivoODSSelected(findObjetivoODS || newObjetivoDS)
+
   }, [catalogoObjetivosDS])
 
-  useEffect(()=>{
-    if(objetivoODSselected.Id!==""){
-    setEncabezado({ ...encabezado, objetivoODS: objetivoODSselected.ObjetivoDS });
-    setMetaODSSelected(newMetaODS);
-    setDisabledMetas(false);
-    getMetas(objetivoODSselected.Id);}
-  },[objetivoODSselected])
-
-  useEffect(()=>{
-    let findMetaODS = catalogoMetasODS.find((item) => item.MetaODS===encabezado.metaODS)
-    setMetaODSSelected(findMetaODS||newMetaODS)
-  },[catalogoMetasODS])
-
-  useEffect(()=>{
-    if(metaODSSelected.Id!==""){
-    setEncabezado({ ...encabezado, metaODS:metaODSSelected.MetaODS });
+  useEffect(() => {
+    if (objetivoODSselected.Id !== "") {
+      setEncabezado({ ...encabezado, objetivoODS: objetivoODSselected.ObjetivoDS });
+      setMetaODSSelected(newMetaODS);
+      setDisabledMetas(false);
+      getMetas(objetivoODSselected.Id);
     }
-  },[metaODSSelected])
+  }, [objetivoODSselected])
+
+  useEffect(() => {
+    let findMetaODS = catalogoMetasODS.find((item) => item.MetaODS === encabezado.metaODS)
+    setMetaODSSelected(findMetaODS || newMetaODS)
+  }, [catalogoMetasODS])
+
+  useEffect(() => {
+    if (metaODSSelected.Id !== "") {
+      setEncabezado({ ...encabezado, metaODS: metaODSSelected.MetaODS });
+    }
+  }, [metaODSSelected])
 
   useEffect(() => {
     setEncabezado(EncabezadoValues)
   }, [EncabezadoValues])
-  
-  
+
+
 
   let jsonMir = JSON.parse(MIR);
 
@@ -157,6 +160,7 @@ export function TabEncabezado({
         backgroundColor: "#fff",
       }}
     >
+      {/* {JSON.stringify(ftEditPadre)} */}
       <Grid
         sx={{
           width: "100%",
@@ -170,7 +174,7 @@ export function TabEncabezado({
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: [ 10, 15, 18, 22, 22, 25],
+            fontSize: [10, 15, 18, 22, 22, 25],
           }}
         >
           ENCABEZADO
@@ -212,6 +216,8 @@ export function TabEncabezado({
             sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
           >
             <TextField
+              disabled={edit && !ftEditPadre?.encabezado?.programaSER}
+
               onChange={(a) => {
                 //setProgramaSER(a.target.value)
                 encabezado.programaSER = a.target.value
@@ -255,6 +261,7 @@ export function TabEncabezado({
             sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
           >
             <TextField
+              disabled={edit && !ftEditPadre?.encabezado?.programaSER}
               onChange={(a) => {
                 //setProgramaSER(a.target.value)
                 encabezado.objetivoSER = a.target.value
@@ -322,6 +329,8 @@ export function TabEncabezado({
                 renderInput={(params) => (
                   <TextField
                     {...params}
+                    disabled={edit && !ftEditPadre?.encabezado?.objetivoODS}
+
                     label={"OBJETIVO ODS"}
                     variant="standard"
                     InputLabelProps={{
@@ -384,6 +393,8 @@ export function TabEncabezado({
                 renderInput={(params) => (
                   <TextField
                     {...params}
+                    disabled={edit && !ftEditPadre?.encabezado?.metaODS}
+
                     label={"META ODS"}
                     variant="standard"
                     InputLabelProps={{
@@ -400,7 +411,7 @@ export function TabEncabezado({
                 )}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
                 onChange={(event, value) => {
-                  setMetaODSSelected(value||newMetaODS)
+                  setMetaODSSelected(value || newMetaODS)
                 }}
               />
             </FormControl>
