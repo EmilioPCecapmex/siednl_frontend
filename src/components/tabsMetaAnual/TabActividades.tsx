@@ -160,18 +160,10 @@ export const TabActividadesMA = ({
   };
 
   const changeFormula = (txt: string) => {
-    if (
-      JSON.parse(MIR)
-        .componentes[componenteSelect].actividades[
-          actividadSelect
-        ].indicador.toUpperCase()
-        .includes("INDICE") ||
-      JSON.parse(MIR)
-        .componentes[componenteSelect].actividades[
-          actividadSelect
-        ].indicador.toUpperCase()
-        .includes("ÍNDICE")
-    ) {
+    console.log("FUKING TEXT",txt);
+    
+    if (JSON.parse(MIR).componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase().includes("INDICE") ||
+      JSON.parse(MIR).componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase().includes("ÍNDICE")) {
       componentesActividadValues[componenteSelect].actividades[
         actividadSelect
       ].valorNumerador = txt;
@@ -184,7 +176,7 @@ export const TabActividadesMA = ({
       ].valorNumerador = txt.split(",")[0];
       componentesActividadValues[componenteSelect].actividades[
         actividadSelect
-      ].valorNumerador = txt.split(",")[1];
+      ].valorDenominador = txt.split(",")[1];
       componentesActividadValues[componenteSelect].actividades[
         actividadSelect
       ].metaAnual = txt.split(",")[2];
@@ -1041,9 +1033,7 @@ export const TabActividadesMA = ({
                     : handleClickOpen()
                 }
                 value={
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.valorDenominador || ""
+                  componentesActividadValues[componenteSelect].actividades[actividadSelect]?.valorDenominador || ""
                 }
               />
             </Grid>
