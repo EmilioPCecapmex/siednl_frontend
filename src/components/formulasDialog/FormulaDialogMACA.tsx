@@ -364,7 +364,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 onChange={(c) =>
@@ -378,7 +378,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -403,7 +403,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 onChange={(c) =>
@@ -417,7 +417,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -442,7 +442,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 onChange={(c) =>
@@ -456,7 +456,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -481,7 +481,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 onChange={(c) =>
@@ -495,7 +495,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -533,7 +533,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 onChange={(c) =>
@@ -547,7 +547,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -555,7 +555,7 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.8vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -564,7 +564,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 value={descB}
@@ -579,7 +579,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -597,7 +597,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 value={descC}
@@ -612,7 +612,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -629,7 +629,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 value={descD}
@@ -644,7 +644,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -662,7 +662,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 value={descE}
@@ -677,7 +677,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -694,7 +694,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 value={descF}
@@ -709,7 +709,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -727,7 +727,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 value={descG}
@@ -742,7 +742,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -759,7 +759,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 value={descH}
@@ -774,7 +774,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -827,7 +827,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 onChange={(c) =>
@@ -841,7 +841,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -866,7 +866,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 onChange={(c) =>
@@ -880,7 +880,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -923,7 +923,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 onChange={(c) =>
@@ -937,7 +937,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -954,7 +954,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 value={descB}
@@ -969,7 +969,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -987,7 +987,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 value={descC}
@@ -1002,7 +1002,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -1019,7 +1019,7 @@ export const FormulaDialogMACA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 value={descD}
@@ -1034,7 +1034,7 @@ export const FormulaDialogMACA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
