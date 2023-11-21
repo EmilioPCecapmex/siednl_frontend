@@ -231,6 +231,8 @@ export default function AddFichaTecnica({
 
   const [ftEditPadre, setFTEditPadre] = useState<IFTEdit>(newFichaTecnicaboolean(MIR));
 
+  const [editFT,setEditFT]=useState(false)
+
   useEffect(() => {
    
     if (FT !== "") {
@@ -241,6 +243,7 @@ export default function AddFichaTecnica({
         let auxMIR: IMIR = JSON.parse(MIR);
         let auxMA: IFT = newFichaTecnica(MIR);
 
+        setEditFT(true);
         // let lengthMA = auxMA.componentes.length
         // let lengthMIR = auxMIR.componentes.length
 
@@ -405,6 +408,7 @@ export default function AddFichaTecnica({
         >
           {value === 0 ? (
             <TabEncabezado
+            edit={editFT}
               setFTEncabezadoPadre={setFTEncabezadoPadre}
               EncabezadoValues={ftPadre.encabezado}
               FT={FT}
@@ -415,6 +419,7 @@ export default function AddFichaTecnica({
 
           {value === 1 ? (
             <TabFinPropositoFT
+            edit={editFT}
               show={value === 1 ? true : false}
               setFTPropositoPadre={setFTPropositoPadre}
               setFTFinPadre={setFTFinPadre}
@@ -427,6 +432,7 @@ export default function AddFichaTecnica({
           ) : null}
           {value === 2 ? (
             <TabComponenteFT
+            edit={editFT}
               show={value === 2 ? true : false}
               setFTcomponentesPadre={setFTcomponentesPadre}
               setComponenteFT={setFTPadre}
@@ -439,6 +445,7 @@ export default function AddFichaTecnica({
           ) : null}
           {value === 3 ? (
             <TabActividadesFT
+            edit={editFT}
               show={value === 3 ? true : false}
               setTxtShowFnc={setTxtShowFnc}
               showMirFnc={showMirFnc}

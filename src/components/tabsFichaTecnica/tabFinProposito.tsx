@@ -15,6 +15,7 @@ import FormLabel from "@mui/material/FormLabel";
 import { IFTEdit, IFinFT, IPropositoFT } from "./Interfaces";
 
 export function TabFinPropositoFT({
+  edit,
   show,
   setFTPropositoPadre,
   setFTFinPadre,
@@ -24,6 +25,7 @@ export function TabFinPropositoFT({
   FT,
   ftEditPadre,
 }: {
+  edit: boolean;
   show: boolean;
   setFTPropositoPadre: Function;
   setFTFinPadre: Function;
@@ -326,6 +328,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.fin?.tipoDeIndicador}
                   fullWidth
                   sx={{
                     //
@@ -423,6 +426,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.fin?.dimension}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -582,6 +586,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <TextField
+                  disabled={edit && !ftEditPadre?.fin?.unidadDeMedida}
+
                   fullWidth
                   rows={5}
                   multiline
@@ -629,6 +635,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.fin?.claridad}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -723,6 +730,8 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.fin?.relevancia}
+
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -817,6 +826,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.fin?.economia}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -911,6 +921,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.fin?.monitoreable}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -1005,6 +1016,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.fin?.adecuado}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -1099,6 +1111,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.fin?.aporte_marginal}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -1312,6 +1325,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.proposito?.tipoDeIndicador}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -1415,6 +1429,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.proposito?.dimension}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -1585,6 +1600,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <TextField
+                  disabled={edit && !ftEditPadre?.proposito?.unidadDeMedida}
                   fullWidth
                   rows={5}
                   multiline
@@ -1629,6 +1645,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.proposito?.claridad}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -1727,6 +1744,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.proposito?.relevancia}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -1824,6 +1842,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.proposito?.economia}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -1921,6 +1940,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.proposito?.monitoreable}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -2019,6 +2039,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.proposito?.adecuado}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -2117,6 +2138,7 @@ export function TabFinPropositoFT({
                 }}
               >
                 <FormControl
+                  disabled={edit && !ftEditPadre?.proposito?.aporte_marginal}
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
