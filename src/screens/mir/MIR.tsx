@@ -837,7 +837,7 @@ export const MIR = () => {
                     //mt: 1,
                   },
                   "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "red",
+                   backgroundColor: "#edeaea",
                     //outline: "1px solid slategrey",
                     borderRadius: 1,
                   },

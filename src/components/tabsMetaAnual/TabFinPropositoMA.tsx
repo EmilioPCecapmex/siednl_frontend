@@ -34,7 +34,7 @@ export function TabFinPropositoMA({
   MIR,
   maPadreEdit,
 }: {
-  edit:boolean;
+  edit: boolean;
   //show: boolean;
   setMAFinPadre: Function;
   setMAPropositoPadre: Function;
@@ -527,7 +527,11 @@ export function TabFinPropositoMA({
                 }}
               >
                 <TextField
-                  disabled={edit && !MAEdit?.fin?.metaAnual && valueFin?.metaAnual !== ""}
+                  disabled={
+                    edit &&
+                    !MAEdit?.fin?.metaAnual &&
+                    valueFin?.metaAnual !== ""
+                  }
                   sx={{
                     boxShadow: 2,
                     fontSize: [10, 10, 10, 15, 15, 18],
@@ -582,7 +586,11 @@ export function TabFinPropositoMA({
                 }}
               >
                 <TextField
-                  disabled={edit && !MAEdit?.fin?.lineaBase && valueFin?.lineaBase !== ""}
+                  disabled={
+                    edit &&
+                    !MAEdit?.fin?.lineaBase &&
+                    valueFin?.lineaBase !== ""
+                  }
                   sx={{
                     boxShadow: 2,
                     fontSize: [10, 10, 10, 15, 15, 18],
@@ -635,6 +643,8 @@ export function TabFinPropositoMA({
               </Grid>
 
               {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
+              JSON.parse(MIR).fin.indicador.toLowerCase().includes("INDICE") ||
+              JSON.parse(MIR).fin.indicador.toLowerCase().includes("ÍNDICE") ||
               JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice") ? (
                 <Grid
                   item
@@ -651,7 +661,8 @@ export function TabFinPropositoMA({
                 >
                   <TextField
                     disabled={
-                      edit && !MAEdit?.fin?.valorNumerador &&
+                      edit &&
+                      !MAEdit?.fin?.valorNumerador &&
                       valueFin?.valorNumerador !== ""
                     }
                     sx={{
@@ -700,11 +711,13 @@ export function TabFinPropositoMA({
                     alignContent: "center",
                     display: "flex",
                     justifyContent: "center",
+                    columnGap: 2,
                   }}
                 >
                   <TextField
                     disabled={
-                      edit && !MAEdit?.fin?.valorNumerador &&
+                      edit &&
+                      !MAEdit?.fin?.valorNumerador &&
                       valueFin?.valorNumerador !== ""
                     }
                     sx={{
@@ -720,7 +733,7 @@ export function TabFinPropositoMA({
                           fontFamily: "MontserratMedium",
                         }}
                       >
-                        VALOR DEL NUMERADOR
+                         NUMERADOR
                       </Typography>
                     }
                     InputLabelProps={{
@@ -741,9 +754,11 @@ export function TabFinPropositoMA({
                     }
                     value={valueFin?.valorNumerador || ""}
                   />
+
                   <TextField
                     disabled={
-                      edit && !MAEdit?.fin?.valorDenominador &&
+                      edit &&
+                      !MAEdit?.fin?.valorDenominador &&
                       valueFin?.valorDenominador !== ""
                     }
                     sx={{
@@ -758,7 +773,7 @@ export function TabFinPropositoMA({
                           fontFamily: "MontserratMedium",
                         }}
                       >
-                        VALOR DEL DENOMINADOR
+                         DENOMINADOR
                       </Typography>
                     }
                     InputLabelProps={{
@@ -797,7 +812,8 @@ export function TabFinPropositoMA({
               >
                 <FormControl
                   disabled={
-                    edit && !MAEdit?.fin?.sentidoDelIndicador &&
+                    edit &&
+                    !MAEdit?.fin?.sentidoDelIndicador &&
                     valueFin?.sentidoDelIndicador !== ""
                   }
                   sx={{
@@ -913,7 +929,8 @@ export function TabFinPropositoMA({
                     closeText="Cerrar"
                     openText="Abrir"
                     disabled={
-                      edit && !MAEdit?.fin?.unidadResponsable &&
+                      edit &&
+                      !MAEdit?.fin?.unidadResponsable &&
                       valueFin?.unidadResponsable !== ""
                     }
                     options={catalogoUnidadResponsable}
@@ -982,7 +999,9 @@ export function TabFinPropositoMA({
               >
                 <TextField
                   disabled={
-                    edit && !MAEdit?.fin?.descIndicador && valueFin?.descIndicador !== ""
+                    edit &&
+                    !MAEdit?.fin?.descIndicador &&
+                    valueFin?.descIndicador !== ""
                   }
                   rows={5}
                   multiline
@@ -1035,7 +1054,9 @@ export function TabFinPropositoMA({
               >
                 <TextField
                   disabled={
-                    edit && !MAEdit?.fin?.descNumerador && valueFin?.descNumerador !== ""
+                    edit &&
+                    !MAEdit?.fin?.descNumerador &&
+                    valueFin?.descNumerador !== ""
                   }
                   rows={5}
                   multiline
@@ -1088,7 +1109,8 @@ export function TabFinPropositoMA({
               >
                 <TextField
                   disabled={
-                    edit && !MAEdit?.fin?.descDenominador &&
+                    edit &&
+                    !MAEdit?.fin?.descDenominador &&
                     valueFin?.descDenominador !== ""
                   }
                   rows={5}
@@ -1233,7 +1255,8 @@ export function TabFinPropositoMA({
               >
                 <TextField
                   disabled={
-                    edit && !MAEdit?.proposito?.metaAnual &&
+                    edit &&
+                    !MAEdit?.proposito?.metaAnual &&
                     valueProposito?.metaAnual !== ""
                   }
                   sx={{ boxShadow: 2 }}
@@ -1291,7 +1314,8 @@ export function TabFinPropositoMA({
               >
                 <TextField
                   disabled={
-                    edit && !MAEdit?.proposito?.lineaBase &&
+                    edit &&
+                    !MAEdit?.proposito?.lineaBase &&
                     valueProposito?.lineaBase !== ""
                   }
                   sx={{
@@ -1345,12 +1369,10 @@ export function TabFinPropositoMA({
                 />
               </Grid>
 
-              {JSON.parse(MIR)
-                .proposito.indicador.toLowerCase()
-                .includes("indice") ||
-              JSON.parse(MIR)
-                .proposito.indicador.toLowerCase()
-                .includes("índice") ? (
+              {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
+              JSON.parse(MIR).fin.indicador.toLowerCase().includes("INDICE") ||
+              JSON.parse(MIR).fin.indicador.toLowerCase().includes("ÍNDICE") ||
+              JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice") ? (
                 <Grid
                   item
                   xl={3}
@@ -1366,7 +1388,8 @@ export function TabFinPropositoMA({
                 >
                   <TextField
                     disabled={
-                      edit && !MAEdit?.proposito?.valorNumerador &&
+                      edit &&
+                      !MAEdit?.proposito?.valorNumerador &&
                       valueProposito.valorNumerador !== ""
                     }
                     sx={{
@@ -1414,18 +1437,19 @@ export function TabFinPropositoMA({
                     alignContent: "center",
                     display: "flex",
                     justifyContent: "center",
+                    columnGap: 2,
                   }}
                 >
                   <TextField
                     disabled={
-                      edit && !MAEdit?.proposito?.valorNumerador &&
+                      edit &&
+                      !MAEdit?.proposito?.valorNumerador &&
                       valueProposito.valorNumerador !== ""
                     }
                     sx={{
                       fontSize: [10, 10, 10, 13, 15, 18],
-                      width: "45%",
+
                       boxShadow: 2,
-                      mr: "2%",
                     }}
                     variant={"filled"}
                     label={
@@ -1435,7 +1459,7 @@ export function TabFinPropositoMA({
                           fontFamily: "MontserratMedium",
                         }}
                       >
-                        VALOR DEL NUMERADOR
+                        NUMERADOR
                       </Typography>
                     }
                     InputLabelProps={{
@@ -1458,7 +1482,8 @@ export function TabFinPropositoMA({
                   />
                   <TextField
                     disabled={
-                      edit && !MAEdit?.proposito?.valorDenominador &&
+                      edit &&
+                      !MAEdit?.proposito?.valorDenominador &&
                       valueProposito.valorDenominador !== ""
                     }
                     sx={{ fontSize: [10, 10, 10, 13, 15, 18], boxShadow: 2 }}
@@ -1470,7 +1495,7 @@ export function TabFinPropositoMA({
                           fontFamily: "MontserratMedium",
                         }}
                       >
-                        VALOR DEL DENOMINADOR
+                        DENOMINADOR
                       </Typography>
                     }
                     InputLabelProps={{
@@ -1509,7 +1534,8 @@ export function TabFinPropositoMA({
               >
                 <FormControl
                   disabled={
-                    edit && !MAEdit?.proposito?.sentidoDelIndicador &&
+                    edit &&
+                    !MAEdit?.proposito?.sentidoDelIndicador &&
                     valueProposito.sentidoDelIndicador !== ""
                   }
                   sx={{
@@ -1629,7 +1655,8 @@ export function TabFinPropositoMA({
                     closeText="Cerrar"
                     openText="Abrir"
                     disabled={
-                      edit && !MAEdit?.fin?.unidadResponsable &&
+                      edit &&
+                      !MAEdit?.fin?.unidadResponsable &&
                       valueProposito.unidadResponsable !== ""
                     }
                     options={catalogoUnidadResponsable}
@@ -1696,7 +1723,8 @@ export function TabFinPropositoMA({
               >
                 <TextField
                   disabled={
-                    edit && !MAEdit?.proposito?.descIndicador &&
+                    edit &&
+                    !MAEdit?.proposito?.descIndicador &&
                     valueProposito.descIndicador !== ""
                   }
                   rows={5}
@@ -1750,7 +1778,8 @@ export function TabFinPropositoMA({
               >
                 <TextField
                   disabled={
-                    edit && !MAEdit?.proposito?.descNumerador &&
+                    edit &&
+                    !MAEdit?.proposito?.descNumerador &&
                     valueProposito.descNumerador !== ""
                   }
                   rows={5}
@@ -1803,7 +1832,8 @@ export function TabFinPropositoMA({
               >
                 <TextField
                   disabled={
-                    edit && !MAEdit?.proposito?.descDenominador &&
+                    edit &&
+                    !MAEdit?.proposito?.descDenominador &&
                     valueProposito.descDenominador !== ""
                   }
                   rows={5}

@@ -779,7 +779,7 @@ export const MetaAnual = () => {
                     //mt: 1,
                   },
                   "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "red",
+                    backgroundColor: "#edeaea",
                     //outline: "1px solid slategrey",
                     borderRadius: 1,
                   },

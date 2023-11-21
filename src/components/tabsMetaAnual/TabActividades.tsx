@@ -213,7 +213,7 @@ export const TabActividadesMA = ({
             .componentes[componenteSelect].actividades[
               actividadSelect
             ].indicador.toUpperCase()
-            .includes("TASA")
+            .includes("tasa")
         ? "Tasa"
         : JSON.parse(MIR)
             .componentes[componenteSelect].actividades[
@@ -362,6 +362,12 @@ export const TabActividadesMA = ({
   }
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
+  useEffect(() => {
+   console.log("componentesActividadValues",componentesActividadValues);
+   
+  }, [componentesActividadValues])
+  
 
   //return main
   return (
@@ -931,6 +937,7 @@ export const TabActividadesMA = ({
                 alignContent: "center",
                 display: "flex",
                 justifyContent: "center",
+                columnGap: 2
               }}
             >
               <TextField
@@ -946,7 +953,7 @@ export const TabActividadesMA = ({
                 // }
                 disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.valorNumerador}
 
-                sx={{ width: "45%", boxShadow: 2, mr: "2%" }}
+                sx={{  boxShadow: 2}}
                 variant={"filled"}
                 label={
                   <Typography
@@ -955,7 +962,7 @@ export const TabActividadesMA = ({
                       fontFamily: "MontserratMedium",
                     }}
                   >
-                    VALOR DEL NUMERADOR
+                     NUMERADOR
                   </Typography>
                 }
                 InputLabelProps={{
@@ -999,7 +1006,7 @@ export const TabActividadesMA = ({
                 // }
                 disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.valorDenominador}
 
-                sx={{ width: "45%", boxShadow: 2 }}
+                sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 label={
                   <Typography
@@ -1008,7 +1015,7 @@ export const TabActividadesMA = ({
                       fontFamily: "MontserratMedium",
                     }}
                   >
-                    VALOR DEL DENOMINADOR
+                     DENOMINADOR
                   </Typography>
                 }
                 InputLabelProps={{

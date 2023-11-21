@@ -728,6 +728,7 @@ export const TabComponenteMA = ({
                 alignContent: "center",
                 display: "flex",
                 justifyContent: "center",
+                columnGap: 2
               }}
             >
               <TextField
@@ -749,7 +750,7 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratMedium",
                   }}
                 >
-                  VALOR DEL NUMERADOR
+                   NUMERADOR
                 </Typography>
               }
               InputLabelProps={{
@@ -791,7 +792,7 @@ export const TabComponenteMA = ({
                     fontFamily: "MontserratMedium",
                   }}
                 >
-                  VALOR DEL DENOMINADOR
+                   DENOMINADOR
                 </Typography>
               }
               InputLabelProps={{
