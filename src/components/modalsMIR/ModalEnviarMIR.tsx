@@ -702,13 +702,15 @@ export default function ModalEnviarMIR({
   const mirFuncionAutorizada = () => {
     let auxMA: string
     let auxFT: string
+    console.log("Paso5 funcion mirFuncionAutorizada");
     mDocumentos.map((item) => {
       if (item.movimiento === "remove") {
-
+        console.log("Paso5.1");
         auxMA =  JSON.stringify(removeComponenteMA(Number(item.indice.split("C")[1]))) 
         auxFT =  JSON.stringify(removeComponenteFT(Number(item.indice.split("C")[1])))
       }
       console.log("estoy arriba del axios")
+      console.log("Paso5.2");
       axios.post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/update-info",
         {
@@ -827,13 +829,21 @@ export default function ModalEnviarMIR({
                     ? "En Autorización"
                     : "Autorizada"
                 );
-
+                console.log("Paso1");
+                
                 handleClose(false);
+                console.log("Paso2");
                 setNewComent(false);
+                console.log("Paso3");
                 RestructuraMAyFT();
+                console.log("Paso4");
+                console.log("Autorizada Paso4: ",estadoMIR );
                 if (estadoMIR === "Autorizada") {
+                  console.log("Paso4");
                   mirFuncionAutorizada();
+                  console.log("Paso5.1");
                 }
+                console.log("Paso5.1");
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>

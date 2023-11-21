@@ -235,6 +235,7 @@ export default function FullModalMir({
 
     let arrComponentes: IComponente[] = MIRPADRE.componentes;
     arrComponentes.push(newComponente(MIRPADRE.componentes.length + 1));
+    setMIREDITPADRE(newMIREDIT(JSON.stringify({ ...MIRPADRE, componentes: arrComponentes })));
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
 
     movimientos("add", "C" + MIRPADRE.componentes.length);
@@ -260,18 +261,17 @@ export default function FullModalMir({
           }),
         };
 
+       
         return aux;
       } else {
+
         return componente;
       }
     });
-
+    setMIREDITPADRE(newMIREDIT(JSON.stringify({ ...MIRPADRE, componentes: arrComponentes })));
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
-    let arrComponentesboolean: IComponenteMirEdit[] =
-      mirEdirPadre.componentes.filter(
-        (componente) =>
-          !componente.componente.includes(`C${componenteSelected}`)
-      );
+
+    
 
  
   };
@@ -292,7 +292,7 @@ export default function FullModalMir({
       }
     });
     console.log("actividades", arrComponentes);
-
+    setMIREDITPADRE(newMIREDIT(JSON.stringify({ ...MIRPADRE, componentes: arrComponentes })));
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
 
   };
@@ -314,6 +314,7 @@ export default function FullModalMir({
         });
         return { ...componente, actividades: arrActividades };
       });
+      setMIREDITPADRE(newMIREDIT(JSON.stringify({ ...MIRPADRE, componentes: arrComponentes })));
       setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
       console.log("Objeto", arrComponentes);
     } else {

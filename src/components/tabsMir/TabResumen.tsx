@@ -2193,11 +2193,15 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        checked={mirEdit.componentes[index].actividades[index2].resumen}
+                        checked={mirEdit.componentes[index]?.actividades[index2]?.resumen  }
                         onChange={(v) => {
+                          
+                          console.log("mirEdit.componentes: ",mirEdit.componentes);
                           let auxC = mirEdit.componentes
+                          console.log("auxC: ",auxC);
                           auxC[index].actividades[index2].resumen = v.target.checked;
                           setMIREDITPADRE({...mirEdit,componentes:auxC});
+                          
                         }}
                       />
                     </Grid>
