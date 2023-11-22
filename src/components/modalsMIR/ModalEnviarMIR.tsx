@@ -56,13 +56,9 @@ export default function ModalEnviarMIR({
   const [Idft, setIdFT] = useState("");
 
   useEffect(() => {
-    console.log("MIR: ");
-
     if (estadoMIR === "Autorizada") {
       getMAyFT(IdMir, setMA, setFT, setIdMA, setIdFT);
     }
-    console.log(ma);
-    console.log(ft);
   }, []);
 
   ///////////////////////////////////////////////////////////////////////////////////////////
@@ -91,13 +87,9 @@ export default function ModalEnviarMIR({
           return aux;
         } else return componente;
       });
-      console.log("componentes actualizados", arrComponentes);
+
       setFT({ ...ft, componentes: arrComponentes });
       return { ...ft, componentes: arrComponentes };
-      // console.log(
-      //   "MA actualizada",
-      //   JSON.stringify({ ...ft, componentes: arrComponentes })
-      // );
     }
     return ft;
   };
@@ -128,14 +120,9 @@ export default function ModalEnviarMIR({
           return aux;
         } else return componente;
       });
-      console.log("componentes actualizados", arrComponentes);
 
       setMA({ ...ma, componentes: arrComponentes });
       return { ...ma, componentes: arrComponentes };
-      // console.log(
-      //   "MA actualizada",
-      //   JSON.stringify({ ...ma, componentes: arrComponentes })
-      // );
     }
     return ma;
   };
@@ -524,9 +511,6 @@ export default function ModalEnviarMIR({
       });
     }
   };
-  useEffect(() => {
-    console.log("estadoMIR: ", estadoMIR);
-  }, []);
 
   const CrearMetaAnual = (mensaje: string, IdMir: string) => {
     axios
@@ -551,6 +535,7 @@ export default function ModalEnviarMIR({
       )
       .then((r) => {
         userXInst.map((user) => {
+         
           enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
           //sendMail(user.CorreoElectronico, enviarMensaje, "MA");
         });
@@ -593,7 +578,7 @@ export default function ModalEnviarMIR({
       .then((r) => {
         userXInst.map((user) => {
           //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
-
+         
           //sendMail(user.CorreoElectronico, enviarMensaje, "MIR");
           enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
         });
@@ -659,6 +644,7 @@ export default function ModalEnviarMIR({
         .then((r) => {
           if (r.status === 200) {
             setUserXInst(r.data.data);
+            
           }
         });
     }
@@ -669,6 +655,7 @@ export default function ModalEnviarMIR({
     IdDoc = "",
     Nombre = ""
   ) => {
+   
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
 
@@ -704,12 +691,9 @@ export default function ModalEnviarMIR({
     let auxFT: string;
     auxMA = JSON.stringify(ma);
     auxFT = JSON.stringify(ft);
-    console.log("Paso5 funcion mirFuncionAutorizada");
-    console.log("mDocumentos: ", mDocumentos);
 
     mDocumentos.map((item) => {
       if (item.movimiento === "remove") {
-        console.log("Paso5.1");
         auxMA = JSON.stringify(
           removeComponenteMA(Number(item.indice.split("C")[1]))
         );
@@ -718,17 +702,6 @@ export default function ModalEnviarMIR({
         );
       }
 
-      // if (item.movimiento === "add") {
-      //   console.log("Paso5.1");
-      //   auxMA =  JSON.stringify(removeComponenteMA(Number(item.indice.split("C")[1])))
-      //   auxFT =  JSON.stringify(removeComponenteFT(Number(item.indice.split("C")[1])))
-      // }
-
-      console.log("estoy arriba del axios");
-      console.log("Paso5.2");
-      console.log("auxMA: ", auxMA);
-      console.log("auxFT: ", auxFT);
-      console.log("Paso5.2");
       axios.post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/update-info",
         {
@@ -847,21 +820,16 @@ export default function ModalEnviarMIR({
                     ? "En Autorización"
                     : "Autorizada"
                 );
-                console.log("Paso1");
 
                 handleClose(false);
-                console.log("Paso2");
+
                 setNewComent(false);
-                console.log("Paso3");
+
                 RestructuraMAyFT();
-                console.log("Paso4");
-                console.log("Autorizada Paso4: ", estadoMIR);
+
                 if (estadoMIR === "Autorizada") {
-                  console.log("Paso4");
                   mirFuncionAutorizada();
-                  console.log("Paso5.1 en el if");
                 }
-                console.log("Paso5.1 fuera del if");
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>

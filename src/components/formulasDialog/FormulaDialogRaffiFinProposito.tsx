@@ -45,7 +45,6 @@ export const DialogFinPropositoRaffi = ({
           Denominador === "" ||
           Denominador === null
         ) {
-          console.log("estoy vacio");
         } else {
           setValor(aux, elemento, tipo);
           setNumerdaor("");
@@ -55,18 +54,14 @@ export const DialogFinPropositoRaffi = ({
         break;
 
       case "INDICE":
-        let aux2 = (parseFloat(Numerodador))
-        if (
-            Numerodador === "" ||
-            Numerodador === null 
-          ) {
-            console.log("estoy vacio");
-          } else {
-            setValor(aux2, elemento, tipo);
-            setNumerdaor("");
-            setDenominador("");
-            close(false);
-          }
+        let aux2 = parseFloat(Numerodador);
+        if (Numerodador === "" || Numerodador === null) {
+        } else {
+          setValor(aux2, elemento, tipo);
+          setNumerdaor("");
+          setDenominador("");
+          close(false);
+        }
         break;
 
       case "PROMEDIO":
@@ -78,7 +73,6 @@ export const DialogFinPropositoRaffi = ({
           Denominador === "" ||
           Denominador === null
         ) {
-          console.log("estoy vacio");
         } else {
           setValor(aux3, elemento, tipo);
           setNumerdaor("");
@@ -88,20 +82,22 @@ export const DialogFinPropositoRaffi = ({
         break;
 
       case "TASA":
-        let aux4 = ((parseFloat(Numerodador) - parseFloat(Denominador)) / parseFloat(Denominador)) * 100;
+        let aux4 =
+          ((parseFloat(Numerodador) - parseFloat(Denominador)) /
+            parseFloat(Denominador)) *
+          100;
         if (
-            Numerodador === "" ||
-            Numerodador === null ||
-            Denominador === "" ||
-            Denominador === null
-          ) {
-            console.log("estoy vacio");
-          } else {
-            setValor(aux4, elemento, tipo);
-            setNumerdaor("");
-            setDenominador("");
-            close(false);
-          }
+          Numerodador === "" ||
+          Numerodador === null ||
+          Denominador === "" ||
+          Denominador === null
+        ) {
+        } else {
+          setValor(aux4, elemento, tipo);
+          setNumerdaor("");
+          setDenominador("");
+          close(false);
+        }
         break;
     }
   };

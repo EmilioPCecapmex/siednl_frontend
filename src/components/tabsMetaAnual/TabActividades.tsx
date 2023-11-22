@@ -42,7 +42,7 @@ export const TabActividadesMA = ({
 }: {
   //show: boolean;
   //componentes: number[];
-  edit:boolean;
+  edit: boolean;
   asignarCValor: Function;
   compAct: Array<IComponenteActividad>;
   setMAActividadesPadre: Function;
@@ -96,7 +96,10 @@ export const TabActividadesMA = ({
   // revisado
   const handleClickOpen = () => {
     setTipoFormula(
-      JSON.parse(MIR).componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
+      JSON.parse(MIR)
+        .componentes[componenteSelect].actividades[
+          actividadSelect
+        ].indicador.toUpperCase()
         .includes("PORCENTAJE") ||
         JSON.parse(MIR)
           .componentes[componenteSelect].actividades[
@@ -160,10 +163,18 @@ export const TabActividadesMA = ({
   };
 
   const changeFormula = (txt: string) => {
-    console.log("FUKING TEXT",txt);
-    
-    if (JSON.parse(MIR).componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase().includes("INDICE") ||
-      JSON.parse(MIR).componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase().includes("ÍNDICE")) {
+    if (
+      JSON.parse(MIR)
+        .componentes[componenteSelect].actividades[
+          actividadSelect
+        ].indicador.toUpperCase()
+        .includes("INDICE") ||
+      JSON.parse(MIR)
+        .componentes[componenteSelect].actividades[
+          actividadSelect
+        ].indicador.toUpperCase()
+        .includes("ÍNDICE")
+    ) {
       componentesActividadValues[componenteSelect].actividades[
         actividadSelect
       ].valorNumerador = txt;
@@ -188,7 +199,10 @@ export const TabActividadesMA = ({
 
   const handleClickOpen2 = () => {
     setTipoFormula(
-      JSON.parse(MIR).componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
+      JSON.parse(MIR)
+        .componentes[componenteSelect].actividades[
+          actividadSelect
+        ].indicador.toUpperCase()
         .includes("PORCENTAJE") ||
         JSON.parse(MIR)
           .componentes[componenteSelect].actividades[
@@ -326,8 +340,6 @@ export const TabActividadesMA = ({
   };
 
   useEffect(() => {
-    // getUnidades();
-    // console.log("MA: ",MA);
     getListasLogin(
       {
         Tabla: "EntidadesHijas",
@@ -354,12 +366,6 @@ export const TabActividadesMA = ({
   }
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
-
-  useEffect(() => {
-   console.log("componentesActividadValues",componentesActividadValues);
-   
-  }, [componentesActividadValues])
-  
 
   //return main
   return (
@@ -661,9 +667,13 @@ export const TabActividadesMA = ({
               //     actividadSelect
               //   ]?.metaAnual !== ""
               // }
-              
-              disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.metaAnual}
 
+              disabled={
+                edit &&
+                !MAEdit?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.metaAnual
+              }
               sx={{ boxShadow: 2 }}
               variant={"filled"}
               label={
@@ -760,8 +770,12 @@ export const TabActividadesMA = ({
               //     actividadSelect
               //   ]?.lineaBase !== ""
               // }
-              disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.lineaBase}
-
+              disabled={
+                edit &&
+                !MAEdit?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.lineaBase
+              }
               sx={{ boxShadow: 2 }}
               variant={"filled"}
               label={
@@ -874,8 +888,12 @@ export const TabActividadesMA = ({
                 //     actividadSelect
                 //   ]?.valorNumerador !== ""
                 // }
-                disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.valorNumerador}
-
+                disabled={
+                  edit &&
+                  !MAEdit?.componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.valorNumerador
+                }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -929,7 +947,7 @@ export const TabActividadesMA = ({
                 alignContent: "center",
                 display: "flex",
                 justifyContent: "center",
-                columnGap: 2
+                columnGap: 2,
               }}
             >
               <TextField
@@ -943,9 +961,13 @@ export const TabActividadesMA = ({
                 //     actividadSelect
                 //   ]?.valorNumerador !== ""
                 // }
-                disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.valorNumerador}
-
-                sx={{  boxShadow: 2}}
+                disabled={
+                  edit &&
+                  !MAEdit?.componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.valorNumerador
+                }
+                sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 label={
                   <Typography
@@ -954,7 +976,7 @@ export const TabActividadesMA = ({
                       fontFamily: "MontserratMedium",
                     }}
                   >
-                     NUMERADOR
+                    NUMERADOR
                   </Typography>
                 }
                 InputLabelProps={{
@@ -996,8 +1018,12 @@ export const TabActividadesMA = ({
                 //     actividadSelect
                 //   ]?.valorDenominador !== ""
                 // }
-                disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.valorDenominador}
-
+                disabled={
+                  edit &&
+                  !MAEdit?.componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.valorDenominador
+                }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 label={
@@ -1007,7 +1033,7 @@ export const TabActividadesMA = ({
                       fontFamily: "MontserratMedium",
                     }}
                   >
-                     DENOMINADOR
+                    DENOMINADOR
                   </Typography>
                 }
                 InputLabelProps={{
@@ -1033,7 +1059,9 @@ export const TabActividadesMA = ({
                     : handleClickOpen()
                 }
                 value={
-                  componentesActividadValues[componenteSelect].actividades[actividadSelect]?.valorDenominador || ""
+                  componentesActividadValues[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.valorDenominador || ""
                 }
               />
             </Grid>
@@ -1063,8 +1091,12 @@ export const TabActividadesMA = ({
               //     actividadSelect
               //   ]?.sentidoDelIndicador !== ""
               // }
-              disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.sentidoDelIndicador}
-
+              disabled={
+                edit &&
+                !MAEdit?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.sentidoDelIndicador
+              }
               sx={{
                 backgroundColor: "#f0f0f0",
                 boxShadow: 6,
@@ -1211,8 +1243,12 @@ export const TabActividadesMA = ({
                 //     actividadSelect
                 //   ]?.metasPorFrecuencia[0].trimestre1 !== ""
                 // }
-                disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.metasPorFrecuencia[0].trimestre1}
-
+                disabled={
+                  edit &&
+                  !MAEdit?.componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.metasPorFrecuencia[0].trimestre1
+                }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() =>
@@ -1279,7 +1315,12 @@ export const TabActividadesMA = ({
                 //     actividadSelect
                 //   ]?.metasPorFrecuencia[0].trimestre2 !== ""
                 // }
-                disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.metasPorFrecuencia[0].trimestre2}
+                disabled={
+                  edit &&
+                  !MAEdit?.componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.metasPorFrecuencia[0].trimestre2
+                }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() =>
@@ -1346,7 +1387,12 @@ export const TabActividadesMA = ({
                 //     actividadSelect
                 //   ]?.metasPorFrecuencia[0].trimestre3 !== ""
                 // }
-                disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.metasPorFrecuencia[0].trimestre3}
+                disabled={
+                  edit &&
+                  !MAEdit?.componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.metasPorFrecuencia[0].trimestre3
+                }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() =>
@@ -1413,7 +1459,12 @@ export const TabActividadesMA = ({
                 //     actividadSelect
                 //   ]?.metasPorFrecuencia[0].trimestre4 !== ""
                 // }
-                disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.metasPorFrecuencia[0].trimestre4}
+                disabled={
+                  edit &&
+                  !MAEdit?.componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.metasPorFrecuencia[0].trimestre4
+                }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() =>
@@ -1486,7 +1537,12 @@ export const TabActividadesMA = ({
                 //     actividadSelect
                 //   ]?.unidadResponsable !== ""
                 // }
-                disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.unidadResponsable}
+                disabled={
+                  edit &&
+                  !MAEdit?.componentes[componenteSelect].actividades[
+                    actividadSelect
+                  ]?.unidadResponsable
+                }
                 options={catalogoUnidadResponsable}
                 getOptionLabel={(option) => option.Label}
                 value={{
@@ -1564,7 +1620,12 @@ export const TabActividadesMA = ({
               //     actividadSelect
               //   ]?.descIndicador !== ""
               // }
-              disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.descIndicador}
+              disabled={
+                edit &&
+                !MAEdit?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.descIndicador
+              }
               rows={5}
               multiline
               sx={{ boxShadow: 2 }}
@@ -1631,7 +1692,12 @@ export const TabActividadesMA = ({
               //     actividadSelect
               //   ]?.descNumerador !== ""
               // }
-              disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.descNumerador}
+              disabled={
+                edit &&
+                !MAEdit?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.descNumerador
+              }
               rows={5}
               multiline
               sx={{ boxShadow: 2 }}
@@ -1698,7 +1764,12 @@ export const TabActividadesMA = ({
               //     actividadSelect
               //   ]?.descDenominador !== ""
               // }
-              disabled={edit && !MAEdit?.componentes[componenteSelect].actividades[actividadSelect]?.descDenominador}
+              disabled={
+                edit &&
+                !MAEdit?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.descDenominador
+              }
               rows={5}
               multiline
               sx={{ boxShadow: 2 }}

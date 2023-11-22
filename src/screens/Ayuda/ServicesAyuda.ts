@@ -204,10 +204,7 @@ export const getRoles = (setState: Function ) => {
         Authorization: localStorage.getItem("jwtToken") || "",
       },
     })
-    .then((r) => {
-
-      console.log("r",r);
-      
+    .then((r) => {      
       setState(r.data.data);
     });
 };

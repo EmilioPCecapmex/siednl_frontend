@@ -383,16 +383,14 @@ export const TabPAE = ({
         }
       )
       .then((r) => {
-        console.log("Hola soy la respuesta");
-        console.log("r: ", r);
+        
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
         });
       })
       .catch((err) => {
-        console.log(err)
-        console.log(err.response.data)
+      
         Toast.fire({
           icon: "error",
           title: "err.response.data,"
@@ -454,14 +452,14 @@ export const TabPAE = ({
     const url = new File([archivo.archivo], archivo.nombreArchivo);
     let ruta = "/SIEDNL_DEV/PAE/" + perteneceA + "/";
     ruta = ((process.env.REACT_APP_DOC_ROUTE || "") + ruta).trim();
-    // console.log("ruta:", ruta)
+    
     let dataArray = new FormData();
     dataArray.append("ROUTE", `${ruta}`);
     dataArray.append("CN", "true");
     dataArray.append("ADDROUTE", "true");
     dataArray.append("FILE", url);
     dataArray.append("TOKEN", localStorage.getItem("jwtToken") || "");
-    console.log("route:", `${ruta}`, ".file:", url);
+    
 
     axios
       .post(
@@ -474,7 +472,7 @@ export const TabPAE = ({
         }
       )
       .then(({ data }) => {
-        console.log(data.RESPONSE.FILE);
+      
       })
       .catch((e) => { });
   };

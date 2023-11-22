@@ -370,7 +370,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             Authorization: localStorage.getItem("jwtToken") || "",
           },
           params: {
-            idEntidad:localStorage.getItem("IdApp")
+            idEntidad: localStorage.getItem("IdApp"),
           },
         }
       )
@@ -654,8 +654,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         }
       )
       .then((r) => {
-        console.log(r);
-
         if (r.status === 200) {
           let update = r.data.data;
           update = update.map(
@@ -1177,12 +1175,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
   useEffect(() => {
     setDataDescripctionFiltered(datosTabla);
-    console.log(datosTabla);
   }, [datosTabla]);
 
   useEffect(() => {
     setDataDescripctionFiltered(datosTabla);
-    console.log(datosTabla);
   }, [descripctionFiltered, datosTabla]);
 
   const filtrarDatos = () => {
@@ -1436,20 +1432,24 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                             }}
                             selected={selected === item.Desc ? true : false}
                             onClick={() => {
-                              console.log("valor selected: ", selected);
-
                               evalFunc(item.fnc);
                               setFncSelected(item.fnc);
                               setTablaActual(item.Tabla);
                               setDefaultSelection(item.Desc);
                             }}
                           >
-                            <Typography sx={{ fontFamily: "MontserratMedium", "@media (max-width: 600px)": {
-                fontSize: "3vw", // Pantalla extra pequeña (xs y sm)
-              },
-              "@media (min-width: 601px) and (max-width: 960px)": {
-                fontSize: "3vw", // Pantalla pequeña (md)
-              }, }}>
+                            <Typography
+                              sx={{
+                                fontFamily: "MontserratMedium",
+                                "@media (max-width: 600px)": {
+                                  fontSize: "3vw", // Pantalla extra pequeña (xs y sm)
+                                },
+                                "@media (min-width: 601px) and (max-width: 960px)":
+                                  {
+                                    fontSize: "3vw", // Pantalla pequeña (md)
+                                  },
+                              }}
+                            >
                               {item.Desc}
                             </Typography>
                           </ListItemButton>
@@ -1492,13 +1492,18 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     },
                   }}
                 >
-                  <Typography sx={{ fontFamily: "MontserratMedium", "@media (max-width: 600px)": {
-                                    fontSize: "3vw", // Pantalla extra pequeña (xs y sm)
-                                  },
-                          
-                                  "@media (min-width: 601px) and (max-width: 960px)": {
-                                    fontSize: "3vw", // Pantalla pequeña (md)
-                                  }, }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      "@media (max-width: 600px)": {
+                        fontSize: "3vw", // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: "3vw", // Pantalla pequeña (md)
+                      },
+                    }}
+                  >
                     Relaciones
                   </Typography>
                 </AccordionSummary>
@@ -1525,13 +1530,19 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               setDefaultSelection(item.Desc);
                             }}
                           >
-                            <Typography sx={{ fontFamily: "MontserratMedium", "@media (max-width: 600px)": {
-                                    fontSize: "3vw", // Pantalla extra pequeña (xs y sm)
-                                  },
-                          
-                                  "@media (min-width: 601px) and (max-width: 960px)": {
+                            <Typography
+                              sx={{
+                                fontFamily: "MontserratMedium",
+                                "@media (max-width: 600px)": {
+                                  fontSize: "3vw", // Pantalla extra pequeña (xs y sm)
+                                },
+
+                                "@media (min-width: 601px) and (max-width: 960px)":
+                                  {
                                     fontSize: "3vw", // Pantalla pequeña (md)
-                                  }, }}>
+                                  },
+                              }}
+                            >
                               {item.Desc}
                             </Typography>
                           </ListItemButton>
@@ -1597,7 +1608,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     "@media (max-width: 600px)": {
                       fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
                     },
-            
+
                     "@media (min-width: 601px) and (max-width: 960px)": {
                       fontSize: "1.5vw", // Pantalla pequeña (md)
                     },
@@ -1713,7 +1724,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     "@media (max-width: 600px)": {
                       fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
                     },
-            
+
                     "@media (min-width: 601px) and (max-width: 960px)": {
                       fontSize: "1.5vw", // Pantalla pequeña (md)
                     },
@@ -1765,7 +1776,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     "@media (max-width: 600px)": {
                       fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
                     },
-            
+
                     "@media (min-width: 601px) and (max-width: 960px)": {
                       fontSize: "1.5vw", // Pantalla pequeña (md)
                     },
@@ -1833,10 +1844,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                                   "@media (max-width: 600px)": {
                                     fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
                                   },
-                          
-                                  "@media (min-width: 601px) and (max-width: 960px)": {
-                                    fontSize: "1.5vw", // Pantalla pequeña (md)
-                                  },
+
+                                  "@media (min-width: 601px) and (max-width: 960px)":
+                                    {
+                                      fontSize: "1.5vw", // Pantalla pequeña (md)
+                                    },
                                 }}
                               >
                                 {row?.Desc}
@@ -1858,31 +1870,34 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                               }}
                             >
                               <Grid sx={{ display: "flex" }}>
-                              {selected === "Programas - Instituciones" ? null :
-                                <Tooltip title="Editar">
-                                  <IconButton onClick={() => {
-                                    setModyRow({
-                                      Id: row.Id,
-                                      Desc: row.Desc,
-                                      fnc: row.fnc,
-                                      Tabla: row.Tabla,
-                                      selected: row.selected,
-                                    });
+                                {selected ===
+                                "Programas - Instituciones" ? null : (
+                                  <Tooltip title="Editar">
+                                    <IconButton
+                                      onClick={() => {
+                                        setModyRow({
+                                          Id: row.Id,
+                                          Desc: row.Desc,
+                                          fnc: row.fnc,
+                                          Tabla: row.Tabla,
+                                          selected: row.selected,
+                                        });
 
-                                    setOpenMody(true);
-                                  }}>
-                                    <EditIcon
-                                      sx={[
-                                        {
-                                          "&:hover": {
-                                            color: "blue",
+                                        setOpenMody(true);
+                                      }}
+                                    >
+                                      <EditIcon
+                                        sx={[
+                                          {
+                                            "&:hover": {
+                                              color: "blue",
+                                            },
                                           },
-                                        },
-                                      ]}
-                                    />
-                                  </IconButton>
-                                </Tooltip>
-                      }
+                                        ]}
+                                      />
+                                    </IconButton>
+                                  </Tooltip>
+                                )}
                                 <IconButton
                                   onClick={() => {
                                     setDeleteRow({

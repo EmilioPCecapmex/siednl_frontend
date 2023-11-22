@@ -342,9 +342,7 @@ export default function CapturaRaffi({
     Array<IAvanceFinancieroRF>
   >([]);
 
-  useEffect(() => {
-    console.log("raffi", raffi);
-  }, [raffi]);
+ 
   
   return (
     <Grid

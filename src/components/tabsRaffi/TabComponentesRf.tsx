@@ -315,7 +315,7 @@ export const TabComponenteRf = ({
         txt;
     } else {
       let frec = txt.split(",")[3];
-      console.log(componentesValues);
+
       componentesValues[componentSelect - 1].numeradorPorFrecuencia[0][
         frec as keyof IFrecuencias
       ] = txt.split(",")[0];
@@ -331,13 +331,8 @@ export const TabComponenteRf = ({
   };
 
   useEffect(() => {
-   
-       setComponentesValues(componentesRF);
-
-
+    setComponentesValues(componentesRF);
   }, []);
-
-
 
   return (
     <>

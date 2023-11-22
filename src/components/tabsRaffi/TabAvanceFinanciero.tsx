@@ -57,7 +57,6 @@ export const VPTrimestral = {
   porcentajeCuentaPublica: "",
 };
 
-
 export function TabAvanceFinanciero({
   //show,
   resumenAvanceFinancieroRf,
@@ -66,7 +65,7 @@ export function TabAvanceFinanciero({
   avanceFinancieroRF,
   setAvanceFinancieroRF,
 }: {
- // show : boolean;
+  // show : boolean;
   resumenAvanceFinancieroRf: Function;
   MIR: string;
   MA: string;
@@ -91,7 +90,7 @@ export function TabAvanceFinanciero({
 
   const [valorProgramaPresupuestario, setValorProgramaPresupuestario] =
     useState("0");
-    
+
   const [avanceFinanciero, setAvanceFinanciero] = useState<IAvanceFinancieroRF>(
     {
       nombrePrograma: "",
@@ -112,7 +111,7 @@ export function TabAvanceFinanciero({
   useEffect(() => {
     let objetoAuxiliar: IAvanceFinancieroRF = {
       nombrePrograma: "",
-       //jsonMir.encabezado.nombre_del_programa,
+      //jsonMir.encabezado.nombre_del_programa,
       valorProgramaPresupuestario: valorProgramaPresupuestario,
       //Calculo: "DEVENGADO/MODIFICADO",
       monto: {
@@ -126,8 +125,6 @@ export function TabAvanceFinanciero({
         porcentajeEjercidoModificado: porcentajemodificado_autorizado,
       },
     };
-
-    console.log("objetoAuxiliar: ", objetoAuxiliar);
 
     setAvanceFinanciero(objetoAuxiliar);
 
@@ -151,12 +148,6 @@ export function TabAvanceFinanciero({
   }
 
   useEffect(() => {
-    console.log("avanceFinancieroRF", avanceFinancieroRF);
-    console.log(
-      avanceFinancieroRF.valorProgramaPresupuestario !== "" &&
-        avanceFinancieroRF.valorProgramaPresupuestario !== null
-    );
-
     if (
       avanceFinancieroRF.valorProgramaPresupuestario !== "" ||
       avanceFinancieroRF.valorProgramaPresupuestario !== null
@@ -184,8 +175,6 @@ export function TabAvanceFinanciero({
   }, []);
 
   useEffect(() => {
-    console.log("valor del programa", avanceFinanciero);
-
     setAvanceFinancieroRF(avanceFinanciero);
   }, [valorProgramaPresupuestario]);
 
@@ -234,7 +223,6 @@ export function TabAvanceFinanciero({
               ...porcentajemodificado_autorizado,
               pt1: porcentaje.toString(),
             });
-            console.log(porcentajemodificado_autorizado);
 
             break;
           case "TRIMESTRE 2":
@@ -372,7 +360,7 @@ export function TabAvanceFinanciero({
     //     parseFloat(avanceFinanciero.valorProgramaPresupuestario)) *
     //   100;
     if (nuevoValor !== valorProgramaPresupuestario) {
-      setPorcentajeEjercido_modificado(porcentajeejercido_modificado)
+      setPorcentajeEjercido_modificado(porcentajeejercido_modificado);
     } else {
     }
   };
@@ -380,7 +368,7 @@ export function TabAvanceFinanciero({
   return (
     <>
       <Grid
-       // visibility={show ? "visible" : "hidden"}
+        // visibility={show ? "visible" : "hidden"}
         container
         direction={"row"}
         sx={{
@@ -436,9 +424,8 @@ export function TabAvanceFinanciero({
                   valorProgramaPresupuestario: a.target.value,
                 });
                 setValorProgramaPresupuestario(a.target.value);
-                newvalue(a.target.value)
+                newvalue(a.target.value);
               }}
-              
               value={
                 parseInt(valorProgramaPresupuestario) <= 0
                   ? ""
@@ -513,7 +500,6 @@ export function TabAvanceFinanciero({
                     <Radio
                       checked={selector === "MODIFICADO/AUTORIZADO"}
                       onChange={(a) => {
-                        console.log(selector);
                         setSelector(a.target.value);
                       }}
                     />
@@ -538,8 +524,6 @@ export function TabAvanceFinanciero({
                     <Radio
                       checked={selector === "DEVENGADO/MODIFICADO"}
                       onChange={(a) => {
-                        console.log(selector);
-
                         setSelector(a.target.value);
                       }}
                     />
@@ -565,7 +549,6 @@ export function TabAvanceFinanciero({
                     <Radio
                       checked={selector === "EJERCIDO/MODIFICADO"}
                       onChange={(a) => {
-                        console.log(selector);
                         setSelector(a.target.value);
                       }}
                     />
@@ -956,7 +939,6 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   placeholder="0"
-
                   //label="porcentaje T1"
                   sx={queries.medium_text}
                   value={

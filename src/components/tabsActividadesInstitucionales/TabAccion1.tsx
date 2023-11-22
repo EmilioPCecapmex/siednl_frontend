@@ -52,9 +52,7 @@ export function TabAccion1({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [acciones]);
 
-  useEffect(() => {
-    console.log("AI: ", AI);
-  }, [AI]);
+  
 
   const handleClickOpen = () => {
     setPrevTextFormula(AI.acciones[componentSelect - 1].formula);

@@ -23,23 +23,25 @@ export const listaActividadInstitucional = (setState: Function) => {
         //setStateFiltered(r.data.data)
       }
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 export const getListaAI = (setState: Function) => {
   axios
-    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-actividadesinstitucionales", {
-      params: {
-        IdUsuario: localStorage.getItem("IdUsuario"),
-        IdEntidad: localStorage.getItem("IdEntidad"),
-        Rol: localStorage.getItem("Rol"),
-      },
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      },
-    })
+    .get(
+      process.env.REACT_APP_APPLICATION_BACK +
+        "/api/list-actividadesinstitucionales",
+      {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
+          Rol: localStorage.getItem("Rol"),
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    )
     .then((r) => {
       if (r.status === 200) {
         setState(r.data.data);

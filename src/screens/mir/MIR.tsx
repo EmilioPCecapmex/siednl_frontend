@@ -139,8 +139,6 @@ export const MIR = () => {
       })
       .then((r) => {
         if (r.status === 200) {
-          console.log("r.data.data: ", r.data.data);
-
           setstate(r.data.data);
         }
       });
@@ -174,13 +172,12 @@ export const MIR = () => {
         if (r.data.data.valida === "true") {
           setValidaFecha(true);
           setTitle("EDITAR");
-        }
-        else {
+        } else {
           setValidaFecha(false);
           setTitle("FECHA CAPTURA FINALIZADA");
         }
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -323,7 +320,6 @@ export const MIR = () => {
 
   useEffect(() => {
     //getMIRs(setMirs);
-    console.log("Entidades: ", instituciones);
 
     getInstituciones(setInstituciones);
   }, []);
@@ -354,7 +350,6 @@ export const MIR = () => {
     prog: string,
     mir: string
   ) => {
-    console.log("entre:", JSON.parse(mir));
     axios
 
       .post(
@@ -401,7 +396,7 @@ export const MIR = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
-    console.log("Entra");
+
     let Arrayfiltro: IIMir[];
     Arrayfiltro = [];
 
@@ -413,11 +408,6 @@ export const MIR = () => {
 
     // eslint-disable-next-line array-callback-return
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
-      console.log("entre");
-      console.log(elemento);
-      console.log(findTextStr);
-      console.log(mirxFiltered);
-
       if (
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
@@ -438,7 +428,6 @@ export const MIR = () => {
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase())
       ) {
-        console.log(elemento);
         return elemento;
       }
     });
@@ -465,7 +454,7 @@ export const MIR = () => {
         xs={12}
         // height={"7vh"}
         sx={{ height: "7vh", whitespace: "nowrap" }}
-      // sx={{ mr: showResume ? 8 : 0 }}
+        // sx={{ mr: showResume ? 8 : 0 }}
       >
         <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
       </Grid>
@@ -474,7 +463,7 @@ export const MIR = () => {
       <Grid
         // justifyContent={"center"}
         // display={"flex"}
-         height={"93vh"}
+        height={"93vh"}
         // alignItems={"center"}
 
         container
@@ -809,7 +798,6 @@ export const MIR = () => {
             {/* TABLA */}
 
             <Grid
-
               item
               xl={10}
               lg={10}
@@ -837,7 +825,7 @@ export const MIR = () => {
                     //mt: 1,
                   },
                   "&::-webkit-scrollbar-thumb": {
-                   backgroundColor: "#edeaea",
+                    backgroundColor: "#edeaea",
                     //outline: "1px solid slategrey",
                     borderRadius: 1,
                   },
@@ -932,15 +920,15 @@ export const MIR = () => {
                             scope="row"
                           >
                             {(row.Estado === "En Captura" &&
-                              localStorage.getItem("Rol") === "Capturador"
+                            localStorage.getItem("Rol") === "Capturador"
                               ? "Borrador Capturador"
                               : row.Estado === "En Revisión" &&
                                 localStorage.getItem("Rol") === "Verificador"
-                                ? "Esperando revisión"
-                                : row.Estado === "En Autorización" &&
-                                  localStorage.getItem("Rol") === "Administrador"
-                                  ? "En Autorización"
-                                  : row.Estado
+                              ? "Esperando revisión"
+                              : row.Estado === "En Autorización" &&
+                                localStorage.getItem("Rol") === "Administrador"
+                              ? "En Autorización"
+                              : row.Estado
                             ).toUpperCase()}
                           </TableCell>
 
@@ -986,7 +974,7 @@ export const MIR = () => {
                             component="th"
                             scope="row"
                           >
-                            <Grid sx={{ display: "flex", }}>
+                            <Grid sx={{ display: "flex" }}>
                               <Tooltip
                                 PopperProps={{
                                   modifiers: [
@@ -1025,14 +1013,14 @@ export const MIR = () => {
                                         },
 
                                         "@media (min-width: 601px) and (max-width: 960px)":
-                                        {
-                                          fontSize: 20, // Pantalla pequeña (md)
-                                        },
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
 
                                         "@media (min-width: 961px) and (max-width: 1280px)":
-                                        {
-                                          fontSize: 20, // Pantalla mediana (lg)
-                                        },
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
@@ -1056,18 +1044,18 @@ export const MIR = () => {
                               <DeleteDialogMIR
                                 disab={
                                   row.Estado === "En Captura" &&
-                                    validaFecha &&
-                                    localStorage.getItem("Rol") === "Capturador"
+                                  validaFecha &&
+                                  localStorage.getItem("Rol") === "Capturador"
                                     ? false
                                     : row.Estado === "En Revisión" &&
                                       localStorage.getItem("Rol") ===
-                                      "Verificador"
-                                      ? false
-                                      : row.Estado === "En Autorización" &&
-                                        localStorage.getItem("Rol") ===
+                                        "Verificador"
+                                    ? false
+                                    : row.Estado === "En Autorización" &&
+                                      localStorage.getItem("Rol") ===
                                         "Administrador"
-                                        ? false
-                                        : true
+                                    ? false
+                                    : true
                                 }
                                 id={row.Id}
                                 actualizado={actualizaContador}
@@ -1091,23 +1079,23 @@ export const MIR = () => {
                                       (row.Estado === "En Captura" &&
                                         validaFecha &&
                                         localStorage.getItem("Rol") ===
-                                        "Capturador") ||
-                                        (row.Estado === "En Revisión" &&
-                                          validaFecha &&
-                                          localStorage.getItem("Rol") ===
+                                          "Capturador") ||
+                                      (row.Estado === "En Revisión" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
                                           "Verificador") ||
-                                        (row.Estado === "Borrador Verificador" &&
-                                          validaFecha &&
-                                          localStorage.getItem("Rol") ===
+                                      (row.Estado === "Borrador Verificador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
                                           "Verificador") ||
-                                        ((row.Estado === "En Autorización" ||
-                                          row.Estado === "Autorizada") &&
-                                          validaFecha &&
-                                          localStorage.getItem("Rol") ===
+                                      ((row.Estado === "En Autorización" ||
+                                        row.Estado === "Autorizada") &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
                                           "Administrador") ||
-                                        (row.Estado === "Borrador Autorizador" &&
-                                          validaFecha &&
-                                          localStorage.getItem("Rol") ===
+                                      (row.Estado === "Borrador Autorizador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
                                           "Administrador")
                                         ? false
                                         : true
@@ -1132,7 +1120,7 @@ export const MIR = () => {
                                       ]);
                                       setShowResume(false);
                                       setActionNumber(1);
-                                      setEstado(row.Estado)
+                                      setEstado(row.Estado);
                                     }}
                                   >
                                     <EditIcon
@@ -1144,14 +1132,14 @@ export const MIR = () => {
                                         },
 
                                         "@media (min-width: 601px) and (max-width: 960px)":
-                                        {
-                                          fontSize: 20, // Pantalla pequeña (md)
-                                        },
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
 
                                         "@media (min-width: 961px) and (max-width: 1280px)":
-                                        {
-                                          fontSize: 20, // Pantalla mediana (lg)
-                                        },
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
@@ -1166,7 +1154,6 @@ export const MIR = () => {
                                 </span>
                               </Tooltip>
                             </Grid>
-
                           </TableCell>
                         </TableRow>
                       ))}

@@ -47,7 +47,6 @@ export const DialogMonto = ({
       Denominador === "" ||
       Denominador === null
     ) {
-      console.log("estoy vacio");
     } else {
       setValor(aux, selector, trimestre, Numerodador, Denominador);
       setNumerdaor("");

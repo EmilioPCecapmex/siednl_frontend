@@ -174,15 +174,13 @@ export function TabEncabezado({
     //   { Tabla: "EntidadesMatrices", ValorCondicion: "" },
     //   setCatalogoInstituciones
     // );
-    getListasLoginProgramas(
-      setCatalogoInstituciones
-    );
+    getListasLoginProgramas(setCatalogoInstituciones);
     getListPedColumns({ Col: "Ejes", Id: "" }, setCatalogoEjes, () => {});
     getLista("Beneficiario", "", setCatalogoBeneficiarios);
     setEje(MIR.encabezado?.eje || objetoVacio);
-    // console.log("tema",tematica);
+
     // setTematica(MIR.encabezado?.tema || objetoVacio);
-    // console.log("MIR",MIR);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -278,8 +276,6 @@ export function TabEncabezado({
     }
   }
 
-  
-
   useEffect(() => {
     setMIR((MIR: IMIR) => ({
       ...MIR,
@@ -317,8 +313,8 @@ export function TabEncabezado({
   ]);
 
   useEffect(() => {
-    setConac(programa.Conac)
-    setConsecutivo(programa.Consecutivo)
+    setConac(programa.Conac);
+    setConsecutivo(programa.Consecutivo);
   }, [programa]);
 
   // const [loadingFile, setLoadingFile] = useState(false);
@@ -448,7 +444,7 @@ export function TabEncabezado({
           <FormControl required fullWidth>
             <Autocomplete
               disabled={
-                edit && !mirEdit?.encabezado.institucion ||
+                (edit && !mirEdit?.encabezado.institucion) ||
                 localStorage.getItem("Rol") !== "Administrador"
               }
               clearText="Borrar"
@@ -514,7 +510,8 @@ export function TabEncabezado({
               closeText="Cerrar"
               openText="Abrir"
               disabled={
-                edit && !mirEdit?.encabezado.nombre_del_programa || disabledProgramas
+                (edit && !mirEdit?.encabezado.nombre_del_programa) ||
+                disabledProgramas
               }
               options={catalogoProgramas}
               size="small"
@@ -783,7 +780,9 @@ export function TabEncabezado({
               closeText="Cerrar"
               openText="Abrir"
               disabled={
-                (edit && !mirEdit?.encabezado.estrategia && estrategia.Id !== "") ||
+                (edit &&
+                  !mirEdit?.encabezado.estrategia &&
+                  estrategia.Id !== "") ||
                 disabledEstrategias
               }
               options={catalogoEstrategias}
@@ -840,7 +839,8 @@ export function TabEncabezado({
                 closeText="Cerrar"
                 openText="Abrir"
                 disabled={
-                  (edit && !mirEdit?.encabezado.lineas_de_accion &&
+                  (edit &&
+                    !mirEdit?.encabezado.lineas_de_accion &&
                     lineaDeAccion[0]?.Id === "") ||
                   disabledLineasDeAccion
                 }
@@ -957,7 +957,6 @@ export function TabEncabezado({
             />
           </FormControl>
         </Grid>
-        
       </Grid>
     </Grid>
   );

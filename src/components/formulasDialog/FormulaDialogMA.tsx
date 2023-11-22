@@ -83,14 +83,18 @@ export const FormulaDialogMA = ({
   let noComponente = parseFloat(elemento.split(" ")[1]);
   let noActividad = parseFloat(elemento.split("")[3]);
 
-  useLayoutEffect(() => {
-    console.log("elemento: ", elemento);
-    console.log("noComponenteDialog: ", noComponente + 1);
-    console.log("elemento: ", elemento);
-    
-  }, [noComponente, elemento]);
-
-  const valores =["fin", "proposito", "FIN", "PROPOSITO" , "FIN", "Proposito", "Propósito", "PROPÓSITO", "propósito", "Propósito"]
+  const valores = [
+    "fin",
+    "proposito",
+    "FIN",
+    "PROPOSITO",
+    "FIN",
+    "Proposito",
+    "Propósito",
+    "PROPÓSITO",
+    "propósito",
+    "Propósito",
+  ];
 
   return (
     <Dialog open={open} fullWidth>
@@ -104,15 +108,17 @@ export const FormulaDialogMA = ({
         }}
       >
         <Typography
-  sx={{
-    fontFamily: "MontserratBold",
-    fontSize: [10, 10, 10, 15, 18, 18],
-  }}
->
-  {(
-  valores.includes(elemento.toLowerCase())
-  ) ? `${elemento} - Fórmula - ${tipo}` : elementoA ? `${elementoA} - Fórmula - ${tipo}` : `Componente ${noComponente + 1} - Fórmula - ${tipo}`}
-</Typography>
+          sx={{
+            fontFamily: "MontserratBold",
+            fontSize: [10, 10, 10, 15, 18, 18],
+          }}
+        >
+          {valores.includes(elemento.toLowerCase())
+            ? `${elemento} - Fórmula - ${tipo}`
+            : elementoA
+            ? `${elementoA} - Fórmula - ${tipo}`
+            : `Componente ${noComponente + 1} - Fórmula - ${tipo}`}
+        </Typography>
 
         <Typography
           sx={{
@@ -153,7 +159,6 @@ export const FormulaDialogMA = ({
             ? JSON.parse(MIR).componentes[noComponente].actividades[noActividad]
                 ?.formula
             : null}
-          {console.log("noComponente: ", noComponente)}
         </Typography>
       </Grid>
 

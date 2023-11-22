@@ -150,18 +150,13 @@ export default function FullModalMir({
 
     let auxMDocumentos: IMovimientos[] = mDocumentos;
     auxMDocumentos.push(Documentos);
-    console.log("auxMDocumentos: ", auxMDocumentos);
 
     SetMDocumentos(auxMDocumentos);
-    console.log("mDocumentos: ", mDocumentos);
+
     // return Documentos
   };
 
   const [mDocumentos, SetMDocumentos] = useState<IMovimientos[]>([]);
-
-  useEffect(() => {
-    console.log("useEffect Documentos: ", mDocumentos);
-  }, [mDocumentos]);
 
   let mir: IMIR =
     MIR !== ""
@@ -204,43 +199,36 @@ export default function FullModalMir({
           }),
         };
 
- 
   const [MIRPADRE, setMIRPADRE] = useState<IMIR>(mir);
 
-  const [mirEdirPadre, setMIREDITPADRE] = useState<IMIREdit>(newMIREDIT(JSON.stringify(mir)));
+  const [mirEdirPadre, setMIREDITPADRE] = useState<IMIREdit>(
+    newMIREDIT(JSON.stringify(mir))
+  );
 
-  const [editMIR,setEditMIR]=useState(false)
+  const [editMIR, setEditMIR] = useState(false);
 
   useEffect(() => {
-   
     if (MIR !== "") {
-
       let auxArrayMIR = JSON.parse(MIR);
       if (auxArrayMIR[1]) {
-
-        setEditMIR(true)
-        setMIREDITPADRE({...auxArrayMIR[1]})
+        setEditMIR(true);
+        setMIREDITPADRE({ ...auxArrayMIR[1] });
         setMIRPADRE(auxArrayMIR[0]);
       } else {
-        
         setMIRPADRE(auxArrayMIR);
       }
-
     }
   }, []);
 
-  
   const addComponente = () => {
-    console.log("componentes", MIRPADRE.componentes);
-
     let arrComponentes: IComponente[] = MIRPADRE.componentes;
     arrComponentes.push(newComponente(MIRPADRE.componentes.length + 1));
-    setMIREDITPADRE(newMIREDIT(JSON.stringify({ ...MIRPADRE, componentes: arrComponentes })));
+    setMIREDITPADRE(
+      newMIREDIT(JSON.stringify({ ...MIRPADRE, componentes: arrComponentes }))
+    );
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
 
     movimientos("add", "C" + MIRPADRE.componentes.length);
-
-    
   };
 
   const removeComponente = (componenteSelected: number) => {
@@ -261,19 +249,15 @@ export default function FullModalMir({
           }),
         };
 
-       
         return aux;
       } else {
-
         return componente;
       }
     });
-    setMIREDITPADRE(newMIREDIT(JSON.stringify({ ...MIRPADRE, componentes: arrComponentes })));
+    setMIREDITPADRE(
+      newMIREDIT(JSON.stringify({ ...MIRPADRE, componentes: arrComponentes }))
+    );
     setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
-
-    
-
- 
   };
 
   const addActividad = (componenteSelect: number) => {
@@ -283,26 +267,23 @@ export default function FullModalMir({
       if (index + 1 === componenteSelect) {
         let aux = item.actividades;
 
-        console.log("componenteSelect", componenteSelect);
-        console.log("item.actividades.length", item.actividades.length);
         aux.push(newActividad(componenteSelect, item.actividades.length + 1));
         return { ...item, actividades: aux };
       } else {
         return item;
       }
     });
-    console.log("actividades", arrComponentes);
-    setMIREDITPADRE(newMIREDIT(JSON.stringify({ ...MIRPADRE, componentes: arrComponentes })));
-    setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
 
+    setMIREDITPADRE(
+      newMIREDIT(JSON.stringify({ ...MIRPADRE, componentes: arrComponentes }))
+    );
+    setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
   };
 
   const removeActividad = (
     componenteSelect: number,
     actividadSelect: number
   ) => {
-    console.log("idmir", IdMir);
-
     let arrComponentes: IComponente[] = MIRPADRE.componentes;
     if (arrComponentes[componenteSelect - 1].actividades.length > 2) {
       arrComponentes = arrComponentes.map((componente, index) => {
@@ -314,14 +295,13 @@ export default function FullModalMir({
         });
         return { ...componente, actividades: arrActividades };
       });
-      setMIREDITPADRE(newMIREDIT(JSON.stringify({ ...MIRPADRE, componentes: arrComponentes })));
+      setMIREDITPADRE(
+        newMIREDIT(JSON.stringify({ ...MIRPADRE, componentes: arrComponentes }))
+      );
       setMIRPADRE({ ...MIRPADRE, componentes: arrComponentes });
-      console.log("Objeto", arrComponentes);
     } else {
       alertaError("El minimo de componentes son dos.");
     }
-
-   
   };
 
   return (
@@ -333,7 +313,6 @@ export default function FullModalMir({
         height: "100%",
       }}
     >
-      
       <Grid
         container
         item
@@ -360,7 +339,7 @@ export default function FullModalMir({
           }}
         >
           <GenericTabs tabsData={tabs} tabSelect={setValue} />
-        
+
           <Grid
             sx={{
               width: ["300px", "650px", "900px", "1000px", "1100px", "1300px"],

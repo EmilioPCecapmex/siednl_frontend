@@ -250,7 +250,7 @@ export const Raffi = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
-    console.log("Entra");
+
     let Arrayfiltro: IRaffi[];
     Arrayfiltro = [];
 
@@ -262,11 +262,6 @@ export const Raffi = () => {
 
     // eslint-disable-next-line array-callback-return
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
-      console.log("entre");
-      console.log(elemento);
-      console.log(findTextStr);
-      console.log(rfxFiltered);
-
       if (
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
@@ -287,7 +282,6 @@ export const Raffi = () => {
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase())
       ) {
-        console.log(elemento);
         return elemento;
       }
     });
@@ -623,16 +617,16 @@ export const Raffi = () => {
                     >
                       {heads.map((head, index) => (
                         <TableCell
-                        sx={{
-                          backgroundColor: "#edeaea",
-                          fontFamily: "MontserratBold",
-                          borderBottom: 0,
-                          fontSize: [10, 10, 10, 15, 16, 18],
-                          // fontFamily: "MontserratRegular",
-                          //   fontSize: ".7vw",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
+                          sx={{
+                            backgroundColor: "#edeaea",
+                            fontFamily: "MontserratBold",
+                            borderBottom: 0,
+                            fontSize: [10, 10, 10, 15, 16, 18],
+                            // fontFamily: "MontserratRegular",
+                            //   fontSize: ".7vw",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
                           align="center"
                           key={index}
                         >
@@ -662,7 +656,7 @@ export const Raffi = () => {
                               {row.AnioFiscal.toUpperCase()}
                             </TableCell>
                             <TableCell
-                               sx={{
+                              sx={{
                                 padding: "1px 15px 1px 0",
                                 fontFamily: "MontserratRegular",
                                 fontSize: [10, 10, 10, 15, 15, 18],
@@ -672,14 +666,14 @@ export const Raffi = () => {
                               {row.Entidad?.toUpperCase()}
                             </TableCell>
                             <TableCell
-                               sx={{
+                              sx={{
                                 padding: "1px 15px 1px 0",
                                 fontFamily: "MontserratRegular",
                                 fontSize: [10, 10, 10, 15, 15, 18],
                                 textAlign: "center",
                               }}
                             >
-                             {row.Programa.toUpperCase()} 
+                              {row.Programa.toUpperCase()}
                             </TableCell>
 
                             <TableCell
@@ -690,7 +684,7 @@ export const Raffi = () => {
                                 textAlign: "center",
                               }}
                             >
-                            {row.Estado}
+                              {row.Estado}
                             </TableCell>
                             <TableCell
                               sx={{
@@ -705,15 +699,14 @@ export const Raffi = () => {
                                 .toString()}
                             </TableCell>
                             <TableCell
-                             sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
+                              sx={{
+                                padding: "1px 15px 1px 0",
+                                fontFamily: "MontserratRegular",
+                                fontSize: [10, 10, 10, 15, 15, 18],
+                                textAlign: "center",
+                              }}
                             >
-                             
-                               {row.CreadoPor?.toUpperCase()} 
+                              {row.CreadoPor?.toUpperCase()}
                             </TableCell>
                             <TableCell
                               sx={{
@@ -755,30 +748,33 @@ export const Raffi = () => {
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
                                   >
-                                    <EditIcon  sx={{
-                                    fontSize: "24px", // Tamaño predeterminado del icono
+                                    <EditIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
 
-                                    "@media (max-width: 600px)": {
-                                      fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                    },
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
 
-                                    "@media (min-width: 601px) and (max-width: 960px)":
-                                      {
-                                        fontSize: 20, // Pantalla pequeña (md)
-                                      },
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
 
-                                      "@media (min-width: 961px) and (max-width: 1280px)": {
-                                        fontSize: 20, // Pantalla mediana (lg)
-                                      },
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
 
-                                    "@media (min-width: 1281px)": {
-                                      fontSize: 25, // Pantalla grande (xl)
-                                    },
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
 
-                                    "@media (min-width: 2200px)": {
-                                      ffontSize: 25, // Pantalla grande (xl)
-                                    },
-                                  }} />
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
                                     {row.Opciones}
                                   </IconButton>
                                 </Tooltip>
@@ -802,7 +798,7 @@ export const Raffi = () => {
                                     //     ? false
                                     //     : true
                                     // }
-                                   // disabled={!validaFecha}
+                                    // disabled={!validaFecha}
                                     type="button"
                                     onClick={() => {
                                       setRfEdit([
@@ -829,30 +825,33 @@ export const Raffi = () => {
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
                                   >
-                                    <AddCircleOutlineIcon  sx={{
-                                    fontSize: "24px", // Tamaño predeterminado del icono
+                                    <AddCircleOutlineIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
 
-                                    "@media (max-width: 600px)": {
-                                      fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                    },
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
 
-                                    "@media (min-width: 601px) and (max-width: 960px)":
-                                      {
-                                        fontSize: 20, // Pantalla pequeña (md)
-                                      },
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
 
-                                      "@media (min-width: 961px) and (max-width: 1280px)": {
-                                        fontSize: 20, // Pantalla mediana (lg)
-                                      },
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
 
-                                    "@media (min-width: 1281px)": {
-                                      fontSize: 25, // Pantalla grande (xl)
-                                    },
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
 
-                                    "@media (min-width: 2200px)": {
-                                      ffontSize: 25, // Pantalla grande (xl)
-                                    },
-                                  }} />
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
                                     {row.Opciones}
                                   </IconButton>
                                 </Tooltip>

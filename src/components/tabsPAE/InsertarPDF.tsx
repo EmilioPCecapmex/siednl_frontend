@@ -23,7 +23,7 @@ import { useEffect, useState, useRef, SetStateAction } from "react";
       NOMBRE: string,
       setState: Function
     ) => {
-      console.log("entra a get documento:",ROUTE,",NOMBRE:",NOMBRE);
+    
       await axios
         .post(
           process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/GetByName",

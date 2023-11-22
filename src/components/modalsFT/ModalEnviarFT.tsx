@@ -62,7 +62,7 @@ export default function ModalEnviarFT({
   };
 
   let err = 0;
-console.log("FT");
+
 
   const checkFT = (v: string) => {
     errores = [];
@@ -377,7 +377,7 @@ console.log("FT");
   };
 
   const crearFichaTecnica = (estado: string) => {
-    console.log("estado: ",estado);
+  
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
@@ -398,9 +398,7 @@ console.log("FT");
         }
       )
       .then((r) => {
-        console.log("ModalEnviaFT r.data.Id: ", r.data.data.Id);
-        console.log("IdFT: ", IdFT);
-        console.log("ModalEnviaFT r.data.data: ", r.data.data);
+      
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario, IdFT, "FT", "Ficha Tecnica");
           //sendMail(user.CorreoElectronico, enviarMensaje, "FT");

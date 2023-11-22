@@ -140,12 +140,12 @@ export const ActividadesInstitucionales = ({}: {}) => {
   useEffect(() => {
     setOpenTabs(true);
     //listaActividadInstitucional(setAi);
-    getListaAI(setAi)
+    getListaAI(setAi);
   }, []);
 
   useEffect(() => {
     setAiFiltered(ai);
-    console.log("ai: ", ai);
+   
   }, [ai]);
 
   useEffect(() => {
@@ -254,7 +254,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
-    console.log("Entra");
+  
     let Arrayfiltro: IActividadesInstitucionales[];
     Arrayfiltro = [];
 
@@ -281,11 +281,6 @@ export const ActividadesInstitucionales = ({}: {}) => {
     }
 
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
-      console.log("entre");
-      console.log(elemento);
-      console.log(findTextStr);
-      console.log(aixFiltered);
-
       if (
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
@@ -306,7 +301,6 @@ export const ActividadesInstitucionales = ({}: {}) => {
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase())
       ) {
-        console.log(elemento);
         return elemento;
       }
     });

@@ -78,8 +78,7 @@ export function newFinPropositoMA() {
 }
 
 function newMetaAnual(MIR: string) {
-  let componentes: IComponente[] = JSON.parse(MIR).componentes
-  // console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
+  let componentes: IComponente[] = JSON.parse(MIR).componentes;
 
   return {
     fin: newFinPropositoMA(),
@@ -136,16 +135,13 @@ export function newComponenteMA(ComponenteMIR: IComponente) {
     descIndicador: "",
     descNumerador: "",
     descDenominador: "",
-    actividades: ComponenteMIR.actividades.map((item) =>
-      newActividadMA(item)
-    ),
+    actividades: ComponenteMIR.actividades.map((item) => newActividadMA(item)),
   };
   return componente;
 }
 
 function newMetaAnualboolean(MIR: string) {
-  let componentes: IComponente[] = JSON.parse(MIR).componentes
-  console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
+  let componentes: IComponente[] = JSON.parse(MIR).componentes;
 
   return {
     fin: newFinPropositoMAboolean(),
@@ -192,7 +188,7 @@ export function newComponenteMAboolean(ComponenteMIR: IComponente) {
     descNumerador: false,
     descDenominador: false,
     actividades: ComponenteMIR.actividades.map((item) =>
-    newActividadMAboolean(item)
+      newActividadMAboolean(item)
     ),
   };
   return componente;
@@ -223,9 +219,6 @@ export function newActividadMAboolean(ActividadMIR: IActividad) {
   };
 }
 
-
-
-
 export default function AddMetaAnual({
   MIR,
   MA,
@@ -240,16 +233,14 @@ export default function AddMetaAnual({
   IdMA: string;
 }) {
   const [maPadre, setMAPadre] = useState<IMA>(newMetaAnual(MIR));
-  const [maPadreEdit, setMAPadreEdit] = useState<IMAEdit>(newMetaAnualboolean(MIR));
+  const [maPadreEdit, setMAPadreEdit] = useState<IMAEdit>(
+    newMetaAnualboolean(MIR)
+  );
 
   // useEffect(() => {
-  //   console.log("MIR", MIR);
-  //   console.log("MA", MA);
-  //   // console.log("showResume",showResume);
-  //   console.log("IdMir", IdMir);
-  //   console.log("IdMA", IdMA);
+
   //   //getNumComponents();
-  //   //console.log("numero de componentes de la mir", getNumComponents());
+
   //   //setMAPadre({ ...maPadre, componentes: arrComponentes });
   //   //setMAPadre({...maPadre,componentes: });
   // }, []);
@@ -271,15 +262,12 @@ export default function AddMetaAnual({
   // const jsonMir = JSON.parse(MIR);
 
   const setMAFinPadre = (FinValues: IFinMA) => {
-    console.log("FinValues: ", FinValues);
-
     setMAPadre({
       ...maPadre,
       fin: FinValues,
     });
   };
   const setMAPropositoPadre = (propositoValues: IPropositoMA) => {
-    console.log("FinValues: ", propositoValues);
     setMAPadre({
       ...maPadre,
       proposito: propositoValues,
@@ -300,7 +288,6 @@ export default function AddMetaAnual({
       componentes: componentesActividadesValues,
     });
   };
-
 
   // useEffect(() => {
   //   let act: number[] = [];
@@ -337,14 +324,13 @@ export default function AddMetaAnual({
 
   // const [ComponentesMA, setComponentesMA] = useState<IComponenteMA[]>(componentesObligatorios.map((item) => newComponenteMAMA(item)));
 
-  const [editMA,setEditMA]=useState(false)
+  const [editMA, setEditMA] = useState(false);
 
   useEffect(() => {
     if (MA !== "") {
-
       let auxArrayMA = JSON.parse(MA);
       if (auxArrayMA[1]) {
-        let auxDBMA: IMA =auxArrayMA[0];
+        let auxDBMA: IMA = auxArrayMA[0];
         let auxMIR: IMIR = JSON.parse(MIR);
         let auxMA: IMA = newMetaAnual(MIR);
         setEditMA(true);
@@ -353,18 +339,25 @@ export default function AddMetaAnual({
 
         let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
           if (auxDBMA.componentes[indexC]) {
-            let auxActividades: IActividadesMA[] = itemComponente.actividades.map((itemActividad, indexA) => {
-              return auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA])
-            })
-            console.log("componente opcional:",{...auxDBMA.componentes[indexC],actividades: auxActividades});
-            
-            return {...auxDBMA.componentes[indexC],actividades: auxActividades}||{ ...itemComponente, actividades: auxActividades }
-          } else {
-            return newComponenteMA(auxMIR.componentes[indexC])
-          }
+            let auxActividades: IActividadesMA[] =
+              itemComponente.actividades.map((itemActividad, indexA) => {
+                return (
+                  auxDBMA.componentes[indexC].actividades[indexA] ||
+                  newActividadMA(auxMIR.componentes[indexC].actividades[indexA])
+                );
+              });
 
-        })
-        
+            return (
+              {
+                ...auxDBMA.componentes[indexC],
+                actividades: auxActividades,
+              } || { ...itemComponente, actividades: auxActividades }
+            );
+          } else {
+            return newComponenteMA(auxMIR.componentes[indexC]);
+          }
+        });
+
         setMAPadre({ ...auxDBMA, componentes: auxComponentes });
       } else {
         let auxDBMA: IMA = JSON.parse(MA);
@@ -376,99 +369,29 @@ export default function AddMetaAnual({
 
         let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
           if (auxDBMA.componentes[indexC]) {
-            let auxActividades: IActividadesMA[] = itemComponente.actividades.map((itemActividad, indexA) => {
-              // console.log("iteracion: ", auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA]));
+            let auxActividades: IActividadesMA[] =
+              itemComponente.actividades.map((itemActividad, indexA) => {
+                return (
+                  auxDBMA.componentes[indexC].actividades[indexA] ||
+                  newActividadMA(auxMIR.componentes[indexC].actividades[indexA])
+                );
+              });
 
-              return auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA])
-            })
-            console.log("componente opcional:",{...auxDBMA.componentes[indexC],actividades: auxActividades});
-            
-            return {...auxDBMA.componentes[indexC],actividades: auxActividades}||{ ...itemComponente, actividades: auxActividades }
+            return (
+              {
+                ...auxDBMA.componentes[indexC],
+                actividades: auxActividades,
+              } || { ...itemComponente, actividades: auxActividades }
+            );
           } else {
-            return newComponenteMA(auxMIR.componentes[indexC])
+            return newComponenteMA(auxMIR.componentes[indexC]);
           }
+        });
 
-        })
-        // console.log("MA: ", { ...auxDBMA, componentes: auxComponentes });
         setMAPadre({ ...auxDBMA, componentes: auxComponentes });
       }
-
     }
   }, []);
-
-  // useEffect(() => {
-  //   console.log("maPadre", maPadre);
-  // }, [maPadre]);
-
-  // const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
-  //   setComponentesMA(state);
-  // };
-
-  // ACTIVIDADES
-  // const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-  // const componenteActividad = [
-  //   {
-  //     componentes: noComponentes.map((x) => [1, 2]),
-  //   },
-  // ];
-
-  // const [cValorMA, setCValorMA] = useState(
-  //   componenteActividad.map((item) => {
-  //     return {
-  //       componentes: item.componentes.map((x, index) => {
-  //         return {
-  //           actividades: x.map((c, index2) => {
-  //             return {
-  //               actividad: "",
-  //               metaAnual: "",
-  //               lineaBase: "",
-  //               metasPorFrecuencia: [
-  //                 {
-  //                   trimestre1: "",
-  //                   trimestre2: "",
-  //                   trimestre3: "",
-  //                   trimestre4: "",
-  //                 },
-  //               ],
-  //               valorNumerador: "",
-  //               valorDenominador: "",
-  //               sentidoDelIndicador: "",
-  //               unidadResponsable: "",
-  //               descIndicador: "",
-  //               descNumerador: "",
-  //               descDenominador: "",
-  //             };
-  //           }),
-  //         };
-  //       }),
-  //     };
-  //   })
-  // );
-
-  // const asignarCValorMA = (state: Array<ICValorMA>) => {
-  //   setCValorMA(state);
-  // };
-
-  // useEffect(() => {
-  //   let arrayMA = noComponentes.map((x, index) => {
-  //     return newComponenteMAMA(x)
-  //   });
-  //   setComponentesMA(arrayMA);
-  //   eslint-disable-next-line react-hooks/exhaustive-deps
-  //
-  //   console.log("noComponentes: ",noComponentes);
-
-  // }, []);
-
-  // const [ValueFin, setValueFin] = useState<Array<IFinMA>>([]);
-  // const [ValueProposito, setValueProposito] = useState<Array<IPropositoMA>>([]);
-
-  // const resumenFinMa = (arr: Array<IFinMA>) => {
-  //   setValueFin(arr);
-  // };
-  // const resumenPropositoMa = (arr: Array<IPropositoMA>) => {
-  //   setValueProposito(arr);
-  // };
 
   const query = {
     isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
@@ -568,7 +491,7 @@ export default function AddMetaAnual({
                 // show={value === 2 ? true : false}
                 setMAActividadesPadre={setMAActividadesPadre}
                 ComponentesActividadMA={maPadre.componentes}
-                asignarCValor={() => { }}
+                asignarCValor={() => {}}
                 MA={MA}
                 MIR={MIR}
                 maPadreEdit={maPadreEdit}

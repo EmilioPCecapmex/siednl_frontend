@@ -210,12 +210,13 @@ export const MetaAnual = () => {
         }
       )
       .then((r) => {
-        if(r.data.data.valida === "true"){
+        if (r.data.data.valida === "true") {
           setValidaFecha(true);
-          setTitle("REGISTRAR META ANUAL");}
-        else{
+          setTitle("REGISTRAR META ANUAL");
+        } else {
           setValidaFecha(false);
-          setTitle("FECHA CAPTURA FINALIZADA");}
+          setTitle("FECHA CAPTURA FINALIZADA");
+        }
       })
       .catch((err) => {});
   };
@@ -232,14 +233,16 @@ export const MetaAnual = () => {
 
     axios
       .post(
-        //"http://10.200.4.164:9090/api/fill_ma", 
+        //"http://10.200.4.164:9090/api/fill_ma",
         "http://192.168.137.152:7001/api/fill_ma",
-      fullMA, {
-        responseType: "blob",
-        // headers: {
-        //   Authorization: localStorage.getItem("jwtToken") || "",
-        // },
-      })
+        fullMA,
+        {
+          responseType: "blob",
+          // headers: {
+          //   Authorization: localStorage.getItem("jwtToken") || "",
+          // },
+        }
+      )
       .then((r) => {
         Toast.fire({
           icon: "success",
@@ -407,11 +410,6 @@ export const MetaAnual = () => {
 
     // eslint-disable-next-line array-callback-return
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
-      // console.log("entre");
-      // console.log(elemento);
-      // console.log(findTextStr);
-      // console.log(maxFiltered);
-
       if (
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
@@ -432,7 +430,6 @@ export const MetaAnual = () => {
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase())
       ) {
-        // console.log(elemento);
         return elemento;
       }
     });

@@ -65,7 +65,6 @@ export default function ModalEnviarMA({
   };
 
   let err = 0;
-  console.log("MA");
   const checkMA = (v: string) => {
     errores = [];
     if (JSON.parse(MA)?.fin === null) {
@@ -386,7 +385,7 @@ export default function ModalEnviarMA({
     // eslint-disable-next-line array-callback-return
     JSON.parse(MA)?.componentes.map((componente: IComponenteMA, indexC: number) => {
         componente.actividades.map((actividad: IActividadesMA, indexA: number) => {
-            console.log("actividades.actividad: ",actividad.metaAnual);
+            
             if (
               actividad.metaAnual === undefined ||
               /^[\s]*$/.test(actividad.metaAnual)
@@ -517,9 +516,7 @@ export default function ModalEnviarMA({
   };
 
   const creaMA = (estado: string) => {
-    console.log("Entre al create MetaAnual ModalEnviarMA");
-    console.log("IdEntidad", localStorage.getItem("IdEntidad"));
-    console.log("estado: ", estado);
+   
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
@@ -569,7 +566,7 @@ export default function ModalEnviarMA({
   };
 
   const CrearFichaTecnica = () => {
-    console.log("Entre a crearFichaTecnica donde esta enviar notificacions");
+    
 
     axios
       .post(
@@ -590,11 +587,9 @@ export default function ModalEnviarMA({
         }
       )
       .then((r) => {
-        console.log("IdFt: ", r.data.data.Id);
-        console.log("IdFt: ", r.data.data);
-        console.log("IdFt: ", r.data.IdFT);
+       
         userXInst.map((user) => {
-          console.log("user.IdUsuario: ", user.IdUsuario);
+          
 
           enviarNotificacion(
             user.IdUsuario,
@@ -650,10 +645,7 @@ export default function ModalEnviarMA({
     tipoDoc = "",
     Nombre = ""
   ) => {
-    console.log("IdUsuarioDestino: ", IdUsuarioDestino);
-    console.log("IdDoc: ", IdDoc);
-    console.log("tipoDoc: ", tipoDoc);
-    console.log("Nombre: ", Nombre);
+
 
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",

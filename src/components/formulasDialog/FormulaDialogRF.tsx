@@ -24,7 +24,7 @@ export const FormulaDialogRF = ({
   textoSet: Function;
   tipo: string;
   elemento: string;
-  dato:string;
+  dato: string;
   MIR: string;
 }) => {
   const [descA, setDescA] = useState("");
@@ -37,10 +37,6 @@ export const FormulaDialogRF = ({
   };
 
   const checkValues = () => {
-    console.log("Elemento: ",elemento);
-    console.log("dato: ",dato);
-    
-    
     if (tipo === "Indice" || tipo === "Índice") {
       if (/^[\s]*$/.test(descA)) {
         setEmptyTxt(true);
@@ -57,7 +53,9 @@ export const FormulaDialogRF = ({
       } else {
         if (tipo === "Porcentaje") {
           let MA = (parseFloat(descA) / parseFloat(descB)) * 100;
-          textoSet(descA + "," + descB + "," + MA.toFixed(2) + "," + frecuencia);
+          textoSet(
+            descA + "," + descB + "," + MA.toFixed(2) + "," + frecuencia
+          );
 
           limpiaVar();
           close();
@@ -65,13 +63,17 @@ export const FormulaDialogRF = ({
           let T = parseFloat(descA) - parseFloat(descB);
           let MA =
             ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) * 100;
-          textoSet(T.toFixed(2) + "," + descB + "," + MA.toFixed(2) + "," + frecuencia);
+          textoSet(
+            T.toFixed(2) + "," + descB + "," + MA.toFixed(2) + "," + frecuencia
+          );
 
           limpiaVar();
           close();
         } else if (tipo === "Promedio") {
           let MA = parseFloat(descA) / parseFloat(descB);
-          textoSet(descA + "," + descB + "," + MA.toFixed(2) + "," + frecuencia);
+          textoSet(
+            descA + "," + descB + "," + MA.toFixed(2) + "," + frecuencia
+          );
 
           limpiaVar();
           close();
@@ -86,7 +88,6 @@ export const FormulaDialogRF = ({
 
   let noComponente = parseFloat(elemento.split(" ")[1]);
   let noActividad = parseFloat(elemento.split("")[3]);
-
 
   let noDato = dato.split(",")[0];
   let frecuencia = dato.split(",")[1];
@@ -276,12 +277,18 @@ export const FormulaDialogRF = ({
       <Box
         sx={{ width: "100%", justifyContent: "space-evenly", display: "flex" }}
       >
-        <Button sx ={queries.buttonCancelarSolicitudInscripcion} onClick={() => close()} >
+        <Button
+          sx={queries.buttonCancelarSolicitudInscripcion}
+          onClick={() => close()}
+        >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
           </Typography>
         </Button>
-        <Button sx ={queries.buttonContinuarSolicitudInscripcion}  onClick={() => checkValues()} >
+        <Button
+          sx={queries.buttonContinuarSolicitudInscripcion}
+          onClick={() => checkValues()}
+        >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Agregar
           </Typography>

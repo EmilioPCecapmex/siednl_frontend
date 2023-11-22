@@ -14,7 +14,7 @@ export const getLista = (tabla:string,valorCondicion:string,setState:Function) =
       )
       .then(({data}) => {
 
-        console.log(`{$tabla}`,data.data);
+        
         setState(data.data)
         
       }).catch(()=>{

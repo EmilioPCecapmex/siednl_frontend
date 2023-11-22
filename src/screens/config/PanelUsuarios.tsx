@@ -217,7 +217,6 @@ export const PanelUsuarios = () => {
   };
   
   const filtrarDatos = () => {
-    console.log("Entra");
     let Arrayfiltro: IIUsuarios[];
     Arrayfiltro = [];
 

@@ -58,10 +58,6 @@ export function TabResumenMA({
   };
 
   const creaMA = (estado: string) => {
-    console.log(
-      "IdEntidad:localStorage.getItem(IdEntidad), TabResumenMA: ",
-      localStorage.getItem("IdEntidad")
-    );
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
@@ -81,8 +77,6 @@ export function TabResumenMA({
         }
       )
       .then((r) => {
-        console.log("Hola soy la respuesta");
-        console.log("r: ", r);
         Toast.fire({
           icon: "success",
           title: r.data.data.message,
@@ -129,8 +123,8 @@ export function TabResumenMA({
         descIndicador: true,
         descNumerador: true,
         descDenominador: true,
-        actividades: item.actividades.map(actividad => ({
-          actividad: actividad.actividad,  // Reemplaza con la propiedad correcta de IActividadesEditMA
+        actividades: item.actividades.map((actividad) => ({
+          actividad: actividad.actividad, // Reemplaza con la propiedad correcta de IActividadesEditMA
           metaAnual: true,
           lineaBase: true,
           metasPorFrecuencia: [
@@ -183,7 +177,6 @@ export function TabResumenMA({
     setEditActividades(aEdit);
 
     // asignarMA(fin, proposito, componenteValor);
-    // console.log("componenteValor: ", componenteValor);
   }, []);
 
   const Toast = Swal.mixin({
@@ -424,9 +417,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.fin?.metaAnual}
                 onChange={(v) => {
-                  let aux = maPadreEdit.fin
-                  aux = {...aux, metaAnual: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, fin: aux  })
+                  let aux = maPadreEdit.fin;
+                  aux = { ...aux, metaAnual: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, fin: aux });
                 }}
               />
             </Grid>
@@ -470,9 +463,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.fin?.lineaBase}
                 onChange={(v) => {
-                  let aux = maPadreEdit.fin
-                  aux = {...aux, lineaBase: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, fin: aux  })
+                  let aux = maPadreEdit.fin;
+                  aux = { ...aux, lineaBase: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, fin: aux });
                 }}
               />
             </Grid>
@@ -517,9 +510,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.fin?.valorNumerador}
                 onChange={(v) => {
-                  let aux = maPadreEdit.fin
-                  aux = {...aux, valorNumerador: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, fin: aux  })
+                  let aux = maPadreEdit.fin;
+                  aux = { ...aux, valorNumerador: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, fin: aux });
                 }}
               />
             </Grid>
@@ -574,11 +567,11 @@ export function TabResumenMA({
                   //   });
                   // }}
                   value={!maPadreEdit.fin?.valorDenominador}
-                onChange={(v) => {
-                  let aux = maPadreEdit.fin
-                  aux = {...aux, valorDenominador: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, fin: aux  })
-                }}
+                  onChange={(v) => {
+                    let aux = maPadreEdit.fin;
+                    aux = { ...aux, valorDenominador: v.target.checked };
+                    setMAPadreEdit({ ...maPadreEdit, fin: aux });
+                  }}
                 />
               </Grid>
             )}
@@ -626,9 +619,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.fin?.sentidoDelIndicador}
                 onChange={(v) => {
-                  let aux = maPadreEdit.fin
-                  aux = {...aux, sentidoDelIndicador: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, fin: aux  })
+                  let aux = maPadreEdit.fin;
+                  aux = { ...aux, sentidoDelIndicador: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, fin: aux });
                 }}
               />
             </Grid>
@@ -676,9 +669,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.fin?.unidadResponsable}
                 onChange={(v) => {
-                  let aux = maPadreEdit.fin
-                  aux = {...aux, unidadResponsable: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, fin: aux  })
+                  let aux = maPadreEdit.fin;
+                  aux = { ...aux, unidadResponsable: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, fin: aux });
                 }}
               />
             </Grid>
@@ -723,9 +716,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.fin?.descIndicador}
                 onChange={(v) => {
-                  let aux = maPadreEdit.fin
-                  aux = {...aux, descIndicador: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, fin: aux  })
+                  let aux = maPadreEdit.fin;
+                  aux = { ...aux, descIndicador: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, fin: aux });
                 }}
               />
             </Grid>
@@ -769,9 +762,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.fin?.descNumerador}
                 onChange={(v) => {
-                  let aux = maPadreEdit.fin
-                  aux = {...aux, descNumerador: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, fin: aux  })
+                  let aux = maPadreEdit.fin;
+                  aux = { ...aux, descNumerador: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, fin: aux });
                 }}
               />
             </Grid>
@@ -818,9 +811,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.fin?.descDenominador}
                 onChange={(v) => {
-                  let aux = maPadreEdit.fin
-                  aux = {...aux, descDenominador: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, fin: aux  })
+                  let aux = maPadreEdit.fin;
+                  aux = { ...aux, descDenominador: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, fin: aux });
                 }}
               />
             </Grid>
@@ -891,9 +884,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.proposito?.metaAnual}
                 onChange={(v) => {
-                  let aux = maPadreEdit.proposito
-                  aux = {...aux, metaAnual: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, proposito: aux  })
+                  let aux = maPadreEdit.proposito;
+                  aux = { ...aux, metaAnual: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, proposito: aux });
                 }}
               />
             </Grid>
@@ -941,9 +934,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.proposito?.lineaBase}
                 onChange={(v) => {
-                  let aux = maPadreEdit.proposito
-                  aux = {...aux, lineaBase: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, proposito: aux  })
+                  let aux = maPadreEdit.proposito;
+                  aux = { ...aux, lineaBase: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, proposito: aux });
                 }}
               />
             </Grid>
@@ -990,9 +983,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.proposito?.valorNumerador}
                 onChange={(v) => {
-                  let aux = maPadreEdit.proposito
-                  aux = {...aux, valorNumerador: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, proposito: aux  })
+                  let aux = maPadreEdit.proposito;
+                  aux = { ...aux, valorNumerador: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, proposito: aux });
                 }}
               />
             </Grid>
@@ -1050,11 +1043,11 @@ export function TabResumenMA({
                   //   });
                   // }}
                   value={!maPadreEdit.proposito?.valorDenominador}
-                onChange={(v) => {
-                  let aux = maPadreEdit.proposito
-                  aux = {...aux, valorDenominador: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, proposito: aux  })
-                }}
+                  onChange={(v) => {
+                    let aux = maPadreEdit.proposito;
+                    aux = { ...aux, valorDenominador: v.target.checked };
+                    setMAPadreEdit({ ...maPadreEdit, proposito: aux });
+                  }}
                 />
               </Grid>
             )}
@@ -1103,9 +1096,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.proposito?.sentidoDelIndicador}
                 onChange={(v) => {
-                  let aux = maPadreEdit.proposito
-                  aux = {...aux, sentidoDelIndicador: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, proposito: aux  })
+                  let aux = maPadreEdit.proposito;
+                  aux = { ...aux, sentidoDelIndicador: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, proposito: aux });
                 }}
               />
             </Grid>
@@ -1153,9 +1146,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.proposito?.unidadResponsable}
                 onChange={(v) => {
-                  let aux = maPadreEdit.proposito
-                  aux = {...aux, unidadResponsable: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, proposito: aux  })
+                  let aux = maPadreEdit.proposito;
+                  aux = { ...aux, unidadResponsable: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, proposito: aux });
                 }}
               />
             </Grid>
@@ -1202,9 +1195,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.proposito?.descIndicador}
                 onChange={(v) => {
-                  let aux = maPadreEdit.proposito
-                  aux = {...aux, descIndicador: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, proposito: aux  })
+                  let aux = maPadreEdit.proposito;
+                  aux = { ...aux, descIndicador: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, proposito: aux });
                 }}
               />
             </Grid>
@@ -1252,9 +1245,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.proposito?.descNumerador}
                 onChange={(v) => {
-                  let aux = maPadreEdit.proposito
-                  aux = {...aux, descNumerador: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, proposito: aux  })
+                  let aux = maPadreEdit.proposito;
+                  aux = { ...aux, descNumerador: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, proposito: aux });
                 }}
               />
             </Grid>
@@ -1302,9 +1295,9 @@ export function TabResumenMA({
                 // }}
                 value={!maPadreEdit.proposito?.descDenominador}
                 onChange={(v) => {
-                  let aux = maPadreEdit.proposito
-                  aux = {...aux, descDenominador: v.target.checked }
-                  setMAPadreEdit({...maPadreEdit, proposito: aux  })
+                  let aux = maPadreEdit.proposito;
+                  aux = { ...aux, descDenominador: v.target.checked };
+                  setMAPadreEdit({ ...maPadreEdit, proposito: aux });
                 }}
               />
             </Grid>
@@ -1408,9 +1401,9 @@ export function TabResumenMA({
                       // }}
                       value={maPadreEdit.componentes[index]?.metaAnual}
                       onChange={(v) => {
-                        let auxC = maPadreEdit.componentes
+                        let auxC = maPadreEdit.componentes;
                         auxC[index].metaAnual = v.target.checked;
-                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                        setMAPadreEdit({ ...maPadreEdit, componentes: auxC });
                       }}
                     />
                   </Grid>
@@ -1462,9 +1455,9 @@ export function TabResumenMA({
                       //   setMAPadreEdit({...maPadreEdit, componentes: aux  })
                       // }}
                       onChange={(v) => {
-                        let auxC = maPadreEdit.componentes
+                        let auxC = maPadreEdit.componentes;
                         auxC[index].lineaBase = v.target.checked;
-                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                        setMAPadreEdit({ ...maPadreEdit, componentes: auxC });
                       }}
                     />
                   </Grid>
@@ -1542,11 +1535,18 @@ export function TabResumenMA({
                           //     !v.target.checked;
                           //   setEditComponentes(past);
                           // }}
-                          value={!maPadreEdit.componentes[index]?.metasPorFrecuencia[0].semestre1}
+                          value={
+                            !maPadreEdit.componentes[index]
+                              ?.metasPorFrecuencia[0].semestre1
+                          }
                           onChange={(v) => {
-                            let auxC = maPadreEdit.componentes
-                            auxC[index].metasPorFrecuencia[0].semestre1 = v.target.checked;
-                            setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                            let auxC = maPadreEdit.componentes;
+                            auxC[index].metasPorFrecuencia[0].semestre1 =
+                              v.target.checked;
+                            setMAPadreEdit({
+                              ...maPadreEdit,
+                              componentes: auxC,
+                            });
                           }}
                         />
                       </Grid>
@@ -1576,11 +1576,18 @@ export function TabResumenMA({
                           //     !v.target.checked;
                           //   setEditComponentes(past);
                           // }}
-                          value={!maPadreEdit.componentes[index]?.metasPorFrecuencia[0].semestre2}
+                          value={
+                            !maPadreEdit.componentes[index]
+                              ?.metasPorFrecuencia[0].semestre2
+                          }
                           onChange={(v) => {
-                            let auxC = maPadreEdit.componentes
-                            auxC[index].metasPorFrecuencia[0].semestre2 = v.target.checked;
-                            setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                            let auxC = maPadreEdit.componentes;
+                            auxC[index].metasPorFrecuencia[0].semestre2 =
+                              v.target.checked;
+                            setMAPadreEdit({
+                              ...maPadreEdit,
+                              componentes: auxC,
+                            });
                           }}
                         />
                       </Grid>
@@ -1628,11 +1635,18 @@ export function TabResumenMA({
                           //     !v.target.checked;
                           //   setEditComponentes(past);
                           // }}
-                          value={!maPadreEdit.componentes[index]?.metasPorFrecuencia[0].trimestre1}
+                          value={
+                            !maPadreEdit.componentes[index]
+                              ?.metasPorFrecuencia[0].trimestre1
+                          }
                           onChange={(v) => {
-                            let auxC = maPadreEdit.componentes
-                            auxC[index].metasPorFrecuencia[0].trimestre1 = v.target.checked;
-                            setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                            let auxC = maPadreEdit.componentes;
+                            auxC[index].metasPorFrecuencia[0].trimestre1 =
+                              v.target.checked;
+                            setMAPadreEdit({
+                              ...maPadreEdit,
+                              componentes: auxC,
+                            });
                           }}
                         />
                       </Grid>
@@ -1663,11 +1677,18 @@ export function TabResumenMA({
                           //     !v.target.checked;
                           //   setEditComponentes(past);
                           // }}
-                          value={!maPadreEdit.componentes[index]?.metasPorFrecuencia[0].trimestre2}
+                          value={
+                            !maPadreEdit.componentes[index]
+                              ?.metasPorFrecuencia[0].trimestre2
+                          }
                           onChange={(v) => {
-                            let auxC = maPadreEdit.componentes
-                            auxC[index].metasPorFrecuencia[0].trimestre2 = v.target.checked;
-                            setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                            let auxC = maPadreEdit.componentes;
+                            auxC[index].metasPorFrecuencia[0].trimestre2 =
+                              v.target.checked;
+                            setMAPadreEdit({
+                              ...maPadreEdit,
+                              componentes: auxC,
+                            });
                           }}
                         />
                       </Grid>
@@ -1697,11 +1718,18 @@ export function TabResumenMA({
                           //     !v.target.checked;
                           //   setEditComponentes(past);
                           // }}
-                          value={!maPadreEdit.componentes[index]?.metasPorFrecuencia[0].trimestre3}
+                          value={
+                            !maPadreEdit.componentes[index]
+                              ?.metasPorFrecuencia[0].trimestre3
+                          }
                           onChange={(v) => {
-                            let auxC = maPadreEdit.componentes
-                            auxC[index].metasPorFrecuencia[0].trimestre3 = v.target.checked;
-                            setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                            let auxC = maPadreEdit.componentes;
+                            auxC[index].metasPorFrecuencia[0].trimestre3 =
+                              v.target.checked;
+                            setMAPadreEdit({
+                              ...maPadreEdit,
+                              componentes: auxC,
+                            });
                           }}
                         />
                       </Grid>
@@ -1731,11 +1759,18 @@ export function TabResumenMA({
                           //     !v.target.checked;
                           //   setEditComponentes(past);
                           // }}
-                          value={!maPadreEdit.componentes[index]?.metasPorFrecuencia[0].trimestre4}
+                          value={
+                            !maPadreEdit.componentes[index]
+                              ?.metasPorFrecuencia[0].trimestre4
+                          }
                           onChange={(v) => {
-                            let auxC = maPadreEdit.componentes
-                            auxC[index].metasPorFrecuencia[0].trimestre4 = v.target.checked;
-                            setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                            let auxC = maPadreEdit.componentes;
+                            auxC[index].metasPorFrecuencia[0].trimestre4 =
+                              v.target.checked;
+                            setMAPadreEdit({
+                              ...maPadreEdit,
+                              componentes: auxC,
+                            });
                           }}
                         />
                       </Grid>
@@ -1784,9 +1819,9 @@ export function TabResumenMA({
                       // }}
                       value={!maPadreEdit.componentes[index]?.valorNumerador}
                       onChange={(v) => {
-                        let auxC = maPadreEdit.componentes
+                        let auxC = maPadreEdit.componentes;
                         auxC[index].valorNumerador = v.target.checked;
-                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                        setMAPadreEdit({ ...maPadreEdit, componentes: auxC });
                       }}
                     />
                   </Grid>
@@ -1843,11 +1878,13 @@ export function TabResumenMA({
                         //   past[index - 1].valorDenominador = !v.target.checked;
                         //   setEditComponentes(past);
                         // }}
-                        value={!maPadreEdit.componentes[index]?.valorDenominador}
+                        value={
+                          !maPadreEdit.componentes[index]?.valorDenominador
+                        }
                         onChange={(v) => {
-                          let auxC = maPadreEdit.componentes
+                          let auxC = maPadreEdit.componentes;
                           auxC[index].valorDenominador = v.target.checked;
-                          setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                          setMAPadreEdit({ ...maPadreEdit, componentes: auxC });
                         }}
                       />
                     </Grid>
@@ -1892,11 +1929,13 @@ export function TabResumenMA({
                       //   past[index - 1].sentidoDelIndicador = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!maPadreEdit.componentes[index]?.sentidoDelIndicador}
+                      value={
+                        !maPadreEdit.componentes[index]?.sentidoDelIndicador
+                      }
                       onChange={(v) => {
-                        let auxC = maPadreEdit.componentes
+                        let auxC = maPadreEdit.componentes;
                         auxC[index].sentidoDelIndicador = v.target.checked;
-                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                        setMAPadreEdit({ ...maPadreEdit, componentes: auxC });
                       }}
                     />
                   </Grid>
@@ -1943,9 +1982,9 @@ export function TabResumenMA({
                       // }}
                       value={!maPadreEdit.componentes[index]?.unidadResponsable}
                       onChange={(v) => {
-                        let auxC = maPadreEdit.componentes
+                        let auxC = maPadreEdit.componentes;
                         auxC[index].unidadResponsable = v.target.checked;
-                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                        setMAPadreEdit({ ...maPadreEdit, componentes: auxC });
                       }}
                     />
                   </Grid>
@@ -1991,9 +2030,9 @@ export function TabResumenMA({
                       // }}
                       value={!maPadreEdit.componentes[index]?.descIndicador}
                       onChange={(v) => {
-                        let auxC = maPadreEdit.componentes
+                        let auxC = maPadreEdit.componentes;
                         auxC[index].descIndicador = v.target.checked;
-                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                        setMAPadreEdit({ ...maPadreEdit, componentes: auxC });
                       }}
                     />
                   </Grid>
@@ -2039,9 +2078,9 @@ export function TabResumenMA({
                       // }}
                       value={!maPadreEdit.componentes[index]?.descNumerador}
                       onChange={(v) => {
-                        let auxC = maPadreEdit.componentes
+                        let auxC = maPadreEdit.componentes;
                         auxC[index].descNumerador = v.target.checked;
-                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                        setMAPadreEdit({ ...maPadreEdit, componentes: auxC });
                       }}
                     />
                   </Grid>
@@ -2086,9 +2125,9 @@ export function TabResumenMA({
                       // }}
                       value={!maPadreEdit.componentes[index]?.descDenominador}
                       onChange={(v) => {
-                        let auxC = maPadreEdit.componentes
+                        let auxC = maPadreEdit.componentes;
                         auxC[index].descDenominador = v.target.checked;
-                        setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                        setMAPadreEdit({ ...maPadreEdit, componentes: auxC });
                       }}
                     />
                   </Grid>
@@ -2142,7 +2181,6 @@ export function TabResumenMA({
             let i = 0;
             return componente.actividades.map(
               (actividad: IActividadesMA, indexActividades) => {
-                console.log("actividades.actividad: ", actividad.actividad);
                 i++;
                 return (
                   <Grid
@@ -2200,12 +2238,19 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            
-                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.metaAnual}
+                            value={
+                              !maPadreEdit.componentes[indexComponentes]
+                                ?.actividades[indexActividades]?.metaAnual
+                            }
                             onChange={(v) => {
-                              let auxC = maPadreEdit.componentes
-                              auxC[indexComponentes].actividades[indexActividades].metaAnual = v.target.checked;
-                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                              let auxC = maPadreEdit.componentes;
+                              auxC[indexComponentes].actividades[
+                                indexActividades
+                              ].metaAnual = v.target.checked;
+                              setMAPadreEdit({
+                                ...maPadreEdit,
+                                componentes: auxC,
+                              });
                             }}
                           />
                         </Grid>
@@ -2252,11 +2297,19 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.lineaBase}
+                            value={
+                              !maPadreEdit.componentes[indexComponentes]
+                                ?.actividades[indexActividades]?.lineaBase
+                            }
                             onChange={(v) => {
-                              let auxC = maPadreEdit.componentes
-                              auxC[indexComponentes].actividades[indexActividades].lineaBase = v.target.checked;
-                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                              let auxC = maPadreEdit.componentes;
+                              auxC[indexComponentes].actividades[
+                                indexActividades
+                              ].lineaBase = v.target.checked;
+                              setMAPadreEdit({
+                                ...maPadreEdit,
+                                componentes: auxC,
+                              });
                             }}
                           />
                         </Grid>
@@ -2339,11 +2392,21 @@ export function TabResumenMA({
                               //     !v.target.checked;
                               //   setEditActividades(past);
                               // }}
-                              value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.metasPorFrecuencia[0].trimestre1}
+                              value={
+                                !maPadreEdit.componentes[indexComponentes]
+                                  ?.actividades[indexActividades]
+                                  ?.metasPorFrecuencia[0].trimestre1
+                              }
                               onChange={(v) => {
-                                let auxC = maPadreEdit.componentes
-                                auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre1 = v.target.checked;
-                                setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                                let auxC = maPadreEdit.componentes;
+                                auxC[indexComponentes].actividades[
+                                  indexActividades
+                                ].metasPorFrecuencia[0].trimestre1 =
+                                  v.target.checked;
+                                setMAPadreEdit({
+                                  ...maPadreEdit,
+                                  componentes: auxC,
+                                });
                               }}
                             />
                           </Grid>
@@ -2383,11 +2446,21 @@ export function TabResumenMA({
                               //     !v.target.checked;
                               //   setEditActividades(past);
                               // }}
-                              value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.metasPorFrecuencia[0].trimestre2}
+                              value={
+                                !maPadreEdit.componentes[indexComponentes]
+                                  ?.actividades[indexActividades]
+                                  ?.metasPorFrecuencia[0].trimestre2
+                              }
                               onChange={(v) => {
-                                let auxC = maPadreEdit.componentes
-                                auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre2 = v.target.checked;
-                                setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                                let auxC = maPadreEdit.componentes;
+                                auxC[indexComponentes].actividades[
+                                  indexActividades
+                                ].metasPorFrecuencia[0].trimestre2 =
+                                  v.target.checked;
+                                setMAPadreEdit({
+                                  ...maPadreEdit,
+                                  componentes: auxC,
+                                });
                               }}
                             />
                           </Grid>
@@ -2427,11 +2500,21 @@ export function TabResumenMA({
                               //     !v.target.checked;
                               //   setEditActividades(past);
                               // }}
-                              value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.metasPorFrecuencia[0].trimestre3}
+                              value={
+                                !maPadreEdit.componentes[indexComponentes]
+                                  ?.actividades[indexActividades]
+                                  ?.metasPorFrecuencia[0].trimestre3
+                              }
                               onChange={(v) => {
-                                let auxC = maPadreEdit.componentes
-                                auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre3 = v.target.checked;
-                                setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                                let auxC = maPadreEdit.componentes;
+                                auxC[indexComponentes].actividades[
+                                  indexActividades
+                                ].metasPorFrecuencia[0].trimestre3 =
+                                  v.target.checked;
+                                setMAPadreEdit({
+                                  ...maPadreEdit,
+                                  componentes: auxC,
+                                });
                               }}
                             />
                           </Grid>
@@ -2471,11 +2554,21 @@ export function TabResumenMA({
                               //     !v.target.checked;
                               //   setEditActividades(past);
                               // }}
-                              value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.metasPorFrecuencia[0].trimestre4}
+                              value={
+                                !maPadreEdit.componentes[indexComponentes]
+                                  ?.actividades[indexActividades]
+                                  ?.metasPorFrecuencia[0].trimestre4
+                              }
                               onChange={(v) => {
-                                let auxC = maPadreEdit.componentes
-                                auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre4 = v.target.checked;
-                                setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                                let auxC = maPadreEdit.componentes;
+                                auxC[indexComponentes].actividades[
+                                  indexActividades
+                                ].metasPorFrecuencia[0].trimestre4 =
+                                  v.target.checked;
+                                setMAPadreEdit({
+                                  ...maPadreEdit,
+                                  componentes: auxC,
+                                });
                               }}
                             />
                           </Grid>
@@ -2517,11 +2610,19 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.metaAnual}
+                            value={
+                              !maPadreEdit.componentes[indexComponentes]
+                                ?.actividades[indexActividades]?.metaAnual
+                            }
                             onChange={(v) => {
-                              let auxC = maPadreEdit.componentes
-                              auxC[indexComponentes].actividades[indexActividades].metaAnual = v.target.checked;
-                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                              let auxC = maPadreEdit.componentes;
+                              auxC[indexComponentes].actividades[
+                                indexActividades
+                              ].metaAnual = v.target.checked;
+                              setMAPadreEdit({
+                                ...maPadreEdit,
+                                componentes: auxC,
+                              });
                             }}
                           />
                         </Grid>
@@ -2590,11 +2691,20 @@ export function TabResumenMA({
                               //     !v.target.checked;
                               //   setEditActividades(past);
                               // }}
-                              value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.valorDenominador}
+                              value={
+                                !maPadreEdit.componentes[indexComponentes]
+                                  ?.actividades[indexActividades]
+                                  ?.valorDenominador
+                              }
                               onChange={(v) => {
-                                let auxC = maPadreEdit.componentes
-                                auxC[indexComponentes].actividades[indexActividades].valorDenominador = v.target.checked;
-                                setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                                let auxC = maPadreEdit.componentes;
+                                auxC[indexComponentes].actividades[
+                                  indexActividades
+                                ].valorDenominador = v.target.checked;
+                                setMAPadreEdit({
+                                  ...maPadreEdit,
+                                  componentes: auxC,
+                                });
                               }}
                             />
                           </Grid>
@@ -2643,11 +2753,20 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.sentidoDelIndicador}
+                            value={
+                              !maPadreEdit.componentes[indexComponentes]
+                                ?.actividades[indexActividades]
+                                ?.sentidoDelIndicador
+                            }
                             onChange={(v) => {
-                              let auxC = maPadreEdit.componentes
-                              auxC[indexComponentes].actividades[indexActividades].sentidoDelIndicador = v.target.checked;
-                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                              let auxC = maPadreEdit.componentes;
+                              auxC[indexComponentes].actividades[
+                                indexActividades
+                              ].sentidoDelIndicador = v.target.checked;
+                              setMAPadreEdit({
+                                ...maPadreEdit,
+                                componentes: auxC,
+                              });
                             }}
                           />
                         </Grid>
@@ -2695,11 +2814,20 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.unidadResponsable}
+                            value={
+                              !maPadreEdit.componentes[indexComponentes]
+                                ?.actividades[indexActividades]
+                                ?.unidadResponsable
+                            }
                             onChange={(v) => {
-                              let auxC = maPadreEdit.componentes
-                              auxC[indexComponentes].actividades[indexActividades].unidadResponsable = v.target.checked;
-                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                              let auxC = maPadreEdit.componentes;
+                              auxC[indexComponentes].actividades[
+                                indexActividades
+                              ].unidadResponsable = v.target.checked;
+                              setMAPadreEdit({
+                                ...maPadreEdit,
+                                componentes: auxC,
+                              });
                             }}
                           />
                         </Grid>
@@ -2746,11 +2874,19 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.descIndicador}
+                            value={
+                              !maPadreEdit.componentes[indexComponentes]
+                                ?.actividades[indexActividades]?.descIndicador
+                            }
                             onChange={(v) => {
-                              let auxC = maPadreEdit.componentes
-                              auxC[indexComponentes].actividades[indexActividades].descIndicador = v.target.checked;
-                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                              let auxC = maPadreEdit.componentes;
+                              auxC[indexComponentes].actividades[
+                                indexActividades
+                              ].descIndicador = v.target.checked;
+                              setMAPadreEdit({
+                                ...maPadreEdit,
+                                componentes: auxC,
+                              });
                             }}
                           />
                         </Grid>
@@ -2797,11 +2933,19 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.descNumerador}
+                            value={
+                              !maPadreEdit.componentes[indexComponentes]
+                                ?.actividades[indexActividades]?.descNumerador
+                            }
                             onChange={(v) => {
-                              let auxC = maPadreEdit.componentes
-                              auxC[indexComponentes].actividades[indexActividades].descNumerador = v.target.checked;
-                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                              let auxC = maPadreEdit.componentes;
+                              auxC[indexComponentes].actividades[
+                                indexActividades
+                              ].descNumerador = v.target.checked;
+                              setMAPadreEdit({
+                                ...maPadreEdit,
+                                componentes: auxC,
+                              });
                             }}
                           />
                         </Grid>
@@ -2849,11 +2993,19 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={!maPadreEdit.componentes[indexComponentes]?.actividades[indexActividades]?.descDenominador}
+                            value={
+                              !maPadreEdit.componentes[indexComponentes]
+                                ?.actividades[indexActividades]?.descDenominador
+                            }
                             onChange={(v) => {
-                              let auxC = maPadreEdit.componentes
-                              auxC[indexComponentes].actividades[indexActividades].descDenominador = v.target.checked;
-                              setMAPadreEdit({...maPadreEdit,componentes:auxC});
+                              let auxC = maPadreEdit.componentes;
+                              auxC[indexComponentes].actividades[
+                                indexActividades
+                              ].descDenominador = v.target.checked;
+                              setMAPadreEdit({
+                                ...maPadreEdit,
+                                componentes: auxC,
+                              });
                             }}
                           />
                         </Grid>
@@ -2964,7 +3116,7 @@ export function TabResumenMA({
               if (localStorage.getItem("Rol") === "Administrador") {
                 estado = "Borrador Autorizador";
               }
-              console.log("Boton Guardar Borrador y estado: ", estado);
+
               creaMA(estado);
             }}
           >

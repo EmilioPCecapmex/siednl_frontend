@@ -43,7 +43,6 @@ export default function ModalSolicitaModif({
   const [comment, setComment] = useState("");
 
   const comentMir = (id: string) => {
-    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
@@ -286,54 +285,56 @@ export default function ModalSolicitaModif({
   };
 
   const checkActividades = (v: string) => {
-    JSON.parse(MIR)?.componentes.map((componente: IComponente, indexC: number) => {
-      componente.actividades.map((actividad: IActividad,indexA: number) =>{
-      if (
-        actividad.resumen === undefined ||
-        actividad.resumen === "" ||
-        actividad.resumen === null
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Resumen Narrativo sin información.`
-        );
-        err = 1;
+    JSON.parse(MIR)?.componentes.map(
+      (componente: IComponente, indexC: number) => {
+        componente.actividades.map((actividad: IActividad, indexA: number) => {
+          if (
+            actividad.resumen === undefined ||
+            actividad.resumen === "" ||
+            actividad.resumen === null
+          ) {
+            errores.push(
+              `<strong> Actividad ${actividad.actividad} </strong>: Resumen Narrativo sin información.`
+            );
+            err = 1;
+          }
+          if (actividad.indicador === undefined || actividad.indicador === "") {
+            err = 1;
+            errores.push(
+              `<strong> Actividad ${actividad.actividad} </strong>: Indicador sin información.`
+            );
+          }
+          if (actividad.formula === undefined || actividad.formula === "") {
+            errores.push(
+              `<strong> Actividad ${actividad.actividad} </strong>: Fórmula sin información.`
+            );
+            err = 1;
+          }
+          if (
+            actividad.frecuencia === undefined ||
+            actividad.frecuencia === "" ||
+            actividad.frecuencia.toLowerCase() !== "trimestral"
+          ) {
+            errores.push(
+              `<strong> Actividad ${actividad.actividad} </strong>: Frecuencia sin información.`
+            );
+            err = 1;
+          }
+          if (actividad.medios === undefined || actividad.medios === "") {
+            errores.push(
+              `<strong> Actividad ${actividad.actividad} </strong>: Medios de Verificación sin información.`
+            );
+            err = 1;
+          }
+          if (actividad.supuestos === undefined || actividad.supuestos === "") {
+            errores.push(
+              `<strong> Actividad ${actividad.actividad} </strong>: Supuestos sin información.`
+            );
+            err = 1;
+          }
+        });
       }
-      if (actividad.indicador === undefined || actividad.indicador === "") {
-        err = 1;
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Indicador sin información.`
-        );
-      }
-      if (actividad.formula === undefined || actividad.formula === "") {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Fórmula sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.frecuencia === undefined ||
-        actividad.frecuencia === "" ||
-        actividad.frecuencia.toLowerCase() !== "trimestral"
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Frecuencia sin información.`
-        );
-        err = 1;
-      }
-      if (actividad.medios === undefined || actividad.medios === "") {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Medios de Verificación sin información.`
-        );
-        err = 1;
-      }
-      if (actividad.supuestos === undefined || actividad.supuestos === "") {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Supuestos sin información.`
-        );
-        err = 1;
-      }
-    })
-    });
+    );
     if (err === 0) {
       createMIR(v);
     } else {
@@ -354,27 +355,31 @@ export default function ModalSolicitaModif({
   };
 
   const createMIR = (estado: string) => {
-    
-    console.log("Este es el create mir de solicitar modificacion del autorizador/administrador");
     // cualquier metodo de array saca el objeto u elemento
-    let rolusuario = userXInst.find((user) =>user.IdUsuario===userSelected)
+    let rolusuario = userXInst.find((user) => user.IdUsuario === userSelected);
 
-    if (estado === "Autorizada" && userSelected !== "0" && rolusuario?.Rol === "Verificador") {
+    if (
+      estado === "Autorizada" &&
+      userSelected !== "0" &&
+      rolusuario?.Rol === "Verificador"
+    ) {
       estado = "En Revisión";
-      console.log("Entre al primer if");
-    } else if (estado === "En Autorización" && userSelected !== "0" && rolusuario?.Rol === "Capturador") {
+    } else if (
+      estado === "En Autorización" &&
+      userSelected !== "0" &&
+      rolusuario?.Rol === "Capturador"
+    ) {
       estado = "En Captura";
-      console.log("Entre al segundo if");
     } else if (estado === "En Autorización" && userSelected !== "0") {
-      console.log("Entre al tercero if");
       estado = "En Captura";
-    } else if (estado === "Autorizada" && userSelected !== "0" && rolusuario?.Rol === "Capturador") {
-      console.log("Entre al cuarto if");
+    } else if (
+      estado === "Autorizada" &&
+      userSelected !== "0" &&
+      rolusuario?.Rol === "Capturador"
+    ) {
       estado = "En Captura";
-    } 
+    }
 
-   // console.log("estado: ",estado);
-    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
@@ -387,7 +392,9 @@ export default function ModalSolicitaModif({
               : //va a cambiar
                 localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
-          IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            localStorage.getItem("IdEntidad"),
           Programa: JSON.parse(MIR)?.encabezado.programa.Label,
           Eje: JSON.parse(MIR)?.encabezado.eje.Label,
           Tematica: JSON.parse(MIR)?.encabezado.tema.Label,
@@ -427,37 +434,32 @@ export default function ModalSolicitaModif({
 
   useEffect(() => {
     let tipousuario = "";
-    console.log("Entre");
 
     if (localStorage.getItem("Rol") === "Capturador")
       tipousuario = "Verificador";
-    console.log(tipousuario);
+
     if (localStorage.getItem("Rol") === "Verificador")
       tipousuario = "Verificador";
     if (localStorage.getItem("Rol") === "Administrador")
       tipousuario = "VERIFICADOR_CAPTURADOR";
 
     if (open) {
-      console.log(tipousuario);
-      
-      
-      
       axios
-        .post(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", 
-           {
+        .post(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
+          {
             TipoUsuario: tipousuario,
             IdEntidad: localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
           {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        })
-        .then(({status,data}) => {
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then(({ status, data }) => {
           if (status === 200) {
-            console.log("UserXInst: ",data.data);
-            console.log("UserXInst: ", data);
             setUserXInst(data.data);
           }
         });
@@ -492,8 +494,6 @@ export default function ModalSolicitaModif({
       }
     );
   };
-
-  
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>

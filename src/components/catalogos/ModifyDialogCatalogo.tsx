@@ -36,7 +36,6 @@ export const ModifyDialogCatalogos = ({
   descripcion: string;
   actualizado: Function;
   handleCloseMody: Function;
-
 }) => {
   //const [open, setOpen] = React.useState(false);
 
@@ -60,9 +59,9 @@ export const ModifyDialogCatalogos = ({
   //   setOpen(false);
   // };
 
-  const cerrardialog = () =>{
+  const cerrardialog = () => {
     handleCloseMody();
-  }
+  };
 
   let today = new Date();
   let year = today.getFullYear();
@@ -173,7 +172,7 @@ export const ModifyDialogCatalogos = ({
           NuevoDescripcion: nuevaDescripcion,
           //Se agregaron 3 campos nuevos pero esto se hizo en otro accios esto se va a modificar
           NuevoFechaCapturaInicio: fechaCaptura,
-          NuevoFechaCapturaFinal:fechaCaptura,
+          NuevoFechaCapturaFinal: fechaCaptura,
           NuevoModulo: "",
           ModificadoPor: localStorage.getItem("IdUsuario"),
           Rol: localStorage.getItem("Rol"),
@@ -199,7 +198,8 @@ export const ModifyDialogCatalogos = ({
   const ModifyPorCatalogoProgramasP = () => {
     axios
       .put(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/modify-programaPresupuestario",
+        process.env.REACT_APP_APPLICATION_BACK +
+          "/api/modify-programaPresupuestario",
         {
           IdProgramaPresupuestario: id,
           NuevoProgramaPresupuestario: nuevaDescripcion,
@@ -235,7 +235,7 @@ export const ModifyDialogCatalogos = ({
   //       params: {
   //         IdUsuario: localStorage.getItem("IdUsuario"),
   //         IdEntidad: localStorage.getItem("IdEntidad"),
-  //         Rol: localStorage.getItem("Rol") 
+  //         Rol: localStorage.getItem("Rol")
   //       },
   //     })
   //     .then((r) => {
@@ -244,7 +244,7 @@ export const ModifyDialogCatalogos = ({
   // };
 
   useEffect(() => {
-   // getInstituciones();
+    // getInstituciones();
   }, []);
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([
@@ -254,7 +254,6 @@ export const ModifyDialogCatalogos = ({
   if (tabla === "ProgramasPresupuestarios") {
     return (
       <Box>
-        
         <Dialog open={open} onClose={cerrardialog} fullWidth>
           <Box
             sx={{
@@ -290,7 +289,9 @@ export const ModifyDialogCatalogos = ({
           >
             <TextField
               multiline={descripcion.length < 10 ? false : true}
-              sx={descripcion.length < 200 ? { width: "60%" } : { width: "80%" }}
+              sx={
+                descripcion.length < 200 ? { width: "60%" } : { width: "80%" }
+              }
               InputProps={{
                 style: {
                   fontFamily: "MontserratLight",
@@ -300,19 +301,17 @@ export const ModifyDialogCatalogos = ({
               id="outlined-basic"
               value={nuevaDescripcion || descripcion}
               variant="outlined"
-              onChange={(v) =>{ 
+              onChange={(v) => {
                 let valor = v.target.value;
-                console.log(valor);
-                console.log(descripcion);
-                console.log(nuevaDescripcion);
-                setnuevaDescripcion(valor)
-                console.log(nuevaDescripcion);
+                setnuevaDescripcion(valor);
               }}
             />
 
             <InputLabel>Institución</InputLabel>
             <Select
-              sx={descripcion.length < 200 ? { width: "60%" } : { width: "80%" }}
+              sx={
+                descripcion.length < 200 ? { width: "60%" } : { width: "80%" }
+              }
               value={institution}
               label="Institución"
               onChange={(x) => setInstitution(x.target.value)}
@@ -337,7 +336,10 @@ export const ModifyDialogCatalogos = ({
               justifyContent: "center",
             }}
           >
-            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={cerrardialog}>
+            <Button
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              onClick={cerrardialog}
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -345,7 +347,11 @@ export const ModifyDialogCatalogos = ({
               </Typography>
             </Button>
 
-            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={ModifyPorCatalogoProgramasP} autoFocus>
+            <Button
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              onClick={ModifyPorCatalogoProgramasP}
+              autoFocus
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -359,7 +365,6 @@ export const ModifyDialogCatalogos = ({
   } else if (tabla === "FechasDeCaptura") {
     return (
       <Box sx={{ display: "flex" }}>
-        
         <Dialog open={open} onClose={cerrardialog} fullWidth>
           <Box
             sx={{
@@ -404,7 +409,9 @@ export const ModifyDialogCatalogos = ({
               onChange={(x) => setFechaCaptura(x.target.value)}
               multiline={descripcion.length < 200 ? false : true}
               defaultValue={fechaCaptura}
-              sx={descripcion.length < 200 ? { width: "60%" } : { width: "80%" }}
+              sx={
+                descripcion.length < 200 ? { width: "60%" } : { width: "80%" }
+              }
               style={{ marginTop: "2vh" }}
               type="date"
               InputProps={{
@@ -428,7 +435,10 @@ export const ModifyDialogCatalogos = ({
               justifyContent: "center",
             }}
           >
-            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={cerrardialog}>
+            <Button
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              onClick={cerrardialog}
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -436,7 +446,11 @@ export const ModifyDialogCatalogos = ({
               </Typography>
             </Button>
 
-            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={ModifyPorCatalogoFechas} autoFocus>
+            <Button
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              onClick={ModifyPorCatalogoFechas}
+              autoFocus
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -463,9 +477,15 @@ export const ModifyDialogCatalogos = ({
           </DialogContent>
 
           <DialogActions onClick={cerrardialog}>
-            <Button sx={queries.buttonCancelarSolicitudInscripcion} >Cancelar</Button>
+            <Button sx={queries.buttonCancelarSolicitudInscripcion}>
+              Cancelar
+            </Button>
 
-            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={ModifyPorCatalogo} autoFocus>
+            <Button
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              onClick={ModifyPorCatalogo}
+              autoFocus
+            >
               De Acuerdo
             </Button>
           </DialogActions>
@@ -475,9 +495,7 @@ export const ModifyDialogCatalogos = ({
   } else {
     return (
       <Box>
-        
         <Dialog open={open} onClose={cerrardialog} fullWidth>
-        
           <Box
             sx={{
               width: "100%",
@@ -513,7 +531,9 @@ export const ModifyDialogCatalogos = ({
           >
             <TextField
               multiline={descripcion.length < 200 ? false : true}
-              sx={descripcion.length < 200 ? { width: "60%" } : { width: "80%" }}
+              sx={
+                descripcion.length < 200 ? { width: "60%" } : { width: "80%" }
+              }
               InputProps={{
                 style: {
                   fontFamily: "MontserratLight",
@@ -525,11 +545,7 @@ export const ModifyDialogCatalogos = ({
               variant="outlined"
               onChange={(v) => {
                 let valor = v.target.value;
-                console.log(valor);
-                console.log(descripcion);
-                console.log(nuevaDescripcion);
-                setnuevaDescripcion(valor)
-                console.log(nuevaDescripcion);
+                setnuevaDescripcion(valor);
                 // if (!v.target.value || !nuevaDescripcion || !descripcion) {
                 //   // Valores vacíos o nulos, muestra un mensaje de error o realiza la acción necesaria
                 //   console.error('Por favor, ingresa una descripción válida.');
@@ -546,7 +562,10 @@ export const ModifyDialogCatalogos = ({
               justifyContent: "center",
             }}
           >
-            <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={cerrardialog}>
+            <Button
+              sx={queries.buttonCancelarSolicitudInscripcion}
+              onClick={cerrardialog}
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >
@@ -554,7 +573,11 @@ export const ModifyDialogCatalogos = ({
               </Typography>
             </Button>
 
-            <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={ModifyPorCatalogo} autoFocus>
+            <Button
+              sx={queries.buttonContinuarSolicitudInscripcion}
+              onClick={ModifyPorCatalogo}
+              autoFocus
+            >
               <Typography
                 sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
               >

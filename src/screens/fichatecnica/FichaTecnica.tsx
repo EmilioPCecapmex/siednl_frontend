@@ -226,7 +226,7 @@ export const FichaTecnica = () => {
         URL.revokeObjectURL(href);
       })
       .catch((err) => {
-        console.log(err);
+      
 
         Toast.fire({
           icon: "error",
@@ -366,12 +366,13 @@ export const FichaTecnica = () => {
         }
       )
       .then((r) => {
-        if(r.data.data.valida === "true"){
+        if (r.data.data.valida === "true") {
           setValidaFecha(true);
-          setTitle("VER FICHA TÉCNICA");}
-        else{
+          setTitle("VER FICHA TÉCNICA");
+        } else {
           setValidaFecha(false);
-          setTitle("FECHA CAPTURA FINALIZADA");}
+          setTitle("FECHA CAPTURA FINALIZADA");
+        }
       })
       .catch((err) => {});
   };
@@ -380,8 +381,6 @@ export const FichaTecnica = () => {
   const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
-    console.log("ft: ", ft);
-
     let id = urlParams.get("Id");
     setFtFiltered(ft.filter((x) => x.IdFt.toLowerCase().includes(id || "")));
   }, [ft]);
@@ -396,7 +395,7 @@ export const FichaTecnica = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
-    console.log("Entra");
+
     let Arrayfiltro: IIFT[];
     Arrayfiltro = [];
 
@@ -408,11 +407,6 @@ export const FichaTecnica = () => {
 
     // eslint-disable-next-line array-callback-return
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
-      console.log("entre");
-      console.log(elemento);
-      console.log(findTextStr);
-      console.log(ftxFiltered);
-
       if (
         elemento.AnioFiscal.toString()
           .toLocaleLowerCase()
@@ -433,7 +427,6 @@ export const FichaTecnica = () => {
           .toLocaleLowerCase()
           .includes(findTextStr.toLocaleLowerCase())
       ) {
-        console.log(elemento);
         return elemento;
       }
     });
@@ -906,86 +899,35 @@ export const FichaTecnica = () => {
                             component="th"
                             scope="row"
                           >
-                            <Grid sx={{display: "flex",}}>
-
-                            <Tooltip title="REGISTRAR FICHA TÉCNICA">
-                              <span>
-                                <IconButton
-                                  disabled={
-                                    (row.Estado === "En Captura" &&
-                                      //validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Capturador") ||
-                                    (row.Estado === "En Revisión" &&
-                                      //validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Verificador") ||
-                                    (row.Estado === "Borrador Verificador" &&
-                                      //validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Verificador") ||
-                                    ((row.Estado === "En Autorización" ||
-                                      row.Estado === "Autorizada") &&
-                                      // validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador") ||
-                                    (row.Estado === "Borrador Autorizador" &&
-                                      // validaFecha &&
-                                      localStorage.getItem("Rol") ===
-                                        "Administrador")
-                                      ? false
-                                      : true
-                                  }
-                                  sx={{
-                                    fontSize: "24px", // Tamaño predeterminado del icono
-
-                                    "@media (max-width: 600px)": {
-                                      fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                    },
-
-                                    "@media (min-width: 601px) and (max-width: 960px)":
-                                      {
-                                        fontSize: 20, // Pantalla pequeña (md)
-                                      },
-
-                                    "@media (min-width: 961px) and (max-width: 1280px)":
-                                      {
-                                        fontSize: 20, // Pantalla mediana (lg)
-                                      },
-
-                                    "@media (min-width: 1281px)": {
-                                      fontSize: 25, // Pantalla grande (xl)
-                                    },
-
-                                    "@media (min-width: 2200px)": {
-                                      ffontSize: 25, // Pantalla grande (xl)
-                                    },
-                                  }}
-                                  onClick={() => {
-                                    setFTEdit([
-                                      {
-                                        IdFt: row.IdFt,
-                                        IdMir: row.IdMir,
-                                        IdMa: row.IdMa,
-                                        FichaT: row.FichaT,
-                                        Estado: row.Estado,
-                                        CreadoPor: row.CreadoPor,
-                                        FechaCreacion: row.FechaCreacion,
-                                        AnioFiscal: row.AnioFiscal,
-                                        Entidad: row.Entidad,
-                                        Programa: row.Programa,
-                                        MIR: row.MIR,
-                                        MetaAnual: row.MetaAnual,
-                                        Conac: row.Conac,
-                                        Consecutivo: row.Consecutivo,
-                                        Opciones: row.Opciones,
-                                      },
-                                    ]);
-                                    setShowResume(false);
-                                    setActionNumber(1);
-                                  }}
-                                >
-                                  <AddCircleOutlineIcon
+                            <Grid sx={{ display: "flex" }}>
+                              <Tooltip title="REGISTRAR FICHA TÉCNICA">
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      (row.Estado === "En Captura" &&
+                                        //validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Capturador") ||
+                                      (row.Estado === "En Revisión" &&
+                                        //validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      (row.Estado === "Borrador Verificador" &&
+                                        //validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      ((row.Estado === "En Autorización" ||
+                                        row.Estado === "Autorizada") &&
+                                        // validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador") ||
+                                      (row.Estado === "Borrador Autorizador" &&
+                                        // validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador")
+                                        ? false
+                                        : true
+                                    }
                                     sx={{
                                       fontSize: "24px", // Tamaño predeterminado del icono
 
@@ -1011,133 +953,179 @@ export const FichaTecnica = () => {
                                         ffontSize: 25, // Pantalla grande (xl)
                                       },
                                     }}
-                                  />
-                                </IconButton>
-                              </span>
-                            </Tooltip>
+                                    onClick={() => {
+                                      setFTEdit([
+                                        {
+                                          IdFt: row.IdFt,
+                                          IdMir: row.IdMir,
+                                          IdMa: row.IdMa,
+                                          FichaT: row.FichaT,
+                                          Estado: row.Estado,
+                                          CreadoPor: row.CreadoPor,
+                                          FechaCreacion: row.FechaCreacion,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Entidad: row.Entidad,
+                                          Programa: row.Programa,
+                                          MIR: row.MIR,
+                                          MetaAnual: row.MetaAnual,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
+                                          Opciones: row.Opciones,
+                                        },
+                                      ]);
+                                      setShowResume(false);
+                                      setActionNumber(1);
+                                    }}
+                                  >
+                                    <AddCircleOutlineIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
+
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
+
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
+
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
+
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
+
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
 
                               <Tooltip title="DESCARGAR">
-                              <span>
-                                <IconButton
-                                  onClick={() => {
-                                    getFichaTecnicaDownload(
-                                      row.MIR,
-                                      row.MetaAnual,
-                                      row.FichaT,
-                                      row.Programa,
-                                      row.FechaCreacion,
-                                      row.Entidad
-                                    );
-                                  }}
-                                  disabled={
-                                    row.Estado === "Autorizada" && validaFecha
-                                      ? false
-                                      : true
-                                  }
-                                >
-                                  <DownloadIcon
-                                    sx={{
-                                      fontSize: "24px", // Tamaño predeterminado del icono
-
-                                      "@media (max-width: 600px)": {
-                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                      },
-
-                                      "@media (min-width: 601px) and (max-width: 960px)":
-                                        {
-                                          fontSize: 20, // Pantalla pequeña (md)
-                                        },
-
-                                      "@media (min-width: 961px) and (max-width: 1280px)":
-                                        {
-                                          fontSize: 20, // Pantalla mediana (lg)
-                                        },
-
-                                      "@media (min-width: 1281px)": {
-                                        fontSize: 25, // Pantalla grande (xl)
-                                      },
-
-                                      "@media (min-width: 2200px)": {
-                                        ffontSize: 25, // Pantalla grande (xl)
-                                      },
+                                <span>
+                                  <IconButton
+                                    onClick={() => {
+                                      getFichaTecnicaDownload(
+                                        row.MIR,
+                                        row.MetaAnual,
+                                        row.FichaT,
+                                        row.Programa,
+                                        row.FechaCreacion,
+                                        row.Entidad
+                                      );
                                     }}
-                                  />
-                                </IconButton>
-                              </span>
-                            </Tooltip>
+                                    disabled={
+                                      row.Estado === "Autorizada" && validaFecha
+                                        ? false
+                                        : true
+                                    }
+                                  >
+                                    <DownloadIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
 
-                            <Tooltip title={title_texto}>
-                              <span>
-                                <IconButton
-                                  disabled={
-                                    row.Estado === "Autorizada" && validaFecha
-                                      ? false
-                                      : true
-                                  }
-                                  onClick={() => {
-                                    setFTShow([
-                                      {
-                                        IdFt: row.IdFt,
-                                        IdMir: row.IdMir,
-                                        IdMa: row.IdMa,
-                                        FichaT: row.FichaT,
-                                        Estado: row.Estado,
-                                        CreadoPor: row.CreadoPor,
-                                        FechaCreacion: row.FechaCreacion,
-                                        AnioFiscal: row.AnioFiscal,
-                                        Entidad: row.Entidad,
-                                        Programa: row.Programa,
-                                        MIR: row.MIR,
-                                        MetaAnual: row.MetaAnual,
-                                        Conac: row.Conac,
-                                        Consecutivo: row.Consecutivo,
-                                        Opciones: row.Opciones,
-                                      },
-                                    ]);
-                                    setOpenModalVerResumenFT(true);
-                                  }}
-                                >
-                                  <VisibilityIcon
-                                    sx={{
-                                      fontSize: "24px", // Tamaño predeterminado del icono
-
-                                      "@media (max-width: 600px)": {
-                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                      },
-
-                                      "@media (min-width: 601px) and (max-width: 960px)":
-                                        {
-                                          fontSize: 20, // Pantalla pequeña (md)
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
 
-                                      "@media (min-width: 961px) and (max-width: 1280px)":
-                                        {
-                                          fontSize: 20, // Pantalla mediana (lg)
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
+
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
+
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
                                         },
 
-                                      "@media (min-width: 1281px)": {
-                                        fontSize: 25, // Pantalla grande (xl)
-                                      },
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
 
-                                      "@media (min-width: 2200px)": {
-                                        ffontSize: 25, // Pantalla grande (xl)
-                                      },
+                              <Tooltip title={title_texto}>
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" && validaFecha
+                                        ? false
+                                        : true
+                                    }
+                                    onClick={() => {
+                                      setFTShow([
+                                        {
+                                          IdFt: row.IdFt,
+                                          IdMir: row.IdMir,
+                                          IdMa: row.IdMa,
+                                          FichaT: row.FichaT,
+                                          Estado: row.Estado,
+                                          CreadoPor: row.CreadoPor,
+                                          FechaCreacion: row.FechaCreacion,
+                                          AnioFiscal: row.AnioFiscal,
+                                          Entidad: row.Entidad,
+                                          Programa: row.Programa,
+                                          MIR: row.MIR,
+                                          MetaAnual: row.MetaAnual,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
+                                          Opciones: row.Opciones,
+                                        },
+                                      ]);
+                                      setOpenModalVerResumenFT(true);
                                     }}
-                                  />
-                                </IconButton>
-                              </span>
-                            </Tooltip>
+                                  >
+                                    <VisibilityIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
 
-                            <ComentDialogFT
-                              estado={row.Estado}
-                              id={row.IdMir}
-                              actualizado={actualizaContador}
-                            />
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
 
-                            
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
 
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
+
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
+
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+
+                              <ComentDialogFT
+                                estado={row.Estado}
+                                id={row.IdMir}
+                                actualizado={actualizaContador}
+                              />
                             </Grid>
-                          
                           </TableCell>
                         </TableRow>
                       ))}

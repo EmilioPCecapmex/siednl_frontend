@@ -254,15 +254,13 @@ export default function ModalSolicitaModif({
   };
   /////////////////////////////////////////////////////////////////////
   const checkComponentes = (v: string) => {
-
     JSON.parse(MA)?.componentes.every((componente: any, index: number) => {
       if (
         componente.metaAnual === undefined ||
-      //  /^[\s]*$/.test(componente.metaAnual) ||
-        componente.metaAnual === null || componente.metaAnual === ""
+        //  /^[\s]*$/.test(componente.metaAnual) ||
+        componente.metaAnual === null ||
+        componente.metaAnual === ""
       ) {
-        console.log("componente.metaAnual :", componente.metaAnual);
-        
         err = 1;
         errores.push(
           `<strong> Componente ${
@@ -392,111 +390,114 @@ export default function ModalSolicitaModif({
   ///////////////////////////////////////////////////////////////////
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
-    
-    JSON.parse(MA)?.componentes.map((componente: IComponenteMA, indexC: number) => {
-      componente.actividades.map((actividad: IActividadesMA, indexA: number) => {
-      if (
-        actividad.metaAnual === undefined ||
-        /^[\s]*$/.test(actividad.metaAnual)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Meta anual sin información.`
+
+    JSON.parse(MA)?.componentes.map(
+      (componente: IComponenteMA, indexC: number) => {
+        componente.actividades.map(
+          (actividad: IActividadesMA, indexA: number) => {
+            if (
+              actividad.metaAnual === undefined ||
+              /^[\s]*$/.test(actividad.metaAnual)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Meta anual sin información.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.lineaBase === undefined ||
+              /^[\s]*$/.test(actividad.lineaBase)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Línea base sin información.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
+              /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
+              actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
+              /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2) ||
+              actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
+              /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3) ||
+              actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
+              /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Metas por frecuencia sin información.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.valorNumerador === undefined ||
+              /^[\s]*$/.test(actividad.valorNumerador)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Valor del numerador sin información.`
+              );
+              err = 1;
+            }
+            if (
+              !JSON.parse(MIR)
+                .componentes[indexC].actividades[indexA].indicador.toLowerCase()
+                .includes("indice" || "índice") &&
+              (actividad.valorDenominador === undefined ||
+                /^[\s]*$/.test(actividad.valorDenominador))
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.sentidoDelIndicador === undefined ||
+              actividad.sentidoDelIndicador === ""
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Sentido del indicador sin seleccionar.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.unidadResponsable === undefined ||
+              /^[\s]*$/.test(actividad.unidadResponsable)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.descIndicador === undefined ||
+              /^[\s]*$/.test(actividad.descIndicador)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del indicador sin información.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.descNumerador === undefined ||
+              /^[\s]*$/.test(actividad.descNumerador)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del numerador sin información.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.descDenominador === undefined ||
+              /^[\s]*$/.test(actividad.descDenominador)
+            ) {
+              errores.push(
+                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del denominador sin información.`
+              );
+              err = 1;
+            }
+          }
         );
-        err = 1;
       }
-      if (
-        actividad.lineaBase === undefined ||
-        /^[\s]*$/.test(actividad.lineaBase)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Línea base sin información.`
-        );
-        err = 1;
-      }
-      if (
-        
-         
-        (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
-          actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2) ||
-          actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3) ||
-          actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4))
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Metas por frecuencia sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.valorNumerador === undefined ||
-        /^[\s]*$/.test(actividad.valorNumerador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Valor del numerador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        !JSON.parse(MIR).componentes[indexC].actividades[indexA].indicador.toLowerCase()
-          .includes("indice" || "índice") &&
-        (actividad.valorDenominador === undefined ||
-          /^[\s]*$/.test(actividad.valorDenominador))
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.sentidoDelIndicador === undefined ||
-        actividad.sentidoDelIndicador === ""
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Sentido del indicador sin seleccionar.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.unidadResponsable === undefined ||
-        /^[\s]*$/.test(actividad.unidadResponsable)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.descIndicador === undefined ||
-        /^[\s]*$/.test(actividad.descIndicador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del indicador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.descNumerador === undefined ||
-        /^[\s]*$/.test(actividad.descNumerador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del numerador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.descDenominador === undefined ||
-        /^[\s]*$/.test(actividad.descDenominador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del denominador sin información.`
-        );
-        err = 1;
-      }
-    });
-    });
+    );
     //////////////////////////////////////////777
     if (err === 0) {
       createMA(v);
@@ -518,24 +519,29 @@ export default function ModalSolicitaModif({
   };
   ///////////////////////////////////////////////////////////////////////
   const createMA = (estado: string) => {
-    console.log("IdEntidad:localStorage.getItem(IdEntidad): ",localStorage.getItem("IdEntidad"));
-    console.log("MA: ",MA);
-    
-    let rolusuario = userXInst.find((user) =>user.IdUsuario===userSelected)
+    let rolusuario = userXInst.find((user) => user.IdUsuario === userSelected);
 
-    if (estado === "Autorizada" && userSelected !== "0" && rolusuario?.Rol === "Verificador") {
+    if (
+      estado === "Autorizada" &&
+      userSelected !== "0" &&
+      rolusuario?.Rol === "Verificador"
+    ) {
       estado = "En Revisión";
-      console.log("Entre al primer if MA");
-    } else if (estado === "En Autorización" && userSelected !== "0" && rolusuario?.Rol === "Capturador") {
+    } else if (
+      estado === "En Autorización" &&
+      userSelected !== "0" &&
+      rolusuario?.Rol === "Capturador"
+    ) {
       estado = "En Captura";
-      console.log("Entre al segundo if MA");
     } else if (estado === "En Autorización" && userSelected !== "0") {
-      console.log("Entre al tercero if MA");
       estado = "En Captura";
-    } else if (estado === "Autorizada" && userSelected !== "0" && rolusuario?.Rol === "Capturador") {
-      console.log("Entre al cuarto if MA");
+    } else if (
+      estado === "Autorizada" &&
+      userSelected !== "0" &&
+      rolusuario?.Rol === "Capturador"
+    ) {
       estado = "En Captura";
-    } 
+    }
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
@@ -553,7 +559,7 @@ export default function ModalSolicitaModif({
           Estado: estado,
           Id: IdMA,
           Rol: localStorage.getItem("Rol"),
-          IdEntidad:localStorage.getItem("IdEntidad"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
         },
 
         {
@@ -563,8 +569,7 @@ export default function ModalSolicitaModif({
         }
       )
       .then((r) => {
-        console.log("IdMIR: ", IdMIR);
-        console.log("r: ", r);
+        
 
         if (comment !== "") {
           comentMA(IdMIR);
@@ -594,34 +599,28 @@ export default function ModalSolicitaModif({
 
     if (localStorage.getItem("Rol") === "Capturador")
       tipousuario = "Verificador";
-      console.log(tipousuario);
     if (localStorage.getItem("Rol") === "Verificador")
       tipousuario = "Verificador";
     if (localStorage.getItem("Rol") === "Administrador")
       tipousuario = "VERIFICADOR_CAPTURADOR";
 
-    
-
     if (open) {
       axios
         .post(
-          process.env.REACT_APP_APPLICATION_BACK +
-            "/api/tipo-usuario",
-            {
-              TipoUsuario: tipousuario,
-              IdEntidad: localStorage.getItem("IdEntidad"),
-              IdApp: localStorage.getItem("IdApp"),
-            },
-            {
+          process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
+          {
+            TipoUsuario: tipousuario,
+            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdApp: localStorage.getItem("IdApp"),
+          },
+          {
             headers: {
               Authorization: localStorage.getItem("jwtToken") || "",
             },
-          })
-          .then((r) => {
-          console.log("a");
+          }
+        )
+        .then((r) => {
           if (r.status === 200) {
-           
-            console.log("UserXInst: ", r.data.data);
             setUserXInst(r.data.data);
           }
         });
@@ -711,11 +710,7 @@ export default function ModalSolicitaModif({
               sx={{ fontFamily: "MontserratRegular" }}
               fullWidth
               value={userSelected}
-              onChange={(v) => (
-                setUserSelected(v.target.value),
-                console.log("userSelected", userSelected),
-                console.log("v.target.value", v.target.value)
-              )}
+              onChange={(v) => setUserSelected(v.target.value)}
               disableUnderline
             >
               <MenuItem value={"0"} disabled>
@@ -760,20 +755,25 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              sx={{ ...queries.buttonCancelarSolicitudInscripcion, display: "flex", width: "15vw" }}
+              sx={{
+                ...queries.buttonCancelarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               variant="contained"
-              
               onClick={() => handleClose()}
             >
-              <Typography >
-                Cancelar
-              </Typography>
+              <Typography>Cancelar</Typography>
             </Button>
 
             <Button
-              sx={{...queries.buttonContinuarSolicitudInscripcion, display: "flex", width: "15vw"}}
+              sx={{
+                ...queries.buttonContinuarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               //variant="contained"
-              
+
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
@@ -785,13 +785,12 @@ export default function ModalSolicitaModif({
                 handleClose();
               }}
             >
-              <Typography 
+              <Typography
               //sx={{...queries.buttonContinuarSolicitudInscripcion, display: "flex", width: "10vw"}}
               >
                 {comment === "" ? "Enviar sin comentarios" : "Confirmar"}
               </Typography>
             </Button>
-
           </Grid>
         </Grid>
       </DialogContent>

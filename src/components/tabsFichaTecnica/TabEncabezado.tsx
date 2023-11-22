@@ -12,10 +12,16 @@ import {
 import axios from "axios";
 import { IEncabezadoFT, IFTEdit } from "./Interfaces";
 
-interface IObjetivoDS { Id: string, ObjetivoDS: string, }
-interface IMetaODS { Id: string, MetaODS: string }
-const newObjetivoDS = { Id: "", ObjetivoDS: "", }
-const newMetaODS = { Id: "", MetaODS: "" }
+interface IObjetivoDS {
+  Id: string;
+  ObjetivoDS: string;
+}
+interface IMetaODS {
+  Id: string;
+  MetaODS: string;
+}
+const newObjetivoDS = { Id: "", ObjetivoDS: "" };
+const newMetaODS = { Id: "", MetaODS: "" };
 
 export function TabEncabezado({
   edit,
@@ -23,7 +29,7 @@ export function TabEncabezado({
   FT,
   MIR,
   EncabezadoValues,
-  ftEditPadre
+  ftEditPadre,
 }: {
   edit: boolean;
   setFTEncabezadoPadre: Function;
@@ -49,40 +55,47 @@ export function TabEncabezado({
   const [catalogoMetasODS, setCatalogoMetasODS] = useState<IMetaODS[]>([]);
   const [metaODSSelected, setMetaODSSelected] = useState<IMetaODS>(newMetaODS);
 
-  const [catalogoObjetivosDS, setCatalogoObjetivosDS] = useState<IObjetivoDS[]>([]);
-  const [objetivoODSselected, setObjetivoODSSelected] = useState<IObjetivoDS>(newObjetivoDS);
+  const [catalogoObjetivosDS, setCatalogoObjetivosDS] = useState<IObjetivoDS[]>(
+    []
+  );
+  const [objetivoODSselected, setObjetivoODSSelected] =
+    useState<IObjetivoDS>(newObjetivoDS);
 
   useEffect(() => {
-    let findObjetivoODS = catalogoObjetivosDS.find((item) => item.ObjetivoDS === encabezado.objetivoODS)
-    setObjetivoODSSelected(findObjetivoODS || newObjetivoDS)
-
-  }, [catalogoObjetivosDS])
+    let findObjetivoODS = catalogoObjetivosDS.find(
+      (item) => item.ObjetivoDS === encabezado.objetivoODS
+    );
+    setObjetivoODSSelected(findObjetivoODS || newObjetivoDS);
+  }, [catalogoObjetivosDS]);
 
   useEffect(() => {
     if (objetivoODSselected.Id !== "") {
-      setEncabezado({ ...encabezado, objetivoODS: objetivoODSselected.ObjetivoDS });
+      setEncabezado({
+        ...encabezado,
+        objetivoODS: objetivoODSselected.ObjetivoDS,
+      });
       setMetaODSSelected(newMetaODS);
       setDisabledMetas(false);
       getMetas(objetivoODSselected.Id);
     }
-  }, [objetivoODSselected])
+  }, [objetivoODSselected]);
 
   useEffect(() => {
-    let findMetaODS = catalogoMetasODS.find((item) => item.MetaODS === encabezado.metaODS)
-    setMetaODSSelected(findMetaODS || newMetaODS)
-  }, [catalogoMetasODS])
+    let findMetaODS = catalogoMetasODS.find(
+      (item) => item.MetaODS === encabezado.metaODS
+    );
+    setMetaODSSelected(findMetaODS || newMetaODS);
+  }, [catalogoMetasODS]);
 
   useEffect(() => {
     if (metaODSSelected.Id !== "") {
       setEncabezado({ ...encabezado, metaODS: metaODSSelected.MetaODS });
     }
-  }, [metaODSSelected])
+  }, [metaODSSelected]);
 
   useEffect(() => {
-    setEncabezado(EncabezadoValues)
-  }, [EncabezadoValues])
-
-
+    setEncabezado(EncabezadoValues);
+  }, [EncabezadoValues]);
 
   let jsonMir = JSON.parse(MIR);
 
@@ -95,11 +108,7 @@ export function TabEncabezado({
   }, [MIR]);
 
   const getObjetivos = (id: Array<number>) => {
-    console.log("id: ", id);
-
     id.map((value, index) => {
-      console.log("value axios: ", value);
-
       axios
         .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped-columns", {
           params: {
@@ -112,13 +121,9 @@ export function TabEncabezado({
           },
         })
         .then((r) => {
-          console.log("r.data.data: ", r.data.data);
-          console.log("value: ", value);
           setCatalogoObjetivosDS(r.data.data);
         })
-        .catch((err) => {
-          console.log("value: ", value);
-        });
+        .catch((err) => {});
     });
   };
 
@@ -136,16 +141,13 @@ export function TabEncabezado({
       .then((r) => {
         setCatalogoMetasODS(r.data.data);
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   useEffect(() => {
     setFTEncabezadoPadre(encabezado);
     //setValueFin(encabezado)
-    console.log("encabezado1: ", encabezado);
   }, [encabezado]);
-
-
 
   return (
     <Grid
@@ -179,7 +181,6 @@ export function TabEncabezado({
         >
           ENCABEZADO
         </Typography>
-
       </Grid>
 
       <Grid
@@ -217,7 +218,6 @@ export function TabEncabezado({
           >
             <TextField
               disabled={edit && !ftEditPadre?.encabezado?.programaSER}
-
               onChange={(a) => {
                 //setProgramaSER(a.target.value)
                 encabezado.programaSER = a.target.value
@@ -330,7 +330,6 @@ export function TabEncabezado({
                   <TextField
                     {...params}
                     disabled={edit && !ftEditPadre?.encabezado?.objetivoODS}
-
                     label={"OBJETIVO ODS"}
                     variant="standard"
                     InputLabelProps={{
@@ -351,8 +350,7 @@ export function TabEncabezado({
                   //   value?.Id as string,
                   //   (value?.ObjetivoDS as string) || ""
                   // )
-                }
-                }
+                }}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />
             </FormControl>
@@ -373,7 +371,9 @@ export function TabEncabezado({
                 noOptionsText="Sin opciones"
                 closeText="Cerrar"
                 openText="Abrir"
-                disabled={disabledMetas && objetivoODSselected.ObjetivoDS === ""}
+                disabled={
+                  disabledMetas && objetivoODSselected.ObjetivoDS === ""
+                }
                 options={catalogoMetasODS}
                 getOptionLabel={(option) => option.MetaODS}
                 value={metaODSSelected}
@@ -394,7 +394,6 @@ export function TabEncabezado({
                   <TextField
                     {...params}
                     disabled={edit && !ftEditPadre?.encabezado?.metaODS}
-
                     label={"META ODS"}
                     variant="standard"
                     InputLabelProps={{
@@ -411,7 +410,7 @@ export function TabEncabezado({
                 )}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
                 onChange={(event, value) => {
-                  setMetaODSSelected(value || newMetaODS)
+                  setMetaODSSelected(value || newMetaODS);
                 }}
               />
             </FormControl>

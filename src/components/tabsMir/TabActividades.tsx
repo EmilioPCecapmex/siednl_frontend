@@ -137,7 +137,6 @@ export const TabActividades = ({
 
   useEffect(() => {
     setComponentes(MIR.componentes);
-    // console.log("formula: ", componentes[componentSelect - 1]?.formula);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [MIR]);
 

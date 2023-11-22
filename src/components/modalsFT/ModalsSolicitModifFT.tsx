@@ -77,11 +77,7 @@ export default function ModalSolicitaModif({
 
   const checkFT = (v: string) => {
     errores = [];
-    console.log("prueba de vacio: ", JSON.parse(FT)?.encabezado.programaSER);
-    console.log(
-      "prueba de vacio 2: ",
-      JSON.parse(FT)?.encabezado.unidadDeMedida
-    );
+
 
     if (
       JSON.parse(FT)?.encabezado === null ||
@@ -486,26 +482,26 @@ export default function ModalSolicitaModif({
       rolusuario?.Rol === "Verificador"
     ) {
       estado = "En Revisión";
-      console.log("Entre al primer if");
+     
     } else if (
       estado === "En Autorización" &&
       userSelected !== "0" &&
       rolusuario?.Rol === "Capturador"
     ) {
       estado = "En Captura";
-      console.log("Entre al segundo if");
+  
     } else if (estado === "En Autorización" && userSelected !== "0") {
-      console.log("Entre al tercero if");
+    
       estado = "En Captura";
     } else if (
       estado === "Autorizada" &&
       userSelected !== "0" &&
       rolusuario?.Rol === "Capturador"
     ) {
-      console.log("Entre al cuarto if");
+    
       estado = "En Captura";
     }
-    console.log("ftEditPadre: ", FTEdit);
+  
 
     axios
       .post(
@@ -560,7 +556,7 @@ export default function ModalSolicitaModif({
 
     if (localStorage.getItem("Rol") === "Capturador")
       tipousuario = "Verificador";
-    console.log(tipousuario);
+   
     if (localStorage.getItem("Rol") === "Verificador")
       tipousuario = "Verificador";
     if (localStorage.getItem("Rol") === "Administrador")
@@ -662,7 +658,7 @@ export default function ModalSolicitaModif({
               </MenuItem>
 
               {userXInst.map((item) => {
-                console.log("userXInst: ", userXInst);
+                
 
                 return (
                   <MenuItem value={item.IdUsuario} key={item.IdUsuario}>

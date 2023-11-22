@@ -51,9 +51,9 @@ export function TabFinPropositoRF({
   setPropositoRF: Function;
 
   RF: string;
-  show:boolean;
-  showMirFnc: Function
-  setTxtShowFnc: Function
+  show: boolean;
+  showMirFnc: Function;
+  setTxtShowFnc: Function;
 }) {
   const jsonMir: IMIR = JSON.parse(MIR);
 
@@ -109,7 +109,7 @@ export function TabFinPropositoRF({
     setPalabraABuscar2(palabraEncontrada2); // Almacenar la palabra encontrada en el segundo estado
   }, []);
 
-  console.log(jsonMir.proposito.indicador);
+
 
   useEffect(() => {
     resumenPropositoRF(proposito);
@@ -122,16 +122,16 @@ export function TabFinPropositoRF({
   useEffect(() => {
     let objectaux: IPropositoRF = {
       añoAvanceFisico: "",
-       //jsonMir.encabezado.ejercicioFiscal,
+      //jsonMir.encabezado.ejercicioFiscal,
       valorAvanceFisico: "",
     };
     setPropositoRF(objectaux);
     setProposito(objectaux);
-    console.log(objectaux);
+    
   }, []);
 
   useEffect(() => {
-    console.log("propositoRF:", propositoRF);
+   
 
     if (
       propositoRF.valorAvanceFisico !== "" &&
@@ -153,16 +153,11 @@ export function TabFinPropositoRF({
     };
     setFinRF(objectaux);
     setFin(objectaux);
-    console.log(objectaux);
+    
   }, []);
 
   useEffect(() => {
-    console.log("propositoRF:", propositoRF);
-
-    if (
-      finRF.valorAvanceFisico !== "" &&
-      finRF.valorAvanceFisico !== null
-    ) {
+    if (finRF.valorAvanceFisico !== "" && finRF.valorAvanceFisico !== null) {
       setFin(finRF);
     }
   }, []);
@@ -176,19 +171,15 @@ export function TabFinPropositoRF({
       case "FIN":
         switch (elemento) {
           case "PORCENTAJE":
-            console.log("valor: ", valor);
             setFin({ ...fin, valorAvanceFisico: valor });
             break;
           case "INDICE":
-            console.log("valor: ", valor);
             setFin({ ...fin, valorAvanceFisico: valor });
             break;
           case "PROMEDIO":
-            console.log("valor: ", valor);
             setFin({ ...fin, valorAvanceFisico: valor });
             break;
           case "TASA":
-            console.log("valor: ", valor);
             setFin({ ...fin, valorAvanceFisico: valor });
             break;
         }
@@ -197,20 +188,15 @@ export function TabFinPropositoRF({
       case "PROPOSITO":
         switch (elemento) {
           case "PORCENTAJE":
-            console.log("valor: ", valor);
             setProposito({ ...proposito, valorAvanceFisico: valor });
             break;
           case "INDICE":
-            console.log("valor: ", valor);
             setProposito({ ...proposito, valorAvanceFisico: valor });
             break;
           case "PROMEDIO":
-            console.log("valor: ", valor);
-
             setProposito({ ...proposito, valorAvanceFisico: valor });
             break;
           case "TASA":
-            console.log("valor: ", valor);
             setProposito({ ...proposito, valorAvanceFisico: valor });
             break;
         }
@@ -221,9 +207,7 @@ export function TabFinPropositoRF({
   return (
     <>
       <Grid
-   
         container
-        
         sx={{
           height: "100%",
           justifyContent: "space-around",
@@ -354,10 +338,7 @@ export function TabFinPropositoRF({
                 onClick={(a) => {
                   SetApartado("FIN");
                   setUnico(palabraABuscar1);
-                  console.log(
-                    "fin. valorAvanceFisico: ",
-                    fin.valorAvanceFisico
-                  );
+
                   handleClickOpen();
                 }}
                 value={fin.valorAvanceFisico}
@@ -453,11 +434,6 @@ export function TabFinPropositoRF({
                 size="small"
                 label="Valor del Avance Fisico"
                 onClick={(a) => {
-                  console.log(
-                    "proposito. valorAvanceFisico: ",
-                    proposito.valorAvanceFisico
-                  );
-
                   SetApartado("PROPOSITO");
                   setUnico(palabraABuscar2);
                   handleClickOpen();

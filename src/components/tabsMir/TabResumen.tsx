@@ -4,7 +4,13 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import ModalEnviarMIR from "../modalsMIR/ModalEnviarMIR";
 import ModalSolicitaModif from "../modalsMIR/ModalSolicitaModif";
-import { IActividad, ILista, IMIR, IMIREdit, IMovimientos } from "./interfaces mir/IMIR";
+import {
+  IActividad,
+  ILista,
+  IMIR,
+  IMIREdit,
+  IMovimientos,
+} from "./interfaces mir/IMIR";
 import { queries } from "../../queries";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -22,7 +28,7 @@ export function TabResumen({
   showResume: Function;
   idMir: string;
   estadoMIR: string;
-  mDocumentos: IMovimientos[]
+  mDocumentos: IMovimientos[];
   mirEdit: IMIREdit;
   setMIREDITPADRE: Function;
 }) {
@@ -91,17 +97,11 @@ export function TabResumen({
     });
   }, []);
 
-  useEffect(() => {
-    console.log("estadoMIR: ", estadoMIR);
-  }, []);
-
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
   const checkMir = (estado: string) => {
-    console.log("estado: ", estado);
-
     if (MIR?.encabezado.ejercicioFiscal === objetoVacio) {
       return Toast.fire({
         icon: "error",
@@ -123,8 +123,6 @@ export function TabResumen({
   };
 
   const createMIR = (estado: string) => {
-    console.log("Estado: ", estado);
-
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
@@ -168,8 +166,6 @@ export function TabResumen({
 
   useEffect(() => {
     setMIR(MIRPADRE);
-    console.log("idMir", idMir);
-    //console.log("Estado: ", estado);
   }, [MIRPADRE, idMir]);
 
   const Toast = Swal.mixin({
@@ -216,73 +212,71 @@ export function TabResumen({
     supuestos: true,
   });
 
+  const [editComponentes, setEditComponentes] = useState<
+    Array<IComponenteMirEdit>
+  >([]);
+  // {
+  //   componentes: "C1",
+  //   formula: true,
+  //   frecuencia: true,
+  //   indicador: true,
+  //   medios: true,
+  //   resumen: true,
+  //   supuestos: true,
+  //   actividades: [
+  //     {
+  //       actividad: "A1",
+  //       formula: true,
+  //       frecuencia: true,
+  //       indicador: true,
+  //       medios: true,
+  //       resumen: true,
+  //       supuestos: true,
+  //     },
+  //     {
+  //       actividad: "A2",
+  //       formula: true,
+  //       frecuencia: true,
+  //       indicador: true,
+  //       medios: true,
+  //       resumen: true,
+  //       supuestos: true,
+  //     },
+  //   ],
+  // },
+  // {
+  //   componentes: "C2",
+  //   formula: true,
+  //   frecuencia: true,
+  //   indicador: true,
+  //   medios: true,
+  //   resumen: true,
+  //   supuestos: true,
+  //   actividades: [
+  //     {
+  //       actividad: "A1",
+  //       formula: true,
+  //       frecuencia: true,
+  //       indicador: true,
+  //       medios: true,
+  //       resumen: true,
+  //       supuestos: true,
+  //     },
+  //     {
+  //       actividad: "A2",
+  //       formula: true,
+  //       frecuencia: true,
+  //       indicador: true,
+  //       medios: true,
+  //       resumen: true,
+  //       supuestos: true,
+  //     },
+  //   ],
+  // },
 
-  const [editComponentes, setEditComponentes] = useState<Array<IComponenteMirEdit>>([]);
-    // {
-    //   componentes: "C1",
-    //   formula: true,
-    //   frecuencia: true,
-    //   indicador: true,
-    //   medios: true,
-    //   resumen: true,
-    //   supuestos: true,
-    //   actividades: [
-    //     {
-    //       actividad: "A1",
-    //       formula: true,
-    //       frecuencia: true,
-    //       indicador: true,
-    //       medios: true,
-    //       resumen: true,
-    //       supuestos: true,
-    //     },
-    //     {
-    //       actividad: "A2",
-    //       formula: true,
-    //       frecuencia: true,
-    //       indicador: true,
-    //       medios: true,
-    //       resumen: true,
-    //       supuestos: true,
-    //     },
-    //   ],
-    // },
-    // {
-    //   componentes: "C2",
-    //   formula: true,
-    //   frecuencia: true,
-    //   indicador: true,
-    //   medios: true,
-    //   resumen: true,
-    //   supuestos: true,
-    //   actividades: [
-    //     {
-    //       actividad: "A1",
-    //       formula: true,
-    //       frecuencia: true,
-    //       indicador: true,
-    //       medios: true,
-    //       resumen: true,
-    //       supuestos: true,
-    //     },
-    //     {
-    //       actividad: "A2",
-    //       formula: true,
-    //       frecuencia: true,
-    //       indicador: true,
-    //       medios: true,
-    //       resumen: true,
-    //       supuestos: true,
-    //     },
-    //   ],
-    // },
-  
-
-
-
-//   const [editComponentes, setEditComponentes] = useState<
-//   Array<IComponenteMirEdit>
-// >([]);
+  //   const [editComponentes, setEditComponentes] = useState<
+  //   Array<IComponenteMirEdit>
+  // >([]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [editActividades, setEditActividades] = useState<
@@ -301,12 +295,6 @@ export function TabResumen({
   const [disablebuttonactividades, setDisablebuttonactividades] =
     useState(false);
 
-
-
-
-
-
-
   useEffect(() => {
     let arrayEncabezado = Object.entries(editEncabezado);
     let arrayFin = Object.entries(editFin);
@@ -323,11 +311,11 @@ export function TabResumen({
       ];
 
       let x = a.every((value) => value === true);
-      console.log("x: ",x);
+
       //setEditComponentes(arrayComponentes)
       return x;
     });
-    console.log("setEditComponentes: ",arrayComponentes);
+
     let arrayActividad = editActividades.map((item) => {
       let a = [
         //item.actividad,
@@ -394,10 +382,7 @@ export function TabResumen({
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
-  const RestructuraMAyFT =()=>{
-    console.log("Hola");
-    
-  }
+  const RestructuraMAyFT = () => {};
 
   //const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -491,12 +476,11 @@ export function TabResumen({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
- 
-               value={mirEdit.encabezado.ejercicioFiscal}
+                value={mirEdit.encabezado.ejercicioFiscal}
                 onChange={(v) => {
-                  let aux = mirEdit.encabezado
-                  aux = {...aux, ejercicioFiscal: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
+                  let aux = mirEdit.encabezado;
+                  aux = { ...aux, ejercicioFiscal: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, encabezado: aux });
                 }}
               />
             </Grid>
@@ -543,9 +527,9 @@ export function TabResumen({
               <Checkbox
                 value={mirEdit.encabezado?.institucion}
                 onChange={(v) => {
-                  let aux = mirEdit.encabezado
-                  aux = {...aux, institucion: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
+                  let aux = mirEdit.encabezado;
+                  aux = { ...aux, institucion: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, encabezado: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditEncabezado({
@@ -604,9 +588,9 @@ export function TabResumen({
                 // value={editEncabezado.nombre_del_programa}
                 value={mirEdit.encabezado?.nombre_del_programa}
                 onChange={(v) => {
-                  let aux = mirEdit.encabezado
-                  aux = {...aux, nombre_del_programa: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
+                  let aux = mirEdit.encabezado;
+                  aux = { ...aux, nombre_del_programa: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, encabezado: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditEncabezado({
@@ -660,9 +644,9 @@ export function TabResumen({
                 // value={editEncabezado.eje}
                 value={mirEdit.encabezado?.eje}
                 onChange={(v) => {
-                  let aux = mirEdit.encabezado
-                  aux = {...aux, eje: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
+                  let aux = mirEdit.encabezado;
+                  aux = { ...aux, eje: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, encabezado: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditEncabezado({
@@ -716,9 +700,9 @@ export function TabResumen({
                 // value={editEncabezado.tema}
                 value={mirEdit.encabezado?.tema}
                 onChange={(v) => {
-                  let aux = mirEdit.encabezado
-                  aux = {...aux, tema: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
+                  let aux = mirEdit.encabezado;
+                  aux = { ...aux, tema: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, encabezado: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditEncabezado({
@@ -777,9 +761,9 @@ export function TabResumen({
                 // value={editEncabezado.objetivo}
                 value={mirEdit.encabezado?.objetivo}
                 onChange={(v) => {
-                  let aux = mirEdit.encabezado
-                  aux = {...aux, objetivo: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
+                  let aux = mirEdit.encabezado;
+                  aux = { ...aux, objetivo: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, encabezado: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditEncabezado({
@@ -832,9 +816,9 @@ export function TabResumen({
                 // value={editEncabezado.estrategia}
                 value={mirEdit.encabezado?.estrategia}
                 onChange={(v) => {
-                  let aux = mirEdit.encabezado
-                  aux = {...aux, estrategia: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
+                  let aux = mirEdit.encabezado;
+                  aux = { ...aux, estrategia: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, encabezado: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditEncabezado({
@@ -887,9 +871,9 @@ export function TabResumen({
                 // value={editEncabezado.beneficiario}
                 value={mirEdit.encabezado?.beneficiario}
                 onChange={(v) => {
-                  let aux = mirEdit.encabezado
-                  aux = {...aux, beneficiario: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
+                  let aux = mirEdit.encabezado;
+                  aux = { ...aux, beneficiario: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, encabezado: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditEncabezado({
@@ -943,9 +927,9 @@ export function TabResumen({
                 // value={editEncabezado.lineas_de_accion}
                 value={mirEdit.encabezado?.lineas_de_accion}
                 onChange={(v) => {
-                  let aux = mirEdit.encabezado
-                  aux = {...aux, lineas_de_accion: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, encabezado: aux  })
+                  let aux = mirEdit.encabezado;
+                  aux = { ...aux, lineas_de_accion: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, encabezado: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditEncabezado({
@@ -1046,9 +1030,9 @@ export function TabResumen({
                 //   setEditFin({ ...editFin, resumen: !v.target.checked });
                 // }}
                 onChange={(v) => {
-                  let aux = mirEdit.fin
-                  aux = {...aux, resumen: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, fin: aux  })
+                  let aux = mirEdit.fin;
+                  aux = { ...aux, resumen: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, fin: aux });
                 }}
               />
             </Grid>
@@ -1096,9 +1080,9 @@ export function TabResumen({
                 // value={editFin.indicador}
                 value={mirEdit.fin?.indicador}
                 onChange={(v) => {
-                  let aux = mirEdit.fin
-                  aux = {...aux, indicador: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, fin: aux  })
+                  let aux = mirEdit.fin;
+                  aux = { ...aux, indicador: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, fin: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditFin({ ...editFin, indicador: !v.target.checked });
@@ -1149,9 +1133,9 @@ export function TabResumen({
                 // value={editFin.formula}
                 value={mirEdit.fin?.formula}
                 onChange={(v) => {
-                  let aux = mirEdit.fin
-                  aux = {...aux, formula: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, fin: aux  })
+                  let aux = mirEdit.fin;
+                  aux = { ...aux, formula: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, fin: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditFin({ ...editFin, formula: !v.target.checked });
@@ -1202,9 +1186,9 @@ export function TabResumen({
                 // value={editFin.frecuencia}
                 value={mirEdit.fin?.frecuencia}
                 onChange={(v) => {
-                  let aux = mirEdit.fin
-                  aux = {...aux, frecuencia: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, fin: aux  })
+                  let aux = mirEdit.fin;
+                  aux = { ...aux, frecuencia: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, fin: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditFin({ ...editFin, frecuencia: !v.target.checked });
@@ -1254,9 +1238,9 @@ export function TabResumen({
                 // value={editFin.medios}
                 value={mirEdit.fin?.medios}
                 onChange={(v) => {
-                  let aux = mirEdit.fin
-                  aux = {...aux, medios: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, fin: aux  })
+                  let aux = mirEdit.fin;
+                  aux = { ...aux, medios: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, fin: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditFin({ ...editFin, medios: !v.target.checked });
@@ -1307,9 +1291,9 @@ export function TabResumen({
                 // value={editFin.supuestos}
                 value={mirEdit.fin?.supuestos}
                 onChange={(v) => {
-                  let aux = mirEdit.fin
-                  aux = {...aux, supuestos: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, fin: aux  })
+                  let aux = mirEdit.fin;
+                  aux = { ...aux, supuestos: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, fin: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditFin({ ...editFin, supuestos: !v.target.checked });
@@ -1389,9 +1373,9 @@ export function TabResumen({
                 // value={editProposito.resumen}
                 value={mirEdit.proposito?.resumen}
                 onChange={(v) => {
-                  let aux = mirEdit.proposito
-                  aux = {...aux, resumen: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, proposito: aux  })
+                  let aux = mirEdit.proposito;
+                  aux = { ...aux, resumen: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, proposito: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditProposito({
@@ -1446,9 +1430,9 @@ export function TabResumen({
                 // value={editProposito.indicador}
                 value={mirEdit.proposito?.indicador}
                 onChange={(v) => {
-                  let aux = mirEdit.proposito
-                  aux = {...aux, indicador: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, proposito: aux  })
+                  let aux = mirEdit.proposito;
+                  aux = { ...aux, indicador: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, proposito: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditProposito({
@@ -1502,9 +1486,9 @@ export function TabResumen({
                 // value={editProposito.formula}
                 value={mirEdit.proposito?.formula}
                 onChange={(v) => {
-                  let aux = mirEdit.proposito
-                  aux = {...aux, formula: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, proposito: aux  })
+                  let aux = mirEdit.proposito;
+                  aux = { ...aux, formula: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, proposito: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditProposito({
@@ -1558,9 +1542,9 @@ export function TabResumen({
                 // value={editProposito.frecuencia}
                 value={mirEdit.proposito?.frecuencia}
                 onChange={(v) => {
-                  let aux = mirEdit.proposito
-                  aux = {...aux, frecuencia: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, proposito: aux  })
+                  let aux = mirEdit.proposito;
+                  aux = { ...aux, frecuencia: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, proposito: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditProposito({
@@ -1615,9 +1599,9 @@ export function TabResumen({
                 // value={editProposito.medios}
                 value={mirEdit.proposito?.medios}
                 onChange={(v) => {
-                  let aux = mirEdit.proposito
-                  aux = {...aux, medios: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, proposito: aux  })
+                  let aux = mirEdit.proposito;
+                  aux = { ...aux, medios: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, proposito: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditProposito({
@@ -1671,9 +1655,9 @@ export function TabResumen({
                 // value={editProposito.supuestos}
                 value={mirEdit.proposito?.supuestos}
                 onChange={(v) => {
-                  let aux = mirEdit.proposito
-                  aux = {...aux, supuestos: v.target.checked }
-                  setMIREDITPADRE({...mirEdit, proposito: aux  })
+                  let aux = mirEdit.proposito;
+                  aux = { ...aux, supuestos: v.target.checked };
+                  setMIREDITPADRE({ ...mirEdit, proposito: aux });
                 }}
                 // onChange={(v) => {
                 //   setEditProposito({
@@ -1795,7 +1779,6 @@ export function TabResumen({
                       //   setEditComponentes(past);
                       // }}
 
-
                       // value={mirEdit.componentes[index]?.resumen}
                       value={mirEdit.componentes[index]?.resumen}
                       // onChange={(v) => {
@@ -1809,11 +1792,10 @@ export function TabResumen({
                       //   setMIREDITPADRE({...mirEdit, componentes: aux  })
                       // }}
                       onChange={(v) => {
-                        let auxC = mirEdit.componentes
+                        let auxC = mirEdit.componentes;
                         auxC[index].resumen = v.target.checked;
-                        setMIREDITPADRE({...mirEdit,componentes:auxC});
+                        setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                       }}
-                      
                     />
                   </Grid>
                 )}
@@ -1858,9 +1840,9 @@ export function TabResumen({
                       // value={editComponentes[index]?.indicador}
                       value={mirEdit.componentes[index]?.indicador}
                       onChange={(v) => {
-                        let auxC = mirEdit.componentes
+                        let auxC = mirEdit.componentes;
                         auxC[index].indicador = v.target.checked;
-                        setMIREDITPADRE({...mirEdit,componentes:auxC});
+                        setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                       }}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
@@ -1912,9 +1894,9 @@ export function TabResumen({
                       // value={editComponentes[index]?.formula}
                       value={mirEdit.componentes[index]?.formula}
                       onChange={(v) => {
-                        let auxC = mirEdit.componentes
+                        let auxC = mirEdit.componentes;
                         auxC[index].formula = v.target.checked;
-                        setMIREDITPADRE({...mirEdit,componentes:auxC});
+                        setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                       }}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
@@ -1967,9 +1949,9 @@ export function TabResumen({
                       // value={editComponentes[index]?.frecuencia}
                       value={mirEdit.componentes[index]?.frecuencia}
                       onChange={(v) => {
-                        let auxC = mirEdit.componentes
+                        let auxC = mirEdit.componentes;
                         auxC[index].frecuencia = v.target.checked;
-                        setMIREDITPADRE({...mirEdit,componentes:auxC});
+                        setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                       }}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
@@ -2020,9 +2002,9 @@ export function TabResumen({
                       // value={editComponentes[index]?.medios}
                       value={mirEdit.componentes[index]?.medios}
                       onChange={(v) => {
-                        let auxC = mirEdit.componentes
+                        let auxC = mirEdit.componentes;
                         auxC[index].medios = v.target.checked;
-                        setMIREDITPADRE({...mirEdit,componentes:auxC});
+                        setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                       }}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
@@ -2075,9 +2057,9 @@ export function TabResumen({
                       // value={editComponentes[index]?.supuestos}
                       value={mirEdit.componentes[index]?.supuestos}
                       onChange={(v) => {
-                        let auxC = mirEdit.componentes
+                        let auxC = mirEdit.componentes;
                         auxC[index].supuestos = v.target.checked;
-                        setMIREDITPADRE({...mirEdit,componentes:auxC});
+                        setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                       }}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
@@ -2193,15 +2175,16 @@ export function TabResumen({
                   {localStorage.getItem("Rol") !== "Administrador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        checked={mirEdit.componentes[index]?.actividades[index2]?.resumen  }
+                        checked={
+                          mirEdit.componentes[index]?.actividades[index2]
+                            ?.resumen
+                        }
                         onChange={(v) => {
-                          
-                          console.log("mirEdit.componentes: ",mirEdit.componentes);
-                          let auxC = mirEdit.componentes
-                          console.log("auxC: ",auxC);
-                          auxC[index].actividades[index2].resumen = v.target.checked;
-                          setMIREDITPADRE({...mirEdit,componentes:auxC});
-                          
+                          let auxC = mirEdit.componentes;
+
+                          auxC[index].actividades[index2].resumen =
+                            v.target.checked;
+                          setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                         }}
                       />
                     </Grid>
@@ -2245,11 +2228,15 @@ export function TabResumen({
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         // value={!editComponentes[index - 1]?.indicador}
-                        checked={mirEdit.componentes[index]?.actividades[index2]?.indicador}
+                        checked={
+                          mirEdit.componentes[index]?.actividades[index2]
+                            ?.indicador
+                        }
                         onChange={(v) => {
-                          let auxC = mirEdit.componentes
-                          auxC[index].actividades[index2].indicador = v.target.checked;
-                          setMIREDITPADRE({...mirEdit,componentes:auxC});
+                          let auxC = mirEdit.componentes;
+                          auxC[index].actividades[index2].indicador =
+                            v.target.checked;
+                          setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                         }}
                         // onChange={(v) => {
                         //   let past = [...editComponentes];
@@ -2299,11 +2286,15 @@ export function TabResumen({
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         // value={!editComponentes[index - 1]?.formula}
-                        checked={mirEdit.componentes[index]?.actividades[index2]?.formula}
+                        checked={
+                          mirEdit.componentes[index]?.actividades[index2]
+                            ?.formula
+                        }
                         onChange={(v) => {
-                          let auxC = mirEdit.componentes
-                          auxC[index].actividades[index2].formula = v.target.checked;
-                          setMIREDITPADRE({...mirEdit,componentes:auxC});
+                          let auxC = mirEdit.componentes;
+                          auxC[index].actividades[index2].formula =
+                            v.target.checked;
+                          setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                         }}
                         // onChange={(v) => {
                         //   let past = [...editComponentes];
@@ -2353,11 +2344,15 @@ export function TabResumen({
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         // value={!editComponentes[index - 1]?.frecuencia}
-                        checked={mirEdit.componentes[index]?.actividades[index2]?.frecuencia}
+                        checked={
+                          mirEdit.componentes[index]?.actividades[index2]
+                            ?.frecuencia
+                        }
                         onChange={(v) => {
-                          let auxC = mirEdit.componentes
-                          auxC[index].actividades[index2].frecuencia = v.target.checked;
-                          setMIREDITPADRE({...mirEdit,componentes:auxC});
+                          let auxC = mirEdit.componentes;
+                          auxC[index].actividades[index2].frecuencia =
+                            v.target.checked;
+                          setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                         }}
                         // onChange={(v) => {
                         //   let past = [...editComponentes];
@@ -2407,11 +2402,15 @@ export function TabResumen({
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         // value={!editComponentes[index - 1]?.medios}
-                        checked={mirEdit.componentes[index]?.actividades[index2]?.medios}
+                        checked={
+                          mirEdit.componentes[index]?.actividades[index2]
+                            ?.medios
+                        }
                         onChange={(v) => {
-                          let auxC = mirEdit.componentes
-                          auxC[index].actividades[index2].medios = v.target.checked;
-                          setMIREDITPADRE({...mirEdit,componentes:auxC});
+                          let auxC = mirEdit.componentes;
+                          auxC[index].actividades[index2].medios =
+                            v.target.checked;
+                          setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                         }}
                         // onChange={(v) => {
                         //   let past = [...editComponentes];
@@ -2462,11 +2461,15 @@ export function TabResumen({
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         // value={!editComponentes[index - 1]?.supuestos}
-                        checked={mirEdit.componentes[index]?.actividades[index2]?.supuestos}
+                        checked={
+                          mirEdit.componentes[index]?.actividades[index2]
+                            ?.supuestos
+                        }
                         onChange={(v) => {
-                          let auxC = mirEdit.componentes
-                          auxC[index].actividades[index2].supuestos = v.target.checked;
-                          setMIREDITPADRE({...mirEdit,componentes:auxC});
+                          let auxC = mirEdit.componentes;
+                          auxC[index].actividades[index2].supuestos =
+                            v.target.checked;
+                          setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                         }}
                         // onChange={(v) => {
                         //   let past = [...editComponentes];
@@ -2595,7 +2598,6 @@ export function TabResumen({
               if (localStorage.getItem("Rol") === "Administrador") {
                 estado = "Borrador Autorizador";
               }
-              console.log("Boton Guardar Borrador y estado: ", estado);
 
               checkMir(estado);
             }}
@@ -2631,7 +2633,7 @@ export function TabResumen({
             </Typography>
           </Button>
         </Grid>
-        
+
         <ModalSolicitaModif
           open={openModalSolicitarModif}
           IdMir={idMir}

@@ -21,9 +21,8 @@ export const sessionValid = () => {
         },
       }
     )
-    
+
     .then((r) => {
-      
       if (r.status === 200) {
         localStorage.setItem("sUntil", r.data.expDateTime);
         localStorage.setItem("jwtToken", jt);
@@ -43,26 +42,23 @@ export const sessionValid = () => {
 };
 
 export const getUserDetails = (IdCentral: string) => {
-  console.log(IdCentral);
-  console.log("IdApp: ",IdApp)
-  console.log("params: ",params)
-  
   return axios
-  
-  
-  .post(process.env.REACT_APP_APPLICATION_LOGIN + "/api/userapp-detail", 
-       {
+
+    .post(
+      process.env.REACT_APP_APPLICATION_LOGIN + "/api/userapp-detail",
+      {
         IdUsuario: IdCentral,
         IdApp: IdApp,
-      },{
-      headers: {
-        "Content-Type": "application/json",
-        authorization: localStorage.getItem("jwtToken") || "",
       },
-    })
-    .then(({data,status}) => {
-      console.log("data.data",data.menus[0]);
-      localStorage.setItem('Menus', JSON.stringify(data.menus[0]))
+      {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    )
+    .then(({ data, status }) => {
+      localStorage.setItem("Menus", JSON.stringify(data.menus[0]));
       if (status === 200) {
         localStorage.setItem("IdUsuario", data.data.Id);
         localStorage.setItem(
@@ -104,11 +100,8 @@ export const getUserDetails = (IdCentral: string) => {
       if (error.response.status === 401) {
         localStorage.clear();
       }
-      
     });
 };
-
-
 
 // const siednlSignUp = (
 //   idUsrCentral: string,
@@ -135,11 +128,10 @@ export const getUserDetails = (IdCentral: string) => {
 // };
 
 export const continueSession = () => {
-  console.log(localStorage.getItem("jwtToken"))
   return axios
     .post(
       process.env.REACT_APP_APPLICATION_LOGIN + "/api/verify",
-      
+
       {},
       {
         headers: {
@@ -150,7 +142,6 @@ export const continueSession = () => {
     )
     .then((r) => {
       if (r.status === 200) {
-        
         localStorage.setItem("sUntil", r.data.expDateTime);
         localStorage.setItem("validation", "true");
         if (r.data.data.IdUsuario) {
@@ -159,7 +150,7 @@ export const continueSession = () => {
         } else {
           getUserDetails(localStorage.getItem("IdCentral") as string);
         }
-        console.log("ab");
+
         return true;
       }
     })

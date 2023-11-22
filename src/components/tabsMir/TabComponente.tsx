@@ -103,15 +103,9 @@ export const TabComponente = ({
 
   useEffect(() => {
     setComponentes(MIR.componentes);
-    // console.log("formula: ", componentes[componentSelect ]?.formula);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [MIR]);
-
-  useEffect(() => {
-    console.log("MIR desde comp:", MIR);
-    // console.log("formula: ", componentes[componentSelect ]?.formula);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     setMIR((MIR: IMIR) => ({
@@ -125,16 +119,15 @@ export const TabComponente = ({
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
-  const eliminarComponente=()=>{
+  const eliminarComponente = () => {
     // removeComponente(componentSelect-1);
     // setComponentSelect(1);
-    if(MIR.componentes.length>2){
+    if (MIR.componentes.length > 2) {
       removeComponente(componentSelect);
       // let num = MIR.componentes.length
       setComponentSelect(1);
-    }else
-      alertaError("El minimo de componentes son dos.");
-  }
+    } else alertaError("El minimo de componentes son dos.");
+  };
 
   return (
     <Grid
@@ -188,7 +181,6 @@ export const TabComponente = ({
         >
           <AddCircleIcon fontSize="large" />
         </IconButton>
-
 
         <DeleteCompActMir
           tipoelemento={"componente"}
@@ -251,7 +243,7 @@ export const TabComponente = ({
                   <ListItemButton
                     selected={index + 1 === componentSelect ? true : false}
                     key={index + 1}
-                    onClick={() => setComponentSelect(index+1)}
+                    onClick={() => setComponentSelect(index + 1)}
                     sx={{
                       height: "7vh",
                       "&.Mui-selected ": {
@@ -346,7 +338,9 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              disabled={edit && !mirEdit?.componentes[componentSelect - 1]?.resumen}
+              disabled={
+                edit && !mirEdit?.componentes[componentSelect - 1]?.resumen
+              }
               rows={8}
               multiline
               sx={{
@@ -391,7 +385,9 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              disabled={edit && !mirEdit?.componentes[componentSelect - 1]?.indicador}
+              disabled={
+                edit && !mirEdit?.componentes[componentSelect - 1]?.indicador
+              }
               rows={8}
               multiline
               sx={{
@@ -411,9 +407,9 @@ export const TabComponente = ({
               }}
               // onBlur={() => evalueTxtIndicador()}
               label={"INDICADOR"}
-              error={errorIndicador === componentSelect -1 ? true : false}
+              error={errorIndicador === componentSelect - 1 ? true : false}
               helperText={
-                errorIndicador === componentSelect -1
+                errorIndicador === componentSelect - 1
                   ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
                   : null
               }
@@ -444,7 +440,9 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              disabled={edit && !mirEdit?.componentes[componentSelect - 1]?.formula}
+              disabled={
+                edit && !mirEdit?.componentes[componentSelect - 1]?.formula
+              }
               rows={8}
               multiline
               variant="filled"
@@ -558,7 +556,9 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              disabled={edit && !mirEdit?.componentes[componentSelect - 1]?.medios}
+              disabled={
+                edit && !mirEdit?.componentes[componentSelect - 1]?.medios
+              }
               rows={8}
               multiline
               variant="filled"
@@ -604,7 +604,9 @@ export const TabComponente = ({
             }}
           >
             <TextField
-              disabled={edit && !mirEdit?.componentes[componentSelect - 1]?.supuestos}
+              disabled={
+                edit && !mirEdit?.componentes[componentSelect - 1]?.supuestos
+              }
               rows={8}
               multiline
               variant="filled"

@@ -35,29 +35,25 @@ export default function ModalVincularUsuario({
   // const [telephone, setTelephone] = useState("");
   // const [cellphone, setCellphone] = useState("");
 
-  const [dataUser, setDataUser] = useState<IdataUser>(
-    {
-      Id: "",
-      Nombre: "",
-      ApellidoPaterno: "",
-      ApellidoMaterno: "",
-      CorreoElectronico: "",
-      NombreUsuario: "",
-      Telefono: "",
-      Ext: "",
-      Curp: "",
-      Rfc: "",
-      Celular: "",
-    }
-  );
+  const [dataUser, setDataUser] = useState<IdataUser>({
+    Id: "",
+    Nombre: "",
+    ApellidoPaterno: "",
+    ApellidoMaterno: "",
+    CorreoElectronico: "",
+    NombreUsuario: "",
+    Telefono: "",
+    Ext: "",
+    Curp: "",
+    Rfc: "",
+    Celular: "",
+  });
 
-  const [datosAdicionales, setDatosAdicionales] = useState<IDatosAdicionales>(
-    {
-      institution: "0",
-      rol: "",
-      userType: "0"
-    }
-  );
+  const [datosAdicionales, setDatosAdicionales] = useState<IDatosAdicionales>({
+    institution: "0",
+    rol: "",
+    userType: "0",
+  });
   // const [idUsuarioCentral, setIdUsuarioCentral] = useState("");
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState([
@@ -142,7 +138,8 @@ export default function ModalVincularUsuario({
 
   const verifyUser = () => {
     axios
-      .post(process.env.REACT_APP_APPLICATION_BACK+ "/api/user-exist",
+      .post(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/user-exist",
         {
           NombreUsuario: username,
           CorreoElectronico: email.toLowerCase(),
@@ -162,8 +159,7 @@ export default function ModalVincularUsuario({
             text: r.data.data.message,
             type: "success",
           });
-          console.log(r.data.data.Id);
-          
+
           getUserDetails(r.data.data.Id);
           // setIdUsuarioCentral(r.data.data.Id);
           setFullView(true);
@@ -191,10 +187,7 @@ export default function ModalVincularUsuario({
     },
   });
 
-
-  const getUserDetails = (idCentral: string,) => {
-    console.log(idCentral)
-    
+  const getUserDetails = (idCentral: string) => {
     axios
       .post(
         process.env.REACT_APP_APPLICATION_LOGIN + "/api/user-detail",
@@ -209,7 +202,6 @@ export default function ModalVincularUsuario({
         }
       )
       .then((r) => {
-
         if (r.status === 200) {
           let auxLlenado = dataUser;
           auxLlenado.Id = r.data.data.Id;
@@ -228,9 +220,6 @@ export default function ModalVincularUsuario({
           setNames(auxLlenado.Nombre);
           setFirstName(auxLlenado.ApellidoPaterno);
           setSecondName(auxLlenado.ApellidoMaterno);
-
-
-
         }
       });
   };
@@ -244,7 +233,7 @@ export default function ModalVincularUsuario({
           AMaterno: dataUser.ApellidoMaterno,
           NombreUsuario: dataUser.NombreUsuario,
           Email: dataUser.CorreoElectronico,
-          Puesto:datosAdicionales.rol,
+          Puesto: datosAdicionales.rol,
           Curp: dataUser.Curp,
           RFC: dataUser.Rfc,
           Celular: dataUser.Celular,
@@ -254,7 +243,6 @@ export default function ModalVincularUsuario({
           TipoSolicitud: "VINCULACION",
           CreadoPor: localStorage.getItem("IdCentral"),
           IdApp: localStorage.getItem("IdApp"),
-
         },
         {
           headers: {
@@ -263,7 +251,6 @@ export default function ModalVincularUsuario({
         }
       )
       .then((r) => {
-
         if (r.status === 200) {
           cleanForm();
           closeModal();
@@ -283,7 +270,6 @@ export default function ModalVincularUsuario({
         }
       });
   };
-
 
   const checkForm = () => {
     setErrorsForm({
@@ -333,8 +319,8 @@ export default function ModalVincularUsuario({
   };
 
   useEffect(() => {
-   // getInstituciones();
-   // getUserType();
+    // getInstituciones();
+    // getUserType();
   }, []);
 
   return (
@@ -397,7 +383,10 @@ export default function ModalVincularUsuario({
           <Button
             variant="outlined"
             color="success"
-            onClick={() => { verifyUser(); setNotEditable(true); }}
+            onClick={() => {
+              verifyUser();
+              setNotEditable(true);
+            }}
             disabled={notEditable}
           >
             Verificar
@@ -463,13 +452,16 @@ export default function ModalVincularUsuario({
                   ml: "2vw",
                 }}
               >
-                <InputLabel>
-                  Institución
-                </InputLabel>
+                <InputLabel>Institución</InputLabel>
                 <Select
                   value={datosAdicionales.institution}
                   label="Institución"
-                  onChange={(x) => setDatosAdicionales({ ...datosAdicionales, institution: x.target.value })}
+                  onChange={(x) =>
+                    setDatosAdicionales({
+                      ...datosAdicionales,
+                      institution: x.target.value,
+                    })
+                  }
                 >
                   <MenuItem value={"0"} key={0} disabled>
                     Selecciona
@@ -488,7 +480,12 @@ export default function ModalVincularUsuario({
                 label="Cargo"
                 variant="outlined"
                 value={datosAdicionales.rol}
-                onChange={(x) => setDatosAdicionales({ ...datosAdicionales, rol: x.target.value })}
+                onChange={(x) =>
+                  setDatosAdicionales({
+                    ...datosAdicionales,
+                    rol: x.target.value,
+                  })
+                }
                 sx={{
                   width: "30%",
                 }}
@@ -499,13 +496,16 @@ export default function ModalVincularUsuario({
                   mr: "2vw",
                 }}
               >
-                <InputLabel>
-                  Tipo de Usuario
-                </InputLabel>
+                <InputLabel>Tipo de Usuario</InputLabel>
                 <Select
                   value={datosAdicionales.userType}
                   label="Tipo de Usuario"
-                  onChange={(x) => setDatosAdicionales({ ...datosAdicionales, userType: x.target.value })}
+                  onChange={(x) =>
+                    setDatosAdicionales({
+                      ...datosAdicionales,
+                      userType: x.target.value,
+                    })
+                  }
                 >
                   <MenuItem value={"0"} key={0} disabled>
                     Selecciona

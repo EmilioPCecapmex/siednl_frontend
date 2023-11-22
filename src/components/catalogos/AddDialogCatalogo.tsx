@@ -128,7 +128,10 @@ export const AddDialogCatalogo = ({
   ]);
 
   React.useEffect(() => {
-    getListasLogin({Tabla:"Entidades",ValorCondicion:""},setCatalogoInstituciones);
+    getListasLogin(
+      { Tabla: "Entidades", ValorCondicion: "" },
+      setCatalogoInstituciones
+    );
     getProgramas();
     //getUnidadesAdministrativas();
   }, []);
@@ -146,7 +149,6 @@ export const AddDialogCatalogo = ({
       })
       .then((r) => {
         setCatalogoInstituciones(r.data.data);
-        console.log("Entidades: ", r.data.data);
       });
   };
 
@@ -166,7 +168,7 @@ export const AddDialogCatalogo = ({
   //     });
   // };
 
-  const getListasLogin = (datos:any,setState:Function) => {
+  const getListasLogin = (datos: any, setState: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listas", {
         params: datos,
@@ -195,9 +197,8 @@ export const AddDialogCatalogo = ({
       )
       .then((r) => {
         setCatalogoProgramas(r.data.data);
-      }).catch((err) =>
-      console.log("Hola",err)
-    );
+      })
+      .catch((err) => console.log(""));
   };
 
   const CreatePorCatalogo = () => {
@@ -347,7 +348,7 @@ export const AddDialogCatalogo = ({
           CreadoPor: localStorage.getItem("IdUsuario"),
           Rol: localStorage.getItem("Rol"),
           Conac: descripcionConac,
-          Consecutivo: descripcionConsecutivo
+          Consecutivo: descripcionConsecutivo,
         },
         {
           headers: {
@@ -387,8 +388,6 @@ export const AddDialogCatalogo = ({
       setDescripcionConac(inputValue);
     }
   };
-
-  
 
   if (tabla === "FechasDeCaptura") {
     return (
@@ -528,8 +527,7 @@ export const AddDialogCatalogo = ({
       //   </Dialog>
       // </Grid>
     );
-  }
-  else if (tabla === "ProgramasInstituciones") {
+  } else if (tabla === "ProgramasInstituciones") {
     return (
       <Box sx={{ display: "flex" }}>
         {/* <IconButton onClick={handleClickOpen}>
@@ -693,8 +691,7 @@ export const AddDialogCatalogo = ({
         </Dialog>
       </Box>
     );
-  }
-  else if (tabla === "InstitucionUnidad") {
+  } else if (tabla === "InstitucionUnidad") {
     return (
       <Box sx={{ display: "flex" }}>
         {/* <IconButton onClick={handleClickOpen}>
@@ -959,7 +956,7 @@ export const AddDialogCatalogo = ({
               label={"Conac"}
               variant="outlined"
               // multiline={descripcionConac.length < 2 ? false : true}
-              sx={{ width: "60%", mb: "2vh"  }}
+              sx={{ width: "60%", mb: "2vh" }}
               value={descripcionConac}
               onChange={handleChange}
               style={{ marginTop: 1 }}
@@ -982,14 +979,14 @@ export const AddDialogCatalogo = ({
               // multiline={descripcionConac.length < 2 ? false : true}
               sx={{ width: "60%" }}
               value={descripcionConsecutivo}
-              onChange={(x)=>{
+              onChange={(x) => {
                 if (
-                  /^^[0-9]{1,3}$/.test(x.target.value) || x.target.value === '') {
+                  /^^[0-9]{1,3}$/.test(x.target.value) ||
+                  x.target.value === ""
+                ) {
                   setDescripcionConsecutivo(x.target.value);
                 }
-              }
-                
-              }
+              }}
               style={{ marginTop: 1 }}
               rows={1}
               InputLabelProps={{

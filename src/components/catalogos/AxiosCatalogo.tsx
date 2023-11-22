@@ -27,9 +27,7 @@ export const createFechaDeCaptua = (
       }
     )
     .then((r) => {
-      console.log("modulo: ", Descripcion);
-      console.log("fecha1: ", Fecha1);
-      console.log("fecha2: ", Fecha2);
+     
       alertaExito(() => {}, "Fecha de Captura Creada");
     })
     .catch((err) => {

@@ -146,10 +146,6 @@ export default function TabsActividadesInstitucionales({
     }));
   };
 
-  useEffect(() => {
-    console.log("ai", ai);
-  }, [ai]);
-
   const query = {
     isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
 

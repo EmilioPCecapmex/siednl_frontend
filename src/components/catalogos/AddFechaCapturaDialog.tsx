@@ -82,7 +82,7 @@ export const CapturarFechas = ({
     
     
     const selectedDate = event.target.value;
-    console.log(selectedDate);
+   
     if (selectedDate <= fechaCaptura2) {
       setFechaCaptura1(selectedDate);
     
@@ -95,7 +95,7 @@ export const CapturarFechas = ({
   const handleFechaCaptura2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
     
     const selectedDate = event.target.value;
-    console.log(selectedDate);
+    
     if (selectedDate >= fechaCaptura1) {
       setFechaCaptura2(selectedDate);
     }else{
@@ -104,9 +104,6 @@ export const CapturarFechas = ({
   };
 
   const handleClick = (modulo: string, fecha1: string, fecha2: string) => {
-    console.log("modulo: ",modulo);
-    console.log("fecha1: ",fecha1);
-    console.log("fecha2: ",fecha2);
     createFechaDeCaptua(modulo, fecha1, fecha2)
     getFechasDeCaptura()
     
@@ -121,10 +118,10 @@ export const CapturarFechas = ({
         },
       })
       .then((r) => {
-        console.log(r);
+       
         
         if (r.status === 200) {
-          console.log(r.data.data);
+          
           
           let update = r.data.data;
           update = update.map(

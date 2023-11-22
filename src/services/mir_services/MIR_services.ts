@@ -15,7 +15,7 @@ export  function getMAyFT(IdMIR:string,setMA:Function, setFt:Function, setIdMA:F
         }
       )
       .then(({data}) => {
-        console.log(data);
+
         
         let auxMA=data.data[0].MA
         let auxFT=data.data[0].FT

@@ -42,8 +42,6 @@ export default function NotificationsPanel() {
       .then((r) => {
         if (r.status === 200) {
           if (r.data.data.length >= 1) {
-            console.log("notificacion, r.data: ", r.data);
-
             setNotificaciones(r.data.data);
           } else {
             setSinNotificaciones(false);
@@ -163,19 +161,14 @@ export default function NotificationsPanel() {
                   <Button
                     variant="text"
                     onClick={() => {
-                      console.log("index.IdDocumento: ", index.IdDocumento);
-                      console.log("index: ", index);
                       eliminaNotificacion(index.Id);
                       if (index.Titulo === "MIR") {
-                        console.log("index.IdDocumento: ", index.IdDocumento);
                         navigate("../MIR" + "?Id=" + index.IdDocumento);
                       }
                       if (index.Titulo === "MA") {
-                        console.log("index.IdDocumento: ", index.IdDocumento);
                         navigate("../metaAnual" + "?Id=" + index.IdDocumento);
                       }
                       if (index.Titulo === "FT") {
-                        console.log("index.IdDocumento: ", index.IdDocumento);
                         navigate(
                           "../fichaTecnica" + "?Id=" + index.IdDocumento
                         );

@@ -45,7 +45,7 @@ function getNumComponents(MIR: string) {
 
 function newFichaTecnica(MIR: string) {
   let componentes: IComponente[] = JSON.parse(MIR).componentes;
-  console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
+
   return {
     encabezado: newEncabezadoFT(),
     fin: newFinPropositoFT(),
@@ -56,7 +56,7 @@ function newFichaTecnica(MIR: string) {
 
 function newFichaTecnicaboolean(MIR: string) {
   let componentes: IComponente[] = JSON.parse(MIR).componentes;
-  console.log("MIR.COMPONENS:", JSON.parse(MIR).componentes);
+
   return {
     encabezado: newEncabezadoFTboolean(),
     fin: newFinPropositoFTboolean(),
@@ -64,7 +64,6 @@ function newFichaTecnicaboolean(MIR: string) {
     componentes: componentes?.map((item) => newComponentebooleanFT(item)),
   };
 }
-
 
 export function newEncabezadoFT() {
   return {
@@ -148,7 +147,7 @@ export function newComponenteFT(ComponenteMIR: IComponente) {
 
 function newActividadbooleanFT(ActividadMIR: IActividad) {
   return {
-    actividad:  ActividadMIR.actividad,
+    actividad: ActividadMIR.actividad,
     tipoDeIndicador: false,
     claridad: false,
     relevancia: false,
@@ -162,7 +161,6 @@ function newActividadbooleanFT(ActividadMIR: IActividad) {
 }
 
 function newComponentebooleanFT(ComponenteMir: IComponente) {
-  
   let componente: IComponenteEditFT;
   componente = {
     componentes: ComponenteMir.componente,
@@ -175,7 +173,9 @@ function newComponentebooleanFT(ComponenteMir: IComponente) {
     aporte_marginal: false,
     dimension: false,
     unidadDeMedida: false,
-    actividades: ComponenteMir.actividades.map((item) => newActividadbooleanFT(item)),
+    actividades: ComponenteMir.actividades.map((item) =>
+      newActividadbooleanFT(item)
+    ),
   };
   return componente;
 }
@@ -213,7 +213,6 @@ export default function AddFichaTecnica({
 
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
-    console.log("hola");
   };
 
   const cambiarTab = (option: string) => {
@@ -229,17 +228,17 @@ export default function AddFichaTecnica({
 
   const [ftPadre, setFTPadre] = useState<IFT>(newFichaTecnica(MIR));
 
-  const [ftEditPadre, setFTEditPadre] = useState<IFTEdit>(newFichaTecnicaboolean(MIR));
+  const [ftEditPadre, setFTEditPadre] = useState<IFTEdit>(
+    newFichaTecnicaboolean(MIR)
+  );
 
-  const [editFT,setEditFT]=useState(false)
+  const [editFT, setEditFT] = useState(false);
 
   useEffect(() => {
-   
     if (FT !== "") {
-
       let auxArrayFT = JSON.parse(FT);
       if (auxArrayFT[1]) {
-        let auxDBMA: IFT =auxArrayFT[0];
+        let auxDBMA: IFT = auxArrayFT[0];
         let auxMIR: IMIR = JSON.parse(MIR);
         let auxMA: IFT = newFichaTecnica(MIR);
 
@@ -249,20 +248,26 @@ export default function AddFichaTecnica({
 
         let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
           if (auxDBMA.componentes[indexC]) {
-            let auxActividades: IActividadesFT[] = itemComponente.actividades.map((itemActividad, indexA) => {
-              return auxDBMA.componentes[indexC].actividades[indexA] || newActividadFT(auxMIR.componentes[indexC].actividades[indexA])
-            })
-            console.log("componente opcional:",{...auxDBMA.componentes[indexC],actividades: auxActividades});
-            
-            return {...auxDBMA.componentes[indexC],actividades: auxActividades}||{ ...itemComponente, actividades: auxActividades }
-          } else {
-            return newComponenteFT(auxMIR.componentes[indexC])
-          }
+            let auxActividades: IActividadesFT[] =
+              itemComponente.actividades.map((itemActividad, indexA) => {
+                return (
+                  auxDBMA.componentes[indexC].actividades[indexA] ||
+                  newActividadFT(auxMIR.componentes[indexC].actividades[indexA])
+                );
+              });
 
-        })
-        setFTEditPadre({...auxArrayFT[1]})
-        console.log("auxArrayFT",auxArrayFT[1]);
-        
+            return (
+              {
+                ...auxDBMA.componentes[indexC],
+                actividades: auxActividades,
+              } || { ...itemComponente, actividades: auxActividades }
+            );
+          } else {
+            return newComponenteFT(auxMIR.componentes[indexC]);
+          }
+        });
+        setFTEditPadre({ ...auxArrayFT[1] });
+
         setFTPadre({ ...auxDBMA, componentes: auxComponentes });
       } else {
         let auxDBMA: IFT = JSON.parse(FT);
@@ -274,27 +279,29 @@ export default function AddFichaTecnica({
 
         let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
           if (auxDBMA.componentes[indexC]) {
-            let auxActividades: IActividadesFT[] = itemComponente.actividades.map((itemActividad, indexA) => {
-              // console.log("iteracion: ", auxDBMA.componentes[indexC].actividades[indexA] || newActividadMA(auxMIR.componentes[indexC].actividades[indexA]));
+            let auxActividades: IActividadesFT[] =
+              itemComponente.actividades.map((itemActividad, indexA) => {
+                return (
+                  auxDBMA.componentes[indexC].actividades[indexA] ||
+                  newActividadFT(auxMIR.componentes[indexC].actividades[indexA])
+                );
+              });
 
-              return auxDBMA.componentes[indexC].actividades[indexA] || newActividadFT(auxMIR.componentes[indexC].actividades[indexA])
-            })
-            console.log("componente opcional:",{...auxDBMA.componentes[indexC],actividades: auxActividades});
-            
-            return {...auxDBMA.componentes[indexC],actividades: auxActividades}||{ ...itemComponente, actividades: auxActividades }
+            return (
+              {
+                ...auxDBMA.componentes[indexC],
+                actividades: auxActividades,
+              } || { ...itemComponente, actividades: auxActividades }
+            );
           } else {
-            return newComponenteFT(auxMIR.componentes[indexC])
+            return newComponenteFT(auxMIR.componentes[indexC]);
           }
+        });
 
-        })
-        // console.log("MA: ", { ...auxDBMA, componentes: auxComponentes });
         setFTPadre({ ...auxDBMA, componentes: auxComponentes });
       }
-
     }
   }, []);
-
-
 
   const setFTEncabezadoPadre = (EncabezadoValues: IEncabezadoFT) => {
     setFTPadre({
@@ -399,7 +406,7 @@ export default function AddFichaTecnica({
         }}
       >
         <GenericTabs tabSelect={setValue} tabsData={tabs} />
-        
+
         <Grid
           sx={{
             width: "93vw",
@@ -408,7 +415,7 @@ export default function AddFichaTecnica({
         >
           {value === 0 ? (
             <TabEncabezado
-            edit={editFT}
+              edit={editFT}
               setFTEncabezadoPadre={setFTEncabezadoPadre}
               EncabezadoValues={ftPadre.encabezado}
               FT={FT}
@@ -419,7 +426,7 @@ export default function AddFichaTecnica({
 
           {value === 1 ? (
             <TabFinPropositoFT
-            edit={editFT}
+              edit={editFT}
               show={value === 1 ? true : false}
               setFTPropositoPadre={setFTPropositoPadre}
               setFTFinPadre={setFTFinPadre}
@@ -432,7 +439,7 @@ export default function AddFichaTecnica({
           ) : null}
           {value === 2 ? (
             <TabComponenteFT
-            edit={editFT}
+              edit={editFT}
               show={value === 2 ? true : false}
               setFTcomponentesPadre={setFTcomponentesPadre}
               setComponenteFT={setFTPadre}
@@ -445,7 +452,7 @@ export default function AddFichaTecnica({
           ) : null}
           {value === 3 ? (
             <TabActividadesFT
-            edit={editFT}
+              edit={editFT}
               show={value === 3 ? true : false}
               setTxtShowFnc={setTxtShowFnc}
               showMirFnc={showMirFnc}
