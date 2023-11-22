@@ -93,13 +93,13 @@ export default function ModalEnviarMIR({
       });
       console.log("componentes actualizados", arrComponentes);
       setFT({ ...ft, componentes: arrComponentes });
-      return { ...ft, componentes: arrComponentes }
+      return { ...ft, componentes: arrComponentes };
       // console.log(
       //   "MA actualizada",
       //   JSON.stringify({ ...ft, componentes: arrComponentes })
       // );
     }
-    return ft
+    return ft;
   };
 
   ///////////////////////////////////////////////////////////////////////////////////////////
@@ -129,15 +129,15 @@ export default function ModalEnviarMIR({
         } else return componente;
       });
       console.log("componentes actualizados", arrComponentes);
-      
+
       setMA({ ...ma, componentes: arrComponentes });
-      return { ...ma, componentes: arrComponentes }
+      return { ...ma, componentes: arrComponentes };
       // console.log(
       //   "MA actualizada",
       //   JSON.stringify({ ...ma, componentes: arrComponentes })
       // );
     }
-    return ma
+    return ma;
   };
   ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -700,16 +700,34 @@ export default function ModalEnviarMIR({
   });
 
   const mirFuncionAutorizada = () => {
-    let auxMA: string
-    let auxFT: string
+    let auxMA: string;
+    let auxFT: string;
+    auxMA = JSON.stringify(ma);
+    auxFT = JSON.stringify(ft);
     console.log("Paso5 funcion mirFuncionAutorizada");
+    console.log("mDocumentos: ", mDocumentos);
+
     mDocumentos.map((item) => {
       if (item.movimiento === "remove") {
         console.log("Paso5.1");
-        auxMA =  JSON.stringify(removeComponenteMA(Number(item.indice.split("C")[1]))) 
-        auxFT =  JSON.stringify(removeComponenteFT(Number(item.indice.split("C")[1])))
+        auxMA = JSON.stringify(
+          removeComponenteMA(Number(item.indice.split("C")[1]))
+        );
+        auxFT = JSON.stringify(
+          removeComponenteFT(Number(item.indice.split("C")[1]))
+        );
       }
-      console.log("estoy arriba del axios")
+
+      // if (item.movimiento === "add") {
+      //   console.log("Paso5.1");
+      //   auxMA =  JSON.stringify(removeComponenteMA(Number(item.indice.split("C")[1])))
+      //   auxFT =  JSON.stringify(removeComponenteFT(Number(item.indice.split("C")[1])))
+      // }
+
+      console.log("estoy arriba del axios");
+      console.log("Paso5.2");
+      console.log("auxMA: ", auxMA);
+      console.log("auxFT: ", auxFT);
       console.log("Paso5.2");
       axios.post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/update-info",
@@ -830,20 +848,20 @@ export default function ModalEnviarMIR({
                     : "Autorizada"
                 );
                 console.log("Paso1");
-                
+
                 handleClose(false);
                 console.log("Paso2");
                 setNewComent(false);
                 console.log("Paso3");
                 RestructuraMAyFT();
                 console.log("Paso4");
-                console.log("Autorizada Paso4: ",estadoMIR );
+                console.log("Autorizada Paso4: ", estadoMIR);
                 if (estadoMIR === "Autorizada") {
                   console.log("Paso4");
                   mirFuncionAutorizada();
-                  console.log("Paso5.1");
+                  console.log("Paso5.1 en el if");
                 }
-                console.log("Paso5.1");
+                console.log("Paso5.1 fuera del if");
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
