@@ -26,7 +26,7 @@ import {
   newComponenteMA,
   newFinPropositoMA,
 } from "../tabsMetaAnual/AddMetaAnual";
-import { alertaEliminar } from "../genericComponents/Alertas";
+import { alertaEliminar, alertaExito } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -494,7 +494,11 @@ export default function ModalEnviarMIR({
       }
     );
     if (err === 0) {
-      createMIR(v);
+      if (estadoMIR === "Autorizada" && IdMir && IdMir!=="") {
+        mirFuncionAutorizada();
+      }else{
+        createMIR(v);
+      }
     } else {
       Toast.fire({
         icon: "error",
@@ -690,12 +694,7 @@ export default function ModalEnviarMIR({
     let auxMA: string;
     let auxFT: string;
     auxMA = JSON.stringify(ma);
-    // auxFT = JSON.stringify(ft) ?? "0"
-
-    // if (auxFT === null || auxFT === undefined) {
-    //   auxFT = "0";
-    // }
-
+  
     if (ft !== null) {
       auxFT = JSON.stringify(ft);
     } else {
@@ -712,10 +711,8 @@ export default function ModalEnviarMIR({
           removeComponenteFT(Number(item.indice.split("C")[1]))
         );
       }
-      console.log("Update info2: ",auxFT);
-      
-      
     });
+
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/update-info",
       {
@@ -723,6 +720,7 @@ export default function ModalEnviarMIR({
         IdMa: Idma,
         IdFT: Idft,
         MIR: MIR,
+        Estado:estadoMIR,
         MA: auxMA,
         FT: auxFT,
         Rol: localStorage.getItem("Rol"),
@@ -733,7 +731,7 @@ export default function ModalEnviarMIR({
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       }
-    );
+    ).then(()=>alertaExito(()=>{}));
   };
 
   return (
@@ -826,6 +824,7 @@ export default function ModalEnviarMIR({
             <Button
               sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
+
                 checkMir(
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
@@ -840,9 +839,7 @@ export default function ModalEnviarMIR({
 
                 RestructuraMAyFT();
 
-                if (estadoMIR === "Autorizada") {
-                  mirFuncionAutorizada();
-                }
+                
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
