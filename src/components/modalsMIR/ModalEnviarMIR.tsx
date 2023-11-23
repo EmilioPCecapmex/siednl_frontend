@@ -690,8 +690,19 @@ export default function ModalEnviarMIR({
     let auxMA: string;
     let auxFT: string;
     auxMA = JSON.stringify(ma);
-    auxFT = JSON.stringify(ft);
+    // auxFT = JSON.stringify(ft) ?? "0"
 
+    // if (auxFT === null || auxFT === undefined) {
+    //   auxFT = "0";
+    // }
+
+    if (ft !== null) {
+      auxFT = JSON.stringify(ft);
+    } else {
+      auxFT = "";
+    }
+
+    console.log("Update info1: ",auxFT);
     mDocumentos.map((item) => {
       if (item.movimiento === "remove") {
         auxMA = JSON.stringify(
@@ -701,26 +712,28 @@ export default function ModalEnviarMIR({
           removeComponenteFT(Number(item.indice.split("C")[1]))
         );
       }
-
-      axios.post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/update-info",
-        {
-          IdMir: IdMir,
-          IdMa: Idma,
-          IdFT: Idft,
-          MIR: MIR,
-          MA: auxMA,
-          FT: auxFT,
-          Rol: localStorage.getItem("Rol"),
-          CreadoPor: localStorage.getItem("IdUsuario"),
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      );
+      console.log("Update info2: ",auxFT);
+      
+      
     });
+    axios.post(
+      process.env.REACT_APP_APPLICATION_BACK + "/api/update-info",
+      {
+        IdMir: IdMir,
+        IdMa: Idma,
+        IdFT: Idft,
+        MIR: MIR,
+        MA: auxMA,
+        FT: auxFT,
+        Rol: localStorage.getItem("Rol"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    );
   };
 
   return (

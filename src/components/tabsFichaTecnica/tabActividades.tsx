@@ -278,6 +278,7 @@ export const TabActividadesFT = ({
               flexDirection: "column",
               justifyContent: "center",
               borderColor: "#BCBCBC",
+              //overflow: MIR.componentes.length > 9 ? "scroll" : "",
               "&::-webkit-scrollbar": {
                 width: ".3vw",
               },
@@ -314,7 +315,7 @@ export const TabActividadesFT = ({
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
-                        fontSize: [10, 10, 12, 15, 18, 20],
+                        //fontSize: [10, 10, 12, 15, 18, 20],
                       }}
                     >
                       COMPONENTE {index + 1}
@@ -345,7 +346,7 @@ export const TabActividadesFT = ({
                           >
                             <Typography
                               sx={{
-                                fontSize: [10, 10, 12, 15, 18, 20],
+                                //fontSize: [10, 10, 12, 15, 18, 20],
                                 fontFamily: "MontserratMedium",
                               }}
                             >
@@ -385,7 +386,14 @@ export const TabActividadesFT = ({
             <List>
               {componentesActividadValues.map((componente, index) => {
                 return (
-                  <Grid key={index}>
+                  <Grid
+                    key={index}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
                     <Divider />
 
                     <ListItemButton
@@ -473,7 +481,12 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
-              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.tipoDeIndicador}
+              disabled={
+                edit &&
+                !ftEditPadre?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.tipoDeIndicador
+              }
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -574,7 +587,12 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
-              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.dimension}
+              disabled={
+                edit &&
+                !ftEditPadre?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.dimension
+              }
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -742,7 +760,12 @@ export const TabActividadesFT = ({
             }}
           >
             <TextField
-              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.unidadDeMedida}
+              disabled={
+                edit &&
+                !ftEditPadre?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.unidadDeMedida
+              }
               fullWidth
               rows={5}
               multiline
@@ -796,7 +819,12 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
-              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.claridad}
+              disabled={
+                edit &&
+                !ftEditPadre?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.claridad
+              }
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -895,7 +923,12 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
-              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.relevancia}
+              disabled={
+                edit &&
+                !ftEditPadre?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.relevancia
+              }
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -994,7 +1027,12 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
-              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.economia}
+              disabled={
+                edit &&
+                !ftEditPadre?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.economia
+              }
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -1093,7 +1131,12 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
-              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.monitoreable}
+              disabled={
+                edit &&
+                !ftEditPadre?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.monitoreable
+              }
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -1192,7 +1235,12 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
-              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.adecuado}
+              disabled={
+                edit &&
+                !ftEditPadre?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.adecuado
+              }
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",
@@ -1291,7 +1339,12 @@ export const TabActividadesFT = ({
             }}
           >
             <FormControl
-              disabled={edit && !ftEditPadre?.componentes[componenteSelect].actividades[actividadSelect]?.aporte_marginal}
+              disabled={
+                edit &&
+                !ftEditPadre?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.aporte_marginal
+              }
               fullWidth
               sx={{
                 backgroundColor: "#f0f0f0",

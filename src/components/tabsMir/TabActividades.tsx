@@ -65,7 +65,7 @@ export const TabActividades = ({
 
   const changeFormula = (txt: string) => {
     // valoresComponenteActividad[componenteSelect][actividadSelect].formula = txt;
-    componentes[componenteSelect].actividades[actividadSelect].formula = txt
+    componentes[componenteSelect].actividades[actividadSelect].formula = txt;
   };
 
   const evalueTxtIndicador = () => {
@@ -130,7 +130,6 @@ export const TabActividades = ({
     }
   };
 
-  
   const [componentes, setComponentes] = useState<Array<IComponente>>(
     MIR.componentes
   );
@@ -188,7 +187,7 @@ export const TabActividades = ({
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-           // fontSize: "1vw",
+            // fontSize: "1vw",
           }}
         >
           ACTIVIDAD # {actividadSelect + 1}
@@ -206,12 +205,15 @@ export const TabActividades = ({
         </IconButton>
 
         <DeleteCompActMir
-      tipoelemento={"actividad"}
-      numerocomponente={componenteSelect+1}
-      numeroactividad={actividadSelect+1}
-      functelim={() => {removeActividad(componenteSelect + 1, actividadSelect + 1);setActividadSelect(0);} }
-      idMir={idMir}
-    />
+          tipoelemento={"actividad"}
+          numerocomponente={componenteSelect + 1}
+          numeroactividad={actividadSelect + 1}
+          functelim={() => {
+            removeActividad(componenteSelect + 1, actividadSelect + 1);
+            setActividadSelect(0);
+          }}
+          idMir={idMir}
+        />
 
         {/* <IconButton
           onClick={() => {
@@ -311,7 +313,7 @@ export const TabActividades = ({
                         >
                           <Typography
                             sx={{
-                            //  fontSize: "1vw",
+                              //  fontSize: "1vw",
                               fontFamily: "MontserratMedium",
                             }}
                           >
@@ -379,7 +381,9 @@ export const TabActividades = ({
                       }}
                     >
                       <Typography
-                        sx={{ fontFamily: "MontserratMedium", fontSize: "6vw" }}
+                        sx={{ fontFamily: "MontserratMedium", 
+                        //fontSize: "6vw" 
+                      }}
                       >
                         COMPONENTE {index + 1}
                       </Typography>
@@ -408,7 +412,7 @@ export const TabActividades = ({
                           >
                             <Typography
                               sx={{
-                               // fontSize: "1vw",
+                                // fontSize: "1vw",
                                 fontFamily: "MontserratMedium",
                               }}
                             >
@@ -426,11 +430,23 @@ export const TabActividades = ({
             </List>
           )}
 
-          <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+          <Grid sx={{ width: "90%", gridColumn: "1/4" }}
+            // item
+            // xl={3.5}
+            // lg={3.5}
+            // md={3.5}
+            // sm={3.5}
+            // xs={11}
+            // sx={{
+            //   alignContent: "center",
+            //   display: "flex",
+            //   justifyContent: "center",
+            // }}
+          >
             <Typography
               sx={{
                 fontFamily: "MontserratSemiBold",
-              // fontSize: "1vw",
+                // fontSize: "1vw",
                 textAlign: "center",
               }}
             >
@@ -439,7 +455,7 @@ export const TabActividades = ({
             <Typography
               sx={{
                 fontFamily: "MontserratLight",
-               // fontSize: ".8vw",
+                // fontSize: ".8vw",
                 textAlign: "center",
               }}
             >
@@ -461,8 +477,12 @@ export const TabActividades = ({
             }}
           >
             <TextField
-              disabled={edit && !mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.resumen}
-
+              disabled={
+                edit &&
+                !mirEdit?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.resumen
+              }
               rows={8}
               multiline
               sx={{
@@ -526,7 +546,12 @@ export const TabActividades = ({
           >
             <TextField
               // disabled={mirEdit?.actividades[componenteSelect].indicador}
-              disabled={edit && !mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.indicador}
+              disabled={
+                edit &&
+                !mirEdit?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.indicador
+              }
               rows={8}
               multiline
               sx={{
@@ -593,7 +618,12 @@ export const TabActividades = ({
           >
             <TextField
               // disabled={mirEdit?.actividades[componenteSelect].formula}
-              disabled={edit && !mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.formula}
+              disabled={
+                edit &&
+                !mirEdit?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.formula
+              }
               rows={8}
               multiline
               variant="filled"
@@ -621,7 +651,7 @@ export const TabActividades = ({
             />
           </Grid>
 
-           <Grid
+          <Grid
             item
             xl={4}
             lg={4}
@@ -675,7 +705,7 @@ export const TabActividades = ({
                 }
               />
             </FormControl>
-          </Grid> 
+          </Grid>
 
           <Grid
             item
@@ -692,7 +722,12 @@ export const TabActividades = ({
           >
             <TextField
               // disabled={mirEdit?.actividades[componenteSelect].medios}
-              disabled={edit && !mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.medios}
+              disabled={
+                edit &&
+                !mirEdit?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.medios
+              }
               rows={8}
               multiline
               variant="filled"
@@ -745,7 +780,12 @@ export const TabActividades = ({
           >
             <TextField
               // disabled={mirEdit?.actividades[componenteSelect].supuestos}
-              disabled={edit && !mirEdit?.componentes[componenteSelect].actividades[actividadSelect]?.supuestos}
+              disabled={
+                edit &&
+                !mirEdit?.componentes[componenteSelect].actividades[
+                  actividadSelect
+                ]?.supuestos
+              }
               rows={8}
               multiline
               variant="filled"
