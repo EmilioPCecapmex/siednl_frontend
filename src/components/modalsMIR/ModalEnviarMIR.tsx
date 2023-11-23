@@ -693,15 +693,23 @@ export default function ModalEnviarMIR({
   const mirFuncionAutorizada = () => {
     let auxMA: string;
     let auxFT: string;
-    auxMA = JSON.stringify(ma);
+    
   
-    if (ft !== null) {
+    if (ft !== null || ft !== undefined) {
       auxFT = JSON.stringify(ft);
+     
     } else {
       auxFT = "";
     }
 
-    console.log("Update info1: ",auxFT);
+     if (ma !== null || ma !== undefined || ma === "null" ) {
+      auxMA = JSON.stringify(ma);
+     
+    } else {
+      auxMA = "";
+    }
+
+    
     mDocumentos.map((item) => {
       if (item.movimiento === "remove") {
         auxMA = JSON.stringify(
@@ -731,7 +739,10 @@ export default function ModalEnviarMIR({
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       }
-    ).then(()=>alertaExito(()=>{}));
+    ).then(()=>{
+      alertaExito(()=>{});
+      showResume();
+    });
   };
 
   return (
