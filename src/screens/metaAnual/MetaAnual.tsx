@@ -233,8 +233,7 @@ export const MetaAnual = () => {
 
     axios
       .post(
-        //"http://10.200.4.164:9090/api/fill_ma",
-        "http://192.168.137.152:7001/api/fill_ma",
+        process.env.REACT_APP_APPLICATION_FILL+"/api/fill_ma",
         fullMA,
         {
           responseType: "blob",

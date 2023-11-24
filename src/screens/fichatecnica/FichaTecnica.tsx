@@ -196,7 +196,7 @@ export const FichaTecnica = () => {
     const fullft = [JSON.parse(MIR), JSON.parse(MetaAnual), JSON.parse(FT)];
 
     axios
-      .post("http://192.168.137.152:7001/api/fill_ft", fullft, {
+      .post(process.env.REACT_APP_APPLICATION_FILL+"/api/fill_ft", fullft, {
         responseType: "blob",
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",

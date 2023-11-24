@@ -353,10 +353,8 @@ export const MIR = () => {
     axios
 
       .post(
-        //process.env.REACT_APP_APPLICATION_FILL + "/api/fill_mir",
-        "http://192.168.137.152:7001/api/fill_mir",
+        process.env.REACT_APP_APPLICATION_FILL + "/api/fill_mir",
         JSON.parse(mir),
-
         {
           responseType: "blob",
           // headers: {
