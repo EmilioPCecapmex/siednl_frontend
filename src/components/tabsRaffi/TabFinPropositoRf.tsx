@@ -31,7 +31,6 @@ import { useEffect, useState } from "react";
 import { DialogFinPropositoRaffi } from "../formulasDialog/FormulaDialogRaffiFinProposito";
 
 export function TabFinPropositoRF({
-  show,
   resumenPropositoRF,
   resumenFinRF,
   MIR,
@@ -51,7 +50,7 @@ export function TabFinPropositoRF({
   setPropositoRF: Function;
 
   RF: string;
-  show: boolean;
+
   showMirFnc: Function;
   setTxtShowFnc: Function;
 }) {
@@ -109,8 +108,6 @@ export function TabFinPropositoRF({
     setPalabraABuscar2(palabraEncontrada2); // Almacenar la palabra encontrada en el segundo estado
   }, []);
 
-
-
   useEffect(() => {
     resumenPropositoRF(proposito);
   }, [resumenPropositoRF]);
@@ -127,12 +124,9 @@ export function TabFinPropositoRF({
     };
     setPropositoRF(objectaux);
     setProposito(objectaux);
-    
   }, []);
 
   useEffect(() => {
-   
-
     if (
       propositoRF.valorAvanceFisico !== "" &&
       propositoRF.valorAvanceFisico !== null
@@ -153,7 +147,6 @@ export function TabFinPropositoRF({
     };
     setFinRF(objectaux);
     setFin(objectaux);
-    
   }, []);
 
   useEffect(() => {
@@ -209,9 +202,13 @@ export function TabFinPropositoRF({
       <Grid
         container
         sx={{
-          height: "100%",
+          width: "93vw",
+          height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
           justifyContent: "space-around",
           alignItems: "center",
+          backgroundColor: "#fff",
+          boxShadow: 10,
+          borderRadius: 5,
         }}
       >
         <Grid

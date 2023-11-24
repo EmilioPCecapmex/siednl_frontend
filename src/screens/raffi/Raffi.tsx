@@ -312,20 +312,20 @@ export const Raffi = () => {
       <Grid
         // justifyContent={"center"}
         // display={"flex"}
-        // height={"93vh"}
+        height={"93vh"}
         // alignItems={"center"}
         container
         item
         xl={12}
         lg={12}
         md={12}
-        sm={7.5}
-        xs={6}
+        sm={12}
+        xs={12}
         sx={{
-          backgroundColor: "white",
+          //backgroundColor: "white",
           justifyContent: "center",
           display: "flex",
-          height: "93vh",
+          //height: "93vh",
           alignItems: "center",
         }}
       >
@@ -348,8 +348,9 @@ export const Raffi = () => {
               container
               item
               xl={8}
-              lg={7}
-              md={6}
+              lg={8}
+              md={8}
+              sm={8}
               sx={{
                 boxShadow: 5,
                 backgroundColor: "#FFFF",
@@ -364,6 +365,8 @@ export const Raffi = () => {
                 xl={12}
                 lg={12}
                 md={12}
+                sm={12}
+                xs={12}
                 item
                 container
                 sx={{
@@ -586,11 +589,20 @@ export const Raffi = () => {
             <Grid
               container
               item
+              xl={10}
               lg={10}
-              md={9}
+              md={10}
+              sm={10}
+              xs={10}
               height="65vh"
               direction="row"
-              sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
+              sx={{
+                backgroundColor: "#FFFF",
+                borderRadius: 5,
+                boxShadow: 5,
+                height: "65vh",
+                direction: "row",
+              }}
             >
               <TableContainer
                 sx={{

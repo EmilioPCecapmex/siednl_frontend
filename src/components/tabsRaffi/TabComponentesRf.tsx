@@ -341,7 +341,7 @@ export const TabComponenteRf = ({
         sx={{
           display: "flex",
           width: "93vw",
-          height: "82vh",
+          height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
           boxShadow: 10,
           borderRadius: 5,
           flexDirection: "column",

@@ -372,10 +372,15 @@ export function TabAvanceFinanciero({
         container
         direction={"row"}
         sx={{
-          width: "100%",
-          height: "100%",
+          // width: "100%",
+          // height: "100%",
+          width: "93vw",
+          height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
           justifyContent: "center",
           alignItems: "center",
+          backgroundColor: "#fff",
+          boxShadow: 10,
+          borderRadius: 5,
         }}
       >
         <Grid item lg={10}>

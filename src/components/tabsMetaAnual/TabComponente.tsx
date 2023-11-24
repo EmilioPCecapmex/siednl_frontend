@@ -955,7 +955,7 @@ export const TabComponenteMA = ({
                       ? MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].trimestre1
                       : false) &&
-                    componentesValues[componentSelect - 1]
+                    componentesValues[componentSelect]
                       ?.metasPorFrecuencia[0]?.trimestre1 !== ""
                       ? ""
                       : handleClickOpen2()
@@ -971,7 +971,7 @@ export const TabComponenteMA = ({
                     </Typography>
                   }
                   value={
-                    componentesValues[componentSelect - 1]
+                    componentesValues[componentSelect]
                       ?.metasPorFrecuencia[0]?.trimestre1 || ""
                   }
                   InputLabelProps={{
@@ -1004,20 +1004,20 @@ export const TabComponenteMA = ({
                   disabled={
                     (MAEdit !== ""
                       ? edit &&
-                        !MAEdit?.componentes[componentSelect - 1]
+                        !MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].trimestre2
                       : false) &&
-                    componentesValues[componentSelect - 1]
+                    componentesValues[componentSelect]
                       ?.metasPorFrecuencia[0]?.trimestre2 !== ""
                   }
                   sx={{ boxShadow: 2 }}
                   variant={"filled"}
                   onClick={() =>
                     (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect - 1]
+                      ? MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].trimestre2
                       : false) &&
-                    componentesValues[componentSelect - 1]
+                    componentesValues[componentSelect]
                       ?.metasPorFrecuencia[0]?.trimestre2 !== ""
                       ? ""
                       : handleClickOpen2()
@@ -1033,7 +1033,7 @@ export const TabComponenteMA = ({
                     </Typography>
                   }
                   value={
-                    componentesValues[componentSelect - 1]
+                    componentesValues[componentSelect]
                       ?.metasPorFrecuencia[0]?.trimestre2 || ""
                   }
                   InputLabelProps={{
@@ -1066,20 +1066,20 @@ export const TabComponenteMA = ({
                   disabled={
                     (MAEdit !== ""
                       ? edit &&
-                        !MAEdit?.componentes[componentSelect - 1]
+                        !MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].trimestre3
                       : false) &&
-                    componentesValues[componentSelect - 1]
+                    componentesValues[componentSelect]
                       ?.metasPorFrecuencia[0]?.trimestre3 !== ""
                   }
                   sx={{ boxShadow: 2 }}
                   variant={"filled"}
                   onClick={() =>
                     (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect - 1]
+                      ? MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].trimestre3
                       : false) &&
-                    componentesValues[componentSelect - 1]
+                    componentesValues[componentSelect]
                       ?.metasPorFrecuencia[0]?.trimestre3 !== ""
                       ? ""
                       : handleClickOpen2()
@@ -1095,7 +1095,7 @@ export const TabComponenteMA = ({
                     </Typography>
                   }
                   value={
-                    componentesValues[componentSelect - 1]
+                    componentesValues[componentSelect]
                       ?.metasPorFrecuencia[0]?.trimestre3 || ""
                   }
                   InputLabelProps={{

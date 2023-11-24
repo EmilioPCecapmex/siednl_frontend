@@ -11,7 +11,7 @@ import {
   ICValorRF,
 } from "./Interfaces";
 import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
-import TabResumenMIR from "../modalsRF/ModalResumenMir";
+import TabResumenMIR from "../modalsRF/ModalResumenRF";
 import { TabFinPropositoRF } from "./TabFinPropositoRf";
 import { TabAvanceFinanciero } from "./TabAvanceFinanciero";
 import { TabResumenRF } from "./TabResumenRF";
@@ -22,6 +22,15 @@ import {
   IRF,
 } from "../../screens/raffi/interfacesRaffi";
 import { VTrimestral, VPTrimestral } from "./TabAvanceFinanciero";
+import GenericTabs from "../genericComponents/genericTabs";
+
+const tabs = [
+  "Avance Financiero",
+  "Fin / Propósito",
+  "Componentes",
+  "Actividades",
+  "Resumen",
+];
 
 const newRaffi = {
   avanceFinanciero: {
@@ -68,15 +77,15 @@ export default function CapturaRaffi({
   IdRf: string;
   showResume: Function;
 }) {
-  const [value, setValue] = useState(10);
+  const [value, setValue] = useState(0);
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-  const cambiarTab = (option: string) => {
-    if (option === "adelante") {
-      if (value < 50) setValue(value + 10);
-    } else {
-      if (value > 10) setValue(value - 10);
-    }
-  };
+  // const cambiarTab = (option: string) => {
+  //   if (option === "adelante") {
+  //     if (value < 50) setValue(value + 10);
+  //   } else {
+  //     if (value > 10) setValue(value - 10);
+  //   }
+  // };
 
   const [showMir, setShowMir] = React.useState(false);
   const [showSt, setShowSt] = React.useState("");
@@ -97,47 +106,47 @@ export default function CapturaRaffi({
     }
   }, []);
 
-  useEffect(() => {
-    let act: number[] = [];
-    let comp: string[] = [];
-    let ambos: any = [];
-    let i = 1;
-    let j = 1;
+  // useEffect(() => {
+  //   let act: number[] = [];
+  //   let comp: string[] = [];
+  //   let ambos: any = [];
+  //   let i = 1;
+  //   let j = 1;
 
-    jsonMir.componentes.map((x: any) => {
-      comp.push("C" + j);
-      jsonMir.actividades.map((a: any) => {
-        if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
-          act.push(i);
-          i++;
-        }
-      });
-      ambos.push({ actividades: act, componente: "C" + j });
-      act = [];
-      i = 1;
-      j++;
-    });
+  //   jsonMir.componentes.map((x: any) => {
+  //     comp.push("C" + j);
+  //     jsonMir.actividades.map((a: any) => {
+  //       if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
+  //         act.push(i);
+  //         i++;
+  //       }
+  //     });
+  //     ambos.push({ actividades: act, componente: "C" + j });
+  //     act = [];
+  //     i = 1;
+  //     j++;
+  //   });
 
-    setCompAct(ambos);
+  //   setCompAct(ambos);
 
-    jsonMir.componentes.map((value: any, index: number) => {
-      if (index > 1 && index < 6)
-        setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   jsonMir.componentes.map((value: any, index: number) => {
+  //     if (index > 1 && index < 6)
+  //       setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
 
-    let arrayRF = noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        metasPorFrecuencia: [],
-        numeradorPorFrecuencia: [],
-        denominadorPorFrecuencia: [],
-      };
-    });
-    setValoresComponenteRF(arrayRF);
+  //   let arrayRF = noComponentes.map((x, index) => {
+  //     return {
+  //       componentes: "C" + (index + 1),
+  //       metasPorFrecuencia: [],
+  //       numeradorPorFrecuencia: [],
+  //       denominadorPorFrecuencia: [],
+  //     };
+  //   });
+  //   setValoresComponenteRF(arrayRF);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
@@ -342,222 +351,131 @@ export default function CapturaRaffi({
     Array<IAvanceFinancieroRF>
   >([]);
 
- 
-  
   return (
     <Grid
       container
       sx={{
         display: "flex",
         justifyContent: "space-evenly",
+        height: "100%",
       }}
     >
       <Grid
+        container
         item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
         sx={{
           width: "auto",
-          height: "90vh",
-          borderRadius: 5,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          height: "100%",
         }}
       >
-        <Tabs
-          value={value}
-          textColor="inherit"
-          sx={{
-            backgroundColor: "#e0e0e0",
-            borderRadius: "10px 10px 0 0",
-            boxShadow: 20,
-          }}
-        >
-          <Tab
-            label={<ArrowCircleLeftIcon></ArrowCircleLeftIcon>}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "#af8c55",
-              fontFamily: "MontserratSemiBold",
-              backgroundColor: "#ccc",
-            }}
-            onClick={() => {
-              cambiarTab("atras");
-            }}
-          />
-
-          <Tab
-            label="Avance Financiero"
-            value={10}
-            onClick={() => {
-              setValue(10);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label="Fin/Proposito"
-            value={20}
-            onClick={() => {
-              setValue(20);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label="Componentes"
-            value={30}
-            onClick={() => {
-              setValue(30);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label="Actividades"
-            value={40}
-            onClick={() => {
-              setValue(40);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label="Resumen"
-            value={50}
-            onClick={() => {
-              setValue(50);
-            }}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "black",
-              fontFamily: "MontserratBold",
-            }}
-          />
-          <Tab
-            label={<ArrowCircleRightIcon></ArrowCircleRightIcon>}
-            sx={{
-              borderRight: "5px solid #b3afaf",
-              color: "#af8c55",
-              backgroundColor: "#ccc",
-            }}
-            onClick={() => {
-              cambiarTab("adelante");
-            }}
-          />
-        </Tabs>
-
         <Grid
-          container
-          item
           sx={{
-            display: "flex",
-            width: "93vw",
+            //width: "93vw",
+            width: ["300xp", "750px", "750px", "1100px", "1200px"],
             height: "82vh",
-            boxShadow: 10,
+
             borderRadius: 5,
+            display: "flex",
             flexDirection: "column",
-            backgroundColor: "#fff",
+            alignItems: "center",
           }}
         >
-          {value === 10 && (
-            <TabAvanceFinanciero
-              resumenAvanceFinancieroRf={resumenAvanceFinancieroRf}
-              MIR={MIR}
-              MA={MA}
-              avanceFinancieroRF={raffi.avanceFinanciero}
-              setAvanceFinancieroRF={(valor: IAvanceFinancieroRF) => {
-                setRaffi({ ...raffi, avanceFinanciero: valor });
-              }}
-            />
-          )}
+          <GenericTabs tabsData={tabs} tabSelect={setValue} />
 
-          {value === 20 && (
-            <TabFinPropositoRF
-              show={value === 20 ? true : false}
-              resumenFinRF={resumenFinRF}
-              resumenPropositoRF={resumenPropositoRF}
-              MIR={MIR}
-              finRF={raffi.fin}
-              propositoRF={raffi.proposito}
-              setFinRF={(valor: IFinRF) => {
-                setRaffi({ ...raffi, fin: valor });
-              }}
-              setPropositoRF={(valor: IPropositoRF) => {
-                setRaffi({ ...raffi, proposito: valor });
-              }}
-              setTxtShowFnc={showFnc}
-              showMirFnc={showMirFnc}
-              RF={RF}
-            />
-          )}
-
-          {value === 30 && (
-            <TabComponenteRf
-            componentesRF={raffi.componentes}
-            setComponentes={(valor: IComponenteRF[]) => {
-              setRaffi({ ...raffi, componentes: valor });
+          <Grid
+            sx={{
+              width: ["300px", "650px", "900px", "1000px", "1100px", "1300px"],
+              height: "82vh",
+              borderRadius: 5,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
-              valoresComponenteRFFnc={valoresComponenteRFFnc}
-              noComponentes={noComponentes}
-              MA={MA}
-              MIR={MIR}
-              RF={RF}
-              setTxtShowFnc={showFnc}
-              showMirFnc={showMirFnc}
-            />
-          )}
-          {value === 40 && (
-            <TabActividadRf
-              valoresComponenteRFFnc={valoresComponenteRFFnc}
-              componentes={noComponentes}
-              asignarCValor={asignarCValorRF}
-              MA={MA}
-              MIR={MIR}
-              RF={RF}
-              compAct={compAct}
-              setTxtShowFnc={showFnc}
-              showMirFnc={showMirFnc}
-            />
-          )}
-          {value === 50 && (
-          <TabResumenRF
-            show={value === 50 ? true : false}
-            // encabezado={ValueEncabezado}
-            fin={ValueFin}
-            proposito={ValueProposito}
-            componentes={noComponentes}
-            componenteValor={valoresComponenteRF}
-            cValor={cValorRF}
-            AFinanciero={ValueAvanceFinanciero}
-            IdMir={IdMir}
-            IdRF={IdRf}
-            IdMA={IdMA}
-            showResume={opentabs}
-            MIR={MIR}
-            MA={MA}
-          />
-          )}
+          >
+            {value === 0 && (
+              <TabAvanceFinanciero
+                resumenAvanceFinancieroRf={resumenAvanceFinancieroRf}
+                MIR={MIR}
+                MA={MA}
+                avanceFinancieroRF={raffi.avanceFinanciero}
+                setAvanceFinancieroRF={(valor: IAvanceFinancieroRF) => {
+                  setRaffi({ ...raffi, avanceFinanciero: valor });
+                }}
+              />
+            )}
+
+            {value === 1 && (
+              <TabFinPropositoRF
+                resumenFinRF={resumenFinRF}
+                resumenPropositoRF={resumenPropositoRF}
+                MIR={MIR}
+                finRF={raffi.fin}
+                propositoRF={raffi.proposito}
+                setFinRF={(valor: IFinRF) => {
+                  setRaffi({ ...raffi, fin: valor });
+                }}
+                setPropositoRF={(valor: IPropositoRF) => {
+                  setRaffi({ ...raffi, proposito: valor });
+                }}
+                setTxtShowFnc={showFnc}
+                showMirFnc={showMirFnc}
+                RF={RF}
+              />
+            )}
+
+            {value === 2 && (
+              <TabComponenteRf
+                componentesRF={raffi.componentes}
+                setComponentes={(valor: IComponenteRF[]) => {
+                  setRaffi({ ...raffi, componentes: valor });
+                }}
+                valoresComponenteRFFnc={valoresComponenteRFFnc}
+                noComponentes={noComponentes}
+                MA={MA}
+                MIR={MIR}
+                RF={RF}
+                setTxtShowFnc={showFnc}
+                showMirFnc={showMirFnc}
+              />
+            )}
+            {value === 3 && (
+              <TabActividadRf
+                valoresComponenteRFFnc={valoresComponenteRFFnc}
+                componentes={noComponentes}
+                asignarCValor={asignarCValorRF}
+                MA={MA}
+                MIR={MIR}
+                RF={RF}
+                compAct={compAct}
+                setTxtShowFnc={showFnc}
+                showMirFnc={showMirFnc}
+              />
+            )}
+            {value === 4 && (
+              <TabResumenRF
+                // encabezado={ValueEncabezado}
+                fin={ValueFin}
+                proposito={ValueProposito}
+                componentes={noComponentes}
+                componenteValor={valoresComponenteRF}
+                cValor={cValorRF}
+                AFinanciero={ValueAvanceFinanciero}
+                IdMir={IdMir}
+                IdRF={IdRf}
+                IdMA={IdMA}
+                showResume={opentabs}
+                MIR={MIR}
+                MA={MA}
+              />
+            )}
+          </Grid>
         </Grid>
       </Grid>
-      <TabResumenMIR
-        show={showMir}
-        showMirFnc={showMirFnc}
-        showSt={showSt}
-        MIR={MIR}
-        noComponentes={noComponentes}
-      ></TabResumenMIR>
     </Grid>
   );
 }

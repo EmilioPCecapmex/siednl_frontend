@@ -31,7 +31,7 @@ import {
 } from "../../screens/raffi/interfacesRaffi";
 
 export const TabResumenRF = ({
-  show,
+
   // encabezado,
   fin,
   proposito,
@@ -46,7 +46,7 @@ export const TabResumenRF = ({
   MIR,
   MA,
 }: {
-  show: boolean;
+  
   // encabezado: Array<IEncabezadoRF>;
   fin: Array<IFinRF>;
   proposito: Array<IPropositoRF>;
