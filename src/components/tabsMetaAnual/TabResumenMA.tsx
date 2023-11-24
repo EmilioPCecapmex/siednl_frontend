@@ -1368,7 +1368,7 @@ export function TabResumenMA({
                     textAlign: "center",
                   }}
                 >
-                  Componente {index}
+                  Componente {index + 1}
                 </Typography>
               </Grid>
 

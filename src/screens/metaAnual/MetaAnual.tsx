@@ -233,7 +233,7 @@ export const MetaAnual = () => {
 
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_FILL+"/api/fill_ma",
+        process.env.REACT_APP_APPLICATION_FILL + "/api/fill_ma",
         fullMA,
         {
           responseType: "blob",
