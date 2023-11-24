@@ -198,9 +198,9 @@ export const FichaTecnica = () => {
     axios
       .post(process.env.REACT_APP_APPLICATION_FILL + "/api/fill_ft", fullft, {
         responseType: "blob",
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
+        // headers: {
+        //   Authorization: localStorage.getItem("jwtToken") || "",
+        // },
       })
       .then((r) => {
         Toast.fire({
