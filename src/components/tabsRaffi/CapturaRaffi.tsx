@@ -4,12 +4,7 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { TabComponenteRf } from "./TabComponentesRf";
 import { TabActividadRf } from "./TabsActividadesRf";
-import {
-  IComponenteMA,
-  ICValorMA,
-  IComponenteRF,
-  ICValorRF,
-} from "./Interfaces";
+
 import {
   IActividad,
   IComponente,
@@ -90,30 +85,30 @@ export function newFinPropositoRF() {
 export function newComponenteRF(ComponenteMIR: IComponente) {
   return {
     componentes: ComponenteMIR.componente,
-    metasPorFrecuencia: {
+    metasPorFrecuencia: [{
       semestre1: "",
       semestre2: "",
       trimestre1: "",
       trimestre2: "",
       trimestre3: "",
       trimestre4: "",
-    },
-    numeradorPorFrecuencia: {
+    }],
+    numeradorPorFrecuencia: [{
       semestre1: "",
       semestre2: "",
       trimestre1: "",
       trimestre2: "",
       trimestre3: "",
       trimestre4: "",
-    },
-    denominadorPorFrecuencia: {
+    }],
+    denominadorPorFrecuencia:[ {
       semestre1: "",
       semestre2: "",
       trimestre1: "",
       trimestre2: "",
       trimestre3: "",
       trimestre4: "",
-    },
+    }],
     actividades: ComponenteMIR.actividades.map((item) =>
       newActividadesRF(item)
     ),
@@ -123,12 +118,12 @@ export function newComponenteRF(ComponenteMIR: IComponente) {
 export function newActividadesRF(ActividadMIR: IActividad) {
   return {
     actividad: ActividadMIR.actividad,
-    metasPorFrecuencia: {
+    metasPorFrecuencia: [{
       trimestre1: "",
       trimestre2: "",
       trimestre3: "",
       trimestre4: "",
-    },
+    }],
   };
 }
 
@@ -136,6 +131,7 @@ function newRaffi(MIR: string) {
   let componentes: IComponente[] = JSON.parse(MIR).componentes;
 
   return {
+    avanceFinanciero: avanceFinancieroRF(),
     fin: newFinPropositoRF(),
     proposito: newFinPropositoRF(),
     componentes: componentes?.map((item) => newComponenteRF(item)),
@@ -182,7 +178,7 @@ export default function CapturaRaffi({
 
   const jsonMir = JSON.parse(MIR);
 
-  const [raffi, setRaffi] = useState<IRF>();
+  const [raffi, setRaffi] = useState<IRF>(newRaffi(MIR));
 
   useEffect(() => {
     if (RF !== "" && RF !== null) {
@@ -190,47 +186,7 @@ export default function CapturaRaffi({
     }
   }, []);
 
-  // useEffect(() => {
-  //   let act: number[] = [];
-  //   let comp: string[] = [];
-  //   let ambos: any = [];
-  //   let i = 1;
-  //   let j = 1;
-
-  //   jsonMir.componentes.map((x: any) => {
-  //     comp.push("C" + j);
-  //     jsonMir.actividades.map((a: any) => {
-  //       if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
-  //         act.push(i);
-  //         i++;
-  //       }
-  //     });
-  //     ambos.push({ actividades: act, componente: "C" + j });
-  //     act = [];
-  //     i = 1;
-  //     j++;
-  //   });
-
-  //   setCompAct(ambos);
-
-  //   jsonMir.componentes.map((value: any, index: number) => {
-  //     if (index > 1 && index < 6)
-  //       setNoComponentes((loadComponentes) => [...loadComponentes, index + 1]);
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-
-  //   let arrayRF = noComponentes.map((x, index) => {
-  //     return {
-  //       componentes: "C" + (index + 1),
-  //       metasPorFrecuencia: [],
-  //       numeradorPorFrecuencia: [],
-  //       denominadorPorFrecuencia: [],
-  //     };
-  //   });
-  //   setValoresComponenteRF(arrayRF);
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+ 
 
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
@@ -253,9 +209,9 @@ export default function CapturaRaffi({
   //     };
   //   })
   // );
-  const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
+  //const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
     // setValoresComponenteMA(state);
-  };
+  //};
 
   // const [valoresComponenteRF, setValoresComponenteRF] = useState<
   //   Array<IComponenteRF>

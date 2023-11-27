@@ -1,4 +1,5 @@
-import { IComponenteRF } from "../../components/tabsRaffi/Interfaces";
+//import { IComponenteRF } from "../../components/tabsRaffi/Interfaces";
+import { IFrecuencias, IFrecuenciasAct } from "../../components/tabsMetaAnual/Interfaces";
 
 export interface IAvanceFinancieroRF {
     nombrePrograma: string;
@@ -76,3 +77,16 @@ export interface IRF{
     componentes: IComponenteRF[], 
 
 }
+
+export interface IComponenteRF {
+    componentes: string;
+    metasPorFrecuencia: IFrecuencias[];
+    numeradorPorFrecuencia: IFrecuencias[];
+    denominadorPorFrecuencia: IFrecuencias[];
+    actividades: IActividadesRF[];
+  }
+
+  export interface IActividadesRF {
+    actividad: string;
+    metasPorFrecuencia: Array<IFrecuenciasAct>;
+  }
