@@ -160,10 +160,12 @@ export default function CapturaRaffi({
   const [raffi, setRaffi] = useState<IRF>(newRaffi(MIR));
 
   useEffect(() => {
+    console.log("raffi: ",raffi);
+    
     if (RF !== "" && RF !== null) {
       setRaffi(JSON.parse(RF));
     }
-  }, []);
+  }, [raffi]);
 
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
