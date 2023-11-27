@@ -16,18 +16,14 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 //import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
 import ModalsSolicitModifFT from "../modalsFT/ModalsSolicitModifFT";
-import {
-  IActividadesRF,
-  IComponenteRF,
-  ICValorRF,
-  IEncabezadoRF,
-  IRF,
-} from "./Interfaces";
+
 import { queries } from "../../queries";
 import {
   IAvanceFinancieroRF,
+  IComponenteRF,
   IFinRF,
   IPropositoRF,
+  IRF,
 } from "./interfacesRaffi";
 
 export const TabResumenRF = ({
@@ -93,7 +89,7 @@ export const TabResumenRF = ({
 
   let asignarRF = (
     componentesM: Array<IComponenteRF>,
-    actividadesM: Array<ICValorRF>
+    
   ) => {
     // setRF({
     //   componentes: componentesM,

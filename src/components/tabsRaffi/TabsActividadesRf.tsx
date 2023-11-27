@@ -12,7 +12,6 @@ import {
   Tooltip,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { IComponenteMA, ICValorRF, IFrecuenciasAct } from "./Interfaces";
 import { IComponenteActividad, IMIR } from "../tabsMir/interfaces mir/IMIR";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -269,9 +268,9 @@ export const TabActividadRf = ({
     },
   ];
 
-  const [componentesValuesRF, setComponentesValuesRF] = useState<
-    Array<ICValorRF>
-  >([]);
+  // const [componentesValuesRF, setComponentesValuesRF] = useState<
+  //   Array<ICValorRF>
+  // >([]);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");
@@ -296,43 +295,43 @@ export const TabActividadRf = ({
     return x;
   }
 
-  const changeFormula = (txt: string) => {
-    if (
-      JSON.parse(MIR)
-        .actividades[
-          mapeaindice(componenteSelect, actividadSelect)
-        ].indicador.toLowerCase()
-        .includes("indice") ||
-      JSON.parse(MIR)
-        .actividades[
-          mapeaindice(componenteSelect, actividadSelect)
-        ].indicador.toLowerCase()
-        .includes("índice")
-    ) {
-      aValorRF[0].componentes[componenteSelect].actividades[
-        actividadSelect
-      ].numeradorPorFrecuencia[0].trimestre2 = txt;
-      aValorRF[0].componentes[componenteSelect].actividades[
-        actividadSelect
-      ].metasPorFrecuencia[0].trimestre2 = txt;
-    } else {
-      let frec = txt.split(",")[3];
-      aValorRF[0].componentes[componenteSelect].actividades[
-        actividadSelect
-      ].numeradorPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
-        txt.split(",")[0];
-      aValorRF[0].componentes[componenteSelect].actividades[
-        actividadSelect
-      ].denominadorPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
-        txt.split(",")[1];
-      aValorRF[0].componentes[componenteSelect].actividades[
-        actividadSelect
-      ].metasPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
-        txt.split(",")[2];
-    }
+  // const changeFormula = (txt: string) => {
+  //   if (
+  //     JSON.parse(MIR)
+  //       .actividades[
+  //         mapeaindice(componenteSelect, actividadSelect)
+  //       ].indicador.toLowerCase()
+  //       .includes("indice") ||
+  //     JSON.parse(MIR)
+  //       .actividades[
+  //         mapeaindice(componenteSelect, actividadSelect)
+  //       ].indicador.toLowerCase()
+  //       .includes("índice")
+  //   ) {
+  //     aValorRF[0].componentes[componenteSelect].actividades[
+  //       actividadSelect
+  //     ].numeradorPorFrecuencia[0].trimestre2 = txt;
+  //     aValorRF[0].componentes[componenteSelect].actividades[
+  //       actividadSelect
+  //     ].metasPorFrecuencia[0].trimestre2 = txt;
+  //   } else {
+  //     let frec = txt.split(",")[3];
+  //     aValorRF[0].componentes[componenteSelect].actividades[
+  //       actividadSelect
+  //     ].numeradorPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
+  //       txt.split(",")[0];
+  //     aValorRF[0].componentes[componenteSelect].actividades[
+  //       actividadSelect
+  //     ].denominadorPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
+  //       txt.split(",")[1];
+  //     aValorRF[0].componentes[componenteSelect].actividades[
+  //       actividadSelect
+  //     ].metasPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
+  //       txt.split(",")[2];
+  //   }
 
-    setAValorRF([...aValorRF]);
-  };
+  //   setAValorRF([...aValorRF]);
+  // };
   const [open, setOpen] = useState(1);
 
   const handleClickComponente = (index: number) => {
@@ -379,7 +378,7 @@ export const TabActividadRf = ({
         setErrorIndicador(componenteSelect);
         let prevLocal = [...jsonRF.componentes];
         prevLocal[componenteSelect].indicador = "";
-        setComponentesValuesRF(prevLocal);
+       // setComponentesValuesRF(prevLocal);
       }
     }
   };
@@ -678,7 +677,7 @@ export const TabActividadRf = ({
         <FormulaDialogRF
           open={openFormulaDialog}
           close={handleClose}
-          textoSet={changeFormula}
+          //textoSet={changeFormula}
           tipo={tipoFormula}
           elemento={
             "C" +

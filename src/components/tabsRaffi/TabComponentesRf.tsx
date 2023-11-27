@@ -12,10 +12,10 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useEffect, useState } from "react";
-import { IComponenteMA, IComponenteRF, IFrecuencias } from "./Interfaces";
 import { IComponente } from "../tabsMetaAnual/IComponente";
 import { ClassNames } from "@emotion/react";
 import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
+import { IComponenteRF, IFrecuencias } from "./interfacesRaffi";
 
 const dateSem = [new Date("2023-06-30"), new Date("2023-12-31")];
 const dateTrim = [
@@ -353,7 +353,7 @@ export const TabComponenteRf = ({
         <FormulaDialogRF
           open={openFormulaDialog}
           close={handleClose}
-          textoSet={changeFormula}
+          //textoSet={changeFormula}
           tipo={tipoFormula}
           elemento={"Componente " + componentSelect.toString()}
           dato={elementoFormula}
