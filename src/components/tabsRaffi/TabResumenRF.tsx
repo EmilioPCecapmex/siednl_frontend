@@ -87,7 +87,7 @@ export const TabResumenRF = ({
     }),
   };
 
-s
+
 
   const [RF, setRF] = useState<IRF>();
 
@@ -670,7 +670,7 @@ s
             >
               Componentes
             </Typography>
-            {componentes.map((index) => {
+            {/* {componentes.map((index) => {
               return (
                 <Grid key={index}>
                   <Typography
@@ -869,7 +869,7 @@ s
                   )}
                 </Grid>
               );
-            })}
+            })} */}
 
             {/* ###################################################
             ############ INICIA DISPLAY DE ACTIVIDADES ########
@@ -879,7 +879,7 @@ s
             >
               Actividades
             </Typography>
-            {cValor[0].componentes.map((item, indexComponentes) => {
+            {/* {cValor[0].componentes.map((item, indexComponentes) => {
               let i = 0;
               return item.actividades.map((value, indexActividades) => {
                 i++;
@@ -1023,7 +1023,7 @@ s
                   </Grid>
                 );
               });
-            })}
+            })} */}
 
             {/* {componenteValor[0].metasPorFrecuencia[0].semestre1} */}
             {/* {JSON.stringify(cValor)} */}
