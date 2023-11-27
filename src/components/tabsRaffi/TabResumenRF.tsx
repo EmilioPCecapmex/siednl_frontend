@@ -28,7 +28,7 @@ import {
   IAvanceFinancieroRF,
   IFinRF,
   IPropositoRF,
-} from "../../screens/raffi/interfacesRaffi";
+} from "./interfacesRaffi";
 
 export const TabResumenRF = ({
 

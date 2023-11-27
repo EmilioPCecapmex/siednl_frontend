@@ -19,7 +19,7 @@ import {
   IRF,
   IVPTrimestral,
   IVTrimestral,
-} from "../../screens/raffi/interfacesRaffi";
+} from "./interfacesRaffi";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import validator from "validator";
 import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
