@@ -164,22 +164,22 @@ export const TabComponenteRf = ({
   MIR,
   MA,
   RF,
-  noComponentes,
+  //noComponentes,
   valoresComponenteRFFnc,
   showMirFnc,
   setTxtShowFnc,
   setComponentes,
-  componentesRF,
+  //componentesRF,
 }: {
   MA: string;
   MIR: string;
   RF: string;
-  noComponentes: number[];
+  //noComponentes: number[];
   valoresComponenteRFFnc: Function;
   showMirFnc: Function;
   setTxtShowFnc: Function;
   setComponentes: Function;
-  componentesRF: IComponenteRF[];
+ // componentesRF: IComponenteRF[];
 }) => {
   let encabezado = JSON.parse(MIR).encabezado;
   const [componentSelect, setComponentSelect] = useState(1);
@@ -251,48 +251,48 @@ export const TabComponenteRf = ({
 
   let jsonRF = RF === "" ? "" : JSON.parse(RF);
 
-  useEffect(() => {
-    let comp: IComponenteRF[] = [];
+  // useEffect(() => {
+  //   let comp: IComponenteRF[] = [];
 
-    noComponentes.map((x, index) => {
-      return comp.push({
-        componentes: "C" + (index + 1),
-        metasPorFrecuencia: [
-          {
-            semestre1: "",
-            semestre2: "",
-            trimestre1: "",
-            trimestre2: "",
-            trimestre3: "",
-            trimestre4: "",
-          },
-        ],
-        numeradorPorFrecuencia: [
-          {
-            semestre1: "",
-            semestre2: "",
-            trimestre1: "",
-            trimestre2: "",
-            trimestre3: "",
-            trimestre4: "",
-          },
-        ],
-        denominadorPorFrecuencia: [
-          {
-            semestre1: "",
-            semestre2: "",
-            trimestre1: "",
-            trimestre2: "",
-            trimestre3: "",
-            trimestre4: "",
-          },
-        ],
-      });
-    });
+  //   noComponentes.map((x, index) => {
+  //     return comp.push({
+  //       componentes: "C" + (index + 1),
+  //       metasPorFrecuencia: [
+  //         {
+  //           semestre1: "",
+  //           semestre2: "",
+  //           trimestre1: "",
+  //           trimestre2: "",
+  //           trimestre3: "",
+  //           trimestre4: "",
+  //         },
+  //       ],
+  //       numeradorPorFrecuencia: [
+  //         {
+  //           semestre1: "",
+  //           semestre2: "",
+  //           trimestre1: "",
+  //           trimestre2: "",
+  //           trimestre3: "",
+  //           trimestre4: "",
+  //         },
+  //       ],
+  //       denominadorPorFrecuencia: [
+  //         {
+  //           semestre1: "",
+  //           semestre2: "",
+  //           trimestre1: "",
+  //           trimestre2: "",
+  //           trimestre3: "",
+  //           trimestre4: "",
+  //         },
+  //       ],
+  //     });
+  //   });
 
-    setComponentesValues(comp);
-    setComponentes(comp);
-  }, [noComponentes]);
+  //   setComponentesValues(comp);
+  //   setComponentes(comp);
+  // }, [noComponentes]);
 
   useEffect(() => {
     valoresComponenteRFFnc(componentesValues);
@@ -330,9 +330,9 @@ export const TabComponenteRf = ({
     setComponentesValues([...componentesValues]);
   };
 
-  useEffect(() => {
-    setComponentesValues(componentesRF);
-  }, []);
+  // useEffect(() => {
+  //   setComponentesValues(componentesRF);
+  // }, []);
 
   return (
     <>
@@ -380,7 +380,7 @@ export const TabComponenteRf = ({
               },
             }}
           >
-            {noComponentes.map((item) => {
+            {/* {noComponentes.map((item) => {
               return (
                 <Box
                   key={item}
@@ -417,7 +417,7 @@ export const TabComponenteRf = ({
                   <Divider />
                 </Box>
               );
-            })}
+            })} */}
           </List>
         </Grid>
 

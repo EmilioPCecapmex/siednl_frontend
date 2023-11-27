@@ -36,8 +36,8 @@ export const TabResumenRF = ({
   fin,
   proposito,
   componentes,
-  componenteValor,
-  cValor,
+  // componenteValor,
+  // cValor,
   AFinanciero,
   IdMir,
   IdRF,
@@ -51,8 +51,8 @@ export const TabResumenRF = ({
   fin: Array<IFinRF>;
   proposito: Array<IPropositoRF>;
   componentes: number[];
-  componenteValor: Array<IComponenteRF>;
-  cValor: Array<ICValorRF>;
+  // componenteValor: Array<IComponenteRF>;
+  // cValor: Array<ICValorRF>;
   AFinanciero: Array<IAvanceFinancieroRF>;
   IdMir: string;
   IdRF: string;
@@ -87,9 +87,7 @@ export const TabResumenRF = ({
     }),
   };
 
-  useEffect(() => {
-    asignarRF(componenteValor, cValor);
-  }, [componenteValor, cValor]);
+s
 
   const [RF, setRF] = useState<IRF>();
 
@@ -97,10 +95,10 @@ export const TabResumenRF = ({
     componentesM: Array<IComponenteRF>,
     actividadesM: Array<ICValorRF>
   ) => {
-    setRF({
-      componentes: componentesM,
-      actividades: actividadesM,
-    });
+    // setRF({
+    //   componentes: componentesM,
+    //   //actividades: actividadesM,
+    // });
   };
 
   const Toast = Swal.mixin({

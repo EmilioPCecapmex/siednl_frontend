@@ -34,8 +34,8 @@ export function TabFinPropositoRF({
   resumenPropositoRF,
   resumenFinRF,
   MIR,
-  finRF,
-  propositoRF,
+  // finRF,
+  // propositoRF,
   setFinRF,
   setPropositoRF,
   showMirFnc,
@@ -44,8 +44,8 @@ export function TabFinPropositoRF({
   resumenPropositoRF: Function;
   resumenFinRF: Function;
   MIR: string;
-  finRF: IFinRF;
-  propositoRF: IPropositoRF;
+  //finRF: IFinRF;
+  //propositoRF: IPropositoRF;
   setFinRF: Function;
   setPropositoRF: Function;
 
@@ -126,14 +126,14 @@ export function TabFinPropositoRF({
     setProposito(objectaux);
   }, []);
 
-  useEffect(() => {
-    if (
-      propositoRF.valorAvanceFisico !== "" &&
-      propositoRF.valorAvanceFisico !== null
-    ) {
-      setProposito(propositoRF);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (
+  //     propositoRF.valorAvanceFisico !== "" &&
+  //     propositoRF.valorAvanceFisico !== null
+  //   ) {
+  //     setProposito(propositoRF);
+  //   }
+  // }, []);
 
   useEffect(() => {
     setPropositoRF(proposito);
@@ -149,11 +149,11 @@ export function TabFinPropositoRF({
     setFin(objectaux);
   }, []);
 
-  useEffect(() => {
-    if (finRF.valorAvanceFisico !== "" && finRF.valorAvanceFisico !== null) {
-      setFin(finRF);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (finRF.valorAvanceFisico !== "" && finRF.valorAvanceFisico !== null) {
+  //     setFin(finRF);
+  //   }
+  // }, []);
 
   useEffect(() => {
     setFinRF(fin);

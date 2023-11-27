@@ -10,7 +10,11 @@ import {
   IComponenteRF,
   ICValorRF,
 } from "./Interfaces";
-import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
+import {
+  IActividad,
+  IComponente,
+  IComponenteActividad,
+} from "../tabsMir/interfaces mir/IMIR";
 import TabResumenMIR from "../modalsRF/ModalResumenRF";
 import { TabFinPropositoRF } from "./TabFinPropositoRf";
 import { TabAvanceFinanciero } from "./TabAvanceFinanciero";
@@ -32,8 +36,35 @@ const tabs = [
   "Resumen",
 ];
 
-const newRaffi = {
-  avanceFinanciero: {
+// const newRaffi = {
+//   avanceFinanciero: {
+//     nombrePrograma: "",
+//     valorProgramaPresupuestario: "",
+//     monto: {
+//       devengadoModificado: VTrimestral,
+//       modificadoAutorizado: VTrimestral,
+//       ejercidoModificado: VTrimestral,
+//     },
+//     porcentaje: {
+//       porcentajeDevengadoModificado: VPTrimestral,
+//       procentajeModificadoAutorizado: VPTrimestral,
+//       porcentajeEjercidoModificado: VPTrimestral,
+//     },
+//   },
+//   fin: {
+//     añoAvanceFisico: "",
+//     valorAvanceFisico: "",
+//   },
+//   proposito: {
+//     añoAvanceFisico: "",
+//     valorAvanceFisico: "",
+//   },
+
+//   componentes: [],
+// };
+
+export function avanceFinancieroRF() {
+  return {
     nombrePrograma: "",
     valorProgramaPresupuestario: "",
     monto: {
@@ -46,18 +77,71 @@ const newRaffi = {
       procentajeModificadoAutorizado: VPTrimestral,
       porcentajeEjercidoModificado: VPTrimestral,
     },
-  },
-  fin: {
-    añoAvanceFisico: "",
-    valorAvanceFisico: "",
-  },
-  proposito: {
-    añoAvanceFisico: "",
-    valorAvanceFisico: "",
-  },
+  };
+}
 
-  componentes: [],
-};
+export function newFinPropositoRF() {
+  return {
+    añoAvanceFisico: "",
+    valorAvanceFisico: "",
+  };
+}
+
+export function newComponenteRF(ComponenteMIR: IComponente) {
+  return {
+    componentes: ComponenteMIR.componente,
+    metasPorFrecuencia: {
+      semestre1: "",
+      semestre2: "",
+      trimestre1: "",
+      trimestre2: "",
+      trimestre3: "",
+      trimestre4: "",
+    },
+    numeradorPorFrecuencia: {
+      semestre1: "",
+      semestre2: "",
+      trimestre1: "",
+      trimestre2: "",
+      trimestre3: "",
+      trimestre4: "",
+    },
+    denominadorPorFrecuencia: {
+      semestre1: "",
+      semestre2: "",
+      trimestre1: "",
+      trimestre2: "",
+      trimestre3: "",
+      trimestre4: "",
+    },
+    actividades: ComponenteMIR.actividades.map((item) =>
+      newActividadesRF(item)
+    ),
+  };
+}
+
+export function newActividadesRF(ActividadMIR: IActividad) {
+  return {
+    actividad: ActividadMIR.actividad,
+    metasPorFrecuencia: {
+      trimestre1: "",
+      trimestre2: "",
+      trimestre3: "",
+      trimestre4: "",
+    },
+  };
+}
+
+function newRaffi(MIR: string) {
+  let componentes: IComponente[] = JSON.parse(MIR).componentes;
+
+  return {
+    fin: newFinPropositoRF(),
+    proposito: newFinPropositoRF(),
+    componentes: componentes?.map((item) => newComponenteRF(item)),
+  };
+}
+
 export default function CapturaRaffi({
   MIR,
   MA,
@@ -98,7 +182,7 @@ export default function CapturaRaffi({
 
   const jsonMir = JSON.parse(MIR);
 
-  const [raffi, setRaffi] = useState<IRF>(newRaffi);
+  const [raffi, setRaffi] = useState<IRF>();
 
   useEffect(() => {
     if (RF !== "" && RF !== null) {
@@ -188,66 +272,66 @@ export default function CapturaRaffi({
   //     };
   //   })
   // );
-  const [valoresComponenteRF, setValoresComponenteRF] = useState<
-    Array<IComponenteRF>
-  >(
-    noComponentes.map((x, index) => {
-      return {
-        componentes: "C" + (index + 1),
-        metasPorFrecuencia: [],
-        numeradorPorFrecuencia: [],
-        denominadorPorFrecuencia: [],
-      };
-    })
-  );
+  // const [valoresComponenteRF, setValoresComponenteRF] = useState<
+  //   Array<IComponenteRF>
+  // >(
+  //   noComponentes.map((x, index) => {
+  //     return {
+  //       componentes: "C" + (index + 1),
+  //       metasPorFrecuencia: [],
+  //       numeradorPorFrecuencia: [],
+  //       denominadorPorFrecuencia: [],
+  //     };
+  //   })
+  // );
 
-  const [cValorRF, setValoresCValorRF] = useState<Array<ICValorRF>>(
-    noComponentes.map((item) => {
-      return {
-        componentes: compAct.map((x, index) => {
-          return {
-            actividades: x.actividades.map((c: any, index2: number) => {
-              return {
-                actividad: "A" + (index2 + 1) + "C" + (index + 1),
-                metasPorFrecuencia: [
-                  {
-                    trimestre1: "",
-                    trimestre2: "",
-                    trimestre3: "",
-                    trimestre4: "",
-                  },
-                ],
-                numeradorPorFrecuencia: [
-                  {
-                    trimestre1: "",
-                    trimestre2: "",
-                    trimestre3: "",
-                    trimestre4: "",
-                  },
-                ],
-                denominadorPorFrecuencia: [
-                  {
-                    trimestre1: "",
-                    trimestre2: "",
-                    trimestre3: "",
-                    trimestre4: "",
-                  },
-                ],
-              };
-            }),
-          };
-        }),
-      };
-    })
-  );
+  // const [cValorRF, setValoresCValorRF] = useState<Array<ICValorRF>>(
+  //   noComponentes.map((item) => {
+  //     return {
+  //       componentes: compAct.map((x, index) => {
+  //         return {
+  //           actividades: x.actividades.map((c: any, index2: number) => {
+  //             return {
+  //               actividad: "A" + (index2 + 1) + "C" + (index + 1),
+  //               metasPorFrecuencia: [
+  //                 {
+  //                   trimestre1: "",
+  //                   trimestre2: "",
+  //                   trimestre3: "",
+  //                   trimestre4: "",
+  //                 },
+  //               ],
+  //               numeradorPorFrecuencia: [
+  //                 {
+  //                   trimestre1: "",
+  //                   trimestre2: "",
+  //                   trimestre3: "",
+  //                   trimestre4: "",
+  //                 },
+  //               ],
+  //               denominadorPorFrecuencia: [
+  //                 {
+  //                   trimestre1: "",
+  //                   trimestre2: "",
+  //                   trimestre3: "",
+  //                   trimestre4: "",
+  //                 },
+  //               ],
+  //             };
+  //           }),
+  //         };
+  //       }),
+  //     };
+  //   })
+  // );
 
-  const valoresComponenteRFFnc = (state: Array<IComponenteRF>) => {
-    setValoresComponenteRF(state);
-  };
+  // const valoresComponenteRFFnc = (state: Array<IComponenteRF>) => {
+  //   setValoresComponenteRF(state);
+  // };
 
-  const asignarCValorRF = (state: Array<ICValorRF>) => {
-    setValoresCValorRF(state);
-  };
+  // const asignarCValorRF = (state: Array<ICValorRF>) => {
+  //   setValoresCValorRF(state);
+  // };
 
   // const [cValorMA, setCValorMA] = useState(
   //   componenteActividad.map((item) => {
@@ -402,10 +486,8 @@ export default function CapturaRaffi({
                 resumenAvanceFinancieroRf={resumenAvanceFinancieroRf}
                 MIR={MIR}
                 MA={MA}
-                avanceFinancieroRF={raffi.avanceFinanciero}
-                setAvanceFinancieroRF={(valor: IAvanceFinancieroRF) => {
-                  setRaffi({ ...raffi, avanceFinanciero: valor });
-                }}
+                //avanceFinancieroRF={raffi.avanceFinanciero}
+                setAvanceFinancieroRF={() => {}}
               />
             )}
 
@@ -414,14 +496,10 @@ export default function CapturaRaffi({
                 resumenFinRF={resumenFinRF}
                 resumenPropositoRF={resumenPropositoRF}
                 MIR={MIR}
-                finRF={raffi.fin}
-                propositoRF={raffi.proposito}
-                setFinRF={(valor: IFinRF) => {
-                  setRaffi({ ...raffi, fin: valor });
-                }}
-                setPropositoRF={(valor: IPropositoRF) => {
-                  setRaffi({ ...raffi, proposito: valor });
-                }}
+                // finRF={raffi.fin}
+                // propositoRF={raffi.proposito}
+                setFinRF={() => {}}
+                setPropositoRF={() => {}}
                 setTxtShowFnc={showFnc}
                 showMirFnc={showMirFnc}
                 RF={RF}
@@ -430,12 +508,10 @@ export default function CapturaRaffi({
 
             {value === 2 && (
               <TabComponenteRf
-                componentesRF={raffi.componentes}
-                setComponentes={(valor: IComponenteRF[]) => {
-                  setRaffi({ ...raffi, componentes: valor });
-                }}
-                valoresComponenteRFFnc={valoresComponenteRFFnc}
-                noComponentes={noComponentes}
+               // componentesRF={() => {}}
+                setComponentes={() => {}}
+                valoresComponenteRFFnc={() => {}}
+               // noComponentes={noComponentes}
                 MA={MA}
                 MIR={MIR}
                 RF={RF}
@@ -445,9 +521,9 @@ export default function CapturaRaffi({
             )}
             {value === 3 && (
               <TabActividadRf
-                valoresComponenteRFFnc={valoresComponenteRFFnc}
+                valoresComponenteRFFnc={() => {}}
                 componentes={noComponentes}
-                asignarCValor={asignarCValorRF}
+                asignarCValor={() => {}}
                 MA={MA}
                 MIR={MIR}
                 RF={RF}
@@ -462,8 +538,6 @@ export default function CapturaRaffi({
                 fin={ValueFin}
                 proposito={ValueProposito}
                 componentes={noComponentes}
-                componenteValor={valoresComponenteRF}
-                cValor={cValorRF}
                 AFinanciero={ValueAvanceFinanciero}
                 IdMir={IdMir}
                 IdRF={IdRf}

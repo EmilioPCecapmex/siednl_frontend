@@ -62,14 +62,14 @@ export function TabAvanceFinanciero({
   resumenAvanceFinancieroRf,
   MIR,
   MA,
-  avanceFinancieroRF,
+  //avanceFinancieroRF,
   setAvanceFinancieroRF,
 }: {
   // show : boolean;
   resumenAvanceFinancieroRf: Function;
   MIR: string;
   MA: string;
-  avanceFinancieroRF: IAvanceFinancieroRF;
+  //avanceFinancieroRF: IAvanceFinancieroRF;
   setAvanceFinancieroRF: Function;
 }) {
   const jsonMir: IMIR = JSON.parse(MIR);
@@ -147,32 +147,32 @@ export function TabAvanceFinanciero({
     return accum;
   }
 
-  useEffect(() => {
-    if (
-      avanceFinancieroRF.valorProgramaPresupuestario !== "" ||
-      avanceFinancieroRF.valorProgramaPresupuestario !== null
-    ) {
-      setAvanceFinanciero(avanceFinancieroRF);
-      setValorProgramaPresupuestario(
-        avanceFinancieroRF.valorProgramaPresupuestario
-      );
+  // useEffect(() => {
+  //   if (
+  //     avanceFinancieroRF.valorProgramaPresupuestario !== "" ||
+  //     avanceFinancieroRF.valorProgramaPresupuestario !== null
+  //   ) {
+  //     setAvanceFinanciero(avanceFinancieroRF);
+  //     setValorProgramaPresupuestario(
+  //       avanceFinancieroRF.valorProgramaPresupuestario
+  //     );
 
-      setModificado_autorizado(avanceFinancieroRF.monto.modificadoAutorizado);
-      setPorcentajeModificado_autorizado(
-        avanceFinancieroRF.porcentaje.procentajeModificadoAutorizado
-      );
+  //     setModificado_autorizado(avanceFinancieroRF.monto.modificadoAutorizado);
+  //     setPorcentajeModificado_autorizado(
+  //       avanceFinancieroRF.porcentaje.procentajeModificadoAutorizado
+  //     );
 
-      setEjercido_modificado(avanceFinancieroRF.monto.ejercidoModificado);
-      setPorcentajeEjercido_modificado(
-        avanceFinancieroRF.porcentaje.porcentajeEjercidoModificado
-      );
+  //     setEjercido_modificado(avanceFinancieroRF.monto.ejercidoModificado);
+  //     setPorcentajeEjercido_modificado(
+  //       avanceFinancieroRF.porcentaje.porcentajeEjercidoModificado
+  //     );
 
-      setDevengado_modificado(avanceFinancieroRF.monto.devengadoModificado);
-      setPorcentajeDevengado_modificado(
-        avanceFinancieroRF.porcentaje.porcentajeDevengadoModificado
-      );
-    }
-  }, []);
+  //     setDevengado_modificado(avanceFinancieroRF.monto.devengadoModificado);
+  //     setPorcentajeDevengado_modificado(
+  //       avanceFinancieroRF.porcentaje.porcentajeDevengadoModificado
+  //     );
+  //   }
+  // }, []);
 
   useEffect(() => {
     setAvanceFinancieroRF(avanceFinanciero);

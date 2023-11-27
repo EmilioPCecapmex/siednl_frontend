@@ -62,20 +62,18 @@ export interface ICValorMA {
 }
 
 export interface IComponenteRF {
-
-
-    componentes: string;
-    metasPorFrecuencia: Array<IFrecuencias>;
-    numeradorPorFrecuencia: Array<IFrecuencias>;
-    denominadorPorFrecuencia: Array<IFrecuencias>;
-  
+  componentes: string;
+  metasPorFrecuencia: Array<IFrecuencias>;
+  numeradorPorFrecuencia: Array<IFrecuencias>;
+  denominadorPorFrecuencia: Array<IFrecuencias>;
+  actividades: Array<IActividadesRF>
 }
-[];
+//
+//[];
 
 export interface IActividadesRF {
   actividad: string;
   metasPorFrecuencia: Array<IFrecuenciasAct>;
-
 }
 
 // export interface IFinRF {
@@ -108,8 +106,21 @@ export interface IEncabezadoRF {
   metaODS: string;
 }
 export interface IRF {
+  avanceFinanciero: "";
+  fin: IFinRF;
+  proposito: IPropositoRF;
   componentes: Array<IComponenteRF>;
-  actividades: Array<ICValorRF>;
+  //actividades: Array<ICValorRF>;
+}
+
+export interface IFinRF {
+  añoAvanceFisico: string;
+  valorAvanceFisico: string;
+}
+
+export interface IPropositoRF {
+  añoAvanceFisico: string;
+  valorAvanceFisico: string;
 }
 
 export interface ICValorRF {
@@ -123,7 +134,7 @@ export interface ICValorRF {
     }[];
   }[];
 }
-[];
+//[];
 
 // export interface ICValorRF {
 //   [x: string]: any;
