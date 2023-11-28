@@ -29,44 +29,31 @@ import { IFinRF, IPropositoRF } from "./interfacesRaffi";
 import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
 import { useEffect, useState } from "react";
 import { DialogFinPropositoRaffi } from "../formulasDialog/FormulaDialogRaffiFinProposito";
+import { validarNumero } from "../../services/validations";
 
 export function TabFinPropositoRF({
-  resumenPropositoRF,
-  resumenFinRF,
+  setAIFinPadre,
+  setAIPropositoPadre,
   MIR,
-  // finRF,
-  // propositoRF,
-  setFinRF,
-  setPropositoRF,
+  finRF,
+  propositoRF,
   showMirFnc,
   setTxtShowFnc,
 }: {
-  resumenPropositoRF: Function;
-  resumenFinRF: Function;
+  setAIFinPadre: Function;
+  setAIPropositoPadre: Function;
   MIR: string;
-  //finRF: IFinRF;
-  //propositoRF: IPropositoRF;
-  setFinRF: Function;
-  setPropositoRF: Function;
-
+  finRF: IFinRF;
+  propositoRF: IPropositoRF;
   RF: string;
-
   showMirFnc: Function;
   setTxtShowFnc: Function;
 }) {
   const jsonMir: IMIR = JSON.parse(MIR);
 
-  const [fin, setFin] = useState<IFinRF>({
-    añoAvanceFisico: "",
-    //jsonMir.encabezado.ejercicioFiscal,
-    valorAvanceFisico: "",
-  });
+  const [fin, setFin] = useState<IFinRF>(finRF);
 
-  const [proposito, setProposito] = useState<IPropositoRF>({
-    añoAvanceFisico: "",
-    //jsonMir.encabezado.ejercicioFiscal,
-    valorAvanceFisico: "",
-  });
+  const [proposito, setProposito] = useState<IPropositoRF>(propositoRF);
 
   // Estados para almacenar las palabras a buscar en los TextField
   const [palabraABuscar1, setPalabraABuscar1] = useState(""); // Para Fin
@@ -109,22 +96,22 @@ export function TabFinPropositoRF({
   }, []);
 
   useEffect(() => {
-    resumenPropositoRF(proposito);
-  }, [resumenPropositoRF]);
+    setAIPropositoPadre(proposito);
+  }, [proposito]);
 
   useEffect(() => {
-    resumenFinRF(fin);
-  }, [resumenFinRF]);
+    setAIFinPadre(fin);
+  }, [fin]);
 
-  useEffect(() => {
-    let objectaux: IPropositoRF = {
-      añoAvanceFisico: "",
-      //jsonMir.encabezado.ejercicioFiscal,
-      valorAvanceFisico: "",
-    };
-    setPropositoRF(objectaux);
-    setProposito(objectaux);
-  }, []);
+  // useEffect(() => {
+  //   let objectaux: IPropositoRF = {
+  //     añoAvanceFisico: "",
+  //     //jsonMir.encabezado.ejercicioFiscal,
+  //     valorAvanceFisico: "",
+  //   };
+  //   setPropositoRF(objectaux);
+  //   setProposito(objectaux);
+  // }, []);
 
   // useEffect(() => {
   //   if (
@@ -135,19 +122,19 @@ export function TabFinPropositoRF({
   //   }
   // }, []);
 
-  useEffect(() => {
-    setPropositoRF(proposito);
-  }, [proposito]);
+  // useEffect(() => {
+  //   setPropositoRF(proposito);
+  // }, [proposito]);
 
-  useEffect(() => {
-    let objectaux: IFinRF = {
-      añoAvanceFisico: "",
-      //jsonMir.encabezado.ejercicioFiscal,
-      valorAvanceFisico: "",
-    };
-    setFinRF(objectaux);
-    setFin(objectaux);
-  }, []);
+  // useEffect(() => {
+  //   let objectaux: IFinRF = {
+  //     añoAvanceFisico: "",
+  //     //jsonMir.encabezado.ejercicioFiscal,
+  //     valorAvanceFisico: "",
+  //   };
+  //   setFinRF(objectaux);
+  //   setFin(objectaux);
+  // }, []);
 
   // useEffect(() => {
   //   if (finRF.valorAvanceFisico !== "" && finRF.valorAvanceFisico !== null) {
@@ -155,9 +142,26 @@ export function TabFinPropositoRF({
   //   }
   // }, []);
 
-  useEffect(() => {
-    setFinRF(fin);
-  }, [fin]);
+  // useEffect(() => {
+  //   setFinRF(fin);
+  // }, [fin]);
+
+  // useEffect(() => {
+  //   setFin({
+  //     ...fin,
+  //     añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal.Label,
+  //   });
+  //   //jsonMir.encabezado.ejercicioFiscal.Label
+  // }, []);
+
+  // useEffect(() => {
+  //   setProposito({
+  //     ...proposito,
+  //     añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal.Label,
+  //   });
+
+  //   //jsonMir.encabezado.ejercicioFiscal.Label
+  // }, []);
 
   const assignValue = (valor: string, elemento: string, tipo: string) => {
     switch (tipo) {
@@ -212,8 +216,13 @@ export function TabFinPropositoRF({
         }}
       >
         <Grid
-          container
           item
+          container
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
           sx={{ display: "flex", justifyContent: "flex-end" }}
         >
           <Tooltip title="RESUMEN COMPONENTE">
@@ -291,7 +300,16 @@ export function TabFinPropositoRF({
                 fullWidth
                 size="small"
                 label="Año del Avance Fisico"
-                value={jsonMir.encabezado.ejercicioFiscal}
+                value={fin.añoAvanceFisico}
+                onChange={(c) =>{
+                  setFin({
+                    ...fin,
+                    añoAvanceFisico: validarNumero( c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", ""), fin.añoAvanceFisico),
+                  });
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -389,7 +407,16 @@ export function TabFinPropositoRF({
                 fullWidth
                 size="small"
                 label="Año del Avance Fisico"
-                value={jsonMir.encabezado.ejercicioFiscal}
+                onChange={(c) => {
+                  setProposito({
+                    ...proposito,
+                    añoAvanceFisico:validarNumero( c.target.value
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", ""), proposito.añoAvanceFisico)
+                  });
+                }}
+                value={proposito.añoAvanceFisico}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -451,6 +478,7 @@ export function TabFinPropositoRF({
             </Grid>
           </Grid>
         </Grid>
+
         <DialogFinPropositoRaffi
           open={openFormulaDialog}
           close={handleClose}

@@ -97,12 +97,14 @@ export function newComponenteRF(ComponenteMIR: IComponente) {
 export function newActividadesRF(ActividadMIR: IActividad) {
   return {
     actividad: ActividadMIR.actividad,
-    metasPorFrecuencia: [{
-      trimestre1: "",
-      trimestre2: "",
-      trimestre3: "",
-      trimestre4: "",
-    }],
+    metasPorFrecuencia: [
+      {
+        trimestre1: "",
+        trimestre2: "",
+        trimestre3: "",
+        trimestre4: "",
+      },
+    ],
   };
 }
 
@@ -159,9 +161,23 @@ export default function CapturaRaffi({
 
   const [raffi, setRaffi] = useState<IRF>(newRaffi(MIR));
 
+  const setAIFinPadre = (FinValues: IFinRF) => {
+    setRaffi({
+      ...raffi,
+      fin: FinValues,
+    });
+  };
+
+  const setAIPropositoPadre = (PropositoVlues: IFinRF) => {
+    setRaffi({
+      ...raffi,
+      proposito: PropositoVlues,
+    });
+  };
+
   useEffect(() => {
-    console.log("raffi: ",raffi);
-    
+    console.log("raffi: ", raffi);
+
     if (RF !== "" && RF !== null) {
       setRaffi(JSON.parse(RF));
     }
@@ -169,82 +185,12 @@ export default function CapturaRaffi({
 
   const [noComponentes, setNoComponentes] = React.useState([1, 2]);
 
-  // const [valoresComponenteMA, setValoresComponenteMA] = useState<
-  //   Array<IComponenteMA>
-  // >(
-  //   noComponentes.map((x, index) => {
-  //     return {
-  //       componentes: "C" + (index + 1),
-  //       metaAnual: "",
-  //       lineaBase: "",
-  //       metasPorFrecuencia: [],
-  //       valorNumerador: "",
-  //       valorDenominador: "",
-  //       sentidoDelIndicador: "",
-  //       unidadResponsable: "",
-  //       descIndicador: "",
-  //       descNumerador: "",
-  //       descDenominador: "",
-  //     };
-  //   })
-  // );
-  // const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
-  //   // setValoresComponenteMA(state);
-  // };
-
-  // const [valoresComponenteRF, setValoresComponenteRF] = useState<
-  //   Array<IComponenteRF>
-  // >(
-  //   noComponentes.map((x, index) => {
-  //     return {
-  //       componentes: "C" + (index + 1),
-  //       semestre1: "",
-  //       semestre2: "",
-  //       trimestre1: "",
-  //       trimestre2: "",
-  //       trimestre3: "",
-  //       trimestre4: "",
-  //     };
-  //   })
-  // );
-  // const [valoresComponenteRF, setValoresComponenteRF] = useState<
-  //   Array<IComponenteRF>
-  // >(
-  //   noComponentes.map((x, index) => {
-  //     return {
-  //       componentes: "C" + (index + 1),
-  //       metasPorFrecuencia: [],
-  //       numeradorPorFrecuencia: [],
-  //       denominadorPorFrecuencia: [],
-  //     };
-  //   })
-  // );
-
-  // const valoresComponenteRFFnc = (state: Array<IComponenteRF>) => {
-  //   setValoresComponenteRF(state);
-  // };
-
-  // const asignarCValorRF = (state: Array<ICValorRF>) => {
-  //   setValoresCValorRF(state);
-  // };
-
   useEffect(() => {}, []);
-
-  const [ValueFin, setValueFin] = useState<Array<IFinRF>>([]);
-
-  const [ValueProposito, setValueProposito] = useState<Array<IPropositoRF>>([]);
 
   const resumenAvanceFinancieroRf = (st: Array<IAvanceFinancieroRF>) => {
     setAvanceFinanciero(st);
   };
 
-  const resumenFinRF = (st: Array<IFinRF>) => {
-    setValueFin(st);
-  };
-
-  const resumenPropositoRF = (st: Array<IPropositoRF>) => {
-    setValueProposito(st);
-  };
   // const asignarCValorMA = (state: Array<ICValorMA>) => {
   //   setCValorMA(state);
   // };
@@ -317,13 +263,11 @@ export default function CapturaRaffi({
 
             {value === 1 && (
               <TabFinPropositoRF
-                resumenFinRF={resumenFinRF}
-                resumenPropositoRF={resumenPropositoRF}
+                setAIFinPadre={setAIFinPadre}
+                setAIPropositoPadre={setAIPropositoPadre}
                 MIR={MIR}
-                // finRF={raffi.fin}
-                // propositoRF={raffi.proposito}
-                setFinRF={() => {}}
-                setPropositoRF={() => {}}
+                finRF={raffi.fin}
+                propositoRF={raffi.proposito}
                 setTxtShowFnc={showFnc}
                 showMirFnc={showMirFnc}
                 RF={RF}
@@ -359,10 +303,11 @@ export default function CapturaRaffi({
             {value === 4 && (
               <TabResumenRF
                 // encabezado={ValueEncabezado}
-                fin={ValueFin}
-                proposito={ValueProposito}
-                componentes={noComponentes}
-                AFinanciero={ValueAvanceFinanciero}
+                // fin={ValueFin}
+                // proposito={ValueProposito}
+                // componentes={noComponentes}
+                // AFinanciero={ValueAvanceFinanciero}
+
                 IdMir={IdMir}
                 IdRF={IdRf}
                 IdMA={IdMA}
