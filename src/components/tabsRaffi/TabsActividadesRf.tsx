@@ -295,43 +295,43 @@ export const TabActividadRf = ({
     return x;
   }
 
-  // const changeFormula = (txt: string) => {
-  //   if (
-  //     JSON.parse(MIR)
-  //       .actividades[
-  //         mapeaindice(componenteSelect, actividadSelect)
-  //       ].indicador.toLowerCase()
-  //       .includes("indice") ||
-  //     JSON.parse(MIR)
-  //       .actividades[
-  //         mapeaindice(componenteSelect, actividadSelect)
-  //       ].indicador.toLowerCase()
-  //       .includes("índice")
-  //   ) {
-  //     aValorRF[0].componentes[componenteSelect].actividades[
-  //       actividadSelect
-  //     ].numeradorPorFrecuencia[0].trimestre2 = txt;
-  //     aValorRF[0].componentes[componenteSelect].actividades[
-  //       actividadSelect
-  //     ].metasPorFrecuencia[0].trimestre2 = txt;
-  //   } else {
-  //     let frec = txt.split(",")[3];
-  //     aValorRF[0].componentes[componenteSelect].actividades[
-  //       actividadSelect
-  //     ].numeradorPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
-  //       txt.split(",")[0];
-  //     aValorRF[0].componentes[componenteSelect].actividades[
-  //       actividadSelect
-  //     ].denominadorPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
-  //       txt.split(",")[1];
-  //     aValorRF[0].componentes[componenteSelect].actividades[
-  //       actividadSelect
-  //     ].metasPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
-  //       txt.split(",")[2];
-  //   }
+  const changeFormula = (txt: string) => {
+    // if (
+    //   JSON.parse(MIR)
+    //     .actividades[
+    //       mapeaindice(componenteSelect, actividadSelect)
+    //     ].indicador.toLowerCase()
+    //     .includes("indice") ||
+    //   JSON.parse(MIR)
+    //     .actividades[
+    //       mapeaindice(componenteSelect, actividadSelect)
+    //     ].indicador.toLowerCase()
+    //     .includes("índice")
+    // ) {
+    //   aValorRF[0].componentes[componenteSelect].actividades[
+    //     actividadSelect
+    //   ].numeradorPorFrecuencia[0].trimestre2 = txt;
+    //   aValorRF[0].componentes[componenteSelect].actividades[
+    //     actividadSelect
+    //   ].metasPorFrecuencia[0].trimestre2 = txt;
+    // } else {
+    //   let frec = txt.split(",")[3];
+    //   aValorRF[0].componentes[componenteSelect].actividades[
+    //     actividadSelect
+    //   ].numeradorPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
+    //     txt.split(",")[0];
+    //   aValorRF[0].componentes[componenteSelect].actividades[
+    //     actividadSelect
+    //   ].denominadorPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
+    //     txt.split(",")[1];
+    //   aValorRF[0].componentes[componenteSelect].actividades[
+    //     actividadSelect
+    //   ].metasPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
+    //     txt.split(",")[2];
+    // }
 
-  //   setAValorRF([...aValorRF]);
-  // };
+    //setAValorRF([...aValorRF]);
+  };
   const [open, setOpen] = useState(1);
 
   const handleClickComponente = (index: number) => {
@@ -677,7 +677,7 @@ export const TabActividadRf = ({
         <FormulaDialogRF
           open={openFormulaDialog}
           close={handleClose}
-          //textoSet={changeFormula}
+          textoSet={changeFormula}
           tipo={tipoFormula}
           elemento={
             "C" +
@@ -685,7 +685,7 @@ export const TabActividadRf = ({
             "A" +
             (actividadSelect + 1).toString()
           }
-          dato={elementoFormula}
+         // dato={elementoFormula}
           MIR={MIR}
         />
         {/* COLUMNA IZQUIERDA QUE MUESTRA LOS COMPONENTES */}

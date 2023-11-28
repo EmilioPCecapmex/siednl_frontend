@@ -13,18 +13,18 @@ import { queries } from "../../queries";
 export const FormulaDialogRF = ({
   open,
   close,
-  //textoSet,
+  textoSet,
   tipo,
   elemento,
-  dato,
+  //dato,
   MIR,
 }: {
   open: boolean;
   close: Function;
-  //textoSet: Function;
+  textoSet: Function;
   tipo: string;
   elemento: string;
-  dato: string;
+  //dato: string;
   MIR: string;
 }) => {
   const [descA, setDescA] = useState("");
@@ -36,51 +36,54 @@ export const FormulaDialogRF = ({
     setDescB("");
   };
 
-  // const checkValues = () => {
-  //   if (tipo === "Indice" || tipo === "Índice") {
-  //     if (/^[\s]*$/.test(descA)) {
-  //       setEmptyTxt(true);
-  //     } else {
-  //       if (tipo === "Indice" || tipo === "Índice") {
-  //         textoSet(parseFloat(descA).toFixed(2));
-  //         limpiaVar();
-  //         close();
-  //       }
-  //     }
-  //   } else {
-  //     if (/^[\s]*$/.test(descA) || /^[\s]*$/.test(descB)) {
-  //       setEmptyTxt(true);
-  //     } else {
-  //       if (tipo === "Porcentaje") {
-  //         let MA = (parseFloat(descA) / parseFloat(descB)) * 100;
-  //         textoSet(
-  //           descA + "," + descB + "," + MA.toFixed(2) + "," + frecuencia
-  //         );
+  const checkValues = () => {
+    if (tipo === "Indice" || tipo === "Índice") {
+      if (/^[\s]*$/.test(descA)) {
+        setEmptyTxt(true);
+      } else {
+        if (tipo === "Indice" || tipo === "Índice") {
+          textoSet(parseFloat(descA).toFixed(2));
+          limpiaVar();
+          close();
+        }
+      }
+    } else {
+      if (/^[\s]*$/.test(descA) || /^[\s]*$/.test(descB)) {
+        setEmptyTxt(true);
+      } else {
+        if (tipo === "Porcentaje") {
+          let MA = (parseFloat(descA) / parseFloat(descB)) * 100;
+          textoSet(
+            descA + "," + descB + "," + MA.toFixed(2) 
+            //+ "," + frecuencia
+          );
 
-  //         limpiaVar();
-  //         close();
-  //       } else if (tipo === "Tasa") {
-  //         let T = parseFloat(descA) - parseFloat(descB);
-  //         let MA =
-  //           ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) * 100;
-  //         textoSet(
-  //           T.toFixed(2) + "," + descB + "," + MA.toFixed(2) + "," + frecuencia
-  //         );
+          limpiaVar();
+          close();
+        } else if (tipo === "Tasa") {
+          let T = parseFloat(descA) - parseFloat(descB);
+          let MA =
+            ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) * 100;
+          textoSet(
+            T.toFixed(2) + "," + descB + "," + MA.toFixed(2) 
+            //+ "," + frecuencia
+          );
 
-  //         limpiaVar();
-  //         close();
-  //       } else if (tipo === "Promedio") {
-  //         let MA = parseFloat(descA) / parseFloat(descB);
-  //         textoSet(
-  //           descA + "," + descB + "," + MA.toFixed(2) + "," + frecuencia
-  //         );
+          limpiaVar();
+          close();
+        } else if (tipo === "Promedio") {
+          let MA = parseFloat(descA) / parseFloat(descB);
+          textoSet(
+            descA + "," + descB + "," + MA.toFixed(2) 
+            //+ "," + frecuencia
+          );
 
-  //         limpiaVar();
-  //         close();
-  //       }
-  //     }
-  //   }
-  // };
+          limpiaVar();
+          close();
+        }
+      }
+    }
+  };
 
   useLayoutEffect(() => {
     setEmptyTxt(false);
@@ -89,8 +92,8 @@ export const FormulaDialogRF = ({
   let noComponente = parseFloat(elemento.split(" ")[1]);
   let noActividad = parseFloat(elemento.split("")[3]);
 
-  let noDato = dato.split(",")[0];
-  let frecuencia = dato.split(",")[1];
+  // let noDato = dato.split(",")[0];
+  // let frecuencia = dato.split(",")[1];
 
   return (
     <Dialog open={open} fullWidth>
@@ -104,7 +107,7 @@ export const FormulaDialogRF = ({
         }}
       >
         <Typography sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}>
-          {noDato} - Fórmula - {tipo}
+          {elemento} - Fórmula - {tipo}
         </Typography>
 
         <Typography
@@ -141,9 +144,9 @@ export const FormulaDialogRF = ({
             : elemento === "Propósito"
             ? JSON.parse(MIR).proposito.formula
             : elemento.includes("Componente")
-            ? JSON.parse(MIR).componentes[noComponente - 1].formula
+            ? JSON.parse(MIR).componentes[noComponente].formula
             : elemento.includes("A")
-            ? JSON.parse(MIR).actividades[noActividad - 1]?.formula
+            ? JSON.parse(MIR).actividades[noActividad ]?.formula
             : null}
         </Typography>
       </Box>
@@ -288,8 +291,8 @@ export const FormulaDialogRF = ({
         <Button
           sx={queries.buttonContinuarSolicitudInscripcion}
           onClick={() => 
-            //checkValues()
-            console.log("")
+            checkValues()
+            
             
           }
         >

@@ -19,9 +19,11 @@ import {
   IPropositoRF,
   IFinRF,
   IRF,
+  IComponenteRF,
 } from "./interfacesRaffi";
 import { VTrimestral, VPTrimestral } from "./TabAvanceFinanciero";
 import GenericTabs from "../genericComponents/genericTabs";
+import { Raffi } from "../../screens/raffi/Raffi";
 
 const tabs = [
   "Avance Financiero",
@@ -161,17 +163,24 @@ export default function CapturaRaffi({
 
   const [raffi, setRaffi] = useState<IRF>(newRaffi(MIR));
 
-  const setAIFinPadre = (FinValues: IFinRF) => {
+  const setAIFinPadre = (finValues: IFinRF) => {
     setRaffi({
       ...raffi,
-      fin: FinValues,
+      fin: finValues,
     });
   };
 
-  const setAIPropositoPadre = (PropositoVlues: IFinRF) => {
+  const setAIPropositoPadre = (propositoVlues: IFinRF) => {
     setRaffi({
       ...raffi,
-      proposito: PropositoVlues,
+      proposito: propositoVlues,
+    });
+  };
+
+  const setAIcomponentesPadre = (componentesValues: IComponenteRF[]) => {
+    setRaffi({
+      ...raffi,
+      componentes: componentesValues,
     });
   };
 
@@ -276,10 +285,9 @@ export default function CapturaRaffi({
 
             {value === 2 && (
               <TabComponenteRf
-                // componentesRF={() => {}}
-                setComponentes={() => {}}
-                valoresComponenteRFFnc={() => {}}
-                // noComponentes={noComponentes}
+               
+                setAIcomponentesPadre = {setAIcomponentesPadre}
+                ComponentesRF={raffi.componentes}
                 MA={MA}
                 MIR={MIR}
                 RF={RF}
