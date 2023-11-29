@@ -16,7 +16,7 @@ export const FormulaDialogRF = ({
   textoSet,
   tipo,
   elemento,
-  //dato,
+  dato,
   MIR,
 }: {
   open: boolean;
@@ -24,7 +24,7 @@ export const FormulaDialogRF = ({
   textoSet: Function;
   tipo: string;
   elemento: string;
-  //dato: string;
+  dato: string;
   MIR: string;
 }) => {
   const [descA, setDescA] = useState("");
@@ -54,8 +54,7 @@ export const FormulaDialogRF = ({
         if (tipo === "Porcentaje") {
           let MA = (parseFloat(descA) / parseFloat(descB)) * 100;
           textoSet(
-            descA + "," + descB + "," + MA.toFixed(2) 
-            //+ "," + frecuencia
+            descA + "," + descB + "," + MA.toFixed(2) + "," + frecuencia
           );
 
           limpiaVar();
@@ -65,8 +64,7 @@ export const FormulaDialogRF = ({
           let MA =
             ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) * 100;
           textoSet(
-            T.toFixed(2) + "," + descB + "," + MA.toFixed(2) 
-            //+ "," + frecuencia
+            T.toFixed(2) + "," + descB + "," + MA.toFixed(2) + "," + frecuencia
           );
 
           limpiaVar();
@@ -74,8 +72,7 @@ export const FormulaDialogRF = ({
         } else if (tipo === "Promedio") {
           let MA = parseFloat(descA) / parseFloat(descB);
           textoSet(
-            descA + "," + descB + "," + MA.toFixed(2) 
-            //+ "," + frecuencia
+            descA + "," + descB + "," + MA.toFixed(2) + "," + frecuencia
           );
 
           limpiaVar();
@@ -92,8 +89,8 @@ export const FormulaDialogRF = ({
   let noComponente = parseFloat(elemento.split(" ")[1]);
   let noActividad = parseFloat(elemento.split("")[3]);
 
-  // let noDato = dato.split(",")[0];
-  // let frecuencia = dato.split(",")[1];
+  let noDato = dato.split(",")[0];
+  let frecuencia = dato.split(",")[1];
 
   return (
     <Dialog open={open} fullWidth>
