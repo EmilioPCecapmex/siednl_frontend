@@ -558,9 +558,125 @@ export const TabComponenteRf = ({
                   display: "flex",
                   justifyContent: "center",
                 }}
-              ></Grid>
+              >
+                 <TextField
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 15, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      Trimestre 2{" "}
+                      {
+                        jsonMA?.componentes[componentSelect - 1]
+                          ?.metasPorFrecuencia[0]?.trimestre2
+                      }
+                    </Typography>
+                  }
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                 <TextField
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 15, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      Trimestre 3{" "}
+                      {
+                        jsonMA?.componentes[componentSelect - 1]
+                          ?.metasPorFrecuencia[0]?.trimestre3
+                      }
+                    </Typography>
+                  }
+                />
+              </Grid>
+
+              <Grid
+                item
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                 <TextField
+                  sx={{ boxShadow: 2 }}
+                  variant={"filled"}
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  label={
+                    <Typography
+                      sx={{
+                        fontSize: [10, 10, 10, 15, 15, 18],
+                        fontFamily: "MontserratMedium",
+                      }}
+                    >
+                      Trimestre 4{" "}
+                      {
+                        jsonMA?.componentes[componentSelect - 1]
+                          ?.metasPorFrecuencia[0]?.trimestre4
+                      }
+                    </Typography>
+                  }
+                />
+              </Grid>
             </Grid>
           )}
+          
         </Grid>
       </Grid>
 
