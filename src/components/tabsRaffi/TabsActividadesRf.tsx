@@ -674,7 +674,7 @@ export const TabActividadRf = ({
           alignItems: "center",
         }}
       >
-        <FormulaDialogRF
+        {/* <FormulaDialogRF
           open={openFormulaDialog}
           close={handleClose}
           textoSet={changeFormula}
@@ -687,7 +687,7 @@ export const TabActividadRf = ({
           }
          // dato={elementoFormula}
           MIR={MIR}
-        />
+        /> */}
         {/* COLUMNA IZQUIERDA QUE MUESTRA LOS COMPONENTES */}
         <Grid item xs={2}>
           <List

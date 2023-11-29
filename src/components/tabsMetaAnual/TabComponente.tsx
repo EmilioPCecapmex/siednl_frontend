@@ -197,6 +197,7 @@ export const TabComponenteMA = ({
         txt.split(",")[2];
       componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
         txt.split(",")[3];
+        
     } else {
       componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
         txt.split(",")[0];
