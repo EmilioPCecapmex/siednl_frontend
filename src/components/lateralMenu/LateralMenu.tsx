@@ -636,7 +636,7 @@ export const LateralMenu = ({
           >
             <Grid
               container
-              sx={{ width: "25vw", height: "100vh" }}>
+              sx={{ width: ["100vw","100vw","60vw","40vw","30vw"], height: "100vh" }}>
               <Grid
                 item
                 container
@@ -732,6 +732,12 @@ export const LateralMenu = ({
                     <ListItemText primary={"Cambiar Contraseña"} sx={{ width: "100%" }} />
                   </ListItemButton>
 
+                  <ListItemButton onClick={() => setIsDrawerOpen(false)} sx={{ width: "100%" }}>
+                    <ListItemIcon>
+                      {IconsMenu("LogoutOutlinedIcon")}
+                    </ListItemIcon>
+                    <ListItemText primary={"Cerrar Menú"} sx={{ width: "100%" }} />
+                  </ListItemButton>
 
                   <ListItemButton onClick={() => logout()} sx={{ width: "100%" }}>
                     <ListItemIcon>
@@ -740,7 +746,6 @@ export const LateralMenu = ({
                     <ListItemText primary={"Cerrar Sesión"} sx={{ width: "100%" }} />
                   </ListItemButton>
                 </List>
-
               </Grid>
 
             </Grid>
