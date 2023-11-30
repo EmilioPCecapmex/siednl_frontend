@@ -21,6 +21,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { queries } from "../../queries";
 import {
+  IActividadesRF,
   IAvanceFinancieroRF,
   IComponenteRF,
   IFinRF,
@@ -28,6 +29,7 @@ import {
   IRF,
   IRFEdit,
 } from "./interfacesRaffi";
+import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 
 export const TabResumenRF = ({
   IdMir,
@@ -55,6 +57,13 @@ export const TabResumenRF = ({
   const handleCloseEnviar = () => {
     setOpenModalEnviar(false);
   };
+
+  let jsonMIR: IMIR =
+    MIR === ""
+      ? ""
+      : JSON.parse(MIR).length > 1
+      ? JSON.parse(MIR)[0]
+      : JSON.parse(MIR);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
@@ -271,23 +280,23 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
               />
             </Grid>
           )}
-          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
               AÑO DEL AVANCE FISICO
             </Typography>
@@ -296,6 +305,56 @@ export const TabResumenRF = ({
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
             <Typography sx={{ fontFamily: "MontserratLight" }}>
               {RF.fin.añoAvanceFisico}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              VALOR DEL AVANCE FISICO
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.fin.valorAvanceFisico}
             </Typography>
           </Grid>
         </Grid>
@@ -327,6 +386,106 @@ export const TabResumenRF = ({
           </Typography>
         </Grid>
 
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              AÑO DEL AVANCE FISICO
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.proposito.añoAvanceFisico}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              VALOR DEL AVANCE FISICO
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.proposito.valorAvanceFisico}
+            </Typography>
+          </Grid>
+        </Grid>
+
         {/* #######################################
             ############ FINALIZA DISPLAY DE PROPOSITO ########
             ###########################################*/}
@@ -353,6 +512,232 @@ export const TabResumenRF = ({
             Componente
           </Typography>
         </Grid>
+        {RF.componentes.map((componente: IComponenteRF, indexComponentes) => {
+          return (
+            <Grid
+              item
+              container
+              xl={11}
+              lg={11}
+              md={12}
+              sm={12}
+              xs={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+
+                mt: 1,
+                alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
+              }}
+              key={indexComponentes}
+            >
+              <Grid item>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                    borderBottom: 1,
+                    mt: 1,
+                    textAlign: "center",
+                  }}
+                >
+                  COMPONENTE {indexComponentes + 1}
+                </Typography>
+              </Grid>
+              {jsonMIR?.componentes[indexComponentes]?.frecuencia ===
+              "SEMESTRAL" ? (
+                <Grid
+                  item
+                  container
+                  xl={12}
+                  lg={12}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                      <Checkbox
+                      //  value={ftEditPadre.componentes[index]?.monitoreable}
+                      //  onChange={(v) => {
+                      //    let auxC = ftEditPadre.componentes;
+                      //    auxC[index].monitoreable = v.target.checked;
+                      //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
+                      //  }}
+                      />
+                    </Grid>
+                  )}
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      SEMESTRE1:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      {componente?.metasPorFrecuencia[0]?.semestre1}
+                    </Typography>
+                  </Grid>
+
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                      <Checkbox
+                      //  value={ftEditPadre.componentes[index]?.monitoreable}
+                      //  onChange={(v) => {
+                      //    let auxC = ftEditPadre.componentes;
+                      //    auxC[index].monitoreable = v.target.checked;
+                      //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
+                      //  }}
+                      />
+                    </Grid>
+                  )}
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      SEMESTRE2:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      {componente?.metasPorFrecuencia[0]?.semestre2}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              ) : (
+                <Grid
+                  item
+                  container
+                  xl={12}
+                  lg={12}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                      <Checkbox
+                      //  value={ftEditPadre.componentes[index]?.monitoreable}
+                      //  onChange={(v) => {
+                      //    let auxC = ftEditPadre.componentes;
+                      //    auxC[index].monitoreable = v.target.checked;
+                      //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
+                      //  }}
+                      />
+                    </Grid>
+                  )}
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      TRIMESTRE1:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      {componente?.metasPorFrecuencia[0]?.trimestre1}
+                    </Typography>
+                  </Grid>
+
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                      <Checkbox
+                      //  value={ftEditPadre.componentes[index]?.monitoreable}
+                      //  onChange={(v) => {
+                      //    let auxC = ftEditPadre.componentes;
+                      //    auxC[index].monitoreable = v.target.checked;
+                      //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
+                      //  }}
+                      />
+                    </Grid>
+                  )}
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      TRIMESTRE2:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      {componente?.metasPorFrecuencia[0]?.trimestre2}
+                    </Typography>
+                  </Grid>
+
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                      <Checkbox
+                      //  value={ftEditPadre.componentes[index]?.monitoreable}
+                      //  onChange={(v) => {
+                      //    let auxC = ftEditPadre.componentes;
+                      //    auxC[index].monitoreable = v.target.checked;
+                      //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
+                      //  }}
+                      />
+                    </Grid>
+                  )}
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      TRIMESTRE3:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      {componente?.metasPorFrecuencia[0]?.trimestre3}
+                    </Typography>
+                  </Grid>
+
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                      <Checkbox
+                      //  value={ftEditPadre.componentes[index]?.monitoreable}
+                      //  onChange={(v) => {
+                      //    let auxC = ftEditPadre.componentes;
+                      //    auxC[index].monitoreable = v.target.checked;
+                      //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
+                      //  }}
+                      />
+                    </Grid>
+                  )}
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      TRIMESTRE4:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      {componente?.metasPorFrecuencia[0]?.trimestre4}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              )}
+            </Grid>
+          );
+        })}
 
         {/* ###################################################
             ############ INICIA DISPLAY DE ACTIVIDADES ########
@@ -373,66 +758,288 @@ export const TabResumenRF = ({
           <Typography
             sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
-            Actividad 
+            ACTIVIDADES
           </Typography>
         </Grid>
+
+        {RF.componentes.map((componente: IComponenteRF, indexComponentes) => {
+          let i = 0;
+          return componente.actividades.map(
+            (actividad: IActividadesRF, indexActividades) => {
+              i++;
+              return (
+                <Grid
+                  item
+                  container
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                  key={indexActividades}
+                >
+                  <Grid item>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        borderBottom: 1,
+                        mt: 1,
+                        textAlign: "center",
+                      }}
+                    >
+                      COMPONENTE {indexComponentes + 1} - ACTIVIDAD{" "}
+                      {indexActividades + 1}
+                    </Typography>
+                  </Grid>
+
+                  <Grid
+                    item
+                    container
+                    xl={12}
+                    lg={12}
+                    md={12}
+                    sm={12}
+                    xs={12}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+
+                      //mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                        <Checkbox
+                        //  value={ftEditPadre.componentes[index]?.monitoreable}
+                        //  onChange={(v) => {
+                        //    let auxC = ftEditPadre.componentes;
+                        //    auxC[index].monitoreable = v.target.checked;
+                        //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
+                        //  }}
+                        />
+                      </Grid>
+                    )}
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        TRIMESTRE1:
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {actividad?.metasPorFrecuencia[0]?.trimestre1}
+                      </Typography>
+                    </Grid>
+
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                        <Checkbox
+                        //  value={ftEditPadre.componentes[index]?.monitoreable}
+                        //  onChange={(v) => {
+                        //    let auxC = ftEditPadre.componentes;
+                        //    auxC[index].monitoreable = v.target.checked;
+                        //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
+                        //  }}
+                        />
+                      </Grid>
+                    )}
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        TRIMESTRE2:
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {actividad?.metasPorFrecuencia[0]?.trimestre2}
+                      </Typography>
+                    </Grid>
+
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                        <Checkbox
+                        //  value={ftEditPadre.componentes[index]?.monitoreable}
+                        //  onChange={(v) => {
+                        //    let auxC = ftEditPadre.componentes;
+                        //    auxC[index].monitoreable = v.target.checked;
+                        //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
+                        //  }}
+                        />
+                      </Grid>
+                    )}
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        TRIMESTRE3:
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {actividad?.metasPorFrecuencia[0]?.trimestre3}
+                      </Typography>
+                    </Grid>
+
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                        <Checkbox
+                        //  value={ftEditPadre.componentes[index]?.monitoreable}
+                        //  onChange={(v) => {
+                        //    let auxC = ftEditPadre.componentes;
+                        //    auxC[index].monitoreable = v.target.checked;
+                        //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
+                        //  }}
+                        />
+                      </Grid>
+                    )}
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        TRIMESTRE4:
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {actividad?.metasPorFrecuencia[0]?.trimestre4}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              );
+            }
+          );
+        })}
       </Grid>
 
       <Grid
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
         sx={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          width: "100%",
-          mt: 2,
+          ...(isSmallScreen && {
+            display: "flex",
+            // Otros estilos específicos para pantallas pequeñas
+          }),
+          //flexDirection: "row",
+
+          //mt: 1,
+          alignItems: "center",
+          justifyContent: "center",
+
+          borderBottom: 1,
+          borderColor: "#cfcfcf",
+
+          ...(isSmallScreen && {
+            height: "15%",
+          }),
         }}
       >
-        <Button
-          sx={queries.buttonCancelarSolicitudInscripcion}
-          onClick={() => showResume()}
+        <Grid
+          sx={{ justifyContent: "center", display: "flex" }}
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Cancelar
-          </Typography>
-        </Button>
-        <Button
-          disabled={isCapturador ? true : false}
-          sx={buttonStyles}
-          onClick={() => setOpenModalSolicitarModif(true)}
-        >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Solicitar Modificación
-          </Typography>
-        </Button>
+          <Button
+            sx={queries.buttonCancelarSolicitudInscripcion}
+            onClick={() => showResume()}
+          >
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              Cancelar
+            </Typography>
+          </Button>
+        </Grid>
 
-        <Button
-          sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() =>
-            creaRF(
-              localStorage.getItem("Rol") === "Capturador"
-                ? "En Captura"
-                : localStorage.getItem("Rol") === "Verificador"
-                ? "En Revisión"
-                : "En Autorización"
-            )
-          }
+        <Grid
+          sx={{ justifyContent: "center", display: "flex" }}
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Borrador
-          </Typography>
-        </Button>
+          <Button
+            disabled={isCapturador ? true : false}
+            sx={buttonStyles}
+            onClick={() => setOpenModalSolicitarModif(true)}
+          >
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              Solicitar Modificación
+            </Typography>
+          </Button>
+        </Grid>
 
-        <Button
-          sx={queries.buttonContinuarSolicitudInscripcion}
-          onClick={() => setOpenModalEnviar(true)}
+        <Grid
+          sx={{ justifyContent: "center", display: "flex" }}
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            {localStorage.getItem("Rol") === "Administrador"
-              ? "Autorizar"
-              : "Enviar"}
-          </Typography>
-        </Button>
+          <Button
+            sx={queries.buttonContinuarSolicitudInscripcion}
+            onClick={() =>
+              creaRF(
+                localStorage.getItem("Rol") === "Capturador"
+                  ? "En Captura"
+                  : localStorage.getItem("Rol") === "Verificador"
+                  ? "En Revisión"
+                  : "En Autorización"
+              )
+            }
+          >
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              Borrador
+            </Typography>
+          </Button>
+        </Grid>
 
-        {/* <ModalSolicitaModif
+        <Grid
+          sx={{ justifyContent: "center", display: "flex" }}
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
+        >
+          <Button
+            sx={queries.buttonContinuarSolicitudInscripcion}
+            onClick={() => setOpenModalEnviar(true)}
+          >
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              {localStorage.getItem("Rol") === "Administrador"
+                ? "Autorizar"
+                : "Enviar"}
+            </Typography>
+          </Button>
+        </Grid>
+
+         {/* <ModalSolicitaModif
           open={openModalSolicitarModif}
           handleClose={handleCloseModif}
           MA={JSON.stringify(MA)}
@@ -450,8 +1057,8 @@ export const TabResumenRF = ({
                 actividades: editActividades,
               })
           }
-        ></ModalSolicitaModif>
-
+        ></ModalSolicitaModif> */}
+{/*
         <ModalEnviarMA
           open={openModalEnviar}
           handleClose={handleCloseEnviar}

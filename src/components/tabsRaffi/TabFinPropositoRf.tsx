@@ -409,23 +409,22 @@ export function TabFinPropositoRF({
                 fullWidth
                 size="small"
                 label="Año del Avance Fisico"
-                onChange={(c) => {
+                value={proposito.añoAvanceFisico}
+                onChange={(c) =>{
                   setProposito({
                     ...proposito,
-                    añoAvanceFisico:validarNumero( c.target.value
+                    añoAvanceFisico: validarNumero( c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
-                      .replaceAll("\n", ""), proposito.añoAvanceFisico)
+                      .replaceAll("\n", ""), proposito.añoAvanceFisico),
                   });
                 }}
-                value={proposito.añoAvanceFisico}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
                   style: {
                     fontFamily: "MontserratMedium",
                   },

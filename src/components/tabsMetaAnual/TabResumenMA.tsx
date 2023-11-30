@@ -1551,6 +1551,8 @@ export function TabResumenMA({
                         />
                       </Grid>
                     )}
+
+                    
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                       <Typography sx={{ fontFamily: "MontserratMedium" }}>
                         Semestre 1:
@@ -1592,16 +1594,19 @@ export function TabResumenMA({
                         />
                       </Grid>
                     )}
+
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                       <Typography sx={{ fontFamily: "MontserratMedium" }}>
                         Semestre 2:
                       </Typography>
                     </Grid>
+
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                       <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
                         {componente?.metasPorFrecuencia[0]?.semestre2}
                       </Typography>
                     </Grid>
+
                   </Grid>
                 ) : (
                   <Grid
@@ -3174,7 +3179,7 @@ export function TabResumenMA({
           showResume={showResume}
         ></ModalEnviarMA>
       </Grid>
-      
+
     </Grid>
   );
 }
