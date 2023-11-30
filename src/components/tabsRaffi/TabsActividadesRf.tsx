@@ -17,6 +17,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
+import { IRFEdit } from "./interfacesRaffi";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -251,6 +252,7 @@ export const TabActividadRf = ({
   valoresComponenteRFFnc,
   showMirFnc,
   setTxtShowFnc,
+  raffiboolean,
 }: {
   MA: string;
   MIR: string;
@@ -261,6 +263,7 @@ export const TabActividadRf = ({
   valoresComponenteRFFnc: Function;
   showMirFnc: Function;
   setTxtShowFnc: Function;
+  raffiboolean: IRFEdit;
 }) => {
   const componenteActividad = [
     {

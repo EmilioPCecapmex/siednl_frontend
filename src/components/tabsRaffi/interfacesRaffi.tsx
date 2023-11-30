@@ -100,3 +100,108 @@ export interface IActividadesRF {
     actividad: string;
     metasPorFrecuencia: Array<IFrecuenciasAct>;
   }
+
+//////////////////////////////// boolean
+
+export interface IAvanceFinancieroRFEdit {
+  nombrePrograma: boolean;
+  valorProgramaPresupuestario: boolean;
+
+  monto: {
+    devengadoModificado: IVTrimestralEdit;
+    modificadoAutorizado: IVTrimestralEdit;
+    ejercidoModificado: IVTrimestralEdit;
+  };
+  porcentaje: {
+    porcentajeDevengadoModificado: IVPTrimestralEdit;
+    procentajeModificadoAutorizado: IVPTrimestralEdit;
+    porcentajeEjercidoModificado: IVPTrimestralEdit;
+  };
+}
+
+export interface IVTrimestralEdit {
+  t1: {
+    valor1: boolean;
+    valor2: boolean;
+    resultado: boolean;
+  };
+  t2: {
+    valor1: boolean;
+    valor2: boolean;
+    resultado: boolean;
+  };
+  t3: {
+    valor1: boolean;
+    valor2: boolean;
+    resultado: boolean;
+  };
+  t4: {
+    valor1: boolean;
+    valor2: boolean;
+    resultado: boolean;
+  };
+  total: boolean;
+  cuentaPublica: boolean;
+}
+
+export interface IVPTrimestralEdit {
+  pt1: boolean;
+  pt2: boolean;
+  pt3: boolean;
+  pt4: boolean;
+  ptotal: boolean;
+  porcentajeCuentaPublica: boolean;
+}
+
+export interface IperiodoEdit {
+  periodo1: boolean;
+  periodo2: boolean;
+  periodo3: boolean;
+  periodo4: boolean;
+}
+
+export interface IFinRFEdit {
+  añoAvanceFisico: boolean;
+  valorAvanceFisico: boolean;
+}
+
+export interface IPropositoRFEdit {
+  añoAvanceFisico: boolean;
+  valorAvanceFisico: boolean;
+}
+
+export interface IComponenteRFEdit {
+  componentes: string;
+  metasPorFrecuencia: Array<IFrecuenciasEdit>;
+  numeradorPorFrecuencia: Array<IFrecuenciasEdit>;
+  denominadorPorFrecuencia: Array<IFrecuenciasEdit>;
+  actividades: Array<IActividadesRFEdit>;
+}
+
+export interface IActividadesRFEdit {
+  actividad: string;
+  metasPorFrecuencia: Array<IFrecuenciasActEdit>;
+}
+
+export interface IFrecuenciasEdit {
+  semestre1: boolean;
+  semestre2: boolean;
+  trimestre1: boolean;
+  trimestre2: boolean;
+  trimestre3: boolean;
+  trimestre4: boolean;
+}
+
+export interface IFrecuenciasActEdit {
+  trimestre1: boolean;
+  trimestre2: boolean;
+  trimestre3: boolean;
+  trimestre4: boolean;
+}
+
+export interface IRFEdit {
+  avanceFinanciero: IAvanceFinancieroRFEdit;
+  fin: IFinRFEdit;
+  proposito: IPropositoRFEdit;
+  componentes: IComponenteRFEdit[];
+}

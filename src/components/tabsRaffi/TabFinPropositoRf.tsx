@@ -25,7 +25,7 @@ import {
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { queries } from "../../queries";
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
-import { IFinRF, IPropositoRF } from "./interfacesRaffi";
+import { IFinRF, IPropositoRF, IRFEdit } from "./interfacesRaffi";
 import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
 import { useEffect, useState } from "react";
 import { DialogFinPropositoRaffi } from "../formulasDialog/FormulaDialogRaffiFinProposito";
@@ -39,6 +39,7 @@ export function TabFinPropositoRF({
   propositoRF,
   showMirFnc,
   setTxtShowFnc,
+  raffiboolean,
 }: {
   setAIFinPadre: Function;
   setAIPropositoPadre: Function;
@@ -48,6 +49,7 @@ export function TabFinPropositoRF({
   RF: string;
   showMirFnc: Function;
   setTxtShowFnc: Function;
+  raffiboolean: IRFEdit;
 }) {
   const jsonMir: IMIR = JSON.parse(MIR);
 

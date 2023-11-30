@@ -7,12 +7,13 @@ import {
   Grid,
   Tooltip,
   InputLabel,
+  useMediaQuery,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useEffect, useState } from "react";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 //import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
-import { IComponenteRF, IFrecuencias } from "./interfacesRaffi";
+import { IComponenteRF, IFrecuencias, IRFEdit } from "./interfacesRaffi";
 import { queries } from "../../queries";
 import { Raffi } from "../../screens/raffi/Raffi";
 import { alertaError } from "../genericComponents/Alertas";
@@ -26,6 +27,7 @@ export const TabComponenteRf = ({
   setTxtShowFnc,
   setAIcomponentesPadre,
   ComponentesRF,
+  raffiboolean,
 }: {
   MA: string;
   MIR: string;
@@ -34,6 +36,7 @@ export const TabComponenteRf = ({
   ComponentesRF: IComponenteRF[];
   showMirFnc: Function;
   setTxtShowFnc: Function;
+  raffiboolean: IRFEdit;
 
   //
 }) => {
@@ -119,47 +122,6 @@ export const TabComponenteRf = ({
   const changeFormula = (txt: string) => {
     console.log("txt: ", txt);
 
-    // if (
-    //   JSON.parse(MIR)
-    //     .componentes[componentSelect].indicador.toLowerCase()
-    //     .includes("indice") ||
-    //   JSON.parse(MIR)
-    //     .componentes[componentSelect].indicador.toLowerCase()
-    //     .includes("índice")
-    // ) {
-    //   componentesValues[componentSelect].numeradorPorFrecuencia[0].trimestre2 =
-    //     txt;
-    //   componentesValues[componentSelect].metasPorFrecuencia[0].trimestre2 = txt;
-    // } else {
-    //   let frec = txt.split(",")[3];
-
-    //   componentesValues[componentSelect].numeradorPorFrecuencia[0][
-    //     frec as keyof IFrecuencias
-    //   ] = txt.split(",")[0];
-    //   componentesValues[componentSelect].denominadorPorFrecuencia[0][
-    //     frec as keyof IFrecuencias
-    //   ] = txt.split(",")[1];
-    //   componentesValues[componentSelect].metasPorFrecuencia[0][
-    //     frec as keyof IFrecuencias
-    //   ] = txt.split(",")[2];
-    // }
-
-    // if (frecuencia === "trimestral") {
-    //   componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
-    //     txt.split(",")[0];
-    //   componentesValues[componentSelect].metasPorFrecuencia[0].trimestre2 =
-    //     txt.split(",")[1];
-    //   componentesValues[componentSelect].metasPorFrecuencia[0].trimestre3 =
-    //     txt.split(",")[2];
-    //   componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
-    //     txt.split(",")[3];
-    // } else {
-    //   componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
-    //     txt.split(",")[0];
-    //   componentesValues[componentSelect].metasPorFrecuencia[0].semestre2 =
-    //     txt.split(",")[1];
-    // }
-
     switch (frecuencia) {
       case "semestre1":
         componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
@@ -225,6 +187,8 @@ export const TabComponenteRf = ({
   // useEffect(() => {
   //   setComponentesValues(componentesRF);
   // }, []);
+
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   return (
     <Grid
@@ -298,65 +262,69 @@ export const TabComponenteRf = ({
           display: "flex",
         }}
       >
-        <List
-          sx={{
-            width: "15vw",
-            height: "95%",
-            borderRight: "solid",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            borderColor: "#BCBCBC",
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 10,
-            },
-          }}
-        >
-          {componentesValues.map((item, index) => {
-            return (
-              <Grid
-                key={index}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                }}
-              >
-                <Divider />
-                <ListItemButton
-                  selected={index === componentSelect ? true : false}
+        {!isSmallScreen && (
+          <List
+            sx={{
+              width: "15vw",
+              height: "95%",
+              borderRight: "solid",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              borderColor: "#BCBCBC",
+              "&::-webkit-scrollbar": {
+                width: ".3vw",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
+            }}
+          >
+            {componentesValues.map((item, index) => {
+              return (
+                <Grid
                   key={index}
-                  onClick={() => {
-                    setComponentSelect(index);
-                  }}
                   sx={{
-                    height: "7vh",
-                    "&.Mui-selected ": {
-                      backgroundColor: "#c4a57b",
-                    },
-                    "&.Mui-selected:hover": {
-                      backgroundColor: "#cbcbcb",
-                    },
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
                   }}
                 >
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+                  <Divider />
+                  <ListItemButton
+                    selected={index === componentSelect ? true : false}
+                    key={index}
+                    onClick={() => {
+                      setComponentSelect(index);
+                    }}
+                    sx={{
+                      height: "7vh",
+                      "&.Mui-selected ": {
+                        backgroundColor: "#c4a57b",
+                      },
+                      "&.Mui-selected:hover": {
+                        backgroundColor: "#cbcbcb",
+                      },
+                    }}
                   >
-                    COMPONENTE {index + 1}
-                  </Typography>
-                </ListItemButton>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                      }}
+                    >
+                      COMPONENTE {index + 1}
+                    </Typography>
+                  </ListItemButton>
 
-                <Divider />
-              </Grid>
-            );
-          })}
-        </List>
-
+                  <Divider />
+                </Grid>
+              );
+            })}
+          </List>
+        )}
         <Grid
           item
           container
@@ -374,6 +342,52 @@ export const TabComponenteRf = ({
             },
           }}
         >
+          {isSmallScreen && (
+            <List>
+              {componentesValues.map((item, index) => {
+                return (
+                  <Grid
+                    key={index}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Divider />
+                    <ListItemButton
+                      selected={index === componentSelect ? true : false}
+                      key={index}
+                      onClick={() => {
+                        setComponentSelect(index);
+                      }}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                          fontSize: [10, 10, 10, 13, 15, 18],
+                        }}
+                      >
+                        COMPONENTE {index + 1}
+                      </Typography>
+                    </ListItemButton>
+
+                    <Divider />
+                  </Grid>
+                );
+              })}
+            </List>
+          )}
+
           <Grid
             item
             xl={3}

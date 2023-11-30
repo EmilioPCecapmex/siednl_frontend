@@ -10,13 +10,15 @@ import {
   styled,
   Tooltip,
   Button,
+  Checkbox,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 //import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
 import ModalsSolicitModifFT from "../modalsFT/ModalsSolicitModifFT";
-
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { queries } from "../../queries";
 import {
   IAvanceFinancieroRF,
@@ -24,27 +26,28 @@ import {
   IFinRF,
   IPropositoRF,
   IRF,
+  IRFEdit,
 } from "./interfacesRaffi";
 
 export const TabResumenRF = ({
-
-  
-  
-  
   IdMir,
   IdRF,
   IdMA,
   showResume,
   MIR,
   MA,
+  Raffi,
+  raffiboolean,
+  setRaffiboolean,
 }: {
-  
-  
   IdMir: string;
   IdRF: string;
   IdMA: string;
   MIR: string;
   MA: string;
+  Raffi: IRF;
+  raffiboolean: IRFEdit;
+  setRaffiboolean: Function;
   showResume: Function;
 }) => {
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
@@ -73,14 +76,13 @@ export const TabResumenRF = ({
     }),
   };
 
+  const [RF, setRF] = useState<IRF>(Raffi);
 
+  useEffect(() => {
+    console.log("Raffi: ", Raffi);
+  }, [Raffi]);
 
-  const [RF, setRF] = useState<IRF>();
-
-  let asignarRF = (
-    componentesM: Array<IComponenteRF>,
-    
-  ) => {
+  let asignarRF = (componentesM: Array<IComponenteRF>) => {
     // setRF({
     //   componentes: componentesM,
     //   //actividades: actividadesM,
@@ -153,509 +155,284 @@ export const TabResumenRF = ({
 
     return x;
   }
+
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
-    <>
+    <Grid
+      sx={{
+        //display: "flex",
+        width: "93vw",
+        height: "82vh",
+        boxShadow: 10,
+        borderRadius: 5,
+        // alignItems: "center",
+        // justifyContent: "center",
+        flexDirection: "column",
+        backgroundColor: "#fff",
+        ...(!isSmallScreen && {
+          height: "85%",
+          overflow: "auto",
+          // Otros estilos específicos para pantallas pequeñas
+        }),
+      }}
+    >
+      {/* prueba
+        {JSON.stringify(AFinanciero)} */}
       <Grid
+        item
+        container
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        display={"flex"}
+        justifyContent={"space-evenly"}
+        alignItems={"center"}
         sx={{
-          display: "flex",
-          width: "93vw",
-          height: "82vh",
-          boxShadow: 10,
-          borderRadius: 5,
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-          backgroundColor: "#fff",
+          ...(isSmallScreen && {
+            height: "85%",
+            overflow: "auto",
+            // Otros estilos específicos para pantallas pequeñas
+          }),
         }}
       >
-        {/* prueba
-        {JSON.stringify(AFinanciero)} */}
         <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
           sx={{
-            width: "90%",
-            border: 0.1,
-            borderColor: "#909090",
-            height: "80%",
-            overflow: "auto",
-            borderRadius: 1,
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-              mt: 1,
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 1,
-            },
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
           }}
         >
-          <Grid sx={{ p: 5, display: "flex", flexDirection: "column" }}>
-            <Typography
-              sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-            >
-              Avance Financiero
-            </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
+            AVANCE FINANCIERO
+          </Typography>
+        </Grid>
 
-            {/* ######################################################
+        {/* ######################################################
             ############ INICIA DISPLAY DE AVANCE FINANCIERO ########
             #########################################################*/}
-            {/* Nota: son tres tablas, devengadoModificado, modificadoAutorizado y ejercidoModificado
-            Por lo que si se encuentran valores de alguna de las 3, solo entonces, se montrará la tabla correspondiente */}
-            {/* avanceFinanciero.porcentaje.devengadoModificado.pt1 */}
-            {/* ######################### TABLA DEVENGADOMODIFICADO #################### */}
-           
-            {/* ###################################################
+
+        {/* ###################################################
             ############ FINALIZA DISPLAY DE AFINANCIERO ########
             ###################################################*/}
 
-            {/* #######################################
+        {/* #######################################
             ############ INICIA DISPLAY DE FIN ########
             ###########################################*/}
-            <Typography
-              sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-            >
-              Fin
-            </Typography>
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
+            FIN
+          </Typography>
+        </Grid>
 
-            {/* #######################################
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                // value={!editEncabezado.programaSER}
+                // onChange={(v) => {
+                //   setEditEncabezado({
+                //     ...editEncabezado,
+                //     programaSER: !v.target.checked,
+                //   });
+                // }}
+                // value={!ftEditPadre.encabezado?.programaSER}
+                // onChange={(v) => {
+                //   let aux = ftEditPadre.encabezado;
+                //   aux = { ...aux, programaSER: v.target.checked };
+                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+                // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              AÑO DEL AVANCE FISICO
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.fin.añoAvanceFisico}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        {/* #######################################
             ############ FINALIZA DISPLAY DE FIN ########
             ###########################################*/}
 
-            {/* #######################################
+        {/* #######################################
             ############ INICIA DISPLAY DE PROPOSITO ########
             ###########################################*/}
-            <Typography
-              sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-            >
-              Proposito
-            </Typography>
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
+            Proposito
+          </Typography>
+        </Grid>
 
-            {/* #######################################
+        {/* #######################################
             ############ FINALIZA DISPLAY DE PROPOSITO ########
             ###########################################*/}
 
-            {/* ###################################################
+        {/* ###################################################
             ############ INICIA DISPLAY DE COMPONENTES ########
             ###################################################*/}
-            <Typography
-              sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-            >
-              Componentes
-            </Typography>
-            {/* {componentes.map((index) => {
-              return (
-                <Grid key={index}>
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                      borderBottom: 1,
-                      mt: 5,
-                      textAlign: "center",
-                    }}
-                  >
-                    Componente {index}
-                  </Typography>
-                  {jsonMA?.componentes[index - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre1 === "" ? (
-                    <Grid
-                      container
-                      item
-                      sx={{ display: "flex", justifyContent: "center" }}
-                      xs={12}
-                    >
-                      <Grid item xs={6}>
-                        <div
-                          className="grid-container"
-                          style={{ width: "100%" }}
-                        >
-                          <table style={{ width: "100%" }}>
-                            <thead
-                              style={{
-                                backgroundColor: "lightgray",
-                                boxShadow: "1px 2px 2px",
-                                textAlign: "center",
-                              }}
-                            >
-                              <tr>
-                                <th colSpan={2}>SEMESTRE</th>
-                              </tr>
-                              <tr>
-                                <th>I</th>
-                                <th>II</th>
-                              </tr>
-                            </thead>
-                            <tbody
-                              style={{
-                                width: "100%",
-                                textAlign: "center",
-                                boxShadow: "1px 2px 2px",
-                              }}
-                            >
-                              <tr>
-                                <td>
-                                  {
-                                    jsonMA?.componentes[index - 1]
-                                      ?.metasPorFrecuencia[0]?.semestre1
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.componentes[index - 1]
-                                      ?.metasPorFrecuencia[0]?.semestre2
-                                  }
-                                </td>
-                              </tr>
-
-                              <tr
-                                style={{
-                                  backgroundColor: "lightgray",
-                                  boxShadow: "1px 2px 2px",
-                                  textAlign: "center",
-                                }}
-                              >
-                                <td colSpan={2}>METAS</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  {
-                                    componenteValor[index - 1]
-                                      ?.metasPorFrecuencia[0]?.semestre1
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    componenteValor[index - 1]
-                                      ?.metasPorFrecuencia[0]?.semestre2
-                                  }
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </Grid>
-                    </Grid>
-                  ) : (
-                    <Grid
-                      container
-                      item
-                      sx={{ display: "flex", justifyContent: "center" }}
-                      xs={12}
-                    >
-                      <Grid item xs={6}>
-                        <div
-                          className="grid-container"
-                          style={{ width: "100%" }}
-                        >
-                          <table style={{ width: "100%" }}>
-                            <thead
-                              style={{
-                                backgroundColor: "lightgray",
-                                boxShadow: "1px 2px 2px",
-                                textAlign: "center",
-                              }}
-                            >
-                              <tr>
-                                <th colSpan={4}>TRIMESTRE</th>
-                              </tr>
-                              <tr>
-                                <th>I</th>
-                                <th>II</th>
-                                <th>III</th>
-                                <th>IV</th>
-                              </tr>
-                            </thead>
-                            <tbody
-                              style={{
-                                width: "100%",
-                                textAlign: "center",
-                                boxShadow: "1px 2px 2px",
-                              }}
-                            >
-                              <tr>
-                                <td>
-                                  {
-                                    jsonMA?.componentes[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre1
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.componentes[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre2
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.componentes[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre3
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.componentes[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre4
-                                  }
-                                </td>
-                              </tr>
-
-                              <tr
-                                style={{
-                                  backgroundColor: "lightgray",
-                                  boxShadow: "1px 2px 2px",
-                                  textAlign: "center",
-                                }}
-                              >
-                                <td colSpan={4}>METAS</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  {
-                                    componenteValor[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre1
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    componenteValor[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre2
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    componenteValor[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre3
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    componenteValor[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre4
-                                  }
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </Grid>
-                    </Grid>
-                  )}
-                </Grid>
-              );
-            })} */}
-
-            {/* ###################################################
-            ############ INICIA DISPLAY DE ACTIVIDADES ########
-            ###################################################*/}
-            <Typography
-              sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-            >
-              Actividades
-            </Typography>
-            {/* {cValor[0].componentes.map((item, indexComponentes) => {
-              let i = 0;
-              return item.actividades.map((value, indexActividades) => {
-                i++;
-                return (
-                  <Grid key={indexActividades}>
-                    <Typography
-                      sx={{
-                        fontFamily: "MontserratMedium",
-                        borderBottom: 1,
-                        mt: 5,
-                        textAlign: "center",
-                      }}
-                    >
-                      Componente {indexComponentes + 1} - Actividad{" "}
-                      {indexActividades + 1}
-                    </Typography>
-
-                    <Grid
-                      container
-                      item
-                      sx={{ display: "flex", justifyContent: "center" }}
-                      xs={12}
-                    >
-                      <Grid item xs={6}>
-                        <div
-                          className="grid-container"
-                          style={{ width: "100%" }}
-                        >
-                          <table style={{ width: "100%" }}>
-                            <thead
-                              style={{
-                                backgroundColor: "lightgray",
-                                boxShadow: "1px 2px 2px",
-                                textAlign: "center",
-                              }}
-                            >
-                              <tr>
-                                <th colSpan={4}>TRIMESTRE</th>
-                              </tr>
-                              <tr>
-                                <th>I</th>
-                                <th>II</th>
-                                <th>III</th>
-                                <th>IV</th>
-                              </tr>
-                            </thead>
-                            <tbody
-                              style={{
-                                width: "100%",
-                                textAlign: "center",
-                                boxShadow: "1px 2px 2px",
-                              }}
-                            >
-                              <tr>
-                                <td>
-                                  {
-                                    jsonMA?.actividades[
-                                      mapeaindice(
-                                        indexComponentes,
-                                        indexActividades
-                                      )
-                                    ]?.metasPorFrecuencia[0]?.trimestre1
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.actividades[
-                                      mapeaindice(
-                                        indexComponentes,
-                                        indexActividades
-                                      )
-                                    ]?.metasPorFrecuencia[0]?.trimestre2
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.actividades[
-                                      mapeaindice(
-                                        indexComponentes,
-                                        indexActividades
-                                      )
-                                    ]?.metasPorFrecuencia[0]?.trimestre3
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.actividades[
-                                      mapeaindice(
-                                        indexComponentes,
-                                        indexActividades
-                                      )
-                                    ]?.metasPorFrecuencia[0]?.trimestre4
-                                  }
-                                </td>
-                              </tr>
-
-                              <tr
-                                style={{
-                                  backgroundColor: "lightgray",
-                                  boxShadow: "1px 2px 2px",
-                                  textAlign: "center",
-                                }}
-                              >
-                                <td colSpan={4}>METAS</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  {
-                                    cValor[0]?.componentes[indexComponentes]
-                                      ?.actividades[indexActividades]
-                                      ?.metasPorFrecuencia[0]?.trimestre1
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    cValor[0]?.componentes[indexComponentes]
-                                      ?.actividades[indexActividades]
-                                      ?.metasPorFrecuencia[0]?.trimestre2
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    cValor[0]?.componentes[indexComponentes]
-                                      ?.actividades[indexActividades]
-                                      ?.metasPorFrecuencia[0]?.trimestre3
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    cValor[0]?.componentes[indexComponentes]
-                                      ?.actividades[indexActividades]
-                                      ?.metasPorFrecuencia[0]?.trimestre4
-                                  }
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                );
-              });
-            })} */}
-
-            {/* {componenteValor[0].metasPorFrecuencia[0].semestre1} */}
-            {/* {JSON.stringify(cValor)} */}
-          </Grid>
-        </Grid>
         <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
           sx={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            width: "100%",
-            mt: 2,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
           }}
         >
-          <Button
-            sx={queries.buttonCancelarSolicitudInscripcion}
-            onClick={() => showResume()}
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Cancelar
-            </Typography>
-          </Button>
-          <Button
-            disabled={isCapturador ? true : false}
-            sx={buttonStyles}
-            onClick={() => setOpenModalSolicitarModif(true)}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Solicitar Modificación
-            </Typography>
-          </Button>
+            Componente
+          </Typography>
+        </Grid>
 
-          <Button
-            sx={queries.buttonContinuarSolicitudInscripcion}
-            onClick={() =>
-              creaRF(
-                localStorage.getItem("Rol") === "Capturador"
-                  ? "En Captura"
-                  : localStorage.getItem("Rol") === "Verificador"
-                  ? "En Revisión"
-                  : "En Autorización"
-              )
-            }
+        {/* ###################################################
+            ############ INICIA DISPLAY DE ACTIVIDADES ########
+            ###################################################*/}
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
           >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Borrador
-            </Typography>
-          </Button>
+            Actividad 
+          </Typography>
+        </Grid>
+      </Grid>
 
-          <Button
-            sx={queries.buttonContinuarSolicitudInscripcion}
-            onClick={() => setOpenModalEnviar(true)}
-          >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              {localStorage.getItem("Rol") === "Administrador"
-                ? "Autorizar"
-                : "Enviar"}
-            </Typography>
-          </Button>
+      <Grid
+        sx={{
+          display: "flex",
+          justifyContent: "space-evenly",
+          width: "100%",
+          mt: 2,
+        }}
+      >
+        <Button
+          sx={queries.buttonCancelarSolicitudInscripcion}
+          onClick={() => showResume()}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            Cancelar
+          </Typography>
+        </Button>
+        <Button
+          disabled={isCapturador ? true : false}
+          sx={buttonStyles}
+          onClick={() => setOpenModalSolicitarModif(true)}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            Solicitar Modificación
+          </Typography>
+        </Button>
 
-          {/* <ModalSolicitaModif
+        <Button
+          sx={queries.buttonContinuarSolicitudInscripcion}
+          onClick={() =>
+            creaRF(
+              localStorage.getItem("Rol") === "Capturador"
+                ? "En Captura"
+                : localStorage.getItem("Rol") === "Verificador"
+                ? "En Revisión"
+                : "En Autorización"
+            )
+          }
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            Borrador
+          </Typography>
+        </Button>
+
+        <Button
+          sx={queries.buttonContinuarSolicitudInscripcion}
+          onClick={() => setOpenModalEnviar(true)}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            {localStorage.getItem("Rol") === "Administrador"
+              ? "Autorizar"
+              : "Enviar"}
+          </Typography>
+        </Button>
+
+        {/* <ModalSolicitaModif
           open={openModalSolicitarModif}
           handleClose={handleCloseModif}
           MA={JSON.stringify(MA)}
@@ -684,8 +461,7 @@ export const TabResumenRF = ({
           IdMIR={IdMir}
           showResume={showResume}
         ></ModalEnviarMA> */}
-        </Grid>
       </Grid>
-    </>
+    </Grid>
   );
 };

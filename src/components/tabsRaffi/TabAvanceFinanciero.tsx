@@ -17,6 +17,7 @@ import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import {
   IAvanceFinancieroRF,
   IRF,
+  IRFEdit,
   IVPTrimestral,
   IVTrimestral,
 } from "./interfacesRaffi";
@@ -57,6 +58,41 @@ export const VPTrimestral = {
   porcentajeCuentaPublica: "",
 };
 
+export const VTrimestralboolean = {
+  t1: {
+    valor1: false,
+    valor2: false,
+    resultado: false,
+  },
+  t2: {
+    valor1: false,
+    valor2: false,
+    resultado: false,
+  },
+  t3: {
+    valor1: false,
+    valor2: false,
+    resultado: false,
+  },
+  t4: {
+    valor1: false,
+    valor2: false,
+    resultado: false,
+  },
+  total: false,
+  cuentaPublica: false,
+};
+
+export const VPTrimestralboolean = {
+  pt1: false,
+  pt2: false,
+  pt3: false,
+  pt4: false,
+  ptotal: false,
+  porcentajeCuentaPublica: false,
+};
+
+
 export function TabAvanceFinanciero({
   //show,
   resumenAvanceFinancieroRf,
@@ -64,6 +100,7 @@ export function TabAvanceFinanciero({
   MA,
   //avanceFinancieroRF,
   setAvanceFinancieroRF,
+  raffiboolean,
 }: {
   // show : boolean;
   resumenAvanceFinancieroRf: Function;
@@ -71,6 +108,7 @@ export function TabAvanceFinanciero({
   MA: string;
   //avanceFinancieroRF: IAvanceFinancieroRF;
   setAvanceFinancieroRF: Function;
+  raffiboolean: IRFEdit
 }) {
   const jsonMir: IMIR = JSON.parse(MIR);
   const [trimestre, setTrimestre] = useState("0");

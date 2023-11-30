@@ -20,8 +20,10 @@ import {
   IFinRF,
   IRF,
   IComponenteRF,
+  IFinRFEdit,
+  IRFEdit,
 } from "./interfacesRaffi";
-import { VTrimestral, VPTrimestral } from "./TabAvanceFinanciero";
+import { VTrimestral, VPTrimestral, VTrimestralboolean, VPTrimestralboolean } from "./TabAvanceFinanciero";
 import GenericTabs from "../genericComponents/genericTabs";
 import { Raffi } from "../../screens/raffi/Raffi";
 
@@ -121,6 +123,96 @@ function newRaffi(MIR: string) {
   };
 }
 
+export function avanceFinancieroRFboolean() {
+  return {
+    nombrePrograma: false,
+    valorProgramaPresupuestario: false,
+    monto: {
+      devengadoModificado: VTrimestralboolean,
+      modificadoAutorizado: VTrimestralboolean,
+      ejercidoModificado: VTrimestralboolean,
+    },
+    porcentaje: {
+      porcentajeDevengadoModificado: VPTrimestralboolean,
+      procentajeModificadoAutorizado: VPTrimestralboolean,
+      porcentajeEjercidoModificado: VPTrimestralboolean,
+    },
+  };
+}
+
+export function newFinPropositoRFboolean() {
+  return {
+    añoAvanceFisico: false,
+    valorAvanceFisico: false,
+  };
+}
+
+export function newComponenteRFboolean(ComponenteMIR: IComponente) {
+  return {
+    componentes: ComponenteMIR.componente,
+    metasPorFrecuencia: [
+      {
+        semestre1: false,
+        semestre2: false,
+        trimestre1: false,
+        trimestre2: false,
+        trimestre3: false,
+        trimestre4: false,
+      },
+    ],
+    numeradorPorFrecuencia: [
+      {
+        semestre1: false,
+        semestre2: false,
+        trimestre1: false,
+        trimestre2: false,
+        trimestre3: false,
+        trimestre4: false,
+      },
+    ],
+    denominadorPorFrecuencia: [
+      {
+        semestre1: false,
+        semestre2: false,
+        trimestre1: false,
+        trimestre2: false,
+        trimestre3: false,
+        trimestre4: false,
+      },
+    ],
+    actividades: ComponenteMIR.actividades.map((item) =>
+    newActividadesRFboolean(item)
+    ),
+  };
+}
+
+export function newActividadesRFboolean(ActividadMIR: IActividad) {
+  return {
+    actividad: ActividadMIR.actividad,
+    metasPorFrecuencia: [
+      {
+        trimestre1: false,
+        trimestre2: false,
+        trimestre3: false,
+        trimestre4: false,
+      },
+    ],
+  };
+}
+
+function newRaffiboolean(MIR: string) {
+  let componentes: IComponente[] = JSON.parse(MIR).componentes;
+
+  return {
+    avanceFinanciero: avanceFinancieroRFboolean(),
+    fin: newFinPropositoRFboolean(),
+    proposito: newFinPropositoRFboolean(),
+    componentes: componentes?.map((item) => newComponenteRFboolean(item)),
+  };
+}
+
+
+
 export default function CapturaRaffi({
   MIR,
   MA,
@@ -162,6 +254,8 @@ export default function CapturaRaffi({
   const jsonMir = JSON.parse(MIR);
 
   const [raffi, setRaffi] = useState<IRF>(newRaffi(MIR));
+
+  const [raffiboolean, setRaffiboolean] = useState<IRFEdit>(newRaffiboolean(MIR));
 
   const setAIFinPadre = (finValues: IFinRF) => {
     setRaffi({
@@ -267,6 +361,7 @@ export default function CapturaRaffi({
                 MA={MA}
                 //avanceFinancieroRF={raffi.avanceFinanciero}
                 setAvanceFinancieroRF={() => {}}
+                raffiboolean={raffiboolean}
               />
             )}
 
@@ -280,6 +375,7 @@ export default function CapturaRaffi({
                 setTxtShowFnc={showFnc}
                 showMirFnc={showMirFnc}
                 RF={RF}
+                raffiboolean={raffiboolean}
               />
             )}
 
@@ -293,6 +389,7 @@ export default function CapturaRaffi({
                 RF={RF}
                 setTxtShowFnc={showFnc}
                 showMirFnc={showMirFnc}
+                raffiboolean={raffiboolean}
               />
             )}
             {value === 3 && (
@@ -306,6 +403,7 @@ export default function CapturaRaffi({
                 compAct={compAct}
                 setTxtShowFnc={showFnc}
                 showMirFnc={showMirFnc}
+                raffiboolean={raffiboolean}
               />
             )}
             {value === 4 && (
@@ -322,6 +420,9 @@ export default function CapturaRaffi({
                 showResume={opentabs}
                 MIR={MIR}
                 MA={MA}
+                Raffi={raffi}
+                raffiboolean={raffiboolean}
+                setRaffiboolean={setRaffiboolean}
               />
             )}
           </Grid>
