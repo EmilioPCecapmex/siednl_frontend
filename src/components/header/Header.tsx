@@ -15,32 +15,18 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
   const navigate = useNavigate();
 
   return (
-    <Grid
-      container
-      sx={{
-        // display: "flex",
-        //
-        //width: "100vw",
-        //height: "100%",
-        justifyContent: "space-between",
-        
-        
-        // alignItems: "center",
-      }}
-    >
+    <>
       <Grid
         container
         item
-        xl={12}
-        lg={12}
-        md={12}
-        sm={12}
-        xs={12}
+        xl={10}
+        lg={10}
+        md={10}
+        sm={10}
+        xs={10}
         sx={{
-          width: "75vw",
           display: "flex",
-          
-          justifyContent: "space-between",
+          textAlign:"center",
           alignItems: "center",
         }}
       >
@@ -48,7 +34,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
           aria-label="breadcrumb"
           sx={{
             fontFamily: "MontserratBold",
-            fontSize: "1.5vw",
+            fontSize: ["4vw","3vw","3vw","2vw","2vw",],
             color: "white",
           }}
         >
@@ -86,34 +72,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
           ) : null}
         </Breadcrumbs>
       </Grid>
-
-      {/* <Grid
-        sx={{
-          mr: "2vw",
-          backgroundColor: "#fff",
-          width: "10vw",
-          height: "5vh",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          borderRadius: 10,
-        }}
-      >
-        <Grid sx={{ ml: ".5vw", width: "2vw" }}>
-          <NotificationsPanel />
-        </Grid>
-        <Grid sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
-        <Grid
-          sx={{
-            width: "2vw",
-          }}
-        >
-          <TimerCounter />
-        </Grid>
-        <Grid sx={{ backgroundColor: "#ccc", width: ".5%", height: "100%" }} />
-        <Grid sx={{ mr: ".5vw", width: "2vw" }}></Grid>
-      </Grid> */}
       <TimerCounter />
-    </Grid>
+    </>
   );
 };
