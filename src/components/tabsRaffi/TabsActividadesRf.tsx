@@ -11,6 +11,7 @@ import {
   Collapse,
   Tooltip,
   InputLabel,
+  useMediaQuery,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
@@ -23,231 +24,6 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
 import { IRFEdit } from "./interfacesRaffi";
 import { alertaError } from "../genericComponents/Alertas";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
-const dateSem = [new Date("2023-06-30"), new Date("2023-12-31")];
-const dateTrim = [
-  new Date("2023-03-31"),
-  new Date("2023-06-30"),
-  new Date("2023-09-30"),
-  new Date("2023-12-31"),
-];
-
-const GridTablePer = ({ periodo }: { periodo: string }) => {
-  return (
-    <div
-      className="grid-container"
-      style={{
-        backgroundColor: "lightgray",
-        boxShadow: "1px 2px 2px",
-        textAlign: "center",
-        width: "100%",
-      }}
-    >
-      <table style={{ width: "100%", textAlign: "center" }}>
-        <thead style={{ width: "100%", textAlign: "center" }}>
-          <tr>
-            <th style={{ textAlign: "center" }}>{periodo}</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-  );
-};
-
-
-
-const GridTableTrim = ({
-  d1,
-  d2,
-  d3,
-  d4,
-}: {
-  d1: string;
-  d2: string;
-  d3: string;
-  d4: string;
-}) => {
-  return (
-    <div className="grid-container" style={{ width: "100%" }}>
-      <table style={{ width: "100%" }}>
-        <thead
-          style={{
-            backgroundColor: "lightgray",
-            boxShadow: "1px 2px 2px",
-            textAlign: "center",
-          }}
-        >
-          <tr>
-            <th>I</th>
-            <th>II</th>
-            <th>III</th>
-            <th>IV</th>
-          </tr>
-        </thead>
-        <tbody style={{ width: "100%", textAlign: "center" }}>
-          <tr>
-            <td>{d1}</td>
-            <td>{d2}</td>
-            <td>{d3}</td>
-            <td>{d4}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-};
-
-const GridTableMetasTitulo = () => {
-  return (
-    <div
-      style={{
-        backgroundColor: "lightgray",
-        boxShadow: "1px 2px 2px",
-        textAlign: "center",
-        width: "100%",
-      }}
-    >
-      <table style={{ width: "100%", textAlign: "center" }}>
-        <thead style={{ width: "100%", textAlign: "center" }}>
-          <tr>
-            <th style={{ width: "100%", textAlign: "center" }}>METAS</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-  );
-};
-
-const GridTableMetasTrim = ({
-  d1,
-  d2,
-  d3,
-  d4,
-}: {
-  d1: string;
-  d2: string;
-  d3: string;
-  d4: string;
-}) => {
-  return (
-    <div
-      className="grid-container"
-      style={{ width: "100%", textAlign: "center" }}
-    >
-      <table style={{ width: "100%" }}>
-        <tbody>
-          <tr style={{ borderColor: "black" }}>
-            <td style={{ width: "25%", backgroundColor: "#CEE9B6" }}>
-              <TextField
-                disabled={new Date() > dateTrim[0]}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DATO I
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={new Date() <= dateTrim[0] ? d1 : ""}
-              />
-            </td>
-            <td style={{ width: "25%", backgroundColor: "#CEE9B6" }}>
-              <TextField
-                disabled={new Date() > dateTrim[1]}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DATO II
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={new Date() <= dateTrim[1] ? d2 : ""}
-              />
-            </td>
-            <td style={{ width: "25%", backgroundColor: "#CEE9B6" }}>
-              <TextField
-                disabled={new Date() > dateTrim[2]}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DATO III
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={new Date() <= dateTrim[2] ? d3 : ""}
-              />
-            </td>
-            <td style={{ width: "25%", backgroundColor: "#CEE9B6" }}>
-              <TextField
-                disabled={new Date() > dateTrim[3]}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    DATO IV
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={new Date() <= dateTrim[3] ? d4 : ""}
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-};
-// export default GridTable;
 
 export const TabActividadRf = ({
   MIR,
@@ -282,11 +58,8 @@ export const TabActividadRf = ({
     },
   ];
 
-  
-
   const [componentesActividadesValues, setComponentesActividadesValues] =
-  useState<Array<IComponenteRF>>(ComponentesRF);
-
+    useState<Array<IComponenteRF>>(ComponentesRF);
 
   useEffect(() => {
     setRFactividadesPadre(componentesActividadesValues);
@@ -321,88 +94,58 @@ export const TabActividadRf = ({
   }
 
   const changeFormula = (txt: string) => {
-    // if (
-    //   JSON.parse(MIR)
-    //     .actividades[
-    //       mapeaindice(componenteSelect, actividadSelect)
-    //     ].indicador.toLowerCase()
-    //     .includes("indice") ||
-    //   JSON.parse(MIR)
-    //     .actividades[
-    //       mapeaindice(componenteSelect, actividadSelect)
-    //     ].indicador.toLowerCase()
-    //     .includes("índice")
-    // ) {
-    //   aValorRF[0].componentes[componenteSelect].actividades[
-    //     actividadSelect
-    //   ].numeradorPorFrecuencia[0].trimestre2 = txt;
-    //   aValorRF[0].componentes[componenteSelect].actividades[
-    //     actividadSelect
-    //   ].metasPorFrecuencia[0].trimestre2 = txt;
-    // } else {
-    //   let frec = txt.split(",")[3];
-    //   aValorRF[0].componentes[componenteSelect].actividades[
-    //     actividadSelect
-    //   ].numeradorPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
-    //     txt.split(",")[0];
-    //   aValorRF[0].componentes[componenteSelect].actividades[
-    //     actividadSelect
-    //   ].denominadorPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
-    //     txt.split(",")[1];
-    //   aValorRF[0].componentes[componenteSelect].actividades[
-    //     actividadSelect
-    //   ].metasPorFrecuencia[0][frec as keyof IFrecuenciasAct] =
-    //     txt.split(",")[2];
-    // }
-
-    //setAValorRF([...aValorRF]);
+    console.log("txt: ", txt);
 
     switch (frecuencia) {
       case "trimestre1":
-        componentesActividadesValues[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre1 =
-          txt.split(",")[2];
-        componentesActividadesValues[
-          componenteSelect
-        ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
-        componentesActividadesValues[
-          componenteSelect
-        ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre1 = txt.split(",")[1];
+        componentesActividadesValues[componenteSelect].actividades[
+          actividadSelect
+        ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[2];
+        // componentesActividadesValues[
+        //   componenteSelect
+        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
+        // componentesActividadesValues[
+        //   componenteSelect
+        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre1 = txt.split(",")[1];
         break;
       case "trimestre2":
-        componentesActividadesValues[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre2 =
-          txt.split(",")[2];
-        componentesActividadesValues[
-          componenteSelect
-        ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre2 = txt.split(",")[0];
-        componentesActividadesValues[
-          componenteSelect
-        ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1];
+        componentesActividadesValues[componenteSelect].actividades[
+          actividadSelect
+        ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[2];
+        // componentesActividadesValues[
+        //   componenteSelect
+        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre2 = txt.split(",")[0];
+        // componentesActividadesValues[
+        //   componenteSelect
+        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1];
         break;
       case "trimestre3":
-        componentesActividadesValues[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre3 =
-          txt.split(",")[2];
-        componentesActividadesValues[
-          componenteSelect
-        ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre3 = txt.split(",")[0];
-        componentesActividadesValues[
-          componenteSelect
-        ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre3 = txt.split(",")[1];
+        componentesActividadesValues[componenteSelect].actividades[
+          actividadSelect
+        ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2];
+        // componentesActividadesValues[
+        //   componenteSelect
+        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre3 = txt.split(",")[0];
+        // componentesActividadesValues[
+        //   componenteSelect
+        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre3 = txt.split(",")[1];
         break;
       case "trimestre4":
-        componentesActividadesValues[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0].trimestre4 =
-          txt.split(",")[2];
-        componentesActividadesValues[
-          componenteSelect
-        ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre4 = txt.split(",")[0];
-        componentesActividadesValues[
-          componenteSelect
-        ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre4 = txt.split(",")[1];
+        componentesActividadesValues[componenteSelect].actividades[
+          actividadSelect
+        ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[2];
+        // componentesActividadesValues[
+        //   componenteSelect
+        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre4 = txt.split(",")[0];
+        // componentesActividadesValues[
+        //   componenteSelect
+        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre4 = txt.split(",")[1];
         break;
 
       default:
         alertaError("No aplica");
-      }
-      setComponentesActividadesValues([...componentesActividadesValues]);
+    }
+    setComponentesActividadesValues([...componentesActividadesValues]);
   };
   const [open, setOpen] = useState(0);
 
@@ -414,52 +157,70 @@ export const TabActividadRf = ({
   //   //setPrevTextFormula("Porcentaje");
   //   setOpenFormulaDialog(true);
   // };
-  
+
   const [frecuencia, setFrecuencia] = useState("");
 
   const handleClickOpen = (frecuencia: string) => {
     setFrecuencia(frecuencia);
-    
+
     setTipoFormula(
       JSON.parse(MIR)
-        .componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
+        .componentes[componenteSelect].actividades[
+          actividadSelect
+        ].indicador.toUpperCase()
         .includes("PORCENTAJE") ||
         JSON.parse(MIR)
-          .componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
+          .componentes[componenteSelect].actividades[
+            actividadSelect
+          ].indicador.toUpperCase()
           .includes("PORCENTAJE")
         ? "Porcentaje"
         : JSON.parse(MIR)
-            .componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("TASA") ||
           JSON.parse(MIR)
-            .componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("TASA")
         ? "Tasa"
         : JSON.parse(MIR)
-            .componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("INDICE" || "ÍNDICE") ||
           JSON.parse(MIR)
-            .componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("INDICE") ||
           JSON.parse(MIR)
-            .componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("ÍNDICE")
         ? "Índice"
         : JSON.parse(MIR)
-            .componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("PROMEDIO") ||
           JSON.parse(MIR)
-            .componentes[componenteSelect].actividades[actividadSelect].indicador.toUpperCase()
+            .componentes[componenteSelect].actividades[
+              actividadSelect
+            ].indicador.toUpperCase()
             .includes("PROMEDIO")
         ? "Promedio"
         : ""
     );
     setElementoFormula(
-          "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
-        );
+      "C" +
+        (componenteSelect + 1).toString() +
+        "A" +
+        (actividadSelect + 1).toString()
+    );
     setOpenFormulaDialog(true);
   };
 
@@ -470,8 +231,6 @@ export const TabActividadRf = ({
       ? JSON.parse(MIR)[0]
       : JSON.parse(MIR);
 
-
-
   let jsonMA =
     MA === ""
       ? ""
@@ -479,117 +238,138 @@ export const TabActividadRf = ({
       ? JSON.parse(MA)[0]
       : JSON.parse(MA);
 
-
-
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   return (
     <>
       <Grid
-      sx={{
-        display: "flex",
-        width: "93vw",
-        height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
-        boxShadow: 10,
-        borderRadius: 5,
-        flexDirection: "column",
-        backgroundColor: "#fff",
-        // justifyContent: "center",
-        // alignItems: "center",
-      }}
-    >
-      <FormulaDialogMA
-        open={openFormulaDialog}
-        close={handleClose}
-        textoSet={changeFormula}
-        tipo={tipoFormula}
-        elemento={elementoFormula}
-        elementoA={""}
-        MIR={MIR}
-      />
-
-        {/* <FormulaDialogRF
+        sx={{
+          display: "flex",
+          width: "93vw",
+          height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
+          boxShadow: 10,
+          borderRadius: 5,
+          flexDirection: "column",
+          backgroundColor: "#fff",
+          // justifyContent: "center",
+          // alignItems: "center",
+        }}
+      >
+        <FormulaDialogMA
           open={openFormulaDialog}
           close={handleClose}
           textoSet={changeFormula}
           tipo={tipoFormula}
-          elemento={
-            "C" +
-            (componenteSelect + 1).toString() +
-            "A" +
-            (actividadSelect + 1).toString()
-          }
-         // dato={elementoFormula}
+          elemento={elementoFormula}
+          elementoA={""}
           MIR={MIR}
-        /> */}
-        {/* COLUMNA IZQUIERDA QUE MUESTRA LOS COMPONENTES */}
-        {/* <Grid item xs={2}>
-          <List
+        />
+
+        <Grid
+          sx={{
+            width: "100%",
+            display: "flex",
+            height: "7vh",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+        >
+          <Tooltip title="RESUMEN ACTIVIDAD">
+            <InfoOutlinedIcon
+              onClick={() => {
+                showMirFnc(true);
+                setTxtShowFnc("Actividades");
+              }}
+              fontSize="large"
+              sx={{ cursor: "pointer" }}
+            ></InfoOutlinedIcon>
+          </Tooltip>
+          <Typography
             sx={{
-              width: "10vw",
-              height: "65vh",
-              borderRight: "solid",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              borderColor: "#BCBCBC",
-              "&::-webkit-scrollbar": {
-                width: ".3vw",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "rgba(0,0,0,.5)",
-                outline: "1px solid slategrey",
-                borderRadius: 10,
-              },
+              mr: "1vw",
+              fontFamily: "MontserratSemiBold",
+              fontSize: "1.5vw",
             }}
           >
-            {componentes.map((item, index) => {
-              return (
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Divider />
-                  <ListItemButton
-                    selected={item === componenteSelect + 1 ? true : false}
-                    key={item}
-                    onClick={() => {
-                      setComponenteSelect(item - 1);
-                      handleClickComponente(item);
-                      setActividadSelect(0);
-                    }}
+            COMPONENTE #{componenteSelect + 1} - ACTIVIDAD #{" "}
+            {actividadSelect + 1}
+          </Typography>
+        </Grid>
+        <Grid
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+          }}
+        >
+          {!isSmallScreen && (
+            <List
+              sx={{
+                width: "15vw",
+                height: "95%",
+                borderRight: "solid",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                borderColor: "#BCBCBC",
+                "&::-webkit-scrollbar": {
+                  width: ".3vw",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "rgba(0,0,0,.5)",
+                  outline: "1px solid slategrey",
+                  borderRadius: 10,
+                },
+              }}
+            >
+              {componentesActividadesValues.map((componente, index) => {
+                return (
+                  <Grid
+                    key={index}
                     sx={{
-                      height: "7vh",
-                      "&.Mui-selected ": {
-                        backgroundColor: "#c4a57b",
-                      },
-                      "&.Mui-selected:hover": {
-                        backgroundColor: "#cbcbcb",
-                      },
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
                     }}
                   >
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+                    <Divider />
+                    <ListItemButton
+                      selected={index === componenteSelect ? true : false}
+                      key={index}
+                      onClick={() => {
+                        setComponenteSelect(index);
+                        setOpen(index);
+                        setActividadSelect(0);
+                      }}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
                     >
-                      COMPONENTE {item}
-                    </Typography>
+                      <Typography
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                          fontSize: "0.7vw",
+                        }}
+                      >
+                        COMPONENTE {index + 1}
+                      </Typography>
+                      {open === index ? <ExpandLess /> : <ExpandMore />}
+                    </ListItemButton>
 
-                    {open === item ? <ExpandLess /> : <ExpandMore />}
-                  </ListItemButton>
-                  <Collapse in={open === item} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      {aValorMA[0].componentes[
-                        componenteSelect
-                      ].actividades.map((value, x) => {
-                        return (
+                    <Collapse in={open === index} timeout="auto" unmountOnExit>
+                      <List component="div" disablePadding>
+                        {componente.actividades.map((actividad, index) => (
                           <ListItemButton
-                            selected={x === actividadSelect ? true : false}
-                            key={x}
+                            selected={index === actividadSelect ? true : false}
+                            key={index}
                             onClick={() => {
-                              setActividadSelect(x);
+                              setActividadSelect(index);
                             }}
                             sx={{
                               height: "3vh",
@@ -600,274 +380,250 @@ export const TabActividadRf = ({
                               "&.Mui-selected:hover": {
                                 backgroundColor: "#cbcbcb",
                               },
-                              fontSize: "0.7vw",
                             }}
                           >
-                            ACTIVIDAD {x + 1}
+                            <Typography
+                              sx={{
+                                //  fontSize: "1vw",
+                                fontFamily: "MontserratMedium",
+                              }}
+                            >
+                              ACTIVIDAD {index + 1}
+                            </Typography>
                           </ListItemButton>
-                        );
-                      })}
-                    </List>
-                  </Collapse>
+                        ))}
+                      </List>
+                    </Collapse>
 
-                  <Divider />
-                </Box>
-              );
-            })}
-          </List>
-        </Grid> */}
-
-      <Grid
-        sx={{
-          width: "100%",
-          display: "flex",
-          height: "7vh",
-          justifyContent: "flex-end",
-          alignItems: "center",
-        }}
-      >
-        <Tooltip title="RESUMEN ACTIVIDAD">
-          <InfoOutlinedIcon
-            onClick={() => {
-              showMirFnc(true);
-              setTxtShowFnc("Actividades");
+                    <Divider />
+                  </Grid>
+                );
+              })}
+            </List>
+          )}
+          <Grid
+            item
+            container
+            xl={12}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
+            sx={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+              "& > .MuiGrid-item": {
+                marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
+              },
             }}
-            fontSize="large"
-            sx={{ cursor: "pointer" }}
-          ></InfoOutlinedIcon>
-        </Tooltip>
-        <Typography
-          sx={{
-            mr: "1vw",
-            fontFamily: "MontserratSemiBold",
-            fontSize: "1.5vw",
-          }}
-        >
-          COMPONENTE #{componenteSelect + 1} - ACTIVIDAD #{" "}
-              {actividadSelect + 1}
-        </Typography>
-      </Grid>
-      <Grid
-        sx={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-        }}
-      >
-        <List
-          sx={{
-            width: "15vw",
-            height: "95%",
-            borderRight: "solid",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            borderColor: "#BCBCBC",
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 10,
-            },
-          }}
-        >
-          {componentesActividadesValues.map((componente, index) => {
-            return (
-              <Grid
-                key={index}
+          >
+            {isSmallScreen && (
+              <List
                 sx={{
+                  width: "15vw",
+                  height: "95%",
+                  borderRight: "solid",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
+                  borderColor: "#BCBCBC",
+                  "&::-webkit-scrollbar": {
+                    width: ".3vw",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "rgba(0,0,0,.5)",
+                    outline: "1px solid slategrey",
+                    borderRadius: 10,
+                  },
                 }}
               >
-                <Divider />
-                <ListItemButton
-                  selected={index === componenteSelect ? true : false}
-                  key={index}
-                  onClick={() => {
-                    setComponenteSelect(index);
-                    setOpen(index);
-                    setActividadSelect(0);
-            }}
-                  sx={{
-                    height: "7vh",
-                    "&.Mui-selected ": {
-                      backgroundColor: "#c4a57b",
-                    },
-                    "&.Mui-selected:hover": {
-                      backgroundColor: "#cbcbcb",
-                    },
-                  }}
-                >
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
-                  >
-                    COMPONENTE {index + 1}
-                  </Typography>
-                  {open === index ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-                
-                <Collapse in={open === index} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      {componente.actividades.map((actividad, index) => (
-                        <ListItemButton
-                          selected={index === actividadSelect ? true : false}
-                          key={index}
-                          onClick={() => {
-                            setActividadSelect(index);
-                          }}
+                {componentesActividadesValues.map((componente, index) => {
+                  return (
+                    <Grid
+                      key={index}
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Divider />
+                      <ListItemButton
+                        selected={index === componenteSelect ? true : false}
+                        key={index}
+                        onClick={() => {
+                          setComponenteSelect(index);
+                          setOpen(index);
+                          setActividadSelect(0);
+                        }}
+                        sx={{
+                          height: "7vh",
+                          "&.Mui-selected ": {
+                            backgroundColor: "#c4a57b",
+                          },
+                          "&.Mui-selected:hover": {
+                            backgroundColor: "#cbcbcb",
+                          },
+                        }}
+                      >
+                        <Typography
                           sx={{
-                            height: "3vh",
-                            pl: 4,
-                            "&.Mui-selected ": {
-                              backgroundColor: "#efd8b9",
-                            },
-                            "&.Mui-selected:hover": {
-                              backgroundColor: "#cbcbcb",
-                            },
+                            fontFamily: "MontserratMedium",
+                            fontSize: "0.7vw",
                           }}
                         >
-                          <Typography
-                            sx={{
-                              //  fontSize: "1vw",
-                              fontFamily: "MontserratMedium",
-                            }}
-                          >
-                            ACTIVIDAD {index + 1}
-                          </Typography>
-                        </ListItemButton>
-                      ))}
-                    </List>
-                  </Collapse>
+                          COMPONENTE {index + 1}
+                        </Typography>
+                        {open === index ? <ExpandLess /> : <ExpandMore />}
+                      </ListItemButton>
 
-                <Divider />
-              </Grid>
-            );
-          })}
-        </List>
+                      <Collapse
+                        in={open === index}
+                        timeout="auto"
+                        unmountOnExit
+                      >
+                        <List component="div" disablePadding>
+                          {componente.actividades.map((actividad, index) => (
+                            <ListItemButton
+                              selected={
+                                index === actividadSelect ? true : false
+                              }
+                              key={index}
+                              onClick={() => {
+                                setActividadSelect(index);
+                              }}
+                              sx={{
+                                height: "3vh",
+                                pl: 4,
+                                "&.Mui-selected ": {
+                                  backgroundColor: "#efd8b9",
+                                },
+                                "&.Mui-selected:hover": {
+                                  backgroundColor: "#cbcbcb",
+                                },
+                              }}
+                            >
+                              <Typography
+                                sx={{
+                                  //  fontSize: "1vw",
+                                  fontFamily: "MontserratMedium",
+                                }}
+                              >
+                                ACTIVIDAD {index + 1}
+                              </Typography>
+                            </ListItemButton>
+                          ))}
+                        </List>
+                      </Collapse>
 
-        <Grid
-          item
-          container
-          xl={12}
-          lg={12}
-          md={12}
-          sm={12}
-          xs={12}
-          sx={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-            "& > .MuiGrid-item": {
-              marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
-            },
-          }}
-        >
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            md={2}
-            sm={2}
-            xs={12}
-            sx={{
-              alignContent: "center",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <TextField
-              disabled={true}
-              fullWidth
-              sx={{ boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{
-                    fontSize: [10, 10, 10, 15, 15, 18],
+                      <Divider />
+                    </Grid>
+                  );
+                })}
+              </List>
+            )}
+
+            <Grid
+              item
+              xl={3}
+              lg={3}
+              md={2}
+              sm={2}
+              xs={12}
+              sx={{
+                alignContent: "center",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <TextField
+                disabled={true}
+                fullWidth
+                sx={{ boxShadow: 2 }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    META ANUAL 2023
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
                     fontFamily: "MontserratMedium",
-                  }}
-                >
-                  META ANUAL 2023
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              // value={componentesActividadesValues[componenteSelect ]?.metaAnual || ""}
-              value={jsonMA?.componentes[componenteSelect]?.metaAnual || ""}
-            />
-          </Grid>
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                // value={componentesActividadesValues[componenteSelect ]?.metaAnual || ""}
+                value={jsonMA?.componentes[componenteSelect]?.metaAnual || ""}
+              />
+            </Grid>
 
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            md={2}
-            sm={2}
-            xs={12}
-            sx={{
-              alignContent: "center",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <TextField
-              fullWidth
-              disabled={true}
-              sx={{ boxShadow: 2 }}
-              variant={"filled"}
-              label={
-                <Typography
-                  sx={{
-                    fontSize: [10, 10, 10, 15, 15, 18],
+            <Grid
+              item
+              xl={3}
+              lg={3}
+              md={2}
+              sm={2}
+              xs={12}
+              sx={{
+                alignContent: "center",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <TextField
+                fullWidth
+                disabled={true}
+                sx={{ boxShadow: 2 }}
+                variant={"filled"}
+                label={
+                  <Typography
+                    sx={{
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                      fontFamily: "MontserratMedium",
+                    }}
+                  >
+                    LINEA BASE 2021
+                  </Typography>
+                }
+                InputLabelProps={{
+                  style: {
                     fontFamily: "MontserratMedium",
-                  }}
-                >
-                  LINEA BASE 2021
-                </Typography>
-              }
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratMedium",
-                },
-              }}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              // value={componentesActividadesValues[componenteSelect ]?.lineaBase || ""}
-              value={jsonMA?.componentes[componenteSelect]?.lineaBase || ""}
-            />
-          </Grid>
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                // value={componentesActividadesValues[componenteSelect ]?.lineaBase || ""}
+                value={jsonMA?.componentes[componenteSelect]?.lineaBase || ""}
+              />
+            </Grid>
 
-          
-         
-          <Grid
-            container
-            direction={"row"}
-            // xl={12}
-            // lg={12}
-            // md={12}
-            // sm={12}
-            // xs={12}
-            // sx={{
-            //   alignContent: "center",
-            //   display: "flex",
-            //   justifyContent: "center",
-            // }}
-          >
+            <Grid
+              container
+              direction={"row"}
+              // xl={12}
+              // lg={12}
+              // md={12}
+              // sm={12}
+              // xs={12}
+              // sx={{
+              //   alignContent: "center",
+              //   display: "flex",
+              //   justifyContent: "center",
+              // }}
+            >
               <Grid
                 container
                 item
@@ -916,7 +672,9 @@ export const TabActividadRf = ({
                         },
                       }}
                       value={
-                        jsonMA?.componentes[componenteSelect]?.actividades[actividadSelect]?.metasPorFrecuencia[0]?.trimestre1
+                        jsonMA?.componentes[componenteSelect]?.actividades[
+                          actividadSelect
+                        ]?.metasPorFrecuencia[0]?.trimestre1
                       }
                     />
                   </Grid>
@@ -961,7 +719,9 @@ export const TabActividadRf = ({
                         },
                       }}
                       value={
-                        jsonMA?.componentes[componenteSelect]?.actividades[actividadSelect]?.metasPorFrecuencia[0]?.trimestre2
+                        jsonMA?.componentes[componenteSelect]?.actividades[
+                          actividadSelect
+                        ]?.metasPorFrecuencia[0]?.trimestre2
                       }
                     />
                   </Grid>
@@ -1006,7 +766,9 @@ export const TabActividadRf = ({
                         },
                       }}
                       value={
-                        jsonMA?.componentes[componenteSelect]?.actividades[actividadSelect]?.metasPorFrecuencia[0]?.trimestre3
+                        jsonMA?.componentes[componenteSelect]?.actividades[
+                          actividadSelect
+                        ]?.metasPorFrecuencia[0]?.trimestre3
                       }
                     />
                   </Grid>
@@ -1051,16 +813,16 @@ export const TabActividadRf = ({
                         },
                       }}
                       value={
-                        jsonMA?.componentes[componenteSelect]?.actividades[actividadSelect]?.metasPorFrecuencia[0]?.trimestre4
+                        jsonMA?.componentes[componenteSelect]?.actividades[
+                          actividadSelect
+                        ]?.metasPorFrecuencia[0]?.trimestre4
                       }
                     />
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          
 
-         
             <Grid
               container
               direction={"row"}
@@ -1127,7 +889,8 @@ export const TabActividadRf = ({
                       value={
                         // jsonMA?.componentes[componenteSelect]
                         //   ?.metasPorFrecuencia[0]?.semestre1
-                        componentesActividadesValues[componenteSelect]?.actividades[actividadSelect]?.metasPorFrecuencia[0]
+                        componentesActividadesValues[componenteSelect]
+                          .actividades[actividadSelect].metasPorFrecuencia[0]
                           ?.trimestre1 || ""
                       }
                     />
@@ -1176,7 +939,8 @@ export const TabActividadRf = ({
                       value={
                         // jsonMA?.componentes[componenteSelect]
                         //   ?.metasPorFrecuencia[0]?.semestre1
-                        componentesActividadesValues[componenteSelect].actividades[actividadSelect].metasPorFrecuencia[0]
+                        componentesActividadesValues[componenteSelect]
+                          .actividades[actividadSelect].metasPorFrecuencia[0]
                           ?.trimestre2 || ""
                       }
                     />
@@ -1225,13 +989,13 @@ export const TabActividadRf = ({
                       value={
                         // jsonMA?.componentes[componenteSelect]
                         //   ?.metasPorFrecuencia[0]?.semestre1
-                        componentesActividadesValues[componenteSelect].metasPorFrecuencia[0]
+                        componentesActividadesValues[componenteSelect]
+                          .actividades[actividadSelect].metasPorFrecuencia[0]
                           ?.trimestre3 || ""
                       }
                     />
                   </Grid>
                 </Grid>
-
                 <Grid
                   item
                   xl={2.5}
@@ -1274,7 +1038,8 @@ export const TabActividadRf = ({
                       value={
                         // jsonMA?.componentes[componenteSelect]
                         //   ?.metasPorFrecuencia[0]?.semestre1
-                        componentesActividadesValues[componenteSelect].metasPorFrecuencia[0]
+                        componentesActividadesValues[componenteSelect]
+                          .actividades[actividadSelect].metasPorFrecuencia[0]
                           ?.trimestre4 || ""
                       }
                     />
@@ -1282,8 +1047,8 @@ export const TabActividadRf = ({
                 </Grid>
               </Grid>
             </Grid>
+          </Grid>
         </Grid>
-      </Grid>
       </Grid>
     </>
   );
@@ -1291,4 +1056,3 @@ export const TabActividadRf = ({
 // function setAIactividadesPadre(componentesActividadesValues: IComponenteRF[]) {
 //   throw new Error("Function not implemented.");
 // }
-

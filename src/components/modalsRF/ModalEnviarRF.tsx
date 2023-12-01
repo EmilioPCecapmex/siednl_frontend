@@ -706,10 +706,10 @@ export default function ModalEnviarMA({
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
             {localStorage.getItem("Rol") === "Administrador"
-              ? "Al confirmar, la Meta Anual se autorizará y el apartado de la Ficha Técnica será habilitado"
+              ? "Al confirmar, la Raffi se autorizará"
               : localStorage.getItem("Rol") === "Verificador"
-              ? "Al confirmar, la Meta Anual se enviará a los usuarios correspondientes para autorización"
-              : "Al confirmar, la Meta Anual se enviará a los usuarios correspondientes para revisión"}
+              ? "Al confirmar, la Raffi se enviará a los usuarios correspondientes para autorización"
+              : "Al confirmar, la Raffi se enviará a los usuarios correspondientes para revisión"}
           </Typography>
         </Box>
 
