@@ -117,6 +117,8 @@ export const FormulaDialogMA = ({
             ? `${elemento} - Fórmula - ${tipo}`
             : elementoA
             ? `${elementoA} - Fórmula - ${tipo}`
+            : elemento.includes("A")
+            ? `${elemento} - Fórmula - ${tipo}`
             : `Componente ${noComponente + 1} - Fórmula - ${tipo}`}
         </Typography>
 
@@ -156,7 +158,7 @@ export const FormulaDialogMA = ({
             : elemento.includes("Componente")
             ? JSON.parse(MIR).componentes[noComponente]?.formula
             : elemento.includes("A")
-            ? JSON.parse(MIR).componentes[noComponente].actividades[noActividad]
+            ? JSON.parse(MIR).componentes[noComponente]?.actividades[noActividad]
                 ?.formula
             : null}
         </Typography>

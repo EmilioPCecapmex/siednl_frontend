@@ -159,7 +159,7 @@ export const TabComponenteRf = ({
     //   componentesValues[componentSelect].metasPorFrecuencia[0].semestre2 =
     //     txt.split(",")[1];
     // }
-
+    
     switch (frecuencia) {
       case "semestre1":
         componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
