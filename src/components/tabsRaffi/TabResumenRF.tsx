@@ -228,6 +228,156 @@ export const TabResumenRF = ({
           </Typography>
         </Grid>
 
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              VALOR DEL PROGRAMA PRESUPUESTARIO
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.valorProgramaPresupuestario}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              NOMBRE DEL PROGRAMA
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.nombrePrograma}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              Purbea Calculos verificar
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.nombrePrograma}
+            </Typography>
+          </Grid>
+        </Grid>
+
         {/* ######################################################
             ############ INICIA DISPLAY DE AVANCE FINANCIERO ########
             #########################################################*/}
@@ -1039,7 +1189,7 @@ export const TabResumenRF = ({
           </Button>
         </Grid>
 
-         {/* <ModalSolicitaModif
+        {/* <ModalSolicitaModif
           open={openModalSolicitarModif}
           handleClose={handleCloseModif}
           MA={JSON.stringify(MA)}
@@ -1058,7 +1208,7 @@ export const TabResumenRF = ({
               })
           }
         ></ModalSolicitaModif> */}
-{/*
+        {/*
         <ModalEnviarMA
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
