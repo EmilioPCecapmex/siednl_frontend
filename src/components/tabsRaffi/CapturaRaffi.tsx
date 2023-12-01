@@ -22,6 +22,7 @@ import {
   IComponenteRF,
   IFinRFEdit,
   IRFEdit,
+  IActividadesRF,
 } from "./interfacesRaffi";
 import { VTrimestral, VPTrimestral, VTrimestralboolean, VPTrimestralboolean } from "./TabAvanceFinanciero";
 import GenericTabs from "../genericComponents/genericTabs";
@@ -278,6 +279,21 @@ export default function CapturaRaffi({
     });
   };
 
+  const setRFactividadesPadre = (componentesValuesActividades: IComponenteRF[]) => {
+    setRaffi({
+      ...raffi,
+      componentes: componentesValuesActividades,
+    });
+    };
+  
+    
+  //   setRaffi({
+  //     ...raffi,
+  //     componentes: updatedComponentes,
+  //   });
+  // };
+  
+
   useEffect(() => {
     console.log("raffi: ", raffi);
 
@@ -394,8 +410,10 @@ export default function CapturaRaffi({
             )}
             {value === 3 && (
               <TabActividadRf
+              setRFactividadesPadre = {setRFactividadesPadre}
                 valoresComponenteRFFnc={() => {}}
                 componentes={noComponentes}
+                ComponentesRF={raffi.componentes}
                 asignarCValor={() => {}}
                 MA={MA}
                 MIR={MIR}
