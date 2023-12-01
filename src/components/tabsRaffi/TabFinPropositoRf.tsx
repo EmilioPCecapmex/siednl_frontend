@@ -1,35 +1,16 @@
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import {
-  Box,
-  Button,
-  FormControl,
-  IconButton,
-  Input,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Tooltip,
-  Radio,
-  FormLabel,
-  FormControlLabel,
-  Typography,
   Grid,
   TextField,
-  InputLabel,
+  Tooltip,
+  Typography
 } from "@mui/material";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { useEffect, useState } from "react";
 import { queries } from "../../queries";
+import { validarNumero } from "../../services/validations";
+import { DialogFinPropositoRaffi } from "../formulasDialog/FormulaDialogRaffiFinProposito";
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import { IFinRF, IPropositoRF, IRFEdit } from "./interfacesRaffi";
-import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
-import { useEffect, useState } from "react";
-import { DialogFinPropositoRaffi } from "../formulasDialog/FormulaDialogRaffiFinProposito";
-import { validarNumero } from "../../services/validations";
 
 export function TabFinPropositoRF({
   setAIFinPadre,
@@ -105,66 +86,6 @@ export function TabFinPropositoRF({
     setAIFinPadre(fin);
   }, [fin]);
 
-  // useEffect(() => {
-  //   let objectaux: IPropositoRF = {
-  //     añoAvanceFisico: "",
-  //     //jsonMir.encabezado.ejercicioFiscal,
-  //     valorAvanceFisico: "",
-  //   };
-  //   setPropositoRF(objectaux);
-  //   setProposito(objectaux);
-  // }, []);
-
-  // useEffect(() => {
-  //   if (
-  //     propositoRF.valorAvanceFisico !== "" &&
-  //     propositoRF.valorAvanceFisico !== null
-  //   ) {
-  //     setProposito(propositoRF);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   setPropositoRF(proposito);
-  // }, [proposito]);
-
-  // useEffect(() => {
-  //   let objectaux: IFinRF = {
-  //     añoAvanceFisico: "",
-  //     //jsonMir.encabezado.ejercicioFiscal,
-  //     valorAvanceFisico: "",
-  //   };
-  //   setFinRF(objectaux);
-  //   setFin(objectaux);
-  // }, []);
-
-  // useEffect(() => {
-  //   if (finRF.valorAvanceFisico !== "" && finRF.valorAvanceFisico !== null) {
-  //     setFin(finRF);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   setFinRF(fin);
-  // }, [fin]);
-
-  // useEffect(() => {
-  //   setFin({
-  //     ...fin,
-  //     añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal.Label,
-  //   });
-  //   //jsonMir.encabezado.ejercicioFiscal.Label
-  // }, []);
-
-  // useEffect(() => {
-  //   setProposito({
-  //     ...proposito,
-  //     añoAvanceFisico: jsonMir.encabezado.ejercicioFiscal.Label,
-  //   });
-
-  //   //jsonMir.encabezado.ejercicioFiscal.Label
-  // }, []);
-
   const assignValue = (valor: string, elemento: string, tipo: string) => {
     switch (tipo) {
       case "FIN":
@@ -211,10 +132,10 @@ export function TabFinPropositoRF({
           width: "93vw",
           height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
           justifyContent: "space-around",
-          alignItems: "center",
+          alignItems: "flex-start",
           backgroundColor: "#fff",
           boxShadow: 10,
-          borderRadius: 5,
+          borderRadius: 5
         }}
       >
         <Grid
@@ -225,7 +146,7 @@ export function TabFinPropositoRF({
           md={12}
           sm={12}
           xs={12}
-          sx={{ display: "flex", justifyContent: "flex-end" }}
+          sx={{ display: "flex", justifyContent: "flex-end", borderRadius: 5 }}
         >
           <Tooltip title="RESUMEN COMPONENTE">
             <InfoOutlinedIcon
