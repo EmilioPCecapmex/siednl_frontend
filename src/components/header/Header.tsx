@@ -34,7 +34,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
           aria-label="breadcrumb"
           sx={{
             fontFamily: "MontserratBold",
-            fontSize: ["4vw","3vw","3vw","2vw","2vw",],
+            fontSize: ["4vw","3vw","3vw","1.5vw","1.5vw",],
             color: "white",
           }}
         >
