@@ -30,6 +30,8 @@ import {
   IRFEdit,
 } from "./interfacesRaffi";
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
+import ModalEnviarRF from "../modalsRF/ModalEnviarRF";
+import ModalSolicitaModifRF from "../modalsRF/ModalSolicitaModifRAFFI";
 
 export const TabResumenRF = ({
   IdMir,
@@ -1189,35 +1191,35 @@ export const TabResumenRF = ({
           </Button>
         </Grid>
 
-        {/* <ModalSolicitaModif
+         <ModalSolicitaModifRF
           open={openModalSolicitarModif}
           handleClose={handleCloseModif}
+          RF={JSON.stringify(RF)}
           MA={JSON.stringify(MA)}
           MIR={MIR}
           showResume={showResume}
           IdMA={IdMA}
-          IdMIR={IdMir}
-          MAEdit={
+          IdRF={IdRF}
+          RFEdit={
             localStorage.getItem("Rol") === "Capturador"
               ? ""
               : JSON.stringify({
-                fin: editFin,
-                proposito: editProposito,
-                componentes: editComponentes,
-                actividades: editActividades,
+                fin: ""
+                
               })
           }
-        ></ModalSolicitaModif> */}
-        {/*
-        <ModalEnviarMA
+        ></ModalSolicitaModifRF> 
+        
+        <ModalEnviarRF
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
+          RF={JSON.stringify(RF)}
           MA={JSON.stringify(MA)}
           MIR={MIR}
           IdMA={IdMA}
-          IdMIR={IdMir}
+          IdRF={IdRF}
           showResume={showResume}
-        ></ModalEnviarMA> */}
+        ></ModalEnviarRF> 
       </Grid>
     </Grid>
   );

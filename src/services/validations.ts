@@ -9,3 +9,9 @@ export const validarNumero = (dato: string, state: any) => {
     alertaError("Este campo solo acepta numeros.")
     return state;
   };
+
+  
+  export function validaCadena(cadena: string | null | undefined): boolean {
+    return cadena !== null && cadena !== undefined && cadena.trim() !== "";
+  }
+  

@@ -36,6 +36,7 @@ import EditIcon from "@mui/icons-material/Edit";
 //import CommentIcon from "@mui/icons-material/Comment";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
+import { IEntidad } from "../../components/appsDialog/AppsDialog";
 
 const estados = [
   "Todos",
@@ -99,7 +100,7 @@ export const Raffi = () => {
   const [rfFiltered, setRfFiltered] = useState<Array<IRaffi>>([]);
   const [rfxFiltered, setRfxFiltered] = useState<Array<IRaffi>>([]);
   const [rfEdit, setRfEdit] = useState<Array<IRaffi>>([]);
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
   const [validaFecha, setValidaFecha] = useState(true);
 
   const [findTextStr, setFindTextStr] = useState("");
@@ -112,10 +113,14 @@ export const Raffi = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   useEffect(() => {
-    validaFechaCaptura();
+    
+    if(opentabs){
+      listaRaffi(setRf);
+      validaFechaCaptura();
     setOpenTabs(true);
-    listaRaffi(setRf);
-  }, []);
+    }
+    
+  }, [opentabs]);
 
   useEffect(() => {
     setRfFiltered(rf);
@@ -242,6 +247,7 @@ export const Raffi = () => {
   useEffect(() => {
     validaFechaCaptura();
     getInstituciones(setInstituciones);
+    console.log("instituciones: ");
   }, []);
 
   const handleChange = (dato: string) => {
@@ -522,11 +528,8 @@ export const Raffi = () => {
 
                       {instituciones?.map((item) => {
                         return (
-                          <MenuItem
-                            value={item.NombreInstitucion}
-                            key={item.Id}
-                          >
-                            {item.NombreInstitucion}
+                          <MenuItem value={item.Nombre} key={item.Id}>
+                            {item.Nombre.toUpperCase()}
                           </MenuItem>
                         );
                       })}
@@ -696,7 +699,18 @@ export const Raffi = () => {
                                 textAlign: "center",
                               }}
                             >
-                              {row.Estado}
+                              {(row.Estado === "En Captura" &&
+                              localStorage.getItem("Rol") === "Capturador"
+                                ? "Borrador Capturador"
+                                : row.Estado === "En Revisión" &&
+                                  localStorage.getItem("Rol") === "Verificador"
+                                ? "Esperando revisión"
+                                : row.Estado === "En Autorización" &&
+                                  localStorage.getItem("Rol") ===
+                                    "Administrador"
+                                ? "En Autorización"
+                                : row.Estado
+                              ).toUpperCase()}
                             </TableCell>
                             <TableCell
                               sx={{
@@ -730,7 +744,7 @@ export const Raffi = () => {
                                 textAlign: "center",
                               }}
                             >
-                              {row.Estado !== "Sin Asignar" && (
+                              {row.Estado !== ("Sin Asignar" || "SIN ASIGNAR") && (
                                 <Tooltip title="EDITAR">
                                   <IconButton
                                     disabled={!validaFecha}
