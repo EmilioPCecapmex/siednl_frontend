@@ -1,5 +1,9 @@
 import axios from "axios";
-import { alertaError, alertaExito, alertaInfo } from "../../genericComponents/Alertas";
+import {
+  alertaError,
+  alertaExito,
+  alertaInfo,
+} from "../../genericComponents/Alertas";
 
 export const getListaPae = (anio: string, setState: Function) => {
   axios
@@ -12,8 +16,8 @@ export const getListaPae = (anio: string, setState: Function) => {
     })
     .then((r) => {
       setState(r.data.data);
-      if(r.data.data.length===0){
-        alertaInfo("No se encontraron registros")
+      if (r.data.data.length === 0) {
+        alertaInfo("No se encontraron registros");
       }
     })
     .catch((err) => {
@@ -29,6 +33,8 @@ export const creaPAE = (
   Anio: string,
   PerteneceA: string
 ) => {
+  console.log("ruta", Ruta);
+
   axios
     .post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-pae",
@@ -84,7 +90,7 @@ export const guardarDoc = (
   perteneceA: string
 ) => {
   const url = new File([archivo.archivo], archivo.nombreArchivo);
-  let ruta = "/SIEDNL_DEV/PAE/" + perteneceA + "/";
+  let ruta = "/PAE/" + perteneceA + "/";
   ruta = ((process.env.REACT_APP_DOC_ROUTE || "") + ruta).trim();
 
   let dataArray = new FormData();
@@ -104,8 +110,20 @@ export const guardarDoc = (
         },
       }
     )
-    .then(() => {
-      alertaExito(() => {}, "Documento cargado.");
+    .then(({ data }) => {
+      if (data.SUCCESS) {
+        let auxPerteneceA = perteneceA.split("/");
+        creaPAE(
+          data.RESPONSE.NOMBREARCHIVO,
+          ruta,
+          auxPerteneceA[0],
+          auxPerteneceA[1]
+        );
+
+        alertaExito(() => {}, "Documento cargado.");
+      }else{
+        alertaError("Error al cargar documento.");
+      }
     })
     .catch((e) => {
       alertaError("Error al cargar documento.");

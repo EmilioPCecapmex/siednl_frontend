@@ -1,10 +1,8 @@
+import LaunchIcon from '@mui/icons-material/Launch';
 import {
-  Box,
-  Button,
   Divider,
   Grid,
   IconButton,
-  Input,
   List,
   ListItemButton,
   Table,
@@ -15,15 +13,14 @@ import {
   TableRow,
   TableSortLabel,
   Tooltip,
-  Typography,
+  Typography
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import VisualizarPAE from "../../components/modalsPAE/ModalVisualizacionPAE";
-import { creaPAE, getListaPae, guardarDoc, modifyPAE } from "./Services/ServicesPAE";
-import SliderProgress from "../genericComponents/SliderProgress";
+import { useEffect, useState } from "react";
 import { MostrarArchivos } from "../../screens/Ayuda/MostrarArchivos";
-import LaunchIcon from '@mui/icons-material/Launch';
 import { IInfoFile } from "../../screens/Ayuda/VisualizadorAyudas";
+import SliderProgress from "../genericComponents/SliderProgress";
+import { DialogCargaArchivo } from "./DialogCargaArchivo";
+import { getListaPae, modifyPAE } from "./Services/ServicesPAE";
 
 export const TabPAE = ({
   TabSelect,
@@ -41,258 +38,11 @@ export const TabPAE = ({
     FechaCreacion: string;
   }
 
-
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [registros, setRegistros] = useState<Registro[]>([]);
   const [registrosFiltrados, setRegistrosFiltrados] = useState<Registro[]>([]);
-  const [openVisualizador,setOpenVisualizador]=useState(false);
-  const [infoFile,setInfoFile]=useState<IInfoFile>({nombre:"",ruta:""});
-
-
-  const fileInputRef = useRef<HTMLInputElement | null>(null);;
-  // const [PerteneceAValue, setPerteneceAValue] = useState("");
-
-
-  // const getPerteneceAValue = (value: number) => {
-  //   switch (value) {
-  //     case 0:
-  //       setPerteneceAValue("Todos los documentos");
-  //       break;
-  //     case 1:
-  //       setPerteneceAValue("PAE");
-  //       break;
-  //     case 2:
-  //       setPerteneceAValue("Terminos de referencia");
-  //       break;
-  //     case 3:
-  //       setPerteneceAValue("Bitacora de informacion");
-  //       break;
-  //     case 4:
-  //       setPerteneceAValue("Informe calidad");
-  //       break;
-  //     case 5:
-  //       setPerteneceAValue("Informe final");
-  //       break;
-  //     case 6:
-  //       setPerteneceAValue("Anexo CONAC");
-  //       break;
-  //     case 7:
-  //       setPerteneceAValue("Reporte Evaluacion");
-  //       break;
-  //   }
-  // };
-
-
-  // const tabsRegistros = (value: number, anio: string) => {
-  //   getListaPae(setRegistros)
-  //   switch (anio) {
-  //     case "2020":
-  //       switch (value) {
-  //         case 0:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (
-  //               x.Anio.includes("2020")
-  //             )
-  //           ));
-  //           break;
-  //         case 1:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("PAE") &&
-  //               x.Anio.includes("2020")
-  //             )
-  //           ));
-  //           break;
-  //         case 2:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Terminos de referencia") &&
-  //               x.Anio.includes("2020")
-  //             )
-  //           ));
-  //           break;
-  //         case 3:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Bitacora de informacion") &&
-  //               x.Anio.includes("2020")
-  //             )
-  //           ));
-  //           break;
-  //         case 4:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Informe calidad") &&
-  //               x.Anio.includes("2020")
-  //             )
-  //           ));
-  //           break;
-  //         case 5:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Informe final") &&
-  //               x.Anio.includes("2020")
-  //             )
-  //           ));
-  //           break;
-  //         case 6:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Anexo CONAC") &&
-  //               x.Anio.includes("2020")
-  //             )
-  //           ));
-  //           break;
-  //         case 7:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Reporte Evaluacion") &&
-  //               x.Anio.includes("2020")
-  //             )
-  //           ));
-  //           break;
-  //       }
-  //       break;
-  //     case "2021":
-  //       switch (value) {
-  //         case 0:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (
-  //               x.Anio.includes("2021")
-  //             )
-  //           ));
-  //           break;
-  //         case 1:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("PAE") &&
-  //               x.Anio.includes("2021")
-  //             )
-  //           ));
-  //           break;
-  //         case 2:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Terminos de referencia") &&
-  //               x.Anio.includes("2021")
-  //             )
-  //           ));
-  //           break;
-  //         case 3:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Bitacora de informacion") &&
-  //               x.Anio.includes("2021")
-  //             )
-  //           ));
-  //           break;
-  //         case 4:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Informe calidad") &&
-  //               x.Anio.includes("2021")
-  //             )
-  //           ));
-  //           break;
-  //         case 5:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Informe final") &&
-  //               x.Anio.includes("2021")
-  //             )
-  //           ));
-  //           break;
-  //         case 6:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Anexo CONAC") &&
-  //               x.Anio.includes("2021")
-  //             )
-  //           ));
-  //           break;
-  //         case 7:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Reporte Evaluacion") &&
-  //               x.Anio.includes("2021")
-  //             )
-  //           ));
-  //           break;
-  //       }
-  //       break;
-  //     case "2022":
-  //       switch (value) {
-  //         case 0:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (
-  //               x.Anio.includes("2022")
-  //             )
-  //           ));
-  //           break;
-  //         case 1:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("PAE") &&
-  //               x.Anio.includes("2022")
-  //             )
-  //           ));
-  //           break;
-  //         case 2:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Terminos de referencia") &&
-  //               x.Anio.includes("2022")
-  //             )
-  //           ));
-  //           break;
-  //         case 3:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Bitacora de informacion") &&
-  //               x.Anio.includes("2022")
-  //             )
-  //           ));
-  //           break;
-  //         case 4:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Informe calidad") &&
-  //               x.Anio.includes("2022")
-  //             )
-  //           ));
-  //           break;
-  //         case 5:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Informe final") &&
-  //               x.Anio.includes("2022")
-  //             )
-  //           ));
-  //           break;
-  //         case 6:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Anexo CONAC") &&
-  //               x.Anio.includes("2022")
-  //             )
-  //           ));
-  //           break;
-  //         case 7:
-  //           setRegistrosFiltrados(registros.filter(
-  //             (x) =>
-  //             (x.PerteneceA.includes("Reporte Evaluacion") &&
-  //               x.Anio.includes("2022")
-  //             )
-  //           ));
-  //           break;
-  //       }
-  //       break;
-
-  //   }
-  // };
+  const [openVisualizador, setOpenVisualizador] = useState(false);
+  const [infoFile, setInfoFile] = useState<IInfoFile>({ nombre: "", ruta: "" });
 
   useEffect(() => {
     getListaPae(listaDeAnios[componenteSelect].toString(), setRegistros);
@@ -331,16 +81,6 @@ export const TabPAE = ({
     setBanderaEdit(true);
   };
 
-  // useEffect(() => {
-  //   setBanderaEdit(false);
-  //   getPerteneceAValue(value);
-  // }, [value]);
-
-  // useEffect(() => {
-  //   setBanderaEdit(false);
-  //   getPerteneceAValue(value);
-  // }, [componenteSelect]);
-
   interface Head {
     id: string;
     isNumeric: boolean;
@@ -368,44 +108,6 @@ export const TabPAE = ({
   ];
 
 
-
-  // useEffect(() => {
-  //   tabsRegistros(value, componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020");
-  // }, [value]);
-
-  // useEffect(() => {
-  //   tabsRegistros(value, componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020");
-  // }, [componenteSelect]);
-
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, Anio: string, tab: string) => {
-    const fileList = e.target.files;
-
-    if (fileList && fileList.length > 0) {
-      const file = fileList[0];
-      const newPdf = {
-        Id: String(Date.now()),
-        Anio: Anio,
-        Nombre: file.name,
-        Ruta: "/SIEDNL_DEV/",
-        PerteneceA: "PerteneceA",
-        FechaCreacion: Date.now().toString()
-      };
-      setRegistros([...registros, newPdf]);
-    }
-  };
-
-  const handleClickAddPDF = () => {
-    if (fileInputRef.current) {
-      guardarDoc({ archivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0], nombreArchivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0].name }, (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + TabSelect.replaceAll(" ", "_"));
-      fileInputRef.current.click();
-      creaPAE((fileInputRef.current.children[0] as HTMLInputElement).files![0].name, (process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/" + (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + TabSelect.replaceAll(" ", "_") + "/", componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020", TabSelect)
-    }
-  };
-
-  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleFileUpload(e, componenteSelect.toString(), TabSelect);
-  };
-
   const obtenerListaDeAnios = () => {
     let anioInicial = 2020;
     let fechaActual = new Date();
@@ -416,11 +118,9 @@ export const TabPAE = ({
     }
     return listaDeAnios;
   };
+
   const listaDeAnios = obtenerListaDeAnios();
-
   const [progressBar, setProgressBar] = useState(true)
-
-
   return (
     <>
       <SliderProgress open={progressBar} texto="" />
@@ -432,125 +132,121 @@ export const TabPAE = ({
           height: "85vh",
           boxShadow: 10,
           borderRadius: 5,
-          flexDirection: "column",
           backgroundColor: "#fff",
-          justifyContent: "center",
-          alignItems: "center",
+          alignItems: "center"
         }}
       >
-        <Grid item xs={2}>
-          <List
-            sx={{
-              width: "10vw",
-              height: "65vh",
-              borderRight: "solid",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              borderColor: "#BCBCBC",
-              "&::-webkit-scrollbar": {
-                width: ".3vw",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "rgba(0,0,0,.5)",
-                outline: "1px solid slategrey",
-                borderRadius: 10,
-              },
-            }}
-          >
+
+
+        <Grid container item
+          xl={1.5}
+          lg={1.5}
+          md={2}
+          sm={2}
+          xs={2}
+          sx={{
+            minHeight: "70vh",
+            borderRight: "solid",
+            display: "flex",
+            alignItems: "center",
+            borderColor: "#BCBCBC",
+            "&::-webkit-scrollbar": {
+              width: ".3vw",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "rgba(0,0,0,.5)",
+              outline: "1px solid slategrey",
+              borderRadius: 10,
+            }
+          }}>
+          <List sx={{width:"100%"}}>
             {listaDeAnios.map((item, index) => {
               return (
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Divider />
-                  <ListItemButton
-                    selected={index === componenteSelect}
-                    key={item}
-                    onClick={() => {
-                      setComponenteSelect(index);
-                      setRegistros([])
-
-                    }}
-                    sx={{
-                      height: "7vh",
-                      "&.Mui-selected ": {
-                        backgroundColor: "#c4a57b",
-                      },
-                      "&.Mui-selected:hover": {
-                        backgroundColor: "#cbcbcb",
-                      },
-                    }}
-                  >
-                    <Typography
-                      sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+                <>
+                
+                    <Divider />
+                    <ListItemButton
+                      selected={index === componenteSelect}
+                      key={item}
+                      onClick={() => {
+                        setComponenteSelect(index);
+                        setRegistros([])
+                      }}
+                      sx={{
+                        height: "7vh",width:"100%",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
                     >
-                      {item}
-                    </Typography>
-                  </ListItemButton>
-                  <Divider />
-                </Box>
+                      <Typography
+                        sx={{ fontFamily: "MontserratMedium", fontSize: [15,15,15,15,15] }}
+                      >
+                        {item}
+                      </Typography>
+                    </ListItemButton>
+                    <Divider />
+                
+                </>
+
               );
             })}
           </List>
         </Grid>
 
-        <Grid container item xs={10}>
-          <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%" }}>
-          </Typography>
 
-          <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%", alignContent: "right", textAlign: "right" }}>
-          </Typography>
-          <Grid container item xs={12} sx={{ height: "-webkit-fill-available" }}>
-            {localStorage.getItem("Rol") === "Administrador" ?//|| value === 40
-              <>
-                <Typography sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw", heigh: "1px", marginBottom: "1%", alignContent: "right", textAlign: "right" }}>
-                  Cargar Archivo:
-                </Typography>
-                <Grid
 
-                  item
-                  direction="row"
-                  sx={{ margin: '2vw' }}
-                >
-                  <Input
-                    type="file"
-                    inputProps={{
-                      accept: ".pdf,application/pdf",
-                      'aria-label': 'Upload PDF',
-                    }}
-                    style={{
-                      width: "45vw", backgroundColor: "transparent",
-                      opacity: 0.5,
-                    }}
-                    onChange={handleFileInputChange}
-                    ref={fileInputRef}
-                  />
-                  <Button
-                    variant="outlined"
-                    onClick={handleClickAddPDF}
-                    style={{ cursor: 'pointer', border: 'none', background: 'none', opacity: 1 }}
-                  >
-                    CARGAR ARCHIVO
-                  </Button>
-                </Grid>
-              </>
+        <Grid container item  
+              xl={10.5}
+              lg={10.5}
+              md={10}
+              sm={10}
+              xs={10} sx={{
+              height: "70vh",
+            
+              display: "flex",
+              justifyContent: "center",
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(0,0,0,.5)",
+                outline: "1px solid slategrey",
+                borderRadius: 10,
+              },
+            }}>
+          
+          
+            {localStorage.getItem("Rol") === "Administrador" ?//|| value === 40\
+            <Grid
+            container
+            item
+            xl={11}
+            lg={11}
+            md={11}
+            sm={11}
+            xs={11}
+            sx={{display:"flex",height:"5vh",justifyContent:"flex-end"}}
+          >
+            <DialogCargaArchivo Tabs={Tabs.filter((tab)=>tab!=="Todos los Documentos")} Tab={TabSelect==="Todos los Documentos"?Tabs[1]:TabSelect}></DialogCargaArchivo>
+          </Grid>
+           
               : ""}
 
             <Grid
               container
               item
+              xl={11}
+              lg={11}
+              md={11}
+              sm={11}
+              xs={11}
               height="65vh"
               direction="row"
               sx={{ backgroundColor: "#FFFF", borderRadius: 5, boxShadow: 5 }}
             >
               <TableContainer sx={{
-                borderRadius: 5, height: 450,
+                borderRadius: 5,
                 overflow: "auto",
                 "&::-webkit-scrollbar": {
                   width: ".5vw",
@@ -559,7 +255,7 @@ export const TabPAE = ({
                 "&::-webkit-scrollbar-thumb": {
                   backgroundColor: "#edeaea",
                   borderRadius: 1,
-                },
+                }, maxHeight: ["65vh","65vh","65vh","65vh","65vh"],
               }}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
@@ -587,7 +283,7 @@ export const TabPAE = ({
                     </TableRow>
                   </TableHead>
 
-                  <TableBody>
+                  <TableBody sx={{overflow:"auto",height:"90%"}}>
                     {registrosFiltrados
                       .map((row, index) => (
 
@@ -596,7 +292,7 @@ export const TabPAE = ({
                             sx={{
                               padding: "1px 15px 1px 0",
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              fontSize: ["15","15","15","15","15",],
                             }}
                             align="center"
                             component="th"
@@ -611,7 +307,7 @@ export const TabPAE = ({
                                   sx={{
                                     padding: "1px 15px 1px 0",
                                     fontFamily: "MontserratRegular",
-                                    fontSize: ".7vw",
+                                    fontSize: ["15","15","15","15","15",],
                                   }}
                                   align="center"
                                   component="th"
@@ -671,7 +367,6 @@ export const TabPAE = ({
                             </>
                             :
                             <TableCell
-
                               sx={{
                                 padding: "1px 15px 1px 0",
                                 fontFamily: "MontserratRegular",
@@ -684,7 +379,6 @@ export const TabPAE = ({
                               {row.FechaCreacion.substring(0, 10)}
                             </TableCell>
                           }
-
                           <TableCell
                             sx={{
                               flexDirection: "row",
@@ -697,8 +391,9 @@ export const TabPAE = ({
                           >
                             <Tooltip title="VISUALIZAR">
                               <span>
-                                <IconButton onClick={()=>{
-                                 setInfoFile({ nombre: row.Nombre, ruta: (process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/" + listaDeAnios[componenteSelect] + "/" + TabSelect + "/" }) 
+                                <IconButton 
+                                onClick={()=>{
+                                 setInfoFile({ nombre: row.Nombre, ruta:row.Ruta}) 
                                   setOpenVisualizador(true);
                                 }}>
                                   <LaunchIcon
@@ -724,21 +419,11 @@ export const TabPAE = ({
                                           fontSize: 30, // Pantalla grande (xl)
                                         }
                                       },
-
-
-
                                     ]}
                                   />
                                 </IconButton>
                               </span>
                             </Tooltip>
-                            {/* <VisualizarPAE
-                              ruta={(process.env.REACT_APP_DOC_ROUTE || "") + "/SIEDNL_DEV/PAE/" + (componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020") + "/" + TabSelect.replaceAll(" ", "_") + "/"}
-                              nombre={row.Nombre}
-                              tipo={"pdf"}
-                              anio={componenteSelect === 0 ? "2022" : componenteSelect === 1 ? "2021" : "2020"}
-                              perteneceA={TabSelect}
-                            /> */}
                           </TableCell>
                         </TableRow>
 
@@ -747,13 +432,13 @@ export const TabPAE = ({
                 </Table>
               </TableContainer>
             </Grid>
-          </Grid>
+          
         </Grid>
       </Grid>
 
-     {openVisualizador?
-      <MostrarArchivos value="PDF" infoFile={infoFile} handleClose={()=>{setOpenVisualizador(false)} }/>:null
-      }                    
+      {openVisualizador ?
+        <MostrarArchivos value="PAE" infoFile={infoFile} handleClose={() => { setOpenVisualizador(false) }} /> : null
+      }
     </>
   );
 };

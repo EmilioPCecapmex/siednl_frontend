@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import ModalForm from "../../components/ModalForm";
 import { getFileByName } from "./ServicesAyuda";
 import { IInfoFile } from "./VisualizadorAyudas";
+import { alertaError } from "../../components/genericComponents/Alertas";
 
 
 export const MostrarArchivos = ({
     handleClose,
     value,
     infoFile,
-
 }: {
     handleClose: Function
     value: string
@@ -27,9 +27,17 @@ export const MostrarArchivos = ({
     }
 
     useEffect(() => {
-        value === "Videos" ?
-        getFileByName(process.env.REACT_APP_DOC_ROUTE+'/VIDEOS/TUTORIALES/',infoFile.nombre, saveVideo):
-        getFileByName(process.env.REACT_APP_DOC_ROUTE+'/GUIAS/', infoFile.nombre,savePDF)
+        switch(value){
+            case "Videos":getFileByName(process.env.REACT_APP_DOC_ROUTE+'/VIDEOS/TUTORIALES/',infoFile.nombre, saveVideo);
+            break;
+            case "Guías" : getFileByName(process.env.REACT_APP_DOC_ROUTE+'/GUIAS/', infoFile.nombre,savePDF);
+            break;
+            case "PAE" : getFileByName(infoFile.ruta, infoFile.nombre,savePDF);
+            break;
+            default:
+                alertaError("Opcion invalida");
+        }
+        
     }, [])
 
     return (

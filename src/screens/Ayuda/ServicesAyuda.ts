@@ -19,6 +19,8 @@ export const getFileByName= async(ROUTE:string,NOMBRE:string,setState:Function)=
     }
   )
   .then(({ data }) => {
+    console.log(data);
+    
     setState(data.RESPONSE.FILE);
   })
   .catch((r) => {alertaError("Ocurrio un problema al obtener el archivo")});
