@@ -15,7 +15,8 @@ export function DialogCargaArchivo({ Tabs, Tab }: { Tabs: string[], Tab: string 
   const [open, setOpen] = useState(false);
   const [tabSelected, setTabSelected] = useState(Tab);
   
-
+  const [fechaEdit, setFechaEdit] = useState(new Date().toISOString().split('T')[0]);
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -29,10 +30,8 @@ export function DialogCargaArchivo({ Tabs, Tab }: { Tabs: string[], Tab: string 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleClickAddPDF = () => {
-    console.log("fileInputRef",(fileInputRef?.current?.children[0] as HTMLInputElement).files![0]);
-    
     if (fileInputRef.current) {
-      guardarDoc({ archivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0], nombreArchivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0].name }, "2022" + "/" + tabSelected.replaceAll(" ", "_"));
+      guardarDoc({ archivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0], nombreArchivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0].name }, "2022" + "/" + tabSelected.replaceAll(" ", "_"),fechaEdit);
       fileInputRef.current.click();
     }
   };
@@ -96,10 +95,28 @@ export function DialogCargaArchivo({ Tabs, Tab }: { Tabs: string[], Tab: string 
                 ></TextField>
               )}
               onChange={(event, value) => {
-                console.log("value", value);
                 setTabSelected(value || "")
               }}
               isOptionEqualToValue={(option, value) => option === value}
+            />
+            <br/>
+            <Typography
+                        sx={{ fontFamily: "MontserratMedium", fontSize: [15,15,15,15,15] }}
+                      >
+                        Fecha de publicación
+                      </Typography>
+            <input
+              type="date"
+              value={fechaEdit}
+              onChange={(e) => setFechaEdit(e.target.value)}
+              autoFocus
+              style={{
+                border: "1px solid #ccc",
+                padding: "4px",
+                borderRadius: "4px",
+                fontSize: "0.7vw",
+                fontFamily: "MontserratMedium",
+              }}
             />
             <Tooltip title="Agregar Archivo">
               <Grid sx={{ position: 'relative', width: '100%', height: ['40vh', '30vh', '20vh', '25vh', '25vh'], border: '5px dashed', borderRadius: '4px', mt: ["5vh", "5vh", "2vh", "2vh", "2vh"] }}>

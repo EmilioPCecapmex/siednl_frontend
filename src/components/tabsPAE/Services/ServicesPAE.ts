@@ -31,7 +31,8 @@ export const creaPAE = (
   Nombre: string,
   Ruta: string,
   Anio: string,
-  PerteneceA: string
+  PerteneceA: string,
+  FechaPublicacion:string
 ) => {
   console.log("ruta", Ruta);
 
@@ -42,9 +43,9 @@ export const creaPAE = (
         Nombre: Nombre,
         Tipo: "pdf",
         Ruta: Ruta,
-        Anio: Anio,
         PerteneceA: PerteneceA,
         CreadoPor: localStorage.getItem("IdUsuario"),
+        FechaPublicacion: FechaPublicacion,
       },
       {
         headers: {
@@ -106,7 +107,8 @@ export const deletePAE = (id:string) => {
 
 export const guardarDoc = (
   archivo: { archivo: File; nombreArchivo: string },
-  perteneceA: string
+  perteneceA: string,
+  fechaPublicacion: string,
 ) => {
   const url = new File([archivo.archivo], archivo.nombreArchivo);
   let ruta = "/PAE/" + perteneceA + "/";
@@ -136,7 +138,8 @@ export const guardarDoc = (
           data.RESPONSE.NOMBREARCHIVO,
           ruta,
           auxPerteneceA[0],
-          auxPerteneceA[1]
+          auxPerteneceA[1],
+          fechaPublicacion
         );
 
         alertaExito(() => {}, "Documento cargado.");
