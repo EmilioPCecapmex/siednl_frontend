@@ -43,6 +43,9 @@ const estados = [
   "En Revisión",
   "En Autorización",
   "Autorizada",
+  "Borrador Autorizador",
+  "Borrador Verificador",
+  //"Borrador Capturador"
 ];
 
 interface Head {
@@ -112,6 +115,7 @@ export const MIR = () => {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdEntidad: localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
+          Estado: estadomir || "",
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -139,7 +143,26 @@ export const MIR = () => {
       })
       .then((r) => {
         if (r.status === 200) {
-          setstate(r.data.data);
+          let aux=r.data.data
+          console.log("AUX:",aux);
+          
+          aux.unshift( {
+            ClaveSiregob: null,
+            ControlInterno: "",
+            Direccion: "",
+            EntidadPerteneceA: "",
+            FechaCreacion: "",
+            Id: "",
+            IdEntidadPerteneceA: "",
+            IdTipoEntidad: "",
+            IdTitular: null,
+            Nombre: "TODOS",
+            NombreTipoEntidad: "",
+            Telefono: "",
+            Titular: "",
+            UltimaActualizacion: ""
+          })
+          setstate(aux);
         }
       });
   };
@@ -208,6 +231,10 @@ export const MIR = () => {
   const [findTextStr, setFindTextStr] = useState("");
   const [findInstStr, setFindInstStr] = useState("Todos");
   const [findSelectStr, setFindSelectStr] = useState("Todos");
+
+  const [institucionesb, setInstitucionesb] = useState("Todos");
+
+  const [estadomir, setEstadoMIR] = useState("Todos");
 
   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
@@ -441,6 +468,28 @@ export const MIR = () => {
 
   const [estado, setEstado] = useState("");
 
+  const buscador = (estado: any, Ins: any) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdEntidad: Ins || "",
+          //IdEntidad: localStorage.getItem("IdEntidad"),
+          Rol: localStorage.getItem("Rol"),
+          Estado: estado || "",
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
+
+        setMirs(r.data.data);
+        //setInstitucionesb("Todos")
+      });
+  };
+
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
       <Grid
@@ -554,7 +603,10 @@ export const MIR = () => {
                         size="small"
                         variant="outlined"
                         label="FILTRO POR INSTITUCION"
-                        value={findInstStr}
+                        value={institucionesb}
+                        disabled={
+                          localStorage.getItem("Rol") !== "Administrador"
+                        }
                         sx={{
                           fontFamily: "MontserratRegular",
                           whiteSpace: "nowrap",
@@ -566,11 +618,13 @@ export const MIR = () => {
                         }}
                         fullWidth
                         onChange={(v) => {
-                          setFindInstStr(v.target.value);
+                          //setFindInstStr(v.target.value);
+                          
+                          setInstitucionesb(v.target.value);
                         }}
                       >
                         <MenuItem
-                          value={"Todos"}
+                          value={institucionesb}
                           sx={{ fontFamily: "MontserratRegular" }}
                         >
                           TODOS
@@ -631,7 +685,12 @@ export const MIR = () => {
                       <Select
                         size="small"
                         variant="outlined"
-                        value={findSelectStr}
+                        value={
+                          localStorage.getItem("Rol") === "Administrador" ||
+                          localStorage.getItem("Rol") === "ADMINISTRADOR"
+                            ? estadomir
+                            : findSelectStr
+                        }
                         label="FILTRO POR ESTADO DE LA MIR"
                         sx={{
                           fontFamily: "MontserratRegular",
@@ -651,7 +710,16 @@ export const MIR = () => {
                           //       findInstStr === "Todos" ? "0" : findInstStr
                           //     )
                           //   : findText(findTextStr, v.target.value, findInstStr);
-                          setFindSelectStr(v.target.value);
+                          if (
+                            localStorage.getItem("Rol") === "Administrador" ||
+                            localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          ) {
+                            setEstadoMIR(v.target.value);
+                          } else {
+                            setFindSelectStr(v.target.value);
+                          }
+
+                          //
                         }}
                       >
                         {estados.map((estado) => (
@@ -663,6 +731,40 @@ export const MIR = () => {
                     </FormControl>
                   </Tooltip>
                 </Grid>
+                {localStorage.getItem("Rol") === "Administrador" && (
+                  <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
+                    <IconButton
+                   // disabled ={estadomir === "Todos" && institucionesb === "Todos" }
+                      onClick={() => {
+                        buscador(estadomir, institucionesb);
+                      }}
+                    >
+                      <SearchIcon
+                        sx={{
+                          fontSize: "24px", // Tamaño predeterminado del icono
+                          "@media (max-width: 600px)": {
+                            fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                          },
+                          "@media (min-width: 601px) and (max-width: 960px)": {
+                            fontSize: 20, // Pantalla pequeña (md)
+                          },
+                          "@media (min-width: 961px) and (max-width: 1280px)": {
+                            fontSize: 20, // Pantalla mediana (lg)
+                          },
+                          "@media (min-width: 1281px)": {
+                            fontSize: 25, // Pantalla grande (xl)
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: 25, // Pantalla grande (xl)
+                          },
+                        }}
+                        onClick={() => {
+                          // Acciones adicionales al hacer clic en el ícono de búsqueda
+                        }}
+                      ></SearchIcon>
+                    </IconButton>
+                  </Grid>
+                )}
               </Grid>
 
               <Grid

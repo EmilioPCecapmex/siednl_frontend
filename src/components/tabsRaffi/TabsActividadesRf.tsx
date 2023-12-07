@@ -29,7 +29,7 @@ export const TabActividadRf = ({
   MIR,
   MA,
   RF,
-  componentes,
+
   asignarCValor,
   compAct,
   valoresComponenteRFFnc,
@@ -42,7 +42,7 @@ export const TabActividadRf = ({
   MA: string;
   MIR: string;
   RF: string;
-  componentes: number[];
+  
   asignarCValor: Function;
   compAct: Array<IComponenteActividad>;
   valoresComponenteRFFnc: Function;
@@ -52,11 +52,7 @@ export const TabActividadRf = ({
   setTxtShowFnc: Function;
   raffiboolean: IRFEdit;
 }) => {
-  const componenteActividad = [
-    {
-      componentes: componentes.map((x) => compAct),
-    },
-  ];
+  
 
   const [componentesActividadesValues, setComponentesActividadesValues] =
     useState<Array<IComponenteRF>>(ComponentesRF);
@@ -146,6 +142,7 @@ export const TabActividadRf = ({
         alertaError("No aplica");
     }
     setComponentesActividadesValues([...componentesActividadesValues]);
+    console.log("componentesActividadesValues-changeformula: ", componentesActividadesValues);
   };
   const [open, setOpen] = useState(0);
 
@@ -217,9 +214,9 @@ export const TabActividadRf = ({
     );
     setElementoFormula(
       "C" +
-        (componenteSelect + 1).toString() +
+        (componenteSelect ).toString() +
         "A" +
-        (actividadSelect + 1).toString()
+        (actividadSelect ).toString()
     );
     setOpenFormulaDialog(true);
   };

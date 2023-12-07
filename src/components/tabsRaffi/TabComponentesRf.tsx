@@ -25,14 +25,14 @@ export const TabComponenteRf = ({
   RF,
   showMirFnc,
   setTxtShowFnc,
-  setAIcomponentesPadre,
+  setRFcomponentesPadre,
   ComponentesRF,
   raffiboolean,
 }: {
   MA: string;
   MIR: string;
   RF: string;
-  setAIcomponentesPadre: Function;
+  setRFcomponentesPadre: Function;
   ComponentesRF: IComponenteRF[];
   showMirFnc: Function;
   setTxtShowFnc: Function;
@@ -115,7 +115,7 @@ export const TabComponenteRf = ({
   let jsonRF = RF === "" ? "" : JSON.parse(RF);
 
   useEffect(() => {
-    setAIcomponentesPadre(componentesValues);
+    setRFcomponentesPadre(componentesValues);
     //setComponentes(componentesValues);
   }, [componentesValues]);
 

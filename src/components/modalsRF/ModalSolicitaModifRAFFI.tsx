@@ -93,19 +93,19 @@ export default function ModalSolicitaModifRF({
   ////////////////////////////////////////////7
   const checkMA = (v: string) => {
     errores = [];
-    if (jsonRF?.fin === null) {
-      err = 1;
-      errores.push("Sección <strong>Fin</strong> incompleta.");
-    }
-    if (validaCadena(jsonRF?.fin.añoAvanceFisico)) {
-      err = 1;
-      errores.push("<strong>Fin</strong> Año del Avance Fisico: incompleta.");
-    }
+    // if (jsonRF?.fin === null) {
+    //   err = 1;
+    //   errores.push("Sección <strong>Fin</strong> incompleta.");
+    // }
+    // if (validaCadena(jsonRF?.fin.añoAvanceFisico)) {
+    //   err = 1;
+    //   errores.push("<strong>Fin</strong> Año del Avance Fisico: incompleta.");
+    // }
 
-    if (validaCadena(jsonRF?.fin.valorAvanceFisico)) {
-      err = 1;
-      errores.push("<strong>Fin</strong> Valor del Avance Fisico: incompleta.");
-    }
+    // if (validaCadena(jsonRF?.fin.valorAvanceFisico)) {
+    //   err = 1;
+    //   errores.push("<strong>Fin</strong> Valor del Avance Fisico: incompleta.");
+    // }
 
     if (jsonRF?.proposito === null) {
       err = 1;

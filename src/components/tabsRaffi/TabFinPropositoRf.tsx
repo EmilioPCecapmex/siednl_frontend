@@ -13,8 +13,8 @@ import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import { IFinRF, IPropositoRF, IRFEdit } from "./interfacesRaffi";
 
 export function TabFinPropositoRF({
-  setAIFinPadre,
-  setAIPropositoPadre,
+  setRFFinPadre,
+  setRFPropositoPadre,
   MIR,
   finRF,
   propositoRF,
@@ -22,8 +22,8 @@ export function TabFinPropositoRF({
   setTxtShowFnc,
   raffiboolean,
 }: {
-  setAIFinPadre: Function;
-  setAIPropositoPadre: Function;
+  setRFFinPadre: Function;
+  setRFPropositoPadre: Function;
   MIR: string;
   finRF: IFinRF;
   propositoRF: IPropositoRF;
@@ -79,11 +79,11 @@ export function TabFinPropositoRF({
   }, []);
 
   useEffect(() => {
-    setAIPropositoPadre(proposito);
+    setRFPropositoPadre(proposito);
   }, [proposito]);
 
   useEffect(() => {
-    setAIFinPadre(fin);
+    setRFFinPadre(fin);
   }, [fin]);
 
   const assignValue = (valor: string, elemento: string, tipo: string) => {
