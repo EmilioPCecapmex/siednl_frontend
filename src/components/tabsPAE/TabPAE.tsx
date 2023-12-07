@@ -45,8 +45,11 @@ export const TabPAE = ({
   const [openVisualizador, setOpenVisualizador] = useState(false);
   const [infoFile, setInfoFile] = useState<IInfoFile>({ nombre: "", ruta: "" });
 
+  const actuaizarDatos=()=>{console.log("actualice datos");
+  getListaPae(listaDeAnios[componenteSelect].toString(), setRegistros);}
+
   useEffect(() => {
-    getListaPae(listaDeAnios[componenteSelect].toString(), setRegistros);
+    actuaizarDatos();
   }, [componenteSelect]);
 
   useEffect(() => {
@@ -80,7 +83,7 @@ export const TabPAE = ({
 
   const saveEditedDate = (id: string, rowIndex: number) => {
     setEditMode(registrosFiltrados.map(() => false));
-    modifyPAE("FechaCaptura", editedDate[rowIndex], id);
+    modifyPAE("FechaCaptura", editedDate[rowIndex], id).then(()=>{actuaizarDatos()});
     setBanderaEdit(true);
   };
 
@@ -237,7 +240,7 @@ export const TabPAE = ({
             xs={11}
             sx={{display:"flex",height:"5vh",justifyContent:"flex-end"}}
           >
-            <DialogCargaArchivo Tabs={Tabs.filter((tab)=>tab!=="Todos los Documentos")} Tab={TabSelect==="Todos los Documentos"?Tabs[1]:TabSelect}></DialogCargaArchivo>
+            <DialogCargaArchivo Tabs={Tabs.filter((tab)=>tab!=="Todos los Documentos")} Tab={TabSelect==="Todos los Documentos"?Tabs[1]:TabSelect} updateData={()=>actuaizarDatos()}/>
           </Grid>
            
               : ""}
@@ -445,9 +448,7 @@ export const TabPAE = ({
                                 </IconButton>
                               </span>
                             </Tooltip>
-                            <DeleteDialogPAE
-                                id={row.Id}
-                              />
+                            <DeleteDialogPAE id={row.Id} updateData={()=>{actuaizarDatos()}}/>
                           </TableCell>
                         </TableRow>
 

@@ -10,7 +10,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { queries } from "../../queries";
 
-export function DialogCargaArchivo({ Tabs, Tab }: { Tabs: string[], Tab: string }) {
+export function DialogCargaArchivo({ Tabs, Tab, updateData }: { Tabs: string[], Tab: string, updateData:Function  }) {
 
   const [open, setOpen] = useState(false);
   const [tabSelected, setTabSelected] = useState(Tab);
@@ -28,10 +28,15 @@ export function DialogCargaArchivo({ Tabs, Tab }: { Tabs: string[], Tab: string 
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  
+  const actualizarDatos=()=>{
+    updateData();
+    setOpen(false);
+  }
 
   const handleClickAddPDF = () => {
     if (fileInputRef.current) {
-      guardarDoc({ archivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0], nombreArchivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0].name }, "2022" + "/" + tabSelected.replaceAll(" ", "_"),fechaEdit);
+      guardarDoc({ archivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0], nombreArchivo: (fileInputRef.current.children[0] as HTMLInputElement).files![0].name }, "2022" + "/" + tabSelected.replaceAll(" ", "_"),fechaEdit).then(()=>actualizarDatos());
       fileInputRef.current.click();
     }
   };
@@ -162,20 +167,11 @@ export function DialogCargaArchivo({ Tabs, Tab }: { Tabs: string[], Tab: string 
 
 export const DeleteDialogPAE = ({
   id,
+  updateData
 }: {
   id: string;
+  updateData:Function;
 }) => {
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 5000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
 
   const [open, setOpen] = React.useState(false);
 
@@ -184,6 +180,7 @@ export const DeleteDialogPAE = ({
   };
 
   const handleClose = () => {
+    updateData();
     setOpen(false);
   };
 
@@ -266,8 +263,8 @@ export const DeleteDialogPAE = ({
 
           <Button
             onClick={() => {
-              deletePAE(id);
-              handleClose();
+              deletePAE(id).then(()=>handleClose());
+              
             }}
             sx ={queries.buttonContinuarSolicitudInscripcion}
             autoFocus

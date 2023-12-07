@@ -66,7 +66,7 @@ export const modifyPAE = (
   Campo: string,
   Id: string
 ) => {
-  axios
+  return axios
     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/modify-pae", {
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export const modifyPAE = (
 };
 
 export const deletePAE = (id:string) => {
-  axios
+  return axios
     .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-pae", {
       data: {
         Id: id,
@@ -121,7 +121,7 @@ export const guardarDoc = (
   dataArray.append("FILE", url);
   dataArray.append("TOKEN", localStorage.getItem("jwtToken") || "");
 
-  axios
+  return axios
     .post(
       process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/SaveFile",
       dataArray,
