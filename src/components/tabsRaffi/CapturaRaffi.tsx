@@ -1,33 +1,26 @@
-import { Tabs, Tab, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { TabComponenteRf } from "./TabComponentesRf";
 import { TabActividadRf } from "./TabsActividadesRf";
 
+import GenericTabs from "../genericComponents/genericTabs";
 import {
   IActividad,
   IComponente,
   IComponenteActividad,
   IMIR,
 } from "../tabsMir/interfaces mir/IMIR";
-import TabResumenMIR from "../modalsRF/ModalResumenRF";
+import { TabAvanceFinanciero, VPTrimestral, VPTrimestralboolean, VTrimestral, VTrimestralboolean } from "./TabAvanceFinanciero";
 import { TabFinPropositoRF } from "./TabFinPropositoRf";
-import { TabAvanceFinanciero } from "./TabAvanceFinanciero";
 import { TabResumenRF } from "./TabResumenRF";
 import {
+  IActividadesRF,
   IAvanceFinancieroRF,
-  IPropositoRF,
+  IComponenteRF,
   IFinRF,
   IRF,
-  IComponenteRF,
-  IFinRFEdit,
-  IRFEdit,
-  IActividadesRF,
+  IRFEdit
 } from "./interfacesRaffi";
-import { VTrimestral, VPTrimestral, VTrimestralboolean, VPTrimestralboolean } from "./TabAvanceFinanciero";
-import GenericTabs from "../genericComponents/genericTabs";
-import { Raffi } from "../../screens/raffi/Raffi";
 
 const tabs = [
   "Avance Financiero",
@@ -124,6 +117,9 @@ function newRaffi(MIR: string) {
     componentes: componentes?.map((item) => newComponenteRF(item)),
   };
 }
+
+
+
 
 export function avanceFinancieroRFboolean() {
   return {
@@ -289,7 +285,7 @@ export default function CapturaRaffi({
     console.log("RF: ",RF);
     console.log("MIR: ",MIR);
     
-   
+    
 
     if (RF !== "") {
       let auxArrayRF = JSON.parse(RF);

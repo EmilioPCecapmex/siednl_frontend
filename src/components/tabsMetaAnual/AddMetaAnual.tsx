@@ -1,31 +1,18 @@
-/* eslint-disable array-callback-return */
-import React, { useEffect, useState } from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import { TabFinPropositoMA } from "./TabFinPropositoMA";
 import { Grid, useMediaQuery } from "@mui/material";
-import { TabComponenteMA } from "./TabComponente";
-import { TabActividadesMA } from "./TabActividades";
-import { IFinMA, IPropositoMA } from "./IFin";
-import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
-import TabResumenMA, { IComponenteEditMA } from "./TabResumenMA";
+import React, { useEffect, useState } from "react";
+import GenericTabs from "../genericComponents/genericTabs";
 import {
   IActividad,
   IComponente,
-  IComponenteActividad,
-  IMIR,
+  IMIR
 } from "../tabsMir/interfaces mir/IMIR";
-import TabResumenMIR from "../modalsMA/ModalResumenMA";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import {
-  actividadesObligatorias,
-  componentesObligatorios,
-} from "../../services/statesGlobals";
+import { IFinMA, IPropositoMA } from "./IFin";
 import { IMA, IMAEdit } from "./IMA";
-import { alertaError } from "../genericComponents/Alertas";
-import { isValidIMA } from "../../funcs/ValidatorMA";
-import GenericTabs from "../genericComponents/genericTabs";
+import { IActividadesMA, IComponenteMA } from "./Interfaces";
+import { TabActividadesMA } from "./TabActividades";
+import { TabComponenteMA } from "./TabComponente";
+import { TabFinPropositoMA } from "./TabFinPropositoMA";
+import TabResumenMA, { IComponenteEditMA } from "./TabResumenMA";
 
 const tabs = ["Fin / Propósito", "Componentes", "Actividades", "Resumen"];
 
