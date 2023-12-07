@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 import { MostrarArchivos } from "../../screens/Ayuda/MostrarArchivos";
 import { IInfoFile } from "../../screens/Ayuda/VisualizadorAyudas";
 import SliderProgress from "../genericComponents/SliderProgress";
-import { DialogCargaArchivo } from "./DialogCargaArchivo";
+import { DialogCargaArchivo, DeleteDialogPAE } from "./DialogCargaArchivo";
 import { getListaPae, modifyPAE } from "./Services/ServicesPAE";
 
 export const TabPAE = ({
@@ -36,6 +36,7 @@ export const TabPAE = ({
     Ruta: string;
     PerteneceA: string;
     FechaCreacion: string;
+    FechaPublicacion: string;
   }
 
   const [componenteSelect, setComponenteSelect] = useState(0);
@@ -49,9 +50,11 @@ export const TabPAE = ({
   }, [componenteSelect]);
 
   useEffect(() => {
+    
     setRegistrosFiltrados(registros)
+    
     if (TabSelect !== "Todos los Documentos") {
-      let aux = registros.filter((registro) => { return registro.PerteneceA === TabSelect })
+      let aux = registros.filter((registro) => {return registro.PerteneceA === TabSelect })
       setRegistrosFiltrados(aux)
     }
     setProgressBar(false)
@@ -59,13 +62,13 @@ export const TabPAE = ({
 
 
   const [editMode, setEditMode] = useState(registrosFiltrados.map(() => false));
-  const [editedDate, setEditedDate] = useState(registrosFiltrados.map((row) => row.FechaCreacion));
+  const [editedDate, setEditedDate] = useState(registrosFiltrados.map((row) => row.FechaPublicacion));
   const [banderaEdit, setBanderaEdit] = useState(false);
 
   const handleDoubleClick = (rowIndex: number) => {
     const updatedEditModes = [...editMode];
     updatedEditModes[rowIndex] = true;
-    setEditedDate(registrosFiltrados.map((row) => row.FechaCreacion.substring(0, 10)));
+    setEditedDate(registrosFiltrados.map((row) => row.FechaPublicacion.substring(0, 10)));
     setEditMode(updatedEditModes);
   };
 
@@ -92,6 +95,12 @@ export const TabPAE = ({
       id: "Titulo",
       isNumeric: true,
       label: "TÍTULO ARCHIVO",
+    },
+
+    {
+      id: "Apartado",
+      isNumeric: true,
+      label: "APARTADO",
     },
 
     {
@@ -300,6 +309,18 @@ export const TabPAE = ({
                           >
                             {row.Nombre}
                           </TableCell>
+                          <TableCell
+                            sx={{
+                              padding: "1px 15px 1px 0",
+                              fontFamily: "MontserratRegular",
+                              fontSize: ["15","15","15","15","15",],
+                            }}
+                            align="center"
+                            component="th"
+                            scope="row"
+                          >
+                            {row.PerteneceA}
+                          </TableCell>
                           {localStorage.getItem("Rol") === "Administrador" ?
                             <>
                               {editMode[index] ? (
@@ -359,7 +380,7 @@ export const TabPAE = ({
                                     title="DA DOBLE CLICK PARA EDITAR"
                                   >
                                     <span>
-                                      {banderaEdit ? editedDate[index] : row.FechaCreacion.substring(0, 10)}
+                                      {banderaEdit ? editedDate[index] : row.FechaPublicacion.substring(0, 10)}
                                     </span>
                                   </Tooltip>
                                 </TableCell>
@@ -376,7 +397,7 @@ export const TabPAE = ({
                               component="th"
                               scope="row"
                             >
-                              {row.FechaCreacion.substring(0, 10)}
+                              {row.FechaPublicacion.substring(0, 10)}
                             </TableCell>
                           }
                           <TableCell
@@ -424,6 +445,9 @@ export const TabPAE = ({
                                 </IconButton>
                               </span>
                             </Tooltip>
+                            <DeleteDialogPAE
+                                id={row.Id}
+                              />
                           </TableCell>
                         </TableRow>
 
@@ -452,6 +476,7 @@ export interface IIPAE {
   MIR: string;
   Estado: string;
   FechaCreacion: string;
+  FechaPublicacion: string;
   CreadoPor: string;
   Conac: string;
   Consecutivo: String;

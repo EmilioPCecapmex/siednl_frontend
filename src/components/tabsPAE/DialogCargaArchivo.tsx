@@ -1,13 +1,20 @@
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Input, TextField, Tooltip, useMediaQuery, useTheme } from "@mui/material";
+import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Input, TextField, Tooltip, useMediaQuery, useTheme, Typography } from "@mui/material";
 import { useRef, useState } from "react";
-import { guardarDoc } from "./Services/ServicesPAE";
+import { guardarDoc,deletePAE } from "./Services/ServicesPAE";
+
+import * as React from "react";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { queries } from "../../queries";
 
 export function DialogCargaArchivo({ Tabs, Tab }: { Tabs: string[], Tab: string }) {
 
   const [open, setOpen] = useState(false);
   const [tabSelected, setTabSelected] = useState(Tab);
-  const 
+  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -73,7 +80,7 @@ export function DialogCargaArchivo({ Tabs, Tab }: { Tabs: string[], Tab: string 
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label={"UNIDAD RESPONSABLE"}
+                  label={"APARTADO"}
                   variant="standard"
                   InputLabelProps={{
                     style: {
@@ -121,10 +128,10 @@ export function DialogCargaArchivo({ Tabs, Tab }: { Tabs: string[], Tab: string 
           </DialogContent>
           <DialogActions>
             <Button autoFocus onClick={handleClose}>
-              Disagree
+              Cancelar
             </Button>
             <Button onClick={()=>handleClickAddPDF()} autoFocus>
-              Agree
+              Cargar
             </Button>
           </DialogActions>
         </Dialog>
@@ -135,3 +142,127 @@ export function DialogCargaArchivo({ Tabs, Tab }: { Tabs: string[], Tab: string 
 
   )
 }
+
+export const DeleteDialogPAE = ({
+  id,
+}: {
+  id: string;
+}) => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  
+
+  return (
+    <Grid>
+      <Tooltip title="ELIMINAR">
+        <span>
+          <IconButton onClick={handleClickOpen}>
+            <DeleteIcon
+              sx={{
+                fontSize: "24px", // Tamaño predeterminado del icono
+
+                "@media (max-width: 600px)": {
+                  fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                },
+
+                "@media (min-width: 601px) and (max-width: 960px)":
+                  {
+                    fontSize: 20, // Pantalla pequeña (md)
+                  },
+
+                  "@media (min-width: 961px) and (max-width: 1280px)": {
+                    fontSize: 20, // Pantalla mediana (lg)
+                  },
+
+                "@media (min-width: 1281px)": {
+                  fontSize: 25, // Pantalla grande (xl)
+                },
+
+                "@media (min-width: 2200px)": {
+                  ffontSize: 25, // Pantalla grande (xl)
+                },
+              }}
+            />
+          </IconButton>
+        </span>
+      </Tooltip>
+      <Dialog fullWidth open={open} onClose={handleClose}>
+        <Grid
+          sx={{
+            width: "100%",
+            height: "5vh",
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            borderBottom: 0.5,
+            borderColor: "#ccc",
+            gridShadow: 1,
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "MontserratSemiBold",
+              width: "90%",
+              fontSize: "1vw",
+              textAlign: "center",
+            }}
+          >
+            ¿Desea eliminar elemento?
+          </Typography>
+        </Grid>
+
+        <DialogActions
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Button  sx ={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
+            <Typography
+              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+            >
+              Cancelar
+            </Typography>
+          </Button>
+
+          <Button
+            onClick={() => {
+              deletePAE(id);
+              handleClose();
+            }}
+            sx ={queries.buttonContinuarSolicitudInscripcion}
+            autoFocus
+          >
+            <Typography
+              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+            >
+              De Acuerdo
+            </Typography>
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Grid>
+  );
+};

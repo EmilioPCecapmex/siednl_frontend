@@ -85,6 +85,25 @@ export const modifyPAE = (
     });
 };
 
+export const deletePAE = (id:string) => {
+  axios
+    .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-pae", {
+      data: {
+        Id: id,
+        ModificadoPor: localStorage.getItem("IdUsuario"),
+      },
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
+    .then((r) => {
+      alertaExito(() => {}, "Documento eliminado correctamente");
+    })
+    .catch((err) => {
+      alertaError("Error al eliminar documento.");
+});
+};
+
 export const guardarDoc = (
   archivo: { archivo: File; nombreArchivo: string },
   perteneceA: string
