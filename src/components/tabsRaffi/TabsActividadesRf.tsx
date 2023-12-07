@@ -90,7 +90,7 @@ export const TabActividadRf = ({
   }
 
   const changeFormula = (txt: string) => {
-    console.log("txt: ", txt);
+    console.log("tipoFormula: ", tipoFormula);
 
     switch (frecuencia) {
       case "trimestre1":

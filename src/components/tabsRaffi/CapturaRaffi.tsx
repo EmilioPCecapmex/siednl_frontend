@@ -289,7 +289,7 @@ export default function CapturaRaffi({
     console.log("RF: ",RF);
     console.log("MIR: ",MIR);
     
-    console.log("JSON.parse(RF): ",JSON.parse(RF));
+   
 
     if (RF !== "") {
       let auxArrayRF = JSON.parse(RF);
