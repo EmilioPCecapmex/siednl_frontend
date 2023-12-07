@@ -215,15 +215,10 @@ export default function AddFichaTecnica({
     setValue(newValue);
   };
 
-  const cambiarTab = (option: string) => {
-    if (option === "adelante") {
-      if (value < 50) setValue(value + 10);
-    } else {
-      if (value > 10) setValue(value - 10);
-    }
-  };
+
 
   const jsonMir = JSON.parse(MIR);
+  
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
   const [ftPadre, setFTPadre] = useState<IFT>(newFichaTecnica(MIR));

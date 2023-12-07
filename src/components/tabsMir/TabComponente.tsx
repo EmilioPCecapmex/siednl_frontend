@@ -182,13 +182,8 @@ export const TabComponente = ({
           <AddCircleIcon fontSize="large" />
         </IconButton>
 
-        <DeleteCompActMir
-          tipoelemento={"componente"}
-          numerocomponente={componentSelect}
-          numeroactividad={0}
-          functelim={eliminarComponente}
-          idMir={idMir}
-        />
+       
+        
 
         {/* <IconButton
           onClick={() => {

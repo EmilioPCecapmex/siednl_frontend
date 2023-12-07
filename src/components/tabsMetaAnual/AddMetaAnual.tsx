@@ -1,67 +1,20 @@
-/* eslint-disable array-callback-return */
-import React, { useEffect, useState } from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import { TabFinPropositoMA } from "./TabFinPropositoMA";
 import { Grid, useMediaQuery } from "@mui/material";
-import { TabComponenteMA } from "./TabComponente";
-import { TabActividadesMA } from "./TabActividades";
-import { IFinMA, IPropositoMA } from "./IFin";
-import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
-import TabResumenMA, { IComponenteEditMA } from "./TabResumenMA";
+import React, { useEffect, useState } from "react";
+import GenericTabs from "../genericComponents/genericTabs";
 import {
   IActividad,
   IComponente,
-  IComponenteActividad,
-  IMIR,
+  IMIR
 } from "../tabsMir/interfaces mir/IMIR";
-import TabResumenMIR from "../modalsMA/ModalResumenMA";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import {
-  actividadesObligatorias,
-  componentesObligatorios,
-} from "../../services/statesGlobals";
+import { IFinMA, IPropositoMA } from "./IFin";
 import { IMA, IMAEdit } from "./IMA";
-import { alertaError } from "../genericComponents/Alertas";
-import { isValidIMA } from "../../funcs/ValidatorMA";
-import GenericTabs from "../genericComponents/genericTabs";
+import { IActividadesMA, IComponenteMA } from "./Interfaces";
+import { TabActividadesMA } from "./TabActividades";
+import { TabComponenteMA } from "./TabComponente";
+import { TabFinPropositoMA } from "./TabFinPropositoMA";
+import TabResumenMA, { IComponenteEditMA } from "./TabResumenMA";
 
 const tabs = ["Fin / Propósito", "Componentes", "Actividades", "Resumen"];
-
-function getNumComponents(MIR: string) {
-  let aux = JSON.parse(MIR).componentes?.length;
-
-  let arrayComponents = [];
-  for (let i = 0; i < aux; i++) {
-    arrayComponents.push(i + 1);
-  }
-  //getNumActividades(MIR)
-
-  return arrayComponents;
-}
-
-function getNumActividades(MIR: string, indexComponente: number) {
-  let aux = JSON.parse(MIR).componentes;
-
-  let arrayActividades: number[] = [];
-
-  aux.map((componente: IComponente, indexC: number) => {
-    if (indexComponente === indexC) {
-      componente.actividades.map((actividad: IActividad, index: number) => {
-        arrayActividades.push(index + 1);
-      });
-    }
-  });
-
-  // for (let i = 0; i < aux; i++) {
-  //   arrayComponents.push(i + 1);
-
-  // }
-  //getNumActividades(MIR)
-
-  return arrayActividades;
-}
 
 export function newFinPropositoMA() {
   return {
@@ -237,13 +190,7 @@ export default function AddMetaAnual({
     newMetaAnualboolean(MIR)
   );
 
-  // useEffect(() => {
-
-  //   //getNumComponents();
-
-  //   //setMAPadre({ ...maPadre, componentes: arrComponentes });
-  //   //setMAPadre({...maPadre,componentes: });
-  // }, []);
+ 
 
   const [value, setValue] = React.useState(0);
 
@@ -294,6 +241,11 @@ export default function AddMetaAnual({
   const [editMA, setEditMA] = useState(false);
 
   useEffect(() => {
+    console.log("ENTRE");
+    console.log("MA: ",MA);
+
+    console.log("JSON.parse(MA): ",JSON.parse(MA));
+    
     if (MA !== "") {
       let auxArrayMA = JSON.parse(MA);
       if (auxArrayMA[1]) {

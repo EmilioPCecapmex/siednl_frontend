@@ -27,6 +27,7 @@ import {
   newFinPropositoMA,
 } from "../tabsMetaAnual/AddMetaAnual";
 import { alertaEliminar, alertaExito } from "../genericComponents/Alertas";
+import { IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
 
 export let errores: string[] = [];
 
@@ -51,15 +52,19 @@ export default function ModalEnviarMIR({
 }) {
   const [ma, setMA] = useState<IMA>();
   const [ft, setFT] = useState<IFT>();
+  const [rf, setRF] = useState<IRF>();
 
   const [Idma, setIdMA] = useState("");
   const [Idft, setIdFT] = useState("");
+  const [Idrf, setIdRF] = useState("");
 
   useEffect(() => {
     if (estadoMIR === "Autorizada") {
-      getMAyFT(IdMir, setMA, setFT, setIdMA, setIdFT);
+      getMAyFT(IdMir, setMA, setFT, setRF, setIdMA, setIdFT, setIdRF);
     }
-  }, []);
+    console.log("Idma: ",Idma);
+    
+  }, [Idma]);
 
   ///////////////////////////////////////////////////////////////////////////////////////////
   const removeComponenteFT = (componenteSelected: number) => {
@@ -125,6 +130,38 @@ export default function ModalEnviarMIR({
       return { ...ma, componentes: arrComponentes };
     }
     return ma;
+  };
+
+  const removeComponenteRF = (componenteSelected: number) => {
+    if (rf) {
+      let arrComponentes: IComponenteRF[] = rf.componentes.filter(
+        (componente) =>
+          !componente.componentes.includes(`C${componenteSelected}`)
+      );
+
+      arrComponentes = arrComponentes.map((componente, index) => {
+        if (
+          parseInt(componente.componentes.split("C")[1]) >= componenteSelected
+        ) {
+          let aux = {
+            ...componente,
+            componentes: `C${index + 1}`,
+            actividades: componente.actividades.map((item) => {
+              return {
+                ...item,
+                actividad: item.actividad.replace(/C\d+/, `C${index + 1}`),
+              };
+            }),
+          };
+
+          return aux;
+        } else return componente;
+      });
+
+      setRF({ ...rf, componentes: arrComponentes });
+      return { ...rf, componentes: arrComponentes };
+    }
+    return rf;
   };
   ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -494,9 +531,9 @@ export default function ModalEnviarMIR({
       }
     );
     if (err === 0) {
-      if (estadoMIR === "Autorizada" && IdMir && IdMir!=="") {
+      if (estadoMIR === "Autorizada" && IdMir && IdMir !== "") {
         mirFuncionAutorizada();
-      }else{
+      } else {
         createMIR(v);
       }
     } else {
@@ -539,7 +576,7 @@ export default function ModalEnviarMIR({
   //     )
   //     .then((r) => {
   //       userXInst.map((user) => {
-         
+
   //         enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
   //         //sendMail(user.CorreoElectronico, enviarMensaje, "MA");
   //       });
@@ -582,7 +619,7 @@ export default function ModalEnviarMIR({
       .then((r) => {
         userXInst.map((user) => {
           //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
-         
+
           //sendMail(user.CorreoElectronico, enviarMensaje, "MIR");
           enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
         });
@@ -648,7 +685,6 @@ export default function ModalEnviarMIR({
         .then((r) => {
           if (r.status === 200) {
             setUserXInst(r.data.data);
-            
           }
         });
     }
@@ -659,7 +695,6 @@ export default function ModalEnviarMIR({
     IdDoc = "",
     Nombre = ""
   ) => {
-   
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
 
@@ -693,23 +728,26 @@ export default function ModalEnviarMIR({
   const mirFuncionAutorizada = () => {
     let auxMA: string;
     let auxFT: string;
-    
-  
+    let auxRF: string;
+
     if (ft !== null || ft !== undefined) {
       auxFT = JSON.stringify(ft);
-     
     } else {
       auxFT = "";
     }
 
-     if (ma !== null || ma !== undefined || ma === "null" ) {
+    if (ma !== null || ma !== undefined || ma === "null") {
       auxMA = JSON.stringify(ma);
-     
     } else {
       auxMA = "";
     }
 
-    
+    if (rf !== null || rf !== undefined || rf === "null") {
+      auxRF = JSON.stringify(rf);
+    } else {
+      auxRF = "";
+    }
+
     mDocumentos.map((item) => {
       if (item.movimiento === "remove") {
         auxMA = JSON.stringify(
@@ -718,31 +756,38 @@ export default function ModalEnviarMIR({
         auxFT = JSON.stringify(
           removeComponenteFT(Number(item.indice.split("C")[1]))
         );
+        auxRF = JSON.stringify(
+          removeComponenteRF(Number(item.indice.split("C")[1]))
+        );
       }
     });
 
-    axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/update-info",
-      {
-        IdMir: IdMir,
-        IdMa: Idma,
-        IdFT: Idft,
-        MIR: MIR,
-        Estado:estadoMIR,
-        MA: auxMA,
-        FT: auxFT,
-        Rol: localStorage.getItem("Rol"),
-        CreadoPor: localStorage.getItem("IdUsuario"),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
+    axios
+      .post(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/update-info",
+        {
+          IdMir: IdMir,
+          IdMa: Idma,
+          IdFT: Idft,
+          MIR: MIR,
+          Estado: estadoMIR,
+          MA: auxMA,
+          FT: auxFT,
+          Rol: localStorage.getItem("Rol"),
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdRF: Idrf,
+          RF: auxRF,
         },
-      }
-    ).then(()=>{
-      alertaExito(()=>{});
-      showResume();
-    });
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then(() => {
+        alertaExito(() => {});
+        showResume();
+      });
   };
 
   return (
@@ -835,7 +880,6 @@ export default function ModalEnviarMIR({
             <Button
               sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
-
                 checkMir(
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
@@ -849,8 +893,6 @@ export default function ModalEnviarMIR({
                 setNewComent(false);
 
                 RestructuraMAyFT();
-
-                
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>

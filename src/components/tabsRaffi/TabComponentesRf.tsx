@@ -1,23 +1,22 @@
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import {
-  TextField,
-  ListItemButton,
-  Typography,
   Divider,
-  List,
   Grid,
-  Tooltip,
   InputLabel,
+  List,
+  ListItemButton,
+  TextField,
+  Tooltip,
+  Typography,
   useMediaQuery,
 } from "@mui/material";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useEffect, useState } from "react";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 //import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
-import { IComponenteRF, IFrecuencias, IRFEdit } from "./interfacesRaffi";
 import { queries } from "../../queries";
-import { Raffi } from "../../screens/raffi/Raffi";
 import { alertaError } from "../genericComponents/Alertas";
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
+import { IComponenteRF, IRFEdit } from "./interfacesRaffi";
 
 export const TabComponenteRf = ({
   MIR,
@@ -25,14 +24,14 @@ export const TabComponenteRf = ({
   RF,
   showMirFnc,
   setTxtShowFnc,
-  setAIcomponentesPadre,
+  setRFcomponentesPadre,
   ComponentesRF,
   raffiboolean,
 }: {
   MA: string;
   MIR: string;
   RF: string;
-  setAIcomponentesPadre: Function;
+  setRFcomponentesPadre: Function;
   ComponentesRF: IComponenteRF[];
   showMirFnc: Function;
   setTxtShowFnc: Function;
@@ -115,7 +114,7 @@ export const TabComponenteRf = ({
   let jsonRF = RF === "" ? "" : JSON.parse(RF);
 
   useEffect(() => {
-    setAIcomponentesPadre(componentesValues);
+    setRFcomponentesPadre(componentesValues);
     //setComponentes(componentesValues);
   }, [componentesValues]);
 

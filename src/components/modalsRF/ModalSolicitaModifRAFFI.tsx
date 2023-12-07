@@ -13,30 +13,45 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-
+import { validaCadena } from "../../services/validations";
+import { queries } from "../../queries";
+import {
+  IActividadesRF,
+  IComponenteRF,
+  IRF,
+} from "../tabsRaffi/interfacesRaffi";
 export let errores: string[] = [];
 
-export default function ModalSolicitaModif({
+export default function ModalSolicitaModifRF({
   open,
   handleClose,
+  RF,
   MA,
   MIR,
   IdMA,
-  IdMIR,
+  IdRF,
   showResume,
-  MAEdit,
+  RFEdit,
 }: {
   open: boolean;
   handleClose: Function;
-  showResume: Function;
+  RF: string;
   MA: string;
   MIR: string;
   IdMA: string;
-  IdMIR: string;
-  MAEdit: string;
+  IdRF: string;
+  showResume: Function;
+  RFEdit: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
+
+  let jsonRF: IRF =
+    RF === ""
+      ? ""
+      : JSON.parse(RF).length > 1
+      ? JSON.parse(RF)[0]
+      : JSON.parse(RF);
 
   const [comment, setComment] = useState("");
   const comentMA = (id: string) => {
@@ -78,164 +93,35 @@ export default function ModalSolicitaModif({
   ////////////////////////////////////////////7
   const checkMA = (v: string) => {
     errores = [];
-    if (JSON.parse(MA)?.fin === null) {
+    // if (jsonRF?.fin === null) {
+    //   err = 1;
+    //   errores.push("Sección <strong>Fin</strong> incompleta.");
+    // }
+    // if (validaCadena(jsonRF?.fin.añoAvanceFisico)) {
+    //   err = 1;
+    //   errores.push("<strong>Fin</strong> Año del Avance Fisico: incompleta.");
+    // }
+
+    // if (validaCadena(jsonRF?.fin.valorAvanceFisico)) {
+    //   err = 1;
+    //   errores.push("<strong>Fin</strong> Valor del Avance Fisico: incompleta.");
+    // }
+
+    if (jsonRF?.proposito === null) {
       err = 1;
-      errores.push("Sección <strong>Fin</strong> incompleta.");
+      errores.push("Sección <strong>Proposito</strong> incompleta.");
     }
-    if (
-      JSON.parse(MA)?.fin.metaAnual === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.fin.metaAnual)
-    ) {
-      err = 1;
-      errores.push("<strong>Fin</strong>: RAFFI sin información");
-    }
-    if (
-      JSON.parse(MA)?.fin.lineaBase === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.fin.lineaBase)
-    ) {
-      err = 1;
-      errores.push("<strong>Fin</strong>: Línea base sin información");
-    }
-    if (
-      JSON.parse(MA)?.fin.valorNumerador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.fin.valorNumerador)
-    ) {
-      err = 1;
-      errores.push("<strong>Fin</strong>: Valor del numerador sin información");
-    }
-    if (
-      JSON.parse(MA)?.fin.valorDenominador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador)
-    ) {
+    if (validaCadena(jsonRF?.proposito.añoAvanceFisico)) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Valor del denominador sin información"
+        "<strong>Proposito</strong> Año del Avance Fisico: incompleta."
       );
     }
-    if (
-      JSON.parse(MA)?.fin.sentidoDelIndicador === undefined ||
-      JSON.parse(MA)?.fin.sentidoDelIndicador === ""
-    ) {
+
+    if (validaCadena(jsonRF?.proposito.valorAvanceFisico)) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Sentido del indicador no seleccionado"
-      );
-    }
-    if (
-      JSON.parse(MA)?.fin.unidadResponsable === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.fin.unidadResponsable)
-    ) {
-      err = 1;
-      errores.push(
-        "<strong>Fin</strong>: Unidad responsable de reportar el indicador sin información"
-      );
-    }
-    if (
-      JSON.parse(MA)?.fin.descIndicador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.fin.descIndicador)
-    ) {
-      err = 1;
-      errores.push(
-        "<strong>Fin</strong>: Descripción del indicador sin información"
-      );
-    }
-    if (
-      JSON.parse(MA)?.fin.descNumerador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.fin.descNumerador)
-    ) {
-      err = 1;
-      errores.push(
-        "<strong>Fin</strong>: Descripción del numerador sin información"
-      );
-    }
-    if (
-      JSON.parse(MA)?.fin.descDenominador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.fin.descDenominador)
-    ) {
-      err = 1;
-      errores.push(
-        "<strong>Fin</strong>: Descripción del denominador sin información"
-      );
-    }
-    if (JSON.parse(MA)?.proposito === null) {
-      err = 1;
-      errores.push("Sección <strong>Propósito</strong> incompleta.");
-    }
-    if (
-      JSON.parse(MA)?.proposito.metaAnual === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.proposito.metaAnual)
-    ) {
-      err = 1;
-      errores.push("<strong>Proposito</strong>: RAFFI sin información");
-    }
-    if (
-      JSON.parse(MA)?.proposito.lineaBase === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.proposito.lineaBase)
-    ) {
-      err = 1;
-      errores.push("<strong>Proposito</strong>: Línea base sin información");
-    }
-    if (
-      JSON.parse(MA)?.proposito.valorNumerador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorNumerador)
-    ) {
-      err = 1;
-      errores.push(
-        "<strong>Proposito</strong>: Valor del numerador sin información"
-      );
-    }
-    if (
-      JSON.parse(MA)?.proposito.valorDenominador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorDenominador)
-    ) {
-      err = 1;
-      errores.push(
-        "<strong>Proposito</strong>: Valor del denominador sin información"
-      );
-    }
-    if (
-      JSON.parse(MA)?.proposito.sentidoDelIndicador === undefined ||
-      JSON.parse(MA)?.proposito.sentidoDelIndicador === ""
-    ) {
-      err = 1;
-      errores.push(
-        "<strong>Proposito</strong>: Sentido del indicador no seleccionado"
-      );
-    }
-    if (
-      JSON.parse(MA)?.proposito.unidadResponsable === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.proposito.unidadResponsable)
-    ) {
-      err = 1;
-      errores.push(
-        "<strong>Proposito</strong>: Unidad responsable de reportar el indicador sin seleccionar"
-      );
-    }
-    if (
-      JSON.parse(MA)?.proposito.descIndicador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descIndicador)
-    ) {
-      err = 1;
-      errores.push(
-        "<strong>Proposito</strong>: Descripción del indicador sin información"
-      );
-    }
-    if (
-      JSON.parse(MA)?.proposito.descNumerador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descNumerador)
-    ) {
-      err = 1;
-      errores.push(
-        "<strong>Proposito</strong>: Descripción del numerador sin información"
-      );
-    }
-    if (
-      JSON.parse(MA)?.proposito.descDenominador === undefined ||
-      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descDenominador)
-    ) {
-      err = 1;
-      errores.push(
-        "<strong>Proposito</strong>: Descripción del denominador sin información"
+        "<strong>Proposito</strong> Valor del Avance Fisico: incompleta."
       );
     }
 
@@ -243,29 +129,7 @@ export default function ModalSolicitaModif({
   };
   /////////////////////////////////////////////////////////////////////
   const checkComponentes = (v: string) => {
-    JSON.parse(MA)?.componentes.every((componente: any, index: number) => {
-      if (
-        componente.metaAnual === undefined ||
-        /^[\s]*$/.test(componente.metaAnual) ||
-        componente.metaAnual === null
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${index + 1} </strong>: RAFFI sin información.`
-        );
-      }
-
-      if (
-        componente.lineaBase === undefined ||
-        /^[\s]*$/.test(componente.lineaBase)
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Línea base sin información.`
-        );
-      }
+    jsonRF.componentes.map((componente: IComponenteRF, index: number) => {
       if (
         (componente.metasPorFrecuencia[0].semestre1 === undefined ||
           /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1) ||
@@ -287,88 +151,6 @@ export default function ModalSolicitaModif({
           } </strong>: Metas por frecuencia sin información.`
         );
       }
-      if (
-        componente.valorNumerador === undefined ||
-        /^[\s]*$/.test(componente.valorNumerador)
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Valor del numerador sin información.`
-        );
-      }
-      if (
-        JSON.parse(MIR)
-          .fin.indicador.toLowerCase()
-          .includes("indice" || "índice") &&
-        (componente.valorDenominador === undefined ||
-          /^[\s]*$/.test(componente.valorDenominador))
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Valor del denominador sin información.`
-        );
-      }
-      if (
-        componente.sentidoDelIndicador === undefined ||
-        componente.sentidoDelIndicador === ""
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Sentido del indicador sin seleccionar.`
-        );
-      }
-      if (
-        componente.unidadResponsable === undefined ||
-        /^[\s]*$/.test(componente.unidadResponsable)
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
-        );
-      }
-      if (
-        componente.descIndicador === undefined ||
-        /^[\s]*$/.test(componente.descIndicador)
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Descripción del indicador sin información.`
-        );
-      }
-      if (
-        componente.descNumerador === undefined ||
-        /^[\s]*$/.test(componente.descNumerador)
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Descripción del numerador sin información.`
-        );
-      }
-      if (
-        componente.descDenominador === undefined ||
-        /^[\s]*$/.test(componente.descDenominador)
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Descripción del denominador sin información.`
-        );
-      }
-
-      return true;
     });
 
     checkActividades(v);
@@ -376,114 +158,30 @@ export default function ModalSolicitaModif({
   ///////////////////////////////////////////////////////////////////
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
-    JSON.parse(MA)?.actividades.every((actividad: any, index: number) => {
-      if (
-        actividad.metaAnual === undefined ||
-        /^[\s]*$/.test(actividad.metaAnual)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: RAFFI sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.lineaBase === undefined ||
-        /^[\s]*$/.test(actividad.lineaBase)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Línea base sin información.`
-        );
-        err = 1;
-      }
-      if (
-        (actividad.metasPorFrecuencia[0].semestre1 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre1) ||
-          actividad.metasPorFrecuencia[0].semestre2 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre2)) &&
-        (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
+    jsonRF.componentes.map((componente: IComponenteRF, index: number) => {
+      componente.actividades.map((actividad: IActividadesRF, index: number) => {
+        if (
+          actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
           /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
           actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
           /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2) ||
           actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
           /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3) ||
           actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4))
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Metas por frecuencia sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.valorNumerador === undefined ||
-        /^[\s]*$/.test(actividad.valorNumerador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Valor del numerador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        !JSON.parse(MIR)
-          .actividades[index].indicador.toLowerCase()
-          .includes("indice" || "índice") &&
-        (actividad.valorDenominador === undefined ||
-          /^[\s]*$/.test(actividad.valorDenominador))
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.sentidoDelIndicador === undefined ||
-        actividad.sentidoDelIndicador === ""
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Sentido del indicador sin seleccionar.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.unidadResponsable === undefined ||
-        /^[\s]*$/.test(actividad.unidadResponsable)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.descIndicador === undefined ||
-        /^[\s]*$/.test(actividad.descIndicador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del indicador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.descNumerador === undefined ||
-        /^[\s]*$/.test(actividad.descNumerador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del numerador sin información.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.descDenominador === undefined ||
-        /^[\s]*$/.test(actividad.descDenominador)
-      ) {
-        errores.push(
-          `<strong> Actividad ${actividad.actividad} </strong>: Descripción del denominador sin información.`
-        );
-        err = 1;
-      }
+          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4)
+        ) {
+          err = 1;
+          errores.push(
+            `<strong> Actividad ${
+              index + 1
+            } </strong>: Metas por frecuencia sin información.`
+          );
+        }
+      });
     });
     //////////////////////////////////////////777
     if (err === 0) {
-      createMA(v);
+      creaRF(v);
     } else {
       Toast.fire({
         icon: "error",
@@ -501,8 +199,7 @@ export default function ModalSolicitaModif({
     }
   };
   ///////////////////////////////////////////////////////////////////////
-  const createMA = (estado: string) => {
-  
+  const creaRF = (estado: string) => {
     if (estado === "Autorizada" && userSelected !== "0") {
       estado = "En Revisión";
     } else if (estado === "En Autorización" && userSelected !== "0") {
@@ -510,20 +207,20 @@ export default function ModalSolicitaModif({
     }
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-raffi",
         {
-          MetaAnual:
-            MAEdit === undefined || MAEdit === ""
+          Raffi:
+            RFEdit === undefined || RFEdit === ""
               ? MA
-              : "[" + MA + "," + MAEdit + "]",
+              : "[" + MA + "," + RFEdit + "]",
           // MetaAnual: MA,
           CreadoPor:
             userSelected !== "0"
               ? userSelected
               : localStorage.getItem("IdUsuario"),
-          IdMir: IdMIR,
+          IdMa: IdMA,
+          Id: IdRF,
           Estado: estado,
-          Id: IdMA,
           Rol: localStorage.getItem("Rol"),
         },
         {
@@ -534,7 +231,7 @@ export default function ModalSolicitaModif({
       )
       .then((r) => {
         if (comment !== "") {
-          comentMA(IdMIR);
+          comentMA(IdRF);
         }
         Toast.fire({
           icon: "success",
@@ -557,18 +254,30 @@ export default function ModalSolicitaModif({
   };
 
   useEffect(() => {
+    let tipousuario = "";
+
+    if (localStorage.getItem("Rol") === "Capturador")
+      tipousuario = "Verificador";
+    if (localStorage.getItem("Rol") === "Verificador")
+      tipousuario = "Verificador";
+    if (localStorage.getItem("Rol") === "Administrador")
+      tipousuario = "VERIFICADOR_CAPTURADOR";
+
     if (open) {
       axios
-        .get(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", {
-          params: {
-            TipoUsuario: localStorage.getItem("Rol"),
+        .post(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
+          {
+            TipoUsuario: tipousuario,
             IdEntidad: localStorage.getItem("IdEntidad"),
-            IdApp: localStorage.getItem("dApp"),
+            IdApp: localStorage.getItem("IdApp"),
           },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        })
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
         .then((r) => {
           if (r.status === 200) {
             setUserXInst(r.data.data);
@@ -705,9 +414,12 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              sx={{ display: "flex", width: "10vw" }}
+              sx={{
+                ...queries.buttonCancelarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               variant="contained"
-              color="error"
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -716,9 +428,11 @@ export default function ModalSolicitaModif({
             </Button>
 
             <Button
-              sx={{ display: "flex", width: "10vw" }}
-              variant="contained"
-              color="primary"
+              sx={{
+                ...queries.buttonContinuarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"

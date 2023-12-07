@@ -36,6 +36,8 @@ import EditIcon from "@mui/icons-material/Edit";
 //import CommentIcon from "@mui/icons-material/Comment";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
+import { IEntidad } from "../../components/appsDialog/AppsDialog";
+import { buscador } from "../../services/servicesGlobals";
 
 const estados = [
   "Todos",
@@ -43,6 +45,8 @@ const estados = [
   "En Revisión",
   "En Autorización",
   "Autorizada",
+  "Borrador Autorizador",
+  "Borrador Verificador",
   "Sin Asignar",
 ];
 
@@ -99,7 +103,7 @@ export const Raffi = () => {
   const [rfFiltered, setRfFiltered] = useState<Array<IRaffi>>([]);
   const [rfxFiltered, setRfxFiltered] = useState<Array<IRaffi>>([]);
   const [rfEdit, setRfEdit] = useState<Array<IRaffi>>([]);
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
   const [validaFecha, setValidaFecha] = useState(true);
 
   const [findTextStr, setFindTextStr] = useState("");
@@ -111,11 +115,18 @@ export const Raffi = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
+  const [estadorf, setEstadoRF] = useState("Todos");
+  const [institucionesb, setInstitucionesb] = useState("Todos");
+
   useEffect(() => {
-    validaFechaCaptura();
+    
+    if(opentabs){
+      listaRaffi(setRf, estadorf);
+      validaFechaCaptura();
     setOpenTabs(true);
-    listaRaffi(setRf);
-  }, []);
+    }
+    
+  }, [opentabs]);
 
   useEffect(() => {
     setRfFiltered(rf);
@@ -242,6 +253,7 @@ export const Raffi = () => {
   useEffect(() => {
     validaFechaCaptura();
     getInstituciones(setInstituciones);
+    console.log("instituciones: ");
   }, []);
 
   const handleChange = (dato: string) => {
@@ -501,7 +513,7 @@ export const Raffi = () => {
                         //textAlign: "center",
                         fontSize: [10, 10, 15, 15, 18, 20],
                       }}
-                      value={findInstStr}
+                      value={institucionesb}
                       onChange={(v) => {
                         // v.target.value === "Todos"
                         //   ? findText(
@@ -510,11 +522,11 @@ export const Raffi = () => {
                         //       "0"
                         //     )
                         //   : findText(findTextStr, findSelectStr, v.target.value);
-                        setFindInstStr(v.target.value);
+                        setInstitucionesb(v.target.value);
                       }}
                     >
                       <MenuItem
-                        value={"Todos"}
+                        value={institucionesb}
                         sx={{ fontFamily: "MontserratRegular" }}
                       >
                         Todos
@@ -522,11 +534,8 @@ export const Raffi = () => {
 
                       {instituciones?.map((item) => {
                         return (
-                          <MenuItem
-                            value={item.NombreInstitucion}
-                            key={item.Id}
-                          >
-                            {item.NombreInstitucion}
+                          <MenuItem value={item.Nombre} key={item.Id}>
+                            {item.Nombre.toUpperCase()}
                           </MenuItem>
                         );
                       })}
@@ -563,7 +572,12 @@ export const Raffi = () => {
                         fontSize: [10, 10, 15, 15, 18, 20],
                         // Tamaños de fuente para diferentes breakpoints
                       }}
-                      value={findSelectStr}
+                      value={
+                        localStorage.getItem("Rol") === "Administrador" ||
+                        localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          ? estadorf
+                          : findSelectStr
+                      }
                       onChange={(v) => {
                         // v.target.value === "Todos"
                         //   ? findText(
@@ -572,7 +586,14 @@ export const Raffi = () => {
                         //       findInstStr === "Todos" ? "0" : findInstStr
                         //     )
                         //   : findText(findTextStr, v.target.value, findInstStr);
-                        setFindSelectStr(v.target.value);
+                        if (
+                          localStorage.getItem("Rol") === "Administrador" ||
+                          localStorage.getItem("Rol") === "ADMINISTRADOR"
+                        ) {
+                          setEstadoRF(v.target.value);
+                        } else {
+                          setFindSelectStr(v.target.value);
+                        }
                       }}
                     >
                       {estados.map((estado) => (
@@ -583,7 +604,49 @@ export const Raffi = () => {
                     </Select>
                   </FormControl>
                 </Grid>
+
+                {localStorage.getItem("Rol") === "Administrador" && (
+                  <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
+                    <IconButton
+                      // disabled ={estadoma === "Todos" && institucionesb === "Todos" }
+                      onClick={() => {
+                        buscador(
+                          estadorf,
+                          institucionesb,
+                          setRf,
+                          "list-raffis"
+                        );
+                      }}
+                    >
+                      <SearchIcon
+                        sx={{
+                          fontSize: "24px", // Tamaño predeterminado del icono
+                          "@media (max-width: 600px)": {
+                            fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                          },
+                          "@media (min-width: 601px) and (max-width: 960px)": {
+                            fontSize: 20, // Pantalla pequeña (md)
+                          },
+                          "@media (min-width: 961px) and (max-width: 1280px)": {
+                            fontSize: 20, // Pantalla mediana (lg)
+                          },
+                          "@media (min-width: 1281px)": {
+                            fontSize: 25, // Pantalla grande (xl)
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: 25, // Pantalla grande (xl)
+                          },
+                        }}
+                        onClick={() => {
+                          // Acciones adicionales al hacer clic en el ícono de búsqueda
+                        }}
+                      ></SearchIcon>
+                    </IconButton>
+                  </Grid>
+                )}
               </Grid>
+
+              
             </Grid>
             {/* TABLA */}
             <Grid
@@ -696,7 +759,18 @@ export const Raffi = () => {
                                 textAlign: "center",
                               }}
                             >
-                              {row.Estado}
+                              {(row.Estado === "En Captura" &&
+                              localStorage.getItem("Rol") === "Capturador"
+                                ? "Borrador Capturador"
+                                : row.Estado === "En Revisión" &&
+                                  localStorage.getItem("Rol") === "Verificador"
+                                ? "Esperando revisión"
+                                : row.Estado === "En Autorización" &&
+                                  localStorage.getItem("Rol") ===
+                                    "Administrador"
+                                ? "En Autorización"
+                                : row.Estado
+                              ).toUpperCase()}
                             </TableCell>
                             <TableCell
                               sx={{
@@ -730,7 +804,7 @@ export const Raffi = () => {
                                 textAlign: "center",
                               }}
                             >
-                              {row.Estado !== "Sin Asignar" && (
+                              {row.Estado !== ("Sin Asignar" || "SIN ASIGNAR") && (
                                 <Tooltip title="EDITAR">
                                   <IconButton
                                     disabled={!validaFecha}

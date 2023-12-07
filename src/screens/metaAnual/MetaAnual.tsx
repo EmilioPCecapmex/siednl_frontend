@@ -30,6 +30,7 @@ import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import { queries } from "../../queries";
+import { buscador } from "../../services/servicesGlobals";
 import SearchIcon from "@mui/icons-material/Search";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
@@ -41,6 +42,9 @@ const estados = [
   "En Revisión",
   "En Autorización",
   "Autorizada",
+  "Borrador Autorizador",
+  "Borrador Verificador",
+  //"Borrador Capturador"
 ];
 
 interface Head {
@@ -134,22 +138,10 @@ export const MetaAnual = () => {
 
   const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
 
+  const [estadoma, setEstadoMA] = useState("Todos");
+  const [institucionesb, setInstitucionesb] = useState("Todos");
+
   const getInstituciones = (setstate: Function) => {
-    // axios
-    //   .get(process.env.REACT_APP_APPLICATION_BACK + "/api/usuarioInsitucion", {
-    //     params: {
-    //       IdUsuario: localStorage.getItem("IdUsuario"),
-    //       Rol: localStorage.getItem("Rol"),
-    //     },
-    //     headers: {
-    //       Authorization: localStorage.getItem("jwtToken") || "",
-    //     },
-    //   })
-    //   .then((r) => {
-    //     if (r.status === 200) {
-    //       setstate(r.data.data);
-    //     }
-    //   });
     axios
       .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
         params: {
@@ -161,7 +153,28 @@ export const MetaAnual = () => {
         },
       })
       .then((r) => {
-        setstate(r.data.data);
+        if (r.status === 200) {
+          let aux = r.data.data;
+
+          aux.unshift({
+            ClaveSiregob: null,
+            ControlInterno: "",
+            Direccion: "",
+            EntidadPerteneceA: "",
+            FechaCreacion: "",
+            Id: "",
+            IdEntidadPerteneceA: "",
+            IdTipoEntidad: "",
+            IdTitular: null,
+            Nombre: "TODOS",
+            NombreTipoEntidad: "",
+            Telefono: "",
+            Titular: "",
+            UltimaActualizacion: "",
+          });
+
+          setstate(aux);
+        }
       });
   };
 
@@ -232,16 +245,12 @@ export const MetaAnual = () => {
     const fullMA = [JSON.parse(MIR), JSON.parse(MetaAnual)];
 
     axios
-      .post(
-        process.env.REACT_APP_APPLICATION_FILL + "/api/fill_ma",
-        fullMA,
-        {
-          responseType: "blob",
-          // headers: {
-          //   Authorization: localStorage.getItem("jwtToken") || "",
-          // },
-        }
-      )
+      .post(process.env.REACT_APP_APPLICATION_FILL + "/api/fill_ma", fullMA, {
+        responseType: "blob",
+        // headers: {
+        //   Authorization: localStorage.getItem("jwtToken") || "",
+        // },
+      })
       .then((r) => {
         Toast.fire({
           icon: "success",
@@ -370,6 +379,7 @@ export const MetaAnual = () => {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdEntidad: localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
+          Estado: estadoma || "",
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -588,15 +598,15 @@ export const MetaAnual = () => {
                           //textAlign: "center",
                           fontSize: [10, 10, 15, 15, 18, 20],
                         }}
-                        value={findInstStr}
+                        value={institucionesb}
                         // sx={{ fontFamily: "MontserratRegular" }}
 
                         onChange={(v) => {
-                          setFindInstStr(v.target.value);
+                          setInstitucionesb(v.target.value);
                         }}
                       >
                         <MenuItem
-                          value={"Todos"}
+                          value={institucionesb}
                           sx={{ fontFamily: "MontserratRegular" }}
                         >
                           TODOS
@@ -647,7 +657,12 @@ export const MetaAnual = () => {
                         fontSize: [10, 10, 15, 15, 18, 20],
                         // Tamaños de fuente para diferentes breakpoints
                       }}
-                      value={findSelectStr}
+                      value={
+                        localStorage.getItem("Rol") === "Administrador" ||
+                        localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          ? estadoma
+                          : findSelectStr
+                      }
                       onChange={(v) => {
                         // v.target.value === "Todos"
                         //   ? findText(
@@ -656,7 +671,14 @@ export const MetaAnual = () => {
                         //       findInstStr === "Todos" ? "0" : findInstStr
                         //     )
                         //   : findText(findTextStr, v.target.value, findInstStr);
-                        setFindSelectStr(v.target.value);
+                        if (
+                          localStorage.getItem("Rol") === "Administrador" ||
+                          localStorage.getItem("Rol") === "ADMINISTRADOR"
+                        ) {
+                          setEstadoMA(v.target.value);
+                        } else {
+                          setFindSelectStr(v.target.value);
+                        }
                       }}
                     >
                       {estados.map((estado) => (
@@ -667,6 +689,46 @@ export const MetaAnual = () => {
                     </Select>
                   </FormControl>
                 </Grid>
+
+                {localStorage.getItem("Rol") === "Administrador" && (
+                  <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
+                    <IconButton
+                      // disabled ={estadoma === "Todos" && institucionesb === "Todos" }
+                      onClick={() => {
+                        buscador(
+                          estadoma,
+                          institucionesb,
+                          setMa,
+                          "list-metaAnual"
+                        );
+                      }}
+                    >
+                      <SearchIcon
+                        sx={{
+                          fontSize: "24px", // Tamaño predeterminado del icono
+                          "@media (max-width: 600px)": {
+                            fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                          },
+                          "@media (min-width: 601px) and (max-width: 960px)": {
+                            fontSize: 20, // Pantalla pequeña (md)
+                          },
+                          "@media (min-width: 961px) and (max-width: 1280px)": {
+                            fontSize: 20, // Pantalla mediana (lg)
+                          },
+                          "@media (min-width: 1281px)": {
+                            fontSize: 25, // Pantalla grande (xl)
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: 25, // Pantalla grande (xl)
+                          },
+                        }}
+                        onClick={() => {
+                          // Acciones adicionales al hacer clic en el ícono de búsqueda
+                        }}
+                      ></SearchIcon>
+                    </IconButton>
+                  </Grid>
+                )}
               </Grid>
 
               <Grid
