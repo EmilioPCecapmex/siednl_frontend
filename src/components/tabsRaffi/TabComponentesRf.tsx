@@ -118,25 +118,33 @@ export const TabComponenteRf = ({
     //setComponentes(componentesValues);
   }, [componentesValues]);
 
+  const getValueOperacion=(txt:string)=>{
+    if(tipoFormula==="Índice"){
+      return(txt)
+    }
+    return(txt.split(",")[2])
+  }
+
   const changeFormula = (txt: string) => {
     console.log("txt: ", txt);
 
     switch (frecuencia) {
       case "semestre1":
         componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
-          txt.split(",")[0];
+        getValueOperacion(txt);
         componentesValues[componentSelect].numeradorPorFrecuencia[0].semestre1 =
           txt.split(",")[0];
         break;
       case "semestre2":
         componentesValues[componentSelect].metasPorFrecuencia[0].semestre2 =
-          txt.split(",")[0];
+        getValueOperacion(txt);
         componentesValues[componentSelect].numeradorPorFrecuencia[0].semestre2 =
           txt.split(",")[0];
         break;
       case "trimestre1":
         componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
-          txt.split(",")[2];
+        getValueOperacion(txt);
+        // componentesActividadesValues[
         componentesValues[
           componentSelect
         ].numeradorPorFrecuencia[0].trimestre1 = txt.split(",")[0];
@@ -146,7 +154,8 @@ export const TabComponenteRf = ({
         break;
       case "trimestre2":
         componentesValues[componentSelect].metasPorFrecuencia[0].trimestre2 =
-          txt.split(",")[2];
+        getValueOperacion(txt);
+        // componentesActividadesValues[
         componentesValues[
           componentSelect
         ].numeradorPorFrecuencia[0].trimestre2 = txt.split(",")[0];
@@ -156,7 +165,8 @@ export const TabComponenteRf = ({
         break;
       case "trimestre3":
         componentesValues[componentSelect].metasPorFrecuencia[0].trimestre3 =
-          txt.split(",")[2];
+        getValueOperacion(txt);
+        // componentesActividadesValues[
         componentesValues[
           componentSelect
         ].numeradorPorFrecuencia[0].trimestre3 = txt.split(",")[0];
@@ -166,7 +176,8 @@ export const TabComponenteRf = ({
         break;
       case "trimestre4":
         componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
-          txt.split(",")[2];
+        getValueOperacion(txt);
+        // componentesActividadesValues[
         componentesValues[
           componentSelect
         ].numeradorPorFrecuencia[0].trimestre4 = txt.split(",")[0];

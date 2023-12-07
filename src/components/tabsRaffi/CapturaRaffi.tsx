@@ -431,6 +431,7 @@ export default function CapturaRaffi({
 
             {value === 1 && (
               <TabFinPropositoRF
+               
                 setRFFinPadre={setRFFinPadre}
                 setRFPropositoPadre={setRFPropositoPadre}
                 MIR={MIR}
