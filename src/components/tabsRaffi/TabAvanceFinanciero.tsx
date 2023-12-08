@@ -95,6 +95,7 @@ export const VPTrimestralboolean = {
 
 export function TabAvanceFinanciero({
   //show,
+  edit,
   resumenAvanceFinancieroRf,
   MIR,
   MA,
@@ -102,6 +103,7 @@ export function TabAvanceFinanciero({
   setAvanceFinancieroRF,
   raffiboolean,
 }: {
+  edit: boolean;
   // show : boolean;
   resumenAvanceFinancieroRf: Function;
   MIR: string;

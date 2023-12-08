@@ -111,6 +111,7 @@ export default function ModalSolicitaModifRF({
       err = 1;
       errores.push("Sección <strong>Proposito</strong> incompleta.");
     }
+    
     if (validaCadena(jsonRF?.proposito.añoAvanceFisico)) {
       err = 1;
       errores.push(

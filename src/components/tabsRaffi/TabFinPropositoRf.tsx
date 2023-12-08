@@ -13,6 +13,7 @@ import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import { IFinRF, IPropositoRF, IRFEdit } from "./interfacesRaffi";
 
 export function TabFinPropositoRF({
+  edit,
   setRFFinPadre,
   setRFPropositoPadre,
   MIR,
@@ -22,6 +23,7 @@ export function TabFinPropositoRF({
   setTxtShowFnc,
   raffiboolean,
 }: {
+  edit:boolean;
   setRFFinPadre: Function;
   setRFPropositoPadre: Function;
   MIR: string;
@@ -220,6 +222,7 @@ export function TabFinPropositoRF({
           >
             <Grid mt={{ lg: 2 }} mb={{ lg: 2 }} item lg={6}>
               <TextField
+                disabled={edit && raffiboolean?.fin?.añoAvanceFisico}
                 fullWidth
                 size="small"
                 label="Año del Avance Fisico"
@@ -249,6 +252,7 @@ export function TabFinPropositoRF({
 
             <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
               <TextField
+              
                 fullWidth
                 size="small"
                 //label="Operacion"
@@ -270,6 +274,7 @@ export function TabFinPropositoRF({
 
             <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
               <TextField
+                disabled={edit && raffiboolean?.fin?.valorAvanceFisico}
                 fullWidth
                 size="small"
                 label="Valor del Avance Fisico"
@@ -327,6 +332,7 @@ export function TabFinPropositoRF({
           >
             <Grid mt={{ lg: 2 }} mb={{ lg: 2 }} item lg={6}>
               <TextField
+                disabled={edit && raffiboolean?.proposito?.añoAvanceFisico}
                 fullWidth
                 size="small"
                 label="Año del Avance Fisico"
@@ -376,6 +382,7 @@ export function TabFinPropositoRF({
 
             <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
               <TextField
+                disabled={edit && raffiboolean?.proposito?.valorAvanceFisico}
                 fullWidth
                 size="small"
                 label="Valor del Avance Fisico"
