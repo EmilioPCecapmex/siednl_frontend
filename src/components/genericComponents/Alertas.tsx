@@ -28,6 +28,13 @@ export function alertaError(titulo = "Movimiento fallido") {
   });
 }
 
+export function alertaInfo(titulo = "Movimiento exitoso") {
+  return Toast.fire({
+    icon: "info",
+    title: titulo,
+  });
+}
+
 export function alertaEliminar(fnc:Function){
   fnc();
 }
