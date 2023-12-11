@@ -251,9 +251,11 @@ export function DialogCargaArchivo({
             </Tooltip>
           </DialogContent>
           <DialogActions>
+
             <Button className="cancelar" autoFocus onClick={handleClose}>
               Cancelar
             </Button>
+            
             <Button
               className="aceptar"
               onClick={() => handleClickAddPDF()}
