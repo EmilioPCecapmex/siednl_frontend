@@ -17,6 +17,7 @@ import { queries } from "../../queries";
 import { alertaError } from "../genericComponents/Alertas";
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import { IComponenteRF, IRFEdit } from "./interfacesRaffi";
+import { getValueOperacion } from "../../services/validations";
 
 export const TabComponenteRf = ({
   MIR,
@@ -118,12 +119,7 @@ export const TabComponenteRf = ({
     //setComponentes(componentesValues);
   }, [componentesValues]);
 
-  const getValueOperacion=(txt:string)=>{
-    if(tipoFormula==="Índice"){
-      return(txt)
-    }
-    return(txt.split(",")[2])
-  }
+  
 
   const changeFormula = (txt: string) => {
     console.log("txt: ", txt);
@@ -131,19 +127,19 @@ export const TabComponenteRf = ({
     switch (frecuencia) {
       case "semestre1":
         componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
-        getValueOperacion(txt);
+        getValueOperacion(txt, tipoFormula);
         componentesValues[componentSelect].numeradorPorFrecuencia[0].semestre1 =
           txt.split(",")[0];
         break;
       case "semestre2":
         componentesValues[componentSelect].metasPorFrecuencia[0].semestre2 =
-        getValueOperacion(txt);
+       getValueOperacion(txt, tipoFormula);
         componentesValues[componentSelect].numeradorPorFrecuencia[0].semestre2 =
           txt.split(",")[0];
         break;
       case "trimestre1":
         componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
-        getValueOperacion(txt);
+       getValueOperacion(txt, tipoFormula);
         // componentesActividadesValues[
         componentesValues[
           componentSelect
@@ -154,7 +150,7 @@ export const TabComponenteRf = ({
         break;
       case "trimestre2":
         componentesValues[componentSelect].metasPorFrecuencia[0].trimestre2 =
-        getValueOperacion(txt);
+       getValueOperacion(txt, tipoFormula);
         // componentesActividadesValues[
         componentesValues[
           componentSelect
@@ -165,7 +161,7 @@ export const TabComponenteRf = ({
         break;
       case "trimestre3":
         componentesValues[componentSelect].metasPorFrecuencia[0].trimestre3 =
-        getValueOperacion(txt);
+       getValueOperacion(txt, tipoFormula);
         // componentesActividadesValues[
         componentesValues[
           componentSelect
@@ -176,7 +172,7 @@ export const TabComponenteRf = ({
         break;
       case "trimestre4":
         componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
-        getValueOperacion(txt);
+       getValueOperacion(txt, tipoFormula);
         // componentesActividadesValues[
         componentesValues[
           componentSelect

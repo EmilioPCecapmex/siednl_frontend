@@ -24,6 +24,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
 import { IRFEdit } from "./interfacesRaffi";
 import { alertaError } from "../genericComponents/Alertas";
+import { getValueOperacion } from "../../services/validations";
 
 export const TabActividadRf = ({
   MIR,
@@ -90,12 +91,7 @@ export const TabActividadRf = ({
     return x;
   }
 
-  const getValueOperacion=(txt:string)=>{
-    if(tipoFormula==="Índice"){
-      return(txt)
-    }
-    return(txt.split(",")[2])
-  }
+  
 
   const changeFormula = (txt: string) => {
     console.log("txt: ", txt);
@@ -106,7 +102,7 @@ export const TabActividadRf = ({
       case "trimestre1":
         componentesActividadesValues[componenteSelect].actividades[
           actividadSelect
-        ].metasPorFrecuencia[0].trimestre1 = getValueOperacion(txt);
+        ].metasPorFrecuencia[0].trimestre1 =getValueOperacion(txt, tipoFormula);
         // componentesActividadesValues[
         //   componenteSelect
         // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
@@ -117,7 +113,7 @@ export const TabActividadRf = ({
       case "trimestre2":
         componentesActividadesValues[componenteSelect].actividades[
           actividadSelect
-        ].metasPorFrecuencia[0].trimestre2 = getValueOperacion(txt);
+        ].metasPorFrecuencia[0].trimestre2 =getValueOperacion(txt, tipoFormula);
         // componentesActividadesValues[
         //   componenteSelect
         // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre2 = txt.split(",")[0];
@@ -128,7 +124,7 @@ export const TabActividadRf = ({
       case "trimestre3":
         componentesActividadesValues[componenteSelect].actividades[
           actividadSelect
-        ].metasPorFrecuencia[0].trimestre3 = getValueOperacion(txt);
+        ].metasPorFrecuencia[0].trimestre3 =getValueOperacion(txt, tipoFormula);
         // componentesActividadesValues[
         //   componenteSelect
         // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre3 = txt.split(",")[0];
@@ -139,7 +135,7 @@ export const TabActividadRf = ({
       case "trimestre4":
         componentesActividadesValues[componenteSelect].actividades[
           actividadSelect
-        ].metasPorFrecuencia[0].trimestre4 = getValueOperacion(txt);
+        ].metasPorFrecuencia[0].trimestre4 =getValueOperacion(txt, tipoFormula);
         // componentesActividadesValues[
         //   componenteSelect
         // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre4 = txt.split(",")[0];
