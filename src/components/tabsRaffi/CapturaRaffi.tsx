@@ -10,7 +10,13 @@ import {
   IComponenteActividad,
   IMIR,
 } from "../tabsMir/interfaces mir/IMIR";
-import { TabAvanceFinanciero, VPTrimestral, VPTrimestralboolean, VTrimestral, VTrimestralboolean } from "./TabAvanceFinanciero";
+import {
+  TabAvanceFinanciero,
+  VPTrimestral,
+  VPTrimestralboolean,
+  VTrimestral,
+  VTrimestralboolean,
+} from "./TabAvanceFinanciero";
 import { TabFinPropositoRF } from "./TabFinPropositoRf";
 import { TabResumenRF } from "./TabResumenRF";
 import {
@@ -19,7 +25,7 @@ import {
   IComponenteRF,
   IFinRF,
   IRF,
-  IRFEdit
+  IRFEdit,
 } from "./interfacesRaffi";
 
 const tabs = [
@@ -118,9 +124,6 @@ function newRaffi(MIR: string) {
   };
 }
 
-
-
-
 export function avanceFinancieroRFboolean() {
   return {
     nombrePrograma: false,
@@ -179,7 +182,7 @@ export function newComponenteRFboolean(ComponenteMIR: IComponente) {
       },
     ],
     actividades: ComponenteMIR.actividades.map((item) =>
-    newActividadesRFboolean(item)
+      newActividadesRFboolean(item)
     ),
   };
 }
@@ -209,8 +212,6 @@ function newRaffiboolean(MIR: string) {
   };
 }
 
-
-
 export default function CapturaRaffi({
   MIR,
   MA,
@@ -232,7 +233,6 @@ export default function CapturaRaffi({
 }) {
   const [value, setValue] = useState(0);
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
- 
 
   const [showMir, setShowMir] = React.useState(false);
   const [showSt, setShowSt] = React.useState("");
@@ -247,7 +247,9 @@ export default function CapturaRaffi({
 
   const [raffi, setRaffi] = useState<IRF>(newRaffi(MIR));
 
-  const [raffiboolean, setRaffiboolean] = useState<IRFEdit>(newRaffiboolean(MIR));
+  const [raffiboolean, setRaffiboolean] = useState<IRFEdit>(
+    newRaffiboolean(MIR)
+  );
 
   const [editRF, setEditRF] = useState(false);
 
@@ -272,20 +274,19 @@ export default function CapturaRaffi({
     });
   };
 
-  const setRFactividadesPadre = (componentesValuesActividades: IComponenteRF[]) => {
+  const setRFactividadesPadre = (
+    componentesValuesActividades: IComponenteRF[]
+  ) => {
     setRaffi({
       ...raffi,
       componentes: componentesValuesActividades,
     });
-    };
-  
-    
+  };
+
   useEffect(() => {
-    console.log("ENTRE");
-    console.log("RF: ",RF);
-    console.log("MIR: ",MIR);
-    
-    
+    // console.log("ENTRE");
+    console.log("RF: ", RF);
+    // console.log("MIR: ", MIR);
 
     if (RF !== "") {
       let auxArrayRF = JSON.parse(RF);
@@ -304,7 +305,9 @@ export default function CapturaRaffi({
               itemComponente.actividades.map((itemActividad, indexA) => {
                 return (
                   auxDBRF.componentes[indexC].actividades[indexA] ||
-                  newActividadesRF(auxMIR.componentes[indexC].actividades[indexA])
+                  newActividadesRF(
+                    auxMIR.componentes[indexC].actividades[indexA]
+                  )
                 );
               });
 
@@ -317,8 +320,8 @@ export default function CapturaRaffi({
           } else {
             return newComponenteRF(auxMIR.componentes[indexC]);
           }
-        }); 
-        
+        });
+
         setRaffiboolean({ ...auxArrayRF[1] });
 
         setRaffi({ ...auxDBRF, componentes: auxComponentes });
@@ -336,7 +339,9 @@ export default function CapturaRaffi({
               itemComponente.actividades.map((itemActividad, indexA) => {
                 return (
                   auxDBRF.componentes[indexC].actividades[indexA] ||
-                  newActividadesRF(auxMIR.componentes[indexC].actividades[indexA])
+                  newActividadesRF(
+                    auxMIR.componentes[indexC].actividades[indexA]
+                  )
                 );
               });
 
@@ -355,9 +360,6 @@ export default function CapturaRaffi({
       }
     }
   }, []);
-
- 
- 
 
   const resumenAvanceFinancieroRf = (st: Array<IAvanceFinancieroRF>) => {
     setAvanceFinanciero(st);
@@ -445,8 +447,7 @@ export default function CapturaRaffi({
 
             {value === 2 && (
               <TabComponenteRf
-               
-                setRFcomponentesPadre = {setRFcomponentesPadre}
+                setRFcomponentesPadre={setRFcomponentesPadre}
                 ComponentesRF={raffi.componentes}
                 MA={MA}
                 MIR={MIR}
@@ -458,9 +459,8 @@ export default function CapturaRaffi({
             )}
             {value === 3 && (
               <TabActividadRf
-              setRFactividadesPadre = {setRFactividadesPadre}
+                setRFactividadesPadre={setRFactividadesPadre}
                 valoresComponenteRFFnc={() => {}}
-               
                 ComponentesRF={raffi.componentes}
                 asignarCValor={() => {}}
                 MA={MA}

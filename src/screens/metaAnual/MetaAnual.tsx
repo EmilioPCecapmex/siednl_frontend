@@ -590,6 +590,13 @@ export const MetaAnual = () => {
                         variant="outlined"
                         fullWidth
                         label="FILTRO POR INSTITUCION"
+                        disabled={
+                          localStorage.getItem("Rol") !== "Administrador"
+                        }
+
+
+
+                        
                         sx={{
                           fontFamily: "MontserratRegular",
                           whiteSpace: "nowrap",
@@ -1038,7 +1045,28 @@ export const MetaAnual = () => {
                                       },
                                     }}
                                     onClick={() => {
-                                      setMaEdit([
+
+                                      let auxArrayMIR = JSON.parse(row.MIR);
+                                      let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0])
+                                      if(auxArrayMIR[1]){
+                                        setMaEdit([
+                                          {
+                                            IdMa: row.IdMa,
+                                            IdMir: row.IdMir,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR: auxArrayMIR2,
+                                            //meta anual completa
+                                            MetaAnual: row.MetaAnual,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
+                                      }else{
+                                        setMaEdit([
                                         {
                                           IdMa: row.IdMa,
                                           IdMir: row.IdMir,
@@ -1054,6 +1082,9 @@ export const MetaAnual = () => {
                                           Opciones: row.Opciones,
                                         },
                                       ]);
+                                      }
+                                      
+
                                       setShowResume(false);
                                       setActionNumber(1);
                                     }}

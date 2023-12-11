@@ -120,8 +120,8 @@ export const TabComponente = ({
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   const eliminarComponente = () => {
-    // removeComponente(componentSelect-1);
-    // setComponentSelect(1);
+    removeComponente(componentSelect-1);
+    setComponentSelect(1);
     if (MIR.componentes.length > 2) {
       removeComponente(componentSelect);
       // let num = MIR.componentes.length
@@ -185,14 +185,15 @@ export const TabComponente = ({
        
         
 
-        {/* <IconButton
+         <IconButton
           onClick={() => {
-            handleClickOpenEliminar();
+           // handleClickOpenEliminar();
+           eliminarComponente()
           }}
           disabled={MIR.componentes.length <= 2}
         >
           <DoDisturbOnIcon fontSize="large" />
-        </IconButton> */}
+        </IconButton> 
       </Grid>
 
       <Grid

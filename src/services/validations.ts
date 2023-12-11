@@ -12,7 +12,7 @@ export const validarNumero = (dato: string, state: any) => {
 
   
   export function validaCadena(cadena: string | null | undefined): boolean {
-    return cadena !== null && cadena !== undefined && typeof cadena === 'string' && cadena.trim() !== "";
+    return cadena !== null && cadena !== undefined && (typeof cadena === 'string') && cadena.trim() !== "";
   }
 
 
@@ -24,4 +24,11 @@ export const validarNumero = (dato: string, state: any) => {
     );
     return "$ " + result;
   };
+
+  export const getValueOperacion=(txt:string, tipoFormula: string)=>{
+    if(tipoFormula==="Índice"){
+      return(txt)
+    }
+    return(txt.split(",")[2])
+  }
   
