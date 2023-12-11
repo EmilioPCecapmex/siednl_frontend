@@ -2,7 +2,7 @@ import { useLayoutEffect } from "react";
 
 import "./App.css";
 import "./Fonts.css";
-
+import "./Globals.css";
 import { Routes, Route, HashRouter } from "react-router-dom";
 import { Home } from "./screens/home/Home";
 import { Settings } from "./screens/config/Settings";

@@ -62,7 +62,7 @@ export default function ModalSolicitaModifRF({
           IdMir: id,
           Coment: comment,
           CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA: "MA",
+          MIR_MA: "RF",
         },
         {
           headers: {
@@ -93,31 +93,30 @@ export default function ModalSolicitaModifRF({
   ////////////////////////////////////////////7
   const checkMA = (v: string) => {
     errores = [];
-    // if (jsonRF?.fin === null) {
-    //   err = 1;
-    //   errores.push("Sección <strong>Fin</strong> incompleta.");
-    // }
+    if (jsonRF?.fin === null) {
+      err = 1;
+      errores.push("Sección <strong>Fin</strong> incompleta.");
+    }
     // if (validaCadena(jsonRF?.fin.añoAvanceFisico)) {
     //   err = 1;
     //   errores.push("<strong>Fin</strong> Año del Avance Fisico: incompleta.");
     // }
 
-    // if (validaCadena(jsonRF?.fin.valorAvanceFisico)) {
-    //   err = 1;
-    //   errores.push("<strong>Fin</strong> Valor del Avance Fisico: incompleta.");
-    // }
+    if (validaCadena(jsonRF?.fin.valorAvanceFisico)) {
+      err = 1;
+      errores.push("<strong>Fin</strong> Valor del Avance Fisico: incompleta.");
+    }
 
     if (jsonRF?.proposito === null) {
       err = 1;
       errores.push("Sección <strong>Proposito</strong> incompleta.");
     }
-    
-    if (validaCadena(jsonRF?.proposito.añoAvanceFisico)) {
-      err = 1;
-      errores.push(
-        "<strong>Proposito</strong> Año del Avance Fisico: incompleta."
-      );
-    }
+    // if (validaCadena(jsonRF?.proposito.añoAvanceFisico)) {
+    //   err = 1;
+    //   errores.push(
+    //     "<strong>Proposito</strong> Año del Avance Fisico: incompleta."
+    //   );
+    // }
 
     if (validaCadena(jsonRF?.proposito.valorAvanceFisico)) {
       err = 1;
@@ -201,19 +200,44 @@ export default function ModalSolicitaModifRF({
   };
   ///////////////////////////////////////////////////////////////////////
   const creaRF = (estado: string) => {
-    if (estado === "Autorizada" && userSelected !== "0") {
+    // if (estado === "Autorizada" && userSelected !== "0") {
+    //   estado = "En Revisión";
+    // } else if (estado === "En Autorización" && userSelected !== "0") {
+    //   estado = "En Captura";
+    // }
+
+    let rolusuario = userXInst.find((user) => user.IdUsuario === userSelected);
+
+    if (
+      estado === "Autorizada" &&
+      userSelected !== "0" &&
+      rolusuario?.Rol === "Verificador"
+    ) {
       estado = "En Revisión";
+    } else if (
+      estado === "En Autorización" &&
+      userSelected !== "0" &&
+      rolusuario?.Rol === "Capturador"
+    ) {
+      estado = "En Captura";
     } else if (estado === "En Autorización" && userSelected !== "0") {
       estado = "En Captura";
+    } else if (
+      estado === "Autorizada" &&
+      userSelected !== "0" &&
+      rolusuario?.Rol === "Capturador"
+    ) {
+      estado = "En Captura";
     }
+
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-raffi",
         {
           Raffi:
             RFEdit === undefined || RFEdit === ""
-              ? MA
-              : "[" + MA + "," + RFEdit + "]",
+              ? RF
+              : "[" + RF + "," + RFEdit + "]",
           // MetaAnual: MA,
           CreadoPor:
             userSelected !== "0"

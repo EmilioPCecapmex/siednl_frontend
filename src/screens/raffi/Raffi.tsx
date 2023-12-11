@@ -38,6 +38,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
 import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
+import { IMIR } from "../../components/tabsMir/interfaces mir/IMIR";
 
 const estados = [
   "Todos",
@@ -807,10 +808,61 @@ export const Raffi = () => {
                               {row.Estado !== ("Sin Asignar" || "SIN ASIGNAR") && (
                                 <Tooltip title="EDITAR">
                                   <IconButton
-                                    disabled={!validaFecha}
+                                    disabled={ 
+                                      (row.Estado === "En Captura" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Capturador") ||
+                                      (row.Estado === "En Revisión" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      (row.Estado === "Borrador Verificador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      ((row.Estado === "En Autorización" ||
+                                        row.Estado === "Autorizada") &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador") ||
+                                      (row.Estado === "Borrador Autorizador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador")
+                                        ? false
+                                        : true
+                                      ||
+                                      !validaFecha}
                                     type="button"
                                     onClick={() => {
-                                      setRfEdit([
+                                      let auxArrayMIR = JSON.parse(row.MIR);
+                                      let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0])
+                                      if(auxArrayMIR[1]){
+                                        setRfEdit([
+                                          {
+                                            IdRaffi: row.IdRaffi,
+                                            IdMir: row.IdMir,
+                                            IdMetaAnual: row.IdMetaAnual,
+                                            RAFFI: row.RAFFI,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            ModificadoPor: row.ModificadoPor,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR: auxArrayMIR2,
+                                            //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+                                            
+                                            MetaAnual: row.MetaAnual,
+                                            Conac: row.Conac,
+                                            Consecutivo: row.Consecutivo,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
+                                      }else{
+                                        setRfEdit([
                                         {
                                           IdRaffi: row.IdRaffi,
                                           IdMir: row.IdMir,
@@ -823,13 +875,18 @@ export const Raffi = () => {
                                           AnioFiscal: row.AnioFiscal,
                                           Entidad: row.Entidad,
                                           Programa: row.Programa,
-                                          MIR: row.MIR,
+                                          MIR: 
+                                          //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+                                          row.MIR,
                                           MetaAnual: row.MetaAnual,
                                           Conac: row.Conac,
                                           Consecutivo: row.Consecutivo,
                                           Opciones: row.Opciones,
                                         },
                                       ]);
+                                      }
+                                      
+
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -887,7 +944,33 @@ export const Raffi = () => {
                                     // disabled={!validaFecha}
                                     type="button"
                                     onClick={() => {
-                                      setRfEdit([
+                                      let auxArrayMIR = JSON.parse(row.MIR);
+                                      let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0])
+                                      if(auxArrayMIR[1]){
+                                        setRfEdit([
+                                          {
+                                            IdRaffi: row.IdRaffi,
+                                            IdMir: row.IdMir,
+                                            IdMetaAnual: row.IdMetaAnual,
+                                            RAFFI: row.RAFFI,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            ModificadoPor: row.ModificadoPor,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR: auxArrayMIR2,
+                                            //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+                                            
+                                            MetaAnual: row.MetaAnual,
+                                            Conac: row.Conac,
+                                            Consecutivo: row.Consecutivo,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
+                                      }else{
+                                        setRfEdit([
                                         {
                                           IdRaffi: row.IdRaffi,
                                           IdMir: row.IdMir,
@@ -900,13 +983,16 @@ export const Raffi = () => {
                                           AnioFiscal: row.AnioFiscal,
                                           Entidad: row.Entidad,
                                           Programa: row.Programa,
-                                          MIR: row.MIR,
+                                          MIR: 
+                                          //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+                                          row.MIR,
                                           MetaAnual: row.MetaAnual,
                                           Conac: row.Conac,
                                           Consecutivo: row.Consecutivo,
                                           Opciones: row.Opciones,
                                         },
                                       ]);
+                                      }
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}

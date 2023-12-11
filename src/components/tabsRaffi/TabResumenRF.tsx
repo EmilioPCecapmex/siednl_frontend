@@ -119,7 +119,7 @@ export const TabResumenRF = ({
         {
           Raffi: JSON.stringify(RF),
           CreadoPor: localStorage.getItem("IdUsuario"),
-          IdMir: IdMir,
+          //IdMir: IdMir,
           IdMa: IdMA,
           Estado: estado,
           Id: IdRF,
@@ -1159,12 +1159,7 @@ export const TabResumenRF = ({
           IdMA={IdMA}
           IdRF={IdRF}
           RFEdit={
-            localStorage.getItem("Rol") === "Capturador"
-              ? ""
-              : JSON.stringify({
-                fin: ""
-                
-              })
+             JSON.stringify(raffiboolean)
           }
         ></ModalSolicitaModifRF> 
         
