@@ -11,6 +11,9 @@ import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
 import { queries } from "../../queries";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import "../../../src/Globals.css"
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
+
 export function TabResumenMA({
   maPadre,
 
@@ -77,17 +80,19 @@ export function TabResumenMA({
         }
       )
       .then((r) => {
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
+        // Toast.fire({
+        //   icon: "success",
+        //   title: r.data.data.message,
+        // });
+        alertaExito(() => {}, r.data.data.message);
         showResume();
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
+        // Toast.fire({
+        //   icon: "error",
+        //   title: err.response.data.result.error,
+        // });
+        alertaError(err.response.data.result.error);
       });
   };
 
@@ -3070,7 +3075,7 @@ export function TabResumenMA({
           xs={12}
         >
           <Button
-            sx={queries.buttonCancelarSolicitudInscripcion}
+            className="cancelar"
             onClick={() => showResume()}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -3090,7 +3095,7 @@ export function TabResumenMA({
         >
           <Button
             disabled={isCapturador ? true : false}
-            sx={buttonStyles}
+            className="aceptar"
             onClick={() => setOpenModalSolicitarModif(true)}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -3109,7 +3114,7 @@ export function TabResumenMA({
           xs={12}
         >
           <Button
-            sx={queries.buttonContinuarSolicitudInscripcion}
+            className="aceptar"
             onClick={() => {
               let estado = "";
               if (localStorage.getItem("Rol") === "Capturador") {
@@ -3141,7 +3146,7 @@ export function TabResumenMA({
           xs={12}
         >
           <Button
-            sx={queries.buttonContinuarSolicitudInscripcion}
+            className="aceptar"
             onClick={() => {
               setOpenModalEnviar(true);
             }}

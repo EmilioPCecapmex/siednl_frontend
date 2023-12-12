@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import { queries } from "../../queries";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
+import "../../../src/Globals.css"
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -67,10 +69,11 @@ export default function ModalSolicitaModif({
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
-      return Toast.fire({
-        icon: "error",
-        title: "Introduce usuario al que se le solicita modificación",
-      });
+      return alertaError("Introduce usuario al que se le solicita modificación")
+      // Toast.fire({
+      //   icon: "error",
+      //   title: "Introduce usuario al que se le solicita modificación",
+      // });
     } else {
       checkMA(estado);
     }
@@ -574,23 +577,27 @@ export default function ModalSolicitaModif({
         if (comment !== "") {
           comentMA(IdMIR);
         }
-        Toast.fire({
-          icon: "success",
-          title:
-            localStorage.getItem("Rol") === "Verificador"
-              ? "Meta anual enviada a capturador para corrección"
-              : "Meta anual enviada ",
-        });
+        // Toast.fire({
+        //   icon: "success",
+        //   title:
+        //     localStorage.getItem("Rol") === "Verificador"
+        //       ? "Meta anual enviada a capturador para corrección"
+        //       : "Meta anual enviada ",
+        // });
+        alertaExito(() => {}, localStorage.getItem("Rol") === "Verificador"
+               ? "Meta anual enviada a capturador para corrección"
+               : "Meta anual enviada ");
 
         enviarNotificacion();
         handleClose();
         showResume();
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
+        // Toast.fire({
+        //   icon: "error",
+        //   title: err.response.data.result.error,
+        // });
+        alertaError(err.response.data.result.error);
       });
   };
 
@@ -755,11 +762,12 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              sx={{
-                ...queries.buttonCancelarSolicitudInscripcion,
-                display: "flex",
-                width: "15vw",
-              }}
+              // sx={{
+              //   ...queries.buttonCancelarSolicitudInscripcion,
+              //   display: "flex",
+              //   width: "15vw",
+              // }}
+              className="cancelar"
               variant="contained"
               onClick={() => handleClose()}
             >
@@ -767,12 +775,12 @@ export default function ModalSolicitaModif({
             </Button>
 
             <Button
-              sx={{
-                ...queries.buttonContinuarSolicitudInscripcion,
-                display: "flex",
-                width: "15vw",
-              }}
-              //variant="contained"
+              // sx={{
+              //   ...queries.buttonContinuarSolicitudInscripcion,
+              //   display: "flex",
+              //   width: "15vw",
+              // }}
+              className="aceptar"
 
               onClick={() => {
                 checkUsuario(

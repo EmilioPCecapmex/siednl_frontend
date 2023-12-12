@@ -14,6 +14,8 @@ import {
 import { queries } from "../../queries";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { IActividad } from "../tabsMir/interfaces mir/IMIR";
+import "../../../src/Globals.css"
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -548,20 +550,22 @@ export default function ModalEnviarMA({
         if (estado === "Autorizada") {
           CrearFichaTecnica();
         }
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
+        // Toast.fire({
+        //   icon: "success",
+        //   title: r.data.data.message,
+        // });
+        alertaExito(() => {}, r.data.data.message);
         if (comment !== "") {
           comentMA(IdMIR);
         }
         showResume();
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
+        // Toast.fire({
+        //   icon: "error",
+        //   title: err.response.data.result.error,
+        // });
+        alertaError(err.response.data.result.error);
       });
   };
 
@@ -746,7 +750,7 @@ export default function ModalEnviarMA({
             }}
           >
             <Button
-              sx={queries.buttonCancelarSolicitudInscripcion}
+              className="cancelar"
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -767,7 +771,7 @@ export default function ModalEnviarMA({
             </Button> */}
 
             <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
+              className="aceptar"
               onClick={() => {
                 checkMA(
                   localStorage.getItem("Rol") === "Capturador"
