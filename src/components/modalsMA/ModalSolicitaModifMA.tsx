@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { queries } from "../../queries";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
-
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
