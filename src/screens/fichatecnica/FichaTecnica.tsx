@@ -226,8 +226,6 @@ export const FichaTecnica = () => {
         URL.revokeObjectURL(href);
       })
       .catch((err) => {
-      
-
         Toast.fire({
           icon: "error",
           title: "Error al intentar descargar el documento.",
@@ -954,25 +952,53 @@ export const FichaTecnica = () => {
                                       },
                                     }}
                                     onClick={() => {
-                                      setFTEdit([
-                                        {
-                                          IdFt: row.IdFt,
-                                          IdMir: row.IdMir,
-                                          IdMa: row.IdMa,
-                                          FichaT: row.FichaT,
-                                          Estado: row.Estado,
-                                          CreadoPor: row.CreadoPor,
-                                          FechaCreacion: row.FechaCreacion,
-                                          AnioFiscal: row.AnioFiscal,
-                                          Entidad: row.Entidad,
-                                          Programa: row.Programa,
-                                          MIR: row.MIR,
-                                          MetaAnual: row.MetaAnual,
-                                          Conac: row.Conac,
-                                          Consecutivo: row.Consecutivo,
-                                          Opciones: row.Opciones,
-                                        },
-                                      ]);
+                                      let auxArrayMIR = JSON.parse(row.MIR);
+                                      let auxArrayMIR2 = JSON.stringify(
+                                        auxArrayMIR[0]
+                                      );
+
+                                      if (auxArrayMIR[1]) {
+                                        setFTEdit([
+                                          {
+                                            IdFt: row.IdFt,
+                                            IdMir: row.IdMir,
+                                            IdMa: row.IdMa,
+                                            FichaT: row.FichaT,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR: auxArrayMIR2,
+                                            MetaAnual: row.MetaAnual,
+                                            Conac: row.Conac,
+                                            Consecutivo: row.Consecutivo,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
+                                      } else {
+                                        setFTEdit([
+                                          {
+                                            IdFt: row.IdFt,
+                                            IdMir: row.IdMir,
+                                            IdMa: row.IdMa,
+                                            FichaT: row.FichaT,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR: row.MIR,
+                                            MetaAnual: row.MetaAnual,
+                                            Conac: row.Conac,
+                                            Consecutivo: row.Consecutivo,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
+                                      }
+
                                       setShowResume(false);
                                       setActionNumber(1);
                                     }}
@@ -1067,25 +1093,51 @@ export const FichaTecnica = () => {
                                         : true
                                     }
                                     onClick={() => {
-                                      setFTShow([
-                                        {
-                                          IdFt: row.IdFt,
-                                          IdMir: row.IdMir,
-                                          IdMa: row.IdMa,
-                                          FichaT: row.FichaT,
-                                          Estado: row.Estado,
-                                          CreadoPor: row.CreadoPor,
-                                          FechaCreacion: row.FechaCreacion,
-                                          AnioFiscal: row.AnioFiscal,
-                                          Entidad: row.Entidad,
-                                          Programa: row.Programa,
-                                          MIR: row.MIR,
-                                          MetaAnual: row.MetaAnual,
-                                          Conac: row.Conac,
-                                          Consecutivo: row.Consecutivo,
-                                          Opciones: row.Opciones,
-                                        },
-                                      ]);
+                                      let auxArrayMIR = JSON.parse(row.MIR);
+                                      let auxArrayMIR2 = JSON.stringify(
+                                        auxArrayMIR[0]
+                                      );
+                                      if (auxArrayMIR[1]) {
+                                        setFTShow([
+                                          {
+                                            IdFt: row.IdFt,
+                                            IdMir: row.IdMir,
+                                            IdMa: row.IdMa,
+                                            FichaT: row.FichaT,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR: auxArrayMIR2,
+                                            MetaAnual: row.MetaAnual,
+                                            Conac: row.Conac,
+                                            Consecutivo: row.Consecutivo,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
+                                      } else {
+                                        setFTShow([
+                                          {
+                                            IdFt: row.IdFt,
+                                            IdMir: row.IdMir,
+                                            IdMa: row.IdMa,
+                                            FichaT: row.FichaT,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR: row.MIR,
+                                            MetaAnual: row.MetaAnual,
+                                            Conac: row.Conac,
+                                            Consecutivo: row.Consecutivo,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
+                                      }
                                       setOpenModalVerResumenFT(true);
                                     }}
                                   >
