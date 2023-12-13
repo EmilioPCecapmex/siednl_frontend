@@ -14,6 +14,7 @@ import {
 import { queries } from "../../queries";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
 export function TabResumen({
   MIRPADRE,
@@ -148,18 +149,17 @@ export function TabResumen({
         }
       )
       .then((r) => {
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
+        
         showResume();
+        alertaExito(()=>{},r.data.data.message)
       })
       .catch((err) => {
         if (err.response.status === 409) {
-          Toast.fire({
-            icon: "error",
-            title: err.response.data.result.error,
-          });
+          // Toast.fire({
+          //   icon: "error",
+          //   title: err.response.data.result.error,
+          // });
+          alertaError(err.response.data.result.error)
         }
       });
   };

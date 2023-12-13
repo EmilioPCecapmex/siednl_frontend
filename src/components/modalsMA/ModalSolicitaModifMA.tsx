@@ -574,13 +574,16 @@ export default function ModalSolicitaModif({
         if (comment !== "") {
           comentMA(IdMIR);
         }
-        Toast.fire({
-          icon: "success",
-          title:
-            localStorage.getItem("Rol") === "Verificador"
-              ? "Meta anual enviada a capturador para corrección"
-              : "Meta anual enviada ",
-        });
+        // Toast.fire({
+        //   icon: "success",
+        //   title:
+        //     localStorage.getItem("Rol") === "Verificador"
+        //       ? "Meta anual enviada a capturador para corrección"
+        //       : "Meta anual enviada ",
+        // });
+        alertaExito(()=>{}, localStorage.getItem("Rol") === "Verificador"
+        ? "Meta anual enviada a capturador para corrección"
+        : "Meta anual enviada ",)
 
         enviarNotificacion();
         handleClose();
@@ -591,6 +594,8 @@ export default function ModalSolicitaModif({
           icon: "error",
           title: err.response.data.result.error,
         });
+
+        alertaError(err.response.data.result.error)
       });
   };
 
@@ -755,8 +760,9 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
+            className="cancelar"
               sx={{
-                ...queries.buttonCancelarSolicitudInscripcion,
+                //...queries.buttonCancelarSolicitudInscripcion,
                 display: "flex",
                 width: "15vw",
               }}
@@ -767,8 +773,9 @@ export default function ModalSolicitaModif({
             </Button>
 
             <Button
+            className="aceptar"
               sx={{
-                ...queries.buttonContinuarSolicitudInscripcion,
+                //...queries.buttonContinuarSolicitudInscripcion,
                 display: "flex",
                 width: "15vw",
               }}

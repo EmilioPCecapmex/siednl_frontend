@@ -14,7 +14,7 @@ import {
 import { queries } from "../../queries";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { IActividad } from "../tabsMir/interfaces mir/IMIR";
-import { alertaEliminar, alertaExito } from "../genericComponents/Alertas";
+import { alertaEliminar, alertaExito, alertaInfo } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -566,7 +566,7 @@ export default function ModalEnviarMA({
         //   icon: "error",
         //   title: err.response.data.result.error,
         // });
-        alertaEliminar(err.response.data.result.error)
+        alertaInfo(err.response.data.result.error)
       });
   };
 

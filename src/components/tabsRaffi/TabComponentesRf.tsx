@@ -208,6 +208,7 @@ export const TabComponenteRf = ({
         backgroundColor: "#fff",
         // justifyContent: "center",
         // alignItems: "center",
+        overflow: "auto"
       }}
     >
       {/* <FormulaDialogRF
@@ -253,7 +254,8 @@ export const TabComponenteRf = ({
           sx={{
             mr: "1vw",
             fontFamily: "MontserratSemiBold",
-            fontSize: "1.5vw",
+            //fontSize: "1.5vw",
+            fontSize: [8, 10, 10, 13, 15, 18],
           }}
         >
           COMPONENTE {componentSelect + 1}
@@ -400,7 +402,7 @@ export const TabComponenteRf = ({
             lg={3}
             md={2}
             sm={2}
-            xs={12}
+            xs={11}
             sx={{
               alignContent: "center",
               display: "flex",
@@ -443,7 +445,7 @@ export const TabComponenteRf = ({
             lg={3}
             md={2}
             sm={2}
-            xs={12}
+            xs={11}
             sx={{
               alignContent: "center",
               display: "flex",

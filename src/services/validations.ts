@@ -1,4 +1,6 @@
+import Swal from "sweetalert2";
 import { alertaError } from "../components/genericComponents/Alertas";
+import axios from "axios";
 
 export const validarNumero = (dato: string, state: any) => {
     if (/^[0-9]+$/.test(dato)) {
@@ -31,4 +33,7 @@ export const validarNumero = (dato: string, state: any) => {
     }
     return(txt.split(",")[2])
   }
+
+ 
+
   

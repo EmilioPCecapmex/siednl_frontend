@@ -256,6 +256,7 @@ export const TabActividadRf = ({
           backgroundColor: "#fff",
           // justifyContent: "center",
           // alignItems: "center",
+          overflow: "auto"
         }}
       >
         <FormulaDialogMA
@@ -423,23 +424,7 @@ export const TabActividadRf = ({
           >
             {isSmallScreen && (
               <List
-                sx={{
-                  width: "15vw",
-                  height: "95%",
-                  borderRight: "solid",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  borderColor: "#BCBCBC",
-                  "&::-webkit-scrollbar": {
-                    width: ".3vw",
-                  },
-                  "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "rgba(0,0,0,.5)",
-                    outline: "1px solid slategrey",
-                    borderRadius: 10,
-                  },
-                }}
+              
               >
                 {componentesActividadesValues.map((componente, index) => {
                   return (
@@ -473,7 +458,7 @@ export const TabActividadRf = ({
                         <Typography
                           sx={{
                             fontFamily: "MontserratMedium",
-                            fontSize: "0.7vw",
+                            fontSize: [10, 10, 10, 13, 15, 18],
                           }}
                         >
                           COMPONENTE {index + 1}
@@ -497,10 +482,9 @@ export const TabActividadRf = ({
                                 setActividadSelect(index);
                               }}
                               sx={{
-                                height: "3vh",
-                                pl: 4,
+                                height: "7vh",
                                 "&.Mui-selected ": {
-                                  backgroundColor: "#efd8b9",
+                                  backgroundColor: "#c4a57b",
                                 },
                                 "&.Mui-selected:hover": {
                                   backgroundColor: "#cbcbcb",
@@ -509,7 +493,7 @@ export const TabActividadRf = ({
                             >
                               <Typography
                                 sx={{
-                                  //  fontSize: "1vw",
+                                  fontSize: [10, 10, 10, 13, 15, 18],
                                   fontFamily: "MontserratMedium",
                                 }}
                               >
@@ -533,7 +517,7 @@ export const TabActividadRf = ({
               lg={3}
               md={2}
               sm={2}
-              xs={12}
+              xs={11}
               sx={{
                 alignContent: "center",
                 display: "flex",
@@ -576,7 +560,7 @@ export const TabActividadRf = ({
               lg={3}
               md={2}
               sm={2}
-              xs={12}
+              xs={11}
               sx={{
                 alignContent: "center",
                 display: "flex",
