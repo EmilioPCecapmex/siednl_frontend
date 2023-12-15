@@ -49,7 +49,7 @@ export function alertaInfo(titulo = "Movimiento exitoso") {
 
 
 export const alertaEliminar = (  confirmedfunction: Function, cancelfunction: Function, title= "¿Desea eliminar elemento?") => {
-  Swal.fire({
+ return Swal.fire({
     title: title,
     //Estas a punto de eliminar un registro
     // text: ` ${cellValues.row.Nombre}`,
