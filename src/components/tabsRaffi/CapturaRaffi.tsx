@@ -39,7 +39,7 @@ const tabs = [
 export function avanceFinancieroRF() {
   return {
     nombrePrograma: "",
-    valorProgramaPresupuestario: "",
+    valorProgramaPresupuestario: "0",
     monto: {
       devengadoModificado: VTrimestral,
       modificadoAutorizado: VTrimestral,
@@ -283,6 +283,15 @@ export default function CapturaRaffi({
     });
   };
 
+  const setAvanceFinancieroPadre = (
+    avanceFinanciero: IAvanceFinancieroRF
+  ) => {
+    setRaffi({
+      ...raffi,
+      avanceFinanciero: avanceFinanciero,
+    });
+  };
+
   useEffect(() => {
     // console.log("ENTRE");
     console.log("RF: ", RF);
@@ -426,7 +435,7 @@ export default function CapturaRaffi({
                 MIR={MIR}
                 MA={MA}
                 //avanceFinancieroRF={raffi.avanceFinanciero}
-                setAvanceFinancieroRF={() => {}}
+                setAvanceFinancieroRF={setAvanceFinancieroPadre}
                 raffiboolean={raffiboolean}
               />
             )}

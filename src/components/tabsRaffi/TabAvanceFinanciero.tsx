@@ -1,27 +1,23 @@
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   Grid,
   InputLabel,
-  TextField,
-  FormControl,
-  FormLabel,
-  FormControlLabel,
-  Typography,
   Radio,
-  Checkbox,
-  Switch,
+  TextField,
+  Typography
 } from "@mui/material";
-import { queries } from "../../queries";
-import { IIMir } from "../../screens/mir/MIR";
 import { useEffect, useState } from "react";
+import { queries } from "../../queries";
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import {
   IAvanceFinancieroRF,
-  IRF,
   IRFEdit,
   IVPTrimestral,
-  IVTrimestral,
+  IVTrimestral
 } from "./interfacesRaffi";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import validator from "validator";
 import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
 import { alertaInfo } from "../genericComponents/Alertas";
@@ -58,7 +54,6 @@ export const VPTrimestral = {
   ptotal: "",
   porcentajeCuentaPublica: "",
 };
-
 export const VTrimestralboolean = {
   t1: {
     valor1: false,
@@ -83,7 +78,6 @@ export const VTrimestralboolean = {
   total: false,
   cuentaPublica: false,
 };
-
 export const VPTrimestralboolean = {
   pt1: false,
   pt2: false,
@@ -110,26 +104,20 @@ export function TabAvanceFinanciero({
   //avanceFinancieroRF: IAvanceFinancieroRF;
   setAvanceFinancieroRF: Function;
   raffiboolean: IRFEdit
-}) {
+}){
+
   const jsonMir: IMIR = JSON.parse(MIR);
+
   const [trimestre, setTrimestre] = useState("0");
-  const [devengadoModificado, setDevengado_modificado] =
-    useState<IVTrimestral>(VTrimestral);
-  const [ejercidoModificado, setEjercido_modificado] =
-    useState<IVTrimestral>(VTrimestral);
-  const [modificadoAutorizado, setModificado_autorizado] =
-    useState<IVTrimestral>(VTrimestral);
+  const [devengadoModificado, setDevengado_modificado] = useState<IVTrimestral>(VTrimestral);
+  const [ejercidoModificado, setEjercido_modificado] = useState<IVTrimestral>(VTrimestral);
+  const [modificadoAutorizado, setModificado_autorizado] = useState<IVTrimestral>(VTrimestral);
 
-  const [porcentajedevengado_modificado, setPorcentajeDevengado_modificado] =
-    useState<IVPTrimestral>(VPTrimestral);
-  const [porcentajeejercido_modificado, setPorcentajeEjercido_modificado] =
-    useState<IVPTrimestral>(VPTrimestral);
-  const [porcentajemodificado_autorizado, setPorcentajeModificado_autorizado] =
-    useState<IVPTrimestral>(VPTrimestral);
-
-  const [valorProgramaPresupuestario, setValorProgramaPresupuestario] =
-    useState("0");
-
+  const [porcentajedevengado_modificado, setPorcentajeDevengado_modificado] = useState<IVPTrimestral>(VPTrimestral);
+  const [porcentajeejercido_modificado, setPorcentajeEjercido_modificado] = useState<IVPTrimestral>(VPTrimestral);
+  const [porcentajemodificado_autorizado, setPorcentajeModificado_autorizado] = useState<IVPTrimestral>(VPTrimestral);
+  const [valorProgramaPresupuestario, setValorProgramaPresupuestario] = useState("0");
+  
   const [avanceFinanciero, setAvanceFinanciero] = useState<IAvanceFinancieroRF>(
     {
       nombrePrograma: "",
@@ -168,6 +156,7 @@ export function TabAvanceFinanciero({
     setAvanceFinanciero(objetoAuxiliar);
 
     setAvanceFinancieroRF(objetoAuxiliar);
+    
   }, [
     devengadoModificado,
     modificadoAutorizado,
