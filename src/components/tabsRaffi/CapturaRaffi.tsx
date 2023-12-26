@@ -286,6 +286,8 @@ export default function CapturaRaffi({
   const setAvanceFinancieroPadre = (
     avanceFinanciero: IAvanceFinancieroRF
   ) => {
+    // console.log("setAvanceFinancieroPadre: ",avanceFinanciero);
+    
     setRaffi({
       ...raffi,
       avanceFinanciero: avanceFinanciero,
@@ -434,7 +436,7 @@ export default function CapturaRaffi({
                 resumenAvanceFinancieroRf={resumenAvanceFinancieroRf}
                 MIR={MIR}
                 MA={MA}
-                //avanceFinancieroRF={raffi.avanceFinanciero}
+                avanceFinancieroRF={raffi.avanceFinanciero}
                 setAvanceFinancieroRF={setAvanceFinancieroPadre}
                 raffiboolean={raffiboolean}
               />
