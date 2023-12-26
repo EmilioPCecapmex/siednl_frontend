@@ -32,6 +32,7 @@ import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import FullModalMir from "../../components/tabsMir/AddMir";
 import SearchIcon from "@mui/icons-material/Search";
+import { alertaError } from "../../components/genericComponents/Alertas";
 export let resumeDefaultMIR = true;
 
 export let setResumeDefaultMIR = () => {
@@ -411,10 +412,12 @@ export const MIR = () => {
         URL.revokeObjectURL(href);
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: "Error al intentar descargar el documento.",
-        });
+        alertaError("Error al intentar descargar el documento.")
+        // Toast.fire({
+        //   icon: "error",
+        //   title: "Error al intentar descargar el documento.",
+        // });
+
       });
   };
   ///////////////////////////////////////
@@ -856,13 +859,14 @@ export const MIR = () => {
                 <Grid item xl={3} lg={3} md={4} sm={3}>
                   <Button
                     disabled={!validaFecha}
+                    className="aceptar"
                     sx={{
-                      backgroundColor: "#c2a37b",
+                      //backgroundColor: "#c2a37b",
                       // width: "10vw",
                       // height: "3.3vh",
                       width: ["80px", "120px", "160px", "180px", "250px"],
                       height: ["30px", "20px", "30px", "40px", "50px"],
-                      color: "black",
+                      //color: "black",
                       fontFamily: "MontserratMedium",
                       fontSize: [5, 7, 10, 12, 16, 20],
                     }}
@@ -1151,7 +1155,7 @@ export const MIR = () => {
                                       localStorage.getItem("Rol") ===
                                         "Verificador"
                                     ? false
-                                    : row.Estado === "En Autorización" &&
+                                    : (row.Estado === "En Autorización" || row.Estado === "Autorizada" ) &&
                                       localStorage.getItem("Rol") ===
                                         "Administrador"
                                     ? false

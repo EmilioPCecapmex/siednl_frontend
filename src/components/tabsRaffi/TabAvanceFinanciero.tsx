@@ -24,6 +24,7 @@ import {
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import validator from "validator";
 import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
+import { alertaInfo } from "../genericComponents/Alertas";
 
 export const VTrimestral = {
   t1: {
@@ -244,6 +245,9 @@ export function TabAvanceFinanciero({
     valor1: string,
     valor2: string
   ) => {
+    console.log("valor: ",valor);
+    console.log("valor1: ",valor1);
+    console.log("valor2: ",valor2);
     let porcentaje =
       (parseFloat(valor) /
         parseFloat(avanceFinanciero.valorProgramaPresupuestario)) *
@@ -391,7 +395,14 @@ export function TabAvanceFinanciero({
 
   useEffect(() => {}, []);
 
+  const block =(valor: string)=>{
+
+    return valor === "0" || valor === null || valor === ""
+  }
+
   const newvalue = (valor: string) => {
+    console.log("valor: ",valor);
+    
     const nuevoValor = valor;
     // let porcentaje =
     //   (parseFloat(ejercidoModificado.t1) /
@@ -459,6 +470,11 @@ export function TabAvanceFinanciero({
               size="small"
               placeholder="0"
               onChange={(a) => {
+                if(a.target.value === "0" || a.target.value === null || a.target.value === ""){
+                  alertaInfo("Se neceista un valor para capturar los campos de trimestre")
+                }
+                //alertaInfo()
+
                 switch (selector) {
                 }
 
@@ -656,6 +672,7 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   size="small"
+                  disabled={avanceFinanciero.valorProgramaPresupuestario === "0" || avanceFinanciero.valorProgramaPresupuestario === null || avanceFinanciero.valorProgramaPresupuestario === ""}
                   placeholder="SIN CAPTURAR"
                   onClick={(a) => {
                     //let valor = a.target.value;
@@ -722,6 +739,7 @@ export function TabAvanceFinanciero({
               <Grid item>
                 <TextField
                   fullWidth
+                  disabled={avanceFinanciero.valorProgramaPresupuestario === "0" || avanceFinanciero.valorProgramaPresupuestario === null || avanceFinanciero.valorProgramaPresupuestario === ""}
                   size="small"
                   placeholder="0"
                   sx={queries.medium_text}
@@ -767,6 +785,7 @@ export function TabAvanceFinanciero({
               <Grid item>
                 <TextField
                   fullWidth
+                  disabled={avanceFinanciero.valorProgramaPresupuestario === "0" || avanceFinanciero.valorProgramaPresupuestario === null || avanceFinanciero.valorProgramaPresupuestario === ""}
                   size="small"
                   placeholder="SIN CAPTURAR"
                   onClick={(a) => {
@@ -852,6 +871,7 @@ export function TabAvanceFinanciero({
 
               <Grid item>
                 <TextField
+                disabled={avanceFinanciero.valorProgramaPresupuestario === "0" || avanceFinanciero.valorProgramaPresupuestario === null || avanceFinanciero.valorProgramaPresupuestario === ""}
                   fullWidth
                   size="small"
                   placeholder="SIN CAPTURAR"
@@ -939,6 +959,7 @@ export function TabAvanceFinanciero({
               <Grid item>
                 <TextField
                   fullWidth
+                  disabled={avanceFinanciero.valorProgramaPresupuestario === "0" || avanceFinanciero.valorProgramaPresupuestario === null || avanceFinanciero.valorProgramaPresupuestario === ""}
                   size="small"
                   placeholder="SIN CAPTURAR"
                   onClick={(a) => {

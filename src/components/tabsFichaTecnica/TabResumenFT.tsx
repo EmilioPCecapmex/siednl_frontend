@@ -2427,7 +2427,8 @@ export function TabResumenFT({
           xs={12}
         >
           <Button
-            sx={queries.buttonCancelarSolicitudInscripcion}
+          className="cancelar"
+            //sx={queries.buttonCancelarSolicitudInscripcion}
             onClick={() => showResume()}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -2449,7 +2450,8 @@ export function TabResumenFT({
             disabled={
               localStorage.getItem("Rol") === "Capturador" ? true : false
             }
-            sx={buttonStyles}
+            //sx={buttonStyles}
+            className="aceptar"
             onClick={() => setOpenModalSolicitarModif(true)}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -2459,6 +2461,7 @@ export function TabResumenFT({
         </Grid>
 
         <Grid
+        
           sx={{ justifyContent: "center", display: "flex" }}
           item
           xl={3}
@@ -2468,7 +2471,8 @@ export function TabResumenFT({
           xs={12}
         >
           <Button
-            sx={queries.buttonContinuarSolicitudInscripcion}
+          className="aceptar"
+            //sx={queries.buttonContinuarSolicitudInscripcion}
             onClick={() => {
               let estado = "";
               if (localStorage.getItem("Rol") === "Capturador") {
@@ -2500,7 +2504,8 @@ export function TabResumenFT({
           xs={12}
         >
           <Button
-            sx={queries.buttonContinuarSolicitudInscripcion}
+          className="aceptar"
+            //sx={queries.buttonContinuarSolicitudInscripcion}
             onClick={() => setOpenModalEnviar(true)}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>

@@ -866,7 +866,8 @@ export default function ModalEnviarMIR({
             }}
           >
             <Button
-              sx={queries.buttonCancelarSolicitudInscripcion}
+            className="cancelar"
+              //sx={queries.buttonCancelarSolicitudInscripcion}
               onClick={() => handleClose(false)}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -875,7 +876,8 @@ export default function ModalEnviarMIR({
             </Button>
 
             <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
+            className="aceptar"
+              //sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
                 checkMir(
                   localStorage.getItem("Rol") === "Capturador"
