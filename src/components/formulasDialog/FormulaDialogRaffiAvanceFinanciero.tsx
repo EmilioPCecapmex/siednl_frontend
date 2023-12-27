@@ -1,18 +1,16 @@
 import {
-  Dialog,
-  Box,
-  DialogContent,
   Button,
-  Typography,
-  TextField,
-  Alert,
-  Snackbar,
+  Dialog,
+  DialogActions,
+  DialogContent,
   DialogTitle,
   Grid,
-  DialogActions,
+  TextField,
+  Typography
 } from "@mui/material";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useState } from "react";
 import { queries } from "../../queries";
+import { validarNumero } from "../../services/validations";
 
 
 export const DialogMonto = ({
@@ -28,29 +26,26 @@ export const DialogMonto = ({
   selector: string;
   setValor: Function;
 }) => {
-  const [Numerodador, setNumerdaor] = useState("");
-  const [Denominador, setDenominador] = useState("");
+  const [numerador, setNumerador] = useState("");
+  const [denominador, setdenominador] = useState("");
 
 
   const handleClose = () => {
     close(false); // Call the close function provided as a prop when the dialog should be closed.
   };
 
-  
-    
-
   const handleChange = () => {
-    let aux = parseFloat(Numerodador) / parseFloat(Denominador);
+    let aux = parseFloat(numerador) / parseFloat(denominador);
     if (
-      Numerodador === "" ||
-      Numerodador === null ||
-      Denominador === "" ||
-      Denominador === null
+      numerador === "" ||
+      numerador === null ||
+      denominador === "" ||
+      denominador === null
     ) {
     } else {
-      setValor(aux, selector, trimestre, Numerodador, Denominador);
-      setNumerdaor("");
-      setDenominador("");
+      setValor(aux, selector, trimestre, numerador, denominador);
+      setNumerador("");
+      setdenominador("");
       close(false);
     }
   };
@@ -89,15 +84,9 @@ export const DialogMonto = ({
               <TextField
                 label="NUMERADOR"
                 multiline
-                value={Numerodador}
+                value={numerador}
                 onChange={(x) =>
-                  setNumerdaor(
-                    x.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
-                      .replaceAll(/[^0-9.]+/g, "")
-                  )
+                  setNumerador(validarNumero(x.target.value,numerador))
                 }
                 rows={4}
                 sx={{ width: "100%" }}
@@ -119,19 +108,11 @@ export const DialogMonto = ({
 
             <Grid item lg={5}>
               <TextField
-                label="DENOMINADOR"
+                label="Denominador"
                 multiline
                 rows={4}
-                value={Denominador}
-                onChange={(x) =>
-                  setDenominador(
-                    x.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
-                      .replaceAll(/[^0-9.]+/g, "")
-                  )
-                }
+                value={denominador}
+                onChange={(x) =>setdenominador(validarNumero(x.target.value,denominador))}
                 sx={{ width: "100%" }}
                 //value={descA}
                 InputLabelProps={{
