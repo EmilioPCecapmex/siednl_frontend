@@ -1169,7 +1169,6 @@ export const Raffi = () => {
               IdMir={rfEdit[0].IdMir || ""}
               IdMA={rfEdit[0].IdMetaAnual || ""}
               IdRf={rfEdit[0].IdRaffi || ""}
-              showResume={returnMain}
             />
           </Grid>
         )}

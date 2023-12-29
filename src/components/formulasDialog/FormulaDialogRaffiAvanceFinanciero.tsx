@@ -43,6 +43,8 @@ export const DialogMonto = ({
       denominador === null
     ) {
     } else {
+      console.log(trimestre);
+      
       setValor(aux, selector, trimestre, numerador, denominador);
       setNumerador("");
       setdenominador("");

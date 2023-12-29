@@ -47,7 +47,7 @@ export function avanceFinancieroRF() {
     },
     porcentaje: {
       porcentajeDevengadoModificado: VPTrimestral,
-      procentajeModificadoAutorizado: VPTrimestral,
+      porcentajeModificadoAutorizado: VPTrimestral,
       porcentajeEjercidoModificado: VPTrimestral,
     },
   };
@@ -220,7 +220,6 @@ export default function CapturaRaffi({
   IdMir,
   IdMA,
   IdRf,
-  showResume,
 }: {
   MIR: string;
   MA: string;
@@ -229,7 +228,6 @@ export default function CapturaRaffi({
   IdMir: string;
   IdMA: string;
   IdRf: string;
-  showResume: Function;
 }) {
   const [value, setValue] = useState(0);
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
@@ -283,15 +281,8 @@ export default function CapturaRaffi({
     });
   };
 
-  const setAvanceFinancieroPadre = (
-    avanceFinanciero: IAvanceFinancieroRF
-  ) => {
-     console.log("setAvanceFinancieroPadre: ",avanceFinanciero);
-    
-    setRaffi({
-      ...raffi,
-      avanceFinanciero: avanceFinanciero,
-    });
+  const setAvanceFinancieroPadre = (avanceFinanciero: IAvanceFinancieroRF) => {
+    setRaffi({...raffi,avanceFinanciero: avanceFinanciero,});
   };
 
   useEffect(() => {
@@ -372,18 +363,12 @@ export default function CapturaRaffi({
     }
   }, []);
 
-  const resumenAvanceFinancieroRf = (st: Array<IAvanceFinancieroRF>) => {
-    setAvanceFinanciero(st);
-  };
+
 
   const [showStAF, setShowStAF] = React.useState("");
   const setTxtShowRAFFIAF = (st: string) => {
     setShowStAF(st);
   };
-
-  const [ValueAvanceFinanciero, setAvanceFinanciero] = useState<
-    Array<IAvanceFinancieroRF>
-  >([]);
 
   return (
     <Grid
@@ -433,7 +418,6 @@ export default function CapturaRaffi({
           >
             {value === 0 && (
               <TabAvanceFinanciero
-                resumenAvanceFinancieroRf={resumenAvanceFinancieroRf}
                 MIR={MIR}
                 MA={MA}
                 avanceFinancieroRF={raffi.avanceFinanciero}
