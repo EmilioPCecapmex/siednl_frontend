@@ -21,7 +21,7 @@ import {
   IInstituciones,
 } from "../../components/lateralMenu/LateralMenu";
 import React, { useEffect, useState } from "react";
-
+import DownloadIcon from "@mui/icons-material/Download";
 import CapturaRaffi from "../../components/tabsRaffi/CapturaRaffi";
 
 import { queries } from "../../queries";
@@ -39,6 +39,7 @@ import axios from "axios";
 import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
 import { IMIR } from "../../components/tabsMir/interfaces mir/IMIR";
+import Swal from "sweetalert2";
 
 const estados = [
   "Todos",
@@ -120,13 +121,11 @@ export const Raffi = () => {
   const [institucionesb, setInstitucionesb] = useState("Todos");
 
   useEffect(() => {
-    
-    if(opentabs){
+    if (opentabs) {
       listaRaffi(setRf, estadorf);
       validaFechaCaptura();
-    setOpenTabs(true);
+      setOpenTabs(true);
     }
-    
   }, [opentabs]);
 
   useEffect(() => {
@@ -307,6 +306,69 @@ export const Raffi = () => {
     findTextStr.length !== 0 ? setRfFiltered(rfFiltered) : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [findTextStr]);
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  const getFichaRaffiDownload = (
+    MIR: string,
+    MetaAnual: string,
+    RF: string,
+    inst: string,
+    Programa: string,
+    FechaCreacion: string
+  ) => {
+    const fullRF = [JSON.parse(MIR), JSON.parse(MetaAnual), JSON.parse(RF)];
+
+    axios
+      .post(
+       // process.env.REACT_APP_APPLICATION_FILL + "/api/fill_rf", 
+        "http://192.168.137.198:7001/api/fill_raffi",
+        fullRF, {
+        responseType: "blob",
+        // headers: {
+        //   Authorization: localStorage.getItem("jwtToken") || "",
+        // },
+      })
+      .then((r) => {
+        Toast.fire({
+          icon: "success",
+          title: "La descarga comenzara en un momento.",
+        });
+        const href = URL.createObjectURL(r.data);
+
+        // create "a" HTML element with href to file & click
+        const link = document.createElement("a");
+        link.href = href;
+        link.setAttribute(
+          "download",
+          "RF_" + FechaCreacion + "_" + inst + "_" + Programa + ".xlsx"
+        ); //or any other extension
+        document.body.appendChild(link);
+
+        link.click();
+
+        // clean up "a" element & remove ObjectURL
+
+        document.body.removeChild(link);
+        URL.revokeObjectURL(href);
+      })
+      .catch((err) => {
+        Toast.fire({
+          icon: "error",
+          title: "Error al intentar descargar el documento.",
+        });
+      });
+  };
 
   return (
     <Grid container justifyContent={"space-between"}>
@@ -646,8 +708,6 @@ export const Raffi = () => {
                   </Grid>
                 )}
               </Grid>
-
-              
             </Grid>
             {/* TABLA */}
             <Grid
@@ -805,10 +865,11 @@ export const Raffi = () => {
                                 textAlign: "center",
                               }}
                             >
-                              {row.Estado !== ("Sin Asignar" || "SIN ASIGNAR") && (
+                              {row.Estado !==
+                                ("Sin Asignar" || "SIN ASIGNAR") && (
                                 <Tooltip title="EDITAR">
                                   <IconButton
-                                    disabled={ 
+                                    disabled={
                                       (row.Estado === "En Captura" &&
                                         validaFecha &&
                                         localStorage.getItem("Rol") ===
@@ -831,14 +892,15 @@ export const Raffi = () => {
                                         localStorage.getItem("Rol") ===
                                           "Administrador")
                                         ? false
-                                        : true
-                                      ||
-                                      !validaFecha}
+                                        : true || !validaFecha
+                                    }
                                     type="button"
                                     onClick={() => {
                                       let auxArrayMIR = JSON.parse(row.MIR);
-                                      let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0])
-                                      if(auxArrayMIR[1]){
+                                      let auxArrayMIR2 = JSON.stringify(
+                                        auxArrayMIR[0]
+                                      );
+                                      if (auxArrayMIR[1]) {
                                         setRfEdit([
                                           {
                                             IdRaffi: row.IdRaffi,
@@ -854,38 +916,37 @@ export const Raffi = () => {
                                             Programa: row.Programa,
                                             MIR: auxArrayMIR2,
                                             //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
-                                            
+
                                             MetaAnual: row.MetaAnual,
                                             Conac: row.Conac,
                                             Consecutivo: row.Consecutivo,
                                             Opciones: row.Opciones,
                                           },
                                         ]);
-                                      }else{
+                                      } else {
                                         setRfEdit([
-                                        {
-                                          IdRaffi: row.IdRaffi,
-                                          IdMir: row.IdMir,
-                                          IdMetaAnual: row.IdMetaAnual,
-                                          RAFFI: row.RAFFI,
-                                          Estado: row.Estado,
-                                          CreadoPor: row.CreadoPor,
-                                          FechaCreacion: row.FechaCreacion,
-                                          ModificadoPor: row.ModificadoPor,
-                                          AnioFiscal: row.AnioFiscal,
-                                          Entidad: row.Entidad,
-                                          Programa: row.Programa,
-                                          MIR: 
-                                          //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
-                                          row.MIR,
-                                          MetaAnual: row.MetaAnual,
-                                          Conac: row.Conac,
-                                          Consecutivo: row.Consecutivo,
-                                          Opciones: row.Opciones,
-                                        },
-                                      ]);
+                                          {
+                                            IdRaffi: row.IdRaffi,
+                                            IdMir: row.IdMir,
+                                            IdMetaAnual: row.IdMetaAnual,
+                                            RAFFI: row.RAFFI,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            ModificadoPor: row.ModificadoPor,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR:
+                                              //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+                                              row.MIR,
+                                            MetaAnual: row.MetaAnual,
+                                            Conac: row.Conac,
+                                            Consecutivo: row.Consecutivo,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
                                       }
-                                      
 
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
@@ -945,8 +1006,10 @@ export const Raffi = () => {
                                     type="button"
                                     onClick={() => {
                                       let auxArrayMIR = JSON.parse(row.MIR);
-                                      let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0])
-                                      if(auxArrayMIR[1]){
+                                      let auxArrayMIR2 = JSON.stringify(
+                                        auxArrayMIR[0]
+                                      );
+                                      if (auxArrayMIR[1]) {
                                         setRfEdit([
                                           {
                                             IdRaffi: row.IdRaffi,
@@ -962,36 +1025,36 @@ export const Raffi = () => {
                                             Programa: row.Programa,
                                             MIR: auxArrayMIR2,
                                             //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
-                                            
+
                                             MetaAnual: row.MetaAnual,
                                             Conac: row.Conac,
                                             Consecutivo: row.Consecutivo,
                                             Opciones: row.Opciones,
                                           },
                                         ]);
-                                      }else{
+                                      } else {
                                         setRfEdit([
-                                        {
-                                          IdRaffi: row.IdRaffi,
-                                          IdMir: row.IdMir,
-                                          IdMetaAnual: row.IdMetaAnual,
-                                          RAFFI: row.RAFFI,
-                                          Estado: row.Estado,
-                                          CreadoPor: row.CreadoPor,
-                                          FechaCreacion: row.FechaCreacion,
-                                          ModificadoPor: row.ModificadoPor,
-                                          AnioFiscal: row.AnioFiscal,
-                                          Entidad: row.Entidad,
-                                          Programa: row.Programa,
-                                          MIR: 
-                                          //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
-                                          row.MIR,
-                                          MetaAnual: row.MetaAnual,
-                                          Conac: row.Conac,
-                                          Consecutivo: row.Consecutivo,
-                                          Opciones: row.Opciones,
-                                        },
-                                      ]);
+                                          {
+                                            IdRaffi: row.IdRaffi,
+                                            IdMir: row.IdMir,
+                                            IdMetaAnual: row.IdMetaAnual,
+                                            RAFFI: row.RAFFI,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            ModificadoPor: row.ModificadoPor,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR:
+                                              //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+                                              row.MIR,
+                                            MetaAnual: row.MetaAnual,
+                                            Conac: row.Conac,
+                                            Consecutivo: row.Consecutivo,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
                                       }
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
@@ -1028,6 +1091,56 @@ export const Raffi = () => {
                                   </IconButton>
                                 </Tooltip>
                               }
+
+                              <Tooltip title="DESCARGAR">
+                                <span>
+                                  <IconButton
+                                    onClick={() => {
+                                      getFichaRaffiDownload(
+                                        row.MIR,
+                                        row.MetaAnual,
+                                        row.RAFFI,
+                                        row.Programa,
+                                        row.FechaCreacion,
+                                        row.Entidad
+                                      );
+                                    }}
+                                    disabled={
+                                      row.Estado === "Autorizada" && validaFecha
+                                        ? false
+                                        : true
+                                    }
+                                  >
+                                    <DownloadIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
+
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
+
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
+
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
+
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
+
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
                             </TableCell>
                           </TableRow>
                         );

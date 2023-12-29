@@ -7,7 +7,7 @@ import {
   InputLabel,
   Radio,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { queries } from "../../queries";
@@ -16,7 +16,7 @@ import {
   IAvanceFinancieroRF,
   IRFEdit,
   IVPTrimestral,
-  IVTrimestral
+  IVTrimestral,
 } from "./interfacesRaffi";
 // import validator from "validator";
 import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
@@ -87,7 +87,6 @@ export const VPTrimestralboolean = {
   porcentajeCuentaPublica: false,
 };
 
-
 export function TabAvanceFinanciero({
   //show,
   resumenAvanceFinancieroRf,
@@ -103,57 +102,87 @@ export function TabAvanceFinanciero({
   MA: string;
   avanceFinancieroRF: IAvanceFinancieroRF;
   setAvanceFinancieroRF: Function;
-  raffiboolean: IRFEdit
+  raffiboolean: IRFEdit;
 }) {
-
   const jsonMir: IMIR = JSON.parse(MIR);
 
   const [trimestre, setTrimestre] = useState("0");
-  const [devengadoModificado, setDevengado_modificado] = useState<IVTrimestral>(VTrimestral);
-  const [ejercidoModificado, setEjercido_modificado] = useState<IVTrimestral>(VTrimestral);
-  const [modificadoAutorizado, setModificado_autorizado] = useState<IVTrimestral>(VTrimestral);
+  const [devengadoModificado, setDevengado_modificado] =
+    useState<IVTrimestral>(avanceFinancieroRF.monto.devengadoModificado);
+  const [ejercidoModificado, setEjercido_modificado] =
+    useState<IVTrimestral>(avanceFinancieroRF.monto.ejercidoModificado);
+  const [modificadoAutorizado, setModificado_autorizado] =
+    useState<IVTrimestral>(avanceFinancieroRF.monto.modificadoAutorizado);
 
-  const [porcentajedevengado_modificado, setPorcentajeDevengado_modificado] = useState<IVPTrimestral>(VPTrimestral);
-  const [porcentajeejercido_modificado, setPorcentajeEjercido_modificado] = useState<IVPTrimestral>(VPTrimestral);
-  const [porcentajemodificado_autorizado, setPorcentajeModificado_autorizado] = useState<IVPTrimestral>(VPTrimestral);
-  const [valorProgramaPresupuestario, setValorProgramaPresupuestario] = useState("0");
+  const [porcentajedevengado_modificado, setPorcentajeDevengado_modificado] =
+    useState<IVPTrimestral>(avanceFinancieroRF.porcentaje.porcentajeDevengadoModificado);
+  const [porcentajeejercido_modificado, setPorcentajeEjercido_modificado] =
+    useState<IVPTrimestral>(avanceFinancieroRF.porcentaje.porcentajeEjercidoModificado);
+  const [porcentajemodificado_autorizado, setPorcentajeModificado_autorizado] =
+    useState<IVPTrimestral>(avanceFinancieroRF.porcentaje.procentajeModificadoAutorizado);
+  const [valorProgramaPresupuestario, setValorProgramaPresupuestario] =
+    useState("0");
 
   const [avanceFinanciero, setAvanceFinanciero] = useState<IAvanceFinancieroRF>(
-
+    // {
+    //   nombrePrograma: "",
+    //   valorProgramaPresupuestario: "0",
+    //   monto: {
+    //     devengadoModificado: devengadoModificado,
+    //     modificadoAutorizado: modificadoAutorizado,
+    //     ejercidoModificado: ejercidoModificado,
+    //   },
+    //   porcentaje: {
+    //     porcentajeDevengadoModificado: porcentajedevengado_modificado,
+    //     procentajeModificadoAutorizado: porcentajeejercido_modificado,
+    //     porcentajeEjercidoModificado: porcentajemodificado_autorizado,
+    //   },
+    // }
     avanceFinancieroRF
   );
 
-  // useEffect(() => {
-  //   let objetoAuxiliar: IAvanceFinancieroRF = {
-  //     nombrePrograma: "",
-  //     //jsonMir.encabezado.nombre_del_programa,
-  //     valorProgramaPresupuestario: valorProgramaPresupuestario,
-  //     //Calculo: "DEVENGADO/MODIFICADO",
-  //     monto: {
-  //       devengadoModificado: devengadoModificado,
-  //       modificadoAutorizado: modificadoAutorizado,
-  //       ejercidoModificado: ejercidoModificado,
-  //     },
-  //     porcentaje: {
-  //       porcentajeDevengadoModificado: porcentajedevengado_modificado,
-  //       procentajeModificadoAutorizado: porcentajeejercido_modificado,
-  //       porcentajeEjercidoModificado: porcentajemodificado_autorizado,
-  //     },
-  //   };
+  useEffect(() => {
+    // let objetoAuxiliar: IAvanceFinancieroRF = {
+    //   nombrePrograma: "",
+    //   //jsonMir.encabezado.nombre_del_programa,
+    //   valorProgramaPresupuestario: valorProgramaPresupuestario,
+    //   //Calculo: "DEVENGADO/MODIFICADO",
+    //   monto: {
+    //     devengadoModificado: devengadoModificado,
+    //     modificadoAutorizado: modificadoAutorizado,
+    //     ejercidoModificado: ejercidoModificado,
+    //   },
+    //   porcentaje: {
+    //     porcentajeDevengadoModificado: porcentajedevengado_modificado,
+    //     procentajeModificadoAutorizado: porcentajeejercido_modificado,
+    //     porcentajeEjercidoModificado: porcentajemodificado_autorizado,
+    //   },
+    // };
 
-  //   setAvanceFinanciero(objetoAuxiliar);
-  //   console.log("objetoAuxiliar: ",objetoAuxiliar);
+    let aux = avanceFinanciero;
+    aux.monto.devengadoModificado = devengadoModificado;
+    aux.monto.modificadoAutorizado = modificadoAutorizado;
+    aux.monto.ejercidoModificado = ejercidoModificado;
 
-  //   setAvanceFinancieroRF(avanceFinanciero);
+    aux.porcentaje.porcentajeDevengadoModificado =porcentajedevengado_modificado;
+    aux.porcentaje.procentajeModificadoAutorizado =porcentajemodificado_autorizado;
+    aux.porcentaje.porcentajeEjercidoModificado =porcentajeejercido_modificado; 
+    // setAvanceFinanciero({
+    //   ...aux,
+    // });
 
-  // }, [
-  //   devengadoModificado,
-  //   modificadoAutorizado,
-  //   ejercidoModificado,
-  //   porcentajedevengado_modificado,
-  //   porcentajeejercido_modificado,
-  //   porcentajemodificado_autorizado,
-  // ]);
+    setAvanceFinancieroRF({
+      ...aux,
+    });
+    
+  }, [
+    devengadoModificado,
+    modificadoAutorizado,
+    ejercidoModificado,
+    porcentajedevengado_modificado,
+    porcentajeejercido_modificado,
+    porcentajemodificado_autorizado,
+  ]);
 
   function sumarNumerosStrings(accum: number, numerosStrings: string): number {
     const numero = parseFloat(numerosStrings); // Puedes usar parseInt() si solo quieres números enteros
@@ -192,9 +221,15 @@ export function TabAvanceFinanciero({
   // }, []);
 
   useEffect(() => {
-    console.log("avanceFinanciero: ", avanceFinanciero);
+    console.log("avanceFinanciero-tab: ", avanceFinanciero);
+    console.log("avanceFinancieroRF-tab: ", avanceFinancieroRF);
+    if(avanceFinancieroRF !== null || avanceFinancieroRF !== undefined){
+      setAvanceFinancieroRF(avanceFinancieroRF)
+    }else{
+      setAvanceFinancieroRF(avanceFinanciero)
+    }
+    
 
-    setAvanceFinancieroRF(avanceFinanciero);
     // setAvanceFinancieroRF(avanceFinanciero)
   }, [avanceFinanciero]);
 
@@ -229,159 +264,182 @@ export function TabAvanceFinanciero({
     console.log("valor: ", valor);
     console.log("valor1: ", valor1);
     console.log("valor2: ", valor2);
-    console.log("avanceFinanciero Dialog: ", avanceFinanciero);
-
-
     let porcentaje =
       (parseFloat(valor) /
         parseFloat(avanceFinanciero.valorProgramaPresupuestario)) *
       100;
-    console.log("calculo: ", calculo);
-
     switch (calculo) {
       case "MODIFICADO/AUTORIZADO":
-        let aux = { ...avanceFinanciero }
         switch (trimestre) {
-
           case "TRIMESTRE 1":
-            aux.monto.modificadoAutorizado.t1 = { valor1: valor1, valor2: valor2, resultado: valor }
-            aux.porcentaje.procentajeModificadoAutorizado.pt1 = porcentaje.toString()
-            console.log("aux: ", aux);
-            setAvanceFinanciero({
-              ...aux
+            setModificado_autorizado({
+              ...modificadoAutorizado,
+              t1: { valor1: valor1, valor2: valor2, resultado: valor },
+            });
+
+            setPorcentajeModificado_autorizado({
+              ...porcentajemodificado_autorizado,
+              pt1: porcentaje.toString(),
             });
 
             break;
           case "TRIMESTRE 2":
-            let aux2 = avanceFinanciero
-            aux2.monto.modificadoAutorizado.t2 = { valor1: valor1, valor2: valor2, resultado: valor }
-            aux2.porcentaje.procentajeModificadoAutorizado.pt2 = porcentaje.toString()
-            setAvanceFinanciero({
-              ...aux2
+            setModificado_autorizado({
+              ...modificadoAutorizado,
+              t2: { valor1: valor1, valor2: valor2, resultado: valor },
             });
 
+            setPorcentajeModificado_autorizado({
+              ...porcentajemodificado_autorizado,
+              pt2: porcentaje.toString(),
+            });
             break;
           case "TRIMESTRE 3":
-            let aux3 = avanceFinanciero
-            aux3.monto.modificadoAutorizado.t3 = { valor1: valor1, valor2: valor2, resultado: valor }
-            aux3.porcentaje.procentajeModificadoAutorizado.pt3 = porcentaje.toString()
-            setAvanceFinanciero({
-              ...aux3
+            setModificado_autorizado({
+              ...modificadoAutorizado,
+              t3: { valor1: valor1, valor2: valor2, resultado: valor },
+            });
+            setPorcentajeModificado_autorizado({
+              ...porcentajemodificado_autorizado,
+              pt3: porcentaje.toString(),
             });
             break;
           case "TRIMESTRE 4":
-            let aux4 = avanceFinanciero
-            aux4.monto.modificadoAutorizado.t4 = { valor1: valor1, valor2: valor2, resultado: valor }
-            aux.porcentaje.procentajeModificadoAutorizado.pt4 = porcentaje.toString()
-            setAvanceFinanciero({
-              ...aux4
+            setModificado_autorizado({
+              ...modificadoAutorizado,
+              t4: { valor1: valor1, valor2: valor2, resultado: valor },
+            });
+            setPorcentajeModificado_autorizado({
+              ...porcentajemodificado_autorizado,
+              pt4: porcentaje.toString(),
             });
             break;
         }
 
         break;
-
       case "DEVENGADO/MODIFICADO":
-
         switch (trimestre) {
           case "TRIMESTRE 1":
-            console.log("entre2: ", trimestre);
-            let auxd = avanceFinanciero
-            auxd.monto.devengadoModificado.t1 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxd.porcentaje.porcentajeDevengadoModificado.pt1 = porcentaje.toString()
-
-            setAvanceFinanciero({
-              ...auxd
+            setDevengado_modificado({
+              ...devengadoModificado,
+              t1: { valor1: valor1, valor2: valor2, resultado: valor },
             });
-
+            setPorcentajeDevengado_modificado({
+              ...porcentajedevengado_modificado,
+              pt1: porcentaje.toString(),
+            });
             break;
           case "TRIMESTRE 2":
-            let auxd2 = avanceFinanciero
-            auxd2.monto.devengadoModificado.t2 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxd2.porcentaje.porcentajeDevengadoModificado.pt2 = porcentaje.toString()
-            setAvanceFinanciero({
-              ...auxd2
+            setDevengado_modificado({
+              ...devengadoModificado,
+              t2: { valor1: valor1, valor2: valor2, resultado: valor },
             });
-
+            setPorcentajeDevengado_modificado({
+              ...porcentajedevengado_modificado,
+              pt2: porcentaje.toString(),
+            });
             break;
           case "TRIMESTRE 3":
-            let auxd3 = avanceFinanciero
-            auxd3.monto.devengadoModificado.t3 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxd3.porcentaje.porcentajeDevengadoModificado.pt3 = porcentaje.toString()
-            setAvanceFinanciero({
-              ...auxd3
+            setDevengado_modificado({
+              ...devengadoModificado,
+              t3: { valor1: valor1, valor2: valor2, resultado: valor },
+            });
+            setPorcentajeDevengado_modificado({
+              ...porcentajedevengado_modificado,
+              pt3: porcentaje.toString(),
             });
             break;
           case "TRIMESTRE 4":
-            let auxd4 = avanceFinanciero
-            auxd4.monto.devengadoModificado.t4 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxd4.porcentaje.porcentajeDevengadoModificado.pt4 = porcentaje.toString()
-            setAvanceFinanciero({
-              ...auxd4
+            setDevengado_modificado({
+              ...devengadoModificado,
+              t4: { valor1: valor1, valor2: valor2, resultado: valor },
+            });
+            setPorcentajeDevengado_modificado({
+              ...porcentajedevengado_modificado,
+              pt4: porcentaje.toString(),
             });
             break;
         }
         break;
-
       case "EJERCIDO/MODIFICADO":
         switch (trimestre) {
           case "TRIMESTRE 1":
-            console.log("entre2: ", trimestre);
-            let auxe1 = avanceFinanciero
-            auxe1.monto.ejercidoModificado.t1 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxe1.porcentaje.porcentajeEjercidoModificado.pt1 = porcentaje.toString()
-
-            setAvanceFinanciero({
-              ...auxe1
+            setEjercido_modificado({
+              ...ejercidoModificado,
+              t1: { valor1: valor1, valor2: valor2, resultado: valor },
+            });
+            setPorcentajeEjercido_modificado({
+              ...porcentajeejercido_modificado,
+              pt1: porcentaje.toString(),
             });
 
             break;
           case "TRIMESTRE 2":
-            let auxe2 = avanceFinanciero
-            auxe2.monto.ejercidoModificado.t2 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxe2.porcentaje.porcentajeEjercidoModificado.pt2 = porcentaje.toString()
-            setAvanceFinanciero({
-              ...auxe2
+            setEjercido_modificado({
+              ...ejercidoModificado,
+              t2: { valor1: valor1, valor2: valor2, resultado: valor },
             });
-
+            setPorcentajeEjercido_modificado({
+              ...porcentajeejercido_modificado,
+              pt2: porcentaje.toString(),
+            });
             break;
           case "TRIMESTRE 3":
-            let auxe3 = avanceFinanciero
-
-            auxe3.monto.ejercidoModificado.t3 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxe3.porcentaje.porcentajeEjercidoModificado.pt3 = porcentaje.toString()
-            setAvanceFinanciero({
-              ...auxe3
+            setEjercido_modificado({
+              ...ejercidoModificado,
+              t3: { valor1: valor1, valor2: valor2, resultado: valor },
+            });
+            setPorcentajeEjercido_modificado({
+              ...porcentajeejercido_modificado,
+              pt3: porcentaje.toString(),
             });
             break;
           case "TRIMESTRE 4":
-            let auxe4 = avanceFinanciero
-
-            auxe4.monto.ejercidoModificado.t4 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxe4.porcentaje.porcentajeEjercidoModificado.pt4 = porcentaje.toString()
-            setAvanceFinanciero({
-              ...auxe4
+            setEjercido_modificado({
+              ...ejercidoModificado,
+              t4: { valor1: valor1, valor2: valor2, resultado: valor },
+            });
+            setPorcentajeEjercido_modificado({
+              ...porcentajeejercido_modificado,
+              pt4: porcentaje.toString(),
             });
             break;
         }
         break;
     }
+
+    
+  };
+
+  useEffect(() => {}, []);
+
+  const block = (valor: string) => {
+    return valor === "0" || valor === null || valor === "";
   };
 
   const newvalue = (valor: string) => {
-    const nuevoValor = valor;
+    console.log("valor: ", valor);
 
+    const nuevoValor = valor;
+    // let porcentaje =
+    //   (parseFloat(ejercidoModificado.t1) /
+    //     parseFloat(avanceFinanciero.valorProgramaPresupuestario)) *
+    //   100;
     if (nuevoValor !== valorProgramaPresupuestario) {
       setPorcentajeEjercido_modificado(porcentajeejercido_modificado);
+    } else {
     }
   };
 
   return (
     <>
       <Grid
+        // visibility={show ? "visible" : "hidden"}
         container
         direction={"row"}
         sx={{
+          // width: "100%",
+          // height: "100%",
           width: "93vw",
           height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
           justifyContent: "center",
@@ -422,33 +480,43 @@ export function TabAvanceFinanciero({
           <Grid
             item
             lg={5}
+            //sx={{ backgroundColor: "red" }}
           >
             <TextField
               fullWidth
               size="small"
               placeholder="0"
               onChange={(a) => {
-                if (a.target.value === "0" || a.target.value === null || a.target.value === "") {
-                  alertaInfo("Se neceista un valor para capturar los campos de trimestre")
+                if (
+                  a.target.value === "0" ||
+                  a.target.value === null ||
+                  a.target.value === ""
+                ) {
+                  alertaInfo(
+                    "Se neceista un valor para capturar los campos de trimestre"
+                  );
+                }
+                //alertaInfo()
+
+                switch (selector) {
                 }
 
                 setAvanceFinanciero({
                   ...avanceFinanciero,
                   valorProgramaPresupuestario: a.target.value,
                 });
-
+                //setValorProgramaPresupuestario(a.target.value);
                 newvalue(a.target.value);
               }}
               value={
                 parseInt(avanceFinanciero.valorProgramaPresupuestario) <= 0
                   ? ""
                   : avanceFinanciero.valorProgramaPresupuestario
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "")
-                    .replace(/\D/g, "")
+                      .replaceAll('"', "")
+                      .replaceAll("'", "")
+                      .replaceAll("\n", "")
+                      .replace(/\D/g, "")
               }
-
               label="VALOR DEL PROGRAMA PRESUPUESTARIO"
               sx={queries.medium_text}
               InputLabelProps={{
@@ -469,7 +537,9 @@ export function TabAvanceFinanciero({
             item
             lg={5}
             sx={{
+              //backgroundColor: "#f0f0f0",
               display: "flex",
+              //flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
               boxShadow: 2,
@@ -625,24 +695,59 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   size="small"
-                  disabled={avanceFinanciero.valorProgramaPresupuestario === "0" || avanceFinanciero.valorProgramaPresupuestario === null || avanceFinanciero.valorProgramaPresupuestario === ""}
+                  disabled={
+                    avanceFinanciero.valorProgramaPresupuestario === "0" ||
+                    avanceFinanciero.valorProgramaPresupuestario === null ||
+                    avanceFinanciero.valorProgramaPresupuestario === ""
+                  }
                   placeholder="SIN CAPTURAR"
                   onClick={(a) => {
+                    //let valor = a.target.value;
+                    if (selector === "DEVENGADO/MODIFICADO") {
                       setTrimestre("TRIMESTRE 1");
                       handleClickOpen();
+                      // let numeroValido = validarNumero(
+                      //   valor,
+                      //   devengadoModificado.t1
+                      // );
+                      // setDevengado_modificado({
+                      //   ...devengadoModificado,
+                      //   t1: numeroValido,
+                      // });
+                    } else if (selector === "EJERCIDO/MODIFICADO") {
+                      setTrimestre("TRIMESTRE 1");
+                      handleClickOpen();
+                      // let numeroValido = validarNumero(
+                      //   valor,
+                      //   ejercidoModificado.t1
+                      // );
+                      // setEjercido_modificado({
+                      //   ...ejercidoModificado,
+                      //   t1: numeroValido,
+                      // });
+                    } else if (selector === "MODIFICADO/AUTORIZADO") {
+                      setTrimestre("TRIMESTRE 1");
+                      handleClickOpen();
+                      //setSelector(selector)
+                      // let numeroValido = validarNumero(
+                      //   valor,
+                      //   modificadoAutorizado.t1
+                      // );
+                      // setModificado_autorizado({
+                      //   ...modificadoAutorizado,
+                      //   t1: numeroValido,
+                      // });
+                    }
                   }}
                   value={
-                    
+                    //   // "$" +
                     selector === "DEVENGADO/MODIFICADO"
-                      ? avanceFinanciero.monto.devengadoModificado.t1.resultado
-                      
+                      ? devengadoModificado.t1.resultado
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? avanceFinanciero.monto.ejercidoModificado.t1.resultado
-                        
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? avanceFinanciero.monto.modificadoAutorizado.t1.resultado
-                         
-                          : null
+                      ? ejercidoModificado.t1.resultado
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? modificadoAutorizado.t1.resultado
+                      : null
                   }
                   sx={queries.medium_text}
                   InputLabelProps={{
@@ -661,18 +766,22 @@ export function TabAvanceFinanciero({
               <Grid item>
                 <TextField
                   fullWidth
-                  disabled={avanceFinanciero.valorProgramaPresupuestario === "0" || avanceFinanciero.valorProgramaPresupuestario === null || avanceFinanciero.valorProgramaPresupuestario === ""}
+                  disabled={
+                    avanceFinanciero.valorProgramaPresupuestario === "0" ||
+                    avanceFinanciero.valorProgramaPresupuestario === null ||
+                    avanceFinanciero.valorProgramaPresupuestario === ""
+                  }
                   size="small"
-                  placeholder="0"
+                  placeholder="SIN PORCENTAJE"
                   sx={queries.medium_text}
                   value={
                     selector === "DEVENGADO/MODIFICADO"
-                      ? avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt1
+                      ? porcentajedevengado_modificado.pt1 
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt1
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? avanceFinanciero.porcentaje.procentajeModificadoAutorizado.pt1
-                          : null
+                      ? porcentajeejercido_modificado.pt1
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? porcentajemodificado_autorizado.pt1 
+                      : null
                   }
                   InputLabelProps={{
                     style: {
@@ -707,7 +816,11 @@ export function TabAvanceFinanciero({
               <Grid item>
                 <TextField
                   fullWidth
-                  disabled={avanceFinanciero.valorProgramaPresupuestario === "0" || avanceFinanciero.valorProgramaPresupuestario === null || avanceFinanciero.valorProgramaPresupuestario === ""}
+                  disabled={
+                    avanceFinanciero.valorProgramaPresupuestario === "0" ||
+                    avanceFinanciero.valorProgramaPresupuestario === null ||
+                    avanceFinanciero.valorProgramaPresupuestario === ""
+                  }
                   size="small"
                   placeholder="SIN CAPTURAR"
                   onClick={(a) => {
@@ -723,17 +836,13 @@ export function TabAvanceFinanciero({
                     }
                   }}
                   value={
-                   
                     selector === "DEVENGADO/MODIFICADO"
-                      ? avanceFinanciero.monto.devengadoModificado.t2.resultado
-                     
+                      ? devengadoModificado.t2.resultado
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? avanceFinanciero.monto.ejercidoModificado.t2.resultado
-                        
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? avanceFinanciero.monto.modificadoAutorizado.t2.resultado
-                       
-                          : null
+                      ? ejercidoModificado.t2.resultado
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? modificadoAutorizado.t2.resultado
+                      : null
                   }
                   sx={queries.medium_text}
                   InputLabelProps={{
@@ -753,16 +862,16 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   size="small"
-                  placeholder="0"
+                  placeholder="SIN PORCENTAJE"
                   sx={queries.medium_text}
                   value={
                     selector === "DEVENGADO/MODIFICADO"
-                      ? avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt2
+                      ? porcentajedevengado_modificado.pt2
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt2
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? avanceFinanciero.porcentaje.procentajeModificadoAutorizado.pt2
-                          : null
+                      ? porcentajeejercido_modificado.pt2
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? porcentajemodificado_autorizado.pt2
+                      : null
                   }
                   InputLabelProps={{
                     style: {
@@ -770,6 +879,7 @@ export function TabAvanceFinanciero({
                     },
                   }}
                   InputProps={{
+                    //readOnly: true,
                     style: {
                       fontFamily: "MontserratMedium",
                     },
@@ -796,23 +906,35 @@ export function TabAvanceFinanciero({
 
               <Grid item>
                 <TextField
-                  disabled={avanceFinanciero.valorProgramaPresupuestario === "0" || avanceFinanciero.valorProgramaPresupuestario === null || avanceFinanciero.valorProgramaPresupuestario === ""}
+                  disabled={
+                    avanceFinanciero.valorProgramaPresupuestario === "0" ||
+                    avanceFinanciero.valorProgramaPresupuestario === null ||
+                    avanceFinanciero.valorProgramaPresupuestario === ""
+                  }
                   fullWidth
                   size="small"
                   placeholder="SIN CAPTURAR"
                   onClick={(a) => {
-                    setTrimestre("TRIMESTRE 3");
-                    handleClickOpen();
+                    if (selector === "DEVENGADO/MODIFICADO") {
+                      setTrimestre("TRIMESTRE 3");
+                      handleClickOpen();
+                    } else if (selector === "EJERCIDO/MODIFICADO") {
+                      setTrimestre("TRIMESTRE 3");
+                      handleClickOpen();
+                    } else if (selector === "MODIFICADO/AUTORIZADO") {
+                      setTrimestre("TRIMESTRE 3");
+                      handleClickOpen();
+                    }
                   }}
                   value={
-                
+                    //   // "$" +
                     selector === "DEVENGADO/MODIFICADO"
-                      ? avanceFinanciero.monto.devengadoModificado.t3.resultado
+                      ? devengadoModificado.t3.resultado
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? avanceFinanciero.monto.ejercidoModificado.t3.resultado
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? avanceFinanciero.monto.modificadoAutorizado.t3.resultado
-                          : null
+                      ? ejercidoModificado.t3.resultado
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? modificadoAutorizado.t3.resultado
+                      : null
                   }
                   sx={queries.medium_text}
                   InputLabelProps={{
@@ -832,16 +954,16 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   size="small"
-                  placeholder="0"
+                  placeholder="SIN PORCENTAJE"
                   sx={queries.medium_text}
                   value={
                     selector === "DEVENGADO/MODIFICADO"
-                      ? avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt3
+                      ? porcentajedevengado_modificado.pt3
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt3
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? avanceFinanciero.porcentaje.procentajeModificadoAutorizado.pt3
-                          : null
+                      ? porcentajeejercido_modificado.pt3
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? porcentajemodificado_autorizado.pt3
+                      : null
                   }
                   InputLabelProps={{
                     style: {
@@ -876,7 +998,11 @@ export function TabAvanceFinanciero({
               <Grid item>
                 <TextField
                   fullWidth
-                  disabled={avanceFinanciero.valorProgramaPresupuestario === "0" || avanceFinanciero.valorProgramaPresupuestario === null || avanceFinanciero.valorProgramaPresupuestario === ""}
+                  disabled={
+                    avanceFinanciero.valorProgramaPresupuestario === "0" ||
+                    avanceFinanciero.valorProgramaPresupuestario === null ||
+                    avanceFinanciero.valorProgramaPresupuestario === ""
+                  }
                   size="small"
                   placeholder="SIN CAPTURAR"
                   onClick={(a) => {
@@ -892,13 +1018,14 @@ export function TabAvanceFinanciero({
                     }
                   }}
                   value={
+                    //   // "$" +
                     selector === "DEVENGADO/MODIFICADO"
-                      ? avanceFinanciero.monto.devengadoModificado.t4.resultado
+                      ? devengadoModificado.t4.resultado
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? avanceFinanciero.monto.ejercidoModificado.t4.resultado
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? avanceFinanciero.monto.modificadoAutorizado.t4.resultado
-                          : null
+                      ? ejercidoModificado.t4.resultado
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? modificadoAutorizado.t4.resultado
+                      : null
                   }
                   sx={queries.medium_text}
                   InputLabelProps={{
@@ -918,16 +1045,17 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   size="small"
-                  placeholder="0"
+                  placeholder="SIN PORCENTAJE"
+                  //label="porcentaje T1"
                   sx={queries.medium_text}
                   value={
                     selector === "DEVENGADO/MODIFICADO"
-                      ? avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt4
+                      ? porcentajedevengado_modificado.pt4
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt4
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? avanceFinanciero.porcentaje.procentajeModificadoAutorizado.pt4
-                          : null
+                      ? porcentajeejercido_modificado.pt4
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? porcentajemodificado_autorizado.pt4
+                      : null
                   }
                   InputLabelProps={{
                     style: {
@@ -935,6 +1063,7 @@ export function TabAvanceFinanciero({
                     },
                   }}
                   InputProps={{
+                    //readOnly: true,
                     style: {
                       fontFamily: "MontserratMedium",
                     },
@@ -963,17 +1092,18 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   size="small"
+                  //label="Cuenta Publica"
                   placeholder="SIN CAPTURAR"
                   onChange={(a) => {
                     let valor: Number;
                     valor =
                       selector === "DEVENGADO/MODIFICADO"
-                        ? Number(avanceFinanciero.monto.devengadoModificado.cuentaPublica)
+                        ? Number(devengadoModificado.cuentaPublica)
                         : selector === "EJERCIDO/MODIFICADO"
-                          ? Number(avanceFinanciero.monto.ejercidoModificado.cuentaPublica)
-                          : selector === "MODIFICADO/AUTORIZADO"
-                            ? Number(avanceFinanciero.monto.modificadoAutorizado.cuentaPublica)
-                            : 0;
+                        ? Number(ejercidoModificado.cuentaPublica)
+                        : selector === "MODIFICADO/AUTORIZADO"
+                        ? Number(modificadoAutorizado.cuentaPublica)
+                        : 0;
                     valor = validarNumero(a.target.value, valor);
 
                     let porcentaje: number = 0;
@@ -1030,10 +1160,10 @@ export function TabAvanceFinanciero({
                     selector === "DEVENGADO/MODIFICADO"
                       ? devengadoModificado.cuentaPublica
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? ejercidoModificado.cuentaPublica
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? modificadoAutorizado.cuentaPublica
-                          : null
+                      ? ejercidoModificado.cuentaPublica
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? modificadoAutorizado.cuentaPublica
+                      : null
                   }
                   sx={queries.medium_text}
                   // value={"150000000"}
@@ -1055,17 +1185,17 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   size="small"
-                  placeholder="0"
+                  placeholder="SIN PORCENTAJE"
                   //label="porcentaje T1"
                   sx={queries.medium_text}
                   value={
                     selector === "DEVENGADO/MODIFICADO"
                       ? porcentajedevengado_modificado.porcentajeCuentaPublica
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? porcentajeejercido_modificado.porcentajeCuentaPublica
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? porcentajemodificado_autorizado.porcentajeCuentaPublica
-                          : null
+                      ? porcentajeejercido_modificado.porcentajeCuentaPublica
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? porcentajemodificado_autorizado.porcentajeCuentaPublica
+                      : null
                   }
                   InputLabelProps={{
                     style: {
