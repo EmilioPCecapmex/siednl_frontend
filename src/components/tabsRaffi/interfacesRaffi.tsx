@@ -9,7 +9,7 @@ export interface IAvanceFinancieroRF {
   };
   porcentaje: {
     porcentajeDevengadoModificado: IVPTrimestral;
-    procentajeModificadoAutorizado: IVPTrimestral;
+    porcentajeModificadoAutorizado: IVPTrimestral;
     porcentajeEjercidoModificado: IVPTrimestral;
   };
 }
