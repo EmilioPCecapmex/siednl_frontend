@@ -286,9 +286,7 @@ export default function CapturaRaffi({
   };
 
   useEffect(() => {
-    // console.log("ENTRE");
     console.log("RF: ", RF);
-    // console.log("MIR: ", MIR);
 
     if (RF !== "") {
       let auxArrayRF = JSON.parse(RF);

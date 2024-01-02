@@ -1,9 +1,11 @@
 import {
-  Grid,
-  InputLabel,
-  Select,
-  MenuItem,
   FormControl,
+  Grid,
+  InputBase,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
   Table,
   TableBody,
   TableCell,
@@ -12,34 +14,30 @@ import {
   TableRow,
   TableSortLabel,
   Tooltip,
-  InputBase,
-  Paper,
 } from "@mui/material";
 //import { useNavigate } from "react-router-dom";
-import {
-  LateralMenu,
-  IInstituciones,
-} from "../../components/lateralMenu/LateralMenu";
-import React, { useEffect, useState } from "react";
 import DownloadIcon from "@mui/icons-material/Download";
+import { useEffect, useState } from "react";
+import {
+  LateralMenu
+} from "../../components/lateralMenu/LateralMenu";
 import CapturaRaffi from "../../components/tabsRaffi/CapturaRaffi";
 
-import { queries } from "../../queries";
-import { listaRaffi } from "../../services/raffi_services/raffi_endpoints";
-import { getInstituciones } from "../../services/instituciones_services/instituciones";
 import moment from "moment";
+import { queries } from "../../queries";
+import { getInstituciones } from "../../services/instituciones_services/instituciones";
+import { listaRaffi } from "../../services/raffi_services/raffi_endpoints";
 // import VisibilityIcon from "@mui/icons-material/Visibility";
 // import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
+import SearchIcon from "@mui/icons-material/Search";
+import IconButton from "@mui/material/IconButton";
 //import CommentIcon from "@mui/icons-material/Comment";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
-import { IMIR } from "../../components/tabsMir/interfaces mir/IMIR";
-import Swal from "sweetalert2";
 
 const estados = [
   "Todos",
@@ -331,14 +329,16 @@ export const Raffi = () => {
 
     axios
       .post(
-       // process.env.REACT_APP_APPLICATION_FILL + "/api/fill_rf", 
+        // process.env.REACT_APP_APPLICATION_FILL + "/api/fill_rf",
         "http://192.168.137.198:7001/api/fill_raffi",
-        fullRF, {
-        responseType: "blob",
-        // headers: {
-        //   Authorization: localStorage.getItem("jwtToken") || "",
-        // },
-      })
+        fullRF,
+        {
+          responseType: "blob",
+          // headers: {
+          //   Authorization: localStorage.getItem("jwtToken") || "",
+          // },
+        }
+      )
       .then((r) => {
         Toast.fire({
           icon: "success",
@@ -859,7 +859,6 @@ export const Raffi = () => {
                               sx={{
                                 flexDirection: "row",
                                 display: "grid",
-                                //padding: "2px 20px 2px 10",
                                 gridTemplateColumns: "repeat(4,1fr)",
                                 fontSize: [10, 10, 10, 15, 15, 18],
                                 textAlign: "center",
@@ -960,15 +959,13 @@ export const Raffi = () => {
                                           fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
 
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
+                                        "@media (min-width: 601px) and (max-width: 960px)": {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
 
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
@@ -1068,15 +1065,13 @@ export const Raffi = () => {
                                           fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
 
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
+                                        "@media (min-width: 601px) and (max-width: 960px)": {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
 
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
@@ -1119,15 +1114,13 @@ export const Raffi = () => {
                                           fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
 
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
+                                        "@media (min-width: 601px) and (max-width: 960px)": {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
 
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
