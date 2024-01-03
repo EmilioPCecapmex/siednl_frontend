@@ -13,6 +13,8 @@ import {
 //import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
 import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
+import { alertaEliminar, alertaExito } from "../genericComponents/Alertas";
+
 export let errores: string[] = [];
 
 export default function ModalEnviarFT({
@@ -554,7 +556,8 @@ export default function ModalEnviarFT({
             }}
           >
             <Button
-              sx={queries.buttonCancelarSolicitudInscripcion}
+            className="cancelar"
+              //sx={queries.buttonCancelarSolicitudInscripcion}
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -563,7 +566,8 @@ export default function ModalEnviarFT({
             </Button>
 
             <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
+            className="aceptar"
+              //sx={queries.buttonContinuarSolicitudInscripcion}
               variant="contained"
               onClick={() => {
                 checkFT(

@@ -21,6 +21,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { queries } from "../../queries";
+import { alertaEliminar, alertaExito } from "../genericComponents/Alertas";
 
 export const ComentDialogFT = ({
   estado,
@@ -72,11 +73,10 @@ export const ComentDialogFT = ({
   const getUsuariosXInstitucion = () => {
     axios
       .post(process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario", {
-       
-          TipoUsuario: localStorage.getItem("Rol"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
-          IdApp: localStorage.getItem("dApp"),
-        
+        TipoUsuario: localStorage.getItem("Rol"),
+        IdEntidad: localStorage.getItem("IdEntidad"),
+        IdApp: localStorage.getItem("dApp"),
+
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
@@ -179,21 +179,20 @@ export const ComentDialogFT = ({
         <span>
           <IconButton onClick={handleClickOpen}>
             <MessageIcon
-               sx={{
+              sx={{
                 fontSize: "24px", // Tamaño predeterminado del icono
 
                 "@media (max-width: 600px)": {
                   fontSize: 20, // Pantalla extra pequeña (xs y sm)
                 },
 
-                "@media (min-width: 601px) and (max-width: 960px)":
-                  {
-                    fontSize: 20, // Pantalla pequeña (md)
-                  },
+                "@media (min-width: 601px) and (max-width: 960px)": {
+                  fontSize: 20, // Pantalla pequeña (md)
+                },
 
-                  "@media (min-width: 961px) and (max-width: 1280px)": {
-                    fontSize: 20, // Pantalla mediana (lg)
-                  },
+                "@media (min-width: 961px) and (max-width: 1280px)": {
+                  fontSize: 20, // Pantalla mediana (lg)
+                },
 
                 "@media (min-width: 1281px)": {
                   fontSize: 25, // Pantalla grande (xl)
@@ -352,9 +351,10 @@ export const ComentDialogFT = ({
               }}
             >
               <Button
-                sx={queries.buttonCancelarSolicitudInscripcion}
+                className="cancelar"
+                // sx={queries.buttonCancelarSolicitudInscripcion}
                 variant="contained"
-                color="error"
+                //color="error"
                 onClick={handleClose}
               >
                 <Typography
@@ -364,9 +364,10 @@ export const ComentDialogFT = ({
                 </Typography>{" "}
               </Button>
               <Button
-                sx={queries.buttonContinuarSolicitudInscripcion}
+                className="aceptar"
+                // sx={queries.buttonContinuarSolicitudInscripcion}
                 variant="contained"
-                disabled={estado === "Autorizada" && isComentEmpty()}
+                //disabled={estado === "Autorizada" && isComentEmpty()}
                 color="info"
                 onClick={() => {
                   if (isComentEmpty()) {

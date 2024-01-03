@@ -190,6 +190,11 @@ export const FichaTecnica = () => {
   }, []);
 
   useEffect(() => {
+    //console.log("MIR: "MIR);
+    
+  }, []);
+
+  useEffect(() => {
     setFtFiltered(ft);
   }, [ft]);
 
@@ -1039,8 +1044,10 @@ export const FichaTecnica = () => {
                                       let auxArrayMIR2 = JSON.stringify(
                                         auxArrayMIR[0]
                                       );
+                                    
                                       if (auxArrayMIR[1]) {
-                                        setFTShow([
+                                        
+                                        setFTEdit([
                                           {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
@@ -1060,7 +1067,8 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       } else {
-                                        setFTShow([
+                                        
+                                        setFTEdit([
                                           {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
@@ -1174,6 +1182,8 @@ export const FichaTecnica = () => {
                                         : true
                                     }
                                     onClick={() => {
+                                      console.log("row.MIR: ",title_texto, row.MIR);
+                                      
                                       let auxArrayMIR = JSON.parse(row.MIR);
                                       let auxArrayMIR2 = JSON.stringify(
                                         auxArrayMIR[0]
@@ -1260,6 +1270,9 @@ export const FichaTecnica = () => {
                                 actualizado={actualizaContador}
                               />
                             </Grid>
+
+
+                            
                           </TableCell>
                         </TableRow>
                       ))}
@@ -1288,6 +1301,16 @@ export const FichaTecnica = () => {
               Conac={FTShow[0]?.Conac}
               Consecutivo={FTShow[0]?.Consecutivo}
             />
+
+            {/* <ModalVerResumenFT
+              open={openModalVerResumenFT}
+              handleClose={handleCloseVerResumenFT}
+              MIR={FTShow[0]?.MIR || ""}
+              MA={FTShow[0]?.MetaAnual || ""}
+              FT={FTShow[0]?.FichaT || ""}
+              Conac={FTShow[0]?.Conac}
+              Consecutivo={FTShow[0]?.Consecutivo}
+            /> */}
           </>
         ) : (
           <Grid
@@ -1301,13 +1324,13 @@ export const FichaTecnica = () => {
             gridArea={"main"}
           >
             <AddFichaTecnica
-              MIR={FTEdit[0].MIR}
-              MA={FTEdit[0].MetaAnual}
-              FT={FTEdit[0].FichaT}
+              MIR={FTEdit[0]?.MIR || ""}
+              MA={FTEdit[0]?.MetaAnual || ""}
+              FT={FTEdit[0]?.FichaT || ""}
               showResume={returnMain}
-              IdMir={FTEdit[0].IdMir}
-              IdMA={FTEdit[0].IdMa}
-              IdFT={FTEdit[0].IdFt}
+              IdMir={FTEdit[0]?.IdMir || ""}
+              IdMA={FTEdit[0]?.IdMa || ""}
+              IdFT={FTEdit[0]?.IdFt || ""}
             />
             {/* {FTEdit[0].FichaT} */}
           </Grid>

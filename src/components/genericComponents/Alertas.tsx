@@ -13,6 +13,8 @@ const Toast = Swal.mixin({
   },
 });
 
+
+
 export function alertaExito(fnc: Function, titulo = "Movimiento exitoso") {
   fnc(false);
   return Toast.fire({
@@ -31,7 +33,7 @@ export function alertaError(titulo = "Movimiento fallido") {
   });
 }
 
-export function alertaInfo(titulo = "Movimiento exitoso") {
+export function alertaInfo(titulo: string) {
   return Toast.fire({
     icon: "info",
     title: titulo,
@@ -40,6 +42,31 @@ export function alertaInfo(titulo = "Movimiento exitoso") {
   });
 }
 
-export function alertaEliminar(fnc:Function){
-  fnc();
-}
+// export function alertaEliminar(fnc:Function){
+//   fnc();
+// }
+
+
+
+export const alertaEliminar = (  confirmedfunction: Function, cancelfunction: Function, title= "¿Desea eliminar elemento?") => {
+ return Swal.fire({
+    title: title,
+    //Estas a punto de eliminar un registro
+    // text: ` ${cellValues.row.Nombre}`,
+    icon: "question",
+    showCancelButton: true,
+   
+    cancelButtonColor: "#af8c55",
+    cancelButtonText: "Cancelar",
+    confirmButtonText: "Eliminar",
+    confirmButtonColor: "#15212f",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      confirmedfunction();
+    }else{
+      cancelfunction();
+    }
+
+  });
+};
+

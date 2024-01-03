@@ -15,9 +15,7 @@ import {
 } from "@mui/material";
 import { queries } from "../../queries";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
-import "../../../src/Globals.css"
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
-
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -762,12 +760,12 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
-              // sx={{
-              //   ...queries.buttonCancelarSolicitudInscripcion,
-              //   display: "flex",
-              //   width: "15vw",
-              // }}
-              className="cancelar"
+            className="cancelar"
+              sx={{
+                //...queries.buttonCancelarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
               variant="contained"
               onClick={() => handleClose()}
             >
@@ -775,12 +773,13 @@ export default function ModalSolicitaModif({
             </Button>
 
             <Button
-              // sx={{
-              //   ...queries.buttonContinuarSolicitudInscripcion,
-              //   display: "flex",
-              //   width: "15vw",
-              // }}
-              className="aceptar"
+            className="aceptar"
+              sx={{
+                //...queries.buttonContinuarSolicitudInscripcion,
+                display: "flex",
+                width: "15vw",
+              }}
+              //variant="contained"
 
               onClick={() => {
                 checkUsuario(

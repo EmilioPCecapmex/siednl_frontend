@@ -21,7 +21,11 @@ import IconButton from "@mui/material/IconButton";
 import { queries } from "../../queries";
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
-
+import {
+  alertaError,
+  alertaExito,
+  alertaEliminar,
+} from "../genericComponents/Alertas";
 export function DialogCargaArchivo({
   Tabs,
   Tab,
@@ -251,11 +255,10 @@ export function DialogCargaArchivo({
             </Tooltip>
           </DialogContent>
           <DialogActions>
-
             <Button className="cancelar" autoFocus onClick={handleClose}>
               Cancelar
             </Button>
-            
+
             <Button
               className="aceptar"
               onClick={() => handleClickAddPDF()}
@@ -277,15 +280,17 @@ export const DeleteDialogPAE = ({
   id: string;
   updateData: Function;
 }) => {
-  const [open, setOpen] = useState(false);
+  //const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    //setOpen(true);
+    alertaEliminar(() => {deletePAE(id)},() => {},"Deseas eliminar el documento?").then(() => handleClose());
+    //deletePAE(id).then(() => handleClose());
   };
 
   const handleClose = () => {
     updateData();
-    setOpen(false);
+    
   };
 
   return (
@@ -321,65 +326,7 @@ export const DeleteDialogPAE = ({
           </IconButton>
         </span>
       </Tooltip>
-      <Dialog fullWidth open={open} onClose={handleClose}>
-        <Grid
-          sx={{
-            width: "100%",
-            height: "5vh",
-            alignItems: "center",
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            borderBottom: 0.5,
-            borderColor: "#ccc",
-            gridShadow: 1,
-          }}
-        >
-          <Typography
-            sx={{
-              fontFamily: "MontserratSemiBold",
-              width: "90%",
-              fontSize: "1vw",
-              textAlign: "center",
-            }}
-          >
-            ¿Desea eliminar elemento?
-          </Typography>
-        </Grid>
-
-        <DialogActions
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            sx={queries.buttonCancelarSolicitudInscripcion}
-            onClick={handleClose}
-          >
-            <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-            >
-              Cancelar
-            </Typography>
-          </Button>
-
-          <Button
-            onClick={() => {
-              deletePAE(id).then(() => handleClose());
-            }}
-            sx={queries.buttonContinuarSolicitudInscripcion}
-            autoFocus
-          >
-            <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-            >
-              De Acuerdo
-            </Typography>
-          </Button>
-        </DialogActions>
-      </Dialog>
+     
     </Grid>
   );
 };

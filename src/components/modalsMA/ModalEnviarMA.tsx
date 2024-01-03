@@ -14,8 +14,7 @@ import {
 import { queries } from "../../queries";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { IActividad } from "../tabsMir/interfaces mir/IMIR";
-import "../../../src/Globals.css"
-import { alertaError, alertaExito } from "../genericComponents/Alertas";
+import { alertaEliminar, alertaExito, alertaInfo } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -550,11 +549,13 @@ export default function ModalEnviarMA({
         if (estado === "Autorizada") {
           CrearFichaTecnica();
         }
-        // Toast.fire({
-        //   icon: "success",
-        //   title: r.data.data.message,
-        // });
-        alertaExito(() => {}, r.data.data.message);
+       
+        alertaExito(()=>{}, r.data.data.message
+        // localStorage.getItem("Rol") === "Administrador"
+        // ? "¡MIR autorizada con éxito!, Meta Anual disponible para captura"
+        // : "¡MIR enviada con éxito!"
+        )
+
         if (comment !== "") {
           comentMA(IdMIR);
         }
@@ -565,7 +566,7 @@ export default function ModalEnviarMA({
         //   icon: "error",
         //   title: err.response.data.result.error,
         // });
-        alertaError(err.response.data.result.error);
+        alertaInfo(err.response.data.result.error)
       });
   };
 
@@ -603,7 +604,9 @@ export default function ModalEnviarMA({
           );
           //sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
         });
-
+        alertaExito(()=>{},localStorage.getItem("Rol") === "Administrador"
+        ? "¡FT autorizada con éxito!, Meta Anual disponible para captura"
+        : "¡FT enviada con éxito!")
         showResume();
       })
       .catch((err) => {
@@ -751,6 +754,7 @@ export default function ModalEnviarMA({
           >
             <Button
               className="cancelar"
+              //sx={queries.buttonCancelarSolicitudInscripcion}
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -771,7 +775,8 @@ export default function ModalEnviarMA({
             </Button> */}
 
             <Button
-              className="aceptar"
+            className="aceptar"
+              //sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
                 checkMA(
                   localStorage.getItem("Rol") === "Capturador"

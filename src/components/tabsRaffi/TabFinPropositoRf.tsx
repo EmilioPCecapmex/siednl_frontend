@@ -1,10 +1,5 @@
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import {
-  Grid,
-  TextField,
-  Tooltip,
-  Typography
-} from "@mui/material";
+import { Grid, TextField, Tooltip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { queries } from "../../queries";
 import { validarNumero } from "../../services/validations";
@@ -137,7 +132,8 @@ export function TabFinPropositoRF({
           alignItems: "flex-start",
           backgroundColor: "#fff",
           boxShadow: 10,
-          borderRadius: 5
+          borderRadius: 5,
+          overflow: "auto",
         }}
       >
         <Grid
@@ -148,7 +144,14 @@ export function TabFinPropositoRF({
           md={12}
           sm={12}
           xs={12}
-          sx={{ display: "flex", justifyContent: "flex-end", borderRadius: 5 }}
+          sx={{
+            //width: "100%",
+            display: "flex",
+            // height: "7vh",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+          //sx={{ display: "flex", justifyContent: "flex-end", borderRadius: 5 }}
         >
           <Tooltip title="RESUMEN COMPONENTE">
             <InfoOutlinedIcon
@@ -164,10 +167,10 @@ export function TabFinPropositoRF({
             sx={{
               mr: "1vw",
               fontFamily: "MontserratSemiBold",
-              fontSize: "1.5vw",
+              fontSize: [10, 10, 10, 13, 15, 18],
             }}
           >
-            FIN /
+            FIN
           </Typography>
 
           <Tooltip title="RESUMEN COMPONENTE">
@@ -184,7 +187,7 @@ export function TabFinPropositoRF({
             sx={{
               mr: "1vw",
               fontFamily: "MontserratSemiBold",
-              fontSize: "1.5vw",
+              fontSize: [10, 10, 10, 13, 15, 18],
             }}
           >
             PROPÓSITO
@@ -217,7 +220,12 @@ export function TabFinPropositoRF({
               justifyContent: "center",
               boxShadow: 2,
               border: "1px solid #ccc",
-              height: "45vh",
+              height: window.innerHeight >= 700 ? "45vh" : "35vh",
+              "& > .MuiGrid-item": {
+                marginBottom: "10px",
+                marginTop: "10px",
+                // Ajusta la cantidad de espacio vertical entre los elementos
+              },
             }}
           >
             <Grid mt={{ lg: 2 }} mb={{ lg: 2 }} item lg={6}>
@@ -227,13 +235,16 @@ export function TabFinPropositoRF({
                 size="small"
                 label="Año del Avance Fisico"
                 value={fin.añoAvanceFisico}
-                onChange={(c) =>{
+                onChange={(c) => {
                   setFin({
                     ...fin,
-                    añoAvanceFisico: validarNumero( c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""), fin.añoAvanceFisico),
+                    añoAvanceFisico: validarNumero(
+                      c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", ""),
+                      fin.añoAvanceFisico
+                    ),
                   });
                 }}
                 InputLabelProps={{
@@ -327,7 +338,12 @@ export function TabFinPropositoRF({
               justifyContent: "center",
               boxShadow: 2,
               border: "1px solid #ccc",
-              height: "45vh",
+              height: window.innerHeight >= 700 ? "45vh" : "35vh",
+              "& > .MuiGrid-item": {
+                marginBottom: "10px",
+                marginTop: "10px",
+                // Ajusta la cantidad de espacio vertical entre los elementos
+              },
             }}
           >
             <Grid mt={{ lg: 2 }} mb={{ lg: 2 }} item lg={6}>
@@ -337,13 +353,16 @@ export function TabFinPropositoRF({
                 size="small"
                 label="Año del Avance Fisico"
                 value={proposito.añoAvanceFisico}
-                onChange={(c) =>{
+                onChange={(c) => {
                   setProposito({
                     ...proposito,
-                    añoAvanceFisico: validarNumero( c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", ""), proposito.añoAvanceFisico),
+                    añoAvanceFisico: validarNumero(
+                      c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", ""),
+                      proposito.añoAvanceFisico
+                    ),
                   });
                 }}
                 InputLabelProps={{

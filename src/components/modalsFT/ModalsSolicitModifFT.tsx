@@ -17,6 +17,8 @@ import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { queries } from "../../queries";
 import { log } from "console";
 import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
+import { alertaEliminar, alertaExito } from "../genericComponents/Alertas";
+
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -77,7 +79,6 @@ export default function ModalSolicitaModif({
 
   const checkFT = (v: string) => {
     errores = [];
-
 
     if (
       JSON.parse(FT)?.encabezado === null ||
@@ -482,26 +483,21 @@ export default function ModalSolicitaModif({
       rolusuario?.Rol === "Verificador"
     ) {
       estado = "En Revisión";
-     
     } else if (
       estado === "En Autorización" &&
       userSelected !== "0" &&
       rolusuario?.Rol === "Capturador"
     ) {
       estado = "En Captura";
-  
     } else if (estado === "En Autorización" && userSelected !== "0") {
-    
       estado = "En Captura";
     } else if (
       estado === "Autorizada" &&
       userSelected !== "0" &&
       rolusuario?.Rol === "Capturador"
     ) {
-    
       estado = "En Captura";
     }
-  
 
     axios
       .post(
@@ -556,7 +552,7 @@ export default function ModalSolicitaModif({
 
     if (localStorage.getItem("Rol") === "Capturador")
       tipousuario = "Verificador";
-   
+
     if (localStorage.getItem("Rol") === "Verificador")
       tipousuario = "Verificador";
     if (localStorage.getItem("Rol") === "Administrador")
@@ -658,8 +654,6 @@ export default function ModalSolicitaModif({
               </MenuItem>
 
               {userXInst.map((item) => {
-                
-
                 return (
                   <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
                     {item.Nombre}
@@ -697,8 +691,9 @@ export default function ModalSolicitaModif({
             }}
           >
             <Button
+              className="cancelar"
               sx={{
-                ...queries.buttonCancelarSolicitudInscripcion,
+                //...queries.buttonCancelarSolicitudInscripcion,
                 display: "flex",
                 width: "15vw",
               }}
@@ -708,8 +703,9 @@ export default function ModalSolicitaModif({
             </Button>
 
             <Button
+              className="aceptar"
               sx={{
-                ...queries.buttonContinuarSolicitudInscripcion,
+                // ...queries.buttonContinuarSolicitudInscripcion,
                 display: "flex",
                 width: "15vw",
               }}
