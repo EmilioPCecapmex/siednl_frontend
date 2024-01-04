@@ -251,6 +251,11 @@ export default function CapturaRaffi({
 
   const [editRF, setEditRF] = useState(false);
 
+  useEffect(() => {
+    // ...
+  }, [raffi]);
+
+
   const setRFFinPadre = (finValues: IFinRF) => {
     setRaffi({
       ...raffi,
@@ -282,6 +287,8 @@ export default function CapturaRaffi({
   };
 
   const setAvanceFinancieroPadre = (avanceFinanciero: IAvanceFinancieroRF) => {
+    //console.log("avanceFinanciero: ",avanceFinanciero);
+    
     setRaffi({...raffi,avanceFinanciero: avanceFinanciero,});
   };
 
@@ -414,7 +421,7 @@ export default function CapturaRaffi({
               alignItems: "center",
             }}
           >
-            {value === 0 && (
+            {value === 0 ? (
               <TabAvanceFinanciero
                 MIR={MIR}
                 MA={MA}
@@ -422,7 +429,7 @@ export default function CapturaRaffi({
                 setAvanceFinancieroRF={setAvanceFinancieroPadre}
                 raffiboolean={raffiboolean}
               />
-            )}
+              ) : null}
 
             {value === 1 && (
               <TabFinPropositoRF
@@ -490,3 +497,5 @@ export default function CapturaRaffi({
     </Grid>
   );
 }
+
+

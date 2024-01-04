@@ -79,13 +79,7 @@ export function TabFinPropositoMA({
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [valueFin, valueProposito]);
 
-  useEffect(() => {
-    setValueFin(finPadre);
-  }, [finPadre]);
-
-  useEffect(() => {
-    setValueProposito(propositoPadre);
-  }, [propositoPadre]);
+ 
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");
@@ -214,6 +208,14 @@ export function TabFinPropositoMA({
         setState(r.data.data);
       });
   };
+
+  useEffect(() => {
+    setValueFin(finPadre);
+  }, [finPadre]);
+
+  useEffect(() => {
+    setValueProposito(propositoPadre);
+  }, [propositoPadre]);
 
   useEffect(() => {
     // getUnidades();
