@@ -18,9 +18,7 @@ import {
 //import { useNavigate } from "react-router-dom";
 import DownloadIcon from "@mui/icons-material/Download";
 import { useEffect, useState } from "react";
-import {
-  LateralMenu
-} from "../../components/lateralMenu/LateralMenu";
+import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import CapturaRaffi from "../../components/tabsRaffi/CapturaRaffi";
 
 import moment from "moment";
@@ -899,8 +897,11 @@ export const Raffi = () => {
                                       let auxArrayMIR2 = JSON.stringify(
                                         auxArrayMIR[0]
                                       );
-                                      console.log("AvanceFinanciero-Raffi: ",row.RAFFI);
-                                      
+                                      console.log(
+                                        "AvanceFinanciero-Raffi: ",
+                                        row.RAFFI
+                                      );
+
                                       if (auxArrayMIR[1]) {
                                         setRfEdit([
                                           {
@@ -961,13 +962,15 @@ export const Raffi = () => {
                                           fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
 
-                                        "@media (min-width: 601px) and (max-width: 960px)": {
-                                          fontSize: 20, // Pantalla pequeña (md)
-                                        },
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
 
-                                        "@media (min-width: 961px) and (max-width: 1280px)": {
-                                          fontSize: 20, // Pantalla mediana (lg)
-                                        },
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
@@ -983,25 +986,11 @@ export const Raffi = () => {
                                 </Tooltip>
                               )}
 
-                              {
+                              {row.Estado ===
+                                ("Sin Asignar" || "SIN ASIGNAR") && (
                                 <Tooltip title="REGISTRAR RAFFI">
                                   <IconButton
-                                    // disabled={
-                                    //   row.Estado === "En Captura" &&
-                                    //   localStorage.getItem("Rol") ===
-                                    //     "Capturador"
-                                    //     ? false
-                                    //     : row.Estado === "En Revisión" &&
-                                    //       localStorage.getItem("Rol") ===
-                                    //         "Verificador"
-                                    //     ? false
-                                    //     : row.Estado === "En Autorización" &&
-                                    //       localStorage.getItem("Rol") ===
-                                    //         "Administrador"
-                                    //     ? false
-                                    //     : true
-                                    // }
-                                    // disabled={!validaFecha}
+                                   
                                     type="button"
                                     onClick={() => {
                                       let auxArrayMIR = JSON.parse(row.MIR);
@@ -1067,13 +1056,15 @@ export const Raffi = () => {
                                           fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
 
-                                        "@media (min-width: 601px) and (max-width: 960px)": {
-                                          fontSize: 20, // Pantalla pequeña (md)
-                                        },
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
 
-                                        "@media (min-width: 961px) and (max-width: 1280px)": {
-                                          fontSize: 20, // Pantalla mediana (lg)
-                                        },
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
@@ -1087,7 +1078,7 @@ export const Raffi = () => {
                                     {row.Opciones}
                                   </IconButton>
                                 </Tooltip>
-                              }
+                              )}
 
                               <Tooltip title="DESCARGAR">
                                 <span>
@@ -1116,13 +1107,15 @@ export const Raffi = () => {
                                           fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
 
-                                        "@media (min-width: 601px) and (max-width: 960px)": {
-                                          fontSize: 20, // Pantalla pequeña (md)
-                                        },
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
 
-                                        "@media (min-width: 961px) and (max-width: 1280px)": {
-                                          fontSize: 20, // Pantalla mediana (lg)
-                                        },
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
