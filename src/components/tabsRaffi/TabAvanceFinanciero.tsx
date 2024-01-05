@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { queries } from "../../queries";
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import {
@@ -111,42 +111,65 @@ export function TabAvanceFinanciero({
 
   const [trimestre, setTrimestre] = useState("0");
 
+  const [avanceFinanciero, setAvanceFinanciero] =
+    useState<IAvanceFinancieroRF>(avanceFinancieroRF);
+
   const [nombrePrograma, setNombrePrograma] = useState("Sin Información");
-  const [valorProgramaPresupuestario,setValorProgramaPresupuestario,] = useState("0");
+  const [valorProgramaPresupuestario, setValorProgramaPresupuestario] =
+    useState(avanceFinancieroRF.valorProgramaPresupuestario);
 
-  const [devengadoModificado, setDevengadoModificado] = useState<IVTrimestral>(VTrimestral);
-  const [ejercidoModificado, setEjercidoModificado] = useState<IVTrimestral>(VTrimestral);
-  const [modificadoAutorizado, setModificadoAutorizado] = useState<IVTrimestral>(VTrimestral);
+  const [devengadoModificado, setDevengadoModificado] = useState<IVTrimestral>(
+    avanceFinancieroRF.monto.devengadoModificado
+  );
+  const [ejercidoModificado, setEjercidoModificado] = useState<IVTrimestral>(
+    avanceFinancieroRF.monto.ejercidoModificado
+  );
+  const [modificadoAutorizado, setModificadoAutorizado] =
+    useState<IVTrimestral>(avanceFinancieroRF.monto.modificadoAutorizado);
 
-  const [PDevengadoModificado,setPDevengadoModificado,] = useState<IVPTrimestral>(VPTrimestral);
-  const [PEjercidoModificado,setPEjercidoModificado,] = useState<IVPTrimestral>(VPTrimestral);
-  const [PModificadoAutorizado,setPModificadoAutorizado,] = useState<IVPTrimestral>(VPTrimestral);
-
-  useEffect(() => {
-    console.log("avanceFinancieroRF",avanceFinancieroRF);
-    
-    setNombrePrograma(avanceFinancieroRF.nombrePrograma);
-    setValorProgramaPresupuestario(
-      avanceFinancieroRF.valorProgramaPresupuestario
-    );
-
-    setDevengadoModificado(avanceFinancieroRF.monto.devengadoModificado);
-    setEjercidoModificado(avanceFinancieroRF.monto.ejercidoModificado);
-    setModificadoAutorizado(avanceFinancieroRF.monto.modificadoAutorizado);
-
-    setPDevengadoModificado(
+  const [PDevengadoModificado, setPDevengadoModificado] =
+    useState<IVPTrimestral>(
       avanceFinancieroRF.porcentaje.porcentajeDevengadoModificado
     );
-    setPEjercidoModificado(
-      avanceFinancieroRF.porcentaje.porcentajeEjercidoModificado
-    );
-    setPModificadoAutorizado(
+  const [PEjercidoModificado, setPEjercidoModificado] = useState<IVPTrimestral>(
+    avanceFinancieroRF.porcentaje.porcentajeEjercidoModificado
+  );
+  const [PModificadoAutorizado, setPModificadoAutorizado] =
+    useState<IVPTrimestral>(
       avanceFinancieroRF.porcentaje.porcentajeModificadoAutorizado
     );
-  }, []);
 
   useEffect(() => {
-    let auxRaffi:IAvanceFinancieroRF={
+   
+
+    if (
+      valorProgramaPresupuestario !== ""
+      
+    ) {
+      setNombrePrograma(avanceFinancieroRF.nombrePrograma);
+
+      setValorProgramaPresupuestario(
+        avanceFinancieroRF.valorProgramaPresupuestario
+      );
+
+      setDevengadoModificado(avanceFinancieroRF.monto.devengadoModificado);
+      setEjercidoModificado(avanceFinancieroRF.monto.ejercidoModificado);
+      setModificadoAutorizado(avanceFinancieroRF.monto.modificadoAutorizado);
+      setPDevengadoModificado(
+        avanceFinancieroRF.porcentaje.porcentajeDevengadoModificado
+      );
+      setPEjercidoModificado(
+        avanceFinancieroRF.porcentaje.porcentajeEjercidoModificado
+      );
+      setPModificadoAutorizado(
+        avanceFinancieroRF.porcentaje.porcentajeModificadoAutorizado
+      );
+    }
+
+  }, [avanceFinancieroRF]);
+
+  useEffect(() => {
+    let auxRaffi: IAvanceFinancieroRF = {
       nombrePrograma: nombrePrograma,
       valorProgramaPresupuestario: valorProgramaPresupuestario,
 
@@ -160,10 +183,27 @@ export function TabAvanceFinanciero({
         porcentajeModificadoAutorizado: PModificadoAutorizado,
         porcentajeEjercidoModificado: PEjercidoModificado,
       },
+    };
+    // console.log("auxRaffi", auxRaffi.valorProgramaPresupuestario);
+    // console.log("devengadoModificado: ", devengadoModificado.total);
+    //setAvanceFinanciero(avanceFinanciero);
+
+    if (
+      devengadoModificado.t1.resultado !== "" ||
+      devengadoModificado.t2.resultado !== "" ||
+      devengadoModificado.t3.resultado !== "" ||
+      devengadoModificado.t4.resultado !== "" ||
+      ejercidoModificado.t1.resultado !== "" ||
+      ejercidoModificado.t2.resultado !== "" ||
+      ejercidoModificado.t3.resultado !== "" ||
+      ejercidoModificado.t4.resultado !== "" ||
+      modificadoAutorizado.t1.resultado !== "" ||
+      modificadoAutorizado.t2.resultado !== "" ||
+      modificadoAutorizado.t3.resultado !== "" ||
+      modificadoAutorizado.t4.resultado !== ""
+    ) {
+      setAvanceFinancieroRF(auxRaffi);
     }
-    console.log("auxRaffi",auxRaffi);
-    
-    setAvanceFinancieroRF(auxRaffi);
   }, [
     valorProgramaPresupuestario,
     devengadoModificado,
@@ -172,46 +212,54 @@ export function TabAvanceFinanciero({
     PDevengadoModificado,
     PModificadoAutorizado,
     PEjercidoModificado,
+    
   ]);
 
-  const getProcentajeActualizado=(monto:string)=>{
-    let porcentaje = ((parseFloat(monto) / parseFloat(valorProgramaPresupuestario)) * 100)
-     if (isNaN(porcentaje)) {return ""}
-     else{return porcentaje.toString()}
-    };  
+  useEffect(() => {
+    
+      let auxPModificadoAutorizado: IVPTrimestral = {
+        pt1: getProcentajeActualizado(modificadoAutorizado.t1.resultado),
+        pt2: getProcentajeActualizado(modificadoAutorizado.t2.resultado),
+        pt3: getProcentajeActualizado(modificadoAutorizado.t3.resultado),
+        pt4: getProcentajeActualizado(modificadoAutorizado.t4.resultado),
+        ptotal: getProcentajeActualizado(modificadoAutorizado.total),
+        porcentajeCuentaPublica: getProcentajeActualizado(
+          modificadoAutorizado.cuentaPublica
+        ),
+      };
 
-  useEffect(()=>{
-    let auxPModificadoAutorizado: IVPTrimestral = {
-      pt1:getProcentajeActualizado(modificadoAutorizado.t1.resultado),
-      pt2:getProcentajeActualizado(modificadoAutorizado.t2.resultado),
-      pt3:getProcentajeActualizado(modificadoAutorizado.t3.resultado),
-      pt4:getProcentajeActualizado(modificadoAutorizado.t4.resultado),
-      ptotal:getProcentajeActualizado(modificadoAutorizado.total),
-      porcentajeCuentaPublica:getProcentajeActualizado(modificadoAutorizado.cuentaPublica)};
+      let auxPDevengadoModificado: IVPTrimestral = {
+        pt1: getProcentajeActualizado(devengadoModificado.t1.resultado),
+        pt2: getProcentajeActualizado(devengadoModificado.t2.resultado),
+        pt3: getProcentajeActualizado(devengadoModificado.t3.resultado),
+        pt4: getProcentajeActualizado(devengadoModificado.t4.resultado),
+        ptotal: getProcentajeActualizado(devengadoModificado.total),
+        porcentajeCuentaPublica: getProcentajeActualizado(
+          devengadoModificado.cuentaPublica
+        ),
+      };
 
-    let auxPDevengadoModificado: IVPTrimestral = {
-      pt1:getProcentajeActualizado(devengadoModificado.t1.resultado),
-      pt2:getProcentajeActualizado(devengadoModificado.t2.resultado),
-      pt3:getProcentajeActualizado(devengadoModificado.t3.resultado),
-      pt4:getProcentajeActualizado(devengadoModificado.t4.resultado),
-      ptotal:getProcentajeActualizado(devengadoModificado.total),
-      porcentajeCuentaPublica:getProcentajeActualizado(devengadoModificado.cuentaPublica)};
+      let auxPEjercidoModificado: IVPTrimestral = {
+        pt1: getProcentajeActualizado(ejercidoModificado.t1.resultado),
+        pt2: getProcentajeActualizado(ejercidoModificado.t2.resultado),
+        pt3: getProcentajeActualizado(ejercidoModificado.t3.resultado),
+        pt4: getProcentajeActualizado(ejercidoModificado.t4.resultado),
+        ptotal: getProcentajeActualizado(ejercidoModificado.total),
+        porcentajeCuentaPublica: getProcentajeActualizado(
+          ejercidoModificado.cuentaPublica
+        ),
+      };
 
-    let auxPEjercidoModificado: IVPTrimestral = {
-      pt1:getProcentajeActualizado(ejercidoModificado.t1.resultado),
-      pt2:getProcentajeActualizado(ejercidoModificado.t2.resultado),
-      pt3:getProcentajeActualizado(ejercidoModificado.t3.resultado),
-      pt4:getProcentajeActualizado(ejercidoModificado.t4.resultado),
-      ptotal:getProcentajeActualizado(ejercidoModificado.total),
-      porcentajeCuentaPublica:getProcentajeActualizado(ejercidoModificado.cuentaPublica)};
-
-      setPModificadoAutorizado(auxPModificadoAutorizado)
-      setPDevengadoModificado(auxPDevengadoModificado)
-      setPEjercidoModificado(auxPEjercidoModificado)
-
-
-    // let porcentaje =(parseFloat(valor) / parseFloat(valorProgramaPresupuestario)) * 100;
-  },[valorProgramaPresupuestario])
+      setPModificadoAutorizado(auxPModificadoAutorizado);
+      setPDevengadoModificado(auxPDevengadoModificado);
+      setPEjercidoModificado(auxPEjercidoModificado);
+    
+  }, [
+    valorProgramaPresupuestario,
+    PDevengadoModificado,
+    PModificadoAutorizado,
+    PEjercidoModificado,
+  ]);
 
   const [selector, setSelector] = useState("MODIFICADO/AUTORIZADO");
 
@@ -240,37 +288,38 @@ export function TabAvanceFinanciero({
     console.log("calculo: ", calculo);
     console.log("calculo: ", calculo);
 
-    let porcentaje =(parseFloat(valor) / parseFloat(valorProgramaPresupuestario)) * 100;
-    let auxMonto:IVTrimestral
-    let auxPorcentaje:IVPTrimestral
+    let porcentaje =
+      (parseFloat(valor) / parseFloat(valorProgramaPresupuestario)) * 100;
+    let auxMonto: IVTrimestral;
+    let auxPorcentaje: IVPTrimestral;
     switch (calculo) {
       case "MODIFICADO/AUTORIZADO":
-        auxMonto = { ...modificadoAutorizado }
-        auxPorcentaje = { ...PModificadoAutorizado }
+        auxMonto = { ...modificadoAutorizado };
+        auxPorcentaje = { ...PModificadoAutorizado };
         switch (trimestre) {
           case "TRIMESTRE 1":
-            auxMonto.t1 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxPorcentaje.pt1 = porcentaje.toString()
+            auxMonto.t1 = { valor1: valor1, valor2: valor2, resultado: valor };
+            auxPorcentaje.pt1 = porcentaje.toString();
             setModificadoAutorizado(auxMonto);
             setPModificadoAutorizado(auxPorcentaje);
 
             break;
           case "TRIMESTRE 2":
-            auxMonto.t2 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxPorcentaje.pt2 = porcentaje.toString()
+            auxMonto.t2 = { valor1: valor1, valor2: valor2, resultado: valor };
+            auxPorcentaje.pt2 = porcentaje.toString();
             setModificadoAutorizado(auxMonto);
             setPModificadoAutorizado(auxPorcentaje);
 
             break;
           case "TRIMESTRE 3":
-            auxMonto.t3 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxPorcentaje.pt3 = porcentaje.toString()
+            auxMonto.t3 = { valor1: valor1, valor2: valor2, resultado: valor };
+            auxPorcentaje.pt3 = porcentaje.toString();
             setModificadoAutorizado(auxMonto);
             setPModificadoAutorizado(auxPorcentaje);
             break;
           case "TRIMESTRE 4":
-            auxMonto.t4 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxPorcentaje.pt4 = porcentaje.toString()
+            auxMonto.t4 = { valor1: valor1, valor2: valor2, resultado: valor };
+            auxPorcentaje.pt4 = porcentaje.toString();
             setModificadoAutorizado(auxMonto);
             setPModificadoAutorizado(auxPorcentaje);
             break;
@@ -278,78 +327,83 @@ export function TabAvanceFinanciero({
 
         break;
       case "DEVENGADO/MODIFICADO":
+        auxMonto = { ...devengadoModificado };
+        auxPorcentaje = { ...PDevengadoModificado };
+        switch (trimestre) {
+          case "TRIMESTRE 1":
+            auxMonto.t1 = { valor1: valor1, valor2: valor2, resultado: valor };
+            auxPorcentaje.pt1 = porcentaje.toString();
+            setDevengadoModificado(auxMonto);
+            setPDevengadoModificado(auxPorcentaje);
 
-      auxMonto = { ...devengadoModificado }
-      auxPorcentaje = { ...PDevengadoModificado }
-      switch (trimestre) {
+            break;
+          case "TRIMESTRE 2":
+            auxMonto.t2 = { valor1: valor1, valor2: valor2, resultado: valor };
+            auxPorcentaje.pt2 = porcentaje.toString();
+            setDevengadoModificado(auxMonto);
+            setPDevengadoModificado(auxPorcentaje);
 
-        case "TRIMESTRE 1":
-          auxMonto.t1 = { valor1: valor1, valor2: valor2, resultado: valor }
-          auxPorcentaje.pt1 = porcentaje.toString()
-          setDevengadoModificado(auxMonto);
-          setPDevengadoModificado(auxPorcentaje);
+            break;
+          case "TRIMESTRE 3":
+            auxMonto.t3 = { valor1: valor1, valor2: valor2, resultado: valor };
+            auxPorcentaje.pt3 = porcentaje.toString();
+            setDevengadoModificado(auxMonto);
+            setPDevengadoModificado(auxPorcentaje);
 
-          break;
-        case "TRIMESTRE 2":
-          auxMonto.t2 = { valor1: valor1, valor2: valor2, resultado: valor }
-          auxPorcentaje.pt2 = porcentaje.toString()
-          setDevengadoModificado(auxMonto);
-          setPDevengadoModificado(auxPorcentaje);
+            break;
+          case "TRIMESTRE 4":
+            auxMonto.t4 = { valor1: valor1, valor2: valor2, resultado: valor };
+            auxPorcentaje.pt4 = porcentaje.toString();
+            setDevengadoModificado(auxMonto);
+            setPDevengadoModificado(auxPorcentaje);
 
-          break;
-        case "TRIMESTRE 3":
-          auxMonto.t3 = { valor1: valor1, valor2: valor2, resultado: valor }
-          auxPorcentaje.pt3 = porcentaje.toString()
-          setDevengadoModificado(auxMonto);
-          setPDevengadoModificado(auxPorcentaje);
-
-          break;
-        case "TRIMESTRE 4":
-          auxMonto.t4 = { valor1: valor1, valor2: valor2, resultado: valor }
-          auxPorcentaje.pt4 = porcentaje.toString()
-          setDevengadoModificado(auxMonto);
-          setPDevengadoModificado(auxPorcentaje);
-
-          break;
-      }
+            break;
+        }
 
         break;
       case "EJERCIDO/MODIFICADO":
-        auxMonto = { ...ejercidoModificado }
-        auxPorcentaje = { ...PEjercidoModificado }
+        auxMonto = { ...ejercidoModificado };
+        auxPorcentaje = { ...PEjercidoModificado };
         switch (trimestre) {
-
           case "TRIMESTRE 1":
-            auxMonto.t1 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxPorcentaje.pt1 = porcentaje.toString()
+            auxMonto.t1 = { valor1: valor1, valor2: valor2, resultado: valor };
+            auxPorcentaje.pt1 = porcentaje.toString();
             setEjercidoModificado(auxMonto);
             setPEjercidoModificado(auxPorcentaje);
 
             break;
           case "TRIMESTRE 2":
-            auxMonto.t2 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxPorcentaje.pt2 = porcentaje.toString()
+            auxMonto.t2 = { valor1: valor1, valor2: valor2, resultado: valor };
+            auxPorcentaje.pt2 = porcentaje.toString();
             setEjercidoModificado(auxMonto);
             setPEjercidoModificado(auxPorcentaje);
 
             break;
           case "TRIMESTRE 3":
-            auxMonto.t3 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxPorcentaje.pt3 = porcentaje.toString()
+            auxMonto.t3 = { valor1: valor1, valor2: valor2, resultado: valor };
+            auxPorcentaje.pt3 = porcentaje.toString();
             setEjercidoModificado(auxMonto);
             setPEjercidoModificado(auxPorcentaje);
             break;
           case "TRIMESTRE 4":
-            auxMonto.t4 = { valor1: valor1, valor2: valor2, resultado: valor }
-            auxPorcentaje.pt4 = porcentaje.toString()
+            auxMonto.t4 = { valor1: valor1, valor2: valor2, resultado: valor };
+            auxPorcentaje.pt4 = porcentaje.toString();
             setEjercidoModificado(auxMonto);
             setPEjercidoModificado(auxPorcentaje);
             break;
         }
         break;
     }
+  };
 
-    
+  const getProcentajeActualizado = (monto: string) => {
+    let porcentaje =
+      (parseFloat(monto) / parseFloat(valorProgramaPresupuestario)) * 100;
+    if (isNaN(porcentaje)) {
+      return "";
+    } else {
+      return porcentaje.toString();
+    }
   };
 
   useEffect(() => {}, []);
@@ -358,23 +412,23 @@ export function TabAvanceFinanciero({
     return valor === "0" || valor === null || valor === "";
   };
 
-  function getTrimestre2(){
-    switch(selector){
-      case "DEVENGADO/MODIFICADO":return devengadoModificado.t1.resultado
-      
-      case "EJERCIDO/MODIFICADO":return ejercidoModificado.t1.resultado
-      
-      case "MODIFICADO/AUTORIZADO":return modificadoAutorizado.t1.resultado
-     
-      default: return null;
+  function getTrimestre2() {
+    switch (selector) {
+      case "DEVENGADO/MODIFICADO":
+        return devengadoModificado.t1.resultado;
+
+      case "EJERCIDO/MODIFICADO":
+        return ejercidoModificado.t1.resultado;
+
+      case "MODIFICADO/AUTORIZADO":
+        return modificadoAutorizado.t1.resultado;
+
+      default:
+        return null;
     }
   }
-  function getTrimestre3(){
-    
-  }
-  function getTrimestre4(){
-    
-  }
+  function getTrimestre3() {}
+  function getTrimestre4() {}
 
   return (
     <>
@@ -392,9 +446,10 @@ export function TabAvanceFinanciero({
           backgroundColor: "#fff",
           boxShadow: 10,
           borderRadius: 5,
+          overflow: "auto",
         }}
       >
-        <Grid item lg={10}>
+        <Grid item xl={11} lg={11} md={11} sm={11} xs={11} gap={2}>
           <InputLabel sx={queries.medium_text}>NOMBRE DEL PROGRAMA</InputLabel>
           <TextField
             fullWidth
@@ -419,10 +474,15 @@ export function TabAvanceFinanciero({
           container
           direction={"row"}
           item
-          lg={10}
+          xl={11}
+          lg={11}
+          md={11}
+          sm={11}
+          xs={11}
+          gap={2}
           sx={{}}
         >
-          <Grid item lg={5}>
+          <Grid item lg={5} md={5} sm={11} xs={11} sx={{ marginTop: 2 }}>
             <TextField
               fullWidth
               size="small"
@@ -465,6 +525,9 @@ export function TabAvanceFinanciero({
           <Grid
             item
             lg={5}
+            md={5}
+            sm={11}
+            xs={11}
             sx={{
               //backgroundColor: "#f0f0f0",
               display: "flex",
@@ -480,7 +543,6 @@ export function TabAvanceFinanciero({
               <FormLabel
                 sx={{
                   fontFamily: "MontserratBold",
-                  fontSize: "0.8vw",
                 }}
               >
                 CALCULO
@@ -497,7 +559,6 @@ export function TabAvanceFinanciero({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -521,7 +582,6 @@ export function TabAvanceFinanciero({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -546,7 +606,6 @@ export function TabAvanceFinanciero({
                   label={
                     <Typography
                       sx={{
-                        fontSize: "0.7vw",
                         fontFamily: "MontserratMedium",
                       }}
                     >
@@ -625,13 +684,9 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   disabled={
-                    
                     valorProgramaPresupuestario === "0" ||
-                   
                     valorProgramaPresupuestario === null ||
-                   
                     valorProgramaPresupuestario === ""
-                  
                   }
                   placeholder="SIN CAPTURAR"
                   onClick={(a) => {
@@ -639,14 +694,13 @@ export function TabAvanceFinanciero({
                     handleClickOpen();
                   }}
                   value={
-                    
                     selector === "DEVENGADO/MODIFICADO"
                       ? devengadoModificado.t1.resultado
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? ejercidoModificado.t1.resultado
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? modificadoAutorizado.t1.resultado
-                          : null
+                      ? ejercidoModificado.t1.resultado
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? modificadoAutorizado.t1.resultado
+                      : null
                   }
                   sx={queries.medium_text}
                   InputLabelProps={{
@@ -675,12 +729,12 @@ export function TabAvanceFinanciero({
                   sx={queries.medium_text}
                   value={
                     selector === "DEVENGADO/MODIFICADO"
-                    ? PDevengadoModificado.pt1
-                    : selector === "EJERCIDO/MODIFICADO"
+                      ? PDevengadoModificado.pt1
+                      : selector === "EJERCIDO/MODIFICADO"
                       ? PEjercidoModificado.pt1
                       : selector === "MODIFICADO/AUTORIZADO"
-                        ? PModificadoAutorizado.pt1
-                        : null
+                      ? PModificadoAutorizado.pt1
+                      : null
                   }
                   InputLabelProps={{
                     style: {
@@ -738,10 +792,10 @@ export function TabAvanceFinanciero({
                     selector === "DEVENGADO/MODIFICADO"
                       ? devengadoModificado.t2.resultado
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? ejercidoModificado.t2.resultado
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? modificadoAutorizado.t2.resultado
-                          : null
+                      ? ejercidoModificado.t2.resultado
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? modificadoAutorizado.t2.resultado
+                      : null
                   }
                   sx={queries.medium_text}
                   InputLabelProps={{
@@ -762,15 +816,20 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   placeholder="SIN PORCENTAJE"
+                  disabled={
+                    valorProgramaPresupuestario === "0" ||
+                    valorProgramaPresupuestario === null ||
+                    valorProgramaPresupuestario === ""
+                  }
                   sx={queries.medium_text}
                   value={
                     selector === "DEVENGADO/MODIFICADO"
                       ? PDevengadoModificado.pt2
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? PEjercidoModificado.pt2
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? PModificadoAutorizado.pt2
-                          : null
+                      ? PEjercidoModificado.pt2
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? PModificadoAutorizado.pt2
+                      : null
                   }
                   InputLabelProps={{
                     style: {
@@ -829,10 +888,10 @@ export function TabAvanceFinanciero({
                     selector === "DEVENGADO/MODIFICADO"
                       ? devengadoModificado.t3.resultado
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? ejercidoModificado.t3.resultado
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? modificadoAutorizado.t3.resultado
-                          : null
+                      ? ejercidoModificado.t3.resultado
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? modificadoAutorizado.t3.resultado
+                      : null
                   }
                   sx={queries.medium_text}
                   InputLabelProps={{
@@ -853,15 +912,20 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   placeholder="SIN PORCENTAJE"
+                  disabled={
+                    valorProgramaPresupuestario === "0" ||
+                    valorProgramaPresupuestario === null ||
+                    valorProgramaPresupuestario === ""
+                  }
                   sx={queries.medium_text}
                   value={
                     selector === "DEVENGADO/MODIFICADO"
                       ? PDevengadoModificado.pt3
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? PEjercidoModificado.pt3
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? PModificadoAutorizado.pt3
-                          : null
+                      ? PEjercidoModificado.pt3
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? PModificadoAutorizado.pt3
+                      : null
                   }
                   InputLabelProps={{
                     style: {
@@ -920,10 +984,10 @@ export function TabAvanceFinanciero({
                     selector === "DEVENGADO/MODIFICADO"
                       ? devengadoModificado.t4.resultado
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? ejercidoModificado.t4.resultado
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? modificadoAutorizado.t4.resultado
-                          : null
+                      ? ejercidoModificado.t4.resultado
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? modificadoAutorizado.t4.resultado
+                      : null
                   }
                   sx={queries.medium_text}
                   InputLabelProps={{
@@ -945,15 +1009,20 @@ export function TabAvanceFinanciero({
                   size="small"
                   placeholder="SIN PORCENTAJE"
                   //label="porcentaje T1"
+                  disabled={
+                    valorProgramaPresupuestario === "0" ||
+                    valorProgramaPresupuestario === null ||
+                    valorProgramaPresupuestario === ""
+                  }
                   sx={queries.medium_text}
                   value={
                     selector === "DEVENGADO/MODIFICADO"
                       ? PDevengadoModificado.pt4
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? PEjercidoModificado.pt4
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? PModificadoAutorizado.pt4
-                          : null
+                      ? PEjercidoModificado.pt4
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? PModificadoAutorizado.pt4
+                      : null
                   }
                   InputLabelProps={{
                     style: {
@@ -998,10 +1067,10 @@ export function TabAvanceFinanciero({
                       selector === "DEVENGADO/MODIFICADO"
                         ? Number(devengadoModificado.cuentaPublica)
                         : selector === "EJERCIDO/MODIFICADO"
-                          ? Number(ejercidoModificado.cuentaPublica)
-                          : selector === "MODIFICADO/AUTORIZADO"
-                            ? Number(modificadoAutorizado.cuentaPublica)
-                            : 0;
+                        ? Number(ejercidoModificado.cuentaPublica)
+                        : selector === "MODIFICADO/AUTORIZADO"
+                        ? Number(modificadoAutorizado.cuentaPublica)
+                        : 0;
                     valor = validarNumero(a.target.value, valor);
 
                     let porcentaje: number = 0;
@@ -1085,10 +1154,10 @@ export function TabAvanceFinanciero({
                     selector === "DEVENGADO/MODIFICADO"
                       ? PDevengadoModificado.porcentajeCuentaPublica
                       : selector === "EJERCIDO/MODIFICADO"
-                        ? PEjercidoModificado.porcentajeCuentaPublica
-                        : selector === "MODIFICADO/AUTORIZADO"
-                          ? PModificadoAutorizado.porcentajeCuentaPublica
-                          : null
+                      ? PEjercidoModificado.porcentajeCuentaPublica
+                      : selector === "MODIFICADO/AUTORIZADO"
+                      ? PModificadoAutorizado.porcentajeCuentaPublica
+                      : null
                   }
                   InputLabelProps={{
                     style: {

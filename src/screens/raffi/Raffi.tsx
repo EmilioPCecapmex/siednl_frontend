@@ -899,6 +899,8 @@ export const Raffi = () => {
                                       let auxArrayMIR2 = JSON.stringify(
                                         auxArrayMIR[0]
                                       );
+                                      console.log("AvanceFinanciero-Raffi: ",row.RAFFI);
+                                      
                                       if (auxArrayMIR[1]) {
                                         setRfEdit([
                                           {
