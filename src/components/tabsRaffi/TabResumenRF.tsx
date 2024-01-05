@@ -139,9 +139,11 @@ export const TabResumenRF = ({
         showResume();
       })
       .catch((err) => {
+        console.log(err.response.data);
+        
         Toast.fire({
           icon: "error",
-          title: err.response.data,
+          title: err.response.data.error,
         });
       });
   };
