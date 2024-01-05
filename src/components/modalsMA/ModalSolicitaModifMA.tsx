@@ -67,10 +67,11 @@ export default function ModalSolicitaModif({
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
-      return Toast.fire({
-        icon: "error",
-        title: "Introduce usuario al que se le solicita modificación",
-      });
+      return alertaError("Introduce usuario al que se le solicita modificación")
+      // Toast.fire({
+      //   icon: "error",
+      //   title: "Introduce usuario al que se le solicita modificación",
+      // });
     } else {
       checkMA(estado);
     }
@@ -581,21 +582,20 @@ export default function ModalSolicitaModif({
         //       ? "Meta anual enviada a capturador para corrección"
         //       : "Meta anual enviada ",
         // });
-        alertaExito(()=>{}, localStorage.getItem("Rol") === "Verificador"
-        ? "Meta anual enviada a capturador para corrección"
-        : "Meta anual enviada ",)
+        alertaExito(() => {}, localStorage.getItem("Rol") === "Verificador"
+               ? "Meta anual enviada a capturador para corrección"
+               : "Meta anual enviada ");
 
         enviarNotificacion();
         handleClose();
         showResume();
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
-
-        alertaError(err.response.data.result.error)
+        // Toast.fire({
+        //   icon: "error",
+        //   title: err.response.data.result.error,
+        // });
+        alertaError(err.response.data.result.error);
       });
   };
 

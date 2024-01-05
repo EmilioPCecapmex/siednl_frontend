@@ -433,6 +433,7 @@ export default function CapturaRaffi({
 
             {value === 1 && (
               <TabFinPropositoRF
+                edit={editRF}
                 setRFFinPadre={setRFFinPadre}
                 setRFPropositoPadre={setRFPropositoPadre}
                 MIR={MIR}
@@ -447,7 +448,8 @@ export default function CapturaRaffi({
 
             {value === 2 && (
               <TabComponenteRf
-                setRFcomponentesPadre={setRFcomponentesPadre}
+                edit={editRF}
+                setRFcomponentesPadre = {setRFcomponentesPadre}
                 ComponentesRF={raffi.componentes}
                 MA={MA}
                 MIR={MIR}
@@ -459,7 +461,8 @@ export default function CapturaRaffi({
             )}
             {value === 3 && (
               <TabActividadRf
-                setRFactividadesPadre={setRFactividadesPadre}
+                edit={editRF}
+              setRFactividadesPadre = {setRFactividadesPadre}
                 valoresComponenteRFFnc={() => {}}
                 ComponentesRF={raffi.componentes}
                 asignarCValor={() => {}}
@@ -479,7 +482,7 @@ export default function CapturaRaffi({
                 // proposito={ValueProposito}
                 // componentes={noComponentes}
                 // AFinanciero={ValueAvanceFinanciero}
-
+                
                 IdMir={IdMir}
                 IdRF={IdRf}
                 IdMA={IdMA}

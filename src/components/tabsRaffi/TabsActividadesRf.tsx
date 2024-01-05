@@ -27,6 +27,7 @@ import { alertaError } from "../genericComponents/Alertas";
 import { getValueOperacion } from "../../services/validations";
 
 export const TabActividadRf = ({
+  edit,
   MIR,
   MA,
   RF,
@@ -40,6 +41,7 @@ export const TabActividadRf = ({
   setTxtShowFnc,
   raffiboolean,
 }: {
+  edit: boolean;
   MA: string;
   MIR: string;
   RF: string;
@@ -858,7 +860,7 @@ export const TabActividadRf = ({
                     {/* {JSON.stringify(componentesActividadesValues)}; */}
                     <TextField
                       //fullWidth
-
+                      disabled={edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -908,7 +910,7 @@ export const TabActividadRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-
+                      disabled={edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -958,7 +960,7 @@ export const TabActividadRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-
+                      disabled={edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -1007,7 +1009,7 @@ export const TabActividadRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-
+                      disabled={edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}

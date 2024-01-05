@@ -20,6 +20,7 @@ import { IComponenteRF, IRFEdit } from "./interfacesRaffi";
 import { getValueOperacion } from "../../services/validations";
 
 export const TabComponenteRf = ({
+  edit,
   MIR,
   MA,
   RF,
@@ -29,6 +30,7 @@ export const TabComponenteRf = ({
   ComponentesRF,
   raffiboolean,
 }: {
+  edit:boolean;
   MA: string;
   MIR: string;
   RF: string;
@@ -854,7 +856,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-
+                      disabled={edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.semestre1}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -904,7 +906,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-
+                      disabled={edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.semestre2}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -976,7 +978,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-
+                      disabled={edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre1}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -1025,7 +1027,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-
+                      disabled={edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre2}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -1074,7 +1076,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-
+                      disabled={edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre3}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -1123,7 +1125,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-
+                      disabled={edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre4}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}

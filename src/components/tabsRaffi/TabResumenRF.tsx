@@ -139,9 +139,11 @@ export const TabResumenRF = ({
         showResume();
       })
       .catch((err) => {
+        console.log(err.response.data);
+        
         Toast.fire({
           icon: "error",
-          title: err.response.data,
+          title: err.response.data.error,
         });
       });
   };
@@ -251,19 +253,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-              // value={!editEncabezado.programaSER}
-              // onChange={(v) => {
-              //   setEditEncabezado({
-              //     ...editEncabezado,
-              //     programaSER: !v.target.checked,
-              //   });
-              // }}
-              // value={!ftEditPadre.encabezado?.programaSER}
-              // onChange={(v) => {
-              //   let aux = ftEditPadre.encabezado;
-              //   aux = { ...aux, programaSER: v.target.checked };
-              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-              // }}
+              checked={raffiboolean?.avanceFinanciero?.valorProgramaPresupuestario}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux = { ...aux, valorProgramaPresupuestario: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               />
             </Grid>
           )}
@@ -301,19 +296,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-              // value={!editEncabezado.programaSER}
-              // onChange={(v) => {
-              //   setEditEncabezado({
-              //     ...editEncabezado,
-              //     programaSER: !v.target.checked,
-              //   });
-              // }}
-              // value={!ftEditPadre.encabezado?.programaSER}
-              // onChange={(v) => {
-              //   let aux = ftEditPadre.encabezado;
-              //   aux = { ...aux, programaSER: v.target.checked };
-              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-              // }}
+              checked={raffiboolean?.avanceFinanciero?.nombrePrograma}
+                onChange={(v) => {
+                  let aux = raffiboolean?.avanceFinanciero;
+                  aux = { ...aux, nombrePrograma: v.target.checked };
+                  setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+                }}
               />
             </Grid>
           )}
@@ -425,19 +413,19 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-              // value={!editEncabezado.programaSER}
-              // onChange={(v) => {
-              //   setEditEncabezado({
-              //     ...editEncabezado,
-              //     programaSER: !v.target.checked,
-              //   });
-              // }}
-              // value={!ftEditPadre.encabezado?.programaSER}
-              // onChange={(v) => {
-              //   let aux = ftEditPadre.encabezado;
-              //   aux = { ...aux, programaSER: v.target.checked };
-              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-              // }}
+                // value={!editEncabezado.programaSER}
+                // onChange={(v) => {
+                //   setEditEncabezado({
+                //     ...editEncabezado,
+                //     programaSER: !v.target.checked,
+                //   });
+                // }}
+                // value={!ftEditPadre.encabezado?.programaSER}
+                // onChange={(v) => {
+                //   let aux = ftEditPadre.encabezado;
+                //   aux = { ...aux, programaSER: v.target.checked };
+                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+                // }}
               />
             </Grid>
           )}
@@ -2003,19 +1991,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-              // value={!editEncabezado.programaSER}
-              // onChange={(v) => {
-              //   setEditEncabezado({
-              //     ...editEncabezado,
-              //     programaSER: !v.target.checked,
-              //   });
-              // }}
-              // value={!ftEditPadre.encabezado?.programaSER}
-              // onChange={(v) => {
-              //   let aux = ftEditPadre.encabezado;
-              //   aux = { ...aux, programaSER: v.target.checked };
-              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-              // }}
+              checked={raffiboolean?.fin?.añoAvanceFisico}
+                onChange={(v) => {
+                  let aux = raffiboolean?.fin;
+                  aux = { ...aux, añoAvanceFisico: v.target.checked };
+                  setRaffiboolean({ ...raffiboolean, fin: aux });
+                }}
               />
             </Grid>
           )}
@@ -2053,19 +2034,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-              // value={!editEncabezado.programaSER}
-              // onChange={(v) => {
-              //   setEditEncabezado({
-              //     ...editEncabezado,
-              //     programaSER: !v.target.checked,
-              //   });
-              // }}
-              // value={!ftEditPadre.encabezado?.programaSER}
-              // onChange={(v) => {
-              //   let aux = ftEditPadre.encabezado;
-              //   aux = { ...aux, programaSER: v.target.checked };
-              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-              // }}
+              checked={raffiboolean?.fin?.valorAvanceFisico}
+                onChange={(v) => {
+                  let aux = raffiboolean?.fin;
+                  aux = { ...aux, valorAvanceFisico: v.target.checked };
+                  setRaffiboolean({ ...raffiboolean, fin: aux });
+                }}
               />
             </Grid>
           )}
@@ -2130,19 +2104,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-              // value={!editEncabezado.programaSER}
-              // onChange={(v) => {
-              //   setEditEncabezado({
-              //     ...editEncabezado,
-              //     programaSER: !v.target.checked,
-              //   });
-              // }}
-              // value={!ftEditPadre.encabezado?.programaSER}
-              // onChange={(v) => {
-              //   let aux = ftEditPadre.encabezado;
-              //   aux = { ...aux, programaSER: v.target.checked };
-              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-              // }}
+              checked={raffiboolean?.proposito?.añoAvanceFisico}
+              onChange={(v) => {
+                let aux = raffiboolean?.proposito;
+                aux = { ...aux, añoAvanceFisico: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, proposito: aux });
+              }}
               />
             </Grid>
           )}
@@ -2180,19 +2147,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-              // value={!editEncabezado.programaSER}
-              // onChange={(v) => {
-              //   setEditEncabezado({
-              //     ...editEncabezado,
-              //     programaSER: !v.target.checked,
-              //   });
-              // }}
-              // value={!ftEditPadre.encabezado?.programaSER}
-              // onChange={(v) => {
-              //   let aux = ftEditPadre.encabezado;
-              //   aux = { ...aux, programaSER: v.target.checked };
-              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-              // }}
+              checked={raffiboolean?.proposito?.valorAvanceFisico}
+              onChange={(v) => {
+                let aux = raffiboolean?.proposito;
+                aux = { ...aux, valorAvanceFisico: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, proposito: aux });
+              }}
               />
             </Grid>
           )}
@@ -2291,12 +2251,12 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                      //  value={ftEditPadre.componentes[index]?.monitoreable}
-                      //  onChange={(v) => {
-                      //    let auxC = ftEditPadre.componentes;
-                      //    auxC[index].monitoreable = v.target.checked;
-                      //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
-                      //  }}
+                      checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].semestre1}
+                      onChange={(v) => {
+                        let auxC = raffiboolean?.componentes;
+                        auxC[indexComponentes].metasPorFrecuencia[0].semestre1 = v.target.checked;
+                        setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                      }}
                       />
                     </Grid>
                   )}
@@ -2316,12 +2276,12 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                      //  value={ftEditPadre.componentes[index]?.monitoreable}
-                      //  onChange={(v) => {
-                      //    let auxC = ftEditPadre.componentes;
-                      //    auxC[index].monitoreable = v.target.checked;
-                      //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
-                      //  }}
+                      checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].semestre2}
+                      onChange={(v) => {
+                        let auxC = raffiboolean?.componentes;
+                        auxC[indexComponentes].metasPorFrecuencia[0].semestre2 = v.target.checked;
+                        setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                      }}
                       />
                     </Grid>
                   )}
@@ -2360,12 +2320,12 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                      //  value={ftEditPadre.componentes[index]?.monitoreable}
-                      //  onChange={(v) => {
-                      //    let auxC = ftEditPadre.componentes;
-                      //    auxC[index].monitoreable = v.target.checked;
-                      //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
-                      //  }}
+                      checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].trimestre1}
+                      onChange={(v) => {
+                        let auxC = raffiboolean?.componentes;
+                        auxC[indexComponentes].metasPorFrecuencia[0].trimestre1 = v.target.checked;
+                        setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                      }}
                       />
                     </Grid>
                   )}
@@ -2385,12 +2345,12 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                      //  value={ftEditPadre.componentes[index]?.monitoreable}
-                      //  onChange={(v) => {
-                      //    let auxC = ftEditPadre.componentes;
-                      //    auxC[index].monitoreable = v.target.checked;
-                      //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
-                      //  }}
+                      checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].trimestre2}
+                      onChange={(v) => {
+                        let auxC = raffiboolean?.componentes;
+                        auxC[indexComponentes].metasPorFrecuencia[0].trimestre2 = v.target.checked;
+                        setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                      }}
                       />
                     </Grid>
                   )}
@@ -2410,12 +2370,12 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                      //  value={ftEditPadre.componentes[index]?.monitoreable}
-                      //  onChange={(v) => {
-                      //    let auxC = ftEditPadre.componentes;
-                      //    auxC[index].monitoreable = v.target.checked;
-                      //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
-                      //  }}
+                      checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].trimestre3}
+                      onChange={(v) => {
+                        let auxC = raffiboolean?.componentes;
+                        auxC[indexComponentes].metasPorFrecuencia[0].trimestre3 = v.target.checked;
+                        setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                      }}
                       />
                     </Grid>
                   )}
@@ -2435,12 +2395,12 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                      //  value={ftEditPadre.componentes[index]?.monitoreable}
-                      //  onChange={(v) => {
-                      //    let auxC = ftEditPadre.componentes;
-                      //    auxC[index].monitoreable = v.target.checked;
-                      //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
-                      //  }}
+                      checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].trimestre4}
+                      onChange={(v) => {
+                        let auxC = raffiboolean?.componentes;
+                        auxC[indexComponentes].metasPorFrecuencia[0].trimestre4 = v.target.checked;
+                        setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                      }}
                       />
                     </Grid>
                   )}
@@ -2545,12 +2505,12 @@ export const TabResumenRF = ({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
-                        //  value={ftEditPadre.componentes[index]?.monitoreable}
-                        //  onChange={(v) => {
-                        //    let auxC = ftEditPadre.componentes;
-                        //    auxC[index].monitoreable = v.target.checked;
-                        //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
-                        //  }}
+                        checked={raffiboolean?.componentes[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre1}
+                        onChange={(v) => {
+                          let auxC = raffiboolean?.componentes;
+                          auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre1 = v.target.checked;
+                          setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                        }}
                         />
                       </Grid>
                     )}
@@ -2570,12 +2530,12 @@ export const TabResumenRF = ({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
-                        //  value={ftEditPadre.componentes[index]?.monitoreable}
-                        //  onChange={(v) => {
-                        //    let auxC = ftEditPadre.componentes;
-                        //    auxC[index].monitoreable = v.target.checked;
-                        //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
-                        //  }}
+                        checked={raffiboolean?.componentes[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre2}
+                        onChange={(v) => {
+                          let auxC = raffiboolean?.componentes;
+                          auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre2 = v.target.checked;
+                          setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                        }}
                         />
                       </Grid>
                     )}
@@ -2595,12 +2555,12 @@ export const TabResumenRF = ({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
-                        //  value={ftEditPadre.componentes[index]?.monitoreable}
-                        //  onChange={(v) => {
-                        //    let auxC = ftEditPadre.componentes;
-                        //    auxC[index].monitoreable = v.target.checked;
-                        //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
-                        //  }}
+                        checked={raffiboolean?.componentes[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre3}
+                        onChange={(v) => {
+                          let auxC = raffiboolean?.componentes;
+                          auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre3 = v.target.checked;
+                          setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                        }}
                         />
                       </Grid>
                     )}
@@ -2620,12 +2580,12 @@ export const TabResumenRF = ({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
-                        //  value={ftEditPadre.componentes[index]?.monitoreable}
-                        //  onChange={(v) => {
-                        //    let auxC = ftEditPadre.componentes;
-                        //    auxC[index].monitoreable = v.target.checked;
-                        //    setFTEditPadre({ ...ftEditPadre, componentes: auxC });
-                        //  }}
+                        checked={raffiboolean?.componentes[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre4}
+                        onChange={(v) => {
+                          let auxC = raffiboolean?.componentes;
+                          auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre4 = v.target.checked;
+                          setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                        }}
                         />
                       </Grid>
                     )}
