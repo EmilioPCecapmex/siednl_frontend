@@ -205,3 +205,10 @@ export interface IRFEdit {
   proposito: IPropositoRFEdit;
   componentes: IComponenteRFEdit[];
 }
+
+export interface IRMomentosContables {
+Autorizado: number[];
+Devengado: number[];
+Modificado: number[];
+Ejercido: number[];
+}

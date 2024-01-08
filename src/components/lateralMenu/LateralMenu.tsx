@@ -632,7 +632,7 @@ export const LateralMenu = ({
 
 
               <Grid sx={{ height: "7vh", width: "100%", justifyContent: "center", display: "flex", alignItems: "center", mt: "1vh" }}>
-                <img src={logo} alt="Logo" height={"100%"} />
+                <img src={logo} alt="Logo" height={"100%"}  />
               </Grid>
 
 
