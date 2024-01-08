@@ -230,7 +230,7 @@ export function TabFinPropositoRF({
           >
             <Grid mt={{ lg: 2 }} mb={{ lg: 2 }} item lg={6}>
               <TextField
-                disabled={edit && raffiboolean?.fin?.añoAvanceFisico}
+                disabled={!raffiboolean?.fin?.añoAvanceFisico}
                 fullWidth
                 size="small"
                 label="Año del Avance Fisico"

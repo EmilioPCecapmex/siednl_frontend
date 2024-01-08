@@ -2254,7 +2254,7 @@ export const TabResumenRF = ({
                       checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].semestre1}
                       onChange={(v) => {
                         let auxC = raffiboolean?.componentes;
-                        auxC[indexComponentes].metasPorFrecuencia[0].semestre1 = v.target.checked;
+                        auxC[indexComponentes].metasPorFrecuencia[indexComponentes].semestre1 = v.target.checked;
                         setRaffiboolean({ ...raffiboolean, componentes: auxC });
                       }}
                       />
