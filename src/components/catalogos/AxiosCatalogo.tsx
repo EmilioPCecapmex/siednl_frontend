@@ -27,10 +27,30 @@ export const createFechaDeCaptua = (
       }
     )
     .then((r) => {
-     
       alertaExito(() => {}, "Fecha de Captura Creada");
     })
     .catch((err) => {
       alertaError("Fecha de Captura denegada");
+    });
+};
+
+export const listaGenericaCatalogos = (tabla: string) => {
+  axios
+    .post(
+      process.env.REACT_APP_APPLICATION_BACK + "/api/list-table",
+      {
+        tabla: tabla,
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    )
+    .then((r) => {
+      //alertaExito(() => {}, "Fecha de Captura Creada");
+    })
+    .catch((err) => {
+      alertaError("Lista No encontrada");
     });
 };
