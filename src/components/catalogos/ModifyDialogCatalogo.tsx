@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 import EditIcon from "@mui/icons-material/Edit";
 
 import {
-  Box,
+  Grid,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -255,9 +255,9 @@ export const ModifyDialogCatalogos = ({
 
   if (tabla === "ProgramasPresupuestarios") {
     return (
-      <Box>
+      <Grid>
         <Dialog open={open} onClose={cerrardialog} fullWidth>
-          <Box
+          <Grid
             sx={{
               width: "100%",
               height: "5vh",
@@ -274,13 +274,13 @@ export const ModifyDialogCatalogos = ({
               sx={{
                 fontFamily: "MontserratSemiBold",
                 width: "90%",
-                fontSize: "1vw",
+                fontSize: [10, 15, 15, 15, 15],
                 textAlign: "center",
               }}
             >
               Editar Elemento
             </Typography>
-          </Box>
+          </Grid>
           <DialogContent
             sx={{
               display: "flex",
@@ -339,36 +339,36 @@ export const ModifyDialogCatalogos = ({
             }}
           >
             <Button
-              sx={queries.buttonCancelarSolicitudInscripcion}
+              className="cacelar"
               onClick={cerrardialog}
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+                sx={{ fontFamily: "MontserratMedium",  }}
               >
                 Cancelar
               </Typography>
             </Button>
 
             <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
+              className="aceptar"
               onClick={ModifyPorCatalogoProgramasP}
               autoFocus
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+                sx={{ fontFamily: "MontserratMedium",  }}
               >
                 De Acuerdo
               </Typography>
             </Button>
           </DialogActions>
         </Dialog>
-      </Box>
+      </Grid>
     );
   } else if (tabla === "FechasDeCaptura") {
     return (
-      <Box sx={{ display: "flex" }}>
+      <Grid sx={{ display: "flex" }}>
         <Dialog open={open} onClose={cerrardialog} fullWidth>
-          <Box
+          <Grid
             sx={{
               width: "100%",
               height: "5vh",
@@ -385,13 +385,13 @@ export const ModifyDialogCatalogos = ({
               sx={{
                 fontFamily: "MontserratSemiBold",
                 width: "90%",
-                fontSize: "1vw",
+                fontSize: [10, 15, 15, 15, 15],
                 textAlign: "center",
               }}
             >
               Editar Elemento
             </Typography>
-          </Box>
+          </Grid>
 
           <DialogContent
             sx={{
@@ -438,34 +438,36 @@ export const ModifyDialogCatalogos = ({
             }}
           >
             <Button
-              sx={queries.buttonCancelarSolicitudInscripcion}
+             // sx={queries.buttonCancelarSolicitudInscripcion}
+             className="cancelar"
               onClick={cerrardialog}
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+                sx={{ fontFamily: "MontserratMedium",  }}
               >
                 Cancelar
               </Typography>
             </Button>
 
             <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
+              //sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={ModifyPorCatalogoFechas}
+              className="aceptar"
               autoFocus
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+                sx={{ fontFamily: "MontserratMedium",  }}
               >
                 De Acuerdo
               </Typography>
             </Button>
           </DialogActions>
         </Dialog>
-      </Box>
+      </Grid>
     );
   } else if (tabla === "PEDs") {
     return (
-      <Box>
+      <Grid>
         <Dialog open={open} onClose={cerrardialog}>
           <DialogTitle>{`Modificar  '${descripcion}'`}</DialogTitle>
 
@@ -479,12 +481,12 @@ export const ModifyDialogCatalogos = ({
           </DialogContent>
 
           <DialogActions onClick={cerrardialog}>
-            <Button sx={queries.buttonCancelarSolicitudInscripcion}>
+            <Button className="cancelar">
               Cancelar
             </Button>
 
             <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
+              className="aceptar"
               onClick={ModifyPorCatalogo}
               autoFocus
             >
@@ -492,13 +494,13 @@ export const ModifyDialogCatalogos = ({
             </Button>
           </DialogActions>
         </Dialog>
-      </Box>
+      </Grid>
     );
   } else {
     return (
-      <Box>
+      <Grid>
         <Dialog open={open} onClose={cerrardialog} fullWidth>
-          <Box
+          <Grid
             sx={{
               width: "100%",
               height: "5vh",
@@ -516,13 +518,13 @@ export const ModifyDialogCatalogos = ({
               sx={{
                 fontFamily: "MontserratSemiBold",
                 width: "90%",
-                fontSize: "1vw",
+                fontSize: [10, 15, 15, 15, 15],
                 textAlign: "center",
               }}
             >
               Editar Elemento
             </Typography>
-          </Box>
+          </Grid>
 
           <DialogContent
             sx={{
@@ -565,30 +567,34 @@ export const ModifyDialogCatalogos = ({
             }}
           >
             <Button
-              sx={queries.buttonCancelarSolicitudInscripcion}
+             // sx={queries.buttonCancelarSolicitudInscripcion}
               onClick={cerrardialog}
+              className="cancelar"
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              
+                sx={{ fontFamily: "MontserratMedium", fontSize: [10, 15, 15, 15, 15], }}
               >
                 Cancelar
               </Typography>
             </Button>
 
             <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
+            //  sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={ModifyPorCatalogo}
               autoFocus
+              className="aceptar"
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              
+                sx={{ fontFamily: "MontserratMedium", fontSize: [10, 15, 15, 15, 15],  }}
               >
                 De Acuerdo
               </Typography>
             </Button>
           </DialogActions>
         </Dialog>
-      </Box>
+      </Grid>
     );
   }
 };
