@@ -24,8 +24,6 @@ export const TabComponenteRf = ({
   MIR,
   MA,
   RF,
-  showMirFnc,
-  setTxtShowFnc,
   setRFcomponentesPadre,
   ComponentesRF,
   raffiboolean,
@@ -36,8 +34,6 @@ export const TabComponenteRf = ({
   RF: string;
   setRFcomponentesPadre: Function;
   ComponentesRF: IComponenteRF[];
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
   raffiboolean: IRFEdit;
 
   //
@@ -245,8 +241,6 @@ export const TabComponenteRf = ({
         <Tooltip title="RESUMEN COMPONENTE">
           <InfoOutlinedIcon
             onClick={() => {
-              showMirFnc(true);
-              setTxtShowFnc("Componentes");
             }}
             fontSize="large"
             sx={{ cursor: "pointer" }}

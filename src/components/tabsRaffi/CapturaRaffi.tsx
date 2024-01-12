@@ -1,15 +1,7 @@
 import { Grid } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { TabComponenteRf } from "./TabComponentesRf";
-import { TabActividadRf } from "./TabsActividadesRf";
-
+import { useEffect, useState } from "react";
 import GenericTabs from "../genericComponents/genericTabs";
-import {
-  IActividad,
-  IComponente,
-  IComponenteActividad,
-  IMIR,
-} from "../tabsMir/interfaces mir/IMIR";
+import { IActividad, IComponente, IMIR } from "../tabsMir/interfaces mir/IMIR";
 import {
   TabAvanceFinanciero,
   VPTrimestral,
@@ -17,8 +9,10 @@ import {
   VTrimestral,
   VTrimestralboolean,
 } from "./TabAvanceFinanciero";
+import { TabComponenteRf } from "./TabComponentesRf";
 import { TabFinPropositoRF } from "./TabFinPropositoRf";
 import { TabResumenRF } from "./TabResumenRF";
+import { TabActividadRf } from "./TabsActividadesRf";
 import {
   IActividadesRF,
   IAvanceFinancieroRF,
@@ -230,18 +224,8 @@ export default function CapturaRaffi({
   IdRf: string;
 }) {
   const [value, setValue] = useState(0);
-  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
-  const [showMir, setShowMir] = React.useState(false);
-  const [showSt, setShowSt] = React.useState("");
-  const showMirFnc = (state: boolean) => {
-    setShowMir(state);
-  };
-  const showFnc = (st: string) => {
-    setShowSt(st);
-  };
-
-  const jsonMir = JSON.parse(MIR);
+  // const jsonMir = JSON.parse(MIR);
 
   const [raffi, setRaffi] = useState<IRF>(newRaffi(MIR));
 
@@ -251,16 +235,8 @@ export default function CapturaRaffi({
 
   const [editRF, setEditRF] = useState(false);
 
-  useEffect(() => {
-    // ...
-  }, [raffi]);
-
-
   const setRFFinPadre = (finValues: IFinRF) => {
-    setRaffi({
-      ...raffi,
-      fin: finValues,
-    });
+    setRaffi({ ...raffi, fin: finValues });
   };
 
   const setRFPropositoPadre = (propositoVlues: IFinRF) => {
@@ -287,9 +263,7 @@ export default function CapturaRaffi({
   };
 
   const setAvanceFinancieroPadre = (avanceFinanciero: IAvanceFinancieroRF) => {
-    //console.log("avanceFinanciero: ",avanceFinanciero);
-    
-    setRaffi({...raffi,avanceFinanciero: avanceFinanciero,});
+    setRaffi({ ...raffi, avanceFinanciero: avanceFinanciero });
   };
 
   useEffect(() => {
@@ -303,20 +277,19 @@ export default function CapturaRaffi({
         let auxRF: IRF = newRaffi(MIR);
 
         setEditRF(true);
-        // let lengthMA = auxMA.componentes.length
-        // let lengthMIR = auxMIR.componentes.length
 
         let auxComponentes = auxRF.componentes.map((itemComponente, indexC) => {
           if (auxDBRF.componentes[indexC]) {
-            let auxActividades: IActividadesRF[] =
-              itemComponente.actividades.map((itemActividad, indexA) => {
+            let auxActividades: IActividadesRF[] = itemComponente.actividades.map(
+              (itemActividad, indexA) => {
                 return (
                   auxDBRF.componentes[indexC].actividades[indexA] ||
                   newActividadesRF(
                     auxMIR.componentes[indexC].actividades[indexA]
                   )
                 );
-              });
+              }
+            );
 
             return (
               {
@@ -337,20 +310,18 @@ export default function CapturaRaffi({
         let auxMIR: IMIR = JSON.parse(MIR);
         let auxRF: IRF = newRaffi(MIR);
 
-        // let lengthMA = auxMA.componentes.length
-        // let lengthMIR = auxMIR.componentes.length
-
         let auxComponentes = auxRF.componentes.map((itemComponente, indexC) => {
           if (auxDBRF.componentes[indexC]) {
-            let auxActividades: IActividadesRF[] =
-              itemComponente.actividades.map((itemActividad, indexA) => {
+            let auxActividades: IActividadesRF[] = itemComponente.actividades.map(
+              (itemActividad, indexA) => {
                 return (
                   auxDBRF.componentes[indexC].actividades[indexA] ||
                   newActividadesRF(
                     auxMIR.componentes[indexC].actividades[indexA]
                   )
                 );
-              });
+              }
+            );
 
             return (
               {
@@ -367,13 +338,6 @@ export default function CapturaRaffi({
       }
     }
   }, []);
-
-
-
-  const [showStAF, setShowStAF] = React.useState("");
-  const setTxtShowRAFFIAF = (st: string) => {
-    setShowStAF(st);
-  };
 
   return (
     <Grid
@@ -399,7 +363,6 @@ export default function CapturaRaffi({
       >
         <Grid
           sx={{
-            //width: "93vw",
             width: ["300xp", "750px", "750px", "1100px", "1200px"],
             height: "82vh",
 
@@ -429,7 +392,7 @@ export default function CapturaRaffi({
                 setAvanceFinancieroRF={setAvanceFinancieroPadre}
                 raffiboolean={raffiboolean}
               />
-              ) : null}
+            ) : null}
 
             {value === 1 && (
               <TabFinPropositoRF
@@ -439,8 +402,6 @@ export default function CapturaRaffi({
                 MIR={MIR}
                 finRF={raffi.fin}
                 propositoRF={raffi.proposito}
-                setTxtShowFnc={showFnc}
-                showMirFnc={showMirFnc}
                 RF={RF}
                 raffiboolean={raffiboolean}
               />
@@ -449,40 +410,26 @@ export default function CapturaRaffi({
             {value === 2 && (
               <TabComponenteRf
                 edit={editRF}
-                setRFcomponentesPadre = {setRFcomponentesPadre}
+                setRFcomponentesPadre={setRFcomponentesPadre}
                 ComponentesRF={raffi.componentes}
                 MA={MA}
                 MIR={MIR}
                 RF={RF}
-                setTxtShowFnc={showFnc}
-                showMirFnc={showMirFnc}
                 raffiboolean={raffiboolean}
               />
             )}
             {value === 3 && (
               <TabActividadRf
                 edit={editRF}
-              setRFactividadesPadre = {setRFactividadesPadre}
-                valoresComponenteRFFnc={() => {}}
-                ComponentesRF={raffi.componentes}
-                asignarCValor={() => {}}
-                MA={MA}
                 MIR={MIR}
-                RF={RF}
-                compAct={compAct}
-                setTxtShowFnc={showFnc}
-                showMirFnc={showMirFnc}
+                MA={MA}
+                ComponentesRF={raffi.componentes}
+                setRFactividadesPadre={setRFactividadesPadre}
                 raffiboolean={raffiboolean}
               />
             )}
             {value === 4 && (
               <TabResumenRF
-                // encabezado={ValueEncabezado}
-                // fin={ValueFin}
-                // proposito={ValueProposito}
-                // componentes={noComponentes}
-                // AFinanciero={ValueAvanceFinanciero}
-                
                 IdMir={IdMir}
                 IdRF={IdRf}
                 IdMA={IdMA}
@@ -500,5 +447,3 @@ export default function CapturaRaffi({
     </Grid>
   );
 }
-
-

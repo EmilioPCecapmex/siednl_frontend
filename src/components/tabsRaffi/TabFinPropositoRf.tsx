@@ -14,8 +14,6 @@ export function TabFinPropositoRF({
   MIR,
   finRF,
   propositoRF,
-  showMirFnc,
-  setTxtShowFnc,
   raffiboolean,
 }: {
   edit:boolean;
@@ -25,8 +23,6 @@ export function TabFinPropositoRF({
   finRF: IFinRF;
   propositoRF: IPropositoRF;
   RF: string;
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
   raffiboolean: IRFEdit;
 }) {
   const jsonMir: IMIR = JSON.parse(MIR);
@@ -156,8 +152,7 @@ export function TabFinPropositoRF({
           <Tooltip title="RESUMEN COMPONENTE">
             <InfoOutlinedIcon
               onClick={() => {
-                showMirFnc(true);
-                setTxtShowFnc("Fin");
+               
               }}
               fontSize="large"
               sx={{ cursor: "pointer" }}
@@ -176,8 +171,7 @@ export function TabFinPropositoRF({
           <Tooltip title="RESUMEN COMPONENTE">
             <InfoOutlinedIcon
               onClick={() => {
-                showMirFnc(true);
-                setTxtShowFnc("Proposito");
+              
               }}
               fontSize="large"
               sx={{ cursor: "pointer" }}

@@ -1,58 +1,38 @@
-import {
-  Grid,
-  TextField,
-  ListItemButton,
-  Typography,
-  Divider,
-  List,
-  Box,
-  Paper,
-  styled,
-  Collapse,
-  Tooltip,
-  InputLabel,
-  useMediaQuery,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
-import { IComponenteRF, IFrecuencias } from "./interfacesRaffi";
-import { IComponenteActividad, IMIR } from "../tabsMir/interfaces mir/IMIR";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { queries } from "../../queries";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
-import { IRFEdit } from "./interfacesRaffi";
-import { alertaError } from "../genericComponents/Alertas";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import {
+  Collapse,
+  Divider,
+  Grid,
+  InputLabel,
+  List,
+  ListItemButton,
+  TextField,
+  Tooltip,
+  Typography,
+  useMediaQuery
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { queries } from "../../queries";
 import { getValueOperacion } from "../../services/validations";
+import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
+import { alertaError } from "../genericComponents/Alertas";
+import { IComponenteRF, IRFEdit } from "./interfacesRaffi";
 
 export const TabActividadRf = ({
   edit,
   MIR,
   MA,
-  RF,
-
-  asignarCValor,
-  compAct,
-  valoresComponenteRFFnc,
   ComponentesRF,
   setRFactividadesPadre,
-  showMirFnc,
-  setTxtShowFnc,
   raffiboolean,
 }: {
   edit: boolean;
-  MA: string;
   MIR: string;
-  RF: string;
-  
-  asignarCValor: Function;
-  compAct: Array<IComponenteActividad>;
-  valoresComponenteRFFnc: Function;
-  setRFactividadesPadre: Function;
+  MA: string;
   ComponentesRF: IComponenteRF[];
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
+  setRFactividadesPadre: Function;
   raffiboolean: IRFEdit;
 }) => {
   
@@ -283,8 +263,7 @@ export const TabActividadRf = ({
           <Tooltip title="RESUMEN ACTIVIDAD">
             <InfoOutlinedIcon
               onClick={() => {
-                showMirFnc(true);
-                setTxtShowFnc("Actividades");
+               
               }}
               fontSize="large"
               sx={{ cursor: "pointer" }}
