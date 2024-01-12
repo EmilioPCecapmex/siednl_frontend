@@ -1,72 +1,35 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  IconButton,
-  Input,
-  MenuItem,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Tooltip,
-  Radio,
-  FormLabel,
-  FormControlLabel,
-  Typography,
-  Grid,
-  TextField,
-  InputLabel,
-} from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { queries } from "../../queries";
-import { IMIR } from "../tabsMir/interfaces mir/IMIR";
-import { IFinRF, IPropositoRF } from "./interfacesRaffi";
-import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
+import { Grid, TextField, Tooltip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { queries } from "../../queries";
+import { validarNumero } from "../../services/validations";
 import { DialogFinPropositoRaffi } from "../formulasDialog/FormulaDialogRaffiFinProposito";
+import { IMIR } from "../tabsMir/interfaces mir/IMIR";
+import { IFinRF, IPropositoRF, IRFEdit } from "./interfacesRaffi";
 
 export function TabFinPropositoRF({
-  resumenPropositoRF,
-  resumenFinRF,
+  edit,
+  setRFFinPadre,
+  setRFPropositoPadre,
   MIR,
-  // finRF,
-  // propositoRF,
-  setFinRF,
-  setPropositoRF,
-  showMirFnc,
-  setTxtShowFnc,
+  finRF,
+  propositoRF,
+  raffiboolean,
 }: {
-  resumenPropositoRF: Function;
-  resumenFinRF: Function;
+  edit:boolean;
+  setRFFinPadre: Function;
+  setRFPropositoPadre: Function;
   MIR: string;
-  //finRF: IFinRF;
-  //propositoRF: IPropositoRF;
-  setFinRF: Function;
-  setPropositoRF: Function;
-
+  finRF: IFinRF;
+  propositoRF: IPropositoRF;
   RF: string;
-
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
+  raffiboolean: IRFEdit;
 }) {
   const jsonMir: IMIR = JSON.parse(MIR);
 
-  const [fin, setFin] = useState<IFinRF>({
-    añoAvanceFisico: "",
-    //jsonMir.encabezado.ejercicioFiscal,
-    valorAvanceFisico: "",
-  });
+  const [fin, setFin] = useState<IFinRF>(finRF);
 
-  const [proposito, setProposito] = useState<IPropositoRF>({
-    añoAvanceFisico: "",
-    //jsonMir.encabezado.ejercicioFiscal,
-    valorAvanceFisico: "",
-  });
+  const [proposito, setProposito] = useState<IPropositoRF>(propositoRF);
 
   // Estados para almacenar las palabras a buscar en los TextField
   const [palabraABuscar1, setPalabraABuscar1] = useState(""); // Para Fin
@@ -109,54 +72,11 @@ export function TabFinPropositoRF({
   }, []);
 
   useEffect(() => {
-    resumenPropositoRF(proposito);
-  }, [resumenPropositoRF]);
-
-  useEffect(() => {
-    resumenFinRF(fin);
-  }, [resumenFinRF]);
-
-  useEffect(() => {
-    let objectaux: IPropositoRF = {
-      añoAvanceFisico: "",
-      //jsonMir.encabezado.ejercicioFiscal,
-      valorAvanceFisico: "",
-    };
-    setPropositoRF(objectaux);
-    setProposito(objectaux);
-  }, []);
-
-  // useEffect(() => {
-  //   if (
-  //     propositoRF.valorAvanceFisico !== "" &&
-  //     propositoRF.valorAvanceFisico !== null
-  //   ) {
-  //     setProposito(propositoRF);
-  //   }
-  // }, []);
-
-  useEffect(() => {
-    setPropositoRF(proposito);
+    setRFPropositoPadre(proposito);
   }, [proposito]);
 
   useEffect(() => {
-    let objectaux: IFinRF = {
-      añoAvanceFisico: "",
-      //jsonMir.encabezado.ejercicioFiscal,
-      valorAvanceFisico: "",
-    };
-    setFinRF(objectaux);
-    setFin(objectaux);
-  }, []);
-
-  // useEffect(() => {
-  //   if (finRF.valorAvanceFisico !== "" && finRF.valorAvanceFisico !== null) {
-  //     setFin(finRF);
-  //   }
-  // }, []);
-
-  useEffect(() => {
-    setFinRF(fin);
+    setRFFinPadre(fin);
   }, [fin]);
 
   const assignValue = (valor: string, elemento: string, tipo: string) => {
@@ -205,22 +125,34 @@ export function TabFinPropositoRF({
           width: "93vw",
           height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
           justifyContent: "space-around",
-          alignItems: "center",
+          alignItems: "flex-start",
           backgroundColor: "#fff",
           boxShadow: 10,
           borderRadius: 5,
+          overflow: "auto",
         }}
       >
         <Grid
-          container
           item
-          sx={{ display: "flex", justifyContent: "flex-end" }}
+          container
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            //width: "100%",
+            display: "flex",
+            // height: "7vh",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+          //sx={{ display: "flex", justifyContent: "flex-end", borderRadius: 5 }}
         >
           <Tooltip title="RESUMEN COMPONENTE">
             <InfoOutlinedIcon
               onClick={() => {
-                showMirFnc(true);
-                setTxtShowFnc("Fin");
+               
               }}
               fontSize="large"
               sx={{ cursor: "pointer" }}
@@ -230,17 +162,16 @@ export function TabFinPropositoRF({
             sx={{
               mr: "1vw",
               fontFamily: "MontserratSemiBold",
-              fontSize: "1.5vw",
+              fontSize: [10, 10, 10, 13, 15, 18],
             }}
           >
-            FIN /
+            FIN
           </Typography>
 
           <Tooltip title="RESUMEN COMPONENTE">
             <InfoOutlinedIcon
               onClick={() => {
-                showMirFnc(true);
-                setTxtShowFnc("Proposito");
+              
               }}
               fontSize="large"
               sx={{ cursor: "pointer" }}
@@ -250,7 +181,7 @@ export function TabFinPropositoRF({
             sx={{
               mr: "1vw",
               fontFamily: "MontserratSemiBold",
-              fontSize: "1.5vw",
+              fontSize: [10, 10, 10, 13, 15, 18],
             }}
           >
             PROPÓSITO
@@ -283,15 +214,33 @@ export function TabFinPropositoRF({
               justifyContent: "center",
               boxShadow: 2,
               border: "1px solid #ccc",
-              height: "45vh",
+              height: window.innerHeight >= 700 ? "45vh" : "35vh",
+              "& > .MuiGrid-item": {
+                marginBottom: "10px",
+                marginTop: "10px",
+                // Ajusta la cantidad de espacio vertical entre los elementos
+              },
             }}
           >
             <Grid mt={{ lg: 2 }} mb={{ lg: 2 }} item lg={6}>
               <TextField
+                disabled={!raffiboolean?.fin?.añoAvanceFisico}
                 fullWidth
                 size="small"
                 label="Año del Avance Fisico"
-                value={jsonMir.encabezado.ejercicioFiscal}
+                value={fin.añoAvanceFisico}
+                onChange={(c) => {
+                  setFin({
+                    ...fin,
+                    añoAvanceFisico: validarNumero(
+                      c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", ""),
+                      fin.añoAvanceFisico
+                    ),
+                  });
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -308,6 +257,7 @@ export function TabFinPropositoRF({
 
             <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
               <TextField
+              
                 fullWidth
                 size="small"
                 //label="Operacion"
@@ -329,6 +279,7 @@ export function TabFinPropositoRF({
 
             <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
               <TextField
+                disabled={edit && raffiboolean?.fin?.valorAvanceFisico}
                 fullWidth
                 size="small"
                 label="Valor del Avance Fisico"
@@ -381,22 +332,39 @@ export function TabFinPropositoRF({
               justifyContent: "center",
               boxShadow: 2,
               border: "1px solid #ccc",
-              height: "45vh",
+              height: window.innerHeight >= 700 ? "45vh" : "35vh",
+              "& > .MuiGrid-item": {
+                marginBottom: "10px",
+                marginTop: "10px",
+                // Ajusta la cantidad de espacio vertical entre los elementos
+              },
             }}
           >
             <Grid mt={{ lg: 2 }} mb={{ lg: 2 }} item lg={6}>
               <TextField
+                disabled={edit && raffiboolean?.proposito?.añoAvanceFisico}
                 fullWidth
                 size="small"
                 label="Año del Avance Fisico"
-                value={jsonMir.encabezado.ejercicioFiscal}
+                value={proposito.añoAvanceFisico}
+                onChange={(c) => {
+                  setProposito({
+                    ...proposito,
+                    añoAvanceFisico: validarNumero(
+                      c.target.value
+                        .replaceAll('"', "")
+                        .replaceAll("'", "")
+                        .replaceAll("\n", ""),
+                      proposito.añoAvanceFisico
+                    ),
+                  });
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
                   },
                 }}
                 InputProps={{
-                  readOnly: true,
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -427,6 +395,7 @@ export function TabFinPropositoRF({
 
             <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
               <TextField
+                disabled={edit && raffiboolean?.proposito?.valorAvanceFisico}
                 fullWidth
                 size="small"
                 label="Valor del Avance Fisico"
@@ -451,6 +420,7 @@ export function TabFinPropositoRF({
             </Grid>
           </Grid>
         </Grid>
+
         <DialogFinPropositoRaffi
           open={openFormulaDialog}
           close={handleClose}

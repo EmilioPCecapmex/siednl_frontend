@@ -33,6 +33,8 @@ import Swal from "sweetalert2";
 //import { TutorialGrid } from "../../components/tutorialGrid/tutorialGrid";
 import { queries } from "../../queries";
 import { IEntidad } from "../../components/appsDialog/AppsDialog";
+import { buscador } from "../../services/servicesGlobals";
+
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -44,6 +46,9 @@ const estados = [
   "En Revisión",
   "En Autorización",
   "Autorizada",
+  "Borrador Autorizador",
+  "Borrador Verificador",
+  //"Borrador Capturador"
 ];
 
 interface Head {
@@ -139,6 +144,9 @@ export const FichaTecnica = () => {
 
   const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
 
+  const [estadoft, setEstadoFT] = useState("Todos");
+  const [institucionesb, setInstitucionesb] = useState("Todos");
+
   const getInstituciones = (setstate: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
@@ -152,7 +160,26 @@ export const FichaTecnica = () => {
       })
       .then((r) => {
         if (r.status === 200) {
-          setstate(r.data.data);
+          let aux = r.data.data;
+
+          aux.unshift({
+            ClaveSiregob: null,
+            ControlInterno: "",
+            Direccion: "",
+            EntidadPerteneceA: "",
+            FechaCreacion: "",
+            Id: "",
+            IdEntidadPerteneceA: "",
+            IdTipoEntidad: "",
+            IdTitular: null,
+            Nombre: "TODOS",
+            NombreTipoEntidad: "",
+            Telefono: "",
+            Titular: "",
+            UltimaActualizacion: "",
+          });
+
+          setstate(aux);
         }
       });
   };
@@ -160,6 +187,11 @@ export const FichaTecnica = () => {
   useEffect(() => {
     getFT(setft);
     validaFechaCaptura();
+  }, []);
+
+  useEffect(() => {
+    //console.log("MIR: "MIR);
+    
   }, []);
 
   useEffect(() => {
@@ -331,6 +363,7 @@ export const FichaTecnica = () => {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdEntidad: localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
+          Estado: estadoft || "",
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -574,6 +607,9 @@ export const FichaTecnica = () => {
                         size="small"
                         variant="outlined"
                         fullWidth
+                        disabled={
+                          localStorage.getItem("Rol") !== "Administrador"
+                        }
                         label="FILTRO POR INSTITUCION"
                         sx={{
                           fontFamily: "MontserratRegular",
@@ -583,15 +619,15 @@ export const FichaTecnica = () => {
                           //textAlign: "center",
                           fontSize: [10, 10, 15, 15, 18, 20],
                         }}
-                        value={findInstStr}
+                        value={institucionesb}
                         // sx={{ fontFamily: "MontserratRegular" }}
 
                         onChange={(v) => {
-                          setFindInstStr(v.target.value);
+                          setInstitucionesb(v.target.value);
                         }}
                       >
                         <MenuItem
-                          value={"Todos"}
+                          value={institucionesb}
                           sx={{ fontFamily: "MontserratRegular" }}
                         >
                           TODOS
@@ -641,7 +677,12 @@ export const FichaTecnica = () => {
                         fontSize: [10, 10, 15, 15, 18, 20],
                         // Tamaños de fuente para diferentes breakpoints
                       }}
-                      value={findSelectStr}
+                      value={
+                        localStorage.getItem("Rol") === "Administrador" ||
+                        localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          ? estadoft
+                          : findSelectStr
+                      }
                       onChange={(v) => {
                         // v.target.value === "Todos"
                         //   ? findText(
@@ -650,7 +691,14 @@ export const FichaTecnica = () => {
                         //       findInstStr === "Todos" ? "0" : findInstStr
                         //     )
                         //   : findText(findTextStr, v.target.value, findInstStr);
-                        setFindSelectStr(v.target.value);
+                        if (
+                          localStorage.getItem("Rol") === "Administrador" ||
+                          localStorage.getItem("Rol") === "ADMINISTRADOR"
+                        ) {
+                          setEstadoFT(v.target.value);
+                        } else {
+                          setFindSelectStr(v.target.value);
+                        }
                       }}
                     >
                       {estados.map((estado) => (
@@ -661,6 +709,46 @@ export const FichaTecnica = () => {
                     </Select>
                   </FormControl>
                 </Grid>
+
+                {localStorage.getItem("Rol") === "Administrador" && (
+                  <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
+                    <IconButton
+                      // disabled ={estadoma === "Todos" && institucionesb === "Todos" }
+                      onClick={() => {
+                        buscador(
+                          estadoft,
+                          institucionesb,
+                          setft,
+                          "list-fichaTecnica"
+                        );
+                      }}
+                    >
+                      <SearchIcon
+                        sx={{
+                          fontSize: "24px", // Tamaño predeterminado del icono
+                          "@media (max-width: 600px)": {
+                            fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                          },
+                          "@media (min-width: 601px) and (max-width: 960px)": {
+                            fontSize: 20, // Pantalla pequeña (md)
+                          },
+                          "@media (min-width: 961px) and (max-width: 1280px)": {
+                            fontSize: 20, // Pantalla mediana (lg)
+                          },
+                          "@media (min-width: 1281px)": {
+                            fontSize: 25, // Pantalla grande (xl)
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: 25, // Pantalla grande (xl)
+                          },
+                        }}
+                        onClick={() => {
+                          // Acciones adicionales al hacer clic en el ícono de búsqueda
+                        }}
+                      ></SearchIcon>
+                    </IconButton>
+                  </Grid>
+                )}
               </Grid>
 
               <Grid
@@ -956,8 +1044,9 @@ export const FichaTecnica = () => {
                                       let auxArrayMIR2 = JSON.stringify(
                                         auxArrayMIR[0]
                                       );
-
+                                    
                                       if (auxArrayMIR[1]) {
+                                        
                                         setFTEdit([
                                           {
                                             IdFt: row.IdFt,
@@ -978,6 +1067,7 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       } else {
+                                        
                                         setFTEdit([
                                           {
                                             IdFt: row.IdFt,
@@ -998,7 +1088,6 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       }
-
                                       setShowResume(false);
                                       setActionNumber(1);
                                     }}
@@ -1178,6 +1267,9 @@ export const FichaTecnica = () => {
                                 actualizado={actualizaContador}
                               />
                             </Grid>
+
+
+                            
                           </TableCell>
                         </TableRow>
                       ))}
@@ -1206,6 +1298,16 @@ export const FichaTecnica = () => {
               Conac={FTShow[0]?.Conac}
               Consecutivo={FTShow[0]?.Consecutivo}
             />
+
+            {/* <ModalVerResumenFT
+              open={openModalVerResumenFT}
+              handleClose={handleCloseVerResumenFT}
+              MIR={FTShow[0]?.MIR || ""}
+              MA={FTShow[0]?.MetaAnual || ""}
+              FT={FTShow[0]?.FichaT || ""}
+              Conac={FTShow[0]?.Conac}
+              Consecutivo={FTShow[0]?.Consecutivo}
+            /> */}
           </>
         ) : (
           <Grid
@@ -1219,13 +1321,13 @@ export const FichaTecnica = () => {
             gridArea={"main"}
           >
             <AddFichaTecnica
-              MIR={FTEdit[0].MIR}
-              MA={FTEdit[0].MetaAnual}
-              FT={FTEdit[0].FichaT}
+              MIR={FTEdit[0]?.MIR || ""}
+              MA={FTEdit[0]?.MetaAnual || ""}
+              FT={FTEdit[0]?.FichaT || ""}
               showResume={returnMain}
-              IdMir={FTEdit[0].IdMir}
-              IdMA={FTEdit[0].IdMa}
-              IdFT={FTEdit[0].IdFt}
+              IdMir={FTEdit[0]?.IdMir || ""}
+              IdMA={FTEdit[0]?.IdMa || ""}
+              IdFT={FTEdit[0]?.IdFt || ""}
             />
             {/* {FTEdit[0].FichaT} */}
           </Grid>

@@ -11,6 +11,9 @@ import { IActividadesMA, IComponenteMA, ICValorMA } from "./Interfaces";
 import { queries } from "../../queries";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import "../../../src/Globals.css"
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
+
 export function TabResumenMA({
   maPadre,
 
@@ -77,17 +80,19 @@ export function TabResumenMA({
         }
       )
       .then((r) => {
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
+        // Toast.fire({
+        //   icon: "success",
+        //   title: r.data.data.message,
+        // });
+        alertaExito(() => {}, r.data.data.message);
         showResume();
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
+        // Toast.fire({
+        //   icon: "error",
+        //   title: err.response.data.result.error,
+        // });
+        alertaError(err.response.data.result.error);
       });
   };
 
@@ -1551,6 +1556,8 @@ export function TabResumenMA({
                         />
                       </Grid>
                     )}
+
+                    
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                       <Typography sx={{ fontFamily: "MontserratMedium" }}>
                         Semestre 1:
@@ -1592,16 +1599,19 @@ export function TabResumenMA({
                         />
                       </Grid>
                     )}
+
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                       <Typography sx={{ fontFamily: "MontserratMedium" }}>
                         Semestre 2:
                       </Typography>
                     </Grid>
+
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                       <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
                         {componente?.metasPorFrecuencia[0]?.semestre2}
                       </Typography>
                     </Grid>
+
                   </Grid>
                 ) : (
                   <Grid
@@ -3065,7 +3075,7 @@ export function TabResumenMA({
           xs={12}
         >
           <Button
-            sx={queries.buttonCancelarSolicitudInscripcion}
+            className="cancelar"
             onClick={() => showResume()}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -3085,7 +3095,7 @@ export function TabResumenMA({
         >
           <Button
             disabled={isCapturador ? true : false}
-            sx={buttonStyles}
+            className="aceptar"
             onClick={() => setOpenModalSolicitarModif(true)}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -3104,7 +3114,7 @@ export function TabResumenMA({
           xs={12}
         >
           <Button
-            sx={queries.buttonContinuarSolicitudInscripcion}
+            className="aceptar"
             onClick={() => {
               let estado = "";
               if (localStorage.getItem("Rol") === "Capturador") {
@@ -3136,7 +3146,7 @@ export function TabResumenMA({
           xs={12}
         >
           <Button
-            sx={queries.buttonContinuarSolicitudInscripcion}
+            className="aceptar"
             onClick={() => {
               setOpenModalEnviar(true);
             }}
@@ -3174,6 +3184,7 @@ export function TabResumenMA({
           showResume={showResume}
         ></ModalEnviarMA>
       </Grid>
+
     </Grid>
   );
 }

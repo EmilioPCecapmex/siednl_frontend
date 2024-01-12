@@ -37,6 +37,8 @@ export const FormulaDialogMA = ({
   };
 
   const checkValues = () => {
+    console.log("tipo: ",tipo);
+    
     if (tipo === "Indice" || tipo === "Índice") {
       if (/^[\s]*$/.test(descA)) {
         setEmptyTxt(true);
@@ -117,6 +119,8 @@ export const FormulaDialogMA = ({
             ? `${elemento} - Fórmula - ${tipo}`
             : elementoA
             ? `${elementoA} - Fórmula - ${tipo}`
+            : elemento.includes("A")
+            ? `${elemento} - Fórmula - ${tipo}`
             : `Componente ${noComponente + 1} - Fórmula - ${tipo}`}
         </Typography>
 
@@ -155,8 +159,8 @@ export const FormulaDialogMA = ({
             ? JSON.parse(MIR).proposito.formula
             : elemento.includes("Componente")
             ? JSON.parse(MIR).componentes[noComponente]?.formula
-            : elemento.includes("A")
-            ? JSON.parse(MIR).componentes[noComponente].actividades[noActividad]
+            : elemento.includes("A" || "a") 
+            ? JSON.parse(MIR).componentes[noComponente]?.actividades[noActividad]
                 ?.formula
             : null}
         </Typography>

@@ -1,9 +1,11 @@
 import {
-  Grid,
-  InputLabel,
-  Select,
-  MenuItem,
   FormControl,
+  Grid,
+  InputBase,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
   Table,
   TableBody,
   TableCell,
@@ -12,30 +14,28 @@ import {
   TableRow,
   TableSortLabel,
   Tooltip,
-  InputBase,
-  Paper,
 } from "@mui/material";
 //import { useNavigate } from "react-router-dom";
-import {
-  LateralMenu,
-  IInstituciones,
-} from "../../components/lateralMenu/LateralMenu";
-import React, { useEffect, useState } from "react";
-
+import DownloadIcon from "@mui/icons-material/Download";
+import { useEffect, useState } from "react";
+import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import CapturaRaffi from "../../components/tabsRaffi/CapturaRaffi";
 
-import { queries } from "../../queries";
-import { listaRaffi } from "../../services/raffi_services/raffi_endpoints";
-import { getInstituciones } from "../../services/instituciones_services/instituciones";
 import moment from "moment";
+import { queries } from "../../queries";
+import { getInstituciones } from "../../services/instituciones_services/instituciones";
+import { listaRaffi } from "../../services/raffi_services/raffi_endpoints";
 // import VisibilityIcon from "@mui/icons-material/Visibility";
 // import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
+import SearchIcon from "@mui/icons-material/Search";
+import IconButton from "@mui/material/IconButton";
 //import CommentIcon from "@mui/icons-material/Comment";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { IEntidad } from "../../components/appsDialog/AppsDialog";
+import { buscador } from "../../services/servicesGlobals";
 
 const estados = [
   "Todos",
@@ -43,6 +43,8 @@ const estados = [
   "En Revisión",
   "En Autorización",
   "Autorizada",
+  "Borrador Autorizador",
+  "Borrador Verificador",
   "Sin Asignar",
 ];
 
@@ -99,7 +101,7 @@ export const Raffi = () => {
   const [rfFiltered, setRfFiltered] = useState<Array<IRaffi>>([]);
   const [rfxFiltered, setRfxFiltered] = useState<Array<IRaffi>>([]);
   const [rfEdit, setRfEdit] = useState<Array<IRaffi>>([]);
-  const [instituciones, setInstituciones] = useState<Array<IInstituciones>>();
+  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
   const [validaFecha, setValidaFecha] = useState(true);
 
   const [findTextStr, setFindTextStr] = useState("");
@@ -111,11 +113,16 @@ export const Raffi = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
+  const [estadorf, setEstadoRF] = useState("Todos");
+  const [institucionesb, setInstitucionesb] = useState("Todos");
+
   useEffect(() => {
-    validaFechaCaptura();
-    setOpenTabs(true);
-    listaRaffi(setRf);
-  }, []);
+    if (opentabs) {
+      listaRaffi(setRf, estadorf);
+      validaFechaCaptura();
+      setOpenTabs(true);
+    }
+  }, [opentabs]);
 
   useEffect(() => {
     setRfFiltered(rf);
@@ -242,6 +249,7 @@ export const Raffi = () => {
   useEffect(() => {
     validaFechaCaptura();
     getInstituciones(setInstituciones);
+    console.log("instituciones: ");
   }, []);
 
   const handleChange = (dato: string) => {
@@ -294,6 +302,71 @@ export const Raffi = () => {
     findTextStr.length !== 0 ? setRfFiltered(rfFiltered) : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [findTextStr]);
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  const getFichaRaffiDownload = (
+    MIR: string,
+    MetaAnual: string,
+    RF: string,
+    inst: string,
+    Programa: string,
+    FechaCreacion: string
+  ) => {
+    const fullRF = [JSON.parse(MIR), JSON.parse(MetaAnual), JSON.parse(RF)];
+
+    axios
+      .post(
+        // process.env.REACT_APP_APPLICATION_FILL + "/api/fill_rf",
+        "http://192.168.137.198:7001/api/fill_raffi",
+        fullRF,
+        {
+          responseType: "blob",
+          // headers: {
+          //   Authorization: localStorage.getItem("jwtToken") || "",
+          // },
+        }
+      )
+      .then((r) => {
+        Toast.fire({
+          icon: "success",
+          title: "La descarga comenzara en un momento.",
+        });
+        const href = URL.createObjectURL(r.data);
+
+        // create "a" HTML element with href to file & click
+        const link = document.createElement("a");
+        link.href = href;
+        link.setAttribute(
+          "download",
+          "RF_" + FechaCreacion + "_" + inst + "_" + Programa + ".xlsx"
+        ); //or any other extension
+        document.body.appendChild(link);
+
+        link.click();
+
+        // clean up "a" element & remove ObjectURL
+
+        document.body.removeChild(link);
+        URL.revokeObjectURL(href);
+      })
+      .catch((err) => {
+        Toast.fire({
+          icon: "error",
+          title: "Error al intentar descargar el documento.",
+        });
+      });
+  };
 
   return (
     <Grid container justifyContent={"space-between"}>
@@ -501,7 +574,7 @@ export const Raffi = () => {
                         //textAlign: "center",
                         fontSize: [10, 10, 15, 15, 18, 20],
                       }}
-                      value={findInstStr}
+                      value={institucionesb}
                       onChange={(v) => {
                         // v.target.value === "Todos"
                         //   ? findText(
@@ -510,11 +583,11 @@ export const Raffi = () => {
                         //       "0"
                         //     )
                         //   : findText(findTextStr, findSelectStr, v.target.value);
-                        setFindInstStr(v.target.value);
+                        setInstitucionesb(v.target.value);
                       }}
                     >
                       <MenuItem
-                        value={"Todos"}
+                        value={institucionesb}
                         sx={{ fontFamily: "MontserratRegular" }}
                       >
                         Todos
@@ -522,11 +595,8 @@ export const Raffi = () => {
 
                       {instituciones?.map((item) => {
                         return (
-                          <MenuItem
-                            value={item.NombreInstitucion}
-                            key={item.Id}
-                          >
-                            {item.NombreInstitucion}
+                          <MenuItem value={item.Nombre} key={item.Id}>
+                            {item.Nombre.toUpperCase()}
                           </MenuItem>
                         );
                       })}
@@ -563,7 +633,12 @@ export const Raffi = () => {
                         fontSize: [10, 10, 15, 15, 18, 20],
                         // Tamaños de fuente para diferentes breakpoints
                       }}
-                      value={findSelectStr}
+                      value={
+                        localStorage.getItem("Rol") === "Administrador" ||
+                        localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          ? estadorf
+                          : findSelectStr
+                      }
                       onChange={(v) => {
                         // v.target.value === "Todos"
                         //   ? findText(
@@ -572,7 +647,14 @@ export const Raffi = () => {
                         //       findInstStr === "Todos" ? "0" : findInstStr
                         //     )
                         //   : findText(findTextStr, v.target.value, findInstStr);
-                        setFindSelectStr(v.target.value);
+                        if (
+                          localStorage.getItem("Rol") === "Administrador" ||
+                          localStorage.getItem("Rol") === "ADMINISTRADOR"
+                        ) {
+                          setEstadoRF(v.target.value);
+                        } else {
+                          setFindSelectStr(v.target.value);
+                        }
                       }}
                     >
                       {estados.map((estado) => (
@@ -583,6 +665,46 @@ export const Raffi = () => {
                     </Select>
                   </FormControl>
                 </Grid>
+
+                {localStorage.getItem("Rol") === "Administrador" && (
+                  <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
+                    <IconButton
+                      // disabled ={estadoma === "Todos" && institucionesb === "Todos" }
+                      onClick={() => {
+                        buscador(
+                          estadorf,
+                          institucionesb,
+                          setRf,
+                          "list-raffis"
+                        );
+                      }}
+                    >
+                      <SearchIcon
+                        sx={{
+                          fontSize: "24px", // Tamaño predeterminado del icono
+                          "@media (max-width: 600px)": {
+                            fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                          },
+                          "@media (min-width: 601px) and (max-width: 960px)": {
+                            fontSize: 20, // Pantalla pequeña (md)
+                          },
+                          "@media (min-width: 961px) and (max-width: 1280px)": {
+                            fontSize: 20, // Pantalla mediana (lg)
+                          },
+                          "@media (min-width: 1281px)": {
+                            fontSize: 25, // Pantalla grande (xl)
+                          },
+                          "@media (min-width: 2200px)": {
+                            fontSize: 25, // Pantalla grande (xl)
+                          },
+                        }}
+                        onClick={() => {
+                          // Acciones adicionales al hacer clic en el ícono de búsqueda
+                        }}
+                      ></SearchIcon>
+                    </IconButton>
+                  </Grid>
+                )}
               </Grid>
             </Grid>
             {/* TABLA */}
@@ -696,7 +818,18 @@ export const Raffi = () => {
                                 textAlign: "center",
                               }}
                             >
-                              {row.Estado}
+                              {(row.Estado === "En Captura" &&
+                              localStorage.getItem("Rol") === "Capturador"
+                                ? "Borrador Capturador"
+                                : row.Estado === "En Revisión" &&
+                                  localStorage.getItem("Rol") === "Verificador"
+                                ? "Esperando revisión"
+                                : row.Estado === "En Autorización" &&
+                                  localStorage.getItem("Rol") ===
+                                    "Administrador"
+                                ? "En Autorización"
+                                : row.Estado
+                              ).toUpperCase()}
                             </TableCell>
                             <TableCell
                               sx={{
@@ -724,38 +857,99 @@ export const Raffi = () => {
                               sx={{
                                 flexDirection: "row",
                                 display: "grid",
-                                //padding: "2px 20px 2px 10",
                                 gridTemplateColumns: "repeat(4,1fr)",
                                 fontSize: [10, 10, 10, 15, 15, 18],
                                 textAlign: "center",
                               }}
                             >
-                              {row.Estado !== "Sin Asignar" && (
+                              {row.Estado !==
+                                ("Sin Asignar" || "SIN ASIGNAR") && (
                                 <Tooltip title="EDITAR">
                                   <IconButton
-                                    disabled={!validaFecha}
+                                    disabled={
+                                      (row.Estado === "En Captura" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Capturador") ||
+                                      (row.Estado === "En Revisión" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      (row.Estado === "Borrador Verificador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      ((row.Estado === "En Autorización" ||
+                                        row.Estado === "Autorizada") &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador") ||
+                                      (row.Estado === "Borrador Autorizador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador")
+                                        ? false
+                                        : true || !validaFecha
+                                    }
                                     type="button"
                                     onClick={() => {
-                                      setRfEdit([
-                                        {
-                                          IdRaffi: row.IdRaffi,
-                                          IdMir: row.IdMir,
-                                          IdMetaAnual: row.IdMetaAnual,
-                                          RAFFI: row.RAFFI,
-                                          Estado: row.Estado,
-                                          CreadoPor: row.CreadoPor,
-                                          FechaCreacion: row.FechaCreacion,
-                                          ModificadoPor: row.ModificadoPor,
-                                          AnioFiscal: row.AnioFiscal,
-                                          Entidad: row.Entidad,
-                                          Programa: row.Programa,
-                                          MIR: row.MIR,
-                                          MetaAnual: row.MetaAnual,
-                                          Conac: row.Conac,
-                                          Consecutivo: row.Consecutivo,
-                                          Opciones: row.Opciones,
-                                        },
-                                      ]);
+                                      let auxArrayMIR = JSON.parse(row.MIR);
+                                      let auxArrayMIR2 = JSON.stringify(
+                                        auxArrayMIR[0]
+                                      );
+                                      console.log(
+                                        "AvanceFinanciero-Raffi: ",
+                                        row.RAFFI
+                                      );
+
+                                      if (auxArrayMIR[1]) {
+                                        setRfEdit([
+                                          {
+                                            IdRaffi: row.IdRaffi,
+                                            IdMir: row.IdMir,
+                                            IdMetaAnual: row.IdMetaAnual,
+                                            RAFFI: row.RAFFI,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            ModificadoPor: row.ModificadoPor,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR: auxArrayMIR2,
+                                            //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+
+                                            MetaAnual: row.MetaAnual,
+                                            Conac: row.Conac,
+                                            Consecutivo: row.Consecutivo,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
+                                      } else {
+                                        setRfEdit([
+                                          {
+                                            IdRaffi: row.IdRaffi,
+                                            IdMir: row.IdMir,
+                                            IdMetaAnual: row.IdMetaAnual,
+                                            RAFFI: row.RAFFI,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            ModificadoPor: row.ModificadoPor,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR:
+                                              //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+                                              row.MIR,
+                                            MetaAnual: row.MetaAnual,
+                                            Conac: row.Conac,
+                                            Consecutivo: row.Consecutivo,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
+                                      }
+
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -792,47 +986,64 @@ export const Raffi = () => {
                                 </Tooltip>
                               )}
 
-                              {
+                              {row.Estado ===
+                                ("Sin Asignar" || "SIN ASIGNAR") && (
                                 <Tooltip title="REGISTRAR RAFFI">
                                   <IconButton
-                                    // disabled={
-                                    //   row.Estado === "En Captura" &&
-                                    //   localStorage.getItem("Rol") ===
-                                    //     "Capturador"
-                                    //     ? false
-                                    //     : row.Estado === "En Revisión" &&
-                                    //       localStorage.getItem("Rol") ===
-                                    //         "Verificador"
-                                    //     ? false
-                                    //     : row.Estado === "En Autorización" &&
-                                    //       localStorage.getItem("Rol") ===
-                                    //         "Administrador"
-                                    //     ? false
-                                    //     : true
-                                    // }
-                                    // disabled={!validaFecha}
+                                   
                                     type="button"
                                     onClick={() => {
-                                      setRfEdit([
-                                        {
-                                          IdRaffi: row.IdRaffi,
-                                          IdMir: row.IdMir,
-                                          IdMetaAnual: row.IdMetaAnual,
-                                          RAFFI: row.RAFFI,
-                                          Estado: row.Estado,
-                                          CreadoPor: row.CreadoPor,
-                                          FechaCreacion: row.FechaCreacion,
-                                          ModificadoPor: row.ModificadoPor,
-                                          AnioFiscal: row.AnioFiscal,
-                                          Entidad: row.Entidad,
-                                          Programa: row.Programa,
-                                          MIR: row.MIR,
-                                          MetaAnual: row.MetaAnual,
-                                          Conac: row.Conac,
-                                          Consecutivo: row.Consecutivo,
-                                          Opciones: row.Opciones,
-                                        },
-                                      ]);
+                                      let auxArrayMIR = JSON.parse(row.MIR);
+                                      let auxArrayMIR2 = JSON.stringify(
+                                        auxArrayMIR[0]
+                                      );
+                                      if (auxArrayMIR[1]) {
+                                        setRfEdit([
+                                          {
+                                            IdRaffi: row.IdRaffi,
+                                            IdMir: row.IdMir,
+                                            IdMetaAnual: row.IdMetaAnual,
+                                            RAFFI: row.RAFFI,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            ModificadoPor: row.ModificadoPor,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR: auxArrayMIR2,
+                                            //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+
+                                            MetaAnual: row.MetaAnual,
+                                            Conac: row.Conac,
+                                            Consecutivo: row.Consecutivo,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
+                                      } else {
+                                        setRfEdit([
+                                          {
+                                            IdRaffi: row.IdRaffi,
+                                            IdMir: row.IdMir,
+                                            IdMetaAnual: row.IdMetaAnual,
+                                            RAFFI: row.RAFFI,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            ModificadoPor: row.ModificadoPor,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR:
+                                              //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+                                              row.MIR,
+                                            MetaAnual: row.MetaAnual,
+                                            Conac: row.Conac,
+                                            Consecutivo: row.Consecutivo,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
+                                      }
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -867,7 +1078,57 @@ export const Raffi = () => {
                                     {row.Opciones}
                                   </IconButton>
                                 </Tooltip>
-                              }
+                              )}
+
+                              <Tooltip title="DESCARGAR">
+                                <span>
+                                  <IconButton
+                                    onClick={() => {
+                                      getFichaRaffiDownload(
+                                        row.MIR,
+                                        row.MetaAnual,
+                                        row.RAFFI,
+                                        row.Programa,
+                                        row.FechaCreacion,
+                                        row.Entidad
+                                      );
+                                    }}
+                                    disabled={
+                                      row.Estado === "Autorizada" && validaFecha
+                                        ? false
+                                        : true
+                                    }
+                                  >
+                                    <DownloadIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
+
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
+
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
+
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
+
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
+
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
                             </TableCell>
                           </TableRow>
                         );
@@ -896,7 +1157,6 @@ export const Raffi = () => {
               IdMir={rfEdit[0].IdMir || ""}
               IdMA={rfEdit[0].IdMetaAnual || ""}
               IdRf={rfEdit[0].IdRaffi || ""}
-              showResume={returnMain}
             />
           </Grid>
         )}

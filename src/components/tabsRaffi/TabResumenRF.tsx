@@ -10,51 +10,48 @@ import {
   styled,
   Tooltip,
   Button,
+  Checkbox,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 //import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
 import ModalsSolicitModifFT from "../modalsFT/ModalsSolicitModifFT";
-
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { queries } from "../../queries";
 import {
+  IActividadesRF,
   IAvanceFinancieroRF,
   IComponenteRF,
   IFinRF,
   IPropositoRF,
   IRF,
+  IRFEdit,
 } from "./interfacesRaffi";
+import { IMIR } from "../tabsMir/interfaces mir/IMIR";
+import ModalEnviarRF from "../modalsRF/ModalEnviarRF";
+import ModalSolicitaModifRF from "../modalsRF/ModalSolicitaModifRAFFI";
 
 export const TabResumenRF = ({
-
-  // encabezado,
-  fin,
-  proposito,
-  componentes,
-  // componenteValor,
-  // cValor,
-  AFinanciero,
   IdMir,
   IdRF,
   IdMA,
   showResume,
   MIR,
   MA,
+  Raffi,
+  raffiboolean,
+  setRaffiboolean,
 }: {
-  
-  // encabezado: Array<IEncabezadoRF>;
-  fin: Array<IFinRF>;
-  proposito: Array<IPropositoRF>;
-  componentes: number[];
-  // componenteValor: Array<IComponenteRF>;
-  // cValor: Array<ICValorRF>;
-  AFinanciero: Array<IAvanceFinancieroRF>;
   IdMir: string;
   IdRF: string;
   IdMA: string;
   MIR: string;
   MA: string;
+  Raffi: IRF;
+  raffiboolean: IRFEdit;
+  setRaffiboolean: Function;
   showResume: Function;
 }) => {
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
@@ -62,6 +59,13 @@ export const TabResumenRF = ({
   const handleCloseEnviar = () => {
     setOpenModalEnviar(false);
   };
+
+  let jsonMIR: IMIR =
+    MIR === ""
+      ? ""
+      : JSON.parse(MIR).length > 1
+      ? JSON.parse(MIR)[0]
+      : JSON.parse(MIR);
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
@@ -83,14 +87,13 @@ export const TabResumenRF = ({
     }),
   };
 
+  const [RF, setRF] = useState<IRF>(Raffi);
 
+  useEffect(() => {
+    console.log("Raffi: ", Raffi);
+  }, [Raffi]);
 
-  const [RF, setRF] = useState<IRF>();
-
-  let asignarRF = (
-    componentesM: Array<IComponenteRF>,
-    
-  ) => {
+  let asignarRF = (componentesM: Array<IComponenteRF>) => {
     // setRF({
     //   componentes: componentesM,
     //   //actividades: actividadesM,
@@ -116,7 +119,7 @@ export const TabResumenRF = ({
         {
           Raffi: JSON.stringify(RF),
           CreadoPor: localStorage.getItem("IdUsuario"),
-          IdMir: IdMir,
+          //IdMir: IdMir,
           IdMa: IdMA,
           Estado: estado,
           Id: IdRF,
@@ -136,9 +139,11 @@ export const TabResumenRF = ({
         showResume();
       })
       .catch((err) => {
+        console.log(err.response.data);
+        
         Toast.fire({
           icon: "error",
-          title: err.response.data,
+          title: err.response.data.error,
         });
       });
   };
@@ -163,875 +168,2481 @@ export const TabResumenRF = ({
 
     return x;
   }
+
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
-    <>
+    <Grid
+      sx={{
+        //display: "flex",
+        width: "93vw",
+        height: "82vh",
+        boxShadow: 10,
+        borderRadius: 5,
+        // alignItems: "center",
+        // justifyContent: "center",
+        flexDirection: "column",
+        backgroundColor: "#fff",
+        ...(!isSmallScreen && {
+          height: "85%",
+          overflow: "auto",
+          // Otros estilos específicos para pantallas pequeñas
+        }),
+      }}
+    >
+      {/* prueba
+        {JSON.stringify(AFinanciero)} */}
       <Grid
+        item
+        container
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        display={"flex"}
+        justifyContent={"space-evenly"}
+        alignItems={"center"}
         sx={{
-          display: "flex",
-          width: "93vw",
-          height: "82vh",
-          boxShadow: 10,
-          borderRadius: 5,
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-          backgroundColor: "#fff",
+          ...(isSmallScreen && {
+            height: "85%",
+            overflow: "auto",
+            // Otros estilos específicos para pantallas pequeñas
+          }),
         }}
       >
-        {/* prueba
-        {JSON.stringify(AFinanciero)} */}
         <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
           sx={{
-            width: "90%",
-            border: 0.1,
-            borderColor: "#909090",
-            height: "80%",
-            overflow: "auto",
-            borderRadius: 1,
-            "&::-webkit-scrollbar": {
-              width: ".3vw",
-              mt: 1,
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0,0,0,.5)",
-              outline: "1px solid slategrey",
-              borderRadius: 1,
-            },
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
           }}
         >
-          <Grid sx={{ p: 5, display: "flex", flexDirection: "column" }}>
-            <Typography
-              sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-            >
-              Avance Financiero
-            </Typography>
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
+            AVANCE FINANCIERO
+          </Typography>
+        </Grid>
 
-            {/* ######################################################
-            ############ INICIA DISPLAY DE AVANCE FINANCIERO ########
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.valorProgramaPresupuestario}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux = { ...aux, valorProgramaPresupuestario: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              VALOR DEL PROGRAMA PRESUPUESTARIO
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.valorProgramaPresupuestario}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.nombrePrograma}
+                onChange={(v) => {
+                  let aux = raffiboolean?.avanceFinanciero;
+                  aux = { ...aux, nombrePrograma: v.target.checked };
+                  setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              NOMBRE DEL PROGRAMA
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {jsonMIR.encabezado.programa.Label}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        {/* ######################################################
+            ############ DEVENGADO/MODIFICADO ########
             #########################################################*/}
-            {/* Nota: son tres tablas, devengadoModificado, modificadoAutorizado y ejercidoModificado
-            Por lo que si se encuentran valores de alguna de las 3, solo entonces, se montrará la tabla correspondiente */}
-            {/* avanceFinanciero.porcentaje.devengadoModificado.pt1 */}
-            {/* ######################### TABLA DEVENGADOMODIFICADO #################### */}
-            {AFinanciero[0]?.monto.modificadoAutorizado.t1 || "" === "" ? (
-              ""
-            ) : (
-              <>
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                    borderBottom: 1,
-                    mt: 5,
-                    textAlign: "center",
-                  }}
-                >
-                  Modificado Autorizado
-                </Typography>
-                <Grid
-                  container
-                  item
-                  sx={{ display: "flex", justifyContent: "center" }}
-                  xs={12}
-                >
-                  <Grid item xs={6}>
-                    <div className="grid-container" style={{ width: "100%" }}>
-                      <table style={{ width: "100%" }}>
-                        <thead
-                          style={{
-                            backgroundColor: "lightgray",
-                            boxShadow: "1px 2px 2px",
-                            textAlign: "center",
-                          }}
-                        >
-                          <tr>
-                            <th colSpan={5}>TRIMESTRE</th>
-                          </tr>
-                          <tr>
-                            <th>I</th>
-                            <th>II</th>
-                            <th>III</th>
-                            <th>IV</th>
-                            <th>CP</th>
-                          </tr>
-                        </thead>
-                        <tbody
-                          style={{
-                            width: "100%",
-                            textAlign: "center",
-                            boxShadow: "1px 2px 2px",
-                          }}
-                        >
-                          <tr
-                            style={{
-                              backgroundColor: "lightgray",
-                              boxShadow: "1px 2px 2px",
-                              textAlign: "center",
-                            }}
-                          >
-                            <td colSpan={5}>MONTO</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.devengadoModificado.t1
-                                  .resultado
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.devengadoModificado.t2
-                                  .resultado
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.devengadoModificado.t3
-                                  .resultado
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.devengadoModificado.t4
-                                  .resultado
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.devengadoModificado
-                                  .cuentaPublica
-                              }
-                            </td>
-                          </tr>
-                          <tr
-                            style={{
-                              backgroundColor: "lightgray",
-                              boxShadow: "1px 2px 2px",
-                              textAlign: "center",
-                            }}
-                          >
-                            <td colSpan={5}>PORCENTAJE</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .porcentajeDevengadoModificado.pt1
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .porcentajeDevengadoModificado.pt2
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .porcentajeDevengadoModificado.pt3
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .porcentajeDevengadoModificado.pt4
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .porcentajeDevengadoModificado
-                                  .porcentajeCuentaPublica
-                              }
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </Grid>
-                </Grid>
-              </>
-            )}
-            {AFinanciero[0]?.monto.modificadoAutorizado.t1 || "" === "" ? (
-              ""
-            ) : (
-              <>
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                    borderBottom: 1,
-                    mt: 5,
-                    textAlign: "center",
-                  }}
-                >
-                  Modificado Autorizado
-                </Typography>
-                <Grid
-                  container
-                  item
-                  sx={{ display: "flex", justifyContent: "center" }}
-                  xs={12}
-                >
-                  <Grid item xs={6}>
-                    <div className="grid-container" style={{ width: "100%" }}>
-                      <table style={{ width: "100%" }}>
-                        <thead
-                          style={{
-                            backgroundColor: "lightgray",
-                            boxShadow: "1px 2px 2px",
-                            textAlign: "center",
-                          }}
-                        >
-                          <tr>
-                            <th colSpan={5}>TRIMESTRE</th>
-                          </tr>
-                          <tr>
-                            <th>I</th>
-                            <th>II</th>
-                            <th>III</th>
-                            <th>IV</th>
-                            <th>CP</th>
-                          </tr>
-                        </thead>
-                        <tbody
-                          style={{
-                            width: "100%",
-                            textAlign: "center",
-                            boxShadow: "1px 2px 2px",
-                          }}
-                        >
-                          <tr
-                            style={{
-                              backgroundColor: "lightgray",
-                              boxShadow: "1px 2px 2px",
-                              textAlign: "center",
-                            }}
-                          >
-                            <td colSpan={5}>MONTO</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.modificadoAutorizado.t1
-                                  .resultado
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.modificadoAutorizado.t2
-                                  .resultado
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.modificadoAutorizado.t3
-                                  .resultado
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.modificadoAutorizado.t4
-                                  .resultado
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.modificadoAutorizado
-                                  .cuentaPublica
-                              }
-                            </td>
-                          </tr>
-                          <tr
-                            style={{
-                              backgroundColor: "lightgray",
-                              boxShadow: "1px 2px 2px",
-                              textAlign: "center",
-                            }}
-                          >
-                            <td colSpan={5}>PORCENTAJE</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .procentajeModificadoAutorizado.pt1
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .procentajeModificadoAutorizado.pt2
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .procentajeModificadoAutorizado.pt3
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .procentajeModificadoAutorizado.pt4
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .procentajeModificadoAutorizado
-                                  .porcentajeCuentaPublica
-                              }
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </Grid>
-                </Grid>
-              </>
-            )}
-            {/* ######################### TABLA EJERCIDOMODIFICADO #################### */}
-            {AFinanciero[0]?.monto.ejercidoModificado.t1 || "" === "" ? (
-              ""
-            ) : (
-              <>
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                    borderBottom: 1,
-                    mt: 5,
-                    textAlign: "center",
-                  }}
-                >
-                  Ejercido Modificado
-                </Typography>
-                <Grid
-                  container
-                  item
-                  sx={{ display: "flex", justifyContent: "center" }}
-                  xs={12}
-                >
-                  <Grid item xs={6}>
-                    <div className="grid-container" style={{ width: "100%" }}>
-                      <table style={{ width: "100%" }}>
-                        <thead
-                          style={{
-                            backgroundColor: "lightgray",
-                            boxShadow: "1px 2px 2px",
-                            textAlign: "center",
-                          }}
-                        >
-                          <tr>
-                            <th colSpan={5}>TRIMESTRE</th>
-                          </tr>
-                          <tr>
-                            <th>I</th>
-                            <th>II</th>
-                            <th>III</th>
-                            <th>IV</th>
-                            <th>CP</th>
-                          </tr>
-                        </thead>
-                        <tbody
-                          style={{
-                            width: "100%",
-                            textAlign: "center",
-                            boxShadow: "1px 2px 2px",
-                          }}
-                        >
-                          <tr
-                            style={{
-                              backgroundColor: "lightgray",
-                              boxShadow: "1px 2px 2px",
-                              textAlign: "center",
-                            }}
-                          >
-                            <td colSpan={5}>MONTO</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.ejercidoModificado.t1
-                                  .resultado
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.ejercidoModificado.t2
-                                  .resultado
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.ejercidoModificado.t3
-                                  .resultado
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.ejercidoModificado.t4
-                                  .resultado
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.monto.ejercidoModificado
-                                  .cuentaPublica
-                              }
-                            </td>
-                          </tr>
-                          <tr
-                            style={{
-                              backgroundColor: "lightgray",
-                              boxShadow: "1px 2px 2px",
-                              textAlign: "center",
-                            }}
-                          >
-                            <td colSpan={5}>PORCENTAJE</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .porcentajeEjercidoModificado.pt1
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .porcentajeEjercidoModificado.pt2
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .porcentajeEjercidoModificado.pt3
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .porcentajeEjercidoModificado.pt4
-                              }
-                            </td>
-                            <td>
-                              {
-                                AFinanciero[0]?.porcentaje
-                                  .porcentajeEjercidoModificado
-                                  .porcentajeCuentaPublica
-                              }
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </Grid>
-                </Grid>
-              </>
-            )}
-            {/* ###################################################
+
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
+            AVANCE FINANCIERO - DEVENGADO/MODIFICADO
+          </Typography>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO DEVENGADO/MODIFICADO T1
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.devengadoModificado.t1.resultado}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+                // value={!editEncabezado.programaSER}
+                // onChange={(v) => {
+                //   setEditEncabezado({
+                //     ...editEncabezado,
+                //     programaSER: !v.target.checked,
+                //   });
+                // }}
+                // value={!ftEditPadre.encabezado?.programaSER}
+                // onChange={(v) => {
+                //   let aux = ftEditPadre.encabezado;
+                //   aux = { ...aux, programaSER: v.target.checked };
+                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+                // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO DEVENGADO/MODIFICADO T2
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.devengadoModificado.t2.resultado}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO DEVENGADO/MODIFICADO T3
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.devengadoModificado.t3.resultado}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO DEVENGADO/MODIFICADO T4
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.devengadoModificado.t4.resultado}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO DEVENGADO/MODIFICADO CUENTA PUBLICA
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.devengadoModificado.cuentaPublica}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE DEVENGADO/MODIFICADO T1
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt1}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE DEVENGADO/MODIFICADO T2
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt2}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE DEVENGADO/MODIFICADO T3
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt3}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE DEVENGADO/MODIFICADO T4
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt4}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE DEVENGADO/MODIFICADO CUENTA PUBLICA
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {
+                RF.avanceFinanciero.porcentaje.porcentajeDevengadoModificado
+                  .porcentajeCuentaPublica
+              }
+            </Typography>
+          </Grid>
+        </Grid>
+
+        {/* ######################################################
+            ############ MODIFICADO/AUTORIZADO ########
+            #########################################################*/}
+
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
+            AVANCE FINANCIERO - MODIFICADO/AUTORIZADO
+          </Typography>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO MODIFICADO/AUTORIZADO T1
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.modificadoAutorizado.t1.resultado}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO MODIFICADO/AUTORIZADO T2
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.modificadoAutorizado.t2.resultado}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO MODIFICADO/AUTORIZADO T3
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.modificadoAutorizado.t3.resultado}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO MODIFICADO/AUTORIZADO T4
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.modificadoAutorizado.t4.resultado}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO MODIFICADO/AUTORIZADO CUENTA PUBLICA
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.modificadoAutorizado.cuentaPublica}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE MODIFICADO/AUTORIZADO T1
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {
+                RF.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado
+                  .pt1
+              }
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE MODIFICADO/AUTORIZADO T2
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {
+                RF.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado
+                  .pt2
+              }
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE MODIFICADO/AUTORIZADO T3
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {
+                RF.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado
+                  .pt3
+              }
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE MODIFICADO/AUTORIZADO T4
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {
+                RF.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado
+                  .pt4
+              }
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE MODIFICADO/AUTORIZADO CUENTA PUBLICA
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {
+                RF.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado
+                  .porcentajeCuentaPublica
+              }
+            </Typography>
+          </Grid>
+        </Grid>
+
+        {/* ######################################################
+            ############ EJERCIDO/MODIFICADO ########
+            #########################################################*/}
+
+       
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
+            AVANCE FINANCIERO - EJERCIDO/MODIFICADO 
+          </Typography>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO EJERCIDO/MODIFICADO T1
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.ejercidoModificado.t1.resultado}
+            </Typography>
+          </Grid>
+        </Grid>
+
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO EJERCIDO/MODIFICADO T2
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.ejercidoModificado.t2.resultado}
+            </Typography>
+          </Grid>
+        </Grid>
+
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO EJERCIDO/MODIFICADO T3
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.ejercidoModificado.t3.resultado}
+            </Typography>
+          </Grid>
+        </Grid>
+
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO EJERCIDO/MODIFICADO T4
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.ejercidoModificado.t4.resultado}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MONTO EJERCIDO/MODIFICADO CUENTA PUBLICA
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.avanceFinanciero.monto.ejercidoModificado.cuentaPublica}
+            </Typography>
+          </Grid>
+        </Grid>
+
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE EJERCIDO/MODIFICADO T1
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {
+                RF.avanceFinanciero.porcentaje.porcentajeEjercidoModificado
+                  .pt1
+              }
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE EJERCIDO/MODIFICADO T2
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {
+                RF.avanceFinanciero.porcentaje.porcentajeEjercidoModificado
+                  .pt2
+              }
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE EJERCIDO/MODIFICADO T3
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {
+                RF.avanceFinanciero.porcentaje.porcentajeEjercidoModificado
+                  .pt3
+              }
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE EJERCIDO/MODIFICADO T4
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {
+                RF.avanceFinanciero.porcentaje.porcentajeEjercidoModificado
+                  .pt4
+              }
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              disabled={true}
+              // value={!editEncabezado.programaSER}
+              // onChange={(v) => {
+              //   setEditEncabezado({
+              //     ...editEncabezado,
+              //     programaSER: !v.target.checked,
+              //   });
+              // }}
+              // value={!ftEditPadre.encabezado?.programaSER}
+              // onChange={(v) => {
+              //   let aux = ftEditPadre.encabezado;
+              //   aux = { ...aux, programaSER: v.target.checked };
+              //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
+              // }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              PORCENTAJE EJERCIDO/MODIFICADO CUENTA PUBLICA
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {
+                RF.avanceFinanciero.porcentaje.porcentajeEjercidoModificado
+                  .porcentajeCuentaPublica
+              }
+            </Typography>
+          </Grid>
+        </Grid>
+
+        {/* ###################################################
             ############ FINALIZA DISPLAY DE AFINANCIERO ########
             ###################################################*/}
 
-            {/* #######################################
+        {/* #######################################
             ############ INICIA DISPLAY DE FIN ########
             ###########################################*/}
-            <Typography
-              sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-            >
-              Fin
-            </Typography>
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
+            FIN
+          </Typography>
+        </Grid>
 
-            {/* #######################################
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              checked={raffiboolean?.fin?.añoAvanceFisico}
+                onChange={(v) => {
+                  let aux = raffiboolean?.fin;
+                  aux = { ...aux, añoAvanceFisico: v.target.checked };
+                  setRaffiboolean({ ...raffiboolean, fin: aux });
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              AÑO DEL AVANCE FISICO
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.fin.añoAvanceFisico}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              checked={raffiboolean?.fin?.valorAvanceFisico}
+                onChange={(v) => {
+                  let aux = raffiboolean?.fin;
+                  aux = { ...aux, valorAvanceFisico: v.target.checked };
+                  setRaffiboolean({ ...raffiboolean, fin: aux });
+                }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              VALOR DEL AVANCE FISICO
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.fin.valorAvanceFisico}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        {/* #######################################
             ############ FINALIZA DISPLAY DE FIN ########
             ###########################################*/}
 
-            {/* #######################################
+        {/* #######################################
             ############ INICIA DISPLAY DE PROPOSITO ########
             ###########################################*/}
-            <Typography
-              sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-            >
-              Proposito
-            </Typography>
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
+            Proposito
+          </Typography>
+        </Grid>
 
-            {/* #######################################
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              checked={raffiboolean?.proposito?.añoAvanceFisico}
+              onChange={(v) => {
+                let aux = raffiboolean?.proposito;
+                aux = { ...aux, añoAvanceFisico: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, proposito: aux });
+              }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              AÑO DEL AVANCE FISICO
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.proposito.añoAvanceFisico}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          item
+          container
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+
+            //mt: 1,
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+            <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+              <Checkbox
+              checked={raffiboolean?.proposito?.valorAvanceFisico}
+              onChange={(v) => {
+                let aux = raffiboolean?.proposito;
+                aux = { ...aux, valorAvanceFisico: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, proposito: aux });
+              }}
+              />
+            </Grid>
+          )}
+          <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              VALOR DEL AVANCE FISICO
+            </Typography>
+          </Grid>
+
+          <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
+            <Typography sx={{ fontFamily: "MontserratLight" }}>
+              {RF.proposito.valorAvanceFisico}
+            </Typography>
+          </Grid>
+        </Grid>
+
+        {/* #######################################
             ############ FINALIZA DISPLAY DE PROPOSITO ########
             ###########################################*/}
 
-            {/* ###################################################
+        {/* ###################################################
             ############ INICIA DISPLAY DE COMPONENTES ########
             ###################################################*/}
-            <Typography
-              sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
+            Componente
+          </Typography>
+        </Grid>
+        {RF.componentes.map((componente: IComponenteRF, indexComponentes) => {
+          return (
+            <Grid
+              item
+              container
+              xl={11}
+              lg={11}
+              md={12}
+              sm={12}
+              xs={12}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+
+                mt: 1,
+                alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
+              }}
+              key={indexComponentes}
             >
-              Componentes
-            </Typography>
-            {/* {componentes.map((index) => {
-              return (
-                <Grid key={index}>
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                      borderBottom: 1,
-                      mt: 5,
-                      textAlign: "center",
-                    }}
-                  >
-                    Componente {index}
-                  </Typography>
-                  {jsonMA?.componentes[index - 1]?.metasPorFrecuencia[0]
-                    ?.trimestre1 === "" ? (
-                    <Grid
-                      container
-                      item
-                      sx={{ display: "flex", justifyContent: "center" }}
-                      xs={12}
-                    >
-                      <Grid item xs={6}>
-                        <div
-                          className="grid-container"
-                          style={{ width: "100%" }}
-                        >
-                          <table style={{ width: "100%" }}>
-                            <thead
-                              style={{
-                                backgroundColor: "lightgray",
-                                boxShadow: "1px 2px 2px",
-                                textAlign: "center",
-                              }}
-                            >
-                              <tr>
-                                <th colSpan={2}>SEMESTRE</th>
-                              </tr>
-                              <tr>
-                                <th>I</th>
-                                <th>II</th>
-                              </tr>
-                            </thead>
-                            <tbody
-                              style={{
-                                width: "100%",
-                                textAlign: "center",
-                                boxShadow: "1px 2px 2px",
-                              }}
-                            >
-                              <tr>
-                                <td>
-                                  {
-                                    jsonMA?.componentes[index - 1]
-                                      ?.metasPorFrecuencia[0]?.semestre1
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.componentes[index - 1]
-                                      ?.metasPorFrecuencia[0]?.semestre2
-                                  }
-                                </td>
-                              </tr>
+              <Grid item>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratMedium",
+                    borderBottom: 1,
+                    mt: 1,
+                    textAlign: "center",
+                  }}
+                >
+                  COMPONENTE {indexComponentes + 1}
+                </Typography>
+              </Grid>
+              {jsonMIR?.componentes[indexComponentes]?.frecuencia ===
+              "SEMESTRAL" ? (
+                <Grid
+                  item
+                  container
+                  xl={12}
+                  lg={12}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
 
-                              <tr
-                                style={{
-                                  backgroundColor: "lightgray",
-                                  boxShadow: "1px 2px 2px",
-                                  textAlign: "center",
-                                }}
-                              >
-                                <td colSpan={2}>METAS</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  {
-                                    componenteValor[index - 1]
-                                      ?.metasPorFrecuencia[0]?.semestre1
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    componenteValor[index - 1]
-                                      ?.metasPorFrecuencia[0]?.semestre2
-                                  }
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </Grid>
-                    </Grid>
-                  ) : (
-                    <Grid
-                      container
-                      item
-                      sx={{ display: "flex", justifyContent: "center" }}
-                      xs={12}
-                    >
-                      <Grid item xs={6}>
-                        <div
-                          className="grid-container"
-                          style={{ width: "100%" }}
-                        >
-                          <table style={{ width: "100%" }}>
-                            <thead
-                              style={{
-                                backgroundColor: "lightgray",
-                                boxShadow: "1px 2px 2px",
-                                textAlign: "center",
-                              }}
-                            >
-                              <tr>
-                                <th colSpan={4}>TRIMESTRE</th>
-                              </tr>
-                              <tr>
-                                <th>I</th>
-                                <th>II</th>
-                                <th>III</th>
-                                <th>IV</th>
-                              </tr>
-                            </thead>
-                            <tbody
-                              style={{
-                                width: "100%",
-                                textAlign: "center",
-                                boxShadow: "1px 2px 2px",
-                              }}
-                            >
-                              <tr>
-                                <td>
-                                  {
-                                    jsonMA?.componentes[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre1
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.componentes[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre2
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.componentes[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre3
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.componentes[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre4
-                                  }
-                                </td>
-                              </tr>
-
-                              <tr
-                                style={{
-                                  backgroundColor: "lightgray",
-                                  boxShadow: "1px 2px 2px",
-                                  textAlign: "center",
-                                }}
-                              >
-                                <td colSpan={4}>METAS</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  {
-                                    componenteValor[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre1
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    componenteValor[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre2
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    componenteValor[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre3
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    componenteValor[index - 1]
-                                      ?.metasPorFrecuencia[0]?.trimestre4
-                                  }
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </Grid>
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                      <Checkbox
+                      checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].semestre1}
+                      onChange={(v) => {
+                        let auxC = raffiboolean?.componentes;
+                        auxC[indexComponentes].metasPorFrecuencia[0].semestre1 = v.target.checked;
+                        setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                      }}
+                      />
                     </Grid>
                   )}
-                </Grid>
-              );
-            })} */}
 
-            {/* ###################################################
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      SEMESTRE1:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      {componente?.metasPorFrecuencia[0]?.semestre1}
+                    </Typography>
+                  </Grid>
+
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                      <Checkbox
+                      checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].semestre2}
+                      onChange={(v) => {
+                        let auxC = raffiboolean?.componentes;
+                        auxC[indexComponentes].metasPorFrecuencia[0].semestre2 = v.target.checked;
+                        setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                      }}
+                      />
+                    </Grid>
+                  )}
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      SEMESTRE2:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      {componente?.metasPorFrecuencia[0]?.semestre2}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              ) : (
+                <Grid
+                  item
+                  container
+                  xl={12}
+                  lg={12}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    //mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                >
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                      <Checkbox
+                      checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].trimestre1}
+                      onChange={(v) => {
+                        let auxC = raffiboolean?.componentes;
+                        auxC[indexComponentes].metasPorFrecuencia[0].trimestre1 = v.target.checked;
+                        setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                      }}
+                      />
+                    </Grid>
+                  )}
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      TRIMESTRE1:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      {componente?.metasPorFrecuencia[0]?.trimestre1}
+                    </Typography>
+                  </Grid>
+
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                      <Checkbox
+                      checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].trimestre2}
+                      onChange={(v) => {
+                        let auxC = raffiboolean?.componentes;
+                        auxC[indexComponentes].metasPorFrecuencia[0].trimestre2 = v.target.checked;
+                        setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                      }}
+                      />
+                    </Grid>
+                  )}
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      TRIMESTRE2:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      {componente?.metasPorFrecuencia[0]?.trimestre2}
+                    </Typography>
+                  </Grid>
+
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                      <Checkbox
+                      checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].trimestre3}
+                      onChange={(v) => {
+                        let auxC = raffiboolean?.componentes;
+                        auxC[indexComponentes].metasPorFrecuencia[0].trimestre3 = v.target.checked;
+                        setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                      }}
+                      />
+                    </Grid>
+                  )}
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      TRIMESTRE3:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      {componente?.metasPorFrecuencia[0]?.trimestre3}
+                    </Typography>
+                  </Grid>
+
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
+                    <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                      <Checkbox
+                      checked={raffiboolean?.componentes[indexComponentes].metasPorFrecuencia[0].trimestre4}
+                      onChange={(v) => {
+                        let auxC = raffiboolean?.componentes;
+                        auxC[indexComponentes].metasPorFrecuencia[0].trimestre4 = v.target.checked;
+                        setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                      }}
+                      />
+                    </Grid>
+                  )}
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      TRIMESTRE4:
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      {componente?.metasPorFrecuencia[0]?.trimestre4}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              )}
+            </Grid>
+          );
+        })}
+
+        {/* ###################################################
             ############ INICIA DISPLAY DE ACTIVIDADES ########
             ###################################################*/}
-            <Typography
-              sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
-            >
-              Actividades
-            </Typography>
-            {/* {cValor[0].componentes.map((item, indexComponentes) => {
-              let i = 0;
-              return item.actividades.map((value, indexActividades) => {
-                i++;
-                return (
-                  <Grid key={indexActividades}>
+        <Grid
+          item
+          xl={11}
+          lg={11}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            alignItems: "center",
+            borderBottom: 1,
+            borderColor: "#cfcfcf",
+          }}
+        >
+          <Typography
+            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+          >
+            ACTIVIDADES
+          </Typography>
+        </Grid>
+
+        {RF.componentes.map((componente: IComponenteRF, indexComponentes) => {
+          let i = 0;
+          return componente.actividades.map(
+            (actividad: IActividadesRF, indexActividades) => {
+              i++;
+              return (
+                <Grid
+                  item
+                  container
+                  xl={11}
+                  lg={11}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    mt: 1,
+                    alignItems: "center",
+                    borderBottom: 1,
+                    borderColor: "#cfcfcf",
+                  }}
+                  key={indexActividades}
+                >
+                  <Grid item>
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
                         borderBottom: 1,
-                        mt: 5,
+                        mt: 1,
                         textAlign: "center",
                       }}
                     >
-                      Componente {indexComponentes + 1} - Actividad{" "}
+                      COMPONENTE {indexComponentes + 1} - ACTIVIDAD{" "}
                       {indexActividades + 1}
                     </Typography>
+                  </Grid>
 
-                    <Grid
-                      container
-                      item
-                      sx={{ display: "flex", justifyContent: "center" }}
-                      xs={12}
-                    >
-                      <Grid item xs={6}>
-                        <div
-                          className="grid-container"
-                          style={{ width: "100%" }}
-                        >
-                          <table style={{ width: "100%" }}>
-                            <thead
-                              style={{
-                                backgroundColor: "lightgray",
-                                boxShadow: "1px 2px 2px",
-                                textAlign: "center",
-                              }}
-                            >
-                              <tr>
-                                <th colSpan={4}>TRIMESTRE</th>
-                              </tr>
-                              <tr>
-                                <th>I</th>
-                                <th>II</th>
-                                <th>III</th>
-                                <th>IV</th>
-                              </tr>
-                            </thead>
-                            <tbody
-                              style={{
-                                width: "100%",
-                                textAlign: "center",
-                                boxShadow: "1px 2px 2px",
-                              }}
-                            >
-                              <tr>
-                                <td>
-                                  {
-                                    jsonMA?.actividades[
-                                      mapeaindice(
-                                        indexComponentes,
-                                        indexActividades
-                                      )
-                                    ]?.metasPorFrecuencia[0]?.trimestre1
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.actividades[
-                                      mapeaindice(
-                                        indexComponentes,
-                                        indexActividades
-                                      )
-                                    ]?.metasPorFrecuencia[0]?.trimestre2
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.actividades[
-                                      mapeaindice(
-                                        indexComponentes,
-                                        indexActividades
-                                      )
-                                    ]?.metasPorFrecuencia[0]?.trimestre3
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    jsonMA?.actividades[
-                                      mapeaindice(
-                                        indexComponentes,
-                                        indexActividades
-                                      )
-                                    ]?.metasPorFrecuencia[0]?.trimestre4
-                                  }
-                                </td>
-                              </tr>
+                  <Grid
+                    item
+                    container
+                    xl={12}
+                    lg={12}
+                    md={12}
+                    sm={12}
+                    xs={12}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
 
-                              <tr
-                                style={{
-                                  backgroundColor: "lightgray",
-                                  boxShadow: "1px 2px 2px",
-                                  textAlign: "center",
-                                }}
-                              >
-                                <td colSpan={4}>METAS</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  {
-                                    cValor[0]?.componentes[indexComponentes]
-                                      ?.actividades[indexActividades]
-                                      ?.metasPorFrecuencia[0]?.trimestre1
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    cValor[0]?.componentes[indexComponentes]
-                                      ?.actividades[indexActividades]
-                                      ?.metasPorFrecuencia[0]?.trimestre2
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    cValor[0]?.componentes[indexComponentes]
-                                      ?.actividades[indexActividades]
-                                      ?.metasPorFrecuencia[0]?.trimestre3
-                                  }
-                                </td>
-                                <td>
-                                  {
-                                    cValor[0]?.componentes[indexComponentes]
-                                      ?.actividades[indexActividades]
-                                      ?.metasPorFrecuencia[0]?.trimestre4
-                                  }
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                      //mt: 1,
+                      alignItems: "center",
+                      borderBottom: 1,
+                      borderColor: "#cfcfcf",
+                    }}
+                  >
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                        <Checkbox
+                        checked={raffiboolean?.componentes[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre1}
+                        onChange={(v) => {
+                          let auxC = raffiboolean?.componentes;
+                          auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre1 = v.target.checked;
+                          setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                        }}
+                        />
                       </Grid>
+                    )}
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        TRIMESTRE1:
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {actividad?.metasPorFrecuencia[0]?.trimestre1}
+                      </Typography>
+                    </Grid>
+
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                        <Checkbox
+                        checked={raffiboolean?.componentes[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre2}
+                        onChange={(v) => {
+                          let auxC = raffiboolean?.componentes;
+                          auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre2 = v.target.checked;
+                          setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                        }}
+                        />
+                      </Grid>
+                    )}
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        TRIMESTRE2:
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {actividad?.metasPorFrecuencia[0]?.trimestre2}
+                      </Typography>
+                    </Grid>
+
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                        <Checkbox
+                        checked={raffiboolean?.componentes[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre3}
+                        onChange={(v) => {
+                          let auxC = raffiboolean?.componentes;
+                          auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre3 = v.target.checked;
+                          setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                        }}
+                        />
+                      </Grid>
+                    )}
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        TRIMESTRE3:
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {actividad?.metasPorFrecuencia[0]?.trimestre3}
+                      </Typography>
+                    </Grid>
+
+                    {localStorage.getItem("Rol") === "Capturador" ? null : (
+                      <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                        <Checkbox
+                        checked={raffiboolean?.componentes[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre4}
+                        onChange={(v) => {
+                          let auxC = raffiboolean?.componentes;
+                          auxC[indexComponentes].actividades[indexActividades].metasPorFrecuencia[0].trimestre4 = v.target.checked;
+                          setRaffiboolean({ ...raffiboolean, componentes: auxC });
+                        }}
+                        />
+                      </Grid>
+                    )}
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        TRIMESTRE4:
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
+                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                        {actividad?.metasPorFrecuencia[0]?.trimestre4}
+                      </Typography>
                     </Grid>
                   </Grid>
-                );
-              });
-            })} */}
+                </Grid>
+              );
+            }
+          );
+        })}
+      </Grid>
 
-            {/* {componenteValor[0].metasPorFrecuencia[0].semestre1} */}
-            {/* {JSON.stringify(cValor)} */}
-          </Grid>
-        </Grid>
-        <Grid
-          sx={{
+      <Grid
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        sx={{
+          ...(isSmallScreen && {
             display: "flex",
-            justifyContent: "space-evenly",
-            width: "100%",
-            mt: 2,
-          }}
+            // Otros estilos específicos para pantallas pequeñas
+          }),
+          //flexDirection: "row",
+
+          //mt: 1,
+          alignItems: "center",
+          justifyContent: "center",
+
+          borderBottom: 1,
+          borderColor: "#cfcfcf",
+
+          ...(isSmallScreen && {
+            height: "15%",
+          }),
+        }}
+      >
+        <Grid
+          sx={{ justifyContent: "center", display: "flex" }}
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
         >
           <Button
             sx={queries.buttonCancelarSolicitudInscripcion}
@@ -1041,6 +2652,17 @@ export const TabResumenRF = ({
               Cancelar
             </Typography>
           </Button>
+        </Grid>
+
+        <Grid
+          sx={{ justifyContent: "center", display: "flex" }}
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
+        >
           <Button
             disabled={isCapturador ? true : false}
             sx={buttonStyles}
@@ -1050,7 +2672,17 @@ export const TabResumenRF = ({
               Solicitar Modificación
             </Typography>
           </Button>
+        </Grid>
 
+        <Grid
+          sx={{ justifyContent: "center", display: "flex" }}
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
+        >
           <Button
             sx={queries.buttonContinuarSolicitudInscripcion}
             onClick={() =>
@@ -1067,7 +2699,17 @@ export const TabResumenRF = ({
               Borrador
             </Typography>
           </Button>
+        </Grid>
 
+        <Grid
+          sx={{ justifyContent: "center", display: "flex" }}
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
+        >
           <Button
             sx={queries.buttonContinuarSolicitudInscripcion}
             onClick={() => setOpenModalEnviar(true)}
@@ -1078,38 +2720,31 @@ export const TabResumenRF = ({
                 : "Enviar"}
             </Typography>
           </Button>
+        </Grid>
 
-          {/* <ModalSolicitaModif
+        <ModalSolicitaModifRF
           open={openModalSolicitarModif}
           handleClose={handleCloseModif}
+          RF={JSON.stringify(RF)}
           MA={JSON.stringify(MA)}
           MIR={MIR}
           showResume={showResume}
           IdMA={IdMA}
-          IdMIR={IdMir}
-          MAEdit={
-            localStorage.getItem("Rol") === "Capturador"
-              ? ""
-              : JSON.stringify({
-                fin: editFin,
-                proposito: editProposito,
-                componentes: editComponentes,
-                actividades: editActividades,
-              })
-          }
-        ></ModalSolicitaModif>
+          IdRF={IdRF}
+          RFEdit={JSON.stringify(raffiboolean)}
+        ></ModalSolicitaModifRF>
 
-        <ModalEnviarMA
+        <ModalEnviarRF
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
+          RF={JSON.stringify(RF)}
           MA={JSON.stringify(MA)}
           MIR={MIR}
           IdMA={IdMA}
-          IdMIR={IdMir}
+          IdRF={IdRF}
           showResume={showResume}
-        ></ModalEnviarMA> */}
-        </Grid>
+        ></ModalEnviarRF>
       </Grid>
-    </>
+    </Grid>
   );
 };

@@ -91,13 +91,13 @@ export const IconsMenu = (icon: string) => {
     case "KeyboardDoubleArrowRightIcon":
       return <KeyboardDoubleArrowRightIcon />;
     case "OndemandVideoIcon":
-      return <OndemandVideoIcon />;
+      return <OndemandVideoIcon sx={{ mr: "2vw" }} />;
     case "SettingsOutlinedIcon":
       return <SettingsOutlinedIcon />;
     case "MenuBookIcon":
-      return <MenuBookIcon />;
+      return <MenuBookIcon sx={{ mr: "2vw" }} />;
     case "HelpIcon":
-      return <HelpIcon />;
+      return <HelpIcon sx={{ mr: "2vw" }} />;
     case "GroupIcon":
       return <GroupIcon />;
     case "LockResetIcon":
@@ -537,215 +537,207 @@ export const LateralMenu = ({
       sx={{ alignItems: "center", justifyContent: "space-between", height: "100%", }}
     >
       <AppBar position="static">
-        <Toolbar variant="dense" sx={{ height: "7vh", width: "100%" }}>
-          <Grid sx={{}}>
-            <Tooltip title="Menu Lateral">
-              <IconButton
-                size="large"
-                color="inherit"
-                onClick={() => setIsDrawerOpen(true)}
-              >
-                <MenuIcon />
-              </IconButton>
-            </Tooltip>
-          </Grid>
-          {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}> */}
-          <Grid sx={{}}>
-            <Header
-              details={{
-                name1: "INICIO",
-                path1: "../home",
-                name2: selection,
-                // === "MIR"
-                //   ? "MIR"
-                //   : selection === "Meta Anual"
-                //   ? "Meta Anual"
-                //   : selection === "Ficha Técnica"
-                //   ? "Ficha Tecnica"
-                //   : selection === "Raffi"
-                //   ? "Raffi"
-                //   : selection === "Actividades Institucionales"
-                //   ? "Actividades Institucionales"
-                //   : selection === "Programa Anual de Evaluación"
-                //   ? "PAE"
-                //   : selection === "Notificaciones"
-                //   ? "Notificaciones"
-                //   : selection === "Configuración"
-                //   ? "Configuración"
-                //   : "",
-                path2: "",
-                name3: "",
-              }}
-            />
-          </Grid>
+        <Toolbar variant="dense" sx={{ height: "7vh", width: "100vw" }}>
+          <Grid container sx={{ height: "7vh", width: "100vw", display: "flex"}}>
+            <Grid container item xl={8} lg={8} md={5} sm={8} xs={8} sx={{ display: "flex", alignItems: "center",justifyContent:"flex-start" }}>
+              <Grid item xl={1} lg={1} md={1} sm={3} xs={3}>
+                <Tooltip title="Menu Lateral">
+                  <IconButton
+                    size="large"
+                    color="inherit"
+                    onClick={() => setIsDrawerOpen(true)}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                </Tooltip>
+              </Grid>
 
-          <Grid
-            // mt={1.5}
-            display={"flex"}
-            justifyContent={"flex-end"}
-            width={85}
-          ><IconButton
-            color="inherit"
-            onClick={handleMenu}
-          >
-              {IconsMenu("InfoOutlinedIcon")}
-            </IconButton>
+              <Grid item xl={11} lg={11} md={11} sm={9} xs={9} sx={{}}>
+                <Header
+                  details={{
+                    name1: "INICIO",
+                    path1: "../home",
+                    name2: selection,
+                    path2: "",
+                    name3: "",
+                  }}
+                />
+              </Grid>
+            </Grid>
 
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Videos","1"); setOpenVAyudas(true); setOption("Videos") }}>{IconsMenu("OndemandVideoIcon")} VER TUTORIALES </MenuItem>}
-              {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Guías","1"); setOpenVAyudas(true); setOption("Guías") }}>{IconsMenu("MenuBookIcon")} VER GUÍAS </MenuItem>}
-              {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Preguntas","1"); setOpenVAyudas(true); setOption("Preguntas") }}>{IconsMenu("HelpIcon")} PREGUNTAS </MenuItem>}
-
-            </Menu>
-
-          </Grid>
-
-          {openVAyudas ? <VisualizadorAyudas handleClose={() => { handleCloseVAyudas() }} arrayAyudas={arrayAyudas} value={option} /> : null}
-
-
-          <Grid
-            // mt={1.5}
-            display={"flex"}
-            justifyContent={"flex-end"}
-            width={85}
-          >
-            <NotificationsPanel />
-
-            {/* <TimerCounter /> */}
-          </Grid>
-
-
-          <Drawer
-            anchor="left"
-            open={isDrawerOpen}
-            onClose={() => setIsDrawerOpen(false)}
-          >
-            <Grid
-              container
-              sx={{ width: "25vw", height: "100vh" }}>
+            <Grid container item xl={4} lg={4} md={4} sm={4} xs={4} sx={{ display: "flex", alignItems: "center",justifyContent:"flex-end" }}>
               <Grid
-                item
-                container
-                sx={{ width: "100%", height: "40vh", alignContent: "flex-start", display: "flex" }}>
+                display={"flex"}
+                justifyContent={"flex-end"}
+              >
+                <IconButton
+                  color="inherit"
+                  onClick={handleMenu}
+                >
+                  {IconsMenu("InfoOutlinedIcon")}
+                </IconButton>
 
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Videos", "1"); setOpenVAyudas(true); setOption("Videos") }}>{IconsMenu("OndemandVideoIcon")} VER TUTORIALES </MenuItem>}
+                  {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Guías", "1"); setOpenVAyudas(true); setOption("Guías") }}>{IconsMenu("MenuBookIcon")} VER GUÍAS </MenuItem>}
+                  {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Preguntas", "1"); setOpenVAyudas(true); setOption("Preguntas") }}>{IconsMenu("HelpIcon")} PREGUNTAS </MenuItem>}
 
-                <Grid sx={{ height: "7vh", width: "100%", justifyContent: "center", display: "flex", alignItems: "center", mt: "1vh" }}>
-                  <img src={logo} alt="Logo" height={"100%"} />
-                </Grid>
-
-
-                <Grid sx={{ height: "7vh", width: "100%", justifyContent: "center", display: "flex", alignItems: "center", mt: "1vh" }}>
-                  <Typography
-                    sx={{ textAlign: "center", fontFamily: "MontserratSemiBold" }}
-                  >
-                    Sistema del Presupuesto Basado en Resultados
-                  </Typography>
-                </Grid>
-
-
-                <Grid sx={{ width: "100%", height: "11vh", justifyContent: "center", display: "flex", alignItems: "center", }}>
-                  <Avatar
-                    style={{
-                      backgroundColor: stringToColor(
-                        localStorage.getItem("NombreUsuario") as string
-                      ),
-                    }}
-                    sx={{
-                      width: "11vh",
-                      height: "11vh",
-                      fontSize: "1.5vw",
-                      fontFamily: "MontserratMedium",
-                      boxShadow: 4,
-                    }}
-                  >
-                    {stringAvatar(
-                      localStorage.getItem("NombreUsuario") as string
-                    )}
-                  </Avatar>
-                </Grid>
-
-                <Grid sx={{ ...st.userInfoBox, width: "100%", height: "7vh", alignItems: "center", display: "flex", flexDirection: "column" }}>
-                  {localStorage.getItem("NombreUsuario")}
-                  <Typography sx={st.rolStyle}>
-                    {localStorage.getItem("Rol") === "Administrador"
-                      ? "Autorizador"
-                      : localStorage.getItem("Rol")}
-                  </Typography>
-                </Grid>
-
-                <Grid sx={{ ...st.userInfoBox, width: "100%", height: "7vh", alignItems: "center", display: "flex", flexDirection: "column" }}>
-                  <Typography sx={{ fontFamily: "MontserratMedium", display: "flex" }}>
-                    INSTITUCION ASIGNADA
-                  </Typography>
-                  <Tooltip title={localStorage.getItem("Entidad")}>
-                    <Typography
-                      fontFamily={"'Montserrat', sans-serif"}
-                      sx={{
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        textAlign: "center",
-                        fontSize: [9, 9, 10, 10, 10], // Tamaños de fuente para diferentes breakpoints
-                        // color: "#AF8C55",
-                      }}
-                    >
-                      {localStorage.getItem("Entidad")}
-                    </Typography>
-                  </Tooltip>
-                </Grid>
-
-
-                <Grid sx={st.selectInstitucionBox}>
-
-                </Grid>
+                </Menu>
 
               </Grid>
-              <Divider />
-              <Grid
-                item
-                container
-                sx={{ width: "100%", height: "60vh", overflow: "auto" }}>
 
-                <List sx={{ width: "100%" }}>
-                  <Divider />
-                  {menus.map((menuItem) => <RecursiveMenu key={menuItem.Id} data={menuItem} />)}
+              {openVAyudas ? <VisualizadorAyudas handleClose={() => { handleCloseVAyudas() }} arrayAyudas={arrayAyudas} value={option} /> : null}
 
 
-                  <ListItemButton onClick={() => setOpenPasswordChange(true)} sx={{ width: "100%" }}>
-                    <ListItemIcon>
-                      {IconsMenu("LockResetIcon")}
-                    </ListItemIcon>
-                    <ListItemText primary={"Cambiar Contraseña"} sx={{ width: "100%" }} />
-                  </ListItemButton>
+              <Grid>
+                <NotificationsPanel />
+              </Grid>
+            </Grid>
+          </Grid>
+
+          {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}> */}
 
 
-                  <ListItemButton onClick={() => logout()} sx={{ width: "100%" }}>
-                    <ListItemIcon>
-                      {IconsMenu("LogoutOutlinedIcon")}
-                    </ListItemIcon>
-                    <ListItemText primary={"Cerrar Sesión"} sx={{ width: "100%" }} />
-                  </ListItemButton>
-                </List>
+
+
+
+
+        </Toolbar>
+        <Drawer
+          anchor="left"
+          open={isDrawerOpen}
+          onClose={() => setIsDrawerOpen(false)}
+        >
+          <Grid
+            container
+            sx={{ width: ["100vw", "100vw", "60vw", "40vw", "30vw"], height: "100vh" }}>
+            <Grid
+              item
+              container
+              sx={{ width: "100%", height: "40vh", alignContent: "flex-start", display: "flex" }}>
+
+
+              <Grid sx={{ height: "7vh", width: "100%", justifyContent: "center", display: "flex", alignItems: "center", mt: "1vh" }}>
+                <img src={logo} alt="Logo" height={"100%"}  />
+              </Grid>
+
+
+              <Grid sx={{ height: "7vh", width: "100%", justifyContent: "center", display: "flex", alignItems: "center", mt: "1vh" }}>
+                <Typography
+                  sx={{ textAlign: "center", fontFamily: "MontserratSemiBold" }}
+                >
+                  Sistema del Presupuesto Basado en Resultados
+                </Typography>
+              </Grid>
+
+
+              <Grid sx={{ width: "100%", height: "11vh", justifyContent: "center", display: "flex", alignItems: "center", }}>
+                <Avatar
+                  style={{
+                    backgroundColor: stringToColor(
+                      localStorage.getItem("NombreUsuario") as string
+                    ),
+                  }}
+                  sx={{
+                    width: "11vh",
+                    height: "11vh",
+                    fontSize: "1.5vw",
+                    fontFamily: "MontserratMedium",
+                    boxShadow: 4,
+                  }}
+                >
+                  {stringAvatar(
+                    localStorage.getItem("NombreUsuario") as string
+                  )}
+                </Avatar>
+              </Grid>
+
+              <Grid sx={{ ...st.userInfoBox, width: "100%", height: "7vh", alignItems: "center", display: "flex", flexDirection: "column" }}>
+                {localStorage.getItem("NombreUsuario")}
+                <Typography sx={st.rolStyle}>
+                  {localStorage.getItem("Rol") === "Administrador"
+                    ? "Autorizador"
+                    : localStorage.getItem("Rol")}
+                </Typography>
+              </Grid>
+
+              <Grid sx={{ ...st.userInfoBox, width: "100%", height: "7vh", alignItems: "center", display: "flex", flexDirection: "column" }}>
+                <Typography sx={{ fontFamily: "MontserratMedium", display: "flex" }}>
+                  INSTITUCION ASIGNADA
+                </Typography>
+                <Tooltip title={localStorage.getItem("Entidad")}>
+                  <Typography
+                    fontFamily={"'Montserrat', sans-serif"}
+                    sx={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      textAlign: "center",
+                      fontSize: [9, 9, 10, 10, 10], // Tamaños de fuente para diferentes breakpoints
+                      // color: "#AF8C55",
+                    }}
+                  >
+                    {localStorage.getItem("Entidad")}
+                  </Typography>
+                </Tooltip>
+              </Grid>
+
+
+              <Grid sx={st.selectInstitucionBox}>
 
               </Grid>
 
             </Grid>
-          </Drawer>
-        </Toolbar>
+            <Divider />
+            <Grid
+              item
+              container
+              sx={{ width: "100%", height: "60vh", overflow: "auto" }}>
+
+              <List sx={{ width: "100%" }}>
+                <Divider />
+                {menus.map((menuItem) => <RecursiveMenu key={menuItem.Id} data={menuItem} />)}
+
+
+                <ListItemButton onClick={() => setOpenPasswordChange(true)} sx={{ width: "100%" }}>
+                  <ListItemIcon>
+                    {IconsMenu("LockResetIcon")}
+                  </ListItemIcon>
+                  <ListItemText primary={"Cambiar Contraseña"} sx={{ width: "100%" }} />
+                </ListItemButton>
+
+                <ListItemButton onClick={() => setIsDrawerOpen(false)} sx={{ width: "100%" }}>
+                  <ListItemIcon>
+                    {IconsMenu("LogoutOutlinedIcon")}
+                  </ListItemIcon>
+                  <ListItemText primary={"Cerrar Menú"} sx={{ width: "100%" }} />
+                </ListItemButton>
+
+                <ListItemButton onClick={() => logout()} sx={{ width: "100%" }}>
+                  <ListItemIcon>
+                    {IconsMenu("LogoutOutlinedIcon")}
+                  </ListItemIcon>
+                  <ListItemText primary={"Cerrar Sesión"} sx={{ width: "100%" }} />
+                </ListItemButton>
+              </List>
+            </Grid>
+
+          </Grid>
+        </Drawer>
       </AppBar>
       <ChangePasswordModal />
     </Grid>

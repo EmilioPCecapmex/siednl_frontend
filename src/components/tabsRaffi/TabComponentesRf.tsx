@@ -1,239 +1,100 @@
-import {
-  Grid,
-  TextField,
-  ListItemButton,
-  Typography,
-  Divider,
-  List,
-  Box,
-  Paper,
-  styled,
-  Tooltip,
-} from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import {
+  Divider,
+  Grid,
+  InputLabel,
+  List,
+  ListItemButton,
+  TextField,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { useEffect, useState } from "react";
-import { IComponente } from "../tabsMetaAnual/IComponente";
-import { ClassNames } from "@emotion/react";
-import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
-import { IComponenteRF, IFrecuencias } from "./interfacesRaffi";
-
-const dateSem = [new Date("2023-06-30"), new Date("2023-12-31")];
-const dateTrim = [
-  new Date("2023-03-31"),
-  new Date("2023-06-30"),
-  new Date("2023-09-30"),
-  new Date("2023-12-31"),
-];
-
-const d1 = "",
-  d2 = "",
-  d3 = "",
-  d4 = "",
-  r1 = "",
-  r2 = "",
-  r3 = "",
-  r4 = "";
-
-const GridTablePer = ({ periodo }: { periodo: string }) => {
-  return (
-    <div
-      className="grid-container"
-      style={{
-        backgroundColor: "lightgray",
-        boxShadow: "1px 2px 2px",
-        textAlign: "center",
-        width: "100%",
-      }}
-    >
-      <table style={{ width: "100%", textAlign: "center" }}>
-        <thead style={{ width: "100%", textAlign: "center" }}>
-          <tr>
-            <th style={{ textAlign: "center" }}>{periodo}</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-  );
-};
-
-const GridTableTrim = ({
-  d1,
-  d2,
-  d3,
-  d4,
-}: {
-  d1: string;
-  d2: string;
-  d3: string;
-  d4: string;
-}) => {
-  return (
-    <div className="grid-container" style={{ width: "100%" }}>
-      <table style={{ width: "100%" }}>
-        <thead
-          style={{
-            backgroundColor: "lightgray",
-            boxShadow: "1px 2px 2px",
-            textAlign: "center",
-          }}
-        >
-          <tr>
-            <th>I</th>
-            <th>II</th>
-            <th>III</th>
-            <th>IV</th>
-          </tr>
-        </thead>
-        <tbody style={{ width: "100%", textAlign: "center" }}>
-          <tr>
-            <td>{d1}</td>
-            <td>{d2}</td>
-            <td>{d3}</td>
-            <td>{d4}</td>
-          </tr>
-          {/* <tr>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td><input></input></td>
-          </tr> */}
-        </tbody>
-      </table>
-    </div>
-  );
-};
-
-const GridTableSem = ({ d1, d2 }: { d1: string; d2: string }) => {
-  return (
-    <div className="grid-container" style={{ width: "100%" }}>
-      <table style={{ width: "100%" }}>
-        <thead
-          style={{
-            backgroundColor: "lightgray",
-            boxShadow: "1px 2px 2px",
-            textAlign: "center",
-          }}
-        >
-          <tr>
-            <th>I</th>
-            <th>II</th>
-          </tr>
-        </thead>
-        <tbody style={{ width: "100%", textAlign: "center" }}>
-          <tr>
-            <td>{d1}</td>
-            <td>{d2}</td>
-          </tr>
-          {/* <tr>
-            <td>100</td>
-            <td>100</td>
-            <td>100</td>
-            <td><input></input></td>
-          </tr> */}
-        </tbody>
-      </table>
-    </div>
-  );
-};
-
-const Logmensaje = ({ d1 }: { d1: string }) => {
-  return <div></div>;
-};
-const GridTableMetasTitulo = () => {
-  return (
-    <div
-      style={{
-        backgroundColor: "lightgray",
-        boxShadow: "1px 2px 2px",
-        textAlign: "center",
-        width: "100%",
-      }}
-    >
-      <table style={{ width: "100%", textAlign: "center" }}>
-        <thead style={{ width: "100%", textAlign: "center" }}>
-          <tr>
-            <th style={{ width: "100%", textAlign: "center" }}>METAS</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-  );
-};
+import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
+//import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
+import { queries } from "../../queries";
+import { alertaError } from "../genericComponents/Alertas";
+import { IMIR } from "../tabsMir/interfaces mir/IMIR";
+import { IComponenteRF, IRFEdit } from "./interfacesRaffi";
+import { getValueOperacion } from "../../services/validations";
 
 export const TabComponenteRf = ({
+  edit,
   MIR,
   MA,
   RF,
-  //noComponentes,
-  valoresComponenteRFFnc,
-  showMirFnc,
-  setTxtShowFnc,
-  setComponentes,
-  //componentesRF,
+  setRFcomponentesPadre,
+  ComponentesRF,
+  raffiboolean,
 }: {
+  edit:boolean;
   MA: string;
   MIR: string;
   RF: string;
-  //noComponentes: number[];
-  valoresComponenteRFFnc: Function;
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
-  setComponentes: Function;
- // componentesRF: IComponenteRF[];
+  setRFcomponentesPadre: Function;
+  ComponentesRF: IComponenteRF[];
+  raffiboolean: IRFEdit;
+
+  //
 }) => {
   let encabezado = JSON.parse(MIR).encabezado;
-  const [componentSelect, setComponentSelect] = useState(1);
+  const [componentSelect, setComponentSelect] = useState(0);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [prevTextFormula, setPrevTextFormula] = useState("");
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
   const [errorIndicador, setErrorIndicador] = useState(-1);
-  const handleClickOpen = () => {
-    //setPrevTextFormula("Porcentaje");
-    setOpenFormulaDialog(true);
-  };
 
-  const evalueTxtIndicador = (dato: string) => {
-    const cIndicador =
-      jsonMIR.componentes[componentSelect - 1].indicador?.toLowerCase();
-    if (cIndicador !== undefined) {
-      if (cIndicador.includes("porcentaje")) {
-        setTipoFormula("Porcentaje");
-        setElementoFormula(dato);
-        handleClickOpen();
-        setErrorIndicador(-1);
-      } else if (cIndicador.includes("tasa")) {
-        setTipoFormula("Tasa");
-        setElementoFormula(dato);
-        handleClickOpen();
-        setErrorIndicador(-1);
-      } else if (cIndicador.includes("indice" || "índice")) {
-        setTipoFormula("Índice");
-        setElementoFormula(dato);
-        handleClickOpen();
-        setErrorIndicador(-1);
-      } else if (cIndicador.includes("promedio")) {
-        setTipoFormula("Promedio");
-        setElementoFormula(dato);
-        handleClickOpen();
-        setErrorIndicador(-1);
-      } else {
-        setErrorIndicador(componentSelect - 1);
-        let prevLocal = [...jsonRF.componentes];
-        prevLocal[componentSelect - 1].indicador = "";
-        setComponentesValues(prevLocal);
-      }
-    }
+  const [frecuencia, setFrecuencia] = useState("");
+
+  const handleClickOpen = (frecuencia: string) => {
+    setFrecuencia(frecuencia);
+    setTipoFormula(
+      JSON.parse(MIR)
+        .componentes[componentSelect].indicador.toUpperCase()
+        .includes("PORCENTAJE") ||
+        JSON.parse(MIR)
+          .componentes[componentSelect].indicador.toUpperCase()
+          .includes("PORCENTAJE")
+        ? "Porcentaje"
+        : JSON.parse(MIR)
+            .componentes[componentSelect].indicador.toUpperCase()
+            .includes("TASA") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect].indicador.toUpperCase()
+            .includes("TASA")
+        ? "Tasa"
+        : JSON.parse(MIR)
+            .componentes[componentSelect].indicador.toUpperCase()
+            .includes("INDICE" || "ÍNDICE") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect].indicador.toUpperCase()
+            .includes("INDICE") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect].indicador.toUpperCase()
+            .includes("ÍNDICE")
+        ? "Índice"
+        : JSON.parse(MIR)
+            .componentes[componentSelect].indicador.toUpperCase()
+            .includes("PROMEDIO") ||
+          JSON.parse(MIR)
+            .componentes[componentSelect].indicador.toUpperCase()
+            .includes("PROMEDIO")
+        ? "Promedio"
+        : ""
+    );
+    setElementoFormula("Componente " + componentSelect.toString());
+    setOpenFormulaDialog(true);
   };
 
   const handleClose = () => {
     setOpenFormulaDialog(false);
   };
 
-  const [componentesValues, setComponentesValues] = useState<
-    Array<IComponenteRF>
-  >([]);
+  const [componentesValues, setComponentesValues] =
+    useState<Array<IComponenteRF>>(ComponentesRF);
 
   let jsonMA =
     MA === ""
@@ -242,7 +103,7 @@ export const TabComponenteRf = ({
       ? JSON.parse(MA)[0]
       : JSON.parse(MA);
 
-  let jsonMIR =
+  let jsonMIR: IMIR =
     MIR === ""
       ? ""
       : JSON.parse(MIR).length > 1
@@ -251,120 +112,165 @@ export const TabComponenteRf = ({
 
   let jsonRF = RF === "" ? "" : JSON.parse(RF);
 
-  // useEffect(() => {
-  //   let comp: IComponenteRF[] = [];
-
-  //   noComponentes.map((x, index) => {
-  //     return comp.push({
-  //       componentes: "C" + (index + 1),
-  //       metasPorFrecuencia: [
-  //         {
-  //           semestre1: "",
-  //           semestre2: "",
-  //           trimestre1: "",
-  //           trimestre2: "",
-  //           trimestre3: "",
-  //           trimestre4: "",
-  //         },
-  //       ],
-  //       numeradorPorFrecuencia: [
-  //         {
-  //           semestre1: "",
-  //           semestre2: "",
-  //           trimestre1: "",
-  //           trimestre2: "",
-  //           trimestre3: "",
-  //           trimestre4: "",
-  //         },
-  //       ],
-  //       denominadorPorFrecuencia: [
-  //         {
-  //           semestre1: "",
-  //           semestre2: "",
-  //           trimestre1: "",
-  //           trimestre2: "",
-  //           trimestre3: "",
-  //           trimestre4: "",
-  //         },
-  //       ],
-  //     });
-  //   });
-
-  //   setComponentesValues(comp);
-  //   setComponentes(comp);
-  // }, [noComponentes]);
-
   useEffect(() => {
-    valoresComponenteRFFnc(componentesValues);
-    setComponentes(componentesValues);
+    setRFcomponentesPadre(componentesValues);
+    //setComponentes(componentesValues);
   }, [componentesValues]);
 
-  const changeFormula = (txt: string) => {
-    if (
-      JSON.parse(MIR)
-        .componentes[componentSelect - 1].indicador.toLowerCase()
-        .includes("indice") ||
-      JSON.parse(MIR)
-        .componentes[componentSelect - 1].indicador.toLowerCase()
-        .includes("índice")
-    ) {
-      componentesValues[
-        componentSelect - 1
-      ].numeradorPorFrecuencia[0].trimestre2 = txt;
-      componentesValues[componentSelect - 1].metasPorFrecuencia[0].trimestre2 =
-        txt;
-    } else {
-      let frec = txt.split(",")[3];
+  
 
-      componentesValues[componentSelect - 1].numeradorPorFrecuencia[0][
-        frec as keyof IFrecuencias
-      ] = txt.split(",")[0];
-      componentesValues[componentSelect - 1].denominadorPorFrecuencia[0][
-        frec as keyof IFrecuencias
-      ] = txt.split(",")[1];
-      componentesValues[componentSelect - 1].metasPorFrecuencia[0][
-        frec as keyof IFrecuencias
-      ] = txt.split(",")[2];
+  const changeFormula = (txt: string) => {
+    console.log("txt: ", txt);
+
+    switch (frecuencia) {
+      case "semestre1":
+        componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
+        getValueOperacion(txt, tipoFormula);
+        componentesValues[componentSelect].numeradorPorFrecuencia[0].semestre1 =
+          txt.split(",")[0];
+        break;
+      case "semestre2":
+        componentesValues[componentSelect].metasPorFrecuencia[0].semestre2 =
+       getValueOperacion(txt, tipoFormula);
+        componentesValues[componentSelect].numeradorPorFrecuencia[0].semestre2 =
+          txt.split(",")[0];
+        break;
+      case "trimestre1":
+        componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
+       getValueOperacion(txt, tipoFormula);
+        // componentesActividadesValues[
+        componentesValues[
+          componentSelect
+        ].numeradorPorFrecuencia[0].trimestre1 = txt.split(",")[0];
+        componentesValues[
+          componentSelect
+        ].denominadorPorFrecuencia[0].trimestre1 = txt.split(",")[1];
+        break;
+      case "trimestre2":
+        componentesValues[componentSelect].metasPorFrecuencia[0].trimestre2 =
+       getValueOperacion(txt, tipoFormula);
+        // componentesActividadesValues[
+        componentesValues[
+          componentSelect
+        ].numeradorPorFrecuencia[0].trimestre2 = txt.split(",")[0];
+        componentesValues[
+          componentSelect
+        ].denominadorPorFrecuencia[0].trimestre2 = txt.split(",")[1];
+        break;
+      case "trimestre3":
+        componentesValues[componentSelect].metasPorFrecuencia[0].trimestre3 =
+       getValueOperacion(txt, tipoFormula);
+        // componentesActividadesValues[
+        componentesValues[
+          componentSelect
+        ].numeradorPorFrecuencia[0].trimestre3 = txt.split(",")[0];
+        componentesValues[
+          componentSelect
+        ].denominadorPorFrecuencia[0].trimestre3 = txt.split(",")[1];
+        break;
+      case "trimestre4":
+        componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
+       getValueOperacion(txt, tipoFormula);
+        // componentesActividadesValues[
+        componentesValues[
+          componentSelect
+        ].numeradorPorFrecuencia[0].trimestre4 = txt.split(",")[0];
+        componentesValues[
+          componentSelect
+        ].denominadorPorFrecuencia[0].trimestre4 = txt.split(",")[1];
+        break;
+
+      default:
+        alertaError("No aplica");
     }
 
     setComponentesValues([...componentesValues]);
+    console.log("componentesValues-changeformula: ", componentesValues);
   };
 
   // useEffect(() => {
   //   setComponentesValues(componentesRF);
   // }, []);
 
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
   return (
-    <>
+    <Grid
+      sx={{
+        display: "flex",
+        width: "93vw",
+        height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
+        boxShadow: 10,
+        borderRadius: 5,
+        flexDirection: "column",
+        backgroundColor: "#fff",
+        // justifyContent: "center",
+        // alignItems: "center",
+        overflow: "auto"
+      }}
+    >
+      {/* <FormulaDialogRF
+        open={openFormulaDialog}
+        close={handleClose}
+        textoSet={changeFormula}
+        tipo={tipoFormula}
+        elemento={"Componente " + (componentSelect + 1).toString()}
+        dato={elementoFormula}
+        MIR={MIR}
+      /> */}
+
+      <FormulaDialogMA
+        open={openFormulaDialog}
+        close={handleClose}
+        textoSet={changeFormula}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+        elementoA={""}
+        MIR={MIR}
+      />
+
       <Grid
-        container
         sx={{
+          width: "100%",
           display: "flex",
-          width: "93vw",
-          height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
-          boxShadow: 10,
-          borderRadius: 5,
-          flexDirection: "column",
-          backgroundColor: "#fff",
-          justifyContent: "center",
+          height: "7vh",
+          justifyContent: "flex-end",
           alignItems: "center",
         }}
       >
-        <FormulaDialogRF
-          open={openFormulaDialog}
-          close={handleClose}
-          //textoSet={changeFormula}
-          tipo={tipoFormula}
-          elemento={"Componente " + componentSelect.toString()}
-          dato={elementoFormula}
-          MIR={MIR}
-        />
-        {/* COLUMNA IZQUIERDA QUE MUESTRA LOS COMPONENTES */}
-        <Grid item xs={2}>
+        <Tooltip title="RESUMEN COMPONENTE">
+          <InfoOutlinedIcon
+            onClick={() => {
+            }}
+            fontSize="large"
+            sx={{ cursor: "pointer" }}
+          ></InfoOutlinedIcon>
+        </Tooltip>
+        <Typography
+          sx={{
+            mr: "1vw",
+            fontFamily: "MontserratSemiBold",
+            //fontSize: "1.5vw",
+            fontSize: [8, 10, 10, 13, 15, 18],
+          }}
+        >
+          COMPONENTE {componentSelect + 1}
+        </Typography>
+      </Grid>
+
+      {/* COLUMNA IZQUIERDA QUE MUESTRA LOS COMPONENTES */}
+      <Grid
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+        }}
+      >
+        {!isSmallScreen && (
           <List
             sx={{
-              width: "10vw",
-              height: "65vh",
+              width: "15vw",
+              height: "95%",
               borderRight: "solid",
               display: "flex",
               flexDirection: "column",
@@ -380,10 +286,10 @@ export const TabComponenteRf = ({
               },
             }}
           >
-            {/* {noComponentes.map((item) => {
+            {componentesValues.map((item, index) => {
               return (
-                <Box
-                  key={item}
+                <Grid
+                  key={index}
                   sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -392,10 +298,10 @@ export const TabComponenteRf = ({
                 >
                   <Divider />
                   <ListItemButton
-                    selected={item === componentSelect ? true : false}
-                    key={item}
+                    selected={index === componentSelect ? true : false}
+                    key={index}
                     onClick={() => {
-                      setComponentSelect(item);
+                      setComponentSelect(index);
                     }}
                     sx={{
                       height: "7vh",
@@ -408,481 +314,840 @@ export const TabComponenteRf = ({
                     }}
                   >
                     <Typography
-                      sx={{ fontFamily: "MontserratMedium", fontSize: "0.7vw" }}
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                      }}
                     >
-                      COMPONENTE {item}
+                      COMPONENTE {index + 1}
                     </Typography>
                   </ListItemButton>
 
                   <Divider />
-                </Box>
+                </Grid>
               );
-            })} */}
+            })}
           </List>
-        </Grid>
+        )}
+        <Grid
+          item
+          container
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            "& > .MuiGrid-item": {
+              marginBottom: "20px", // Ajusta la cantidad de espacio vertical entre los elementos
+            },
+          }}
+        >
+          {isSmallScreen && (
+            <List>
+              {componentesValues.map((item, index) => {
+                return (
+                  <Grid
+                    key={index}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Divider />
+                    <ListItemButton
+                      selected={index === componentSelect ? true : false}
+                      key={index}
+                      onClick={() => {
+                        setComponentSelect(index);
+                      }}
+                      sx={{
+                        height: "7vh",
+                        "&.Mui-selected ": {
+                          backgroundColor: "#c4a57b",
+                        },
+                        "&.Mui-selected:hover": {
+                          backgroundColor: "#cbcbcb",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                          fontSize: [10, 10, 10, 13, 15, 18],
+                        }}
+                      >
+                        COMPONENTE {index + 1}
+                      </Typography>
+                    </ListItemButton>
 
-        {/* RESTO DE CONTENEDOR EN DONDE SE MOSTRARÁ LA TABLE */}
-        <Grid container item xs={10}>
+                    <Divider />
+                  </Grid>
+                );
+              })}
+            </List>
+          )}
+
           <Grid
-            container
             item
-            xs={12}
-            sx={{ display: "flex", justifyContent: "flex-end" }}
+            xl={3}
+            lg={3}
+            md={2}
+            sm={2}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
-            <Tooltip title="RESUMEN COMPONENTE">
-              <InfoOutlinedIcon
-                onClick={() => {
-                  showMirFnc(true);
-                  setTxtShowFnc("Componentes");
-                }}
-                fontSize="large"
-                sx={{ cursor: "pointer" }}
-              ></InfoOutlinedIcon>
-            </Tooltip>
-            <Typography
-              sx={{
-                mr: "1vw",
-                fontFamily: "MontserratSemiBold",
-                fontSize: "1.5vw",
+            <TextField
+              disabled={true}
+              fullWidth
+              sx={{ boxShadow: 2 }}
+              variant={"filled"}
+              label={
+                <Typography
+                  sx={{
+                    fontSize: [10, 10, 10, 15, 15, 18],
+                    fontFamily: "MontserratMedium",
+                  }}
+                >
+                  META ANUAL 2023
+                </Typography>
+              }
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
               }}
-            >
-              COMPONENTE {componentSelect}
-            </Typography>
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              // value={componentesValues[componentSelect ]?.metaAnual || ""}
+              value={jsonMA?.componentes[componentSelect]?.metaAnual || ""}
+            />
           </Grid>
 
           <Grid
-            container
             item
-            xs={10}
-            sx={{ display: "flex", justifyContent: "center" }}
+            xl={3}
+            lg={3}
+            md={2}
+            sm={2}
+            xs={11}
+            sx={{
+              alignContent: "center",
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
             <TextField
               fullWidth
-              variant="standard"
-              value={
-                encabezado?.institucion === "Selecciona"
-                  ? ""
-                  : encabezado?.institucion
-              }
               disabled={true}
-              label="INSTITUCION"
-            ></TextField>
-          </Grid>
-
-          <Grid
-            container
-            item
-            xs={12}
-            sx={{ display: "flex", justifyContent: "space-around" }}
-          >
-            <Grid item xs={3}>
-              <TextField
-                disabled={true}
-                fullWidth
-                sx={{ boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    META ANUAL 2023
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
+              sx={{ boxShadow: 2 }}
+              variant={"filled"}
+              label={
+                <Typography
+                  sx={{
+                    fontSize: [10, 10, 10, 15, 15, 18],
                     fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                // value={componentesValues[componentSelect - 1]?.metaAnual || ""}
-                value={
-                  jsonMA?.componentes[componentSelect - 1]?.metaAnual || ""
-                }
-              />
-            </Grid>
-
-            <Grid item xs={3}>
-              <TextField
-                fullWidth
-                disabled={true}
-                sx={{ boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{ fontSize: "0.7vw", fontFamily: "MontserratMedium" }}
-                  >
-                    LINEA BASE 2021
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                // value={componentesValues[componentSelect - 1]?.lineaBase || ""}
-                value={
-                  jsonMA?.componentes[componentSelect - 1]?.lineaBase || ""
-                }
-              />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            item
-            sx={{ display: "flex", justifyContent: "center" }}
-            xs={12}
-          >
-            <Grid item xs={6}>
-              <GridTablePer
-                periodo={
-                  jsonMA?.componentes[componentSelect - 1]
-                    ?.metasPorFrecuencia[0]?.semestre1 === ""
-                    ? "TRIMESTRE"
-                    : "SEMESTRE"
-                }
-              />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            item
-            sx={{ display: "flex", justifyContent: "center" }}
-            xs={12}
-          >
-            <Grid item xs={6}>
-              {jsonMA?.componentes[componentSelect - 1]?.metasPorFrecuencia[0]
-                ?.semestre1 === "" ? (
-                <GridTableTrim
-                  d1={
-                    jsonMA?.componentes[componentSelect - 1]
-                      ?.metasPorFrecuencia[0]?.trimestre1
-                  }
-                  d2={
-                    jsonMA?.componentes[componentSelect - 1]
-                      ?.metasPorFrecuencia[0]?.trimestre2
-                  }
-                  d3={
-                    jsonMA?.componentes[componentSelect - 1]
-                      ?.metasPorFrecuencia[0]?.trimestre3
-                  }
-                  d4={
-                    jsonMA?.componentes[componentSelect - 1]
-                      ?.metasPorFrecuencia[0]?.trimestre4
-                  }
-                />
-              ) : (
-                <GridTableSem
-                  d1={
-                    jsonMA?.componentes[componentSelect - 1]
-                      ?.metasPorFrecuencia[0]?.semestre1
-                  }
-                  d2={
-                    jsonMA?.componentes[componentSelect - 1]
-                      ?.metasPorFrecuencia[0]?.semestre2
-                  }
-                />
-              )}
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            item
-            sx={{ display: "flex", justifyContent: "center" }}
-            xs={12}
-          >
-            <Grid item xs={6}>
-              <GridTableMetasTitulo />
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            item
-            sx={{ display: "flex", justifyContent: "center" }}
-            xs={12}
-          >
-            <Grid item xs={6}></Grid>
-          </Grid>
-          <Grid
-            container
-            item
-            sx={{ display: "flex", justifyContent: "center" }}
-            xs={12}
-          >
-            <Grid item xs={6}>
-              {jsonMA?.componentes[componentSelect - 1]?.metasPorFrecuencia[0]
-                ?.semestre1 === "" ? (
-                <div
-                  className="grid-container"
-                  style={{ width: "100%", textAlign: "center" }}
+                  }}
                 >
-                  <table style={{ width: "100%" }}>
-                    <tbody>
-                      <tr style={{ borderColor: "black" }}>
-                        <td style={{ width: "25%" }}>
-                          <TextField
-                            // disabled={new Date()>dateTrim[0]}
-                            variant={"filled"}
-                            label={
-                              <Typography
-                                sx={{
-                                  fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
-                                }}
-                              >
-                                DATO I
-                              </Typography>
-                            }
-                            InputLabelProps={{
-                              style: {
-                                fontFamily: "MontserratMedium",
-                              },
-                            }}
-                            InputProps={{
-                              style: {
-                                fontFamily: "MontserratRegular",
-                              },
-                            }}
-                            onClick={() =>
-                              evalueTxtIndicador("DATO I,trimestre1")
-                            }
-                            value={
-                              componentesValues[componentSelect - 1]
-                                ?.metasPorFrecuencia[0]?.trimestre1 || ""
-                            }
-                          />
-                        </td>
-                        <td style={{ width: "25%" }}>
-                          <TextField
-                            // disabled={new Date()>dateTrim[1]}
-                            variant={"filled"}
-                            label={
-                              <Typography
-                                sx={{
-                                  fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
-                                }}
-                              >
-                                DATO II
-                              </Typography>
-                            }
-                            InputLabelProps={{
-                              style: {
-                                fontFamily: "MontserratMedium",
-                              },
-                            }}
-                            InputProps={{
-                              style: {
-                                fontFamily: "MontserratRegular",
-                              },
-                            }}
-                            onClick={() =>
-                              evalueTxtIndicador("DATO II,trimestre2")
-                            }
-                            value={
-                              componentesValues[componentSelect - 1]
-                                ?.metasPorFrecuencia[0]?.trimestre2 || ""
-                            }
-                          />
-                        </td>
-                        <td style={{ width: "25%" }}>
-                          <TextField
-                            // disabled={new Date()>dateTrim[2]}
-                            variant={"filled"}
-                            label={
-                              <Typography
-                                sx={{
-                                  fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
-                                }}
-                              >
-                                DATO III
-                              </Typography>
-                            }
-                            InputLabelProps={{
-                              style: {
-                                fontFamily: "MontserratMedium",
-                              },
-                            }}
-                            InputProps={{
-                              style: {
-                                fontFamily: "MontserratRegular",
-                              },
-                            }}
-                            onClick={() =>
-                              evalueTxtIndicador("DATO III,trimestre3")
-                            }
-                            value={
-                              componentesValues[componentSelect - 1]
-                                ?.metasPorFrecuencia[0]?.trimestre3 || ""
-                            }
-                          />
-                        </td>
-                        <td style={{ width: "25%" }}>
-                          <TextField
-                            // disabled={new Date()>dateTrim[3]}
-                            variant={"filled"}
-                            label={
-                              <Typography
-                                sx={{
-                                  fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
-                                }}
-                              >
-                                DATO IV
-                              </Typography>
-                            }
-                            InputLabelProps={{
-                              style: {
-                                fontFamily: "MontserratMedium",
-                              },
-                            }}
-                            InputProps={{
-                              style: {
-                                fontFamily: "MontserratRegular",
-                              },
-                            }}
-                            onClick={() =>
-                              evalueTxtIndicador("DATO IV,trimestre4")
-                            }
-                            value={
-                              componentesValues[componentSelect - 1]
-                                ?.metasPorFrecuencia[0]?.trimestre4 || ""
-                            }
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              ) : (
-                <div
-                  className="grid-container"
-                  style={{ width: "100%", textAlign: "center" }}
-                >
-                  <table style={{ width: "100%" }}>
-                    <tbody>
-                      <tr style={{ borderColor: "black" }}>
-                        <td style={{ width: "25%" }}>
-                          <TextField
-                            // sx={{
-                            //   backgroundColor: (d1==""
-                            //   ?""
-                            //   :(parseInt(r1)-parseInt(d1))/parseInt(d1)<.05
-                            //   ? "#CEE9B6"
-                            //   : (parseInt(r1)-parseInt(d1))/parseInt(d1)<.1
-                            //   ? "#FFDE6A"
-                            //   : "#EF6969")
-                            // }}
-                            //disabled={new Date()>dateSem[0]}
-                            variant={"filled"}
-                            label={
-                              <Typography
-                                sx={{
-                                  fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
-                                }}
-                              >
-                                DATO I
-                              </Typography>
-                            }
-                            InputLabelProps={{
-                              style: {
-                                fontFamily: "MontserratMedium",
-                              },
-                            }}
-                            InputProps={{
-                              style: {
-                                fontFamily: "MontserratRegular",
-                              },
-                            }}
-                            onClick={() =>
-                              evalueTxtIndicador("DATO I,semestre1")
-                            }
-                            // error={
-                            //   (parseFloat(componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1) <
-                            //     0 ||
-                            //     isNaN(
-                            //       parseFloat(
-                            //         componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1
-                            //       )
-                            //     )) &&
-                            //   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1 !== ""
-                            //     ? true
-                            //     : false
-                            // }
-                            // helperText={
-                            //   (parseFloat(componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1) <
-                            //     0 ||
-                            //     isNaN(
-                            //       parseFloat(
-                            //         componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1
-                            //       )
-                            //     )) &&
-                            //   componentesValues[componentSelect - 1]?.metasPorFrecuencia[0]?.semestre1 !== ""
-                            //     ? "Introducir valor mayor que 0."
-                            //     : null
-                            // }
-                            value={
-                              componentesValues[componentSelect - 1]
-                                ?.metasPorFrecuencia[0]?.semestre1 || ""
-                            }
-                          />
-                        </td>
-                        <td style={{ width: "25%" }}>
-                          <TextField
-                            disabled={new Date() > dateSem[1]}
-                            variant={"filled"}
-                            label={
-                              <Typography
-                                sx={{
-                                  fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
-                                }}
-                              >
-                                DATO II
-                              </Typography>
-                            }
-                            onClick={() =>
-                              evalueTxtIndicador("DATO II,semestre2")
-                            }
-                            InputLabelProps={{
-                              style: {
-                                fontFamily: "MontserratMedium",
-                              },
-                            }}
-                            InputProps={{
-                              style: {
-                                fontFamily: "MontserratRegular",
-                              },
-                            }}
-                            value={
-                              componentesValues[componentSelect - 1]
-                                ?.metasPorFrecuencia[0]?.semestre2 || ""
-                            }
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </Grid>
+                  LINEA BASE 2021
+                </Typography>
+              }
+              InputLabelProps={{
+                style: {
+                  fontFamily: "MontserratMedium",
+                },
+              }}
+              InputProps={{
+                style: {
+                  fontFamily: "MontserratRegular",
+                },
+              }}
+              // value={componentesValues[componentSelect ]?.lineaBase || ""}
+              value={jsonMA?.componentes[componentSelect]?.lineaBase || ""}
+            />
           </Grid>
+
+          {jsonMIR?.componentes[componentSelect]?.frecuencia === "SEMESTRAL" ? (
+            <Grid
+              container
+              direction={"row"}
+              // xl={12}
+              // lg={12}
+              // md={12}
+              // sm={12}
+              // xs={12}
+              // sx={{
+              //   alignContent: "center",
+              //   display: "flex",
+              //   justifyContent: "center",
+              // }}
+            >
+              <Grid
+                container
+                item
+                direction={"row"}
+                sx={{
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                }}
+                gap={2}
+              >
+                <Grid
+                  item
+                  xl={5}
+                  lg={12}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  direction={"column"}
+                  sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Grid item>
+                    <InputLabel sx={queries.medium_text}>SEMESTRE 1</InputLabel>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      //fullWidth
+                      disabled={true}
+                      size="small"
+                      sx={{ boxShadow: 2 }}
+                      variant={"filled"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      value={
+                        jsonMA?.componentes[componentSelect]
+                          ?.metasPorFrecuencia[0]?.semestre1
+                      }
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  xl={5}
+                  lg={12}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  direction={"column"}
+                  sx={{
+                    //alignContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Grid item>
+                    <InputLabel sx={queries.medium_text}>SEMESTRE 2</InputLabel>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      //fullWidth
+                      disabled={true}
+                      size="small"
+                      sx={{ boxShadow: 2 }}
+                      variant={"filled"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      value={
+                        jsonMA?.componentes[componentSelect]
+                          ?.metasPorFrecuencia[0]?.semestre2
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          ) : (
+            // si es vacio se muestra el primero
+
+            <Grid
+              container
+              direction={"row"}
+              // xl={12}
+              // lg={12}
+              // md={12}
+              // sm={12}
+              // xs={12}
+              // sx={{
+              //   alignContent: "center",
+              //   display: "flex",
+              //   justifyContent: "center",
+              // }}
+            >
+              <Grid
+                container
+                item
+                direction={"row"}
+                sx={{
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                }}
+                gap={2}
+              >
+                <Grid
+                  item
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={12}
+                  xs={12}
+                  direction={"column"}
+                  sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Grid item>
+                    <InputLabel sx={queries.medium_text}>
+                      TRIMESTRE 1
+                    </InputLabel>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      //fullWidth
+                      disabled={true}
+                      size="small"
+                      sx={{ boxShadow: 2 }}
+                      variant={"filled"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      value={
+                        jsonMA?.componentes[componentSelect]
+                          ?.metasPorFrecuencia[0]?.trimestre1
+                      }
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={12}
+                  xs={12}
+                  direction={"column"}
+                  sx={{
+                    //alignContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Grid item>
+                    <InputLabel sx={queries.medium_text}>
+                      TRIMESTRE 2
+                    </InputLabel>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      //fullWidth
+                      disabled={true}
+                      size="small"
+                      sx={{ boxShadow: 2 }}
+                      variant={"filled"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      value={
+                        jsonMA?.componentes[componentSelect]
+                          ?.metasPorFrecuencia[0]?.trimestre2
+                      }
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={12}
+                  xs={12}
+                  direction={"column"}
+                  sx={{
+                    //alignContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Grid item>
+                    <InputLabel sx={queries.medium_text}>
+                      TRIMESTRE 3
+                    </InputLabel>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      //fullWidth
+                      disabled={true}
+                      size="small"
+                      sx={{ boxShadow: 2 }}
+                      variant={"filled"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      value={
+                        jsonMA?.componentes[componentSelect]
+                          ?.metasPorFrecuencia[0]?.trimestre3
+                      }
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={12}
+                  xs={12}
+                  direction={"column"}
+                  sx={{
+                    //alignContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Grid item>
+                    <InputLabel sx={queries.medium_text}>
+                      TRIMESTRE 4
+                    </InputLabel>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      //fullWidth
+                      disabled={true}
+                      size="small"
+                      sx={{ boxShadow: 2 }}
+                      variant={"filled"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      value={
+                        jsonMA?.componentes[componentSelect]
+                          ?.metasPorFrecuencia[0]?.trimestre4
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          )}
+
+          {jsonMIR?.componentes[componentSelect]?.frecuencia === "SEMESTRAL" ? (
+            <Grid
+              container
+              direction={"row"}
+              // xl={12}
+              // lg={12}
+              // md={12}
+              // sm={12}
+              // xs={12}
+              // sx={{
+              //   alignContent: "center",
+              //   display: "flex",
+              //   justifyContent: "center",
+              // }}
+            >
+              <Grid
+                container
+                item
+                direction={"row"}
+                sx={{
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                }}
+                gap={2}
+              >
+                <Grid
+                  item
+                  xl={5}
+                  lg={12}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  direction={"column"}
+                  sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Grid item>
+                    <InputLabel sx={queries.medium_text}>SEMESTRE 1</InputLabel>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      //fullWidth
+                      disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.semestre1}
+                      size="small"
+                      sx={{ boxShadow: 2 }}
+                      variant={"filled"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      // label={
+                      //   "SEMESTRE 1"
+                      // }
+                      onClick={() => handleClickOpen("semestre1")}
+                      value={
+                        // jsonMA?.componentes[componentSelect]
+                        //   ?.metasPorFrecuencia[0]?.semestre1
+                        componentesValues[componentSelect].metasPorFrecuencia[0]
+                          ?.semestre1 || ""
+                      }
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  xl={5}
+                  lg={12}
+                  md={12}
+                  sm={12}
+                  xs={12}
+                  direction={"column"}
+                  sx={{
+                    //alignContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Grid item>
+                    <InputLabel sx={queries.medium_text}>SEMESTRE 2</InputLabel>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      //fullWidth
+                      disabled={edit && ! raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.semestre2}
+                      size="small"
+                      sx={{ boxShadow: 2 }}
+                      variant={"filled"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      onClick={() => handleClickOpen("semestre2")}
+                      value={
+                        componentesValues[componentSelect].metasPorFrecuencia[0]
+                          ?.semestre2 || ""
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          ) : (
+            <Grid
+              container
+              direction={"row"}
+              // xl={12}
+              // lg={12}
+              // md={12}
+              // sm={12}
+              // xs={12}
+              // sx={{
+              //   alignContent: "center",
+              //   display: "flex",
+              //   justifyContent: "center",
+              // }}
+            >
+              <Grid
+                container
+                item
+                direction={"row"}
+                sx={{
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                }}
+                gap={2}
+              >
+                <Grid
+                  item
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={12}
+                  xs={12}
+                  direction={"column"}
+                  sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Grid item>
+                    <InputLabel sx={queries.medium_text}>
+                      TRIMESTRE 1
+                    </InputLabel>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      //fullWidth
+                      disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre1}
+                      size="small"
+                      sx={{ boxShadow: 2 }}
+                      variant={"filled"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      onClick={() => handleClickOpen("trimestre1")}
+                      value={
+                        // jsonMA?.componentes[componentSelect]
+                        //   ?.metasPorFrecuencia[0]?.semestre1
+                        componentesValues[componentSelect].metasPorFrecuencia[0]
+                          ?.trimestre1 || ""
+                      }
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={12}
+                  xs={12}
+                  direction={"column"}
+                  sx={{
+                    //alignContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Grid item>
+                    <InputLabel sx={queries.medium_text}>
+                      TRIMESTRE 2
+                    </InputLabel>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      //fullWidth
+                      disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre2}
+                      size="small"
+                      sx={{ boxShadow: 2 }}
+                      variant={"filled"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      onClick={() => handleClickOpen("trimestre2")}
+                      value={
+                        // jsonMA?.componentes[componentSelect]
+                        //   ?.metasPorFrecuencia[0]?.semestre1
+                        componentesValues[componentSelect].metasPorFrecuencia[0]
+                          ?.trimestre2 || ""
+                      }
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={12}
+                  xs={12}
+                  direction={"column"}
+                  sx={{
+                    //alignContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Grid item>
+                    <InputLabel sx={queries.medium_text}>
+                      TRIMESTRE 3
+                    </InputLabel>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      //fullWidth
+                      disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre3}
+                      size="small"
+                      sx={{ boxShadow: 2 }}
+                      variant={"filled"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      onClick={() => handleClickOpen("trimestre3")}
+                      value={
+                        // jsonMA?.componentes[componentSelect]
+                        //   ?.metasPorFrecuencia[0]?.semestre1
+                        componentesValues[componentSelect].metasPorFrecuencia[0]
+                          ?.trimestre3 || ""
+                      }
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  item
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={12}
+                  xs={12}
+                  direction={"column"}
+                  sx={{
+                    //alignContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Grid item>
+                    <InputLabel sx={queries.medium_text}>
+                      TRIMESTRE 4
+                    </InputLabel>
+                  </Grid>
+
+                  <Grid item>
+                    <TextField
+                      //fullWidth
+                      disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre4}
+                      size="small"
+                      sx={{ boxShadow: 2 }}
+                      variant={"filled"}
+                      InputLabelProps={{
+                        style: {
+                          fontFamily: "MontserratMedium",
+                        },
+                      }}
+                      InputProps={{
+                        style: {
+                          fontFamily: "MontserratRegular",
+                        },
+                      }}
+                      onClick={() => handleClickOpen("trimestre4")}
+                      value={
+                        // jsonMA?.componentes[componentSelect]
+                        //   ?.metasPorFrecuencia[0]?.semestre1
+                        componentesValues[componentSelect].metasPorFrecuencia[0]
+                          ?.trimestre4 || ""
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          )}
         </Grid>
       </Grid>
-    </>
+    </Grid>
   );
 };

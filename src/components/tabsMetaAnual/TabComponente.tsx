@@ -165,6 +165,7 @@ export const TabComponenteMA = ({
   };
 
   const changeFormula = (txt: string) => {
+    console.log("txt: ",txt);
     if (
       JSON.parse(MIR)
         .componentes[componentSelect].indicador.toLowerCase()
@@ -185,6 +186,8 @@ export const TabComponenteMA = ({
   };
 
   const changeFormula2 = (txt: string) => {
+    console.log("txt: ",txt);
+    
     if (frecuencia === "trimestral") {
       componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
         txt.split(",")[0];
@@ -194,6 +197,7 @@ export const TabComponenteMA = ({
         txt.split(",")[2];
       componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
         txt.split(",")[3];
+        
     } else {
       componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
         txt.split(",")[0];
@@ -955,8 +959,8 @@ export const TabComponenteMA = ({
                       ? MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].trimestre1
                       : false) &&
-                    componentesValues[componentSelect]
-                      ?.metasPorFrecuencia[0]?.trimestre1 !== ""
+                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
+                      ?.trimestre1 !== ""
                       ? ""
                       : handleClickOpen2()
                   }
@@ -971,8 +975,8 @@ export const TabComponenteMA = ({
                     </Typography>
                   }
                   value={
-                    componentesValues[componentSelect]
-                      ?.metasPorFrecuencia[0]?.trimestre1 || ""
+                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
+                      ?.trimestre1 || ""
                   }
                   InputLabelProps={{
                     style: {
@@ -1007,8 +1011,8 @@ export const TabComponenteMA = ({
                         !MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].trimestre2
                       : false) &&
-                    componentesValues[componentSelect]
-                      ?.metasPorFrecuencia[0]?.trimestre2 !== ""
+                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
+                      ?.trimestre2 !== ""
                   }
                   sx={{ boxShadow: 2 }}
                   variant={"filled"}
@@ -1017,8 +1021,8 @@ export const TabComponenteMA = ({
                       ? MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].trimestre2
                       : false) &&
-                    componentesValues[componentSelect]
-                      ?.metasPorFrecuencia[0]?.trimestre2 !== ""
+                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
+                      ?.trimestre2 !== ""
                       ? ""
                       : handleClickOpen2()
                   }
@@ -1033,8 +1037,8 @@ export const TabComponenteMA = ({
                     </Typography>
                   }
                   value={
-                    componentesValues[componentSelect]
-                      ?.metasPorFrecuencia[0]?.trimestre2 || ""
+                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
+                      ?.trimestre2 || ""
                   }
                   InputLabelProps={{
                     style: {
@@ -1069,8 +1073,8 @@ export const TabComponenteMA = ({
                         !MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].trimestre3
                       : false) &&
-                    componentesValues[componentSelect]
-                      ?.metasPorFrecuencia[0]?.trimestre3 !== ""
+                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
+                      ?.trimestre3 !== ""
                   }
                   sx={{ boxShadow: 2 }}
                   variant={"filled"}
@@ -1079,8 +1083,8 @@ export const TabComponenteMA = ({
                       ? MAEdit?.componentes[componentSelect]
                           .metasPorFrecuencia[0].trimestre3
                       : false) &&
-                    componentesValues[componentSelect]
-                      ?.metasPorFrecuencia[0]?.trimestre3 !== ""
+                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
+                      ?.trimestre3 !== ""
                       ? ""
                       : handleClickOpen2()
                   }
@@ -1095,8 +1099,8 @@ export const TabComponenteMA = ({
                     </Typography>
                   }
                   value={
-                    componentesValues[componentSelect]
-                      ?.metasPorFrecuencia[0]?.trimestre3 || ""
+                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
+                      ?.trimestre3 || ""
                   }
                   InputLabelProps={{
                     style: {
@@ -1557,6 +1561,7 @@ export const TabComponenteMA = ({
             />
           </Grid>
         </Grid>
+        
       </Grid>
     </Grid>
   );

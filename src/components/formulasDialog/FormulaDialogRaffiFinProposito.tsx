@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { queries } from "../../queries";
+import { log } from "console";
 
 export const DialogFinPropositoRaffi = ({
   open,
@@ -35,6 +36,8 @@ export const DialogFinPropositoRaffi = ({
   };
 
   const handleChange = () => {
+    console.log("elemento: ",elemento);
+    
     switch (elemento) {
       case "PORCENTAJE":
         let aux = (parseFloat(Numerodador) / parseFloat(Denominador)) * 100;
@@ -53,8 +56,9 @@ export const DialogFinPropositoRaffi = ({
         }
         break;
 
-      case "INDICE":
+      case "INDICE" || "ÍNDICE":
         let aux2 = parseFloat(Numerodador);
+      
         if (Numerodador === "" || Numerodador === null) {
         } else {
           setValor(aux2, elemento, tipo);
@@ -152,7 +156,7 @@ export const DialogFinPropositoRaffi = ({
               }}
             />
           </Grid>
-          {tipo === "Indice" || tipo === "Índice" ? (
+          {elemento === "Indice" || elemento === "Índice" || elemento === "ÍNDICE" || elemento === "INDICE"? (
             ""
           ) : (
             <Grid item lg={5}>

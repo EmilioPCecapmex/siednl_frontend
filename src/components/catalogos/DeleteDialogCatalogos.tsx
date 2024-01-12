@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
-import { Box, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import { queries } from "../../queries";
 export const DeleteDialogCatalogos = ({
@@ -152,7 +152,7 @@ export const DeleteDialogCatalogos = ({
   };
 
   return (
-    <Box>
+    <Grid>
       {/* <IconButton onClick={cerrardialog}>
         <DeleteIcon
           sx={[
@@ -165,7 +165,7 @@ export const DeleteDialogCatalogos = ({
         />
       </IconButton> */}
       <Dialog fullWidth open={open} onClose={cerrardialog}>
-        <Box
+        <Grid
           sx={{
             width: "100%",
             height: "5vh",
@@ -182,13 +182,13 @@ export const DeleteDialogCatalogos = ({
             sx={{
               fontFamily: "MontserratSemiBold",
               width: "90%",
-              fontSize: "1vw",
+              fontSize: [10, 15, 15, 15, 15],
               textAlign: "center",
             }}
           >
             ¿Desea eliminar elemento?
           </Typography>
-        </Box>
+        </Grid>
         <DialogContent
           sx={{
             display: "flex",
@@ -197,7 +197,7 @@ export const DeleteDialogCatalogos = ({
             justifyContent: "center",
           }}
         >
-          <Typography sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}>
+          <Typography sx={{ fontFamily: "MontserratLight", fontSize: [10, 15, 15, 15, 15], }}>
             {deleteText}
           </Typography>
         </DialogContent>
@@ -209,24 +209,24 @@ export const DeleteDialogCatalogos = ({
             justifyContent: "center",
           }}
         >
-          <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={cerrardialog}>
+          <Button className="cancelar" onClick={cerrardialog}>
             <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              sx={{ fontFamily: "MontserratMedium", fontSize: [10, 15, 15, 15, 15], }}
             >
               Cancelar
             </Typography>
           </Button>
 
-          <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={opendialog} color="error" autoFocus>
+          <Button className="aceptar" onClick={opendialog} color="error" autoFocus>
             <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              sx={{ fontFamily: "MontserratMedium", fontSize: [10, 15, 15, 15, 15], }}
             >
               De Acuerdo
             </Typography>
           </Button>
         </DialogActions>
       </Dialog>
-    </Box>
+    </Grid>
   );
 };
 

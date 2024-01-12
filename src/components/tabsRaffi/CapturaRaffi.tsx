@@ -1,27 +1,26 @@
-import { Tabs, Tab, Grid } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import { Grid } from "@mui/material";
+import { useEffect, useState } from "react";
+import GenericTabs from "../genericComponents/genericTabs";
+import { IActividad, IComponente, IMIR } from "../tabsMir/interfaces mir/IMIR";
+import {
+  TabAvanceFinanciero,
+  VPTrimestral,
+  VPTrimestralboolean,
+  VTrimestral,
+  VTrimestralboolean,
+} from "./TabAvanceFinanciero";
 import { TabComponenteRf } from "./TabComponentesRf";
-import { TabActividadRf } from "./TabsActividadesRf";
-
-import {
-  IActividad,
-  IComponente,
-  IComponenteActividad,
-} from "../tabsMir/interfaces mir/IMIR";
-import TabResumenMIR from "../modalsRF/ModalResumenRF";
 import { TabFinPropositoRF } from "./TabFinPropositoRf";
-import { TabAvanceFinanciero } from "./TabAvanceFinanciero";
 import { TabResumenRF } from "./TabResumenRF";
+import { TabActividadRf } from "./TabsActividadesRf";
 import {
+  IActividadesRF,
   IAvanceFinancieroRF,
-  IPropositoRF,
+  IComponenteRF,
   IFinRF,
   IRF,
+  IRFEdit,
 } from "./interfacesRaffi";
-import { VTrimestral, VPTrimestral } from "./TabAvanceFinanciero";
-import GenericTabs from "../genericComponents/genericTabs";
 
 const tabs = [
   "Avance Financiero",
@@ -34,7 +33,7 @@ const tabs = [
 export function avanceFinancieroRF() {
   return {
     nombrePrograma: "",
-    valorProgramaPresupuestario: "",
+    valorProgramaPresupuestario: "0",
     monto: {
       devengadoModificado: VTrimestral,
       modificadoAutorizado: VTrimestral,
@@ -42,7 +41,7 @@ export function avanceFinancieroRF() {
     },
     porcentaje: {
       porcentajeDevengadoModificado: VPTrimestral,
-      procentajeModificadoAutorizado: VPTrimestral,
+      porcentajeModificadoAutorizado: VPTrimestral,
       porcentajeEjercidoModificado: VPTrimestral,
     },
   };
@@ -97,12 +96,14 @@ export function newComponenteRF(ComponenteMIR: IComponente) {
 export function newActividadesRF(ActividadMIR: IActividad) {
   return {
     actividad: ActividadMIR.actividad,
-    metasPorFrecuencia: {
-      trimestre1: "",
-      trimestre2: "",
-      trimestre3: "",
-      trimestre4: "",
-    },
+    metasPorFrecuencia: [
+      {
+        trimestre1: "",
+        trimestre2: "",
+        trimestre3: "",
+        trimestre4: "",
+      },
+    ],
   };
 }
 
@@ -117,6 +118,94 @@ function newRaffi(MIR: string) {
   };
 }
 
+export function avanceFinancieroRFboolean() {
+  return {
+    nombrePrograma: false,
+    valorProgramaPresupuestario: false,
+    monto: {
+      devengadoModificado: VTrimestralboolean,
+      modificadoAutorizado: VTrimestralboolean,
+      ejercidoModificado: VTrimestralboolean,
+    },
+    porcentaje: {
+      porcentajeDevengadoModificado: VPTrimestralboolean,
+      procentajeModificadoAutorizado: VPTrimestralboolean,
+      porcentajeEjercidoModificado: VPTrimestralboolean,
+    },
+  };
+}
+
+export function newFinPropositoRFboolean() {
+  return {
+    añoAvanceFisico: false,
+    valorAvanceFisico: false,
+  };
+}
+
+export function newComponenteRFboolean(ComponenteMIR: IComponente) {
+  return {
+    componentes: ComponenteMIR.componente,
+    metasPorFrecuencia: [
+      {
+        semestre1: false,
+        semestre2: false,
+        trimestre1: false,
+        trimestre2: false,
+        trimestre3: false,
+        trimestre4: false,
+      },
+    ],
+    numeradorPorFrecuencia: [
+      {
+        semestre1: false,
+        semestre2: false,
+        trimestre1: false,
+        trimestre2: false,
+        trimestre3: false,
+        trimestre4: false,
+      },
+    ],
+    denominadorPorFrecuencia: [
+      {
+        semestre1: false,
+        semestre2: false,
+        trimestre1: false,
+        trimestre2: false,
+        trimestre3: false,
+        trimestre4: false,
+      },
+    ],
+    actividades: ComponenteMIR.actividades.map((item) =>
+      newActividadesRFboolean(item)
+    ),
+  };
+}
+
+export function newActividadesRFboolean(ActividadMIR: IActividad) {
+  return {
+    actividad: ActividadMIR.actividad,
+    metasPorFrecuencia: [
+      {
+        trimestre1: false,
+        trimestre2: false,
+        trimestre3: false,
+        trimestre4: false,
+      },
+    ],
+  };
+}
+
+function newRaffiboolean(MIR: string) {
+  let componentes: IComponente[] = JSON.parse(MIR).componentes;
+
+  return {
+    avanceFinanciero: avanceFinancieroRFboolean(),
+    fin: newFinPropositoRFboolean(),
+    proposito: newFinPropositoRFboolean(),
+    componentes: componentes?.map((item) => newComponenteRFboolean(item)),
+  };
+}
+
 export default function CapturaRaffi({
   MIR,
   MA,
@@ -125,7 +214,6 @@ export default function CapturaRaffi({
   IdMir,
   IdMA,
   IdRf,
-  showResume,
 }: {
   MIR: string;
   MA: string;
@@ -134,129 +222,122 @@ export default function CapturaRaffi({
   IdMir: string;
   IdMA: string;
   IdRf: string;
-  showResume: Function;
 }) {
   const [value, setValue] = useState(0);
-  const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
-  // const cambiarTab = (option: string) => {
-  //   if (option === "adelante") {
-  //     if (value < 50) setValue(value + 10);
-  //   } else {
-  //     if (value > 10) setValue(value - 10);
-  //   }
-  // };
 
-  const [showMir, setShowMir] = React.useState(false);
-  const [showSt, setShowSt] = React.useState("");
-  const showMirFnc = (state: boolean) => {
-    setShowMir(state);
-  };
-  const showFnc = (st: string) => {
-    setShowSt(st);
+  // const jsonMir = JSON.parse(MIR);
+
+  const [raffi, setRaffi] = useState<IRF>(newRaffi(MIR));
+
+  const [raffiboolean, setRaffiboolean] = useState<IRFEdit>(
+    newRaffiboolean(MIR)
+  );
+
+  const [editRF, setEditRF] = useState(false);
+
+  const setRFFinPadre = (finValues: IFinRF) => {
+    setRaffi({ ...raffi, fin: finValues });
   };
 
-  const jsonMir = JSON.parse(MIR);
+  const setRFPropositoPadre = (propositoVlues: IFinRF) => {
+    setRaffi({
+      ...raffi,
+      proposito: propositoVlues,
+    });
+  };
 
-  const [raffi, setRaffi] = useState<IRF>();
-  //const [raffi, setRaffi] = useState<IRF>(newRaffi(MIR));
+  const setRFcomponentesPadre = (componentesValues: IComponenteRF[]) => {
+    setRaffi({
+      ...raffi,
+      componentes: componentesValues,
+    });
+  };
+
+  const setRFactividadesPadre = (
+    componentesValuesActividades: IComponenteRF[]
+  ) => {
+    setRaffi({
+      ...raffi,
+      componentes: componentesValuesActividades,
+    });
+  };
+
+  const setAvanceFinancieroPadre = (avanceFinanciero: IAvanceFinancieroRF) => {
+    setRaffi({ ...raffi, avanceFinanciero: avanceFinanciero });
+  };
 
   useEffect(() => {
-    if (RF !== "" && RF !== null) {
-      setRaffi(JSON.parse(RF));
+    console.log("RF: ", RF);
+
+    if (RF !== "") {
+      let auxArrayRF = JSON.parse(RF);
+      if (auxArrayRF[1]) {
+        let auxDBRF: IRF = auxArrayRF[0];
+        let auxMIR: IMIR = JSON.parse(MIR);
+        let auxRF: IRF = newRaffi(MIR);
+
+        setEditRF(true);
+
+        let auxComponentes = auxRF.componentes.map((itemComponente, indexC) => {
+          if (auxDBRF.componentes[indexC]) {
+            let auxActividades: IActividadesRF[] = itemComponente.actividades.map(
+              (itemActividad, indexA) => {
+                return (
+                  auxDBRF.componentes[indexC].actividades[indexA] ||
+                  newActividadesRF(
+                    auxMIR.componentes[indexC].actividades[indexA]
+                  )
+                );
+              }
+            );
+
+            return (
+              {
+                ...auxDBRF.componentes[indexC],
+                actividades: auxActividades,
+              } || { ...itemComponente, actividades: auxActividades }
+            );
+          } else {
+            return newComponenteRF(auxMIR.componentes[indexC]);
+          }
+        });
+
+        setRaffiboolean({ ...auxArrayRF[1] });
+
+        setRaffi({ ...auxDBRF, componentes: auxComponentes });
+      } else {
+        let auxDBRF: IRF = JSON.parse(RF);
+        let auxMIR: IMIR = JSON.parse(MIR);
+        let auxRF: IRF = newRaffi(MIR);
+
+        let auxComponentes = auxRF.componentes.map((itemComponente, indexC) => {
+          if (auxDBRF.componentes[indexC]) {
+            let auxActividades: IActividadesRF[] = itemComponente.actividades.map(
+              (itemActividad, indexA) => {
+                return (
+                  auxDBRF.componentes[indexC].actividades[indexA] ||
+                  newActividadesRF(
+                    auxMIR.componentes[indexC].actividades[indexA]
+                  )
+                );
+              }
+            );
+
+            return (
+              {
+                ...auxDBRF.componentes[indexC],
+                actividades: auxActividades,
+              } || { ...itemComponente, actividades: auxActividades }
+            );
+          } else {
+            return newComponenteRF(auxMIR.componentes[indexC]);
+          }
+        });
+
+        setRaffi({ ...auxDBRF, componentes: auxComponentes });
+      }
     }
   }, []);
-
-  const [noComponentes, setNoComponentes] = React.useState([1, 2]);
-
-  // const [valoresComponenteMA, setValoresComponenteMA] = useState<
-  //   Array<IComponenteMA>
-  // >(
-  //   noComponentes.map((x, index) => {
-  //     return {
-  //       componentes: "C" + (index + 1),
-  //       metaAnual: "",
-  //       lineaBase: "",
-  //       metasPorFrecuencia: [],
-  //       valorNumerador: "",
-  //       valorDenominador: "",
-  //       sentidoDelIndicador: "",
-  //       unidadResponsable: "",
-  //       descIndicador: "",
-  //       descNumerador: "",
-  //       descDenominador: "",
-  //     };
-  //   })
-  // );
-  // const valoresComponenteMAFnc = (state: Array<IComponenteMA>) => {
-  //   // setValoresComponenteMA(state);
-  // };
-
-  // const [valoresComponenteRF, setValoresComponenteRF] = useState<
-  //   Array<IComponenteRF>
-  // >(
-  //   noComponentes.map((x, index) => {
-  //     return {
-  //       componentes: "C" + (index + 1),
-  //       semestre1: "",
-  //       semestre2: "",
-  //       trimestre1: "",
-  //       trimestre2: "",
-  //       trimestre3: "",
-  //       trimestre4: "",
-  //     };
-  //   })
-  // );
-  // const [valoresComponenteRF, setValoresComponenteRF] = useState<
-  //   Array<IComponenteRF>
-  // >(
-  //   noComponentes.map((x, index) => {
-  //     return {
-  //       componentes: "C" + (index + 1),
-  //       metasPorFrecuencia: [],
-  //       numeradorPorFrecuencia: [],
-  //       denominadorPorFrecuencia: [],
-  //     };
-  //   })
-  // );
-
-  // const valoresComponenteRFFnc = (state: Array<IComponenteRF>) => {
-  //   setValoresComponenteRF(state);
-  // };
-
-  // const asignarCValorRF = (state: Array<ICValorRF>) => {
-  //   setValoresCValorRF(state);
-  // };
-
-  useEffect(() => {}, []);
-
-  const [ValueFin, setValueFin] = useState<Array<IFinRF>>([]);
-
-  const [ValueProposito, setValueProposito] = useState<Array<IPropositoRF>>([]);
-
-  const resumenAvanceFinancieroRf = (st: Array<IAvanceFinancieroRF>) => {
-    setAvanceFinanciero(st);
-  };
-
-  const resumenFinRF = (st: Array<IFinRF>) => {
-    setValueFin(st);
-  };
-
-  const resumenPropositoRF = (st: Array<IPropositoRF>) => {
-    setValueProposito(st);
-  };
-  // const asignarCValorMA = (state: Array<ICValorMA>) => {
-  //   setCValorMA(state);
-  // };
-
-  //Avance Financiero
-  const [showStAF, setShowStAF] = React.useState("");
-  const setTxtShowRAFFIAF = (st: string) => {
-    setShowStAF(st);
-  };
-
-  const [ValueAvanceFinanciero, setAvanceFinanciero] = useState<
-    Array<IAvanceFinancieroRF>
-  >([]);
 
   return (
     <Grid
@@ -282,7 +363,6 @@ export default function CapturaRaffi({
       >
         <Grid
           sx={{
-            //width: "93vw",
             width: ["300xp", "750px", "750px", "1100px", "1200px"],
             height: "82vh",
 
@@ -304,70 +384,61 @@ export default function CapturaRaffi({
               alignItems: "center",
             }}
           >
-            {value === 0 && (
+            {value === 0 ? (
               <TabAvanceFinanciero
-                resumenAvanceFinancieroRf={resumenAvanceFinancieroRf}
                 MIR={MIR}
                 MA={MA}
-                //avanceFinancieroRF={raffi.avanceFinanciero}
-                setAvanceFinancieroRF={() => {}}
+                avanceFinancieroRF={raffi.avanceFinanciero}
+                setAvanceFinancieroRF={setAvanceFinancieroPadre}
+                raffiboolean={raffiboolean}
               />
-            )}
+            ) : null}
 
             {value === 1 && (
               <TabFinPropositoRF
-                resumenFinRF={resumenFinRF}
-                resumenPropositoRF={resumenPropositoRF}
+                edit={editRF}
+                setRFFinPadre={setRFFinPadre}
+                setRFPropositoPadre={setRFPropositoPadre}
                 MIR={MIR}
-                // finRF={raffi.fin}
-                // propositoRF={raffi.proposito}
-                setFinRF={() => {}}
-                setPropositoRF={() => {}}
-                setTxtShowFnc={showFnc}
-                showMirFnc={showMirFnc}
+                finRF={raffi.fin}
+                propositoRF={raffi.proposito}
                 RF={RF}
+                raffiboolean={raffiboolean}
               />
             )}
 
             {value === 2 && (
               <TabComponenteRf
-                // componentesRF={() => {}}
-                setComponentes={() => {}}
-                valoresComponenteRFFnc={() => {}}
-                // noComponentes={noComponentes}
+                edit={editRF}
+                setRFcomponentesPadre={setRFcomponentesPadre}
+                ComponentesRF={raffi.componentes}
                 MA={MA}
                 MIR={MIR}
                 RF={RF}
-                setTxtShowFnc={showFnc}
-                showMirFnc={showMirFnc}
+                raffiboolean={raffiboolean}
               />
             )}
             {value === 3 && (
               <TabActividadRf
-                valoresComponenteRFFnc={() => {}}
-                componentes={noComponentes}
-                asignarCValor={() => {}}
-                MA={MA}
+                edit={editRF}
                 MIR={MIR}
-                RF={RF}
-                compAct={compAct}
-                setTxtShowFnc={showFnc}
-                showMirFnc={showMirFnc}
+                MA={MA}
+                ComponentesRF={raffi.componentes}
+                setRFactividadesPadre={setRFactividadesPadre}
+                raffiboolean={raffiboolean}
               />
             )}
             {value === 4 && (
               <TabResumenRF
-                // encabezado={ValueEncabezado}
-                fin={ValueFin}
-                proposito={ValueProposito}
-                componentes={noComponentes}
-                AFinanciero={ValueAvanceFinanciero}
                 IdMir={IdMir}
                 IdRF={IdRf}
                 IdMA={IdMA}
                 showResume={opentabs}
                 MIR={MIR}
                 MA={MA}
+                Raffi={raffi}
+                raffiboolean={raffiboolean}
+                setRaffiboolean={setRaffiboolean}
               />
             )}
           </Grid>
