@@ -839,7 +839,7 @@ export const TabActividadRf = ({
                     {/* {JSON.stringify(componentesActividadesValues)}; */}
                     <TextField
                       //fullWidth
-                      disabled={edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1}
+                      disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -889,7 +889,7 @@ export const TabActividadRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-                      disabled={edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2}
+                      disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -939,7 +939,7 @@ export const TabActividadRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-                      disabled={edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3}
+                      disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -984,11 +984,10 @@ export const TabActividadRf = ({
                       TRIMESTRE 4
                     </InputLabel>
                   </Grid>
-
                   <Grid item>
                     <TextField
                       //fullWidth
-                      disabled={edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4}
+                      disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
