@@ -978,7 +978,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-                      disabled={edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre1}
+                      disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre1}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -1027,7 +1027,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-                      disabled={edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre2}
+                      disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre2}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -1076,7 +1076,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-                      disabled={edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre3}
+                      disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre3}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -1125,7 +1125,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-                      disabled={edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre4}
+                      disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre4}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
