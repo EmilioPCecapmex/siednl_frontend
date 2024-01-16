@@ -26,7 +26,10 @@ function App() {
 
   useLayoutEffect(() => {
     if (jt !== null) {
-
+      console.log("localStorage.getItem(Menus)",localStorage.getItem("Menus"));
+      console.log("",);
+      
+      if(!localStorage.getItem("Menus"))
       sessionValid().then((r) => {
         if ((r as boolean) === false) {
           window.location.assign(

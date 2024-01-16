@@ -1,7 +1,4 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { IDatosAdicionales } from "../components/modalUsuarios/InterfazUsuario";
-import { useActionData } from "react-router-dom";
 
 const params = new URLSearchParams(window.location.search);
 const IdApp = params.get("IdApp");
@@ -58,8 +55,10 @@ export const getUserDetails = (IdCentral: string) => {
       }
     )
     .then(({ data, status }) => {
-      localStorage.setItem("Menus", JSON.stringify(data.menus[0]));
+      console.log("se hizo un match");
+
       if (status === 200) {
+        localStorage.setItem("Menus", JSON.stringify(data.menus[0]));
         localStorage.setItem("IdUsuario", data.data.Id);
         localStorage.setItem(
           "NombreUsuario",
@@ -67,29 +66,25 @@ export const getUserDetails = (IdCentral: string) => {
         );
         //localStorage.setItem("FirstSignIn", data.data.PrimerInicioDeSesion);
 
-        if (
-          localStorage.getItem("IdEntidad") === null ||
-          localStorage.getItem("IdEntidad") === null
-        ) {
+        if (localStorage.getItem("IdEntidad") === null ) {
           localStorage.setItem("IdEntidad", data.data.IdEntidad);
-        } else {
-          localStorage.setItem(
-            "IdEntidad",
-            localStorage.getItem("IdEntidad") as string
-          );
-        }
+        } 
+        // else {
+        //   localStorage.setItem(
+        //     "IdEntidad",
+        //     localStorage.getItem("IdEntidad") as string
+        //   );
+        // }
 
-        if (
-          localStorage.getItem("Entidad") === null ||
-          localStorage.getItem("Entidad") === null
-        ) {
-          localStorage.setItem("Entidad", data.data.Entidad);
-        } else {
-          localStorage.setItem(
-            "Entidad",
-            localStorage.getItem("Entidad") as string
-          );
-        }
+        if (localStorage.getItem("Entidad") === null ) {
+          localStorage.setItem("Entidad", data.entidades[0][0].Nombre);
+        } 
+        // else {
+        //   localStorage.setItem(
+        //     "Entidad",
+        //     localStorage.getItem("Entidad") as string
+        //   );
+        // }
 
         localStorage.setItem("Rol", data.roles[0][0].Nombre);
         localStorage.setItem("IdRol", data.roles[0][0].Id);
@@ -102,30 +97,6 @@ export const getUserDetails = (IdCentral: string) => {
       }
     });
 };
-
-// const siednlSignUp = (
-//   idUsrCentral: string,
-//   datosAdicionales: IDatosAdicionales,
-//   idCreadoPor: string
-// ) => {
-//   axios
-//     .post(
-//       process.env.REACT_APP_APPLICATION_BACK + "/api/user-add",
-//       {
-//         IdUsuarioCentral: idUsrCentral,
-//         IdEntidad: datosAdicionales.institution,
-//         Cargo: datosAdicionales.rol,
-//         IdRol: datosAdicionales.userType,
-//         CreadoPor: idCreadoPor,
-//       },
-//       { headers: { Authorization: localStorage.getItem("jwtToken") || "" } }
-//     )
-//     .then((r) => {
-//       if (r.status === 200) {
-//         window.location.reload();
-//       }
-//     });
-// };
 
 export const continueSession = () => {
   return axios

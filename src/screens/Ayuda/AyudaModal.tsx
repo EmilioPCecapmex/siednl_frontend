@@ -1,11 +1,9 @@
+import { Autocomplete, Button, Grid, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { AppBar, Autocomplete, Button, Dialog, Grid, TextField, Toolbar, Typography } from "@mui/material";
 import ModalForm from "../../components/ModalForm";
-import { createAyuda, getMenus, getRoles, saveFile } from "./ServicesAyuda";
-import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import { queries } from "../../queries";
-import Swal from "sweetalert2";
 import { alertaError } from "../../components/genericComponents/Alertas";
+import { queries } from "../../queries";
+import { createAyuda, getMenus, getRoles, saveFile } from "./ServicesAyuda";
 
 export interface ILista {
   Id: string;
