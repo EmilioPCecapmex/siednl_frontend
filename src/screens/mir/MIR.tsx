@@ -170,12 +170,12 @@ export const MIR = () => {
 
   useEffect(() => {
     setShowResume(true);
-    //getMIRs(setMirs);
+   
   }, []);
 
   const returnMain = () => {
     setShowResume(true);
-    //getMIRs(setMirs);
+    
   };
   const validaFechaCaptura = () => {
     axios
@@ -347,7 +347,7 @@ export const MIR = () => {
   };
 
   useEffect(() => {
-    //getMIRs(setMirs);
+   
 
     getInstituciones(setInstituciones);
   }, []);

@@ -22,19 +22,21 @@ import { PED } from "./PED";
 import { CapturarFechas } from "./AddFechaCapturaDialog";
 import { IDatosTabla } from "./Catalogos";
 import { margin } from "@mui/system";
+import { CreatePorCatalogo, CreatePorCatalogoProgramap } from "./AxiosCatalogo";
+import { alertaExito } from "../genericComponents/Alertas";
 export const AddDialogCatalogo = ({
   open,
   catalogo,
   select,
   tabla,
-  actualizado,
+
   handleClose,
 }: {
   open: boolean;
   catalogo: string;
   select: string;
   tabla: string;
-  actualizado: Function;
+
   handleClose: Function;
 }) => {
   //const [open, setOpen] = React.useState(false);
@@ -55,14 +57,42 @@ export const AddDialogCatalogo = ({
   // };
   const cerrardialog = () => {
     handleClose();
-    actualizado();
   };
 
   const opendialog = () => {
-    handleClose();
-    actualizado();
-    CreatePorCatalogo();
+    //handleClose();
+    //actualizado();
+    CreatePorCatalogo(descripcion, tabla, handleClose, Idb, Tipob, Tipo);
   };
+
+  // const CreatePorCatalogo = () => {
+  //   axios
+  //     .post(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/create-catalogo",
+  //       {
+  //         Descripcion: descripcion,
+  //         Tabla: tabla.toLocaleLowerCase(),
+  //         CreadoPor: localStorage.getItem("IdUsuario"),
+  //         Rol: localStorage.getItem("Rol"),
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+
+  //       alertaExito(() =>(handleClose()),"Catalogo creado")
+
+  //     })
+  //     .catch((err) =>
+  //       Toast.fire({
+  //         icon: "error",
+  //         title: err.response.data.result.error,
+  //       })
+  //     );
+  // };
 
   // useEffect(() => {
   //   setTablaActual(datosTabla)
@@ -73,6 +103,9 @@ export const AddDialogCatalogo = ({
   //   actualizado();
   // };
 
+  const [Idb, setIdb] = React.useState("");
+  const [Tipob, setTipoB] = React.useState("");
+  const [Tipo, setTipo] = React.useState("");
   const [descripcion, setDescripcion] = React.useState("");
   const [descripcionConac, setDescripcionConac] = React.useState("");
   const [descripcionConsecutivo, setDescripcionConsecutivo] =
@@ -85,26 +118,26 @@ export const AddDialogCatalogo = ({
   let monthS = "";
   let dateS = "";
 
-  React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    today = new Date();
-    year = today.getFullYear();
-    month = today.getMonth();
-    month = month + 1;
-    date = today.getDate();
+  // React.useEffect(() => {
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   today = new Date();
+  //   year = today.getFullYear();
+  //   month = today.getMonth();
+  //   month = month + 1;
+  //   date = today.getDate();
 
-    if (month < 10) {
-      monthS = "0" + month;
-    } else {
-      monthS = month.toString();
-    }
+  //   if (month < 10) {
+  //     monthS = "0" + month;
+  //   } else {
+  //     monthS = month.toString();
+  //   }
 
-    if (date < 10) {
-      dateS = "0" + date;
-    }
+  //   if (date < 10) {
+  //     dateS = "0" + date;
+  //   }
 
-    setFechaCaptura(year + "-" + monthS + "-" + dateS);
-  }, [actualizado]);
+  //   setFechaCaptura(year + "-" + monthS + "-" + dateS);
+  // }, [actualizado]);
 
   const [fechaCaptura, setFechaCaptura] = React.useState(
     year + "-" + monthS + "-" + dateS
@@ -202,40 +235,6 @@ export const AddDialogCatalogo = ({
       .catch((err) => console.log(""));
   };
 
-  const CreatePorCatalogo = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-catalogo",
-        {
-          Descripcion: descripcion,
-          Tabla: tabla,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        handleClose();
-
-        Toast.fire({
-          icon: "success",
-          title: "Elemento registrado con éxito.",
-        });
-
-        actualizado();
-      })
-      .catch((err) =>
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        })
-      );
-  };
-
   const CreatePorCatalogoFechas = () => {
     axios
       .post(
@@ -255,13 +254,13 @@ export const AddDialogCatalogo = ({
         }
       )
       .then((r) => {
-        handleClose();
+        // handleClose();
         Toast.fire({
           icon: "success",
           title: "Elemento registrado con éxito.",
         });
 
-        actualizado();
+        //actualizado();
       })
       .catch((err) =>
         Toast.fire({
@@ -322,47 +321,10 @@ export const AddDialogCatalogo = ({
         }
       )
       .then((r) => {
-        handleClose();
-        Toast.fire({
-          icon: "success",
-          title: "Elemento registrado con éxito.",
-        });
+        //  handleClose();
+        alertaExito(() => handleClose(), "Catalogo creado");
 
-        actualizado();
-      })
-      .catch((err) =>
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        })
-      );
-  };
-
-  const CreatePorCatalogoProgramap = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK +
-          "/api/create-programaPresupuestario",
-        {
-          NombrePrograma: descripcion,
-          IdEntidad: institution,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-          Conac: descripcionConac,
-          Consecutivo: descripcionConsecutivo,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        Toast.fire({
-          icon: "success",
-          title: "Elemento registrado con éxito.",
-        });
-        actualizado();
+        // actualizado();
       })
       .catch((err) =>
         Toast.fire({
@@ -390,7 +352,9 @@ export const AddDialogCatalogo = ({
     }
   };
 
-  if (tabla === "FechasDeCaptura") {
+  if (tabla === "FECHAS DE CAPTURA") {
+    console.log("FECHAS DE CAPTURA: ", tabla);
+
     return (
       <Grid sx={{ display: "flex" }}>
         {/* <IconButton onClick={handleClickOpen}>
@@ -402,12 +366,12 @@ export const AddDialogCatalogo = ({
         />
       </IconButton> */}
 
-        <CapturarFechas
+        {/* <CapturarFechas
           actualizado={actualizado}
           open={open}
           close={handleClose}
           //ClickOpen={handleClickOpen}
-        />
+        /> */}
       </Grid>
       // <Grid sx={{ display: "flex" }}>
       //   <IconButton onClick={handleClickOpen}>
@@ -528,7 +492,9 @@ export const AddDialogCatalogo = ({
       //   </Dialog>
       // </Grid>
     );
-  } else if (tabla === "ProgramasInstituciones") {
+  } else if (tabla === "PROGRAMAS - INSTITUCIONES") {
+    console.log("Programas - Instituciones: ", tabla);
+
     return (
       <Grid sx={{ display: "flex" }}>
         {/* <IconButton onClick={handleClickOpen}>
@@ -666,13 +632,16 @@ export const AddDialogCatalogo = ({
             }}
           >
             <Button
-             // sx={queries.buttonCancelarSolicitudInscripcion}
+              // sx={queries.buttonCancelarSolicitudInscripcion}
               color="error"
               className="cancelar"
               onClick={cerrardialog}
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: [10, 15, 15, 15, 15],}}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  fontSize: [10, 15, 15, 15, 15],
+                }}
               >
                 Cancelar
               </Typography>
@@ -684,7 +653,10 @@ export const AddDialogCatalogo = ({
               autoFocus
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: [10, 15, 15, 15, 15], }}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  fontSize: [10, 15, 15, 15, 15],
+                }}
               >
                 De Acuerdo
               </Typography>
@@ -694,6 +666,7 @@ export const AddDialogCatalogo = ({
       </Grid>
     );
   } else if (tabla === "InstitucionUnidad") {
+    console.log("InstitucionUnidad: ", tabla);
     return (
       <Grid sx={{ display: "flex" }}>
         {/* <IconButton onClick={handleClickOpen}>
@@ -829,12 +802,12 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            <Button
-              className="cancelar"
-              onClick={cerrardialog}
-            >
+            <Button className="cancelar" onClick={cerrardialog}>
               <Typography
-                sx={{ fontFamily: "MontserratMedium",fontSize: [10, 15, 15, 15, 15], }}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  fontSize: [10, 15, 15, 15, 15],
+                }}
               >
                 Cancelar
               </Typography>
@@ -846,7 +819,10 @@ export const AddDialogCatalogo = ({
               autoFocus
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium",fontSize: [10, 15, 15, 15, 15], }}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  fontSize: [10, 15, 15, 15, 15],
+                }}
               >
                 De Acuerdo
               </Typography>
@@ -856,7 +832,8 @@ export const AddDialogCatalogo = ({
         :
       </Grid>
     );
-  } else if (tabla === "PEDs") {
+  } else if (tabla === "PED") {
+    console.log("PED: ", tabla);
     return (
       <Grid>
         {/* <IconButton onClick={handleClickOpen}>
@@ -884,7 +861,8 @@ export const AddDialogCatalogo = ({
         </Dialog>
       </Grid>
     );
-  } else if (tabla === "ProgramasPresupuestarios") {
+  } else if (tabla === "PROGRAMAS PRESUPUESTARIOS") {
+    console.log("Programas Presupuestarios: ", tabla);
     return (
       <Grid sx={{ display: "flex" }}>
         {/* <Tooltip title="Editar">
@@ -1055,12 +1033,12 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            <Button
-             className="cancelar"
-              onClick={cerrardialog}
-            >
+            <Button className="cancelar" onClick={cerrardialog}>
               <Typography
-                sx={{ fontFamily: "MontserratMedium",fontSize: [10, 15, 15, 15, 15], }}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  fontSize: [10, 15, 15, 15, 15],
+                }}
               >
                 Cancelar
               </Typography>
@@ -1068,11 +1046,22 @@ export const AddDialogCatalogo = ({
 
             <Button
               className="aceptar"
-              onClick={CreatePorCatalogoProgramap}
+              onClick={() =>
+                CreatePorCatalogoProgramap(
+                  descripcion,
+                  institution,
+                  descripcionConac,
+                  descripcionConsecutivo,
+                  handleClose
+                )
+              }
               autoFocus
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium",fontSize: [10, 15, 15, 15, 15], }}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  fontSize: [10, 15, 15, 15, 15],
+                }}
               >
                 De Acuerdo
               </Typography>
@@ -1082,6 +1071,7 @@ export const AddDialogCatalogo = ({
       </Grid>
     );
   } else {
+    console.log("else: ", tabla);
     return (
       <Grid>
         {/* <IconButton onClick={handleClickOpen}>
@@ -1158,33 +1148,126 @@ export const AddDialogCatalogo = ({
                 },
               }}
             />
+
+            {tabla === "BENEFICIARIOS" ? (
+              <TextField
+                label={"IdBeneficiario"}
+                variant="outlined"
+                multiline={descripcion.length < 200 ? false : true}
+                sx={
+                  descripcion.length < 200
+                    ? { width: "60%", marginTop: "8px" }
+                    : { width: "80%", marginTop: "9px" }
+                }
+                value={Idb}
+                onChange={(v) => {
+                  let valor = v.target.value;
+                  let numeroValido = validarNumero(valor, Idb);
+                  setIdb(numeroValido);
+                }}
+                style={{ marginBottom: 1 }}
+                rows={3}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratLight",
+                  },
+                }}
+              />
+            ) : null}
+
+            {tabla === "BENEFICIARIOS" ? (
+              <TextField
+                label={"Tipo Beneficiario"}
+                variant="outlined"
+                multiline={descripcion.length < 200 ? false : true}
+                sx={
+                  descripcion.length < 200
+                    ? { width: "60%", marginTop: "8px" }
+                    : { width: "80%", marginTop: "9px" }
+                }
+                value={Tipob}
+                onChange={(v) => {
+                  let valor = v.target.value;
+                  //let numeroValido = validarNumero(valor, Idb);
+                  setTipoB(valor);
+                }}
+                style={{ marginBottom: 1 }}
+                rows={3}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratLight",
+                  },
+                }}
+              />
+            ) : null}
+
+            {tabla === "BENEFICIARIOS" ? (
+              <TextField
+                label={"Tipo"}
+                variant="outlined"
+                multiline={descripcion.length < 200 ? false : true}
+                sx={
+                  descripcion.length < 200
+                    ? { width: "60%", marginTop: "8px" }
+                    : { width: "80%", marginTop: "9px" }
+                }
+                value={Tipo}
+                onChange={(v) => {
+                  let valor = v.target.value;
+                  //let numeroValido = validarNumero(valor, Idb);
+                  setTipo(valor);
+                }}
+                style={{ marginBottom: 1 }}
+                rows={3}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratLight",
+                  },
+                }}
+              />
+            ) : null}
           </DialogContent>
 
           <DialogActions
             sx={{
               display: "flex",
+
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <Button
-             className="cancelar"
-              onClick={cerrardialog}
-            >
+            <Button className="cancelar" onClick={cerrardialog}>
               <Typography
-                sx={{ fontFamily: "MontserratMedium",fontSize: [10, 15, 15, 15, 15], }}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  fontSize: [10, 15, 15, 15, 15],
+                }}
               >
                 Cancelar
               </Typography>
             </Button>
 
-            <Button
-              className="aceptar"
-              onClick={opendialog}
-              autoFocus
-            >
+            <Button className="aceptar" onClick={opendialog} autoFocus>
               <Typography
-                sx={{ fontFamily: "MontserratMedium",fontSize: [10, 15, 15, 15, 15], }}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  fontSize: [10, 15, 15, 15, 15],
+                }}
               >
                 De Acuerdo
               </Typography>

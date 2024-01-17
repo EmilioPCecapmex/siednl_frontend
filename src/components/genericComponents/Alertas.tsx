@@ -24,6 +24,7 @@ export function alertaExito(fnc: Function, titulo = "Movimiento exitoso") {
     color: "#af8c55",
   });
 }
+
 export function alertaError(titulo = "Movimiento fallido") {
   Toast.fire({
     icon: "error",

@@ -9,21 +9,24 @@ import axios from "axios";
 import { Grid, Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import { queries } from "../../queries";
+import {  deletePorCatalogoTodos } from "./AxiosCatalogo";
+import { useEffect, useState } from "react";
 export const DeleteDialogCatalogos = ({
   deleteText,
-  id,
+  Id,
   tabla,
   actualizado,
   open,
+  UpdateInfo,
 
   handleCloseDel,
 }: {
   deleteText: string;
   tabla: string;
-  id: string;
+  Id: string;
   actualizado: Function;
   open: boolean;
-  
+  UpdateInfo: Function;
   handleCloseDel: Function;
 
 }) => {
@@ -49,6 +52,10 @@ export const DeleteDialogCatalogos = ({
   //   setOpen(false);
   // };
 
+useEffect(() => {
+  console.log("deleteText: ",deleteText);
+  
+}, [])
   
 
   const cerrardialog = () =>{
@@ -61,95 +68,12 @@ export const DeleteDialogCatalogos = ({
   const opendialog = () =>{
     handleCloseDel();
     //actualizado();
-    deletePorCatalogo()
+    //deletePorCatalogo()
+    //deletePorCatalogoGeneral()
+    deletePorCatalogoTodos(Id, tabla, UpdateInfo)
   }
 
-  const deletePorCatalogo = () => {
-    if (tabla === "PEDs") {
-      axios
-        .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-ped", {
-          data: {
-            IdPED: id,
-            ModificadoPor: localStorage.getItem("IdUsuario"),
-            Rol: localStorage.getItem("Rol"),
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        })
-        .then((r) => {
-          actualizado();
-
-          Toast.fire({
-            icon: "success",
-            title: "Eliminado con éxito.",
-          });
-        })
-        .catch((err) =>
-          Toast.fire({
-            icon: "error",
-            title: "Permisos denegados.",
-          })
-        );
-    } else if (tabla === "ProgramasPresupuestarios") {
-      axios
-        .delete(
-          process.env.REACT_APP_APPLICATION_BACK +
-            "/api/delete-programaPresupuestario",
-          {
-            data: {
-              IdProgramaPresupuestario: id,
-              ModificadoPor: localStorage.getItem("IdUsuario"),
-              Rol: localStorage.getItem("Rol"),
-            },
-            headers: {
-              Authorization: localStorage.getItem("jwtToken") || "",
-            },
-          }
-        )
-        .then((r) => {
-          actualizado();
-          Toast.fire({
-            icon: "success",
-            title: "Eliminado con éxito.",
-          });
-        })
-        .catch((err) =>
-          Toast.fire({
-            icon: "error",
-            title: "Permisos denegados.",
-          })
-        );
-    } else {
-      axios
-        .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-catalogo", {
-          data: {
-            Id: id,
-            Tabla: tabla,
-            ModificadoPor: localStorage.getItem("IdUsuario"),
-            Rol: localStorage.getItem("Rol"),
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        })
-        .then((r) => {
-          actualizado();
-          Toast.fire({
-            icon: "success",
-            title: "Eliminado con éxito.",
-          });
-        })
-        .catch((err) =>
-          Toast.fire({
-            icon: "error",
-            title: "Permisos denegados.",
-          })
-        );
-    }
-    //handleCloseDel();
-
-  };
+ 
 
   return (
     <Grid>

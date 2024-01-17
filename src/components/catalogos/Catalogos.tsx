@@ -30,6 +30,11 @@ import TablePaginationActions from "@mui/material/TablePagination/TablePaginatio
 import { CSVCatalogo } from "./CSVCatalogo";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { listaGenericaCatalogos } from "./AxiosCatalogo";
+import DataGridTable from "../genericComponents/DataGridTable";
+import { GridColDef } from "@mui/x-data-grid";
+import { ButtonAdd } from "../genericComponents/AddButton";
+
 interface Head {
   id: keyof ITablaCatalogos;
   isNumeric: boolean;
@@ -49,1166 +54,633 @@ const heads: readonly Head[] = [
   },
 ];
 
+const configOptions = [
+  {
+    id: 1,
+    Desc: "Años Fiscales",
+    fnc: "getAniosFiscales()",
+    Tabla: "AniosFiscales",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 2,
+    Desc: "Beneficiarios",
+    fnc: "getBeneficiarios()",
+    Tabla: "Beneficiarios",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 3,
+    Desc: "Clasificación Programática",
+    fnc: "getClasificacionesProgramaticas()",
+    Tabla: "ClasificacionesProgramaticas",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 4,
+    Desc: "Dimensiones del Indicador",
+    fnc: "getDimensionesDelIndicador()",
+    Tabla: "DimensionesDelIndicador",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  { id: 5, Desc: "Ejes", fnc: "getEjes()", Tabla: "Ejes", selected: true },
+  {
+    id: 6,
+    Desc: "Ejes del Plan Nacional de Desarrollo",
+    Tabla: "EjesPND",
+    fnc: "getEjesPND()",
+    selected: true,
+    tipo: "Catalogos",
+  },
+  {
+    id: 7,
+    Desc: "Estrategias",
+    fnc: "getEstrategias()",
+    Tabla: "Estrategias ",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 8,
+    Desc: "Fechas de Captura",
+    fnc: "getFechasDeCaptura()",
+    Tabla: "FechasDeCaptura",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 9,
+    Desc: "Fórmulas",
+    fnc: "getFormulas()",
+    Tabla: "Formulas",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 10,
+    Desc: "Frecuencias",
+    fnc: "getFrecuencias()",
+    Tabla: "Frecuencias",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  // {
+  //   id: 11,
+  //   Desc: "Instituciones",
+  //   fnc: "getInstituciones()",
+  //   Tabla: "Instituciones",
+  //   selected: false,
+  //   tipo: "Catalogos",
+  // },
+  {
+    id: 12,
+    Desc: "Lineas de Acción",
+    fnc: "getLineasDeAccion()",
+    Tabla: "LineasDeAccion",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 13,
+    Desc: "Metas ODS",
+    fnc: "getMetasODS()",
+    Tabla: "MetasODS",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 14,
+    Desc: "Modalidades",
+    fnc: "getModalidades()",
+    Tabla: "Modalidades",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 15,
+    Desc: "Objetivos",
+    fnc: "getObjetivos()",
+    Tabla: "Objetivos",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 16,
+    Desc: "Objetivos Desarrollo Sostenible",
+    fnc: "getObjetivosDS()",
+    Tabla: "ObjetivosDS",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 17,
+    Desc: "Objetivos del Plan Estrategico del Estado de Nuevo León",
+    fnc: "getObjetivosPEENL()",
+    Tabla: "ObjetivosPEENL",
+    selected: false,
+    tipo: "Catalogos",
+  },
+
+  {
+    id: 18,
+    Desc: "Programas Presupuestarios",
+    fnc: "getProgramaPresupuestario()",
+    Tabla: "ProgramasPresupuestarios",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  // {
+  //   id: 19,
+  //   Desc: "Roles",
+  //   fnc: "getRoles()",
+  //   Tabla: "Roles",
+  //   selected: false,
+  //   tipo: "Catalogos",
+  // },
+  {
+    id: 20,
+    Desc: "Temáticas",
+    fnc: "getTematicas()",
+    Tabla: "Tematicas",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 21,
+    Desc: "Tipos de Fórmula",
+    fnc: "getTipoDeFormula()",
+    Tabla: "TiposDeFormula",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 22,
+    Desc: "Tipos de Indicador",
+    fnc: "getTipoDeIndicador()",
+    Tabla: "TiposDeIndicador",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  {
+    id: 23,
+    Desc: "Unidades de Medida",
+    fnc: "getUnidadDeMedida()",
+    Tabla: "UnidadesDeMedida",
+    selected: false,
+    tipo: "Catalogos",
+  },
+  // {
+  //   id: 24,
+  //   Desc: "Unidades Administrativas",
+  //   fnc: "getUnidadesAdministrativas()",
+  //   Tabla: "UnidadesAdministrativas",
+  //   selected: false,
+  //   tipo: "Catalogos",
+  // },
+  {
+    id: 25,
+    Desc: "PED",
+    fnc: "getPED()",
+    Tabla: "PEDs",
+    selected: false,
+    tipo: "Relaciones",
+  },
+  // {
+  //   id: 26,
+  //   Desc: "Instituciones - Unidades",
+  //   fnc: "getInstitucionesUnidades()",
+  //   Tabla: "InstitucionUnidad",
+  //   selected: false,
+  //   tipo: "Relaciones",
+  // },
+  {
+    id: 27,
+    Desc: "Programas - Instituciones",
+    fnc: "getProgramasInstituciones()",
+    Tabla: "ProgramasInstituciones",
+    selected: false,
+    tipo: "Relaciones",
+  },
+];
+
+interface IObjetoCatalogo {
+  Id: string;
+  descripcion: string;
+}
+
+interface IObjetoBeneficiario {
+  Id: string;
+  Idb: number;
+  descripcion: string;
+  tipoBeneficiario: string;
+  tipo: string;
+}
+
+interface IObjetoFechaDeCaptura {
+  Id: string;
+  descripcion: string;
+  FechaCapturaFinal: string;
+  FechaCapturaInicio: string;
+}
+
+interface IObjetoPed {
+  Id: string;
+  //Descripcion: string;
+  Eje: string;
+  Tematica: string;
+  Objetivo: string;
+  Estrategia: string;
+  LineaDeAccion: string;
+  MetaODS: string;
+  EjePND: string;
+  ObjetivoPEENL: string;
+}
+
+interface IObjetoProgramasInstitucionales {
+  Id: string;
+  IdEntidad: string;
+  IdPrograma: string;
+  //Descripcion: string;
+  Nombre: string;
+  NombrePrograma: string;
+}
+
+const newBeneficiario:IObjetoBeneficiario  ={
+  descripcion: "",
+    Id: "",
+    Idb: 0,
+    tipo: "",
+    tipoBeneficiario: "",
+}
+
+const newFecha:IObjetoFechaDeCaptura = {
+  descripcion: "",
+   FechaCapturaFinal: "",
+   FechaCapturaInicio: "",
+   Id: "",
+}
+
+const newPed ={
+  Eje: "",
+  EjePND: "",
+  Estrategia: "",
+  Id: "",
+  LineaDeAccion: "",
+  MetaODS: "",
+  Objetivo: "",
+  ObjetivoPEENL: "",
+  Tematica: "",
+}
+
+const newProgramas: IObjetoProgramasInstitucionales ={
+  Id: "",
+  IdEntidad: "",
+  IdPrograma: "",
+  Nombre: "",
+  NombrePrograma: "",
+}
+
+const newCatalogo ={
+  Id: "",
+    descripcion: "",
+ }
+
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
-  const [defaultSelection, setDefaultSelection] = useState(defSelected);
-  const [expanded, setExpanded] = React.useState<string | false>("panel1");
+  const columsCatalogo: GridColDef[] = [
+    {
+      field: "Acciones",
+      disableExport: true,
+      headerName: "Acciones",
+      description: "Acciones",
+      sortable: false,
+      flex: 1,
+      renderCell: (v: any) => {
+        return (
+          <Grid>
+            <Tooltip title="Eliminar descripcion">
+              <IconButton
+                onClick={() => {
+                  console.log(v.row);
+                  setCatalogoSelected(v.row);
 
-  const [fncSelected, setFncSelected] = useState("");
-
-  useEffect(() => {
-    let tableOption = configOptions.find((item) => item.Desc === defSelected);
-    setTablaActual(tableOption?.Tabla as string);
-
-    // eslint-disable-next-line array-callback-return
-    configOptions.map((item) => {
-      if (item.Desc === selected) {
-        // eslint-disable-next-line no-eval
-        eval(item.fnc);
-      }
-    });
-
-    // eslint-disable-next-line array-callback-return
-    configOptions.map((item) => {
-      if (item.Desc === defaultSelection) {
-        // eslint-disable-next-line no-eval
-        eval(item.fnc);
-      }
-    });
-  }, []);
-
-  const configOptions = [
-    {
-      id: 1,
-      Desc: "Años Fiscales",
-      fnc: "getAniosFiscales()",
-      Tabla: "AniosFiscales",
-      selected: false,
-      tipo: "Catalogos",
+                  setOpenDel(true);
+                  //eliminar(v)
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        );
+      },
     },
     {
-      id: 2,
-      Desc: "Beneficiarios",
-      fnc: "getBeneficiarios()",
-      Tabla: "Beneficiarios",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    {
-      id: 3,
-      Desc: "Clasificación Programática",
-      fnc: "getClasificacionesProgramaticas()",
-      Tabla: "ClasificacionesProgramaticas",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    {
-      id: 4,
-      Desc: "Dimensiones del Indicador",
-      fnc: "getDimensionesDelIndicador()",
-      Tabla: "DimensionesDelIndicador",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    { id: 5, Desc: "Ejes", fnc: "getEjes()", Tabla: "Ejes", selected: true },
-    {
-      id: 6,
-      Desc: "Ejes del Plan Nacional de Desarrollo",
-      Tabla: "EjesPND",
-      fnc: "getEjesPND()",
-      selected: true,
-      tipo: "Catalogos",
-    },
-    {
-      id: 7,
-      Desc: "Estrategias",
-      fnc: "getEstrategias()",
-      Tabla: "Estrategias ",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    {
-      id: 8,
-      Desc: "Fechas de Captura",
-      fnc: "getFechasDeCaptura()",
-      Tabla: "FechasDeCaptura",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    {
-      id: 9,
-      Desc: "Fórmulas",
-      fnc: "getFormulas()",
-      Tabla: "Formulas",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    {
-      id: 10,
-      Desc: "Frecuencias",
-      fnc: "getFrecuencias()",
-      Tabla: "Frecuencias",
-      selected: false,
-      tipo: "Catalogos",
+      field: "descripcion",
+      headerName: "Descripcion",
+      description: "Descripcion",
+      flex: 5,
     },
     // {
-    //   id: 11,
-    //   Desc: "Instituciones",
-    //   fnc: "getInstituciones()",
-    //   Tabla: "Instituciones",
-    //   selected: false,
-    //   tipo: "Catalogos",
+    //   field: "Pregunta",
+    //   headerName: "Pregunta",
+    //   description: "Pregunta",
+    //   flex: 2
     // },
-    {
-      id: 12,
-      Desc: "Lineas de Acción",
-      fnc: "getLineasDeAccion()",
-      Tabla: "LineasDeAccion",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    {
-      id: 13,
-      Desc: "Metas ODS",
-      fnc: "getMetasODS()",
-      Tabla: "MetasODS",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    {
-      id: 14,
-      Desc: "Modalidades",
-      fnc: "getModalidades()",
-      Tabla: "Modalidades",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    {
-      id: 15,
-      Desc: "Objetivos",
-      fnc: "getObjetivos()",
-      Tabla: "Objetivos",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    {
-      id: 16,
-      Desc: "Objetivos Desarrollo Sostenible",
-      fnc: "getObjetivosDS()",
-      Tabla: "ObjetivosDS",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    {
-      id: 17,
-      Desc: "Objetivos del Plan Estrategico del Estado de Nuevo León",
-      fnc: "getObjetivosPEENL()",
-      Tabla: "ObjetivosPEENL",
-      selected: false,
-      tipo: "Catalogos",
-    },
+    // {
+    //   field: "NombreArchivo",
+    //   headerName: "Nombre Guía",
+    //   description: "Nombre Guía",
+    //   flex: 2
+    // },
+  ];
 
+  const columsFechaDeCaptura: GridColDef[] = [
     {
-      id: 18,
-      Desc: "Programas Presupuestarios",
-      fnc: "getProgramaPresupuestario()",
-      Tabla: "ProgramasPresupuestarios",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    // {
-    //   id: 19,
-    //   Desc: "Roles",
-    //   fnc: "getRoles()",
-    //   Tabla: "Roles",
-    //   selected: false,
-    //   tipo: "Catalogos",
-    // },
-    {
-      id: 20,
-      Desc: "Temáticas",
-      fnc: "getTematicas()",
-      Tabla: "Tematicas",
-      selected: false,
-      tipo: "Catalogos",
-    },
-    {
-      id: 21,
-      Desc: "Tipos de Fórmula",
-      fnc: "getTipoDeFormula()",
-      Tabla: "TiposDeFormula",
-      selected: false,
-      tipo: "Catalogos",
+      field: "Acciones",
+      disableExport: true,
+      headerName: "Acciones",
+      description: "Acciones",
+      sortable: false,
+      flex: 1,
+      renderCell: (v: any) => {
+        return (
+          <Grid>
+            <Tooltip title="Eliminar descripcion">
+              <IconButton
+                onClick={() => {
+                  console.log(v.row);
+                  setFechaDeCapturaSelected(v.row);
+                  setOpenDel(true);
+                  //eliminar(v)
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        );
+      },
     },
     {
-      id: 22,
-      Desc: "Tipos de Indicador",
-      fnc: "getTipoDeIndicador()",
-      Tabla: "TiposDeIndicador",
-      selected: false,
-      tipo: "Catalogos",
+      field: "descripcion",
+      headerName: "Descripcion",
+      description: "Descripcion",
+      flex: 2,
     },
     {
-      id: 23,
-      Desc: "Unidades de Medida",
-      fnc: "getUnidadDeMedida()",
-      Tabla: "UnidadesDeMedida",
-      selected: false,
-      tipo: "Catalogos",
+      field: "fechaCapturaInicio",
+      headerName: "FechaCapturaInicio",
+      description: "FechaCapturaInicio",
+      flex: 2,
     },
-    // {
-    //   id: 24,
-    //   Desc: "Unidades Administrativas",
-    //   fnc: "getUnidadesAdministrativas()",
-    //   Tabla: "UnidadesAdministrativas",
-    //   selected: false,
-    //   tipo: "Catalogos",
-    // },
     {
-      id: 25,
-      Desc: "PED",
-      fnc: "getPED()",
-      Tabla: "PEDs",
-      selected: false,
-      tipo: "Relaciones",
-    },
-    // {
-    //   id: 26,
-    //   Desc: "Instituciones - Unidades",
-    //   fnc: "getInstitucionesUnidades()",
-    //   Tabla: "InstitucionUnidad",
-    //   selected: false,
-    //   tipo: "Relaciones",
-    // },
-    {
-      id: 27,
-      Desc: "Programas - Instituciones",
-      fnc: "getProgramasInstituciones()",
-      Tabla: "ProgramasInstituciones",
-      selected: false,
-      tipo: "Relaciones",
+      field: "fechaCapturaFinal",
+      headerName: "FechaCapturaFinal",
+      description: "FechaCapturaFinal",
+      flex: 2,
     },
   ];
-  // const getUnidadesAdministrativas = () => {
-  //   setSelected("Unidades Administrativas");
-  //   setCatalogoActual("Unidades Administrativas");
-  //   axios
-  //     .get(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //           Rol: localStorage.getItem("Rol") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         let update = r.data.data;
-  //         update = update.map(
-  //           (item: { Id: string; Unidad: string; Tabla: string }) => {
-  //             return {
-  //               Id: item.Id,
-  //               Desc: item.Unidad.toUpperCase(),
-  //               Tabla: "UnidadesAdministrativas",
-  //             };
-  //           }
-  //         );
-  //         setDatosTabla(update);
-  //         setDataDescripctionFiltered(update);
-  //       }
-  //     });
-  // };
 
-  // const getInstitucionesUnidades = () => {
-  //   setSelected("Instituciones - Unidades");
-  //   setCatalogoActual("Instituciones - Unidades");
-  //   axios
-  //     .get(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/institucionesUnidad",
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         let update = r.data.data;
+  const columsProgramasInstituciones: GridColDef[] = [
+    {
+      field: "Acciones",
+      disableExport: true,
+      headerName: "Acciones",
+      description: "Acciones",
+      sortable: false,
+      flex: 1,
+      renderCell: (v: any) => {
+        return (
+          <Grid>
+            <Tooltip title="Editar descripcion">
+              <IconButton
+                onClick={() => {
+                  console.log(v.row);
+                  setProgramasISelected(v.row);
+                  setOpenDel(true);
+                  //eliminar(v)
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        );
+      },
+    },
+    {
+      field: "Nombre",
+      headerName: "Nombre",
+      description: "Nombre",
+      flex: 2,
+    },
 
-  //         update = update.map(
-  //           (item: {
-  //             Id: string;
-  //             NombreInstitucion: string;
-  //             Unidad: string;
-  //             Tabla: string;
-  //           }) => {
-  //             return {
-  //               Id: item.Id,
-  //               Desc:
-  //                 item.NombreInstitucion.toUpperCase() +
-  //                 " / " +
-  //                 item.Unidad.toUpperCase(),
-  //               Tabla: "InstitucionUnidad",
-  //             };
-  //           }
-  //         );
-  //         setDatosTabla(update);
-  //         setDataDescripctionFiltered(update);
-  //       }
-  //     });
-  // };
+    {
+      field: "NombrePrograma",
+      headerName: "Nombre Programa",
+      description: "Nombre Programa",
+      flex: 2,
+    },
+  ];
 
-  const getProgramasInstituciones = () => {
-    setSelected("Programas - Instituciones");
-    setCatalogoActual("Programas - Instituciones");
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK +
-          "/api/list-programasInstituciones",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-          params: {
-            idEntidad: localStorage.getItem("IdApp"),
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: {
-              Id: string;
-              Nombre: string;
-              NombrePrograma: string;
-              Tabla: string;
-            }) => {
-              return {
-                Id: item.Id,
-                Desc:
-                  item.Nombre.toUpperCase() +
-                  " / " +
-                  item.NombrePrograma.toUpperCase(),
-                Tabla: "ProgramasInstituciones",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
+  const columsPed: GridColDef[] = [
+    {
+      field: "Acciones",
+      disableExport: true,
+      headerName: "Acciones",
+      description: "Acciones",
+      sortable: false,
+      flex: 1,
+      renderCell: (v: any) => {
+        return (
+          <Grid>
+            <Tooltip title="Editar descripcion">
+              <IconButton
+                onClick={() => {
+                  console.log(v.row);
+                  return (
+                    <Grid>
+                      <Tooltip title="Editar descripcion">
+                        <IconButton
+                          onClick={() => {
+                            console.log(v.row);
+                            setPedSelected(v.row);
+                            setOpenDel(true);
+                            //eliminar(v)
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </Grid>
+                  );
+                  //eliminar(v)
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        );
+      },
+    },
+    {
+      field: "Eje",
+      headerName: "Eje",
+      description: "Eje",
+      flex: 1,
+    },
 
-  const getAniosFiscales = () => {
-    setSelected("Años Fiscales");
-    setCatalogoActual("Años Fiscales");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-anioFiscal", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; AnioFiscal: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.AnioFiscal,
-                Tabla: "AniosFiscales",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
+    {
+      field: "EjePND",
+      headerName: "EjePND",
+      description: "EjePND",
+      flex: 1,
+    },
 
-  const getBeneficiarios = () => {
-    setSelected("Beneficiarios");
+    {
+      field: "Estrategia",
+      headerName: "Estrategia",
+      description: "Estrategia",
+      flex: 1,
+    },
 
-    setCatalogoActual("Beneficiarios");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-beneficiario", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; Beneficiario: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.Beneficiario.toUpperCase(),
-                Tabla: "Beneficiarios",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
+    {
+      field: "LineaDeAccion",
+      headerName: "Lineas de Accion",
+      description: "Lineas de Accion",
+      flex: 1,
+    },
 
-  const getClasificacionesProgramaticas = () => {
-    setSelected("Clasificación Programática");
+    {
+      field: "MetaODS",
+      headerName: "Metas ODS",
+      description: "Metas ODS",
+      flex: 1,
+    },
+    {
+      field: "Objetivo",
+      headerName: "Objetivo",
+      description: "Objetivo",
+      flex: 1,
+    },
+    {
+      field: "ObjetivoDS",
+      headerName: "ObjetivoDS",
+      description: "ObjetivoDS",
+      flex: 1,
+    },
+    {
+      field: "ObjetivoPEENL",
+      headerName: "ObjetivoPEENL",
+      description: "ObjetivoPEENL",
+      flex: 1,
+    },
+    {
+      field: "Tematica",
+      headerName: "Tematica",
+      description: "Tematica",
+      flex: 1,
+    },
+  ];
 
-    setCatalogoActual("Clasificación Programática");
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK +
-          "/api/list-clasificacionProgramatica",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: {
-              Id: string;
-              ClasificacionProgramatica: string;
-              Tabla: string;
-            }) => {
-              return {
-                Id: item.Id,
-                Desc: item.ClasificacionProgramatica.toUpperCase(),
-                Tabla: "ClasificacionesProgramaticas",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
+  const columsBeneficiario: GridColDef[] = [
+    {
+      field: "Acciones",
+      disableExport: true,
+      headerName: "Acciones",
+      description: "Acciones",
+      sortable: false,
+      flex: 1,
+      renderCell: (v: any) => {
+        return (
+          <Grid>
+            <Tooltip title="Eliminar descripcion">
+              <IconButton
+                onClick={() => {
+                  console.log(v.row.Id);
+                  setBeneficiarioSelected(v.row);
+                  setOpenDel(true);
+                  //eliminar(v)
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        );
+      },
+    },
+    {
+      field: "descripcion",
+      headerName: "Descripcion",
+      description: "Descripcion",
+      flex: 5,
+    },
+    {
+      field: "Idb",
+      headerName: "Id Beneficiario",
+      description: "Id Beneficiario",
+      flex: 2,
+    },
+    {
+      field: "tipoBeneficiario",
+      headerName: "Tipo Beneficiario",
+      description: "Tipo Beneficiario",
+      flex: 2,
+    },
+    {
+      field: "tipo",
+      headerName: "Tipo",
+      description: "Tipo",
+      flex: 2,
+    },
+  ];
 
-  const getDimensionesDelIndicador = () => {
-    setSelected("Dimensiones del Indicador");
+  const [opcionCatalogo, setOpcionCatalogo] = useState(defSelected);
 
-    setCatalogoActual("Dimensiones del Indicador");
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK +
-          "/api/list-dimensionDelIndicador",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: {
-              Id: string;
-              DimensionDelIndicador: string;
-              Tabla: string;
-            }) => {
-              return {
-                Id: item.Id,
-                Desc: item.DimensionDelIndicador.toUpperCase(),
-                Tabla: "DimensionesDelIndicador",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getEjes = () => {
-    setSelected("Ejes");
-
-    setCatalogoActual("Ejes");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-eje", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; Eje: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.Eje.toUpperCase(),
-                Tabla: "Ejes",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getEjesPND = () => {
-    setSelected("Ejes del Plan Nacional de Desarrollo");
-
-    setCatalogoActual("Ejes del Plan Nacional de Desarrollo");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ejePND", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; EjePND: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.EjePND.toUpperCase(),
-                Tabla: "EjesPND",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getEstrategias = () => {
-    setSelected("Estrategias");
-
-    setCatalogoActual("Estrategias");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-estrategia", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; Estrategia: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.Estrategia.toUpperCase(),
-                Tabla: "Estrategias",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getFormulas = () => {
-    setSelected("Fórmulas");
-
-    setCatalogoActual("Fórmulas");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-formula", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; Formula: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.Formula.toUpperCase(),
-                Tabla: "Formulas",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getFechasDeCaptura = () => {
-    setSelected("Fechas de Captura");
-
-    setCatalogoActual("Fechas de captura");
-
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/list-fechaDeCaptura",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: {
-              Id: string;
-              FechaCapturaInicio: string;
-              FechaCapturaFinal: string;
-              Descripcion: string;
-              Tabla: string;
-            }) => {
-              return {
-                Id: item.Id,
-                Desc:
-                  item.FechaCapturaInicio +
-                  " - " +
-                  item.FechaCapturaFinal +
-                  " / " +
-                  item.Descripcion.toUpperCase(),
-                Tabla: "FechasDeCaptura",
-              };
-            }
-          );
-
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getFrecuencias = () => {
-    setSelected("Frecuencias");
-
-    setCatalogoActual("Frecuencias");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-frecuencia", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; Frecuencia: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.Frecuencia.toUpperCase(),
-                Tabla: "Frecuencias",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  // const getInstituciones = () => {
-  //   setSelected("Instituciones");
-
-  //   setCatalogoActual("Instituciones");
-  //   axios
-  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/instituciones", {
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //       params: {
-  //         IdUsuario: localStorage.getItem("IdUsuario"),
-  //         IdEntidad: localStorage.getItem("IdEntidad"),
-  //         Rol: localStorage.getItem("Rol"),
-  //       },
-  //     })
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         let update = r.data.data;
-  //         update = update.map(
-  //           (item: {
-  //             Id: string;
-  //             NombreInstitucion: string;
-  //             Tabla: string;
-  //           }) => {
-  //             return {
-  //               Id: item.Id,
-  //               Desc: item.NombreInstitucion.toUpperCase(),
-  //               Tabla: "Instituciones",
-  //             };
-  //           }
-  //         );
-  //         setDatosTabla(update);
-  //         setDataDescripctionFiltered(update);
-  //       }
-  //     });
-  // };
-  const getLineasDeAccion = () => {
-    setSelected("Lineas de Acción");
-
-    setCatalogoActual("Lineas de acción");
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/list-lineasDeAccion",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; LineaDeAccion: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.LineaDeAccion.toUpperCase(),
-                Tabla: "LineasDeAccion",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getMetasODS = () => {
-    setSelected("Metas ODS");
-
-    setCatalogoActual("Metas ODS");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-metasODS", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; MetaODS: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.MetaODS.toUpperCase(),
-                Tabla: "MetasODS",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getModalidades = () => {
-    setSelected("Modalidades");
-
-    setCatalogoActual("Modalidades");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-modalidad", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; Modalidad: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.Modalidad.toUpperCase(),
-                Tabla: "Modalidades",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getObjetivos = () => {
-    setSelected("Objetivos");
-
-    setCatalogoActual("Objetivos");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivo", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; Objetivo: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.Objetivo.toUpperCase(),
-                Tabla: "Objetivos",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getObjetivosPEENL = () => {
-    setSelected("Objetivos del Plan Estrategico del Estado de Nuevo León");
-
-    setCatalogoActual(
-      "Objetivos del Plan Estrategico del Estado de Nuevo León"
-    );
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivosPEENL",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; ObjetivoPEENL: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.ObjetivoPEENL.toUpperCase(),
-                Tabla: "ObjetivosPEENL",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getObjetivosDS = () => {
-    setSelected("Objetivos Desarrollo Sostenible");
-
-    setCatalogoActual("Objetivos Desarrollo Sostenible");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-objetivoDS", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; ObjetivoDS: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.ObjetivoDS.toUpperCase(),
-                Tabla: "ObjetivosDS",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getPED = () => {
-    setSelected("PED");
-
-    setCatalogoActual("PED");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-ped", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: {
-              Id: string;
-              Eje: string;
-              Tematica: string;
-              Objetivo: string;
-              Estrategia: string;
-              LineaDeAccion: string;
-              ObjetivoDS: string;
-              MetaODS: string;
-              EjePND: string;
-              ObjetivoPEENL: string;
-              Tabla: string;
-            }) => {
-              return {
-                Id: item.Id,
-                Desc: `${item.Eje.toUpperCase()}; ${item.Tematica.toUpperCase()}; ${item.Objetivo.toUpperCase()}; ${item.Estrategia.toUpperCase()}; ${item.LineaDeAccion.toUpperCase()}; ${item.ObjetivoDS.toUpperCase()}; ${item.MetaODS.toUpperCase()}; ${item.EjePND.toUpperCase()}; ${item.ObjetivoPEENL.toUpperCase()}`,
-                Tabla: "PEDs",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getProgramaPresupuestario = () => {
-    setSelected("Programas Presupuestarios");
-
-    setCatalogoActual("Programas Presupuestarios");
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK +
-          "/api/list-programaPresupuestario",
-        {
-          params: {
-            Rol: localStorage.getItem("Rol"),
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: {
-              Id: string;
-              NombrePrograma: string;
-              NombreInstitucion: string;
-              Tabla: string;
-            }) => {
-              return {
-                Id: item.Id,
-                Desc: "Programa: " + item.NombrePrograma.toUpperCase(),
-                // " / Institución: ",
-                //   +item.NombreInstitucion.toUpperCase(),
-                Tabla: "ProgramasPresupuestarios",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  // const getRoles = () => {
-  //   setSelected("Roles");
-
-  //   setCatalogoActual("Roles");
-  //   axios
-  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/roles", {
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //     })
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         let update = r.data.data;
-  //         update = update.map(
-  //           (item: { Id: string; Rol: string; Tabla: string }) => {
-  //             return {
-  //               Id: item.Id,
-  //               Desc: item.Rol.toUpperCase(),
-  //               Tabla: "Roles",
-  //             };
-  //           }
-  //         );
-  //         setDatosTabla(update);
-  //         setDataDescripctionFiltered(update);
-  //       }
-  //     });
-  // };
-
-  const getTematicas = () => {
-    setSelected("Temáticas");
-
-    setCatalogoActual("Temáticas");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-tematica", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; Tematica: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.Tematica.toUpperCase(),
-                Tabla: "Tematicas",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-  // no se usa por eso no agregue el Rol
-  const getTipoDeFormula = () => {
-    setSelected("Tipos de Fórmula");
-
-    setCatalogoActual("Tipos de Fórmula");
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-tipoDeFormula", {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; TipoDeFormula: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.TipoDeFormula.toUpperCase(),
-                Tabla: "TiposDeFormula",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getTipoDeIndicador = () => {
-    setSelected("Tipos de Indicador");
-
-    setCatalogoActual("Tipos de indicador");
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/list-tipoDeIndicador",
-        {
-          params: {
-            Rol: localStorage.getItem("Rol"),
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; TipoDeIndicador: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.TipoDeIndicador.toUpperCase(),
-                Tabla: "TiposDeIndicador",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const getUnidadDeMedida = () => {
-    setSelected("Unidades de Medida");
-
-    setCatalogoActual("Unidades de medida");
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/list-unidadDeMedida",
-        {
-          params: {
-            Rol: localStorage.getItem("Rol"),
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let update = r.data.data;
-          update = update.map(
-            (item: { Id: string; UnidadDeMedida: string; Tabla: string }) => {
-              return {
-                Id: item.Id,
-                Desc: item.UnidadDeMedida.toUpperCase(),
-                Tabla: "UnidadesDeMedida",
-              };
-            }
-          );
-          setDatosTabla(update);
-          setDataDescripctionFiltered(update);
-        }
-      });
-  };
-
-  const [tablaActual, setTablaActual] = React.useState(defSelected);
-  const [catalogoActual, setCatalogoActual] = React.useState("");
-  const [selected, setSelected] = React.useState("");
-  const [descripctionFiltered, setDescripctionFiltered] = useState("");
-
-  const dataFilter = (text: string) => {
-    setDescripctionFiltered(text);
-  };
-
-  const [datosTabla, setDatosTabla] = useState<Array<IDatosTabla>>([]);
-  const [deleteRow, setDeleteRow] = useState<IDatosTabla>();
-  const [modyRow, setModyRow] = useState<IDatosTabla>();
-  const [DataDescripctionFiltered, setDataDescripctionFiltered] = useState<
-    Array<IDatosTabla>
+  const [objetoCatalogo, setObjetoCatalogo] = useState<Array<IObjetoCatalogo>>(
+    []
+  );
+  const [objetoProgramasInstitucionales, setObjetoProgramasInstitucionales] =
+    useState<Array<IObjetoProgramasInstitucionales>>([]);
+  const [objetoPed, setObjetoPed] = useState<Array<IObjetoPed>>([]);
+  const [objetoFechaDeCaptura, setObjetoFechaDeCaptura] = useState<
+    Array<IObjetoFechaDeCaptura>
   >([]);
+  const [objetoBeneficiario, setObjetoBeneficiario] = useState<
+    Array<IObjetoBeneficiario>
+  >([]);
+ 
+  const [catalogoSelected, setCatalogoSelected] = useState<IObjetoCatalogo>(
+    newCatalogo
+  );
+  
+  const [programasISelected, setProgramasISelected] =
+    useState<IObjetoProgramasInstitucionales>(newProgramas);
+    
+  const [pedSelected, setPedSelected] = useState<IObjetoPed>();
+  
+  const [fechaDeCapturaSelected, setFechaDeCapturaSelected] =
+    useState<IObjetoFechaDeCaptura>(newFecha);
+  
+  const [beneficiarioSelected, setBeneficiarioSelected] =
+    useState<IObjetoBeneficiario>(
+      newBeneficiario
+    );
 
-  useEffect(() => {
-    setDataDescripctionFiltered(datosTabla);
-  }, [datosTabla]);
-
-  useEffect(() => {
-    setDataDescripctionFiltered(datosTabla);
-  }, [descripctionFiltered, datosTabla]);
-
-  const filtrarDatos = () => {
-    let Arrayfiltro: IDatosTabla[];
-    Arrayfiltro = [];
-
-    if (descripctionFiltered.length !== 0) {
-      Arrayfiltro = DataDescripctionFiltered;
-    } else {
-      Arrayfiltro = DataDescripctionFiltered;
-    }
-
-    let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
-      if (
-        elemento.Desc.toString()
-          .toLocaleLowerCase()
-          .includes(descripctionFiltered.toLocaleLowerCase())
-      ) {
-        return elemento;
-      }
-    });
-    setDataDescripctionFiltered(ResultadoBusqueda);
-  };
   const [openAdd, setOpenAdd] = useState(false);
-  const [openDel, setOpenDel] = useState(false);
   const [openMody, setOpenMody] = useState(false);
-
+  const [openDel, setOpenDel] = useState(false);
   const [actualizacion, setActualizacion] = useState(0);
+  const [updata, setUpdata] = useState("");
 
   const handleClose = () => {
+    UpdateInfo();
     setOpenAdd(false);
   };
 
@@ -1220,757 +692,236 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     setOpenMody(false);
   };
 
-  // useEffect(() => {
-  //   if (descripctionFiltered !== "") {
-  //     setDataDescripctionFiltered(
-  //       datosTabla.filter((x) =>
-  //         x.Desc.toLowerCase().includes(descripctionFiltered)
-  //       )
-  //     );
-  //   } else {
-  //     setDataDescripctionFiltered(datosTabla);
-  //   }
-  // }, [datosTabla, descripctionFiltered]);
-
-  // useEffect(() => {
-  //   configOptions.map((item) => {
-  //     if (item.Desc === defaultSelection) {
-  //       eval(item.fnc);
-  //     }
-  //   });
-  // }, [actualizacion, configOptions, defaultSelection]);
-
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
   };
 
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  useEffect(() => {
+    UpdateInfo();
+  }, [updata]);
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datosTabla.length) : 0;
-
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
-  ) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const [colorB, setColorB] = useState("#fff");
-  const [rowColorB, setRowColorB] = useState("");
-  const [colorCatalogo, setColorCatalogo] = useState("");
-  const [colorRelaciones, setColorRelaciones] = useState("");
-
-  const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
-      setExpanded(newExpanded ? panel : false);
-      if (panel === "panel1" && newExpanded === true) {
-        setColorCatalogo("#E5C498");
-        setColorRelaciones("");
-      } else if (panel === "panel2" && newExpanded === true) {
-        setColorCatalogo("");
-        setColorRelaciones("#E5C498");
-      } else {
-        setColorCatalogo("");
-        setColorRelaciones("");
-      }
-    };
-
-  const handleChangeFilter = (dato: string) => {
-    setDescripctionFiltered(dato);
+  const UpdateInfo = () => {
+    listaGenericaCatalogos(
+      updata,
+      updata === "PED"
+        ? setObjetoPed
+        : updata === "Programas - Instituciones"
+        ? setObjetoProgramasInstitucionales
+        : updata === "Fechas de Captura"
+        ? setObjetoFechaDeCaptura
+        : updata === "Beneficiarios"
+        ? setObjetoBeneficiario
+        : setObjetoCatalogo
+    );
   };
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    DataDescripctionFiltered.length !== 0 ? setDatosTabla(datosTabla) : null;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [DataDescripctionFiltered]);
-
-  // useEffect(() => {
-
-  //   //getFechasDeCaptura();
-  // }, [actualizacion, configOptions, selected]);
-
-  const evalFunc = (fnc = "") => {
-    eval(fnc !== "" ? fnc : fncSelected);
-  };
-
-  useEffect(() => {
-    if (!openAdd) {
-      evalFunc();
-      // El eval usa el string y lo ejecuta como si fuera codigo al usarlo dentro del useEffect aplica el valor guardado en la funcion evalFunc
-      // que es fncSelected en esta useState se guarda el string de la funcion a usar y al ejecutarse llama al eval y se vuelve a ejecutar la funcion guradada
-      // }else if(!openDel){
-      //   evalFunc()
-      //   // El eval usa el string y lo ejecuta como si fuera codigo al usarlo dentro del useEffect aplica el valor guardado en la funcion evalFunc
-      //   // que es fncSelected en esta useState se guarda el string de la funcion a usar y al ejecutarse llama al eval y se vuelve a ejecutar la funcion guradada
-    }
-  }, [openAdd]);
-
-  useEffect(() => {
-    if (!openDel) {
-      evalFunc();
-      // El eval usa el string y lo ejecuta como si fuera codigo al usarlo dentro del useEffect aplica el valor guardado en la funcion evalFunc
-      // que es fncSelected en esta useState se guarda el string de la funcion a usar y al ejecutarse llama al eval y se vuelve a ejecutar la funcion guradada
-    }
-  }, [openDel]);
-
-  useEffect(() => {
-    if (!openMody) {
-      evalFunc();
-      // El eval usa el string y lo ejecuta como si fuera codigo al usarlo dentro del useEffect aplica el valor guardado en la funcion evalFunc
-      // que es fncSelected en esta useState se guarda el string de la funcion a usar y al ejecutarse llama al eval y se vuelve a ejecutar la funcion guradada
-    }
-  }, [openMody]);
-
-  const borrar = (row: string, Id: string, tabla: string) => {
-    setOpenDel(true);
-  };
+    console.log("objetoBeneficiario: ", objetoBeneficiario, objetoCatalogo);
+  }, [
+    objetoCatalogo,
+    objetoPed,
+    objetoProgramasInstitucionales,
+    objetoFechaDeCaptura,
+    objetoBeneficiario,
+  ]);
 
   return (
-    <Grid container justifyContent={"space-between"}>
+    //Grid Padre con tamaño de la pantalla a usar
+    <Grid
+      justifyContent={"center"}
+      display={"flex"}
+      container
+      height={"93vh"}
+      alignItems={"center"}
+      item
+      xl={12}
+      lg={12}
+      md={12}
+      sm={12}
+      xs={12}
+      sx={{ backgroundColor: "white" }}
+    >
+      {/* Grid de la lista de configuracion */}
       <Grid
-        justifyContent={"center"}
-        display={"flex"}
-        container
-        height={"93vh"}
-        alignItems={"center"}
         item
-        xl={12}
-        lg={12}
-        md={12}
+        xl={2}
+        lg={2}
+        md={2}
         sm={12}
         xs={12}
-        sx={{ backgroundColor: "white" }}
+        sx={{ display: "flex", overflow: "auto", height: "100%" }}
       >
-        <Grid item container sx={{ height: "100%", display: "flex" }}>
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            md={3}
-            sm={3}
-            xs={3}
-            sx={{
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              "@media (max-width: 600px)": {
-                flexDirection: "initial", // Pantalla extra pequeña (xs y sm)
-              },
-              "@media (min-width: 601px) and (max-width: 960px)": {
-                flexDirection: "initial", // Pantalla pequeña (md)
-              },
-              // overflow: "auto"
-            }}
-          >
-            <List
-              sx={{
-                height: "100%",
-                pb: 2,
-                pt: 2,
-
-                borderRight: "solid 1px",
-                overflow: "auto",
-                borderRadius: ".4vw",
-                borderColor: "#BCBCBC",
-                "&::-webkit-scrollbar": {
-                  width: ".3vw",
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "rgba(0,0,0,.5)",
-                  outline: "1px solid slategrey",
-                  borderRadius: 10,
-                },
-              }}
-            >
-              <Accordion
-                expanded={expanded === "panel1"}
-                onChange={handleChange("panel1")}
-              >
-                <AccordionSummary
-                  aria-controls="panel1d-content"
-                  id="panel1d-header"
-                  sx={{
-                    backgroundColor: colorCatalogo,
-                    "&:hover": {
-                      backgroundColor: "#cbcbcb",
-                    },
-                  }}
-                >
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                    Catálogos
-                  </Typography>
-                </AccordionSummary>
-
-                {configOptions.map((item) => {
-                  return (
-                    <Grid key={item.id} sx={{}}>
-                      {item.tipo === "Catalogos" ? (
-                        <AccordionDetails sx={{ padding: 0 }}>
-                          <ListItemButton
-                            key={item.id}
-                            dense
-                            sx={{
-                              "&.Mui-selected ": {
-                                backgroundColor: "#c4a57b",
-                              },
-                              "&.Mui-selected:hover": {
-                                backgroundColor: "#cbcbcb",
-                              },
-                            }}
-                            selected={selected === item.Desc ? true : false}
-                            onClick={() => {
-                              evalFunc(item.fnc);
-                              setFncSelected(item.fnc);
-                              setTablaActual(item.Tabla);
-                              setDefaultSelection(item.Desc);
-                            }}
-                          >
-                            <Typography
-                              sx={{
-                                fontFamily: "MontserratMedium",
-                                "@media (max-width: 600px)": {
-                                  fontSize: "3vw", // Pantalla extra pequeña (xs y sm)
-                                },
-                                "@media (min-width: 601px) and (max-width: 960px)":
-                                  {
-                                    fontSize: "3vw", // Pantalla pequeña (md)
-                                  },
-                              }}
-                            >
-                              {item.Desc}
-                            </Typography>
-                          </ListItemButton>
-                          <Divider />
-                        </AccordionDetails>
-                      ) : (
-                        ""
-                      )}
-                    </Grid>
-                  );
-                })}
-              </Accordion>
-              <Accordion
-                disableGutters
-                elevation={0}
-                expanded={expanded === "panel2"}
-                onChange={handleChange("panel2")}
+        <List sx={{}}>
+          {configOptions.map((item) => {
+            return (
+              <ListItemButton
+                //className="aceptar"
                 sx={{
-                  position: "unset",
-                  border: "none",
-                  boxShadow: "none",
-                  maxWidth: 720,
-                  margin: "12 0",
-                  "&:before": {
-                    display: "none",
-                    border: "none",
+                  "&.Mui-selected": {
+                    backgroundColor: "#af8c55",
+                    color:
+                      item.Desc.toUpperCase() === opcionCatalogo
+                        ? "white"
+                        : "inherit",
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#af8c55",
+                    color:
+                      item.Desc.toUpperCase() === opcionCatalogo
+                        ? "white"
+                        : "inherit",
                   },
                 }}
+                onClick={() => {
+                  setObjetoPed([]);
+                  setObjetoProgramasInstitucionales([]);
+                  setObjetoCatalogo([]);
+                  setObjetoFechaDeCaptura([]);
+                  setObjetoBeneficiario([]);
+
+                  setCatalogoSelected(newCatalogo)
+                  setProgramasISelected(newProgramas)
+                  setPedSelected(newPed)
+                  setFechaDeCapturaSelected(newFecha)
+                  setBeneficiarioSelected(newBeneficiario)
+
+                  setOpcionCatalogo(item.Desc.toUpperCase());
+                  setUpdata(item.Desc);
+                }}
+                selected={item.Desc.toUpperCase() === opcionCatalogo}
               >
-                <AccordionSummary
-                  aria-controls="panel2d-content"
-                  id="panel2d-header"
-                  sx={{
-                    content: {
-                      flexGrow: 0,
-                    },
-                    backgroundColor: colorRelaciones,
-                    "&:hover": {
-                      backgroundColor: "#cbcbcb",
-                    },
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratMedium",
-                      "@media (max-width: 600px)": {
-                        fontSize: "3vw", // Pantalla extra pequeña (xs y sm)
-                      },
+                {item.Desc.toUpperCase()}
+              </ListItemButton>
+            );
+          })}
+        </List>
+      </Grid>
 
-                      "@media (min-width: 601px) and (max-width: 960px)": {
-                        fontSize: "3vw", // Pantalla pequeña (md)
-                      },
-                    }}
-                  >
-                    Relaciones
-                  </Typography>
-                </AccordionSummary>
+      <Grid
+        item
+        container
+        xl={10}
+        lg={10}
+        md={10}
+        sm={12}
+        xs={12}
+        sx={{ display: "flex", height: "93vh" }}
+      >
+        <Grid
+          item
+          container
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            height: "13vh",
+            alignItems: "center",
+          }}
+        >
+          <Grid
+            item
+            xl={8}
+            lg={8}
+            md={8}
+            sm={8}
+            xs={8}
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
+            <Tooltip
+              //sx={{ fontFamily: "Montserrat-Bold"}}
 
-                {configOptions.map((item) => {
-                  return (
-                    <Grid key={item.id} sx={{}}>
-                      {item.tipo === "Relaciones" ? (
-                        <AccordionDetails sx={{ padding: 0 }}>
-                          <ListItemButton
-                            key={item.id}
-                            sx={{
-                              "&.Mui-selected ": {
-                                backgroundColor: "#c4a57b",
-                              },
-                              "&.Mui-selected:hover": {
-                                backgroundColor: "#cbcbcb",
-                              },
-                            }}
-                            selected={selected === item.Desc ? true : false}
-                            onClick={() => {
-                              eval(item.fnc);
-                              setTablaActual(item.Tabla);
-                              setDefaultSelection(item.Desc);
-                            }}
-                          >
-                            <Typography
-                              sx={{
-                                fontFamily: "MontserratMedium",
-                                "@media (max-width: 600px)": {
-                                  fontSize: "3vw", // Pantalla extra pequeña (xs y sm)
-                                },
-
-                                "@media (min-width: 601px) and (max-width: 960px)":
-                                  {
-                                    fontSize: "3vw", // Pantalla pequeña (md)
-                                  },
-                              }}
-                            >
-                              {item.Desc}
-                            </Typography>
-                          </ListItemButton>
-                          <Divider />
-                        </AccordionDetails>
-                      ) : (
-                        ""
-                      )}
-                    </Grid>
-                  );
-                })}
-              </Accordion>
-            </List>
+              title={opcionCatalogo}
+            >
+              <Typography
+                fontFamily={"'Montserrat', sans-serif"}
+                sx={{
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  textAlign: "center",
+                  fontSize: [30, 30, 30, 30, 40], // Tamaños de fuente para diferentes breakpoints
+                  color: "#AF8C55",
+                }}
+              >
+                {opcionCatalogo}
+              </Typography>
+            </Tooltip>
           </Grid>
 
           <Grid
             item
-            container
-            xl={9}
-            lg={9}
-            md={9}
-            sm={9}
-            xs={9}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-
-              justifyContent: "center",
-            }}
+            xl={2}
+            lg={2}
+            md={2}
+            sm={2}
+            xs={2}
+            sx={{ display: "flex", justifyContent: "center" }}
           >
-            <Grid
-              item
-              container
-              xl={10}
-              lg={10}
-              md={10}
-              sm={10}
-              xs={10}
-              sx={{ justifyContent: "flex-end", display: "flex" }}
-            >
-              <Grid
-                item
-                xl={8}
-                lg={8}
-                md={8}
-                sm={8}
-                xs={8}
-                sx={{
-                  height: "10%",
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                  borderRadius: "30px",
-                  background: "",
-                  mt: 5,
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratSemiBold",
-                    fontSize: "1.2vw",
-                    textAlign: "center",
-                    "@media (max-width: 600px)": {
-                      fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
-                    },
-
-                    "@media (min-width: 601px) and (max-width: 960px)": {
-                      fontSize: "1.5vw", // Pantalla pequeña (md)
-                    },
-                  }}
-                >
-                  {catalogoActual.toLocaleUpperCase()}
-                </Typography>
-              </Grid>
-
-              <Grid
-                item
-                display={"flex"}
-                sx={{
-                  background: "",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                }}
-                xl={2}
-                lg={2}
-                md={2}
-                sm={2}
-                xs={2}
-              >
-                <Grid
-                  title="Agregar"
-                  borderRadius={100}
-                  sx={{
-                    width: 50,
-                    height: 50,
-                    backgroundColor: "#c4a57b",
-
-                    ":hover": {
-                      backgroundColor: "#ffdcac",
-                    },
-
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <IconButton onClick={() => setOpenAdd(true)}>
-                    <AddIcon
-                      sx={{
-                        width: 50,
-                        height: 50,
-                      }}
-                    />
-                  </IconButton>
-                  <AddDialogCatalogo
-                    open={openAdd}
-                    handleClose={handleClose}
-                    catalogo={tablaActual}
-                    tabla={tablaActual}
-                    select={selected}
-                    actualizado={actualizaContador}
-                  />
-                </Grid>
-
-                <Grid
-                  title="Exportar a excell"
-                  borderRadius={100}
-                  sx={{
-                    width: 50,
-                    height: 50,
-                    backgroundColor: "#c4a57b",
-
-                    ":hover": {
-                      backgroundColor: "#ffdcac",
-                    },
-
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <CSVCatalogo tabla={tablaActual} datos={datosTabla} />
-                </Grid>
-              </Grid>
-            </Grid>
-
-            <Grid
-              item
-              xl={10}
-              lg={10}
-              md={10}
-              sm={10}
-              xs={10}
-              sx={{
-                height: "80%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
-              <Grid
-                sx={{
-                  display: "flex",
-                  backgroundColor: "#ccc",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  width: "100%",
-                  height: "4vh",
-                  borderTopRightRadius: 10,
-                  borderTopLeftRadius: 10,
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratSemiBold",
-                    ml: "1vw",
-                    fontSize: ".9vw",
-                    "@media (max-width: 600px)": {
-                      fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
-                    },
-
-                    "@media (min-width: 601px) and (max-width: 960px)": {
-                      fontSize: "1.5vw", // Pantalla pequeña (md)
-                    },
-                  }}
-                >
-                  Descripción
-                </Typography>
-
-                <Grid
-                  sx={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    display: "flex",
-                    width: "60%",
-                    backgroundColor: "#EBEBEB",
-                    border: 1,
-                    borderRadius: 10,
-                    borderColor: "#ccc",
-                  }}
-                >
-                  <Input
-                    disableUnderline
-                    // size="small"
-                    placeholder="Buscar"
-                    name="InSearch"
-                    sx={{
-                      backgroundColor: "#EBEBEB",
-                      fontFamily: "MontserratLight",
-                      borderRadius: 100,
-                      width: "34vw",
-                    }}
-                    onChange={(v) => handleChangeFilter(v.target.value)}
-                    onKeyPress={(ev) => {
-                      if (ev.key === "Enter") {
-                        filtrarDatos();
-                        ev.preventDefault();
-                        return false;
-                      }
-                    }}
-                  />
-                  <SearchIcon sx={{ color: "action.active", mr: 1 }} />
-                </Grid>
-
-                <Typography
-                  sx={{
-                    fontFamily: "MontserratSemiBold",
-                    mr: "1vw",
-                    fontSize: ".9vw",
-                    "@media (max-width: 600px)": {
-                      fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
-                    },
-
-                    "@media (min-width: 601px) and (max-width: 960px)": {
-                      fontSize: "1.5vw", // Pantalla pequeña (md)
-                    },
-                  }}
-                >
-                  Acciones
-                </Typography>
-              </Grid>
-
-              <TableContainer
-                component={Paper}
-                sx={{
-                  width: "100%",
-                  height: "60vh",
-                  boxShadow: 10,
-                  mt: 1,
-                  "&::-webkit-scrollbar": {
-                    width: ".1vw",
-                    height: ".4vh",
-                  },
-                  "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "rgba(0,0,0,.5)",
-                    outline: "1px solid slategrey",
-                    borderRadius: 10,
-                  },
-                }}
-              >
-                <Table
-                  //sx={{ maxWidth: 600 }}
-                  stickyHeader
-                  aria-label="sticky table"
-                >
-                  <TableBody>
-                    {(rowsPerPage > 0
-                      ? DataDescripctionFiltered.slice(
-                          page * rowsPerPage,
-                          page * rowsPerPage + rowsPerPage
-                        )
-                      : DataDescripctionFiltered
-                    ).map((row) => {
-                      if (row.Desc === "Selecciona") {
-                        return null;
-                      } else {
-                        return (
-                          <TableRow key={row.Id || Math.random()}>
-                            <TableCell
-                              component="th"
-                              //  align="center"
-                              sx={
-                                row.Id === rowColorB
-                                  ? { backgroundColor: colorB }
-                                  : null
-                              }
-                              scope="row"
-                              width="100%"
-                              onClick={() => {
-                                setRowColorB(row.Id);
-                                setColorB("#E7E7E7");
-                              }}
-                            >
-                              <Typography
-                                sx={{
-                                  fontFamily: "MontserratRegular",
-                                  fontSize: "1vw",
-                                  "@media (max-width: 600px)": {
-                                    fontSize: "2vw", // Pantalla extra pequeña (xs y sm)
-                                  },
-
-                                  "@media (min-width: 601px) and (max-width: 960px)":
-                                    {
-                                      fontSize: "1.5vw", // Pantalla pequeña (md)
-                                    },
-                                }}
-                              >
-                                {row?.Desc}
-                              </Typography>
-                            </TableCell>
-
-                            <TableCell
-                              component="th"
-                              sx={
-                                row.Id === rowColorB
-                                  ? { backgroundColor: colorB }
-                                  : null
-                              }
-                              scope="row"
-                              width="100%"
-                              onClick={() => {
-                                setRowColorB(row.Id);
-                                setColorB("#E7E7E7");
-                              }}
-                            >
-                              <Grid sx={{ display: "flex" }}>
-                                {selected ===
-                                "Programas - Instituciones" ? null : (
-                                  <Tooltip title="Editar">
-                                    <IconButton
-                                      onClick={() => {
-                                        setModyRow({
-                                          Id: row.Id,
-                                          Desc: row.Desc,
-                                          fnc: row.fnc,
-                                          Tabla: row.Tabla,
-                                          selected: row.selected,
-                                        });
-
-                                        setOpenMody(true);
-                                      }}
-                                    >
-                                      <EditIcon
-                                        sx={[
-                                          {
-                                            "&:hover": {
-                                              color: "blue",
-                                            },
-                                          },
-                                        ]}
-                                      />
-                                    </IconButton>
-                                  </Tooltip>
-                                )}
-                                <IconButton
-                                  onClick={() => {
-                                    setDeleteRow({
-                                      Id: row.Id,
-                                      Desc: row.Desc,
-                                      fnc: row.fnc,
-                                      Tabla: row.Tabla,
-                                      selected: row.selected,
-                                    });
-
-                                    setOpenDel(true);
-                                  }}
-                                >
-                                  <DeleteIcon
-                                    sx={[
-                                      {
-                                        "&:hover": {
-                                          color: "red",
-                                        },
-                                      },
-                                    ]}
-                                  />
-                                </IconButton>
-                              </Grid>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      }
-                    })}
-                    {emptyRows > 0 && (
-                      <TableRow style={{ height: 53 * emptyRows }}>
-                        <TableCell colSpan={6} />
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-
-              <Grid
-                container
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  mt: 1,
-                }}
-                direction={"row"}
-              >
-                <Grid item>
-                  <TablePagination
-                    rowsPerPageOptions={[
-                      5,
-                      10,
-                      25,
-                      { label: "Todos", value: -1 },
-                    ]}
-                    count={DataDescripctionFiltered.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    component="div"
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                    ActionsComponent={TablePaginationActions}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
+            <ButtonAdd agregar={true} handleOpen={() => setOpenAdd(true)} />
           </Grid>
         </Grid>
+
+        <Grid
+          item
+          container
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{ display: "flex", height: "80vh" }}
+        >
+         
+
+          {opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES" ? (
+            <DataGridTable
+              id={(row: any) => row.Id}
+              columns={columsProgramasInstituciones}
+              rows={objetoProgramasInstitucionales}
+              camposCsv={["descripcion"]}
+              exportTitle={"Columnas"}
+            />
+          ) : opcionCatalogo.toUpperCase() === "PED" ? (
+            <DataGridTable
+              id={(row: any) => row.Id || Math.random}
+              columns={columsPed}
+              rows={objetoPed}
+              camposCsv={[]}
+              exportTitle={"Columnas"}
+            />
+          ) :opcionCatalogo.toUpperCase() === "BENEFICIARIOS" ? (
+            <DataGridTable
+              id={(row: any) => row.Id || Math.random}
+              columns={columsBeneficiario}
+              rows={objetoBeneficiario}
+              camposCsv={[]}
+              exportTitle={"Columnas"}
+            />
+          ) :  opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA" ? (
+            <DataGridTable
+              id={(row: any) => row.Id || Math.random}
+              columns={columsFechaDeCaptura}
+              rows={objetoFechaDeCaptura}
+              camposCsv={[]}
+              exportTitle={"Columnas"}
+            />
+          ) :  <DataGridTable
+          id={(row: any) => row.Id || Math.random}
+          columns={columsCatalogo}
+          rows={objetoCatalogo}
+          camposCsv={[]}
+          exportTitle={"Columnas"}
+        />}
+
+       
+        </Grid>
       </Grid>
-      {selected === "Programas - Instituciones" ||
-      selected === "Instituciones - Unidades" ? null : (
-        <ModifyDialogCatalogos
+
+      {/* <ModifyDialogCatalogos
           descripcion={modyRow?.Desc || ""}
           id={modyRow?.Id || ""}
           tabla={modyRow?.Tabla || ""}
@@ -1978,18 +929,43 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           open={openMody}
           handleCloseMody={handleCloseMody}
         />
-      )}
-      {openDel ? (
-        <DeleteDialogCatalogos
-          deleteText={deleteRow?.Desc || ""}
-          id={deleteRow?.Id || ""}
-          tabla={deleteRow?.Tabla || ""}
-          actualizado={actualizaContador}
-          open={openDel}
-          // setOpenDel={setOpenDel}
-          handleCloseDel={handleCloseDel}
-        />
-      ) : null}
+    
+     
+         */}
+
+      <DeleteDialogCatalogos
+        deleteText={
+          catalogoSelected?.descripcion !==""? catalogoSelected?.descripcion :
+          fechaDeCapturaSelected?.descripcion !==""? fechaDeCapturaSelected?.descripcion :
+          beneficiarioSelected?.descripcion !==""? beneficiarioSelected?.descripcion :
+          programasISelected?.NombrePrograma !==""?programasISelected?.NombrePrograma:
+          "Objeto Ped"
+        }
+        Id={
+          catalogoSelected?.Id !==""? catalogoSelected?.Id :
+          fechaDeCapturaSelected?.Id !==""? fechaDeCapturaSelected?.Id :
+          beneficiarioSelected?.Id !==""? beneficiarioSelected?.Id :
+          programasISelected?.Id !==""?programasISelected?.Id:
+          pedSelected?.Id ||""
+        }
+
+        tabla={opcionCatalogo || ""}
+        actualizado={actualizaContador}
+        open={openDel}
+        //setOpenDel={setOpenDel}
+        handleCloseDel={handleCloseDel}
+        UpdateInfo={UpdateInfo}
+      />
+
+      <AddDialogCatalogo
+        open={openAdd}
+        handleClose={handleClose}
+        catalogo={opcionCatalogo || ""}
+        tabla={opcionCatalogo || ""}
+        select={updata}
+
+        //UpdateInfo ={UpdateInfo}
+      />
     </Grid>
   );
 };
