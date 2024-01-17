@@ -1,9 +1,9 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { MenuItem } from "./AyudaModal";
-import { alertaError } from "../../components/genericComponents/Alertas";
+import { alertaError, alertaExito } from "../../components/genericComponents/Alertas";
 
-export const getFileByName= async(ROUTE:string,NOMBRE:string,setState:Function)=>{
+export const getFileByName= async(ROUTE:string,NOMBRE:string,setState:Function,visualize:Function,)=>{
   await axios
   .post(
     process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/GetByName",
@@ -19,11 +19,10 @@ export const getFileByName= async(ROUTE:string,NOMBRE:string,setState:Function)=
     }
   )
   .then(({ data }) => {
-    console.log(data);
-    
+    visualize(false)
     setState(data.RESPONSE.FILE);
   })
-  .catch((r) => {alertaError("Ocurrio un problema al obtener el archivo")});
+  .catch((r) => {alertaError("Ocurrio un problema al obtener el archivo"); visualize(false);});
 };
 
 export const saveFile = (
@@ -169,12 +168,7 @@ export const createAyuda = (data: any, handleClose: Function) => {
       },
     })
     .then((r) => {
-      handleClose();
-      Swal.fire({
-        confirmButtonColor: "#15212f",
-        icon: "success",
-        title: "Éxito",
-      });
+      alertaExito(handleClose)
     }
     ).catch((r) => { });
 };
@@ -223,20 +217,9 @@ export const deleteAyuda = async(IdPreguntaFrecuente:string) => {
     },
   })
     .then((r) => {
-      //handleClose();
-      Swal.fire({ 
-        confirmButtonColor: "#15212f",
-          icon: "success",
-          title: "Éxito",
-          text: "El archivo se ha eliminado exitosamente",
-        });
+      alertaExito(()=>{},"El archivo se ha eliminado exitosamente")
     })
     .catch(() => {
-      //alertaError();
-      Swal.fire({
-        confirmButtonColor: "#15212f",
-          icon: "error",
-          //title: "No se pudo editar la autorizacion.",
-        });
+      alertaError();
     });
 };

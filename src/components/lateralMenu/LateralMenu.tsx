@@ -1,60 +1,55 @@
-import { useEffect, useState } from "react";
-import Avatar from "@mui/material/Avatar";
-import logo from "../../assets/logos/logo.svg";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import Collapse from "@mui/material/Collapse";
-import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import CampaignIcon from "@mui/icons-material/Campaign";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import CampaignIcon from "@mui/icons-material/Campaign";
+import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 import GroupIcon from "@mui/icons-material/Group";
-import { queries } from "../../queries";
-import { Header } from "../../components/header/Header";
-import NotificationsPanel from "../notifications/NotificationsPanel";
-import {
-  Dialog,
-  TextField,
-  Button,
-  Typography,
-  useTheme,
-  useMediaQuery,
-  Divider,
-  AppBar,
-  Toolbar,
-  Grid,
-  Tooltip,
-  IconButton,
-  Drawer,
-  MenuItem,
-  Menu,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { logout } from "../../funcs/validation";
-import LockResetIcon from "@mui/icons-material/LockReset";
-import axios from "axios";
-import Swal from "sweetalert2";
-import { lstLg, lstMd, lstSm, lstXl, lstXs } from "./stylesLateralMenu";
-import { setResumeDefaultMIR } from "../../screens/mir/MIR";
-import { setResumeDefaultFT } from "../../screens/fichatecnica/FichaTecnica";
-import { setResumeDefaultMA } from "../../screens/metaAnual/MetaAnual";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import InfoIcon from '@mui/icons-material/Info';
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import LockResetIcon from "@mui/icons-material/LockReset";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import {
+  AppBar,
+  Button,
+  Dialog,
+  Divider,
+  Drawer,
+  Grid,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  TextField,
+  Toolbar,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Collapse from "@mui/material/Collapse";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import logo from "../../assets/logos/logo.svg";
+import { Header } from "../../components/header/Header";
+import { logout } from "../../funcs/validation";
+import { queries } from "../../queries";
+import NotificationsPanel from "../notifications/NotificationsPanel";
+import { lstLg, lstMd, lstSm, lstXl, lstXs } from "./stylesLateralMenu";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import { getAyuda } from "../../screens/Ayuda/ServicesAyuda";
 import { VisualizadorAyudas } from "../../screens/Ayuda/VisualizadorAyudas";
 //import { getAllusers } from "../../screens/config/GetUsuarios";
-import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
 import HelpIcon from "@mui/icons-material/Help";
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 
 interface MenuObject {
   Id: string;
