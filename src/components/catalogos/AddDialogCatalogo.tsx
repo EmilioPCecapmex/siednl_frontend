@@ -65,44 +65,7 @@ export const AddDialogCatalogo = ({
     CreatePorCatalogo(descripcion, tabla, handleClose, Idb, Tipob, Tipo);
   };
 
-  // const CreatePorCatalogo = () => {
-  //   axios
-  //     .post(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/create-catalogo",
-  //       {
-  //         Descripcion: descripcion,
-  //         Tabla: tabla.toLocaleLowerCase(),
-  //         CreadoPor: localStorage.getItem("IdUsuario"),
-  //         Rol: localStorage.getItem("Rol"),
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-
-  //       alertaExito(() =>(handleClose()),"Catalogo creado")
-
-  //     })
-  //     .catch((err) =>
-  //       Toast.fire({
-  //         icon: "error",
-  //         title: err.response.data.result.error,
-  //       })
-  //     );
-  // };
-
-  // useEffect(() => {
-  //   setTablaActual(datosTabla)
-  // }, [datosTabla])
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  //   actualizado();
-  // };
-
+  
   const [Idb, setIdb] = React.useState("");
   const [Tipob, setTipoB] = React.useState("");
   const [Tipo, setTipo] = React.useState("");
@@ -110,6 +73,7 @@ export const AddDialogCatalogo = ({
   const [descripcionConac, setDescripcionConac] = React.useState("");
   const [descripcionConsecutivo, setDescripcionConsecutivo] =
     React.useState("");
+
   const [programa, setPrograma] = React.useState("");
   let today = new Date();
   let year = today.getFullYear();

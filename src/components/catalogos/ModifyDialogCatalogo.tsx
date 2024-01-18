@@ -1,5 +1,3 @@
-
-
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import DialogActions from "@mui/material/DialogActions";
@@ -23,20 +21,21 @@ import {
 } from "@mui/material";
 import { queries } from "../../queries";
 import { log } from "console";
+import { ModifyPorCatalogo } from "./AxiosCatalogo";
 
 export const ModifyDialogCatalogos = ({
   open,
-  id,
+  Id,
   tabla,
   descripcion,
-  actualizado,
+
   handleCloseMody,
 }: {
   open: boolean;
   tabla: string;
-  id: string;
+  Id: string;
   descripcion: string;
-  actualizado: Function;
+
   handleCloseMody: Function;
 }) => {
   //const [open, setOpen] = React.useState(false);
@@ -65,6 +64,12 @@ export const ModifyDialogCatalogos = ({
     handleCloseMody();
   };
 
+  const opendialog = () => {
+    //handleClose();
+    //actualizado();
+    ModifyPorCatalogo(Id, tabla, nuevaDescripcion, handleCloseMody);
+  };
+
   let today = new Date();
   let year = today.getFullYear();
   let month = today.getMonth();
@@ -90,87 +95,19 @@ export const ModifyDialogCatalogos = ({
     }
 
     setFechaCaptura(year + "-" + monthS + "-" + dateS);
-  }, [actualizado]);
+  }, []);
 
   const [nuevaDescripcion, setnuevaDescripcion] = React.useState("");
   const [fechaCaptura, setFechaCaptura] = React.useState(
     year + "-" + monthS + "-" + dateS
   );
 
-  const ModifyPorCatalogo = () => {
-    if (tabla === "ProgramasPresupuestarios") {
-      axios
-        .put(
-          process.env.REACT_APP_APPLICATION_BACK +
-            "/api/modify-programaPresupuestario",
-          {
-            IdProgramaPresupuestario: id,
-            NuevoProgramaPresupuestario: nuevaDescripcion,
-            //IdEntidad: institution,
-            ModificadoPor: localStorage.getItem("IdUsuario"),
-            Rol: localStorage.getItem("Rol"),
-          },
-          {
-            headers: {
-              Authorization: localStorage.getItem("jwtToken") || "",
-            },
-          }
-        )
-        .then((r) => {
-          actualizado();
-          cerrardialog();
-          Toast.fire({
-            icon: "success",
-            title: "!Elemento modificado con éxito!",
-          });
-        })
-        .catch((err) =>
-          Toast.fire({
-            icon: "error",
-            title: "Permisos denegados",
-          })
-        );
-    } else {
-      axios
-        .put(
-          process.env.REACT_APP_APPLICATION_BACK + "/api/modify-catalogo",
-          {
-            Id: id,
-            NuevaDescripcion: nuevaDescripcion,
-            Tabla: tabla,
-            ModificadoPor: localStorage.getItem("IdUsuario"),
-            Rol: localStorage.getItem("Rol"),
-          },
-          {
-            headers: {
-              Authorization: localStorage.getItem("jwtToken") || "",
-            },
-          }
-        )
-        .then((r) => {
-          actualizado();
-
-          cerrardialog();
-          Toast.fire({
-            icon: "success",
-            title: "!Elemento modificado con éxito!",
-          });
-        })
-        .catch((err) =>
-          Toast.fire({
-            icon: "error",
-            title: "Permisos denegados",
-          })
-        );
-    }
-  };
-
   const ModifyPorCatalogoFechas = () => {
     axios
       .put(
         process.env.REACT_APP_APPLICATION_BACK + "/api/modify-fechaDeCaptura",
         {
-          IdFechaDeCaptura: id,
+          IdFechaDeCaptura: Id,
           NuevoDescripcion: nuevaDescripcion,
           //Se agregaron 3 campos nuevos pero esto se hizo en otro accios esto se va a modificar
           NuevoFechaCapturaInicio: fechaCaptura,
@@ -186,7 +123,6 @@ export const ModifyDialogCatalogos = ({
         }
       )
       .then((r) => {
-        actualizado();
         cerrardialog();
       })
       .catch((err) =>
@@ -203,7 +139,7 @@ export const ModifyDialogCatalogos = ({
         process.env.REACT_APP_APPLICATION_BACK +
           "/api/modify-programaPresupuestario",
         {
-          IdProgramaPresupuestario: id,
+          IdProgramaPresupuestario: Id,
           NuevoProgramaPresupuestario: nuevaDescripcion,
           //IdEntidad: institution,
           ModificadoPor: localStorage.getItem("IdUsuario"),
@@ -216,7 +152,6 @@ export const ModifyDialogCatalogos = ({
         }
       )
       .then((r) => {
-        actualizado();
         cerrardialog();
       })
       .catch((err) =>
@@ -253,7 +188,7 @@ export const ModifyDialogCatalogos = ({
     { Id: "", NombreInstitucion: "" },
   ]);
 
-  if (tabla === "ProgramasPresupuestarios") {
+  if (tabla === "PROGRAMAS PRESUPUESTARIOS") {
     return (
       <Grid>
         <Dialog open={open} onClose={cerrardialog} fullWidth>
@@ -338,13 +273,8 @@ export const ModifyDialogCatalogos = ({
               justifyContent: "center",
             }}
           >
-            <Button
-              className="cacelar"
-              onClick={cerrardialog}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium",  }}
-              >
+            <Button className="cacelar" onClick={cerrardialog}>
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
                 Cancelar
               </Typography>
             </Button>
@@ -354,9 +284,7 @@ export const ModifyDialogCatalogos = ({
               onClick={ModifyPorCatalogoProgramasP}
               autoFocus
             >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium",  }}
-              >
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
                 De Acuerdo
               </Typography>
             </Button>
@@ -364,108 +292,7 @@ export const ModifyDialogCatalogos = ({
         </Dialog>
       </Grid>
     );
-  } else if (tabla === "FechasDeCaptura") {
-    return (
-      <Grid sx={{ display: "flex" }}>
-        <Dialog open={open} onClose={cerrardialog} fullWidth>
-          <Grid
-            sx={{
-              width: "100%",
-              height: "5vh",
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              borderBottom: 0.5,
-              borderColor: "#ccc",
-              boxShadow: 1,
-            }}
-          >
-            <Typography
-              sx={{
-                fontFamily: "MontserratSemiBold",
-                width: "90%",
-                fontSize: [10, 15, 15, 15, 15],
-                textAlign: "center",
-              }}
-            >
-              Editar Elemento
-            </Typography>
-          </Grid>
-
-          <DialogContent
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-evenly",
-            }}
-          >
-            <TextField
-              label={"Descripcion"}
-              variant="outlined"
-              onChange={(v) => setnuevaDescripcion(v.target.value)}
-              sx={{ mt: "2vh" }}
-            />
-            <TextField
-              variant="outlined"
-              onChange={(x) => setFechaCaptura(x.target.value)}
-              multiline={descripcion.length < 200 ? false : true}
-              defaultValue={fechaCaptura}
-              sx={
-                descripcion.length < 200 ? { width: "60%" } : { width: "80%" }
-              }
-              style={{ marginTop: "2vh" }}
-              type="date"
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratLight",
-                },
-              }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              rows={3}
-            />
-          </DialogContent>
-
-          <DialogActions
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Button
-             // sx={queries.buttonCancelarSolicitudInscripcion}
-             className="cancelar"
-              onClick={cerrardialog}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium",  }}
-              >
-                Cancelar
-              </Typography>
-            </Button>
-
-            <Button
-              //sx={queries.buttonContinuarSolicitudInscripcion}
-              onClick={ModifyPorCatalogoFechas}
-              className="aceptar"
-              autoFocus
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium",  }}
-              >
-                De Acuerdo
-              </Typography>
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Grid>
-    );
-  } else if (tabla === "PEDs") {
+  } else if (tabla === "PED") {
     return (
       <Grid>
         <Dialog open={open} onClose={cerrardialog}>
@@ -481,15 +308,9 @@ export const ModifyDialogCatalogos = ({
           </DialogContent>
 
           <DialogActions onClick={cerrardialog}>
-            <Button className="cancelar">
-              Cancelar
-            </Button>
+            <Button className="cancelar">Cancelar</Button>
 
-            <Button
-              className="aceptar"
-              onClick={ModifyPorCatalogo}
-              autoFocus
-            >
+            <Button className="aceptar" onClick={opendialog} autoFocus>
               De Acuerdo
             </Button>
           </DialogActions>
@@ -497,6 +318,7 @@ export const ModifyDialogCatalogos = ({
       </Grid>
     );
   } else {
+    console.log("else: ", tabla);
     return (
       <Grid>
         <Dialog open={open} onClose={cerrardialog} fullWidth>
@@ -567,27 +389,31 @@ export const ModifyDialogCatalogos = ({
             }}
           >
             <Button
-             // sx={queries.buttonCancelarSolicitudInscripcion}
+              // sx={queries.buttonCancelarSolicitudInscripcion}
               onClick={cerrardialog}
               className="cancelar"
             >
               <Typography
-              
-                sx={{ fontFamily: "MontserratMedium", fontSize: [10, 15, 15, 15, 15], }}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  fontSize: [10, 15, 15, 15, 15],
+                }}
               >
                 Cancelar
               </Typography>
             </Button>
 
             <Button
-            //  sx={queries.buttonContinuarSolicitudInscripcion}
-              onClick={ModifyPorCatalogo}
+              //  sx={queries.buttonContinuarSolicitudInscripcion}
+              onClick={opendialog}
               autoFocus
               className="aceptar"
             >
               <Typography
-              
-                sx={{ fontFamily: "MontserratMedium", fontSize: [10, 15, 15, 15, 15],  }}
+                sx={{
+                  fontFamily: "MontserratMedium",
+                  fontSize: [10, 15, 15, 15, 15],
+                }}
               >
                 De Acuerdo
               </Typography>

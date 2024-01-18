@@ -74,40 +74,7 @@ export const listaGenericaCatalogos = (tabla: string, setstate1: Function) => {
     });
 };
 
-// Por ahora no se utliza
-export const CreatePorCatalogo = (descripcion: string, tabla: string, state: Function, Id: string, Tipob: String, Tipo: String) => {
-  console.log("tabla: ",tabla);
-  
-  
-  axios
-    .post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-catalogo",
-      {
-        Descripcion: descripcion,
-        Tabla: tabla.toLocaleLowerCase(),
-        CreadoPor: localStorage.getItem("IdUsuario"),
-        Rol: localStorage.getItem("Rol"),
-        Idb: Number(Id) || 0,
-        Tipob: Tipob || "",
-        Tipo: Tipo || "",
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    )
-    .then((r) => {
-      
 
-      alertaExito(() =>(state()),"Catalogo creado")
-
-     
-    })
-    .catch((err) =>
-      alertaError("Dato no agregado")
-    );
-};
 
 export const deletePorCatalogoTodos = (Id: string, tabla: string, UpdateInfo: Function) => {
   if (tabla === "ped") {
@@ -216,3 +183,99 @@ export const  CreatePorCatalogoProgramap = (descripcion: string, institution: st
       alertaError("Lista No encontrada")
       );
   };
+// Por ahora no se utliza
+export const CreatePorCatalogo = (descripcion: string, tabla: string, state: Function, Id: string, Tipob: String, Tipo: String) => {
+  console.log("tabla: ",tabla);
+  
+  
+  axios
+    .post(
+      process.env.REACT_APP_APPLICATION_BACK + "/api/create-catalogo",
+      {
+        Descripcion: descripcion,
+        Tabla: tabla.toLocaleLowerCase(),
+        CreadoPor: localStorage.getItem("IdUsuario"),
+        Rol: localStorage.getItem("Rol"),
+        Idb: Number(Id) || 0,
+        Tipob: Tipob || "",
+        Tipo: Tipo || "",
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    )
+    .then((r) => {
+      
+
+      alertaExito(() =>(state()),"Catalogo creado")
+
+     
+    })
+    .catch((err) =>
+      alertaError("Dato no agregado")
+    );
+};
+
+export const ModifyPorCatalogo = (Id: string, tabla: string, nuevaDescripcion: string, state: Function) => {
+    if (tabla === "PROGRAMAS PRESUPUESTARIOS") {
+      axios
+        .put(
+          process.env.REACT_APP_APPLICATION_BACK +
+            "/api/modify-programaPresupuestario",
+          {
+            IdProgramaPresupuestario: Id,
+            NuevoProgramaPresupuestario: nuevaDescripcion,
+            //IdEntidad: institution,
+            ModificadoPor: localStorage.getItem("IdUsuario"),
+            Rol: localStorage.getItem("Rol"),
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+          //actualizado();
+          alertaExito(() =>(state()),"Catalogo creado")
+          
+        })
+        .catch((err) =>
+          Toast.fire({
+            icon: "error",
+            title: "Permisos denegados",
+          })
+        );
+    } else {
+      axios
+        .put(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/modify-catalogo",
+          {
+            Id: Id,
+            NuevaDescripcion: nuevaDescripcion,
+            Tabla: tabla,
+            ModificadoPor: localStorage.getItem("IdUsuario"),
+            Rol: localStorage.getItem("Rol"),
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
+        .then((r) => {
+        
+
+          alertaExito(() =>(state()),"Catalogo Modificado")
+          
+        })
+        .catch((err) =>
+          Toast.fire({
+            icon: "error",
+            title: "Permisos denegados",
+          })
+        );
+    }
+  }; 

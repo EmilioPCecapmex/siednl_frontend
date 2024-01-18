@@ -272,6 +272,14 @@ interface IObjetoCatalogo {
   descripcion: string;
 }
 
+interface IObjetoProgramasPresupuestarios {
+  Id: string;
+  descripcion: string;
+  conac: string;
+  consecutivo: string;
+  institucion: string;
+}
+
 interface IObjetoBeneficiario {
   Id: string;
   Idb: number;
@@ -309,22 +317,22 @@ interface IObjetoProgramasInstitucionales {
   NombrePrograma: string;
 }
 
-const newBeneficiario:IObjetoBeneficiario  ={
+const newBeneficiario: IObjetoBeneficiario = {
   descripcion: "",
-    Id: "",
-    Idb: 0,
-    tipo: "",
-    tipoBeneficiario: "",
-}
+  Id: "",
+  Idb: 0,
+  tipo: "",
+  tipoBeneficiario: "",
+};
 
-const newFecha:IObjetoFechaDeCaptura = {
+const newFecha: IObjetoFechaDeCaptura = {
   descripcion: "",
-   FechaCapturaFinal: "",
-   FechaCapturaInicio: "",
-   Id: "",
-}
+  FechaCapturaFinal: "",
+  FechaCapturaInicio: "",
+  Id: "",
+};
 
-const newPed ={
+const newPed = {
   Eje: "",
   EjePND: "",
   Estrategia: "",
@@ -334,22 +342,32 @@ const newPed ={
   Objetivo: "",
   ObjetivoPEENL: "",
   Tematica: "",
-}
+};
 
-const newProgramas: IObjetoProgramasInstitucionales ={
+const newProgramas: IObjetoProgramasInstitucionales = {
   Id: "",
   IdEntidad: "",
   IdPrograma: "",
   Nombre: "",
   NombrePrograma: "",
-}
+};
 
-const newCatalogo ={
+const newProgramasPresupuestario: IObjetoProgramasPresupuestarios = {
   Id: "",
-    descripcion: "",
- }
+  descripcion: "",
+  conac: "",
+  consecutivo: "",
+  institucion: "",
+};
+
+const newCatalogo = {
+  Id: "",
+  descripcion: "",
+};
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
+  const [opcionCatalogo, setOpcionCatalogo] = useState(defSelected);
+
   const columsCatalogo: GridColDef[] = [
     {
       field: "Acciones",
@@ -374,28 +392,53 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
+
+            <Tooltip title="Editar descripcion">
+              <IconButton
+                onClick={() => {
+                  console.log(v.row);
+                  setCatalogoSelected(v.row);
+
+                  setOpenMody(true);
+                  //eliminar(v)
+                }}
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
           </Grid>
         );
       },
     },
+
     {
       field: "descripcion",
       headerName: "Descripcion",
       description: "Descripcion",
       flex: 5,
     },
-    // {
-    //   field: "Pregunta",
-    //   headerName: "Pregunta",
-    //   description: "Pregunta",
-    //   flex: 2
-    // },
-    // {
-    //   field: "NombreArchivo",
-    //   headerName: "Nombre Guía",
-    //   description: "Nombre Guía",
-    //   flex: 2
-    // },
+    // ...(opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"
+    //   ? [
+    //       {
+    //         field: "Id",
+    //         headerName: "CONAC",
+    //         description: "Id Beneficiario",
+    //         flex: 2,
+    //       },
+    //       {
+    //         field: "",
+    //         headerName: "CONSECUTIVO",
+    //         description: "Tipo Beneficiario",
+    //         flex: 2,
+    //       },
+    //       {
+    //         field: "INSTITUCION",
+    //         headerName: "INSTITUCION",
+    //         description: "Tipo",
+    //         flex: 2,
+    //       },
+    //     ]
+    //   : []),
   ];
 
   const columsFechaDeCaptura: GridColDef[] = [
@@ -431,6 +474,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
       description: "Descripcion",
       flex: 2,
     },
+
     {
       field: "fechaCapturaInicio",
       headerName: "FechaCapturaInicio",
@@ -641,7 +685,74 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     },
   ];
 
-  const [opcionCatalogo, setOpcionCatalogo] = useState(defSelected);
+  const columProgramaPresupuestario: GridColDef[] = [
+    {
+      field: "Acciones",
+      disableExport: true,
+      headerName: "Acciones",
+      description: "Acciones",
+      sortable: false,
+      flex: 1,
+      renderCell: (v: any) => {
+        return (
+          <Grid>
+            <Tooltip title="Eliminar descripcion">
+              <IconButton
+                onClick={() => {
+                  console.log(v.row);
+                  setProgramasPresupuestariosISelected(v.row);
+
+                  setOpenDel(true);
+                  //eliminar(v)
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip title="Editar descripcion">
+              <IconButton
+                onClick={() => {
+                  console.log(v.row);
+                  setProgramasPresupuestariosISelected(v.row);
+
+                  setOpenMody(true);
+                  //eliminar(v)
+                }}
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        );
+      },
+    },
+
+    {
+      field: "descripcion",
+      headerName: "Descripcion",
+      description: "Descripcion",
+      flex: 3,
+    },
+    {
+      field: "conac",
+      headerName: "CONAC",
+      description: "CONAC",
+      flex: 1,
+    },
+    {
+      field: "consecutivo",
+      headerName: "CONSECUTIVO",
+      description: "CONSECUTIVO",
+      flex: 1,
+    },
+    {
+      field: "institucion",
+      headerName: "INSTITUCION",
+      description: "INSTITUCION",
+      flex: 2,
+    },
+  ];
 
   const [objetoCatalogo, setObjetoCatalogo] = useState<Array<IObjetoCatalogo>>(
     []
@@ -655,23 +766,28 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const [objetoBeneficiario, setObjetoBeneficiario] = useState<
     Array<IObjetoBeneficiario>
   >([]);
- 
-  const [catalogoSelected, setCatalogoSelected] = useState<IObjetoCatalogo>(
-    newCatalogo
-  );
-  
+
+  const [objetoProgamaPresupuestario, setObjetoProgamaPresupuestario] =
+    useState<Array<IObjetoProgramasPresupuestarios>>([]);
+
+  const [catalogoSelected, setCatalogoSelected] =
+    useState<IObjetoCatalogo>(newCatalogo);
+
   const [programasISelected, setProgramasISelected] =
     useState<IObjetoProgramasInstitucionales>(newProgramas);
-    
+
   const [pedSelected, setPedSelected] = useState<IObjetoPed>();
-  
+
   const [fechaDeCapturaSelected, setFechaDeCapturaSelected] =
     useState<IObjetoFechaDeCaptura>(newFecha);
-  
+
   const [beneficiarioSelected, setBeneficiarioSelected] =
-    useState<IObjetoBeneficiario>(
-      newBeneficiario
-    );
+    useState<IObjetoBeneficiario>(newBeneficiario);
+
+  const [
+    programasPresupuestariosISelected,
+    setProgramasPresupuestariosISelected,
+  ] = useState<IObjetoProgramasPresupuestarios>(newProgramasPresupuestario);
 
   const [openAdd, setOpenAdd] = useState(false);
   const [openMody, setOpenMody] = useState(false);
@@ -689,6 +805,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   };
 
   const handleCloseMody = () => {
+    UpdateInfo();
     setOpenMody(false);
   };
 
@@ -711,6 +828,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         ? setObjetoFechaDeCaptura
         : updata === "Beneficiarios"
         ? setObjetoBeneficiario
+        : updata === "Programas Presupuestarios"
+        ? setObjetoProgamaPresupuestario
         : setObjetoCatalogo
     );
   };
@@ -721,6 +840,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     objetoCatalogo,
     objetoPed,
     objetoProgramasInstitucionales,
+    objetoProgamaPresupuestario,
     objetoFechaDeCaptura,
     objetoBeneficiario,
   ]);
@@ -778,12 +898,16 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   setObjetoCatalogo([]);
                   setObjetoFechaDeCaptura([]);
                   setObjetoBeneficiario([]);
+                  setObjetoProgamaPresupuestario([]);
 
-                  setCatalogoSelected(newCatalogo)
-                  setProgramasISelected(newProgramas)
-                  setPedSelected(newPed)
-                  setFechaDeCapturaSelected(newFecha)
-                  setBeneficiarioSelected(newBeneficiario)
+                  setCatalogoSelected(newCatalogo);
+                  setProgramasISelected(newProgramas);
+                  setPedSelected(newPed);
+                  setFechaDeCapturaSelected(newFecha);
+                  setBeneficiarioSelected(newBeneficiario);
+                  setProgramasPresupuestariosISelected(
+                    newProgramasPresupuestario
+                  );
 
                   setOpcionCatalogo(item.Desc.toUpperCase());
                   setUpdata(item.Desc);
@@ -875,80 +999,67 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           xs={12}
           sx={{ display: "flex", height: "80vh" }}
         >
-         
-
-          {opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES" ? (
-            <DataGridTable
-              id={(row: any) => row.Id}
-              columns={columsProgramasInstituciones}
-              rows={objetoProgramasInstitucionales}
-              camposCsv={["descripcion"]}
-              exportTitle={"Columnas"}
-            />
-          ) : opcionCatalogo.toUpperCase() === "PED" ? (
-            <DataGridTable
-              id={(row: any) => row.Id || Math.random}
-              columns={columsPed}
-              rows={objetoPed}
-              camposCsv={[]}
-              exportTitle={"Columnas"}
-            />
-          ) :opcionCatalogo.toUpperCase() === "BENEFICIARIOS" ? (
-            <DataGridTable
-              id={(row: any) => row.Id || Math.random}
-              columns={columsBeneficiario}
-              rows={objetoBeneficiario}
-              camposCsv={[]}
-              exportTitle={"Columnas"}
-            />
-          ) :  opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA" ? (
-            <DataGridTable
-              id={(row: any) => row.Id || Math.random}
-              columns={columsFechaDeCaptura}
-              rows={objetoFechaDeCaptura}
-              camposCsv={[]}
-              exportTitle={"Columnas"}
-            />
-          ) :  <DataGridTable
-          id={(row: any) => row.Id || Math.random}
-          columns={columsCatalogo}
-          rows={objetoCatalogo}
-          camposCsv={[]}
-          exportTitle={"Columnas"}
-        />}
-
-       
+          <DataGridTable
+            id={(row: any) => row.Id || Math.random}
+            columns={
+              opcionCatalogo.toUpperCase() === "BENEFICIARIOS"
+                ? columsBeneficiario
+                : opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"
+                ? columsFechaDeCaptura
+                : opcionCatalogo.toUpperCase() === "PED"
+                ? columsPed
+                : opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES"
+                ? columsProgramasInstituciones
+                : opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"
+                ? columProgramaPresupuestario
+                : columsCatalogo
+            }
+            rows={
+              opcionCatalogo.toUpperCase() === "BENEFICIARIOS"
+                ? objetoBeneficiario
+                : opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"
+                ? objetoFechaDeCaptura
+                : opcionCatalogo.toUpperCase() === "PED"
+                ? objetoPed
+                : opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES"
+                ? objetoProgramasInstitucionales
+                : opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"
+                ? objetoProgamaPresupuestario
+                : objetoCatalogo
+            }
+            camposCsv={[]}
+            exportTitle={"Columnas"}
+          />
         </Grid>
       </Grid>
 
-      {/* <ModifyDialogCatalogos
-          descripcion={modyRow?.Desc || ""}
-          id={modyRow?.Id || ""}
-          tabla={modyRow?.Tabla || ""}
-          actualizado={actualizaContador}
-          open={openMody}
-          handleCloseMody={handleCloseMody}
-        />
-    
-     
-         */}
-
       <DeleteDialogCatalogos
         deleteText={
-          catalogoSelected?.descripcion !==""? catalogoSelected?.descripcion :
-          fechaDeCapturaSelected?.descripcion !==""? fechaDeCapturaSelected?.descripcion :
-          beneficiarioSelected?.descripcion !==""? beneficiarioSelected?.descripcion :
-          programasISelected?.NombrePrograma !==""?programasISelected?.NombrePrograma:
-          "Objeto Ped"
+          catalogoSelected?.descripcion !== ""
+            ? catalogoSelected?.descripcion
+            : fechaDeCapturaSelected?.descripcion !== ""
+            ? fechaDeCapturaSelected?.descripcion
+            : beneficiarioSelected?.descripcion !== ""
+            ? beneficiarioSelected?.descripcion
+            : programasISelected?.NombrePrograma !== ""
+            ? programasISelected?.NombrePrograma
+            : programasPresupuestariosISelected?.descripcion !== ""
+            ? programasPresupuestariosISelected?.descripcion
+            : "Objeto Ped"
         }
         Id={
-          catalogoSelected?.Id !==""? catalogoSelected?.Id :
-          fechaDeCapturaSelected?.Id !==""? fechaDeCapturaSelected?.Id :
-          beneficiarioSelected?.Id !==""? beneficiarioSelected?.Id :
-          programasISelected?.Id !==""?programasISelected?.Id:
-          pedSelected?.Id ||""
+          catalogoSelected?.Id !== ""
+            ? catalogoSelected?.Id
+            : fechaDeCapturaSelected?.Id !== ""
+            ? fechaDeCapturaSelected?.Id
+            : beneficiarioSelected?.Id !== ""
+            ? beneficiarioSelected?.Id
+            : programasISelected?.Id !== ""
+            ? programasISelected?.Id
+            : programasPresupuestariosISelected?.Id !== ""
+            ? programasPresupuestariosISelected?.Id
+            : pedSelected?.Id || ""
         }
-
         tabla={opcionCatalogo || ""}
         actualizado={actualizaContador}
         open={openDel}
@@ -965,6 +1076,38 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         select={updata}
 
         //UpdateInfo ={UpdateInfo}
+      />
+
+      <ModifyDialogCatalogos
+        descripcion={
+          catalogoSelected?.descripcion !== ""
+            ? catalogoSelected?.descripcion
+            : fechaDeCapturaSelected?.descripcion !== ""
+            ? fechaDeCapturaSelected?.descripcion
+            : beneficiarioSelected?.descripcion !== ""
+            ? beneficiarioSelected?.descripcion
+            : programasISelected?.NombrePrograma !== ""
+            ? programasISelected?.NombrePrograma
+            : programasPresupuestariosISelected?.descripcion !== ""
+            ? programasPresupuestariosISelected?.descripcion
+            : "Objeto Ped"
+        }
+        Id={
+          catalogoSelected?.Id !== ""
+            ? catalogoSelected?.Id
+            : fechaDeCapturaSelected?.Id !== ""
+            ? fechaDeCapturaSelected?.Id
+            : beneficiarioSelected?.Id !== ""
+            ? beneficiarioSelected?.Id
+            : programasISelected?.Id !== ""
+            ? programasISelected?.Id
+            : programasPresupuestariosISelected?.Id !== ""
+            ? programasPresupuestariosISelected?.Id
+            : pedSelected?.Id || ""
+        }
+        tabla={opcionCatalogo || ""}
+        open={openMody}
+        handleCloseMody={handleCloseMody}
       />
     </Grid>
   );
