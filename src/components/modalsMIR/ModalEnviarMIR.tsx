@@ -553,40 +553,40 @@ export default function ModalEnviarMIR({
     }
   };
 
-  // const CrearMetaAnual = (mensaje: string, IdMir: string) => {
-  //   axios
-  //     .post(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
-  //       {
-  //         MetaAnual: "",
-  //         // se va a modificar
-  //         CreadoPor: localStorage.getItem("IdUsuario"),
-  //         IdMir: IdMir,
-  //         Estado: "En Captura",
-  //         Id: "",
-  //         // va a cambiar
-  //         Rol: localStorage.getItem("Rol"),
-  //         IdEntidad: localStorage.getItem("IdEntidad"),
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       userXInst.map((user) => {
+  const CrearMetaAnual = (mensaje: string, IdMir: string) => {
+    axios
+      .post(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
+        {
+          MetaAnual: "",
+          // se va a modificar
+          CreadoPor: localStorage.getItem("IdUsuario"),
+          IdMir: IdMir,
+          Estado: "En Captura",
+          Id: "",
+          // va a cambiar
+          Rol: localStorage.getItem("Rol"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        userXInst.map((user) => {
 
-  //         enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
-  //         //sendMail(user.CorreoElectronico, enviarMensaje, "MA");
-  //       });
-  //       showResume();
-  //     })
-  //     .catch((err) => {
-  //       err = 1;
-  //       errores.push(err);
-  //     });
-  // };
+          enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
+          //sendMail(user.CorreoElectronico, enviarMensaje, "MA");
+        });
+        showResume();
+      })
+      .catch((err) => {
+        err = 1;
+        errores.push(err);
+      });
+  };
 
   const createMIR = (estado: string) => {
     axios
@@ -624,9 +624,9 @@ export default function ModalEnviarMIR({
           enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
         });
 
-        // if (estado === "Autorizada") {
-        //   CrearMetaAnual(r.data.data.ID, IdMir);
-        // }
+        if (estado === "Autorizada") {
+          CrearMetaAnual(r.data.data.ID, IdMir);
+        }
 
         
         alertaExito(()=>{},localStorage.getItem("Rol") === "Administrador"
