@@ -1,32 +1,19 @@
 import * as React from "react";
 import {
   ListItemButton,
-  TableCell,
+
   List,
-  Paper,
-  Divider,
   Typography,
-  TableRow,
-  TableContainer,
-  Table,
-  TableBody,
-  Input,
+
   Grid,
-  TablePagination,
   IconButton,
   Tooltip,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import Accordion from "@mui/material/Accordion";
-import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
 import AddDialogCatalogo from "./AddDialogCatalogo";
 import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
-import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import { CSVCatalogo } from "./CSVCatalogo";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -38,8 +25,6 @@ import { IObjetoBeneficiario, IObjetoCatalogo, IObjetoFechaDeCaptura, IObjetoPed
 import { configOptions, newBeneficiario, newCatalogo, newFecha, newPed, newProgramas, newProgramasPresupuestario } from "./ExportsCatalogos";
 
 
-
- 
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const [opcionCatalogo, setOpcionCatalogo] = useState(defSelected);
@@ -58,7 +43,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Eliminar descripcion">
               <IconButton
                 onClick={() => {
-                  console.log(v.row);
+                
                   setCatalogoSelected(v.row);
 
                   setOpenDel(true);
@@ -72,7 +57,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Editar descripcion">
               <IconButton
                 onClick={() => {
-                  console.log(v.row);
+                 
                   setCatalogoSelected(v.row);
 
                   setOpenMody(true);
@@ -131,7 +116,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Eliminar descripcion">
               <IconButton
                 onClick={() => {
-                  console.log(v.row);
+               
                   setFechaDeCapturaSelected(v.row);
                   setOpenDel(true);
                   //eliminar(v)
@@ -179,7 +164,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Editar descripcion">
               <IconButton
                 onClick={() => {
-                  console.log(v.row);
+                 
                   setProgramasISelected(v.row);
                   setOpenDel(true);
                   //eliminar(v)
@@ -221,13 +206,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Editar descripcion">
               <IconButton
                 onClick={() => {
-                  console.log(v.row);
+                
                   return (
                     <Grid>
                       <Tooltip title="Editar descripcion">
                         <IconButton
                           onClick={() => {
-                            console.log(v.row);
+                           
                             setPedSelected(v.row);
                             setOpenDel(true);
                             //eliminar(v)
@@ -322,7 +307,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Eliminar descripcion">
               <IconButton
                 onClick={() => {
-                  console.log(v.row.Id);
+                  
                   setBeneficiarioSelected(v.row);
                   setOpenDel(true);
                   //eliminar(v)
@@ -375,7 +360,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Eliminar descripcion">
               <IconButton
                 onClick={() => {
-                  console.log(v.row);
+                 
                   setProgramasPresupuestariosISelected(v.row);
 
                   setOpenDel(true);
@@ -389,7 +374,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Editar descripcion">
               <IconButton
                 onClick={() => {
-                  console.log(v.row);
+                  
                   setProgramasPresupuestariosISelected(v.row);
 
                   setOpenMody(true);
@@ -490,6 +475,14 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   };
 
   useEffect(() => {
+    // Este código se ejecuta solo una vez al cargar el componente
+    setUpdata(defSelected);
+    
+    UpdateInfo();
+  }, []); // Dependencia vacía significa que se ejecuta solo una vez al montar el componente
+  
+
+  useEffect(() => {
     UpdateInfo();
   }, [updata]);
 
@@ -510,16 +503,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     );
   };
 
-  useEffect(() => {
-    console.log("objetoBeneficiario: ", objetoBeneficiario, objetoCatalogo);
-  }, [
-    objetoCatalogo,
-    objetoPed,
-    objetoProgramasInstitucionales,
-    objetoProgamaPresupuestario,
-    objetoFechaDeCaptura,
-    objetoBeneficiario,
-  ]);
+
 
   return (
     //Grid Padre con tamaño de la pantalla a usar
@@ -556,19 +540,24 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   "&.Mui-selected": {
                     backgroundColor: "#af8c55",
                     color:
-                      item.Desc.toUpperCase() === opcionCatalogo
-                        ? "white"
+                      item.Desc === opcionCatalogo
+                      ? "white"
                         : "inherit",
                   },
                   "&.Mui-selected:hover": {
                     backgroundColor: "#af8c55",
                     color:
-                      item.Desc.toUpperCase() === opcionCatalogo
+                      item.Desc === opcionCatalogo
                         ? "white"
                         : "inherit",
                   },
                 }}
+
+                
                 onClick={() => {
+                  console.log("opcionCatalogo: ",opcionCatalogo);
+                  console.log("item.Desc: ",item.Desc);
+                  
                   setObjetoPed([]);
                   setObjetoProgramasInstitucionales([]);
                   setObjetoCatalogo([]);
@@ -585,10 +574,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     newProgramasPresupuestario
                   );
 
-                  setOpcionCatalogo(item.Desc.toUpperCase());
+                  setOpcionCatalogo(item.Desc);
                   setUpdata(item.Desc);
                 }}
-                selected={item.Desc.toUpperCase() === opcionCatalogo}
+                selected={item.Desc === opcionCatalogo}
               >
                 {item.Desc.toUpperCase()}
               </ListItemButton>

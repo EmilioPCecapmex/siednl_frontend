@@ -782,8 +782,8 @@ export default function ModalEnviarMIR({
         }
       )
       .then(() => {
-        alertaExito(() => {});
-        showResume();
+        alertaExito(showResume);
+        
       });
   };
 

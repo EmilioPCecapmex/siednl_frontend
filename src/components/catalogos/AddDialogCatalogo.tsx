@@ -420,7 +420,7 @@ export const AddDialogCatalogo = ({
   };
 
   if (tabla === "FECHAS DE CAPTURA") {
-    console.log("FECHAS DE CAPTURA: ", tabla);
+   
 
     return (
       <Grid container lg={12}>
@@ -569,7 +569,7 @@ export const AddDialogCatalogo = ({
     </Grid>
     );
   } else if (tabla === "PROGRAMAS - INSTITUCIONES") {
-    console.log("Programas - Instituciones: ", tabla);
+    
 
     return (
       <Grid sx={{ display: "flex" }}>
@@ -742,7 +742,7 @@ export const AddDialogCatalogo = ({
       </Grid>
     );
   } else if (tabla === "InstitucionUnidad") {
-    console.log("InstitucionUnidad: ", tabla);
+   
     return (
       <Grid sx={{ display: "flex" }}>
         {/* <IconButton onClick={handleClickOpen}>
@@ -909,7 +909,7 @@ export const AddDialogCatalogo = ({
       </Grid>
     );
   } else if (tabla === "PED") {
-    console.log("PED: ", tabla);
+    
     return (
       <Grid>
         {/* <IconButton onClick={handleClickOpen}>
@@ -938,7 +938,7 @@ export const AddDialogCatalogo = ({
       </Grid>
     );
   } else if (tabla === "PROGRAMAS PRESUPUESTARIOS") {
-    console.log("Programas Presupuestarios: ", tabla);
+    
     return (
       <Grid sx={{ display: "flex" }}>
         {/* <Tooltip title="Editar">
@@ -1147,7 +1147,7 @@ export const AddDialogCatalogo = ({
       </Grid>
     );
   } else {
-    console.log("else: ", tabla);
+   
     return (
       <Grid>
         {/* <IconButton onClick={handleClickOpen}>

@@ -52,10 +52,7 @@ export const DeleteDialogCatalogos = ({
   //   setOpen(false);
   // };
 
-useEffect(() => {
-  console.log("deleteText: ",deleteText);
-  
-}, [])
+
   
 
   const cerrardialog = () =>{

@@ -318,7 +318,7 @@ export const ModifyDialogCatalogos = ({
       </Grid>
     );
   } else {
-    console.log("else: ", tabla);
+  
     return (
       <Grid>
         <Dialog open={open} onClose={cerrardialog} fullWidth>

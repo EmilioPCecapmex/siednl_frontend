@@ -49,8 +49,7 @@ export const createFechaDeCaptua = (
 };
 
 export const listaGenericaCatalogos = (tabla: string, setstate1: Function) => {
-  console.log("entre a listaGenerica");
-  console.log("tabla: ", tabla);
+ 
 
   axios
     .post(
@@ -66,7 +65,7 @@ export const listaGenericaCatalogos = (tabla: string, setstate1: Function) => {
     )
     .then((r) => {
       //alertaExito(() => {}, "Fecha de Captura Creada");
-      console.log("r.data.data: ", r.data.data);
+  
       setstate1(r.data.data);
     })
     .catch((err) => {
@@ -186,7 +185,7 @@ export const  CreatePorCatalogoProgramap = (descripcion: string, institution: st
   };
 // Por ahora no se utliza
 export const CreatePorCatalogo = (descripcion: string, tabla: string, state: Function, Id: string, Tipob: String, Tipo: String) => {
-  console.log("tabla: ",tabla);
+
   
   
   axios
