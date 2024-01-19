@@ -443,10 +443,6 @@ export default function ModalEnviarRF({
   };
 
   const creaRF = (estado: string) => {
-    console.log("Estado: ",estado);
-    console.log("IdRF: ",IdRF);
-    
-    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-raffi",
@@ -465,18 +461,13 @@ export default function ModalEnviarRF({
         }
       )
       .then((r) => {
-        // eslint-disable-next-line array-callback-return
-        //console.log("IdMA: r.data.data ",r.data.data);
-        
         
         userXInst.map((user) => {
-          
-          
           enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA", "Meta Anual");
           //sendMail(user.CorreoElectronico,enviarMensaje,"MA")
         });
         if (estado === "Autorizada") {
-          //CrearFichaTecnica();  
+          // CrearFichaTecnica();  
         }
         Toast.fire({
           icon: "success",
@@ -495,48 +486,6 @@ export default function ModalEnviarRF({
       });
   };
 
-  // const CrearFichaTecnica = () => {
-
-  //  console.log("Entre a crearFichaTecnica donde esta enviar notificacions");
-   
-  //   axios
-  //     .post(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
-  //       {
-  //         FichaTecnica: "",
-  //         CreadoPor: localStorage.getItem("IdUsuario"),
-  //         IdMir: IdMIR,
-  //         IdMa: IdMA,
-  //         Id: "",
-  //         Estado: "En Captura",
-  //         Rol: localStorage.getItem("Rol")
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       console.log("IdFt: ",r.data.data.Id);
-  //       console.log("IdFt: ",r.data.data);
-  //       console.log("IdFt: ",r.data.IdFT);
-  //       userXInst.map((user) => {
-          
-  //         console.log("user.IdUsuario: ",user.IdUsuario);
-
-  //         enviarNotificacion(user.IdUsuario,r.data.data.Id, "FT", "Ficha Tecnica");
-  //         //sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
-  //       });
-        
-  //       showResume();
-  //     })
-  //     .catch((err) => {
-        
-  //       err = 1
-  //       errores.push(err)
-  //     });
-  // };
 
   useEffect(() => {
     if (open) {
@@ -570,11 +519,6 @@ export default function ModalEnviarRF({
   }, [MIR, open]);
 
   const enviarNotificacion = (IdUsuarioDestino: string, IdDoc="",tipoDoc ="", Nombre ="") => {
-    
-    console.log("IdUsuarioDestino: ",IdUsuarioDestino);
-    console.log("IdDoc: ",IdDoc);
-    console.log("tipoDoc: ",tipoDoc);
-    console.log("Nombre: ",Nombre);
    
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",

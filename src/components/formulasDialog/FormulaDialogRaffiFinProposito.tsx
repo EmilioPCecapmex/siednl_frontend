@@ -36,8 +36,6 @@ export const DialogFinPropositoRaffi = ({
   };
 
   const handleChange = () => {
-    console.log("elemento: ",elemento);
-    
     switch (elemento) {
       case "PORCENTAJE":
         let aux = (parseFloat(Numerodador) / parseFloat(Denominador)) * 100;

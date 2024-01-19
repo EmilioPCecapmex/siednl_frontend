@@ -44,7 +44,7 @@ function getNumComponents(MIR: string) {
 }
 
 function newFichaTecnica(MIR: string) {
-  console.log("MIR: ", MIR);
+  
 
   let componentes: IComponente[] = JSON.parse(MIR).componentes;
 
@@ -200,9 +200,6 @@ export default function AddFichaTecnica({
   IdFT: string;
 }) {
 
-  useEffect(() => {
-    console.log("ADDFT-MIR: ", MIR);
-  }, [MIR]);
   const [ftPadre, setFTPadre] = useState<IFT>(newFichaTecnica(MIR));
 
   const [ftEditPadre, setFTEditPadre] = useState<IFTEdit>(
@@ -227,10 +224,6 @@ export default function AddFichaTecnica({
     setValue(newValue);
   };
 
-  useEffect(() => {
-    console.log("ADDFT-MIR: ", MIR);
-  }, [MIR]);
-
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
   const [editFT, setEditFT] = useState(false);
@@ -239,8 +232,6 @@ export default function AddFichaTecnica({
     if (FT !== "") {
       let auxArrayFT = JSON.parse(FT);
       if (auxArrayFT[1]) {
-        console.log("MIR USEEFFECT: ", MIR);
-
         let auxDBMA: IFT = auxArrayFT[0];
         let auxMIR: IMIR = JSON.parse(MIR);
         let auxMA: IFT = newFichaTecnica(MIR);
@@ -273,7 +264,6 @@ export default function AddFichaTecnica({
 
         setFTPadre({ ...auxDBMA, componentes: auxComponentes });
       } else {
-        console.log("MIR USEEFFECT ELSE: ", MIR);
         let auxDBMA: IFT = JSON.parse(FT);
         let auxMIR: IMIR = JSON.parse(MIR);
         let auxMA: IFT = newFichaTecnica(MIR);

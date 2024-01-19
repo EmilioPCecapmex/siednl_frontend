@@ -145,7 +145,6 @@ export const MIR = () => {
       .then((r) => {
         if (r.status === 200) {
           let aux=r.data.data
-          console.log("AUX:",aux);
           
           aux.unshift( {
             ClaveSiregob: null,

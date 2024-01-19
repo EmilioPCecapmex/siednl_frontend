@@ -45,8 +45,8 @@ export const TabPAE = ({
   const [openVisualizador, setOpenVisualizador] = useState(false);
   const [infoFile, setInfoFile] = useState<IInfoFile>({ nombre: "", ruta: "" });
 
-  const actuaizarDatos=()=>{console.log("actualice datos");
-  getListaPae(listaDeAnios[componenteSelect].toString(), setRegistros);}
+  const actuaizarDatos=()=>{getListaPae(listaDeAnios[componenteSelect].toString(), setRegistros);}
+
 
   useEffect(() => {
     actuaizarDatos();

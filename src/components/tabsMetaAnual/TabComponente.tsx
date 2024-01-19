@@ -165,7 +165,6 @@ export const TabComponenteMA = ({
   };
 
   const changeFormula = (txt: string) => {
-    console.log("txt: ",txt);
     if (
       JSON.parse(MIR)
         .componentes[componentSelect].indicador.toLowerCase()
@@ -186,7 +185,6 @@ export const TabComponenteMA = ({
   };
 
   const changeFormula2 = (txt: string) => {
-    console.log("txt: ",txt);
     
     if (frecuencia === "trimestral") {
       componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =

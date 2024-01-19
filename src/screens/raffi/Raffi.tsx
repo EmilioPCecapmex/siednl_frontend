@@ -249,7 +249,6 @@ export const Raffi = () => {
   useEffect(() => {
     validaFechaCaptura();
     getInstituciones(setInstituciones);
-    console.log("instituciones: ");
   }, []);
 
   const handleChange = (dato: string) => {
@@ -896,10 +895,6 @@ export const Raffi = () => {
                                       let auxArrayMIR = JSON.parse(row.MIR);
                                       let auxArrayMIR2 = JSON.stringify(
                                         auxArrayMIR[0]
-                                      );
-                                      console.log(
-                                        "AvanceFinanciero-Raffi: ",
-                                        row.RAFFI
                                       );
 
                                       if (auxArrayMIR[1]) {

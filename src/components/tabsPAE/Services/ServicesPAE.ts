@@ -34,7 +34,6 @@ export const creaPAE = (
   PerteneceA: string,
   FechaPublicacion:string
 ) => {
-  console.log("ruta", Ruta);
 
   axios
     .post(

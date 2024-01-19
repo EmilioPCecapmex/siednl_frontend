@@ -37,7 +37,6 @@ export const FormulaDialogMA = ({
   };
 
   const checkValues = () => {
-    console.log("tipo: ",tipo);
     
     if (tipo === "Indice" || tipo === "Índice") {
       if (/^[\s]*$/.test(descA)) {

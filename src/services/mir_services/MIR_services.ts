@@ -15,8 +15,6 @@ export  function getMAyFT(IdMIR:string, setMA:Function, setFt:Function, setRF:Fu
         }
       )
       .then(({data}) => {
-
-        console.log("data: ",data.data);
         
         let auxMA=data.data[0].MA
         let auxFT=data.data[0].FT
@@ -35,5 +33,5 @@ export  function getMAyFT(IdMIR:string, setMA:Function, setFt:Function, setRF:Fu
         setFt(JSON.parse(auxFT))
         setRF(JSON.parse(auxRF))
 
-      }).catch((e)=>{console.log("e",e)});
+      }).catch((e)=>{});
   };
