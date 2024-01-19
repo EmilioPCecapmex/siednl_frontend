@@ -19,7 +19,8 @@ const Toast = Swal.mixin({
 export const createFechaDeCaptua = (
   Descripcion: string,
   Fecha1: string,
-  Fecha2: string
+  Fecha2: string,
+  state: Function
 ) => {
   axios
 
@@ -40,7 +41,7 @@ export const createFechaDeCaptua = (
       }
     )
     .then((r) => {
-      alertaExito(() => {}, "Fecha de Captura Creada");
+      alertaExito(() =>(state()), "Fecha de Captura Creada");
     })
     .catch((err) => {
       alertaError("Fecha de Captura denegada");

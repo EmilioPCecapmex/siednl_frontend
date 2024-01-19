@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
 
-import { Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import { DialogTitle, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
@@ -22,8 +22,17 @@ import { PED } from "./PED";
 import { CapturarFechas } from "./AddFechaCapturaDialog";
 import { IDatosTabla } from "./Catalogos";
 import { margin } from "@mui/system";
-import { CreatePorCatalogo, CreatePorCatalogoProgramap } from "./AxiosCatalogo";
-import { alertaExito } from "../genericComponents/Alertas";
+import { CreatePorCatalogo, CreatePorCatalogoProgramap, createFechaDeCaptua } from "./AxiosCatalogo";
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
+
+const modulo = [
+  "Mir",
+  "Meta Anual",
+  "Ficha Tecnica",
+  "Raffi",
+  "Actividades Institucionales",
+];
+
 export const AddDialogCatalogo = ({
   open,
   catalogo,
@@ -75,13 +84,7 @@ export const AddDialogCatalogo = ({
     React.useState("");
 
   const [programa, setPrograma] = React.useState("");
-  let today = new Date();
-  let year = today.getFullYear();
-  let month = today.getMonth();
-  let date = today.getDate();
-  let monthS = "";
-  let dateS = "";
-
+  
   // React.useEffect(() => {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   //   today = new Date();
@@ -102,6 +105,14 @@ export const AddDialogCatalogo = ({
 
   //   setFechaCaptura(year + "-" + monthS + "-" + dateS);
   // }, [actualizado]);
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const date = today.getDate();
+
+  const monthS = month < 10 ? "0" + month : month.toString();
+  const dateS = date < 10 ? "0" + date : date.toString();
 
   const [fechaCaptura, setFechaCaptura] = React.useState(
     year + "-" + monthS + "-" + dateS
@@ -315,146 +326,248 @@ export const AddDialogCatalogo = ({
       setDescripcionConac(inputValue);
     }
   };
+  // Funcionalidad de Fechas de captura
+  const [modulos, setModulos] = useState("Mir");
+
+  //   const handleClickOpen = () => {
+  //     setOpen(true);
+  //   };
+
+  //   const handleClose = () => {
+  //     setOpen(false);
+  //     actualizado();
+  //   };
+
+  const handleCloseFc = () => {
+    handleClose(false); // Call the close function provided as a prop when the dialog should be closed.
+  };
+
+ 
+
+  
+
+  const [fechaCaptura1, setFechaCaptura1] = useState<string>(
+    `${year}-${monthS}-${dateS}`
+  );
+
+  const [fechaCaptura2, setFechaCaptura2] = useState<string>(
+    `${year}-${monthS}-${dateS}`
+  );
+
+  const [fechaError, setFechaError] = useState(false);
+  const handleFechaCaptura1Change = (event: React.ChangeEvent<HTMLInputElement>) => {
+    
+    const selectedDate = event.target.value;
+   
+    if (selectedDate <= fechaCaptura2) {
+      setFechaCaptura1(selectedDate);
+    
+    
+    }else{
+      alertaError("Error fecha descuadrada")
+    }
+  };
+
+  const handleFechaCaptura2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
+    
+    const selectedDate = event.target.value;
+    
+    if (selectedDate >= fechaCaptura1) {
+      setFechaCaptura2(selectedDate);
+    }else{
+      alertaError("Error fecha descuadrada")
+    }
+  };
+
+  const handleClick = (modulo: string, fecha1: string, fecha2: string, state: Function) => {
+    createFechaDeCaptua(modulo, fecha1, fecha2, state )
+    getFechasDeCaptura()
+    
+  };
+
+
+  const getFechasDeCaptura = () => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fechaDeCaptura", {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+       
+        
+        if (r.status === 200) {
+          
+          
+          let update = r.data.data;
+          update = update.map(
+            (item: {
+              Id: string;
+              FechaDeCaptura: string;
+              Descripcion: string;
+              Tabla: string;
+            }) => {
+              return {
+                Id: item.Id,
+                Desc:
+                  item.FechaDeCaptura + " / " + item.Descripcion.toUpperCase(),
+                Tabla: "FechasDeCaptura",
+              };
+            }
+          );
+          
+        }
+      });
+  };
 
   if (tabla === "FECHAS DE CAPTURA") {
     console.log("FECHAS DE CAPTURA: ", tabla);
 
     return (
-      <Grid sx={{ display: "flex" }}>
-        {/* <IconButton onClick={handleClickOpen}>
-        <AddIcon
+      <Grid container lg={12}>
+    
+
+      <Dialog fullWidth open={open} onClose={cerrardialog} keepMounted>
+        <DialogTitle>
+          <Typography sx={queries.medium_text}>
+            Añadir Rango de Fecha de Captura
+          </Typography>
+        </DialogTitle>
+        <DialogContent>
+          <Grid
+            container
+            sx={
+              {
+                //width: "100%",
+                //justifyContent: "space-evenly",
+                //display: "flex",
+                // height: "16vh",
+                //alignItems: "center",
+              }
+            }
+            lg={12}
+            direction={"column"}
+          >
+            
+            <Grid item lg={4}>
+            <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+                Modulo
+              </InputLabel>
+              <FormControl variant="outlined" fullWidth size="small">
+                <Select
+                  value={modulos}
+                  onChange={(v) => {
+                    setModulos(v.target.value);
+                  }}
+                >
+                  {modulo.map((mod) => (
+                    <MenuItem key={mod} value={mod}>
+                      {mod}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            
+
+            <Grid item lg={4}>
+               <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+               Inicio
+              </InputLabel> 
+              <FormControl variant="outlined" fullWidth size="small">
+                
+                <TextField
+                  variant="outlined"
+                  
+                  onChange={
+                    handleFechaCaptura1Change
+                  }
+                  multiline={descripcion.length < 20 ? false : true}
+                  value={fechaCaptura1}
+                  
+                  //style={{ marginTop: "2vh" }}
+                  type="date"
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratLight",
+                      borderColor: fechaError ? "red" : undefined,
+                    },
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  rows={3}
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item lg={4}>
+               <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+                Fin
+              </InputLabel> 
+
+              <FormControl variant="outlined" fullWidth size="small">
+                <TextField
+                  variant="outlined"
+                  onChange={handleFechaCaptura2Change}
+                  multiline={descripcion.length < 20 ? false : true}
+                  value={fechaCaptura2}
+                
+                  //style={{ marginTop: "2vh" }}
+                  type="date"
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratLight",
+                      borderColor: fechaError ? "red" : undefined,
+                    },
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  rows={3}
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions
           sx={{
-            width: 50,
-            height: 50,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-        />
-      </IconButton> */}
+        >
+          <Button
+            sx={queries.buttonCancelarSolicitudInscripcion}
+            onClick={handleCloseFc}
+          >
+            <Typography
+              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+            >
+              Cancelar
+            </Typography>
+          </Button>
 
-        {/* <CapturarFechas
-          actualizado={actualizado}
-          open={open}
-          close={handleClose}
-          //ClickOpen={handleClickOpen}
-        /> */}
-      </Grid>
-      // <Grid sx={{ display: "flex" }}>
-      //   <IconButton onClick={handleClickOpen}>
-      //     <AddIcon
-      //       sx={{
-      //         width: 50,
-      //         height: 50,
-      //       }}
-      //     />
-      //   </IconButton>
-      //   <Dialog fullWidth open={open} onClose={handleClose}>
-      //     <Grid
-      //       sx={{
-      //         width: "100%",
-      //         height: "5vh",
-      //         alignItems: "center",
-      //         display: "flex",
-      //         justifyContent: "center",
-      //         flexDirection: "column",
-      //         borderBottom: 0.5,
-      //         borderColor: "#ccc",
-      //         boxShadow: 1,
-      //       }}
-      //     >
-      //       <Typography
-      //         sx={{
-      //           fontFamily: "MontserratSemiBold",
-      //           width: "90%",
-      //           fontSize: [10, 15, 15, 15, 15],
-      //           textAlign: "center",
-      //         }}
-      //       >
-      //         Añadir Fecha de Captura
-      //       </Typography>
-      //     </Grid>
-      //     <DialogContent
-      //       sx={{
-      //         display: "flex",
-      //         flexDirection: "column",
-      //         alignItems: "center",
-      //         justifyContent: "center",
-      //       }}
-      //     >
-      //       <TextField
-      //         multiline={descripcion.length < 20 ? false : true}
-      //         sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
-      //         InputLabelProps={{
-      //           style: {
-      //             fontFamily: "MontserratRegular",
-      //           },
-      //         }}
-      //         InputProps={{
-      //           style: {
-      //             fontFamily: "MontserratLight",
-      //           },
-      //         }}
-      //         rows={3}
-      //         label={"Descripción"}
-      //         variant="outlined"
-      //         onChange={(v) => setDescripcion(v.target.value)}
-      //       />
-
-      //       <TextField
-      //         variant="outlined"
-      //         onChange={(x) => {
-      //           setFechaCaptura(x.target.value);
-      //           console.log(x);
-      //         }}
-      //         multiline={descripcion.length < 20 ? false : true}
-      //         defaultValue={fechaCaptura}
-      //         sx={descripcion.length < 20 ? { width: "60%" } : { width: "80%" }}
-      //         style={{ marginTop: "2vh" }}
-      //         type="date"
-      //         InputProps={{
-      //           style: {
-      //             fontFamily: "MontserratLight",
-      //           },
-      //         }}
-      //         InputLabelProps={{
-      //           style: {
-      //             fontFamily: "MontserratRegular",
-      //           },
-      //         }}
-      //         rows={3}
-      //       />
-      //     </DialogContent>
-
-      //     <DialogActions
-      //       sx={{
-      //         display: "flex",
-      //         alignItems: "center",
-      //         justifyContent: "center",
-      //       }}
-      //     >
-      //       <Button
-      //         sx={queries.buttonCancelarSolicitudInscripcion}
-      //         onClick={handleClose}
-      //       >
-      //         <Typography
-      //           sx={{ fontFamily: "MontserratMedium",fontSize: [10, 15, 15, 15, 15], }}
-      //         >
-      //           Cancelar
-      //         </Typography>
-      //       </Button>
-
-      //       <Button
-      //         sx={queries.buttonContinuarSolicitudInscripcion}
-      //         onClick={CreatePorCatalogoFechas}
-      //         autoFocus
-      //       >
-      //         <Typography
-      //           sx={{ fontFamily: "MontserratMedium",fontSize: [10, 15, 15, 15, 15], }}
-      //         >
-      //           De Acuerdo
-      //         </Typography>
-      //       </Button>
-      //     </DialogActions>
-      //   </Dialog>
-      // </Grid>
+          <Button
+            sx={queries.buttonContinuarSolicitudInscripcion}
+            onClick={() => handleClick(modulos, fechaCaptura1, fechaCaptura2, handleClose )}
+            //autoFocus
+          >
+            <Typography
+              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+            >
+              De Acuerdo
+            </Typography>
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Grid>
     );
   } else if (tabla === "PROGRAMAS - INSTITUCIONES") {
     console.log("Programas - Instituciones: ", tabla);

@@ -104,7 +104,7 @@ export const CapturarFechas = ({
   };
 
   const handleClick = (modulo: string, fecha1: string, fecha2: string) => {
-    createFechaDeCaptua(modulo, fecha1, fecha2)
+    createFechaDeCaptua(modulo, fecha1, fecha2, handleClose)
     getFechasDeCaptura()
     
   };
