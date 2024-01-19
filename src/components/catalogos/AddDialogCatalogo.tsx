@@ -20,7 +20,6 @@ import Toolbar from "@mui/material/Toolbar";
 import { queries } from "../../queries";
 import { PED } from "./PED";
 import { CapturarFechas } from "./AddFechaCapturaDialog";
-import { IDatosTabla } from "./Catalogos";
 import { margin } from "@mui/system";
 import { CreatePorCatalogo, CreatePorCatalogoProgramap, createFechaDeCaptua } from "./AxiosCatalogo";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";

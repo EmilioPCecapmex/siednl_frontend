@@ -1,0 +1,275 @@
+import { Head, IObjetoBeneficiario, IObjetoCatalogo, IObjetoFechaDeCaptura, IObjetoPed, IObjetoProgramasInstitucionales, IObjetoProgramasPresupuestarios } from "./InterfacesCatalogos";
+
+export const heads: readonly Head[] = [
+    {
+      id: "Descripcion",
+      isNumeric: true,
+      label: "Descripcion",
+    },
+    {
+      id: "Acciones",
+      isNumeric: true,
+      label: "Acciones",
+    },
+  ];
+  
+   export const configOptions = [
+    {
+      id: 1,
+      Desc: "Años Fiscales",
+      fnc: "getAniosFiscales()",
+      Tabla: "AniosFiscales",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 2,
+      Desc: "Beneficiarios",
+      fnc: "getBeneficiarios()",
+      Tabla: "Beneficiarios",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 3,
+      Desc: "Clasificación Programática",
+      fnc: "getClasificacionesProgramaticas()",
+      Tabla: "ClasificacionesProgramaticas",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 4,
+      Desc: "Dimensiones del Indicador",
+      fnc: "getDimensionesDelIndicador()",
+      Tabla: "DimensionesDelIndicador",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    { id: 5, Desc: "Ejes", fnc: "getEjes()", Tabla: "Ejes", selected: true },
+    {
+      id: 6,
+      Desc: "Ejes del Plan Nacional de Desarrollo",
+      Tabla: "EjesPND",
+      fnc: "getEjesPND()",
+      selected: true,
+      tipo: "Catalogos",
+    },
+    {
+      id: 7,
+      Desc: "Estrategias",
+      fnc: "getEstrategias()",
+      Tabla: "Estrategias ",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 8,
+      Desc: "Fechas de Captura",
+      fnc: "getFechasDeCaptura()",
+      Tabla: "FechasDeCaptura",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 9,
+      Desc: "Fórmulas",
+      fnc: "getFormulas()",
+      Tabla: "Formulas",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 10,
+      Desc: "Frecuencias",
+      fnc: "getFrecuencias()",
+      Tabla: "Frecuencias",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    // {
+    //   id: 11,
+    //   Desc: "Instituciones",
+    //   fnc: "getInstituciones()",
+    //   Tabla: "Instituciones",
+    //   selected: false,
+    //   tipo: "Catalogos",
+    // },
+    {
+      id: 12,
+      Desc: "Lineas de Acción",
+      fnc: "getLineasDeAccion()",
+      Tabla: "LineasDeAccion",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 13,
+      Desc: "Metas ODS",
+      fnc: "getMetasODS()",
+      Tabla: "MetasODS",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 14,
+      Desc: "Modalidades",
+      fnc: "getModalidades()",
+      Tabla: "Modalidades",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 15,
+      Desc: "Objetivos",
+      fnc: "getObjetivos()",
+      Tabla: "Objetivos",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 16,
+      Desc: "Objetivos Desarrollo Sostenible",
+      fnc: "getObjetivosDS()",
+      Tabla: "ObjetivosDS",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 17,
+      Desc: "Objetivos del Plan Estrategico del Estado de Nuevo León",
+      fnc: "getObjetivosPEENL()",
+      Tabla: "ObjetivosPEENL",
+      selected: false,
+      tipo: "Catalogos",
+    },
+  
+    {
+      id: 18,
+      Desc: "Programas Presupuestarios",
+      fnc: "getProgramaPresupuestario()",
+      Tabla: "ProgramasPresupuestarios",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    // {
+    //   id: 19,
+    //   Desc: "Roles",
+    //   fnc: "getRoles()",
+    //   Tabla: "Roles",
+    //   selected: false,
+    //   tipo: "Catalogos",
+    // },
+    {
+      id: 20,
+      Desc: "Temáticas",
+      fnc: "getTematicas()",
+      Tabla: "Tematicas",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 21,
+      Desc: "Tipos de Fórmula",
+      fnc: "getTipoDeFormula()",
+      Tabla: "TiposDeFormula",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 22,
+      Desc: "Tipos de Indicador",
+      fnc: "getTipoDeIndicador()",
+      Tabla: "TiposDeIndicador",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 23,
+      Desc: "Unidades de Medida",
+      fnc: "getUnidadDeMedida()",
+      Tabla: "UnidadesDeMedida",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    // {
+    //   id: 24,
+    //   Desc: "Unidades Administrativas",
+    //   fnc: "getUnidadesAdministrativas()",
+    //   Tabla: "UnidadesAdministrativas",
+    //   selected: false,
+    //   tipo: "Catalogos",
+    // },
+    {
+      id: 25,
+      Desc: "PED",
+      fnc: "getPED()",
+      Tabla: "PEDs",
+      selected: false,
+      tipo: "Relaciones",
+    },
+    // {
+    //   id: 26,
+    //   Desc: "Instituciones - Unidades",
+    //   fnc: "getInstitucionesUnidades()",
+    //   Tabla: "InstitucionUnidad",
+    //   selected: false,
+    //   tipo: "Relaciones",
+    // },
+    {
+      id: 27,
+      Desc: "Programas - Instituciones",
+      fnc: "getProgramasInstituciones()",
+      Tabla: "ProgramasInstituciones",
+      selected: false,
+      tipo: "Relaciones",
+    },
+  ];
+  
+  export const newBeneficiario: IObjetoBeneficiario = {
+    descripcion: "",
+    Id: "",
+    Idb: 0,
+    tipo: "",
+    tipoBeneficiario: "",
+  };
+  
+  export const newFecha: IObjetoFechaDeCaptura = {
+    descripcion: "",
+    FechaCapturaFinal: "",
+    FechaCapturaInicio: "",
+    Id: "",
+  };
+  
+  export const newPed: IObjetoPed = {
+    Eje: "",
+    EjePND: "",
+    Estrategia: "",
+    Id: "",
+    LineaDeAccion: "",
+    MetaODS: "",
+    Objetivo: "",
+    ObjetivoPEENL: "",
+    Tematica: "",
+  };
+  
+  export const newProgramas: IObjetoProgramasInstitucionales = {
+    Id: "",
+    IdEntidad: "",
+    IdPrograma: "",
+    Nombre: "",
+    NombrePrograma: "",
+  };
+  
+  export const newProgramasPresupuestario: IObjetoProgramasPresupuestarios = {
+    Id: "",
+    descripcion: "",
+    conac: "",
+    consecutivo: "",
+    institucion: "",
+  };
+  
+  export const newCatalogo: IObjetoCatalogo = {
+    Id: "",
+    descripcion: "",
+  };
