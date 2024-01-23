@@ -92,9 +92,6 @@ export const TabResumenRF = ({
 
   const [RF, setRF] = useState<IRF>(Raffi);
 
-  useEffect(() => {
-    console.log("Raffi: ", Raffi);
-  }, [Raffi]);
 
   let asignarRF = (componentesM: Array<IComponenteRF>) => {
     // setRF({

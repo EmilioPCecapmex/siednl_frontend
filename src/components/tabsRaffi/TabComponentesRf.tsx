@@ -120,8 +120,6 @@ export const TabComponenteRf = ({
   
 
   const changeFormula = (txt: string) => {
-    console.log("txt: ", txt);
-
     switch (frecuencia) {
       case "semestre1":
         componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
@@ -185,7 +183,6 @@ export const TabComponenteRf = ({
     }
 
     setComponentesValues([...componentesValues]);
-    console.log("componentesValues-changeformula: ", componentesValues);
   };
 
   // useEffect(() => {

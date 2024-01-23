@@ -42,8 +42,6 @@ export const TabActividadRf = ({
 
   useEffect(() => {
     setRFactividadesPadre(componentesActividadesValues);
-    console.log("ComponentesRF",ComponentesRF);
-    
   }, [componentesActividadesValues]);
 
   // const [componentesValuesRF, setComponentesValuesRF] = useState<
@@ -76,9 +74,6 @@ export const TabActividadRf = ({
   
 
   const changeFormula = (txt: string) => {
-    console.log("txt: ", txt);
-    console.log("txt: ", txt.split(",")[2]);
-    console.log("tipoFormula: ",tipoFormula);
 
     switch (frecuencia) {
       case "trimestre1":
@@ -130,7 +125,6 @@ export const TabActividadRf = ({
         alertaError("No aplica");
     }
     setComponentesActividadesValues([...componentesActividadesValues]);
-    console.log("componentesActividadesValues-changeformula: ", componentesActividadesValues);
   };
   const [open, setOpen] = useState(0);
 

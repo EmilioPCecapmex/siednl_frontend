@@ -243,10 +243,6 @@ export default function AddMetaAnual({
   const [editMA, setEditMA] = useState(false);
 
   useEffect(() => {
-    console.log("ENTRE");
-    console.log("MA: ",MA);
-
-    console.log("JSON.parse(MA): ",JSON.parse(MA));
     
     if (MA !== "") {
       let auxArrayMA = JSON.parse(MA);

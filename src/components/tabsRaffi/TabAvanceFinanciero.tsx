@@ -183,9 +183,6 @@ export function TabAvanceFinanciero({
         porcentajeEjercidoModificado: PEjercidoModificado,
       },
     };
-    // console.log("auxRaffi", auxRaffi.valorProgramaPresupuestario);
-    // console.log("devengadoModificado: ", devengadoModificado.total);
-    //setAvanceFinanciero(avanceFinanciero);
 
     if (
       devengadoModificado.t1.resultado !== "" ||
@@ -279,13 +276,6 @@ export function TabAvanceFinanciero({
     valor1: string,
     valor2: string
   ) => {
-    console.log("valor: ", valor);
-    console.log("valor1: ", valor1);
-    console.log("valor2: ", valor2);
-    console.log("calculo: ", calculo);
-    console.log("modificadoAutorizado: ", modificadoAutorizado);
-    console.log("calculo: ", calculo);
-    console.log("calculo: ", calculo);
 
     let porcentaje =
       (parseFloat(valor) / parseFloat(valorProgramaPresupuestario)) * 100;

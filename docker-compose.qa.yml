@@ -14,6 +14,8 @@ services:
       REACT_APP_APPLICATION_FILL: "http://10.200.4.164:7001"
       REACT_APP_APPLICATION_QA_LOGIN: "http://10.200.4.164:5000"
       REACT_APP_APPLICATION_CORREO: "http://10.200.4.164:8000"
+      REACT_APP_DOC_ROUTE : "/SIEDNL_QA"
+      REACT_APP_APPLICATION_FILES : "http://10.200.4.164:90"
     volumes:
       - ./src:/app/src
     ports:
