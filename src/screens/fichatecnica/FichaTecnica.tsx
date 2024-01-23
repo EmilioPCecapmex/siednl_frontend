@@ -34,6 +34,7 @@ import Swal from "sweetalert2";
 import { queries } from "../../queries";
 import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
+import { log } from "console";
 
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
@@ -96,14 +97,38 @@ const heads: readonly Head[] = [
 ];
 
 export const FichaTecnica = () => {
+
+  const getFT = (setstate: Function,estado: any, ) => {
+    axios
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fichaTecnica", {
+        params: {
+          IdUsuario: localStorage.getItem("IdUsuario"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
+          Rol: localStorage.getItem("Rol"),
+          Estado: estado || "",
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      })
+      .then((r) => {
+        //setft(r.data.data)
+        console.log(": ",r.data.data);
+        
+        setstate(r.data.data);
+        //setFtFiltered(r.data.data);
+      })
+      .catch((err) => {});
+  };
+
   useEffect(() => {
     setShowResume(true);
-    getFT(setft);
-  }, [resumeDefaultFT]);
+   
+  }, []);
 
   const returnMain = () => {
     setShowResume(true);
-    getFT(setft);
+    getFT(setft, estadoft);
   };
 
   const [openModalVerResumenFT, setOpenModalVerResumenFT] = useState(false);
@@ -145,6 +170,8 @@ export const FichaTecnica = () => {
   const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
 
   const [estadoft, setEstadoFT] = useState("Todos");
+ 
+
   const [institucionesb, setInstitucionesb] = useState("Todos");
 
   const getInstituciones = (setstate: Function) => {
@@ -185,18 +212,14 @@ export const FichaTecnica = () => {
   };
 
   useEffect(() => {
-    getFT(setft);
+    getFT(setft, estadoft);
     validaFechaCaptura();
-  }, []);
+  }, [showResume]);
 
-  useEffect(() => {
-    //console.log("MIR: "MIR);
-    
-  }, []);
-
+  
   useEffect(() => {
     setFtFiltered(ft);
-  }, [ft]);
+  }, [ft,]);
 
   useEffect(() => {
     setFtxFiltered(ftFiltered);
@@ -356,29 +379,9 @@ export const FichaTecnica = () => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
 
-  const getFT = (setstate: Function) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fichaTecnica", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
-          Rol: localStorage.getItem("Rol"),
-          Estado: estadoft || "",
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setstate(r.data.data);
-        //setFtFiltered(r.data.data);
-      })
-      .catch((err) => {});
-  };
+ 
 
-  // useEffect(() => {
-  //   getFT();
-  // }, []);
+  
   const [title_texto, setTitle] = useState("");
 
   const validaFechaCaptura = () => {
@@ -416,9 +419,11 @@ export const FichaTecnica = () => {
     setFtFiltered(ft.filter((x) => x.IdFt.toLowerCase().includes(id || "")));
   }, [ft]);
 
-  // useEffect(() => {
-  //   getFT();
-  // }, [actualizacion]);
+  useEffect(() => {
+    getFT(setft, estadoft);
+  }, [actualizacion]);
+
+ 
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
@@ -465,9 +470,13 @@ export const FichaTecnica = () => {
     setFtFiltered(ResultadoBusqueda);
   };
 
-  // const handleChange = (dato: string) => {
-  //   setFindTextStr(dato);
-  // };v
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    findTextStr.length !== 0 ? setFtFiltered(ftFiltered) : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [findTextStr]);
+
+
 
   const [estado, setEstado] = useState("");
 
@@ -1092,7 +1101,7 @@ export const FichaTecnica = () => {
                                       }
                                       setShowResume(false);
                                       setActionNumber(1);
-                                      setEstadoFT(row.Estado)
+                                      setEstado(row.Estado)
                                     }}
                                   >
                                     <AddCircleOutlineIcon
@@ -1331,7 +1340,7 @@ export const FichaTecnica = () => {
               IdMir={FTEdit[0]?.IdMir || ""}
               IdMA={FTEdit[0]?.IdMa || ""}
               IdFT={FTEdit[0]?.IdFt || ""}
-              estado={estadoft}
+              estado={estado}
             />
             {/* {FTEdit[0].FichaT} */}
           </Grid>

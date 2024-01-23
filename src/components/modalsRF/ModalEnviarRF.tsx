@@ -13,6 +13,7 @@ import {
 //import { sendMail} from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
 import { IActividadesRF, IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
+import { alertaErrorConfirm, alertaExitoConfirm } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -469,20 +470,14 @@ export default function ModalEnviarRF({
         if (estado === "Autorizada") {
           // CrearFichaTecnica();  
         }
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
+        alertaExitoConfirm((r.data.data.message).toUpperCase())
         if (comment !== "") {
           comentMA(IdRF);
         }
         showResume();
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
+        alertaErrorConfirm((err.response.data.result.error).toUpperCase())
       });
   };
 
