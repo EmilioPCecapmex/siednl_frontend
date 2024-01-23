@@ -467,7 +467,9 @@ export const FichaTecnica = () => {
 
   // const handleChange = (dato: string) => {
   //   setFindTextStr(dato);
-  // };
+  // };v
+
+  const [estado, setEstado] = useState("");
 
   return (
     <Grid container justifyContent={"space-between"}>
@@ -1090,6 +1092,7 @@ export const FichaTecnica = () => {
                                       }
                                       setShowResume(false);
                                       setActionNumber(1);
+                                      setEstadoFT(row.Estado)
                                     }}
                                   >
                                     <AddCircleOutlineIcon
@@ -1331,6 +1334,7 @@ export const FichaTecnica = () => {
               IdMir={FTEdit[0]?.IdMir || ""}
               IdMA={FTEdit[0]?.IdMa || ""}
               IdFT={FTEdit[0]?.IdFt || ""}
+              estado={estadoft}
             />
             {/* {FTEdit[0].FichaT} */}
           </Grid>

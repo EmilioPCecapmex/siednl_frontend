@@ -190,6 +190,7 @@ export default function AddFichaTecnica({
   IdMir,
   IdMA,
   IdFT,
+  estado,
 }: {
   MIR: string;
   MA: string;
@@ -198,6 +199,7 @@ export default function AddFichaTecnica({
   IdMir: string;
   IdMA: string;
   IdFT: string;
+  estado: string;
 }) {
 
   useEffect(() => {
@@ -486,6 +488,7 @@ export default function AddFichaTecnica({
               showResume={showResume}
               MIR={MIR}
               ftEditPadre={ftEditPadre}
+              estadoft ={estado}
               setFTEditPadre={setFTEditPadre}
             ></TabResumenFT>
           ) : null}

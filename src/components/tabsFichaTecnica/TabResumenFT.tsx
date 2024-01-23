@@ -40,6 +40,7 @@ export function TabResumenFT({
   ftPadre,
   ftEditPadre,
   setFTEditPadre,
+  estadoft,
 }: {
   show: boolean;
   encabezado: IEncabezadoFT;
@@ -57,6 +58,7 @@ export function TabResumenFT({
   ftPadre: IFT;
   ftEditPadre: IFTEdit;
   setFTEditPadre: Function;
+  estadoft: string;
 }) {
   const [FT, setFT] = useState<IFT>(ftPadre);
 
@@ -2506,11 +2508,14 @@ export function TabResumenFT({
           <Button
           className="aceptar"
             //sx={queries.buttonContinuarSolicitudInscripcion}
-            onClick={() => setOpenModalEnviar(true)}
+            onClick={() =>{ console.log(estadoft)
+            setOpenModalEnviar(true)}}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
               {localStorage.getItem("Rol") === "Administrador"
-                ? "Autorizar"
+                ? estadoft === "Autorizada"
+                  ? "Modificar FT Autorizada"
+                  : "Autorizar"
                 : "Enviar"}
             </Typography>
           </Button>
