@@ -1,28 +1,23 @@
-import * as React from "react";
 import {
-  ListItemButton,
-
-  List,
-  Typography,
-
   Grid,
   IconButton,
+  List,
+  ListItemButton,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-
-import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
-import AddDialogCatalogo from "./AddDialogCatalogo";
-import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
-import { CSVCatalogo } from "./CSVCatalogo";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { listaGenericaCatalogos } from "./AxiosCatalogo";
-import DataGridTable from "../genericComponents/DataGridTable";
 import { GridColDef } from "@mui/x-data-grid";
 import { ButtonAdd } from "../genericComponents/AddButton";
-import { IObjetoBeneficiario, IObjetoCatalogo, IObjetoFechaDeCaptura, IObjetoPed, IObjetoProgramasInstitucionales, IObjetoProgramasPresupuestarios } from "./InterfacesCatalogos";
+import DataGridTable from "../genericComponents/DataGridTable";
+import AddDialogCatalogo from "./AddDialogCatalogo";
+import { listaGenericaCatalogos } from "./AxiosCatalogo";
+import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
 import { configOptions, newBeneficiario, newCatalogo, newFecha, newPed, newProgramas, newProgramasPresupuestario } from "./ExportsCatalogos";
+import { IObjetoBeneficiario, IObjetoCatalogo, IObjetoFechaDeCaptura, IObjetoPed, IObjetoProgramasInstitucionales, IObjetoProgramasPresupuestarios } from "./InterfacesCatalogos";
+import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
 
 
 
@@ -415,40 +410,25 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     },
   ];
 
-  const [objetoCatalogo, setObjetoCatalogo] = useState<Array<IObjetoCatalogo>>(
-    []
-  );
-  const [objetoProgramasInstitucionales, setObjetoProgramasInstitucionales] =
-    useState<Array<IObjetoProgramasInstitucionales>>([]);
+  const [objetoCatalogo, setObjetoCatalogo] = useState<Array<IObjetoCatalogo>>([]);
+  const [objetoProgramasInstitucionales, setObjetoProgramasInstitucionales] = useState<Array<IObjetoProgramasInstitucionales>>([]);
   const [objetoPed, setObjetoPed] = useState<Array<IObjetoPed>>([]);
-  const [objetoFechaDeCaptura, setObjetoFechaDeCaptura] = useState<
-    Array<IObjetoFechaDeCaptura>
-  >([]);
-  const [objetoBeneficiario, setObjetoBeneficiario] = useState<
-    Array<IObjetoBeneficiario>
-  >([]);
+  const [objetoFechaDeCaptura, setObjetoFechaDeCaptura] = useState<Array<IObjetoFechaDeCaptura>>([]);
+  const [objetoBeneficiario, setObjetoBeneficiario] = useState<Array<IObjetoBeneficiario>>([]);
 
-  const [objetoProgamaPresupuestario, setObjetoProgamaPresupuestario] =
-    useState<Array<IObjetoProgramasPresupuestarios>>([]);
+  const [objetoProgamaPresupuestario, setObjetoProgamaPresupuestario] = useState<Array<IObjetoProgramasPresupuestarios>>([]);
 
-  const [catalogoSelected, setCatalogoSelected] =
-    useState<IObjetoCatalogo>(newCatalogo);
+  const [catalogoSelected, setCatalogoSelected] = useState<IObjetoCatalogo>(newCatalogo);
 
-  const [programasISelected, setProgramasISelected] =
-    useState<IObjetoProgramasInstitucionales>(newProgramas);
+  const [programasISelected, setProgramasISelected] = useState<IObjetoProgramasInstitucionales>(newProgramas);
 
   const [pedSelected, setPedSelected] = useState<IObjetoPed>();
 
-  const [fechaDeCapturaSelected, setFechaDeCapturaSelected] =
-    useState<IObjetoFechaDeCaptura>(newFecha);
+  const [fechaDeCapturaSelected, setFechaDeCapturaSelected] = useState<IObjetoFechaDeCaptura>(newFecha);
 
-  const [beneficiarioSelected, setBeneficiarioSelected] =
-    useState<IObjetoBeneficiario>(newBeneficiario);
+  const [beneficiarioSelected, setBeneficiarioSelected] = useState<IObjetoBeneficiario>(newBeneficiario);
 
-  const [
-    programasPresupuestariosISelected,
-    setProgramasPresupuestariosISelected,
-  ] = useState<IObjetoProgramasPresupuestarios>(newProgramasPresupuestario);
+  const [ programasPresupuestariosISelected, setProgramasPresupuestariosISelected] = useState<IObjetoProgramasPresupuestarios>(newProgramasPresupuestario);
 
   const [openAdd, setOpenAdd] = useState(false);
   const [openMody, setOpenMody] = useState(false);

@@ -43,17 +43,9 @@ export function alertaInfo(titulo: string) {
   });
 }
 
-// export function alertaEliminar(fnc:Function){
-//   fnc();
-// }
-
-
-
 export const alertaEliminar = (  confirmedfunction: Function, cancelfunction: Function, title= "¿Desea eliminar elemento?") => {
  return Swal.fire({
     title: title,
-    //Estas a punto de eliminar un registro
-    // text: ` ${cellValues.row.Nombre}`,
     icon: "question",
     showCancelButton: true,
    
