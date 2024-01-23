@@ -82,8 +82,6 @@ export function alertaErrorConfirm(titulo: string) {
 export const alertaEliminar = (  confirmedfunction: Function, cancelfunction: Function, title= "¿Desea eliminar elemento?") => {
  return Swal.fire({
     title: title,
-    //Estas a punto de eliminar un registro
-    // text: ` ${cellValues.row.Nombre}`,
     icon: "question",
     showCancelButton: true,
    
