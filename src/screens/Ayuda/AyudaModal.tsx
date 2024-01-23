@@ -1,11 +1,15 @@
+import {
+  Autocomplete,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
-import { AppBar, Autocomplete, Button, Dialog, Grid, TextField, Toolbar, Typography } from "@mui/material";
 import ModalForm from "../../components/ModalForm";
-import { createAyuda, getMenus, getRoles, saveFile } from "./ServicesAyuda";
-import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import { queries } from "../../queries";
-import Swal from "sweetalert2";
 import { alertaError } from "../../components/genericComponents/Alertas";
+import { queries } from "../../queries";
+import { createAyuda, getMenus, getRoles, saveFile } from "./ServicesAyuda";
 
 export interface ILista {
   Id: string;
@@ -28,11 +32,10 @@ export interface MenuItem {
   Path: string;
 }
 
-export interface IFile { 
-  archivo: File; 
-  nombreArchivo: string 
+export interface IFile {
+  archivo: File;
+  nombreArchivo: string;
 }
-
 
 export const AyudasModal = ({
   value,
@@ -41,7 +44,6 @@ export const AyudasModal = ({
   value: string;
   handleClose: Function;
 }) => {
-
   const [menu, setMenu] = useState<ILista>({ Id: "", Label: "" });
   const [menus, setMenus] = useState<ILista[]>([]);
 
@@ -54,9 +56,7 @@ export const AyudasModal = ({
   const [respuesta, setRespuesta] = useState("");
 
   const [videoPreview, setVideoPreview] = useState("");
-  const [slideropen, setslideropen] = useState(false);
 
-  
   function enCambioFile(event: any) {
     if (
       event?.target?.files[0] &&
@@ -66,7 +66,6 @@ export const AyudasModal = ({
       let file = event?.target!?.files[0]!;
       setNewVideo(file);
       setVideoPreview(URL.createObjectURL(event.target.files[0]));
-
     } else if (
       event?.target?.files[0] &&
       event.target.files[0].type == "application/pdf"
@@ -77,33 +76,41 @@ export const AyudasModal = ({
 
       setNewVideo(file);
     } else {
-      alertaError("¡NO ES UN ARCHIVO VALIDO!")
-
+      alertaError("¡NO ES UN ARCHIVO VALIDO!");
     }
   }
 
+  useEffect(() => {
+    getMenus(setMenus);
 
-  useEffect(() => { getMenus(setMenus)
-
-
-    getRoles(setRoles) }, [])
+    getRoles(setRoles);
+  }, []);
 
   return (
-    // <Dialog open={true} fullScreen style={{ zIndex: 1000 }}>
-    <ModalForm title={"ADMINISTRACIÓN DE " + value.toUpperCase()} handleClose={handleClose} >
-      {/* <SliderProgress open={slideropen} texto={"Cargando..."}></SliderProgress> */}
-
+    <ModalForm
+      title={"ADMINISTRACIÓN DE " + value.toUpperCase()}
+      handleClose={handleClose}
+    >
       <Grid
         container
+        item
+        xl={11}
+        lg={11}
+        md={11}
+        sm={11}
+        xs={11}
         direction="row"
-        justifyContent="space-between"
+        justifyContent={[
+          "center",
+          "center",
+          "center",
+          "space-between",
+          "space-between",
+        ]}
         alignItems="center"
       >
-        {/* <LateralMenu
-          selection={"Administración de Ayudas"}
-          actionNumber={0}
-        /> */}
-        <Grid item xs={12} md={6.5} lg={8.2}>
+        {/* ROL */}
+        <Grid item xl={3.5} lg={3.5} md={8} sm={12} xs={12}>
           <Typography variant="h6">ROL</Typography>
           <Autocomplete
             noOptionsText="NO SE ENCONTRARON OPCIONES"
@@ -111,34 +118,20 @@ export const AyudasModal = ({
             closeText="CERRAR"
             openText="ABRIR"
             options={roles}
-            getOptionLabel={(rol) =>
-              rol.Nombre || "SELECCIONE ROL"
-            }
+            getOptionLabel={(rol) => rol.Nombre || "SELECCIONE ROL"}
             value={rol}
             onChange={(event, newValue) => {
               if (newValue != null) {
                 setRol(newValue);
-                // setErrores({
-                //   ...errores,
-                //   secretaria: {
-                //     valid: false,
-                //     text: "Ingresa secretaria valida",
-                //   },
-                // });
               }
             }}
             renderInput={(params) => (
-              <TextField
-                key={params.id}
-                {...params}
-                variant="outlined"
-              // error={errores.secretaria.valid}
-              />
+              <TextField key={params.id} {...params} variant="outlined" />
             )}
           />
         </Grid>
-
-        <Grid item xs={12} md={6.5} lg={8.2}>
+        {/* MENU */}
+        <Grid item xl={3.5} lg={3.5} md={8} sm={12} xs={12}>
           <Typography variant="h6">MENÚ</Typography>
           <Autocomplete
             noOptionsText="NO SE ENCONTRARON OPCIONES"
@@ -146,58 +139,38 @@ export const AyudasModal = ({
             closeText="CERRAR"
             openText="ABRIR"
             options={menus}
-            getOptionLabel={(menu) =>
-              menu.Label || "SELECCIONE MENÚ"
-            }
+            getOptionLabel={(menu) => menu.Label || "SELECCIONE MENÚ"}
             value={menu}
             onChange={(event, newValue) => {
               if (newValue != null) {
                 setMenu(newValue);
-                // setErrores({
-                //   ...errores,
-                //   secretaria: {
-                //     valid: false,
-                //     text: "Ingresa secretaria valida",
-                //   },
-                // });
               }
             }}
             renderInput={(params) => (
-              <TextField
-                key={params.id}
-                {...params}
-                variant="outlined"
-              // error={errores.secretaria.valid}
-              />
+              <TextField key={params.id} {...params} variant="outlined" />
             )}
           />
         </Grid>
-
+        {/* Boton */}
         <Grid
           item
+          xl={3.5}
+          lg={3.5}
+          md={8}
+          sm={12}
           xs={12}
-          md={5.5}
-          lg={3.8}
           container
           direction="row"
-          justifyContent="space-around"
+          justifyContent="flex-end"
           alignItems="center"
           paddingTop={3}
         >
-
-
           {value !== "Preguntas" ? (
-
             <Button
               variant="contained"
               sx={queries.buttonCancelarSolicitudInscripcion}
-
-              //className="aceptar"
-              //hidden
-              //disabled={modo == "Editar Nombre Video" || !TabValue}
               component="label"
             >
-
               SELECCIONAR {value.toUpperCase()}
               <input
                 hidden
@@ -208,41 +181,39 @@ export const AyudasModal = ({
                 type="file"
               />
             </Button>
-
           ) : (
             ""
           )}
 
-          {value == "Videos" && nombreArchivo !== '' ? (
+          {value == "Videos" && nombreArchivo !== "" ? (
             <>
               <Button
                 variant="contained"
-                sx={queries.buttonContinuarSolicitudInscripcion}
+                sx={{...queries.buttonContinuarSolicitudInscripcion,ml:"1vw"}}
                 className="aceptar"
                 //hidden
                 //disabled={modo == "Editar Nombre Video" || !TabValue}
                 component="label"
                 //className="aceptar"
                 onClick={() => {
-                  if (rol.Id !== ""){
+                  if (rol.Id !== "") {
                     if (menu.Id !== "") {
-                    setslideropen(true)
-
-                    saveFile(value, { nombreArchivo: nombreArchivo, archivo: newVideo }, menu.Id, rol.Id, pregunta, respuesta, handleClose);
-
+                      saveFile(
+                        value,
+                        { nombreArchivo: nombreArchivo, archivo: newVideo },
+                        menu.Id,
+                        rol.Id,
+                        pregunta,
+                        respuesta,
+                        handleClose
+                      );
+                    } else {
+                      alertaError("SELECCIONE UN MENÚ");
+                    }
+                  } else {
+                    alertaError("SELECCIONE UN ROL");
                   }
-                  else {
-
-                    alertaError("SELECCIONE UN MENÚ")
-                  }
-                  }
-                  else {
-                    alertaError("SELECCIONE UN ROL")
-                  }
-                  
-                }
-
-                }
+                }}
               >
                 GUARDAR
               </Button>
@@ -251,35 +222,34 @@ export const AyudasModal = ({
             ""
           )}
 
-          {value == "Guías" && nombreArchivo !== '' ? (
+          {value == "Guías" && nombreArchivo !== "" ? (
             <>
               <Button
-                sx={queries.buttonContinuarSolicitudInscripcion}
-
+                 sx={{...queries.buttonContinuarSolicitudInscripcion,ml:"1vw"}}
                 className="aceptar"
                 onClick={() => {
-                  if (rol.Id !== ""){
+                  if (rol.Id !== "") {
                     if (menu.Id !== "") {
-                    if (pregunta !== "") {
-                      setslideropen(true)
-
-                      saveFile(value, { nombreArchivo: nombreArchivo, archivo: newVideo }, menu.Id, rol.Id, pregunta, respuesta, handleClose)
+                      if (pregunta !== "") {
+                        saveFile(
+                          value,
+                          { nombreArchivo: nombreArchivo, archivo: newVideo },
+                          menu.Id,
+                          rol.Id,
+                          pregunta,
+                          respuesta,
+                          handleClose
+                        );
+                      } else {
+                        alertaError("ESCRIBA TÍTULO DE GUÍA");
+                      }
+                    } else {
+                      alertaError("SELECCIONE UN MENÚ");
                     }
-                    else {
-                      alertaError("ESCRIBA TÍTULO DE GUÍA")
-                    }
+                  } else {
+                    alertaError("SELECCIONE UN ROL");
                   }
-                  else {
-                    alertaError("SELECCIONE UN MENÚ")
-                  }
-                  }
-                  else {
-                    alertaError("SELECCIONE UN ROL")
-                  }
-
-                }
-
-                }
+                }}
               >
                 GUARDAR
               </Button>
@@ -291,50 +261,38 @@ export const AyudasModal = ({
           {value == "Preguntas" ? (
             <>
               <Button
-                sx={queries.buttonContinuarSolicitudInscripcion}
-
+                 sx={{...queries.buttonContinuarSolicitudInscripcion,ml:"1vw"}}
                 className="aceptar"
                 onClick={() => {
-                  if (rol.Id !== ""){
+                  if (rol.Id !== "") {
                     if (menu.Id !== "") {
-                    if (pregunta !== "") {
-                      if (respuesta !== "") {
-                        setslideropen(true)
-
-                        let datos = {
-                          IdMenu: menu.Id,
-                          IdRol: rol.Id,
-                          Pregunta: pregunta,
-                          Texto: respuesta,
-                          RutaGuia: "",
-                          RutaVideo: "",
-                          NombreArchivo: "",
-                          NombreArchivoServidor: "",
-                          IdUsuario: localStorage.getItem("IdUsuario") || ""
+                      if (pregunta !== "") {
+                        if (respuesta !== "") {
+                          let datos = {
+                            IdMenu: menu.Id,
+                            IdRol: rol.Id,
+                            Pregunta: pregunta,
+                            Texto: respuesta,
+                            RutaGuia: "",
+                            RutaVideo: "",
+                            NombreArchivo: "",
+                            NombreArchivoServidor: "",
+                            IdUsuario: localStorage.getItem("IdUsuario") || "",
+                          };
+                          createAyuda(datos, handleClose);
+                        } else {
+                          alertaError("ESCRIBA UNA RESPUESTA");
                         }
-                        createAyuda(datos, handleClose)
+                      } else {
+                        alertaError("ESCRIBA UNA PREGUNTA");
                       }
-                      else {
-                        alertaError("ESCRIBA UNA RESPUESTA")
-
-                      }
+                    } else {
+                      alertaError("SELECCIONE UN MENÚ");
                     }
-                    else {
-                      alertaError("ESCRIBA UNA PREGUNTA")
-                    }
+                  } else {
+                    alertaError("SELECCIONE UN ROL");
                   }
-
-                  else {
-                    alertaError("SELECCIONE UN MENÚ")
-                  }
-                  }
-                  else {
-                    alertaError("SELECCIONE UN ROL")
-                  }
-                  
-                }
-
-                }
+                }}
               >
                 GUARDAR
               </Button>
@@ -348,44 +306,47 @@ export const AyudasModal = ({
           <Grid
             container
             item
-            spacing={1}
-            xs={12}
-            sm={12}
-            md={12}
-            lg={12}
+            xs={11}
+            sm={11}
+            md={11}
+            lg={11}
             direction="row"
-            justifyContent="center"
+            justifyContent="flex-start"
             alignItems="center"
-            sx={{ padding: "1%" }}
-          ></Grid>
-          <Grid container>
-            <Grid>
-              <Typography variant="h6">NOMBRE DEL ARCHIVO: </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
+            sx={{ mt: "1vh" }}
+          >
+            <Typography variant="h6">NOMBRE DEL ARCHIVO: </Typography>
 
-
-                disabled
-                margin="dense"
-                id="nombreEvento"
-                value={nombreArchivo}
-                fullWidth
-                variant="outlined"
-                size="small"
-                onChange={(v) => setNombreArchivo(v.target.value)}
-                sx={{ paddingBottom: "10px" }}
-              />
-            </Grid>
+            <TextField
+              disabled
+              margin="dense"
+              id="nombreEvento"
+              value={nombreArchivo}
+              fullWidth
+              variant="outlined"
+              size="small"
+              onChange={(v) => setNombreArchivo(v.target.value)}
+              sx={{ paddingBottom: "10px" }}
+            />
           </Grid>
+
           {value == "Guías" ? (
-            <Grid container>
-              <Grid>
-                <Typography variant="h6">
-                PREGUNTA / TÍTULO DE GUÍA:{" "}
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
+            <>
+              <Grid
+                container
+                item
+                
+                xs={11}
+                sm={11}
+                md={11}
+                lg={11}
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                sx={{ mt: "1vh" }}
+              >
+                <Typography variant="h6">PREGUNTA / TÍTULO DE GUÍA:</Typography>
+
                 <TextField
                   margin="dense"
                   id="nombreEvento"
@@ -394,13 +355,11 @@ export const AyudasModal = ({
                   variant="outlined"
                   size="small"
                   inputProps={{ maxLength: 300 }}
-
-
                   onChange={(v) => setPregunta(v.target.value)}
-                  sx={{ paddingBottom: "10px" }}
+                  
                 />
               </Grid>
-            </Grid>
+            </>
           ) : (
             ""
           )}
@@ -413,20 +372,18 @@ export const AyudasModal = ({
             container
             item
             spacing={1}
-            xs={12}
-            sm={12}
-            md={12}
-            lg={12}
+            xs={11}
+            sm={11}
+            md={11}
+            lg={11}
             direction="row"
-            justifyContent="center"
+            justifyContent="flex-start"
             alignItems="center"
             sx={{ padding: "1%" }}
-          ></Grid>
-          <Grid container>
-            <Grid>
+          >
+          
+            
               <Typography variant="h6">PREGUNTA</Typography>
-            </Grid>
-            <Grid item xs={12}>
               <TextField
                 inputProps={{ maxLength: 300 }}
                 margin="dense"
@@ -438,14 +395,8 @@ export const AyudasModal = ({
                 onChange={(v) => setPregunta(v.target.value)}
                 sx={{ paddingBottom: "10px" }}
               />
-            </Grid>
-          </Grid>
-
-          <Grid container>
-            <Grid>
+            
               <Typography variant="h6">RESPUESTA</Typography>
-            </Grid>
-            <Grid item xs={12}>
               <TextField
                 inputProps={{ maxLength: 700 }}
                 margin="dense"
@@ -457,15 +408,23 @@ export const AyudasModal = ({
                 onChange={(v) => setRespuesta(v.target.value)}
                 sx={{ paddingBottom: "10px" }}
               />
-            </Grid>
+            
           </Grid>
         </>
       ) : null}
 
-      {value == "Videos" || value == "Guías" ?
-
-        (<Grid container item height={"100vh"} width={"100vw"} sx={{ display: "flex", justifyContent: "Center", alignItems: "center" }}>
-
+      {value == "Videos" || value == "Guías" ? (
+        <Grid
+          container
+          item
+          height={"100vh"}
+          width={"100vw"}
+          sx={{
+            display: "flex",
+            justifyContent: "Center",
+            alignItems: "center",
+          }}
+        >
           {value == "Videos" ? (
             <video
               loop
@@ -484,17 +443,13 @@ export const AyudasModal = ({
               title="PDF Viewer"
             ></iframe>
           )}
-        </Grid>) :
-        null}
+        </Grid>
+      ) : null}
 
-      <Grid>
-      </Grid>
-
-
+      <Grid></Grid>
     </ModalForm>
     // </Dialog>
   );
 };
 
 export default AyudasModal;
-

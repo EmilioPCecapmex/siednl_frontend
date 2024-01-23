@@ -1,58 +1,38 @@
-import {
-  Grid,
-  TextField,
-  ListItemButton,
-  Typography,
-  Divider,
-  List,
-  Box,
-  Paper,
-  styled,
-  Collapse,
-  Tooltip,
-  InputLabel,
-  useMediaQuery,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
-import { IComponenteRF, IFrecuencias } from "./interfacesRaffi";
-import { IComponenteActividad, IMIR } from "../tabsMir/interfaces mir/IMIR";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { queries } from "../../queries";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
-import { IRFEdit } from "./interfacesRaffi";
-import { alertaError } from "../genericComponents/Alertas";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import {
+  Collapse,
+  Divider,
+  Grid,
+  InputLabel,
+  List,
+  ListItemButton,
+  TextField,
+  Tooltip,
+  Typography,
+  useMediaQuery
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { queries } from "../../queries";
 import { getValueOperacion } from "../../services/validations";
+import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
+import { alertaError } from "../genericComponents/Alertas";
+import { IComponenteRF, IRFEdit } from "./interfacesRaffi";
 
 export const TabActividadRf = ({
   edit,
   MIR,
   MA,
-  RF,
-
-  asignarCValor,
-  compAct,
-  valoresComponenteRFFnc,
   ComponentesRF,
   setRFactividadesPadre,
-  showMirFnc,
-  setTxtShowFnc,
   raffiboolean,
 }: {
   edit: boolean;
-  MA: string;
   MIR: string;
-  RF: string;
-  
-  asignarCValor: Function;
-  compAct: Array<IComponenteActividad>;
-  valoresComponenteRFFnc: Function;
-  setRFactividadesPadre: Function;
+  MA: string;
   ComponentesRF: IComponenteRF[];
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
+  setRFactividadesPadre: Function;
   raffiboolean: IRFEdit;
 }) => {
   
@@ -283,8 +263,7 @@ export const TabActividadRf = ({
           <Tooltip title="RESUMEN ACTIVIDAD">
             <InfoOutlinedIcon
               onClick={() => {
-                showMirFnc(true);
-                setTxtShowFnc("Actividades");
+               
               }}
               fontSize="large"
               sx={{ cursor: "pointer" }}
@@ -860,7 +839,7 @@ export const TabActividadRf = ({
                     {/* {JSON.stringify(componentesActividadesValues)}; */}
                     <TextField
                       //fullWidth
-                      disabled={edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1}
+                      disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -910,7 +889,7 @@ export const TabActividadRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-                      disabled={edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2}
+                      disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -960,7 +939,7 @@ export const TabActividadRf = ({
                   <Grid item>
                     <TextField
                       //fullWidth
-                      disabled={edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3}
+                      disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -1005,11 +984,10 @@ export const TabActividadRf = ({
                       TRIMESTRE 4
                     </InputLabel>
                   </Grid>
-
                   <Grid item>
                     <TextField
                       //fullWidth
-                      disabled={edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4}
+                      disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}

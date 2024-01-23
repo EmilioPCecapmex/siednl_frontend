@@ -1185,8 +1185,6 @@ export const FichaTecnica = () => {
                                         : true
                                     }
                                     onClick={() => {
-                                      console.log("row.MIR: ",title_texto, row.MIR);
-                                      
                                       let auxArrayMIR = JSON.parse(row.MIR);
                                       let auxArrayMIR2 = JSON.stringify(
                                         auxArrayMIR[0]
@@ -1232,7 +1230,6 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       }
-
                                       setOpenModalVerResumenFT(true);
                                     }}
                                   >

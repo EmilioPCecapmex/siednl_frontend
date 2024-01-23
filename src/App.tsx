@@ -1,23 +1,22 @@
 import { useLayoutEffect } from "react";
 
+import { HashRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import "./Fonts.css";
 import "./Globals.css";
-import { Routes, Route, HashRouter } from "react-router-dom";
-import { Home } from "./screens/home/Home";
+import { continueSession, sessionValid } from "./funcs/validation";
+import Ayuda from "./screens/Ayuda/Ayuda";
+import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
+import { PanelUsuarios } from "./screens/config/PanelUsuarios";
 import { Settings } from "./screens/config/Settings";
 import { E404 } from "./screens/e404/E404";
-import { PanelUsuarios } from "./screens/config/PanelUsuarios";
-import { Init } from "./screens/init/Init";
-import { continueSession, sessionValid } from "./funcs/validation";
+import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
+import { Home } from "./screens/home/Home";
+import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { MIR } from "./screens/mir/MIR";
 import { Notification } from "./screens/notification/Notifications";
-import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
-import { MetaAnual } from "./screens/metaAnual/MetaAnual";
-import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 import { ProgramaAnualEvaluacion } from "./screens/programaAnauldeEvaluacion/ProgramaAnualdeEvaluacion";
 import { Raffi } from "./screens/raffi/Raffi";
-import Ayuda from "./screens/Ayuda/Ayuda";
 
 function App() {
   const params = new URLSearchParams(window.location.search);

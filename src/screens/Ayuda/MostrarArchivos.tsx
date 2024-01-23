@@ -4,6 +4,7 @@ import ModalForm from "../../components/ModalForm";
 import { getFileByName } from "./ServicesAyuda";
 import { IInfoFile } from "./VisualizadorAyudas";
 import { alertaError } from "../../components/genericComponents/Alertas";
+import SliderProgress from "../../components/genericComponents/SliderProgress";
 
 
 export const MostrarArchivos = ({
@@ -17,7 +18,7 @@ export const MostrarArchivos = ({
 }) => {
 
     const [archivoUrl, setArchivoUrl] = useState<string>("");
-
+    const [visualize, setVisualize] = useState<boolean>(true);
     const savePDF =(data:string)=>{
         setArchivoUrl(`data:application/pdf;base64,${data}`);
     }
@@ -28,11 +29,11 @@ export const MostrarArchivos = ({
 
     useEffect(() => {
         switch(value){
-            case "Videos":getFileByName(process.env.REACT_APP_DOC_ROUTE+'/VIDEOS/TUTORIALES/',infoFile.nombre, saveVideo);
+            case "Videos":getFileByName(process.env.REACT_APP_DOC_ROUTE+'/VIDEOS/TUTORIALES/',infoFile.nombre, saveVideo,setVisualize);
             break;
-            case "Guías" : getFileByName(process.env.REACT_APP_DOC_ROUTE+'/GUIAS/', infoFile.nombre,savePDF);
+            case "Guías" : getFileByName(process.env.REACT_APP_DOC_ROUTE+'/GUIAS/', infoFile.nombre,savePDF,setVisualize);
             break;
-            case "PAE" : getFileByName(infoFile.ruta, infoFile.nombre,savePDF);
+            case "PAE" : getFileByName(infoFile.ruta, infoFile.nombre,savePDF,setVisualize);
             break;
             default:
                 alertaError("Opcion invalida");
@@ -43,7 +44,7 @@ export const MostrarArchivos = ({
     return (
         
 <ModalForm title="VISUALIZAR" handleClose={() => { handleClose() }}>
-
+        <SliderProgress open={visualize} texto="Obteniendo el archivo."></SliderProgress>
             <Grid container sx={{ width: "100vw", height: "92vh", display: "flex", justifyContent: "flex-end" }}>
 
                 <Grid item   container xs={12} sm={12} md={12} lg={12} sx={{height:"90vh", display: "flex", justifyContent: "center",alignItems:"center"}}>

@@ -1,7 +1,4 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { IDatosAdicionales } from "../components/modalUsuarios/InterfazUsuario";
-import { useActionData } from "react-router-dom";
 
 const params = new URLSearchParams(window.location.search);
 const IdApp = params.get("IdApp");
