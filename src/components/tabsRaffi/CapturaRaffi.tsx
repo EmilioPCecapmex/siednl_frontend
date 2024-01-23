@@ -220,6 +220,7 @@ export default function CapturaRaffi({
   IdMir,
   IdMA,
   IdRf,
+  estado,
 }: {
   MIR: string;
   MA: string;
@@ -228,6 +229,7 @@ export default function CapturaRaffi({
   IdMir: string;
   IdMA: string;
   IdRf: string;
+  estado: string;
 }) {
   const [value, setValue] = useState(0);
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
@@ -492,6 +494,7 @@ export default function CapturaRaffi({
                 Raffi={raffi}
                 raffiboolean={raffiboolean}
                 setRaffiboolean={setRaffiboolean}
+                estadorf={estado}
               />
             )}
           </Grid>

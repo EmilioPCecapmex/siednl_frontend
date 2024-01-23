@@ -949,7 +949,7 @@ export const Raffi = () => {
                                           },
                                         ]);
                                       }
-
+                                      setEstadoRF(row.Estado)
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -1157,6 +1157,7 @@ export const Raffi = () => {
               IdMir={rfEdit[0].IdMir || ""}
               IdMA={rfEdit[0].IdMetaAnual || ""}
               IdRf={rfEdit[0].IdRaffi || ""}
+              estado={estadorf}
             />
           </Grid>
         )}

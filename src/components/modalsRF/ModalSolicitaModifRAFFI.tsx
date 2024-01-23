@@ -20,6 +20,7 @@ import {
   IComponenteRF,
   IRF,
 } from "../tabsRaffi/interfacesRaffi";
+import { alertaErrorConfirm, alertaExitoConfirm } from "../genericComponents/Alertas";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModifRF({
@@ -258,23 +259,16 @@ export default function ModalSolicitaModifRF({
         if (comment !== "") {
           comentMA(IdRF);
         }
-        Toast.fire({
-          icon: "success",
-          title:
-            localStorage.getItem("Rol") === "Verificador"
-              ? "RAFFI enviada a capturador para corrección"
-              : "RAFFI enviada a revisión",
-        });
+        alertaExitoConfirm((localStorage.getItem("Rol") === "Verificador"
+        ? "Ficha Tecnica enviada a capturador para corrección"
+        : "Ficha Tecnica enviada").toUpperCase())
 
         enviarNotificacion();
         handleClose();
         showResume();
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
+        alertaErrorConfirm((err.response.data.result.error).toUpperCase())
       });
   };
 

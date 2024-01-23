@@ -32,6 +32,7 @@ import {
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import ModalEnviarRF from "../modalsRF/ModalEnviarRF";
 import ModalSolicitaModifRF from "../modalsRF/ModalSolicitaModifRAFFI";
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
 export const TabResumenRF = ({
   IdMir,
@@ -43,6 +44,7 @@ export const TabResumenRF = ({
   Raffi,
   raffiboolean,
   setRaffiboolean,
+  estadorf,
 }: {
   IdMir: string;
   IdRF: string;
@@ -53,6 +55,7 @@ export const TabResumenRF = ({
   raffiboolean: IRFEdit;
   setRaffiboolean: Function;
   showResume: Function;
+  estadorf: string;
 }) => {
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
 
@@ -132,19 +135,11 @@ export const TabResumenRF = ({
         }
       )
       .then((r) => {
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
+        alertaExito(()=> {}, r.data.data.message )
         showResume();
       })
       .catch((err) => {
-        console.log(err.response.data);
-        
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.error,
-        });
+        alertaError(err.response.data.result.error)
       });
   };
 
@@ -2645,7 +2640,7 @@ export const TabResumenRF = ({
           xs={12}
         >
           <Button
-            sx={queries.buttonCancelarSolicitudInscripcion}
+           className="cancelar"
             onClick={() => showResume()}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -2665,7 +2660,7 @@ export const TabResumenRF = ({
         >
           <Button
             disabled={isCapturador ? true : false}
-            sx={buttonStyles}
+            className="aceptar"
             onClick={() => setOpenModalSolicitarModif(true)}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -2684,7 +2679,7 @@ export const TabResumenRF = ({
           xs={12}
         >
           <Button
-            sx={queries.buttonContinuarSolicitudInscripcion}
+            className="aceptar"
             onClick={() =>
               creaRF(
                 localStorage.getItem("Rol") === "Capturador"
@@ -2696,7 +2691,7 @@ export const TabResumenRF = ({
             }
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Borrador
+            Guardar Borrador
             </Typography>
           </Button>
         </Grid>
@@ -2711,12 +2706,15 @@ export const TabResumenRF = ({
           xs={12}
         >
           <Button
-            sx={queries.buttonContinuarSolicitudInscripcion}
+            //sx={queries.buttonContinuarSolicitudInscripcion}
             onClick={() => setOpenModalEnviar(true)}
+            className="aceptar"
           >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+             <Typography sx={{ fontFamily: "MontserratMedium" }}>
               {localStorage.getItem("Rol") === "Administrador"
-                ? "Autorizar"
+                ? estadorf === "Autorizada"
+                  ? "Modificar MA Autorizada"
+                  : "Autorizar"
                 : "Enviar"}
             </Typography>
           </Button>
