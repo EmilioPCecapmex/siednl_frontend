@@ -14,10 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
-import { queries } from "../../queries";
-import { log } from "console";
 import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
-import { alertaEliminar, alertaExito } from "../genericComponents/Alertas";
+import { alertaEliminar, alertaError, alertaErrorConfirm, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -527,23 +525,23 @@ export default function ModalSolicitaModif({
         if (comentario !== "") {
           comentFT();
         }
-        Toast.fire({
-          icon: "success",
-          title:
-            localStorage.getItem("Rol") === "Verificador"
-              ? "Ficha Tecnica enviada a capturador para corrección"
-              : "Ficha Tecnica enviada",
-        });
+        // if(localStorage.getItem("Rol") === "Verificador"){
+        //   alertaExitoConfirm("FICHA TECNICA ENVIADA A REVISION")
+        // }else{
+        //   alertaExitoConfirm("FICHA TECNICA ENVIADA ")
+        // }
 
+        alertaExitoConfirm((localStorage.getItem("Rol") === "Verificador"
+        ? "Ficha Tecnica enviada a capturador para corrección"
+        : "Ficha Tecnica enviada").toUpperCase())
+       
         //enviarNotificacion();
         handleClose();
         showResume();
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
+       
+        alertaErrorConfirm((err.response.data.result.error).toUpperCase())
       });
   };
 
@@ -574,6 +572,8 @@ export default function ModalSolicitaModif({
         )
         .then((r) => {
           if (r.status === 200) {
+            console.log("r.data.data: ",r.data.data[1].Rol);
+            
             setUserXInst(r.data.data);
           }
         });
@@ -656,7 +656,7 @@ export default function ModalSolicitaModif({
               {userXInst.map((item) => {
                 return (
                   <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-                    {item.Nombre}
+                    {item.Rol + ": " + item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno}
                   </MenuItem>
                 );
               })}

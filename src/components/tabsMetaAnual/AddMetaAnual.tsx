@@ -178,12 +178,14 @@ export default function AddMetaAnual({
   showResume,
   IdMir,
   IdMA,
+  estado,
 }: {
   MIR: string;
   MA: string;
   showResume: Function;
   IdMir: string;
   IdMA: string;
+  estado: string;
 }) {
   const [maPadre, setMAPadre] = useState<IMA>(newMetaAnual(MIR));
   const [maPadreEdit, setMAPadreEdit] = useState<IMAEdit>(
@@ -425,6 +427,7 @@ export default function AddMetaAnual({
                 showResume={showResume}
                 MIR={MIR}
                 maPadreEdit={maPadreEdit}
+                estadoma ={estado}
                 setMAPadreEdit={setMAPadreEdit}
               ></TabResumenMA>
             ) : null}

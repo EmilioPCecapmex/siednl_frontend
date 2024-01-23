@@ -14,7 +14,7 @@ import {
 import { queries } from "../../queries";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { IActividad } from "../tabsMir/interfaces mir/IMIR";
-import { alertaEliminar, alertaExito, alertaInfo } from "../genericComponents/Alertas";
+import { alertaEliminar, alertaErrorConfirm, alertaExito, alertaExitoConfirm, alertaInfo } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -549,12 +549,10 @@ export default function ModalEnviarMA({
         if (estado === "Autorizada") {
           CrearFichaTecnica();
         }
-       
-        alertaExito(()=>{}, r.data.data.message
-        // localStorage.getItem("Rol") === "Administrador"
-        // ? "¡MIR autorizada con éxito!, Meta Anual disponible para captura"
-        // : "¡MIR enviada con éxito!"
-        )
+        alertaExitoConfirm((r.data.data.message).toUpperCase())
+        //alertaExito(()=>{}, r.data.data.message
+        
+        
 
         if (comment !== "") {
           comentMA(IdMIR);
@@ -562,11 +560,8 @@ export default function ModalEnviarMA({
         showResume();
       })
       .catch((err) => {
-        // Toast.fire({
-        //   icon: "error",
-        //   title: err.response.data.result.error,
-        // });
-        alertaInfo(err.response.data.result.error)
+      
+        alertaErrorConfirm((err.response.data.result.error).toUpperCase())
       });
   };
 
@@ -605,8 +600,8 @@ export default function ModalEnviarMA({
           //sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
         });
         alertaExito(()=>{},localStorage.getItem("Rol") === "Administrador"
-        ? "¡FT autorizada con éxito!, Meta Anual disponible para captura"
-        : "¡FT enviada con éxito!")
+        ? "FT enviada a capturador"
+        : "FT enviada a revisión")
         showResume();
       })
       .catch((err) => {

@@ -18,7 +18,7 @@ import {
   InputLabel,
   Paper,
   InputBase,
-  Box,
+ 
   TableSortLabel,
 } from "@mui/material";
 import axios from "axios";
@@ -1084,7 +1084,7 @@ export const MetaAnual = () => {
                                       ]);
                                       }
                                       
-
+                                      setEstadoMA(row.Estado)
                                       setShowResume(false);
                                       setActionNumber(1);
                                     }}
@@ -1212,6 +1212,7 @@ export const MetaAnual = () => {
               showResume={returnMain}
               IdMir={maEdit[0]?.IdMir || ""}
               IdMA={maEdit[0]?.IdMa || ""}
+              estado={estadoma}
             />
           </Grid>
         )}

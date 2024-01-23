@@ -22,11 +22,7 @@ import { getMAyFT } from "../../services/mir_services/MIR_services";
 import { IMA } from "../tabsMetaAnual/IMA";
 import { IComponentesFT, IFT } from "../tabsFichaTecnica/Interfaces";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
-import {
-  newComponenteMA,
-  newFinPropositoMA,
-} from "../tabsMetaAnual/AddMetaAnual";
-import { alertaEliminar, alertaExito } from "../genericComponents/Alertas";
+import { alertaEliminar, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
 import { IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
 
 export let errores: string[] = [];
@@ -629,9 +625,9 @@ export default function ModalEnviarMIR({
         }
 
         
-        alertaExito(()=>{},localStorage.getItem("Rol") === "Administrador"
+        alertaExitoConfirm((localStorage.getItem("Rol") === "Administrador"
         ? "¡MIR autorizada con éxito!, Meta Anual disponible para captura"
-        : "¡MIR enviada con éxito!")
+        : "¡MIR enviada con éxito!").toUpperCase())
 
         if (comment !== "") {
           comentMir(r.data.data.ID);

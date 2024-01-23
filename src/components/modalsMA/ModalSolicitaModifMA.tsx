@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { queries } from "../../queries";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
-import { alertaError, alertaExito } from "../genericComponents/Alertas";
+import { alertaError, alertaErrorConfirm, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -582,9 +582,9 @@ export default function ModalSolicitaModif({
         //       ? "Meta anual enviada a capturador para corrección"
         //       : "Meta anual enviada ",
         // });
-        alertaExito(() => {}, localStorage.getItem("Rol") === "Verificador"
+        alertaExitoConfirm( (localStorage.getItem("Rol") === "Verificador"
                ? "Meta anual enviada a capturador para corrección"
-               : "Meta anual enviada ");
+               : "Meta anual enviada ").toUpperCase());
 
         enviarNotificacion();
         handleClose();
@@ -595,7 +595,7 @@ export default function ModalSolicitaModif({
         //   icon: "error",
         //   title: err.response.data.result.error,
         // });
-        alertaError(err.response.data.result.error);
+        alertaErrorConfirm(err.response.data.result.error);
       });
   };
 
@@ -725,7 +725,7 @@ export default function ModalSolicitaModif({
               {userXInst.map((item) => {
                 return (
                   <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-                    {item.Nombre}
+                      {item.Rol + ": " + item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno}
                   </MenuItem>
                 );
               })}
@@ -812,4 +812,5 @@ export interface IIUserXInst {
   NombreInstitucion: string;
   Nombre: string;
   ApellidoPaterno: string;
+  ApellidoMaterno: String;
 }

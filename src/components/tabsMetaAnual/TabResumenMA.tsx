@@ -23,6 +23,7 @@ export function TabResumenMA({
   showResume,
   maPadreEdit,
   setMAPadreEdit,
+  estadoma,
 }: {
   IdMir: string;
   IdMA: string;
@@ -31,6 +32,7 @@ export function TabResumenMA({
   maPadre: IMA;
   maPadreEdit: IMAEdit;
   setMAPadreEdit: Function;
+  estadoma: string;
 }) {
   const [MA, setMA] = useState<IMA>(maPadre);
 
@@ -3152,8 +3154,10 @@ export function TabResumenMA({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              {localStorage.getItem("Rol") === "Administrador"
-                ? "Autorizar"
+            {localStorage.getItem("Rol") === "Administrador"
+                ? estadoma === "Autorizada"
+                  ? "Modificar FT Autorizada"
+                  : "Autorizar"
                 : "Enviar"}
             </Typography>
           </Button>

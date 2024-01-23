@@ -22,6 +22,7 @@ import { queries } from "../../queries";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
 export function TabResumenFT({
   show,
@@ -107,17 +108,13 @@ export function TabResumenFT({
         }
       )
       .then((r) => {
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
+        alertaExito(()=> {}, r.data.data.message )
+        
         showResume();
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
+        alertaError(err.response.data.result.error)
+      
       });
   };
 

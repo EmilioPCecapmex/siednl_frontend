@@ -14,10 +14,9 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { queries } from "../../queries";
+
 import { IActividad, IComponente } from "../tabsMir/interfaces mir/IMIR";
-import { IMA } from "../tabsMetaAnual/IMA";
-import { IFT } from "../tabsFichaTecnica/Interfaces";
+
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
@@ -573,7 +572,7 @@ export default function ModalSolicitaModif({
               {userXInst.map((item) => {
                 return (
                   <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-                    {item.Nombre} {item.ApellidoPaterno} {item.ApellidoMaterno}{" "}
+                    {item.Rol + ": " + item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno}
                     - {item.NombreUsuario}
                   </MenuItem>
                 );

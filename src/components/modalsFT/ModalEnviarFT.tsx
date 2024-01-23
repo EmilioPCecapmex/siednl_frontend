@@ -13,7 +13,7 @@ import {
 //import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
 import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
-import { alertaEliminar, alertaExito } from "../genericComponents/Alertas";
+import { alertaEliminar, alertaErrorConfirm, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -406,10 +406,8 @@ export default function ModalEnviarFT({
           //sendMail(user.CorreoElectronico, enviarMensaje, "FT");
         });
 
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
+        alertaExitoConfirm((r.data.data.message).toUpperCase())
+       
 
         if (comment !== "") {
           comentFT();
@@ -417,10 +415,8 @@ export default function ModalEnviarFT({
         showResume();
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
+        alertaErrorConfirm((err.response.data.result.error).toUpperCase())
+        
       });
   };
 

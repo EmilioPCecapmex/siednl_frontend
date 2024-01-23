@@ -404,7 +404,7 @@ export default function ModalSolicitaModifRF({
               {userXInst.map((item) => {
                 return (
                   <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-                    {item.Nombre}
+                    {item.Rol + ": " + item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno}
                   </MenuItem>
                 );
               })}
@@ -487,4 +487,5 @@ export interface IIUserXInst {
   NombreInstitucion: string;
   Nombre: string;
   ApellidoPaterno: string;
+  ApellidoMaterno: string;
 }

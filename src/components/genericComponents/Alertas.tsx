@@ -13,6 +13,18 @@ const Toast = Swal.mixin({
   },
 });
 
+const ToastConfirm = Swal.mixin({
+  toast: false,
+  position: "center",
+  showConfirmButton: true,
+  heightAuto: false,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
+
 
 
 export function alertaExito(fnc: Function, titulo = "Movimiento exitoso") {
@@ -37,6 +49,24 @@ export function alertaError(titulo = "Movimiento fallido") {
 export function alertaInfo(titulo: string) {
   return Toast.fire({
     icon: "info",
+    title: titulo,
+    iconColor: "#af8c55",
+    color: "#af8c55",
+  });
+}
+
+export function alertaExitoConfirm(titulo: string) {
+  return ToastConfirm.fire({
+    icon: "success",
+    title: titulo,
+    iconColor: "#af8c55",
+    color: "#af8c55",
+  });
+}
+
+export function alertaErrorConfirm(titulo: string) {
+  return ToastConfirm.fire({
+    icon: "error",
     title: titulo,
     iconColor: "#af8c55",
     color: "#af8c55",
