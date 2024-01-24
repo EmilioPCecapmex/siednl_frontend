@@ -1,3 +1,5 @@
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Grid,
   IconButton,
@@ -6,10 +8,8 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import { GridColDef } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
 import { ButtonAdd } from "../genericComponents/AddButton";
 import DataGridTable from "../genericComponents/DataGridTable";
 import AddDialogCatalogo from "./AddDialogCatalogo";
@@ -18,8 +18,6 @@ import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
 import { configOptions, newBeneficiario, newCatalogo, newFecha, newPed, newProgramas, newProgramasPresupuestario } from "./ExportsCatalogos";
 import { IObjetoBeneficiario, IObjetoCatalogo, IObjetoFechaDeCaptura, IObjetoPed, IObjetoProgramasInstitucionales, IObjetoProgramasPresupuestarios } from "./InterfacesCatalogos";
 import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
-
-
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const [opcionCatalogo, setOpcionCatalogo] = useState(defSelected);
@@ -52,11 +50,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Editar descripcion">
               <IconButton
                 onClick={() => {
-                 
                   setCatalogoSelected(v.row);
-
                   setOpenMody(true);
-                  //eliminar(v)
                 }}
               >
                 <EditIcon />
@@ -66,35 +61,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         );
       },
     },
-
     {
       field: "descripcion",
       headerName: "Descripcion",
       description: "Descripcion",
       flex: 5,
     },
-    // ...(opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"
-    //   ? [
-    //       {
-    //         field: "Id",
-    //         headerName: "CONAC",
-    //         description: "Id Beneficiario",
-    //         flex: 2,
-    //       },
-    //       {
-    //         field: "",
-    //         headerName: "CONSECUTIVO",
-    //         description: "Tipo Beneficiario",
-    //         flex: 2,
-    //       },
-    //       {
-    //         field: "INSTITUCION",
-    //         headerName: "INSTITUCION",
-    //         description: "Tipo",
-    //         flex: 2,
-    //       },
-    //     ]
-    //   : []),
   ];
 
   const columsFechaDeCaptura: GridColDef[] = [
@@ -111,10 +83,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Eliminar descripcion">
               <IconButton
                 onClick={() => {
-               
                   setFechaDeCapturaSelected(v.row);
                   setOpenDel(true);
-                  //eliminar(v)
                 }}
               >
                 <DeleteIcon />
@@ -159,10 +129,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Editar descripcion">
               <IconButton
                 onClick={() => {
-                 
                   setProgramasISelected(v.row);
                   setOpenDel(true);
-                  //eliminar(v)
                 }}
               >
                 <DeleteIcon />
@@ -218,7 +186,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                       </Tooltip>
                     </Grid>
                   );
-                  //eliminar(v)
                 }}
               >
                 <DeleteIcon />
@@ -302,10 +269,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Eliminar descripcion">
               <IconButton
                 onClick={() => {
-                  
                   setBeneficiarioSelected(v.row);
                   setOpenDel(true);
-                  //eliminar(v)
                 }}
               >
                 <DeleteIcon />
@@ -355,11 +320,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Eliminar descripcion">
               <IconButton
                 onClick={() => {
-                 
                   setProgramasPresupuestariosISelected(v.row);
-
                   setOpenDel(true);
-                  //eliminar(v)
                 }}
               >
                 <DeleteIcon />
@@ -369,11 +331,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Editar descripcion">
               <IconButton
                 onClick={() => {
-                  
                   setProgramasPresupuestariosISelected(v.row);
-
                   setOpenMody(true);
-                  //eliminar(v)
                 }}
               >
                 <EditIcon />
@@ -535,25 +494,18 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
                 
                 onClick={() => {
-                  console.log("opcionCatalogo: ",opcionCatalogo);
-                  console.log("item.Desc: ",item.Desc);
-                  
                   setObjetoPed([]);
                   setObjetoProgramasInstitucionales([]);
                   setObjetoCatalogo([]);
                   setObjetoFechaDeCaptura([]);
                   setObjetoBeneficiario([]);
                   setObjetoProgamaPresupuestario([]);
-
                   setCatalogoSelected(newCatalogo);
                   setProgramasISelected(newProgramas);
                   setPedSelected(newPed);
                   setFechaDeCapturaSelected(newFecha);
                   setBeneficiarioSelected(newBeneficiario);
-                  setProgramasPresupuestariosISelected(
-                    newProgramasPresupuestario
-                  );
-
+                  setProgramasPresupuestariosISelected(newProgramasPresupuestario);
                   setOpcionCatalogo(item.Desc);
                   setUpdata(item.Desc);
                 }}
@@ -600,11 +552,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             xs={8}
             sx={{ display: "flex", justifyContent: "center" }}
           >
-            <Tooltip
-              //sx={{ fontFamily: "Montserrat-Bold"}}
-
-              title={opcionCatalogo}
-            >
+            <Tooltip title={opcionCatalogo}>
               <Typography
                 fontFamily={"'Montserrat', sans-serif"}
                 sx={{
@@ -647,30 +595,20 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           <DataGridTable
             id={(row: any) => row.Id || Math.random}
             columns={
-              opcionCatalogo.toUpperCase() === "BENEFICIARIOS"
-                ? columsBeneficiario
-                : opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"
-                ? columsFechaDeCaptura
-                : opcionCatalogo.toUpperCase() === "PED"
-                ? columsPed
-                : opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES"
-                ? columsProgramasInstituciones
-                : opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"
-                ? columProgramaPresupuestario
-                : columsCatalogo
+              opcionCatalogo.toUpperCase() === "BENEFICIARIOS"? columsBeneficiario: 
+              opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"? columsFechaDeCaptura: 
+              opcionCatalogo.toUpperCase() === "PED"? columsPed: 
+              opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES"? columsProgramasInstituciones: 
+              opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"? columProgramaPresupuestario: 
+              columsCatalogo
             }
             rows={
-              opcionCatalogo.toUpperCase() === "BENEFICIARIOS"
-                ? objetoBeneficiario
-                : opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"
-                ? objetoFechaDeCaptura
-                : opcionCatalogo.toUpperCase() === "PED"
-                ? objetoPed
-                : opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES"
-                ? objetoProgramasInstitucionales
-                : opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"
-                ? objetoProgamaPresupuestario
-                : objetoCatalogo
+              opcionCatalogo.toUpperCase() === "BENEFICIARIOS"? objetoBeneficiario: 
+              opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"? objetoFechaDeCaptura: 
+              opcionCatalogo.toUpperCase() === "PED"? objetoPed: 
+              opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES"? objetoProgramasInstitucionales: 
+              opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"? objetoProgamaPresupuestario: 
+              objetoCatalogo
             }
             camposCsv={[]}
             exportTitle={"Columnas"}
@@ -678,7 +616,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         </Grid>
       </Grid>
 
-      <DeleteDialogCatalogos
+      {openDel?<DeleteDialogCatalogos
         deleteText={
           catalogoSelected?.descripcion !== ""
             ? catalogoSelected?.descripcion
@@ -708,22 +646,19 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         tabla={opcionCatalogo || ""}
         actualizado={actualizaContador}
         open={openDel}
-        //setOpenDel={setOpenDel}
         handleCloseDel={handleCloseDel}
         UpdateInfo={UpdateInfo}
-      />
+      />:null}
 
-      <AddDialogCatalogo
+      {openAdd?<AddDialogCatalogo
         open={openAdd}
         handleClose={handleClose}
         catalogo={opcionCatalogo || ""}
         tabla={opcionCatalogo || ""}
         select={updata}
+      />:null}
 
-        //UpdateInfo ={UpdateInfo}
-      />
-
-      <ModifyDialogCatalogos
+      {openMody?<ModifyDialogCatalogos
         descripcion={
           catalogoSelected?.descripcion !== ""
             ? catalogoSelected?.descripcion
@@ -753,7 +688,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         tabla={opcionCatalogo || ""}
         open={openMody}
         handleCloseMody={handleCloseMody}
-      />
+      />:null}
     </Grid>
   );
 };
