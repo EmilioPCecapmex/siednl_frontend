@@ -3,7 +3,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import axios from "axios";
 import { Typography } from "@mui/material";
-import Swal from "sweetalert2";
+
 import {
   TextField,
   Box,
@@ -20,7 +20,7 @@ import {
 import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
-import { queries } from "../../queries";
+
 import "../../../src/Globals.css"
 import {alertaExito, alertaError, alertaInfo} from "../genericComponents/Alertas";
 
@@ -33,17 +33,7 @@ export const ComentDialogMA = ({
   id: string;
   actualizado: Function;
 }) => {
-  // const Toast = Swal.mixin({
-  //   toast: true,
-  //   position: "top-end",
-  //   showConfirmButton: false,
-  //   timer: 3000,
-  //   timerProgressBar: true,
-  //   didOpen: (toast) => {
-  //     toast.addEventListener("mouseenter", Swal.stopTimer);
-  //     toast.addEventListener("mouseleave", Swal.resumeTimer);
-  //   },
-  // });
+ 
 
   const [coments, setComents] = React.useState([
     {
@@ -146,17 +136,11 @@ export const ComentDialogMA = ({
         setComent("");
         handleClose();
         actualizado();
-        // Toast.fire({
-        //   icon: "success",
-        //   title: "Comentario añadido",
-        // });
+        
         alertaExito(() => {}, "Comentario añadido");
       })
       .catch((err) => {
-        // Toast.fire({
-        //   icon: "error",
-        //   title: "Se produjo un error",
-        // });
+       
         alertaError("Se produjo un error");
       });
   };

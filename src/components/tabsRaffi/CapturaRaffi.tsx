@@ -227,8 +227,6 @@ export default function CapturaRaffi({
 }) {
   const [value, setValue] = useState(0);
 
-  // const jsonMir = JSON.parse(MIR);
-
   const [raffi, setRaffi] = useState<IRF>(newRaffi(MIR));
 
   const [raffiboolean, setRaffiboolean] = useState<IRFEdit>(

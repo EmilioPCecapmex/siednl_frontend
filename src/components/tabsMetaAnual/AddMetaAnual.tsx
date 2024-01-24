@@ -208,7 +208,6 @@ export default function AddMetaAnual({
     setShowSt(st);
   };
 
-  // const jsonMir = JSON.parse(MIR);
 
   const setMAFinPadre = (FinValues: IFinMA) => {
     setMAPadre({
@@ -251,8 +250,7 @@ export default function AddMetaAnual({
         let auxMIR: IMIR = JSON.parse(MIR);
         let auxMA: IMA = newMetaAnual(MIR);
         setEditMA(true);
-        // let lengthMA = auxMA.componentes.length
-        // let lengthMIR = auxMIR.componentes.length
+     
 
         let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
           if (auxDBMA.componentes[indexC]) {
@@ -281,8 +279,7 @@ export default function AddMetaAnual({
         let auxMIR: IMIR = JSON.parse(MIR);
         let auxMA: IMA = newMetaAnual(MIR);
 
-        // let lengthMA = auxMA.componentes.length
-        // let lengthMIR = auxMIR.componentes.length
+
 
         let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
           if (auxDBMA.componentes[indexC]) {
@@ -337,16 +334,12 @@ export default function AddMetaAnual({
           width: "auto",
           height: "100%",
 
-          // height: "93vh",
-          // borderRadius: 5,
-          // display: "flex",
-          // flexDirection: "column",
-          // alignItems: "center",
+      
         }}
       >
         <Grid
           sx={{
-            //width: "93vw",
+          
             width: ["300xp", "750px", "750px", "1100px", "1200px"],
             height: "82vh",
 
@@ -391,11 +384,11 @@ export default function AddMetaAnual({
                 showMirFnc={showMirFnc}
                 //show={value === 1 ? true : false}
                 setMAcomponentesPadre={setMAcomponentesPadre}
-                setComponenteMA={setMAPadre}
+               
                 ComponentesMA={maPadre.componentes}
                 MA={MA}
                 MIR={MIR}
-                maPadreEdit={maPadreEdit}
+              
               />
             ) : null}
 
@@ -404,14 +397,14 @@ export default function AddMetaAnual({
                 edit={editMA}
                 setTxtShowFnc={showFnc}
                 showMirFnc={showMirFnc}
-                compAct={[]}
+               
                 // show={value === 2 ? true : false}
                 setMAActividadesPadre={setMAActividadesPadre}
                 ComponentesActividadMA={maPadre.componentes}
-                asignarCValor={() => {}}
+              
                 MA={MA}
                 MIR={MIR}
-                maPadreEdit={maPadreEdit}
+             
               ></TabActividadesMA>
             ) : null}
 

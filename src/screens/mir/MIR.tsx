@@ -33,65 +33,13 @@ import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import FullModalMir from "../../components/tabsMir/AddMir";
 import SearchIcon from "@mui/icons-material/Search";
 import { alertaError } from "../../components/genericComponents/Alertas";
+import { estados, heads } from "../../services/validations";
 export let resumeDefaultMIR = true;
 
 export let setResumeDefaultMIR = () => {
   resumeDefaultMIR = !resumeDefaultMIR;
 };
-const estados = [
-  "Todos",
-  "En Captura",
-  "En Revisión",
-  "En Autorización",
-  "Autorizada",
-  "Borrador Autorizador",
-  "Borrador Verificador",
-  //"Borrador Capturador"
-];
 
-interface Head {
-  id: keyof IIMir;
-  isNumeric: boolean;
-  label: string;
-}
-
-const heads: readonly Head[] = [
-  {
-    id: "AnioFiscal",
-    isNumeric: true,
-    label: "EJERCICIO FISCAL",
-  },
-  {
-    id: "Entidad",
-    isNumeric: true,
-    label: "ENTIDAD",
-  },
-  {
-    id: "Programa",
-    isNumeric: true,
-    label: "NOMBRE DEL PROGRAMA",
-  },
-  {
-    id: "Estado",
-    isNumeric: true,
-    label: "ESTADO",
-  },
-  {
-    id: "FechaCreacion",
-    isNumeric: true,
-    label: "FECHA DE CREACIÓN",
-  },
-  {
-    id: "CreadoPor",
-    isNumeric: true,
-    label: "CREADO POR",
-  },
-  {
-    id: "Opciones",
-    isNumeric: true,
-    label: "OPCIONES",
-  },
-];
 
 export const MIR = () => {
   const queryString = window.location.search;

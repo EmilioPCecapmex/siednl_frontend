@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
-//import { FormulaDialogRF } from "../formulasDialog/FormulaDialogRF";
 import { queries } from "../../queries";
 import { alertaError } from "../genericComponents/Alertas";
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
@@ -42,10 +41,9 @@ export const TabComponenteRf = ({
   const [componentSelect, setComponentSelect] = useState(0);
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
-  const [prevTextFormula, setPrevTextFormula] = useState("");
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
-  const [errorIndicador, setErrorIndicador] = useState(-1);
+
 
   const [frecuencia, setFrecuencia] = useState("");
 
@@ -110,11 +108,9 @@ export const TabComponenteRf = ({
       ? JSON.parse(MIR)[0]
       : JSON.parse(MIR);
 
-  let jsonRF = RF === "" ? "" : JSON.parse(RF);
 
   useEffect(() => {
     setRFcomponentesPadre(componentesValues);
-    //setComponentes(componentesValues);
   }, [componentesValues]);
 
   
@@ -136,7 +132,6 @@ export const TabComponenteRf = ({
       case "trimestre1":
         componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
        getValueOperacion(txt, tipoFormula);
-        // componentesActividadesValues[
         componentesValues[
           componentSelect
         ].numeradorPorFrecuencia[0].trimestre1 = txt.split(",")[0];
@@ -147,7 +142,6 @@ export const TabComponenteRf = ({
       case "trimestre2":
         componentesValues[componentSelect].metasPorFrecuencia[0].trimestre2 =
        getValueOperacion(txt, tipoFormula);
-        // componentesActividadesValues[
         componentesValues[
           componentSelect
         ].numeradorPorFrecuencia[0].trimestre2 = txt.split(",")[0];
@@ -158,7 +152,6 @@ export const TabComponenteRf = ({
       case "trimestre3":
         componentesValues[componentSelect].metasPorFrecuencia[0].trimestre3 =
        getValueOperacion(txt, tipoFormula);
-        // componentesActividadesValues[
         componentesValues[
           componentSelect
         ].numeradorPorFrecuencia[0].trimestre3 = txt.split(",")[0];
@@ -169,7 +162,6 @@ export const TabComponenteRf = ({
       case "trimestre4":
         componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
        getValueOperacion(txt, tipoFormula);
-        // componentesActividadesValues[
         componentesValues[
           componentSelect
         ].numeradorPorFrecuencia[0].trimestre4 = txt.split(",")[0];
@@ -185,9 +177,6 @@ export const TabComponenteRf = ({
     setComponentesValues([...componentesValues]);
   };
 
-  // useEffect(() => {
-  //   setComponentesValues(componentesRF);
-  // }, []);
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 

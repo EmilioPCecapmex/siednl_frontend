@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { queries } from "../../queries";
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import {
@@ -89,7 +89,7 @@ export const VPTrimestralboolean = {
 };
 
 export function TabAvanceFinanciero({
-  //show,
+
 
 
   MIR,
@@ -99,7 +99,7 @@ export function TabAvanceFinanciero({
   raffiboolean,
 }: {
   
-  // show : boolean;
+  
   MIR: string;
   MA: string;
   avanceFinancieroRF: IAvanceFinancieroRF;
@@ -109,9 +109,6 @@ export function TabAvanceFinanciero({
   const jsonMir: IMIR = JSON.parse(MIR);
 
   const [trimestre, setTrimestre] = useState("0");
-
-  const [avanceFinanciero, setAvanceFinanciero] =
-    useState<IAvanceFinancieroRF>(avanceFinancieroRF);
 
   const [nombrePrograma, setNombrePrograma] = useState("Sin Información");
   const [valorProgramaPresupuestario, setValorProgramaPresupuestario] =

@@ -1,6 +1,6 @@
 import { Dialog, DialogTitle, DialogContent, Button } from "@mui/material";
 import { ResumenFichaTecnica } from "../resumenFichaTecnica/ResumenFichaTecnica";
-import { alertaEliminar, alertaExito } from "../genericComponents/Alertas";
+
 
 export default function ModalVerResumenFT({
   open,

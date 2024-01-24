@@ -32,64 +32,12 @@ import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import { queries } from "../../queries";
 import { buscador } from "../../services/servicesGlobals";
 import SearchIcon from "@mui/icons-material/Search";
+import { estados, heads } from "../../services/validations";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
 };
-const estados = [
-  "Todos",
-  "En Captura",
-  "En Revisión",
-  "En Autorización",
-  "Autorizada",
-  "Borrador Autorizador",
-  "Borrador Verificador",
-  //"Borrador Capturador"
-];
 
-interface Head {
-  id: keyof IIMa;
-  isNumeric: boolean;
-  label: string;
-}
-
-const heads: readonly Head[] = [
-  {
-    id: "AnioFiscal",
-    isNumeric: true,
-    label: "EJERCICIO FISCAL",
-  },
-  {
-    id: "Entidad",
-    isNumeric: true,
-    label: "ENTIDAD",
-  },
-  {
-    id: "Programa",
-    isNumeric: true,
-    label: "NOMBRE DEL PROGRAMA",
-  },
-  {
-    id: "Estado",
-    isNumeric: true,
-    label: "ESTADO",
-  },
-  {
-    id: "FechaCreacion",
-    isNumeric: true,
-    label: "FECHA DE CREACIÓN",
-  },
-  {
-    id: "CreadoPor",
-    isNumeric: true,
-    label: "CREADO POR",
-  },
-  {
-    id: "Opciones",
-    isNumeric: true,
-    label: "OPCIONES",
-  },
-];
 export const MetaAnual = () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);

@@ -35,51 +35,9 @@ export function TabEncabezado({
   //   "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
   // );
   const objetoVacio: ILista = { Id: "", Label: "" };
-  // const Toast = Swal.mixin({
-  //   toast: true,
-  //   position: "top-end",
-  //   showConfirmButton: false,
-  //   timer: 2000,
-  //   timerProgressBar: true,
-  //   didOpen: (toast) => {
-  //     toast.addEventListener("mouseenter", Swal.stopTimer);
-  //     toast.addEventListener("mouseleave", Swal.resumeTimer);
-  //   },
-  // });
+ 
 
-  //Cuando se haga un cambio, setear el valor y borrar los siguentes campos
-  // function enCambioAnio(Id: string, Anio: string) {
-  //   setAnioFiscal(Anio);
-  // }
-
-  // function enCambioPrograma(Id: string, Prog: string) {
-  //   setConac("");
-  //   setConsecutivo("");
-  //   if (Prog !== "") {
-  //     getIdPrograma(Prog);
-  //   }
-  // }
-
-  // function enCambioLineasDeAccion(Id: string, LDA: Array<ILineasDeAccion>) {
-  //   setLineaDeAccion([]);
-  //   setLineaDeAccion(LDA);
-  // }
-
-  // function enCambioBeneficiario(Id: string, Ben: string) {
-  //   setBeneficiario(Ben);
-  // }
-
-  // function enCambioFile(event: any) {
-  //   setUploadFile(event.target.files[0]);
-  //   setLineaDeAccion([]);
-
-  //   if (event.target.value !== "") {
-  //     setNombreArchivo(event.target.value.split("\\")[2]);
-  //   }
-  //   nombreArchivo == null || uploadFile == null
-  //     ? setDisabledButton(true)
-  //     : setDisabledButton(false);
-  // }
+  
 
   //Desactivar si el anterior no tiene value
   const [disabledProgramas, setDisabledProgramas] = useState(true);
@@ -88,13 +46,6 @@ export function TabEncabezado({
   const [disabledEstrategias, setDisabledEstrategias] = useState(true);
   const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
 
-  //Values
-  // const [anioFiscal, setAnioFiscal] = useState(
-  //   MIR.encabezado?.ejercicioFiscal || new Date().getFullYear().toString()
-  // );
-  // const [institution, setInstitution] = useState(
-  //   MIR.encabezado?.IdEntidad || ""
-  // );
 
   const [anticorrupcion, setAnticorrupcion] = React.useState(
     MIR.encabezado?.anticorrupcion || "NO"
@@ -170,16 +121,13 @@ export function TabEncabezado({
 
   useEffect(() => {
     getLista("AniosFiscales", "", setCatalogoAniosFiscales);
-    // getListasLogin(
-    //   { Tabla: "EntidadesMatrices", ValorCondicion: "" },
-    //   setCatalogoInstituciones
-    // );
+    
     getListasLoginProgramas(setCatalogoInstituciones);
     getListPedColumns({ Col: "Ejes", Id: "" }, setCatalogoEjes, () => {});
     getLista("Beneficiario", "", setCatalogoBeneficiarios);
     setEje(MIR.encabezado?.eje || objetoVacio);
 
-    // setTematica(MIR.encabezado?.tema || objetoVacio);
+   
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -191,7 +139,7 @@ export function TabEncabezado({
         entidadSeleccionada?.Id,
         setCatalogoProgramas
       );
-      //setPrograma({...objetoVacio,Conac:"",Consecutivo:""});
+     
       setConac("");
       setConsecutivo("");
       setDisabledProgramas(false);
@@ -199,13 +147,13 @@ export function TabEncabezado({
   }, [entidadSeleccionada?.Id]);
 
   useEffect(() => {
-    // setTematica(objetoVacio);
+    
     setDisabledObjetivos(true);
-    //setObjetivo(objetoVacio);
+    
     setDisabledEstrategias(true);
-    //setEstrategia(objetoVacio);
+    
     setDisabledLineasDeAccion(true);
-    //setLineaDeAccion([]);
+   
     getListPedColumns(
       { Col: "Temáticas", Id: eje.Id },
       setCatalogoTematicas,
@@ -215,9 +163,9 @@ export function TabEncabezado({
   }, [eje]);
 
   useEffect(() => {
-    // setObjetivo(objetoVacio);
+    
     setDisabledEstrategias(true);
-    //setEstrategia(objetoVacio);
+    
     setDisabledLineasDeAccion(true);
     getListPedColumns(
       { Col: "Objetivos", Id: tematica.Id },
@@ -228,9 +176,9 @@ export function TabEncabezado({
   }, [tematica]);
 
   useEffect(() => {
-    // setEstrategia(objetoVacio);
+    
     setDisabledLineasDeAccion(true);
-    //setLineaDeAccion([]);
+    
     getListPedColumns(
       { Col: "Estrategias", Id: objetivo.Id },
       setCatalogoEstrategias,
@@ -240,7 +188,7 @@ export function TabEncabezado({
   }, [objetivo]);
 
   useEffect(() => {
-    //setLineaDeAccion([]);
+   
     getListPedColumns(
       { Col: "Lineas de Acción", Id: estrategia.Id },
       setCatalogoLineasDeAccion,
@@ -317,7 +265,7 @@ export function TabEncabezado({
     setConsecutivo(programa.Consecutivo);
   }, [programa]);
 
-  // const [loadingFile, setLoadingFile] = useState(false);
+  
 
   return (
     <Grid
@@ -479,16 +427,13 @@ export function TabEncabezado({
                       fontFamily: "MontserratSemiBold",
                     },
                   }}
-                  //InputProps={{ readOnly: localStorage.getItem("Rol") === "Administrador"  ? true : false  }}
+                  
                   sx={{
                     "& .MuiAutocomplete-input": {
                       fontFamily: "MontserratRegular",
                       textTransform: "uppercase",
                     },
-                    // "& input[disabled]": {
-                    //  // backgroundColor: "lightgray", // Cambia el color de fondo
-                    //  color: "#3333", // Cambia el color del texto
-                    // },
+                   
                   }}
                 ></TextField>
               )}
@@ -518,8 +463,7 @@ export function TabEncabezado({
               getOptionLabel={(option) => option.Label || ""}
               value={programa}
               onChange={(event, value) => {
-                // setConac(value?.Conac || "");
-                // setConsecutivo(value?.Consecutivo || "");
+                
                 setPrograma(
                   value || { ...objetoVacio, Conac: "", Consecutivo: "" }
                 );

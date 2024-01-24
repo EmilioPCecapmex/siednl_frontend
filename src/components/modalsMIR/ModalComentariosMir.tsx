@@ -22,6 +22,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "./ModalEnviarMIR";
 import { queries } from "../../queries";
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
 export const ComentDialogMir = ({
   estado,
@@ -141,21 +142,17 @@ export const ComentDialogMir = ({
             enviarNotificacion(user.IdUsuario);
           });
         }
-        //AlertBox need return a variable equal to 1 here.
+       
         setNewComent(false);
         setComent("");
         handleClose();
         actualizado();
-        Toast.fire({
-          icon: "success",
-          title: "Comentario añadidoa",
-        });
+        alertaExito(()=>{}, "Comentario añadidoa")
+       
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: "Se produjo un error",
-        });
+        alertaError("Se produjo un error")
+       
       });
   };
 

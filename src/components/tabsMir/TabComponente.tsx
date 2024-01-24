@@ -17,28 +17,25 @@ import { IComponente, IMIR, IMIREdit } from "./interfaces mir/IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
-import DeleteCompActMir from "../modalsMIR/ModalEliminarCompActMir";
 import { alertaError } from "../genericComponents/Alertas";
 
 export const TabComponente = ({
   edit,
-  // show,
-  noComponentes,
+
   addComponente,
   removeComponente,
   MIR,
   setMIR,
-  idMir,
+
   mirEdit,
 }: {
   edit: boolean;
-  // show: boolean;
-  noComponentes: number[];
+
   addComponente: Function;
   removeComponente: Function;
   MIR: IMIR;
   setMIR: Function;
-  idMir: string;
+
   mirEdit: IMIREdit;
 }) => {
   const [componentSelect, setComponentSelect] = useState(1);
@@ -120,7 +117,7 @@ export const TabComponente = ({
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   const eliminarComponente = () => {
-    removeComponente(componentSelect-1);
+    removeComponente(componentSelect - 1);
     setComponentSelect(1);
     if (MIR.componentes.length > 2) {
       removeComponente(componentSelect);
@@ -182,18 +179,15 @@ export const TabComponente = ({
           <AddCircleIcon fontSize="large" />
         </IconButton>
 
-       
-        
-
-         <IconButton
+        <IconButton
           onClick={() => {
-           // handleClickOpenEliminar();
-           eliminarComponente()
+            // handleClickOpenEliminar();
+            eliminarComponente();
           }}
           disabled={MIR.componentes.length <= 2}
         >
           <DoDisturbOnIcon fontSize="large" />
-        </IconButton> 
+        </IconButton>
       </Grid>
 
       <Grid

@@ -13,7 +13,7 @@ import {
 //import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
 import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
-import { alertaEliminar, alertaErrorConfirm, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
+import { alertaEliminar, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -362,19 +362,8 @@ export default function ModalEnviarFT({
     if (err === 0) {
       crearFichaTecnica(v);
     } else {
-      Toast.fire({
-        icon: "error",
-        html: `
-        <div style="height:50%;">
-        <h3>Se han encontrado los siguientes errores:</h3>
-        <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
-      <small>
-      <strong>
-      *</strong>${errores.join("<br><strong>*</strong>")}
-      </small>
-      </div>
-      </div>`,
-      });
+      alertaErroresDocumento(errores)
+     
     }
   };
 
@@ -422,7 +411,7 @@ export default function ModalEnviarFT({
 
   useEffect(() => {
     if (open) {
-      let inst = JSON.parse(MIR)?.encabezado.institucion;
+    
 
       ////////////////////////Esto esta fallando
       axios
@@ -470,17 +459,7 @@ export default function ModalEnviarFT({
     );
   };
 
-  const Toast = Swal.mixin({
-    toast: false,
-    position: "center",
-    showConfirmButton: true,
-    heightAuto: false,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
+  
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>

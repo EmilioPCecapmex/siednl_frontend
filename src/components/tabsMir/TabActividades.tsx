@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -54,7 +53,7 @@ export const TabActividades = ({
 
   const handleClickOpen = () => {
     setPrevTextFormula(
-      // valoresComponenteActividad[componenteSelect][actividadSelect].formula
+      
       componentes[componenteSelect].actividades[actividadSelect].formula
     );
     setOpenFormulaDialog(true);
@@ -65,7 +64,6 @@ export const TabActividades = ({
   };
 
   const changeFormula = (txt: string) => {
-    // valoresComponenteActividad[componenteSelect][actividadSelect].formula = txt;
     componentes[componenteSelect].actividades[actividadSelect].formula = txt;
   };
 

@@ -17,7 +17,7 @@ import {
 
 import { IActividad, IComponente } from "../tabsMir/interfaces mir/IMIR";
 
-import { alertaError, alertaExito } from "../genericComponents/Alertas";
+import { alertaError, alertaErroresDocumento, alertaExito } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -66,10 +66,9 @@ export default function ModalSolicitaModif({
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
-      return Toast.fire({
-        icon: "error",
-        title: "Introduce usuario al que se le solicita modificación",
-      });
+
+      
+      alertaError("Introduce usuario al que se le solicita modificación")
     } else {
       checkMir(estado);
     }
@@ -338,19 +337,7 @@ export default function ModalSolicitaModif({
     if (err === 0) {
       createMIR(v);
     } else {
-      Toast.fire({
-        icon: "error",
-        html: `
-        <div style="height:50%;">
-        <h1>Se han encontrado los siguientes errores:</h1>
-        <div style="text-align: left; margin-left: 10px; color: red; height: 100px; overflow: auto;">
-      <small>
-      <strong>
-      *</strong>${errores.join("<br><strong>*</strong>")}
-      </small>
-      </div>
-      </div>`,
-      });
+      alertaErroresDocumento(errores)
     }
   };
 
@@ -399,7 +386,6 @@ export default function ModalSolicitaModif({
           Eje: JSON.parse(MIR)?.encabezado.eje.Label,
           Tematica: JSON.parse(MIR)?.encabezado.tema.Label,
           IdMir: IdMir,
-          // se va a modificar
           Rol: localStorage.getItem("Rol"),
         },
         {
@@ -412,13 +398,7 @@ export default function ModalSolicitaModif({
         if (comment !== "") {
           comentMir(IdMir);
         }
-        // Toast.fire({
-        //   icon: "success",
-        //   title:
-        //     localStorage.getItem("Rol") === "Verificador"
-        //       ? "MIR enviada a capturador"
-        //       : "MIR enviada a revisión",
-        // });
+      
         alertaExito(()=>{},
           localStorage.getItem("Rol") === "Verificador"
             ? "MIR enviada a capturador"
@@ -429,10 +409,7 @@ export default function ModalSolicitaModif({
         showResume();
       })
       .catch((err) => {
-        // Toast.fire({
-        //   icon: "error",
-        //   title: err.response.data.result.error,
-        // });
+        
         alertaError(err.response.data.result.error);
       });
   };
@@ -471,17 +448,7 @@ export default function ModalSolicitaModif({
     }
   }, [MIR, open]);
 
-  const Toast = Swal.mixin({
-    toast: false,
-    position: "center",
-    showConfirmButton: true,
-    heightAuto: false,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
+;
 
   const enviarNotificacion = () => {
     axios.post(

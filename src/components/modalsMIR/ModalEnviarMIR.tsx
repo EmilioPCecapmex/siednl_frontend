@@ -11,7 +11,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-//import { sendMail } from "../../funcs/sendMailCustomMessage";
+
 import { queries } from "../../queries";
 import {
   IActividad,
@@ -22,7 +22,7 @@ import { getMAyFT } from "../../services/mir_services/MIR_services";
 import { IMA } from "../tabsMetaAnual/IMA";
 import { IComponentesFT, IFT } from "../tabsFichaTecnica/Interfaces";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
-import { alertaEliminar, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
+import { alertaEliminar, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
 import { IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
 
 export let errores: string[] = [];
@@ -177,7 +177,6 @@ export default function ModalEnviarMIR({
         {
           IdMir: id,
           Coment: comment,
-          // se va a modificar
           CreadoPor: localStorage.getItem("IdUsuario"),
           MIR_MA: "MIR",
         },
@@ -533,19 +532,7 @@ export default function ModalEnviarMIR({
         createMIR(v);
       }
     } else {
-      Toast.fire({
-        icon: "error",
-        html: `
-        <div style="height:50%;">
-        <h3>SE HAN ENCONTRADO LOS SIGUIENTES ERRORES:</h3>
-        <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
-      <small>
-      <strong>
-      </strong>${errores.join("<br><strong></strong>")}
-      </small>
-      </div>
-      </div>`,
-      });
+      alertaErroresDocumento(errores)
     }
   };
 
@@ -555,12 +542,10 @@ export default function ModalEnviarMIR({
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
           MetaAnual: "",
-          // se va a modificar
           CreadoPor: localStorage.getItem("IdUsuario"),
           IdMir: IdMir,
           Estado: "En Captura",
           Id: "",
-          // va a cambiar
           Rol: localStorage.getItem("Rol"),
           IdEntidad: localStorage.getItem("IdEntidad"),
         },
@@ -574,7 +559,7 @@ export default function ModalEnviarMIR({
         userXInst.map((user) => {
 
           enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
-          //sendMail(user.CorreoElectronico, enviarMensaje, "MA");
+      
         });
         showResume();
       })
@@ -603,7 +588,7 @@ export default function ModalEnviarMIR({
           Eje: JSON.parse(MIR)?.encabezado.eje.Label,
           Tematica: JSON.parse(MIR)?.encabezado.tema.Label,
           IdMir: IdMir,
-          // se va a modificar
+          
           Rol: localStorage.getItem("Rol"),
         },
         {
@@ -614,9 +599,7 @@ export default function ModalEnviarMIR({
       )
       .then((r) => {
         userXInst.map((user) => {
-          //enviarMail("Se ha creado una nueva MIR","d4b35a67-5eb9-11ed-a880-040300000000")
-
-          //sendMail(user.CorreoElectronico, enviarMensaje, "MIR");
+          
           enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
         });
 
@@ -637,29 +620,16 @@ export default function ModalEnviarMIR({
       .catch((err) => {
         errores.push(err.response.data.result.error);
         err = 1;
-        Toast.fire({
-          icon: "error",
-          html: `
-          <div style="height:50%;">
-          <h3>SE HAN ENCONTRADO LOS SIGUIENTES ERRORES:</h3>
-          <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
-        <small>
-        <strong>
-        </strong>${errores.join("<br><strong></strong>")}
-        </small>
-        </div>
-        </div>`,
-        });
+     alertaErroresDocumento(errores)
       });
   };
 
   useEffect(() => {
     if (open) {
-      let inst = JSON.parse(MIR)?.encabezado.entidad;
-
+      
       axios
 
-        /////listado
+    
         .post(
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
 
@@ -706,17 +676,7 @@ export default function ModalEnviarMIR({
     );
   };
 
-  const Toast = Swal.mixin({
-    toast: false,
-    position: "center",
-    showConfirmButton: true,
-    heightAuto: false,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
+  
 
   const mirFuncionAutorizada = () => {
     let auxMA: string;
