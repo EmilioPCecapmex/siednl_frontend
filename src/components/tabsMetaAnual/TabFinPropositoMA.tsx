@@ -46,12 +46,7 @@ export function TabFinPropositoMA({
   MIR: string;
   maPadreEdit: IMAEdit;
 }) {
-  let jsonMA =
-    MA === ""
-      ? ""
-      : JSON.parse(MA).length > 1
-      ? JSON.parse(MA)[0]
-      : JSON.parse(MA);
+
 
   let MAEdit =
     MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";

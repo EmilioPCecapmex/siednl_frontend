@@ -40,8 +40,6 @@ export const TabComponenteFT = ({
   const [componentesValues, setComponentesValues] =
     useState<IComponentesFT[]>(ComponentesFT);
 
-  let jsonFT = FT === "" ? "" : JSON.parse(FT);
-
   // useEffect(() => {
   //   let comp: IComponentesFT[] = [];
 

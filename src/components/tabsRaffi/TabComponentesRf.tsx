@@ -110,8 +110,6 @@ export const TabComponenteRf = ({
       ? JSON.parse(MIR)[0]
       : JSON.parse(MIR);
 
-  let jsonRF = RF === "" ? "" : JSON.parse(RF);
-
   useEffect(() => {
     setRFcomponentesPadre(componentesValues);
     //setComponentes(componentesValues);

@@ -60,7 +60,6 @@ export const TabActividadesFT = ({
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
-  let jsonFT = FT === undefined || FT === "" ? "" : JSON.parse(FT);
 
   useEffect(() => {
     // valoresComponenteFTFnc(componentesValues);

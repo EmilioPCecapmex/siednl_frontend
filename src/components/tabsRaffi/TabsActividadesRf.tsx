@@ -203,12 +203,6 @@ export const TabActividadRf = ({
     setOpenFormulaDialog(true);
   };
 
-  let jsonMIR =
-    MIR === ""
-      ? ""
-      : JSON.parse(MIR).length > 1
-      ? JSON.parse(MIR)[0]
-      : JSON.parse(MIR);
 
   let jsonMA =
     MA === ""

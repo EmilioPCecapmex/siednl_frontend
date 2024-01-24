@@ -35,8 +35,6 @@ export function TabFinPropositoFT({
   FT: string;
   ftEditPadre: IFTEdit;
 }) {
-  let jsonFT = FT === "" ? "" : JSON.parse(FT);
-
   // [
   //   {
   //     tipoDeIndicador: jsonFT?.fin?.tipoDeIndicador || "",

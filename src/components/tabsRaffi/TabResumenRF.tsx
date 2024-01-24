@@ -140,27 +140,6 @@ export const TabResumenRF = ({
       });
   };
 
-  let jsonMA =
-    MA === ""
-      ? ""
-      : JSON.parse(MA).length > 1
-      ? JSON.parse(MA)[0]
-      : JSON.parse(MA);
-
-  function mapeaindice(c = 0, a = 0) {
-    let x = 0;
-    //Componente 1
-    c == 0 && a == 0
-      ? (x = 0)
-      : c == 0 && a == 1
-      ? (x = 1)
-      : c == 1 && a == 0
-      ? (x = 2)
-      : (x = 3);
-
-    return x;
-  }
-
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
