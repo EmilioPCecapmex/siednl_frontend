@@ -987,6 +987,7 @@ export const Raffi = () => {
                                           },
                                         ]);
                                       }
+                                      setEstadoRF(row.Estado)
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
