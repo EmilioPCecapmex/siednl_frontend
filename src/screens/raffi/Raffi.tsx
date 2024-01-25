@@ -315,6 +315,8 @@ export const Raffi = () => {
       });
   };
 
+  const [estado, setEstado] = useState("");
+
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid
@@ -892,7 +894,7 @@ export const Raffi = () => {
                                           },
                                         ]);
                                       }
-                                      setEstadoRF(row.Estado)
+                                      setEstado(row.Estado)
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -987,7 +989,7 @@ export const Raffi = () => {
                                           },
                                         ]);
                                       }
-                                      setEstadoRF(row.Estado)
+                                      setEstado(row.Estado)
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -1101,7 +1103,7 @@ export const Raffi = () => {
               IdMir={rfEdit[0].IdMir || ""}
               IdMA={rfEdit[0].IdMetaAnual || ""}
               IdRf={rfEdit[0].IdRaffi || ""}
-              estado={estadorf}
+              estado={estado}
             />
           </Grid>
         )}
