@@ -445,7 +445,7 @@ export const AddDialogCatalogo = ({
       </Dialog>
     </Grid>
     );
-  } else if (tabla === "PROGRAMAS - INSTITUCIONES") {
+  } else if (tabla.toUpperCase()  === "PROGRAMAS - INSTITUCIONES") {
     
 
     return (
@@ -814,7 +814,7 @@ export const AddDialogCatalogo = ({
         </Dialog>
       </Grid>
     );
-  } else if (tabla === "PROGRAMAS PRESUPUESTARIOS") {
+  } else if (tabla.toUpperCase()  === "PROGRAMAS PRESUPUESTARIOS") {
     
     return (
       <Grid sx={{ display: "flex" }}>

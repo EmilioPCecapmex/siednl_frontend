@@ -159,7 +159,7 @@ export const ModifyDialogCatalogos = ({
     { Id: "", NombreInstitucion: "" },
   ]);
 
-  if (tabla === "PROGRAMAS PRESUPUESTARIOS") {
+  if (tabla === "Programas Presupuestarios") {
     return (
       <Grid>
         <Dialog open={open} onClose={cerrardialog} fullWidth>
