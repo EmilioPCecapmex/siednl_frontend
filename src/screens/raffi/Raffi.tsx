@@ -114,6 +114,7 @@ export const Raffi = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   const [estadorf, setEstadoRF] = useState("Todos");
+  const [estado, setEstado] = useState("");
   const [institucionesb, setInstitucionesb] = useState("Todos");
 
   useEffect(() => {
@@ -944,7 +945,7 @@ export const Raffi = () => {
                                           },
                                         ]);
                                       }
-                                      setEstadoRF(row.Estado)
+                                      setEstado(row.Estado)
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -1039,6 +1040,7 @@ export const Raffi = () => {
                                           },
                                         ]);
                                       }
+                                      setEstado(row.Estado)
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -1152,7 +1154,7 @@ export const Raffi = () => {
               IdMir={rfEdit[0].IdMir || ""}
               IdMA={rfEdit[0].IdMetaAnual || ""}
               IdRf={rfEdit[0].IdRaffi || ""}
-              estado={estadorf}
+              estado={estado}
             />
           </Grid>
         )}
