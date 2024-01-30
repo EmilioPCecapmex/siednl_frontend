@@ -316,7 +316,7 @@ export const Raffi = () => {
       });
   };
 
-  const [estado, setEstado] = useState("");
+
 
   return (
     <Grid container justifyContent={"space-between"}>
