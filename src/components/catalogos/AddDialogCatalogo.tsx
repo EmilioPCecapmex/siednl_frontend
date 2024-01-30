@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -1102,7 +1102,7 @@ export const AddDialogCatalogo = ({
               }}
             />
 
-            {tabla === "BENEFICIARIOS" ? (
+            {tabla.toUpperCase() === "BENEFICIARIOS" ? (
               <TextField
                 label={"IdBeneficiario"}
                 variant="outlined"
@@ -1133,7 +1133,7 @@ export const AddDialogCatalogo = ({
               />
             ) : null}
 
-            {tabla === "BENEFICIARIOS" ? (
+            {tabla.toUpperCase() === "BENEFICIARIOS" ? (
               <TextField
                 label={"Tipo Beneficiario"}
                 variant="outlined"
@@ -1164,7 +1164,7 @@ export const AddDialogCatalogo = ({
               />
             ) : null}
 
-            {tabla === "BENEFICIARIOS" ? (
+            {tabla.toUpperCase() === "BENEFICIARIOS" ? (
               <TextField
                 label={"Tipo"}
                 variant="outlined"

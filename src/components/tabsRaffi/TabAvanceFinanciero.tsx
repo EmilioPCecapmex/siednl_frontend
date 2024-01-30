@@ -136,8 +136,6 @@ export function TabAvanceFinanciero({
     );
 
   useEffect(() => {
-   
-
     if (
       valorProgramaPresupuestario !== ""
       
@@ -161,7 +159,6 @@ export function TabAvanceFinanciero({
         avanceFinancieroRF.porcentaje.porcentajeModificadoAutorizado
       );
     }
-
   }, [avanceFinancieroRF]);
 
   useEffect(() => {

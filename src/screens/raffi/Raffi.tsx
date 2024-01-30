@@ -275,7 +275,7 @@ export const Raffi = () => {
     axios
       .post(
         // process.env.REACT_APP_APPLICATION_FILL + "/api/fill_rf",
-        "http://192.168.137.198:7001/api/fill_raffi",
+        "http://192.168.137.254:7001/api/fill_raffi",
         fullRF,
         {
           responseType: "blob",
@@ -1030,20 +1030,39 @@ export const Raffi = () => {
                                 <span>
                                   <IconButton
                                     onClick={() => {
-                                      getFichaRaffiDownload(
-                                        row.MIR,
+                                      
+                                        let auxArrayMIR = JSON.parse(row.MIR);
+                                        let auxArrayMIR2 = JSON.stringify(
+                                          auxArrayMIR[0]
+                                        );
+                                        if (auxArrayMIR[1]) {
+                                          getFichaRaffiDownload(
+                                        auxArrayMIR2,
                                         row.MetaAnual,
                                         row.RAFFI,
                                         row.Programa,
                                         row.FechaCreacion,
                                         row.Entidad
                                       );
+                                        }else{
+                                          getFichaRaffiDownload(
+                                            row.MIR,
+                                            row.MetaAnual,
+                                            row.RAFFI,
+                                            row.Programa,
+                                            row.FechaCreacion,
+                                            row.Entidad
+                                          );
+                                        }
+                                      
+
                                     }}
                                     disabled={
                                       row.Estado === "Autorizada" && validaFecha
                                         ? false
                                         : true
                                     }
+
                                   >
                                     <DownloadIcon
                                       sx={{
