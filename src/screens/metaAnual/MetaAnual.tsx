@@ -18,7 +18,7 @@ import {
   InputLabel,
   Paper,
   InputBase,
- 
+  Button,
   TableSortLabel,
 } from "@mui/material";
 import axios from "axios";
@@ -701,6 +701,14 @@ export const MetaAnual = () => {
                   alignItems: "center",
                 }}
               >
+                <Grid
+                  sx={{ fontFamily: "MontserratRegular" }}
+                  item
+                  xl={validaFecha?11:7}
+                  lg={validaFecha?11:6}
+                  md={validaFecha?11:6}
+                  sm={validaFecha?11:7}
+                >
                 <Paper
                   component="form"
                   sx={{
@@ -764,6 +772,37 @@ export const MetaAnual = () => {
                     />
                   </IconButton>
                 </Paper>
+                </Grid>
+                {validaFecha?"":
+                <Grid
+                sx={{ fontFamily: "MontserratRegular" }}
+                item
+                xl={4}
+                lg={3}
+                md={3}
+                sm={4}
+              >
+                <Button
+                    disabled={true}
+                    className="aceptar"
+                    sx={{
+                      //backgroundColor: "#c2a37b",
+                      // width: "10vw",
+                      // height: "3.3vh",
+                      width: ["80px", "120px", "160px", "180px", "250px"],
+                      height: ["30px", "20px", "30px", "40px", "50px"],
+                      //color: "black",
+                      fontFamily: "MontserratMedium",
+                      fontSize: [5, 7, 10, 12, 16, 20],
+                    }}
+                    
+                  >
+                    {!validaFecha
+                      ? "Fecha de captura terminada"
+                      : "Añadir registro"}
+                  </Button>
+                  </Grid>
+                  }
               </Grid>
             </Grid>
 

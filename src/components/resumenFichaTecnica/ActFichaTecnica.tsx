@@ -1,4 +1,19 @@
 import logo from "../../assets/logos/logo_tesoreriah1.png";
+import {
+  IActividadesEditFT,
+  IActividadesFT,
+  IComponenteEditFT,
+  IComponentesFT,
+  ICValorFT,
+  IEncabezadoEditFT,
+  IEncabezadoFT,
+  IFinEditFT,
+  IFinFT,
+  IFT,
+  IFTEdit,
+  IPropositoEditFT,
+  IPropositoFT,
+} from "../tabsFichaTecnica/Interfaces";
 import { Box, Divider, Typography } from "@mui/material";
 import { IActividad } from "../tabsMir/interfaces mir/IMIR";
 
@@ -84,50 +99,50 @@ export const ActFichaTecnica = ({
   const jsonMA = JSON.parse(MA);
   const jsonFT = JSON.parse(FT);
 
-  const TasaVar1 = (index: number) => {
-    const ArrayVar1 = jsonMir.actividades[index].formula
+  const TasaVar1 = (indexComponentes: number, indexActividades: number) => {
+    const ArrayVar1 = jsonMir.componentes[indexComponentes].actividades[indexActividades].formula
       .replaceAll("(", "")
       .split("-");
     return ArrayVar1[0];
   };
 
-  const PromedioVar1 = (index: number) => {
-    const ArrayVar1 = jsonMir.actividades[index].formula
+  const PromedioVar1 = (indexComponentes: number, indexActividades: number) => {
+    const ArrayVar1 = jsonMir.componentes[indexComponentes].actividades[indexActividades].formula
       .replaceAll("(", "")
       .split("/");
     return ArrayVar1[0];
   };
 
-  const PorcentajeVar1 = (index: number) => {
-    const ArrayVar1 = jsonMir.actividades[index].formula
+  const PorcentajeVar1 = (indexComponentes: number, indexActividades: number) => {
+    const ArrayVar1 = jsonMir.componentes[indexComponentes].actividades[indexActividades].formula
       .replaceAll("(", "")
       .split("/");
     return ArrayVar1[0];
   };
 
-  const TasaVar2 = (index: number) => {
-    const ArrayVar1 = jsonMir.actividades[index].formula
+  const TasaVar2 = (indexComponentes: number, indexActividades: number) => {
+    const ArrayVar1 = jsonMir.componentes[indexComponentes].actividades[indexActividades].formula
       .replaceAll("(", "")
       .split("-");
     return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "");
   };
 
-  const PromedioVar2 = (index: number) => {
-    const ArrayVar1 = jsonMir.actividades[index].formula
+  const PromedioVar2 = (indexComponentes: number, indexActividades: number) => {
+    const ArrayVar1 = jsonMir.componentes[indexComponentes].actividades[indexActividades].formula
       .replaceAll("(", "")
       .split("/");
     return ArrayVar1[1].replaceAll(")", "");
   };
 
-  const PorcentajeVar2 = (index: number) => {
-    const ArrayVar1 = jsonMir.actividades[index].formula
+  const PorcentajeVar2 = (indexComponentes: number, indexActividades: number) => {
+    const ArrayVar1 = jsonMir.componentes[indexComponentes].actividades[indexActividades].formula
       .replaceAll("(", "")
       .split("/");
     return ArrayVar1[1].replaceAll(")", "").replaceAll(" * 100", "");
   };
 
-  const CalculosPorComponente = (index: number, color: string) => {
-    let metaAnualNumero = parseFloat(jsonMA.actividades[index].metaAnual);
+  const CalculosPorComponente = (indexComponentes: number, indexActividades: number, color: string) => {
+    let metaAnualNumero = parseFloat(jsonMA.componentes[indexComponentes].actividades[indexActividades].metaAnual);
 
     let x = metaAnualNumero * 0.15;
     let y = metaAnualNumero - x;
@@ -184,126 +199,116 @@ export const ActFichaTecnica = ({
 
   return (
     <>
-      {jsonMir.actividades.map((a: IActividad, index: number) => {
+      {jsonMir.componentes.map((componente: IComponentesFT, indexComponentes: number) => {
         paginas = paginas + 1;
-        return (
-          <>
-            <Box
-              sx={{
-                width: "100%",
-                height: "20vh",
-                display: "flex",
-                justifyContent: "start",
-              }}
-            >
+        return componente.actividades.map(
+          (actividad: IActividadesFT, indexActividades: number) => {
+            <>
               <Box
                 sx={{
-                  width: "20%",
-                  height: "100%",
-                  ml: "4vw",
-                  mt: "5vh",
-                  mr: "1vw",
-                }}
-              >
-                <img
-                  src={logo}
-                  alt="Logo"
-                  style={{ width: "6vw", height: "12vh" }}
-                />
-              </Box>
-
-              <Box
-                sx={{
-                  width: "30vw",
+                  width: "100%",
                   height: "20vh",
                   display: "flex",
-                  justifyContent: "center",
-                  alignItems: "end",
+                  justifyContent: "start",
                 }}
               >
                 <Box
                   sx={{
-                    width: "29vw",
+                    width: "20%",
+                    height: "100%",
+                    ml: "4vw",
+                    mt: "5vh",
+                    mr: "1vw",
+                  }}
+                >
+                  <img
+                    src={logo}
+                    alt="Logo"
+                    style={{ width: "6vw", height: "12vh" }}
+                  />
+                </Box>
+
+                <Box
+                  sx={{
+                    width: "30vw",
                     height: "20vh",
                     display: "flex",
-                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "end",
                   }}
                 >
-                  <Typography
+                  <Box
                     sx={{
-                      fontFamily: "MontserratSemiBold",
-                      textAlign: "center",
+                      width: "29vw",
+                      height: "20vh",
+                      display: "flex",
+                      flexDirection: "column",
                     }}
                   >
-                    GOBIERNO DEL ESTADO DE NUEVO LEÓN
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratSemiBold",
-                      textAlign: "center",
-                    }}
-                  >
-                    SECRETARÍA DE FINANZAS Y TESORERÍA GENERAL DEL ESTADO
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratSemiBold",
-                      textAlign: "center",
-                    }}
-                  >
-                    PRESUPUESTO POR RESULTADOS
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratSemiBold",
-                      textAlign: "center",
-                    }}
-                  >
-                    FICHA TECNICA DE INDICADORES 2022
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratSemiBold",
-                      textAlign: "center",
-                    }}
-                  >
-                    PROGRAMAS PRESUPUESTARIOS
-                  </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratSemiBold",
+                        textAlign: "center",
+                      }}
+                    >
+                      GOBIERNO DEL ESTADO DE NUEVO LEÓN
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratSemiBold",
+                        textAlign: "center",
+                      }}
+                    >
+                      SECRETARÍA DE FINANZAS Y TESORERÍA GENERAL DEL ESTADO
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratSemiBold",
+                        textAlign: "center",
+                      }}
+                    >
+                      PRESUPUESTO POR RESULTADOS
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratSemiBold",
+                        textAlign: "center",
+                      }}
+                    >
+                      FICHA TECNICA DE INDICADORES 2022
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratSemiBold",
+                        textAlign: "center",
+                      }}
+                    >
+                      PROGRAMAS PRESUPUESTARIOS
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
-            </Box>
-            {/*COLUMN*/}
-            <Box
-              sx={{
-                width: "62vw",
-                height: "2vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#D9D9D9",
-                ml: "3.4vw",
-                mt: "1vw",
-                mb: ".3vw",
-              }}
-            >
-              <Typography
-                sx={{ fontSize: "1vw", fontFamily: "MontserratBold" }}
+              {/*COLUMN*/}
+              <Box
+                sx={{
+                  width: "62vw",
+                  height: "2vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#D9D9D9",
+                  ml: "3.4vw",
+                  mt: "1vw",
+                  mb: ".3vw",
+                }}
               >
-                ACTIVIDAD {jsonMir.actividades[index].actividad}
-              </Typography>
-            </Box>
+                <Typography
+                  sx={{ fontSize: "1vw", fontFamily: "MontserratBold" }}
+                >
+                  ACTIVIDAD {jsonMir.componentes[indexComponentes].actividades[indexActividades].actividad}
+                </Typography>
+              </Box>
 
-            <Box
-              sx={{
-                width: "62vw",
-                height: "10vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                ml: "3.4vw",
-                mb: "1vw",
-              }}
-            >
               <Box
                 sx={{
                   width: "62vw",
@@ -311,1036 +316,1036 @@ export const ActFichaTecnica = ({
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  ml: "3.4vw",
+                  mb: "1vw",
                 }}
               >
-                <Typography
+                <Box
                   sx={{
-                    border: 1,
                     width: "62vw",
                     height: "10vh",
                     display: "flex",
-                    fontSize: ".8rem",
-                    fontFamily: "MontserratRegular",
-                    minHeight: "5vh",
-                    backgroundColor: "white",
-                    textAlign: "justify",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
-                  {jsonMir.actividades[index].resumen}
+                  <Typography
+                    sx={{
+                      border: 1,
+                      width: "62vw",
+                      height: "10vh",
+                      display: "flex",
+                      fontSize: ".8rem",
+                      fontFamily: "MontserratRegular",
+                      minHeight: "5vh",
+                      backgroundColor: "white",
+                      textAlign: "justify",
+                    }}
+                  >
+                    {jsonMir.componentes[indexComponentes].actividades[indexActividades].resumen}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box sx={sxTitleDesignPage1}>
+                <Typography
+                  sx={{
+                    ml: 1,
+                    fontFamily: "MontserratBold",
+                    textAlign: "center",
+                  }}
+                >
+                  DATOS DEL INDICADOR:
                 </Typography>
               </Box>
-            </Box>
-            <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                DATOS DEL INDICADOR:
-              </Typography>
-            </Box>
-            <Box sx={sxSpaceBetweenTitleResult}>
-              <Box sx={sxTitleColumn}>
-                <Typography sx={sxTitleStyle}>NOMBRE DEL INDICADOR</Typography>
+              <Box sx={sxSpaceBetweenTitleResult}>
+                <Box sx={sxTitleColumn}>
+                  <Typography sx={sxTitleStyle}>NOMBRE DEL INDICADOR</Typography>
+                </Box>
+                <Box sx={sxResultSize}>
+                  <Typography sx={sxResultContentDesign}>
+                    {jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador}
+                  </Typography>
+                </Box>
               </Box>
-              <Box sx={sxResultSize}>
-                <Typography sx={sxResultContentDesign}>
-                  {jsonMir.actividades[index].indicador}
-                </Typography>
+              <Box sx={sxSpaceBetweenTitleResult}>
+                <Box sx={sxTitleColumn}>
+                  <Typography sx={sxTitleStyle}>DESCRIPCIÓN</Typography>
+                </Box>
+                <Box sx={sxResultSize}>
+                  <Typography sx={sxResultContentDesign}>
+                    {jsonMA.componentes[indexComponentes].actividades[indexActividades].descIndicador}
+                  </Typography>
+                </Box>
               </Box>
-            </Box>
-            <Box sx={sxSpaceBetweenTitleResult}>
-              <Box sx={sxTitleColumn}>
-                <Typography sx={sxTitleStyle}>DESCRIPCIÓN</Typography>
+              <Box sx={sxSpaceBetweenTitleResult}>
+                <Box sx={sxTitleColumn}>
+                  <Typography sx={sxTitleStyle}>
+                    UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
+                  </Typography>
+                </Box>
+                <Box sx={sxResultSize}>
+                  <Typography sx={sxResultContentDesign}>
+                    {jsonMA.componentes[indexComponentes].actividades[indexActividades].unidadResponsable}
+                  </Typography>
+                </Box>
               </Box>
-              <Box sx={sxResultSize}>
-                <Typography sx={sxResultContentDesign}>
-                  {jsonMA.actividades[index].descIndicador}
-                </Typography>
+              <Box sx={sxSpaceBetweenTitleResult}>
+                <Box sx={sxTitleColumn}>
+                  <Typography sx={sxTitleStyle}>MÉTODO DE CÁLCULO:</Typography>
+                </Box>
+                <Box sx={sxResultSize}>
+                  <Typography sx={sxResultContentDesign}>
+                    {jsonMir.componentes[indexComponentes].actividades[indexActividades].formula}
+                  </Typography>
+                </Box>
               </Box>
-            </Box>
-            <Box sx={sxSpaceBetweenTitleResult}>
-              <Box sx={sxTitleColumn}>
-                <Typography sx={sxTitleStyle}>
-                  UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR
-                </Typography>
-              </Box>
-              <Box sx={sxResultSize}>
-                <Typography sx={sxResultContentDesign}>
-                  {jsonMA.actividades[index].unidadResponsable}
-                </Typography>
-              </Box>
-            </Box>
-            <Box sx={sxSpaceBetweenTitleResult}>
-              <Box sx={sxTitleColumn}>
-                <Typography sx={sxTitleStyle}>MÉTODO DE CÁLCULO:</Typography>
-              </Box>
-              <Box sx={sxResultSize}>
-                <Typography sx={sxResultContentDesign}>
-                  {jsonMir.actividades[index].formula}
-                </Typography>
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                width: "62vw",
-                height: "100%",
-                display: "flex",
-                flexDirection: "row",
-                ml: "3.4vw",
-                mt: "1vw",
-                mb: "1vw",
-              }}
-            >
               <Box
                 sx={{
-                  width: "11vw",
+                  width: "62vw",
+                  height: "100%",
                   display: "flex",
-                  flexDirection: "column",
+                  flexDirection: "row",
+                  ml: "3.4vw",
+                  mt: "1vw",
+                  mb: "1vw",
                 }}
               >
                 <Box
                   sx={{
                     width: "11vw",
-                    border: 1,
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxTitleSmallBoxes}>
-                    TIPO DE INDICADOR
-                  </Typography>
+                  <Box
+                    sx={{
+                      width: "11vw",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>
+                      TIPO DE INDICADOR
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "11vw",
+                      height: "100%",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonFT.componentes[indexComponentes].actividades[indexActividades].tipoDeIndicador}
+                    </Typography>
+                  </Box>
                 </Box>
-                <Box
-                  sx={{
-                    width: "11vw",
-                    height: "100%",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonFT.actividades[index].tipoDeIndicador}
-                  </Typography>
-                </Box>
-              </Box>
 
-              <Box
-                sx={{
-                  width: "7vw",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
                 <Box
                   sx={{
                     width: "7vw",
-                    height: "3vh",
-                    border: 1,
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxTitleSmallBoxes}>DIMENSIÓN</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "7vw",
-                    height: "100%",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonFT.actividades[index].dimension}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "11vw",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "11vw",
-                    height: "3vh",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>
-                    TIPO DE FÓRMULA
-                  </Typography>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>DIMENSIÓN</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "100%",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonFT.componentes[indexComponentes].actividades[indexActividades].dimension}
+                    </Typography>
+                  </Box>
                 </Box>
                 <Box
                   sx={{
                     width: "11vw",
-                    height: "100%",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    flexDirection: "column",
                   }}
                 >
-                  {jsonMir.actividades[index].indicador.includes(
-                    "PORCENTAJE"
-                  ) || jsonMir.actividades[index].indicador === "PORCENTAJE" ? (
-                    <Typography sx={sxResultSmallBoxes}>PORCENTAJE</Typography>
-                  ) : jsonMir.actividades[index].indicador.includes("TASA") ||
-                    jsonMir.actividades[index].indicador === "TASA" ? (
-                    <Typography sx={sxResultSmallBoxes}>TASA</Typography>
-                  ) : jsonMir.actividades[index].indicador.includes(
+                  <Box
+                    sx={{
+                      width: "11vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>
+                      TIPO DE FÓRMULA
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "11vw",
+                      height: "100%",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    {jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes(
+                      "PORCENTAJE"
+                    ) || jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "PORCENTAJE" ? (
+                      <Typography sx={sxResultSmallBoxes}>PORCENTAJE</Typography>
+                    ) : jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes("TASA") ||
+                      jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "TASA" ? (
+                      <Typography sx={sxResultSmallBoxes}>TASA</Typography>
+                    ) : jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes(
                       "PROMEDIO"
-                    ) || jsonMir.actividades[index].indicador === "PROMEDIO" ? (
-                    <Typography sx={sxResultSmallBoxes}>PROMEDIO</Typography>
-                  ) : jsonMir.actividades[index].indicador.includes("INDICE") ||
-                    jsonMir.actividades[index].indicador === "INDICE" ||
-                    jsonMir.actividades[index].indicador.includes("ÍNDICE") ||
-                    jsonMir.actividades[index].indicador === "ÍNDICE" ? (
-                    <Typography sx={sxResultSmallBoxes}>ÍNDICE</Typography>
-                  ) : (
-                    <Typography sx={sxResultSmallBoxes}>NINGUNA</Typography>
-                  )}
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "12vw",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "12vw",
-                    height: "3vh",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>
-                    UNIDAD DE MEDIDA
-                  </Typography>
+                    ) || jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "PROMEDIO" ? (
+                      <Typography sx={sxResultSmallBoxes}>PROMEDIO</Typography>
+                    ) : jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes("INDICE") ||
+                      jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "INDICE" ||
+                      jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes("ÍNDICE") ||
+                      jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "ÍNDICE" ? (
+                      <Typography sx={sxResultSmallBoxes}>ÍNDICE</Typography>
+                    ) : (
+                      <Typography sx={sxResultSmallBoxes}>NINGUNA</Typography>
+                    )}
+                  </Box>
                 </Box>
                 <Box
                   sx={{
                     width: "12vw",
-                    height: "100%",
-                    border: 1,
-                    borderRight: 0,
-                    borderTop: 0,
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonFT.actividades[index].unidadDeMedida}
-                  </Typography>
+                  <Box
+                    sx={{
+                      width: "12vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>
+                      UNIDAD DE MEDIDA
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "12vw",
+                      height: "100%",
+                      border: 1,
+                      borderRight: 0,
+                      borderTop: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonFT.componentes[indexComponentes].actividades[indexActividades].unidadDeMedida}
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "8vw",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
                 <Box
                   sx={{
                     width: "8vw",
-                    height: "3vh",
-                    border: 1,
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxTitleSmallBoxes}>FRECUENCIA</Typography>
+                  <Box
+                    sx={{
+                      width: "8vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>FRECUENCIA</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "8vw",
+                      height: "100%",
+                      border: 1,
+                      borderRight: 0,
+                      borderTop: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonMir.componentes[indexComponentes].actividades[indexActividades].frecuencia}
+                    </Typography>
+                  </Box>
                 </Box>
-                <Box
-                  sx={{
-                    width: "8vw",
-                    height: "100%",
-                    border: 1,
-                    borderRight: 0,
-                    borderTop: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonMir.actividades[index].frecuencia}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "13vw",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
                 <Box
                   sx={{
                     width: "13vw",
-                    height: "3vh",
-                    border: 1,
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                    boxShadow: 6,
+                    flexDirection: "column",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: "13vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                      boxShadow: 6,
 
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>
-                    SENTIDO DEL INDICADOR
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "13vw",
-                    height: "100%",
-                    border: 1,
-                    borderTop: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonMA.actividades[index].sentidoDelIndicador}
-                  </Typography>
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>
+                      SENTIDO DEL INDICADOR
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "13vw",
+                      height: "100%",
+                      border: 1,
+                      borderTop: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonMA.componentes[indexComponentes].actividades[indexActividades].sentidoDelIndicador}
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
-            </Box>
-            <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                CARACTERÍSTICAS DEL INDICADOR
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                width: "62vw",
-                height: "6vh",
-                display: "flex",
-                flexDirection: "row",
-                ml: "3.4vw",
-                mt: "1vw",
-                mb: "1vw",
-              }}
-            >
+              <Box sx={sxTitleDesignPage1}>
+                <Typography
+                  sx={{
+                    ml: 1,
+                    fontFamily: "MontserratBold",
+                    textAlign: "center",
+                  }}
+                >
+                  CARACTERÍSTICAS DEL INDICADOR
+                </Typography>
+              </Box>
               <Box
                 sx={{
-                  width: "11vw",
+                  width: "62vw",
                   height: "6vh",
                   display: "flex",
-                  flexDirection: "column",
+                  flexDirection: "row",
+                  ml: "3.4vw",
+                  mt: "1vw",
+                  mb: "1vw",
                 }}
               >
                 <Box
                   sx={{
                     width: "11vw",
-                    height: "3vh",
-                    border: 1,
+                    height: "6vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxTitleSmallBoxes}>CLARIDAD</Typography>
+                  <Box
+                    sx={{
+                      width: "11vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>CLARIDAD</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "11vw",
+                      height: "3vh",
+                      border: 1,
+                      borderRight: 0,
+                      borderTop: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonFT.componentes[indexComponentes].actividades[indexActividades].claridad}
+                    </Typography>
+                  </Box>
                 </Box>
-                <Box
-                  sx={{
-                    width: "11vw",
-                    height: "3vh",
-                    border: 1,
-                    borderRight: 0,
-                    borderTop: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonFT.actividades[index].claridad}
-                  </Typography>
-                </Box>
-              </Box>
 
-              <Box
-                sx={{
-                  width: "7vw",
-                  height: "6vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
                 <Box
                   sx={{
                     width: "7vw",
-                    height: "3vh",
-                    border: 1,
+                    height: "6vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxTitleSmallBoxes}>RELEVANCIA</Typography>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>RELEVANCIA</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      borderRight: 0,
+                      borderTop: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonFT.componentes[indexComponentes].actividades[indexActividades].relevancia}
+                    </Typography>
+                  </Box>
                 </Box>
                 <Box
                   sx={{
-                    width: "7vw",
-                    height: "3vh",
-                    border: 1,
-                    borderRight: 0,
-                    borderTop: 0,
+                    width: "11vw",
+                    height: "6vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonFT.actividades[index].relevancia}
-                  </Typography>
+                  <Box
+                    sx={{
+                      width: "11vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>ECONOMÍA</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "11vw",
+                      height: "3vh",
+                      border: 1,
+                      borderRight: 0,
+                      borderTop: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonFT.componentes[indexComponentes].actividades[indexActividades].economia}
+                    </Typography>
+                  </Box>
                 </Box>
+                <Box
+                  sx={{
+                    width: "12vw",
+                    height: "6vh",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: "12vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>MONITOREABLE</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "12vw",
+                      height: "3vh",
+                      border: 1,
+                      borderRight: 0,
+                      borderTop: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonFT.componentes[indexComponentes].actividades[indexActividades].monitoreable}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    width: "8vw",
+                    height: "6vh",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: "8vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>ADECUADO</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "8vw",
+                      height: "3vh",
+                      border: 1,
+                      borderRight: 0,
+                      borderTop: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonFT.componentes[indexComponentes].actividades[indexActividades].adecuado}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    width: "13vw",
+                    height: "6vh",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: "13vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>
+                      APORTE MARGINAL
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "13vw",
+                      height: "3vh",
+                      border: 1,
+                      borderTop: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonFT.componentes[indexComponentes].actividades[indexActividades].aporte_marginal}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+              <Box sx={sxTitleDesignPage1}>
+                <Typography
+                  sx={{
+                    ml: 1,
+                    fontFamily: "MontserratBold",
+                    textAlign: "center",
+                  }}
+                >
+                  DATOS DE LAS VARIABLES
+                </Typography>
               </Box>
               <Box
                 sx={{
-                  width: "11vw",
-                  height: "6vh",
+                  width: "62vw",
                   display: "flex",
-                  flexDirection: "column",
+                  flexDirection: "row",
+                  ml: "3.4vw",
+                  mt: "1vw",
+                  mb: "1vw",
                 }}
               >
                 <Box
                   sx={{
                     width: "11vw",
-                    height: "3vh",
-                    border: 1,
+                    height: "40vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxTitleSmallBoxes}>ECONOMÍA</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "11vw",
-                    height: "3vh",
-                    border: 1,
-                    borderRight: 0,
-                    borderTop: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonFT.actividades[index].economia}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "12vw",
-                  height: "6vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "12vw",
-                    height: "3vh",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>MONITOREABLE</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "12vw",
-                    height: "3vh",
-                    border: 1,
-                    borderRight: 0,
-                    borderTop: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonFT.actividades[index].monitoreable}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "8vw",
-                  height: "6vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "8vw",
-                    height: "3vh",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>ADECUADO</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "8vw",
-                    height: "3vh",
-                    border: 1,
-                    borderRight: 0,
-                    borderTop: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonFT.actividades[index].adecuado}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "13vw",
-                  height: "6vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "13vw",
-                    height: "3vh",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>
-                    APORTE MARGINAL
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "13vw",
-                    height: "3vh",
-                    border: 1,
-                    borderTop: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonFT.actividades[index].aporte_marginal}
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-            <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                DATOS DE LAS VARIABLES
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                width: "62vw",
-                display: "flex",
-                flexDirection: "row",
-                ml: "3.4vw",
-                mt: "1vw",
-                mb: "1vw",
-              }}
-            >
-              <Box
-                sx={{
-                  width: "11vw",
-                  height: "40vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "20%",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>NOMBRE</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "40%",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  {/*vvaria1*/}
-                  <Typography
+                  <Box
                     sx={{
-                      width: "90%",
+                      width: "100%",
+                      height: "20%",
+                      border: 1,
                       display: "flex",
-                      fontSize: ".7rem",
-                      textAlign: "justify",
-                      fontFamily: "MontserratRegular",
-                      backgroundColor: "white",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
                     }}
                   >
-                    {jsonMir.actividades[index].indicador.includes("TASA") ||
-                    jsonMir.actividades[index].indicador === "TASA"
-                      ? TasaVar1(index)
-                      : jsonMir.actividades[index].indicador.includes(
-                          "PROMEDIO"
-                        ) || jsonMir.actividades[index].indicador === "PROMEDIO"
-                      ? PromedioVar1(index)
-                      : jsonMir.actividades[index].indicador.includes(
-                          "PORCENTAJE"
-                        ) ||
-                        jsonMir.actividades[index].indicador === "PORCENTAJE"
-                      ? PorcentajeVar1(index)
-                      : jsonMir.actividades[index].indicador.includes(
-                          "INDICE"
-                        ) ||
-                        jsonMir.actividades[index].indicador === "INDICE" ||
-                        jsonMir.actividades[index].indicador.includes(
-                          "ÍNDICE"
-                        ) ||
-                        jsonMir.actividades[index].indicador === "ÍNDICE"
-                      ? jsonMir.actividades[index].formula
-                      : ""}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "40%",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  {/*vvaria2*/}
-                  <Typography
+                    <Typography sx={sxTitleSmallBoxes}>NOMBRE</Typography>
+                  </Box>
+                  <Box
                     sx={{
-                      width: "90%",
+                      width: "100%",
+                      height: "40%",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
                       display: "flex",
-                      fontSize: ".7rem",
-                      textAlign: "justify",
-                      fontFamily: "MontserratRegular",
-                      backgroundColor: "white",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
-                    {jsonMir.actividades[index].indicador.includes("TASA") ||
-                    jsonMir.actividades[index].indicador === "TASA"
-                      ? TasaVar2(index)
-                      : jsonMir.actividades[index].indicador.includes(
+                    {/*vvaria1*/}
+                    <Typography
+                      sx={{
+                        width: "90%",
+                        display: "flex",
+                        fontSize: ".7rem",
+                        textAlign: "justify",
+                        fontFamily: "MontserratRegular",
+                        backgroundColor: "white",
+                      }}
+                    >
+                      {jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes("TASA") ||
+                        jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "TASA"
+                        ? TasaVar1(indexComponentes, indexActividades)
+                        : jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes(
                           "PROMEDIO"
-                        ) || jsonMir.actividades[index].indicador === "PROMEDIO"
-                      ? PromedioVar2(index)
-                      : jsonMir.actividades[index].indicador.includes(
-                          "PORCENTAJE"
-                        ) ||
-                        jsonMir.actividades[index].indicador === "PORCENTAJE"
-                      ? PorcentajeVar2(index)
-                      : jsonMir.actividades[index].indicador.includes(
-                          "INDICE"
-                        ) ||
-                        jsonMir.actividades[index].indicador === "INDICE" ||
-                        jsonMir.actividades[index].indicador.includes(
-                          "ÍNDICE"
-                        ) ||
-                        jsonMir.actividades[index].indicador === "ÍNDICE"
-                      ? jsonMir.actividades[index].formula
-                      : ""}
-                  </Typography>
+                        ) || jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "PROMEDIO"
+                          ? PromedioVar1(indexComponentes, indexActividades)
+                          : jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes(
+                            "PORCENTAJE"
+                          ) ||
+                            jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "PORCENTAJE"
+                            ? PorcentajeVar1(indexComponentes, indexActividades)
+                            : jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes(
+                              "INDICE"
+                            ) ||
+                              jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "INDICE" ||
+                              jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes(
+                                "ÍNDICE"
+                              ) ||
+                              jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "ÍNDICE"
+                              ? jsonMir.componentes[indexComponentes].actividades[indexActividades].formula
+                              : ""}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "40%",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    {/*vvaria2*/}
+                    <Typography
+                      sx={{
+                        width: "90%",
+                        display: "flex",
+                        fontSize: ".7rem",
+                        textAlign: "justify",
+                        fontFamily: "MontserratRegular",
+                        backgroundColor: "white",
+                      }}
+                    >
+                      {jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes("TASA") ||
+                        jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "TASA"
+                        ? TasaVar2(indexComponentes, indexActividades)
+                        : jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes(
+                          "PROMEDIO"
+                        ) || jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "PROMEDIO"
+                          ? PromedioVar2(indexComponentes, indexActividades)
+                          : jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes(
+                            "PORCENTAJE"
+                          ) ||
+                            jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "PORCENTAJE"
+                            ? PorcentajeVar2(indexComponentes, indexActividades)
+                            : jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes(
+                              "INDICE"
+                            ) ||
+                              jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "INDICE" ||
+                              jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador.includes(
+                                "ÍNDICE"
+                              ) ||
+                              jsonMir.componentes[indexComponentes].actividades[indexActividades].indicador === "ÍNDICE"
+                              ? jsonMir.componentes[indexComponentes].actividades[indexActividades].formula
+                              : ""}
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
 
-              <Box
-                sx={{
-                  width: "11vw",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
                 <Box
                   sx={{
-                    width: "100%",
-                    height: "20%",
-                    border: 1,
+                    width: "11vw",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxTitleSmallBoxes}>DESCRIPCIÓN</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "40%",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
+                  <Box
                     sx={{
-                      width: "90%",
-                      fontSize: ".7rem",
-                      fontFamily: "MontserratRegular",
-                      minHeight: "5vh",
-                      backgroundColor: "white",
-                      textAlign: "justify",
-                    }}
-                  >
-                    {jsonMA.actividades[index].descNumerador}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "40%",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      width: "90%",
-                      fontSize: ".7rem",
-                      fontFamily: "MontserratRegular",
-                      textAlign: "justify",
-                      backgroundColor: "white",
-                    }}
-                  >
-                    {jsonMA.actividades[index].descDenominador}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "18vw",
-                  height: "40vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "20%",
-                    border: 1,
-                    borderBottom: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>
-                    MEDIO DE VERIFICACIÓN / FUENTE DE INFORMACIÓN
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "40%",
-                    border: 1,
-                    borderTop: 1,
-                    borderRight: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      width: "90%",
-                      fontSize: ".7rem",
-                      fontFamily: "MontserratRegular",
-                      minHeight: "5vh",
-                      backgroundColor: "white",
-                      textAlign: "justify",
-                    }}
-                  >
-                    {jsonMir.actividades[index].medios}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "40%",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      width: "90%",
-                      fontSize: ".7rem",
-                      fontFamily: "MontserratRegular",
-                      minHeight: "5vh",
-                      backgroundColor: "white",
-                      textAlign: "justify",
-                    }}
-                  >
-                    {jsonMir.actividades[index].medios}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "11vw",
-                  height: "40vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "20%",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>
-                    UNIDAD DE MEDIDA
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: "40%",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      width: "90%",
+                      width: "100%",
+                      height: "20%",
+                      border: 1,
                       display: "flex",
-                      fontSize: ".7rem",
-                      fontFamily: "MontserratRegular",
-                      minHeight: "5vh",
-                      backgroundColor: "white",
-                      textAlign: "justify",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
                     }}
                   >
-                    {jsonFT.encabezado.unidadDeMedida}
-                  </Typography>
+                    <Typography sx={sxTitleSmallBoxes}>DESCRIPCIÓN</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "40%",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        width: "90%",
+                        fontSize: ".7rem",
+                        fontFamily: "MontserratRegular",
+                        minHeight: "5vh",
+                        backgroundColor: "white",
+                        textAlign: "justify",
+                      }}
+                    >
+                      {jsonMA.componentes[indexComponentes].actividades[indexActividades].descNumerador}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "40%",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        width: "90%",
+                        fontSize: ".7rem",
+                        fontFamily: "MontserratRegular",
+                        textAlign: "justify",
+                        backgroundColor: "white",
+                      }}
+                    >
+                      {jsonMA.componentes[indexComponentes].actividades[indexActividades].descDenominador}
+                    </Typography>
+                  </Box>
                 </Box>
                 <Box
                   sx={{
-                    width: "100%",
-                    height: "40%",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
+                    width: "18vw",
+                    height: "40vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography
+                  <Box
                     sx={{
-                      width: "90%",
+                      width: "100%",
+                      height: "20%",
+                      border: 1,
+                      borderBottom: 0,
                       display: "flex",
-                      fontSize: ".7rem",
-                      fontFamily: "MontserratRegular",
-                      minHeight: "5vh",
-                      backgroundColor: "white",
-                      textAlign: "justify",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
                     }}
                   >
-                    {jsonFT.encabezado.unidadDeMedida}
-                  </Typography>
+                    <Typography sx={sxTitleSmallBoxes}>
+                      MEDIO DE VERIFICACIÓN / FUENTE DE INFORMACIÓN
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "40%",
+                      border: 1,
+                      borderTop: 1,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        width: "90%",
+                        fontSize: ".7rem",
+                        fontFamily: "MontserratRegular",
+                        minHeight: "5vh",
+                        backgroundColor: "white",
+                        textAlign: "justify",
+                      }}
+                    >
+                      {jsonMir.componentes[indexComponentes].actividades[indexActividades].medios}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "40%",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        width: "90%",
+                        fontSize: ".7rem",
+                        fontFamily: "MontserratRegular",
+                        minHeight: "5vh",
+                        backgroundColor: "white",
+                        textAlign: "justify",
+                      }}
+                    >
+                      {jsonMir.componentes[indexComponentes].actividades[indexActividades].medios}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    width: "11vw",
+                    height: "40vh",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "20%",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>
+                      UNIDAD DE MEDIDA
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "40%",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        width: "90%",
+                        display: "flex",
+                        fontSize: ".7rem",
+                        fontFamily: "MontserratRegular",
+                        minHeight: "5vh",
+                        backgroundColor: "white",
+                        textAlign: "justify",
+                      }}
+                    >
+                      {jsonFT.encabezado.unidadDeMedida}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "40%",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        width: "90%",
+                        display: "flex",
+                        fontSize: ".7rem",
+                        fontFamily: "MontserratRegular",
+                        minHeight: "5vh",
+                        backgroundColor: "white",
+                        textAlign: "justify",
+                      }}
+                    >
+                      {jsonFT.encabezado.unidadDeMedida}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    width: "11vw",
+                    height: "40vh",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: "11vw",
+                      height: "20%",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>VALOR 2022</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "11vw",
+                      height: "40%",
+                      border: 1,
+                      borderTop: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+                    >
+                      {jsonMA.componentes[indexComponentes].actividades[indexActividades].valorNumerador}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "11vw",
+                      height: "40%",
+                      border: 1,
+                      borderTop: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+                    >
+                      {jsonMA.componentes[indexComponentes].actividades[indexActividades].valorDenominador}
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
               <Box
                 sx={{
-                  width: "11vw",
-                  height: "40vh",
+                  width: "62vw",
+                  height: "2vh",
                   display: "flex",
-                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#D9D9D9",
+                  ml: "3.4vw",
+                  mt: "1vw",
+                  mb: ".3vw",
                 }}
               >
-                <Box
-                  sx={{
-                    width: "11vw",
-                    height: "20%",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
+                <Typography
+                  sx={{ fontSize: "1vw", fontFamily: "MontserratBold" }}
                 >
-                  <Typography sx={sxTitleSmallBoxes}>VALOR 2022</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "11vw",
-                    height: "40%",
-                    border: 1,
-                    borderTop: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
-                  >
-                    {jsonMA.actividades[index].valorNumerador}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "11vw",
-                    height: "40%",
-                    border: 1,
-                    borderTop: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
-                  >
-                    {jsonMA.actividades[index].valorDenominador}
-                  </Typography>
-                </Box>
+                  SUPUESTO
+                </Typography>
               </Box>
-            </Box>
-            <Box
-              sx={{
-                width: "62vw",
-                height: "2vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#D9D9D9",
-                ml: "3.4vw",
-                mt: "1vw",
-                mb: ".3vw",
-              }}
-            >
-              <Typography
-                sx={{ fontSize: "1vw", fontFamily: "MontserratBold" }}
-              >
-                SUPUESTO
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                width: "62vw",
-                height: "10vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                ml: "3.4vw",
-                mb: "1vw",
-              }}
-            >
               <Box
                 sx={{
                   width: "62vw",
@@ -1348,506 +1353,517 @@ export const ActFichaTecnica = ({
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  ml: "3.4vw",
+                  mb: "1vw",
                 }}
               >
-                <Typography
+                <Box
                   sx={{
-                    border: 1,
                     width: "62vw",
                     height: "10vh",
                     display: "flex",
-                    fontSize: ".8rem",
-                    fontFamily: "MontserratRegular",
-                    minHeight: "5vh",
-                    backgroundColor: "white",
-                    textAlign: "justify",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
-                  {jsonMir.actividades[index].supuestos}
+                  <Typography
+                    sx={{
+                      border: 1,
+                      width: "62vw",
+                      height: "10vh",
+                      display: "flex",
+                      fontSize: ".8rem",
+                      fontFamily: "MontserratRegular",
+                      minHeight: "5vh",
+                      backgroundColor: "white",
+                      textAlign: "justify",
+                    }}
+                  >
+                    {jsonMir.componentes[indexComponentes].actividades[indexActividades].supuestos}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box sx={sxTitleDesignPage1}>
+                <Typography
+                  sx={{
+                    ml: 1,
+                    fontFamily: "MontserratBold",
+                    textAlign: "center",
+                  }}
+                >
+                  METAS
                 </Typography>
               </Box>
-            </Box>
-            <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                METAS
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                width: "62vw",
-                height: "6vh",
-                display: "flex",
-                flexDirection: "row",
-                ml: "3.4vw",
-                mt: "1vw",
-                mb: "1vw",
-              }}
-            >
               <Box
                 sx={{
-                  width: "8vw",
+                  width: "62vw",
                   height: "6vh",
                   display: "flex",
-                  flexDirection: "column",
+                  flexDirection: "row",
+                  ml: "3.4vw",
+                  mt: "1vw",
+                  mb: "1vw",
                 }}
               >
                 <Box
                   sx={{
                     width: "8vw",
-                    height: "3vh",
-                    border: 1,
+                    height: "6vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxTitleSmallBoxes}>LÍNEA BASE</Typography>
+                  <Box
+                    sx={{
+                      width: "8vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>LÍNEA BASE</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "8vw",
+                      height: "3vh",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonMA.componentes[indexComponentes].actividades[indexActividades].lineaBase}
+                    </Typography>
+                  </Box>
                 </Box>
-                <Box
-                  sx={{
-                    width: "8vw",
-                    height: "3vh",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonMA.actividades[index].lineaBase}
-                  </Typography>
-                </Box>
-              </Box>
 
-              <Box
-                sx={{
-                  width: "7vw",
-                  height: "6vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
                 <Box
                   sx={{
                     width: "7vw",
-                    height: "3vh",
-                    border: 1,
+                    height: "6vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxTitleSmallBoxes}>META 2022</Typography>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>META 2022</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {jsonMA.componentes[indexComponentes].actividades[indexActividades].metaAnual}
+                    </Typography>
+                  </Box>
                 </Box>
                 <Box
                   sx={{
                     width: "7vw",
-                    height: "3vh",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
+                    height: "6vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {jsonMA.actividades[index].metaAnual}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "7vw",
-                  height: "6vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "7vw",
-                    height: "3vh",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>META 2023</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "7vw",
-                    height: "3vh",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {"-" /*meta 2023*/}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "7vw",
-                  height: "6vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "7vw",
-                    height: "3vh",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>META 2024</Typography>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>META 2023</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {"-" /*meta 2023*/}
+                    </Typography>
+                  </Box>
                 </Box>
                 <Box
                   sx={{
                     width: "7vw",
-                    height: "3vh",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
+                    height: "6vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {"-" /*meta 2024*/}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "7vw",
-                  height: "6vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "7vw",
-                    height: "3vh",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>META 2025</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "7vw",
-                    height: "3vh",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {"-" /*meta 2025*/}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "7vw",
-                  height: "6vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "7vw",
-                    height: "3vh",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>META 2026</Typography>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>META 2024</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {"-" /*meta 2024*/}
+                    </Typography>
+                  </Box>
                 </Box>
                 <Box
                   sx={{
                     width: "7vw",
-                    height: "3vh",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
+                    height: "6vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {"-" /*meta 2026*/}
-                  </Typography>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>META 2025</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {"-" /*meta 2025*/}
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "7vw",
-                  height: "6vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
                 <Box
                   sx={{
                     width: "7vw",
-                    height: "3vh",
-                    border: 1,
+                    height: "6vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxTitleSmallBoxes}>META 2027</Typography>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>META 2026</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {"-" /*meta 2026*/}
+                    </Typography>
+                  </Box>
                 </Box>
                 <Box
                   sx={{
                     width: "7vw",
-                    height: "3vh",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
+                    height: "6vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {"-" /*meta 2027*/}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  width: "12vw",
-                  height: "6vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "12vw",
-                    height: "3vh",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>META SEXENAL</Typography>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>META 2027</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "7vw",
+                      height: "3vh",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {"-" /*meta 2027*/}
+                    </Typography>
+                  </Box>
                 </Box>
                 <Box
                   sx={{
                     width: "12vw",
-                    height: "3vh",
-                    border: 1,
-                    borderTop: 0,
+                    height: "6vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxResultSmallBoxes}>
-                    {"" /*meta sexenal*/}
-                  </Typography>
+                  <Box
+                    sx={{
+                      width: "12vw",
+                      height: "3vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>META SEXENAL</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "12vw",
+                      height: "3vh",
+                      border: 1,
+                      borderTop: 0,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography sx={sxResultSmallBoxes}>
+                      {"" /*meta sexenal*/}
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
-            </Box>
-            <Box sx={sxTitleDesignPage1}>
-              <Typography
-                sx={{
-                  ml: 1,
-                  fontFamily: "MontserratBold",
-                  textAlign: "center",
-                }}
-              >
-                PARÁMETROS DE SEMAFORIZACIÓN
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                width: "62vw",
-                height: "16vh",
-                display: "flex",
-                flexDirection: "row",
-                ml: "3.4vw",
-                mt: "1vw",
-                mb: "1vw",
-              }}
-            >
+              <Box sx={sxTitleDesignPage1}>
+                <Typography
+                  sx={{
+                    ml: 1,
+                    fontFamily: "MontserratBold",
+                    textAlign: "center",
+                  }}
+                >
+                  PARÁMETROS DE SEMAFORIZACIÓN
+                </Typography>
+              </Box>
               <Box
                 sx={{
-                  width: "20vw",
+                  width: "62vw",
                   height: "16vh",
                   display: "flex",
-                  flexDirection: "column",
+                  flexDirection: "row",
+                  ml: "3.4vw",
+                  mt: "1vw",
+                  mb: "1vw",
                 }}
               >
                 <Box
                   sx={{
                     width: "20vw",
-                    height: "6vh",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>ROJO</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "20vw",
-                    height: "10vh",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
+                    height: "16vh",
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "red",
                   }}
                 >
-                  {CalculosPorComponente(index, "ROJO")}
+                  <Box
+                    sx={{
+                      width: "20vw",
+                      height: "6vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>ROJO</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "20vw",
+                      height: "10vh",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "red",
+                    }}
+                  >
+                    {CalculosPorComponente(indexComponentes, indexActividades, "ROJO")}
+                  </Box>
                 </Box>
-              </Box>
 
-              <Box
-                sx={{
-                  width: "21vw",
-                  height: "16vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
                 <Box
                   sx={{
                     width: "21vw",
-                    height: "6vh",
-                    border: 1,
+                    height: "16vh",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
+                    flexDirection: "column",
                   }}
                 >
-                  <Typography sx={sxTitleSmallBoxes}>AMARILLO</Typography>
+                  <Box
+                    sx={{
+                      width: "21vw",
+                      height: "6vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>AMARILLO</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "21vw",
+                      height: "10vh",
+                      border: 1,
+                      borderTop: 0,
+                      borderRight: 0,
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "yellow",
+                    }}
+                  >
+                    {CalculosPorComponente(indexComponentes, indexActividades, "AMARILLO")}
+                  </Box>
                 </Box>
                 <Box
                   sx={{
                     width: "21vw",
-                    height: "10vh",
-                    border: 1,
-                    borderTop: 0,
-                    borderRight: 0,
+                    height: "16vh",
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "yellow",
                   }}
                 >
-                  {CalculosPorComponente(index, "AMARILLO")}
+                  <Box
+                    sx={{
+                      width: "21vw",
+                      height: "6vh",
+                      border: 1,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#D9D9D9",
+                    }}
+                  >
+                    <Typography sx={sxTitleSmallBoxes}>VERDE</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      width: "21vw",
+                      height: "10vh",
+                      border: 1,
+                      borderTop: 0,
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#4fb830",
+                    }}
+                  >
+                    {CalculosPorComponente(indexComponentes, indexActividades, "VERDE")}
+                  </Box>
                 </Box>
               </Box>
               <Box
                 sx={{
-                  width: "21vw",
-                  height: "16vh",
+                  width: "67vw",
+                  height: "3vh",
                   display: "flex",
-                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mb: "3vh",
+                  mt: "5vh",
                 }}
               >
-                <Box
-                  sx={{
-                    width: "21vw",
-                    height: "6vh",
-                    border: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#D9D9D9",
-                  }}
-                >
-                  <Typography sx={sxTitleSmallBoxes}>VERDE</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    width: "21vw",
-                    height: "10vh",
-                    border: 1,
-                    borderTop: 0,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#4fb830",
-                  }}
-                >
-                  {CalculosPorComponente(index, "VERDE")}
-                </Box>
+                {/*PÁGINA*/}
+                <Typography sx={sxTitleSmallBoxes}>Página {paginas}</Typography>
               </Box>
-            </Box>
-            <Box
-              sx={{
-                width: "67vw",
-                height: "3vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                mb: "3vh",
-                mt: "5vh",
-              }}
-            >
-              {/*PÁGINA*/}
-              <Typography sx={sxTitleSmallBoxes}>Página {paginas}</Typography>
-            </Box>
-            <Divider sx={{ height: "1vh", backgroundColor: "rgba(0,0,0,5)" }} />
-          </>
-        );
+              <Divider sx={{ height: "1vh", backgroundColor: "rgba(0,0,0,5)" }} />
+            </>
+          });
       })}
     </>
   );
