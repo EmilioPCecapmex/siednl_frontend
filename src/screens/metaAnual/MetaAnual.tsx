@@ -87,6 +87,7 @@ export const MetaAnual = () => {
   const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
 
   const [estadoma, setEstadoMA] = useState("Todos");
+  const [estado, setEstado] = useState("");
   const [institucionesb, setInstitucionesb] = useState("Todos");
 
   const getInstituciones = (setstate: Function) => {
@@ -1032,7 +1033,7 @@ export const MetaAnual = () => {
                                       ]);
                                       }
                                       
-                                      setEstadoMA(row.Estado)
+                                      setEstado(row.Estado)
                                       setShowResume(false);
                                       setActionNumber(1);
                                     }}
@@ -1160,7 +1161,7 @@ export const MetaAnual = () => {
               showResume={returnMain}
               IdMir={maEdit[0]?.IdMir || ""}
               IdMA={maEdit[0]?.IdMa || ""}
-              estado={estadoma}
+              estado={estado}
             />
           </Grid>
         )}
