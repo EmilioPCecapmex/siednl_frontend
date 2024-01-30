@@ -2,9 +2,6 @@ import { useEffect, useState } from "react";
 import {
   FormControl,
   TextField,
-  Divider,
-  List,
-  ListItemButton,
   Grid,
   Autocomplete,
   Typography,
@@ -26,29 +23,19 @@ const newMetaODS = { Id: "", MetaODS: "" };
 export function TabEncabezado({
   edit,
   setFTEncabezadoPadre,
-  FT,
   MIR,
   EncabezadoValues,
   ftEditPadre,
 }: {
   edit: boolean;
   setFTEncabezadoPadre: Function;
-  FT: string;
   MIR: string;
   EncabezadoValues: IEncabezadoFT;
   ftEditPadre: IFTEdit;
 }) {
   const [encabezado, setEncabezado] = useState<IEncabezadoFT>(EncabezadoValues);
 
-  // const [programaSER, setProgramaSER] = useState(
-  //   FT === "" ? "" : JSON.parse(FT).encabezado.programaSER || ""
-  // );
-  // const [objetivoSER, setObjetivoSER] = useState(
-  //   FT === "" ? "" : JSON.parse(FT).encabezado.objetivoSER || ""
-  // );
-  // const [objetivoODSSel, setObjetivoDSSel] = useState(
-  //   FT === "" ? "" : JSON.parse(FT).encabezado.objetivoODS || ""
-  // );
+
 
   const [disabledMetas, setDisabledMetas] = useState(true);
 
@@ -146,23 +133,23 @@ export function TabEncabezado({
 
   useEffect(() => {
     setFTEncabezadoPadre(encabezado);
-    //setValueFin(encabezado)
+   
   }, [encabezado]);
 
   return (
     <Grid
       sx={{
-        //display: "flex",
+      
         width: "93vw",
         height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
         boxShadow: 10,
         borderRadius: 5,
 
-        //flexDirection: "column",
+      
         backgroundColor: "#fff",
       }}
     >
-      {/* {JSON.stringify(ftEditPadre)} */}
+      
       <Grid
         sx={{
           width: "100%",
@@ -219,7 +206,7 @@ export function TabEncabezado({
             <TextField
               disabled={edit && !ftEditPadre?.encabezado?.programaSER}
               onChange={(a) => {
-                //setProgramaSER(a.target.value)
+                
                 encabezado.programaSER = a.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
@@ -263,7 +250,7 @@ export function TabEncabezado({
             <TextField
               disabled={edit && !ftEditPadre?.encabezado?.programaSER}
               onChange={(a) => {
-                //setProgramaSER(a.target.value)
+               
                 encabezado.objetivoSER = a.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
@@ -346,10 +333,7 @@ export function TabEncabezado({
                 )}
                 onChange={(event, value) => {
                   setObjetivoODSSelected(value || newObjetivoDS);
-                  // enCambioObjetivo(
-                  //   value?.Id as string,
-                  //   (value?.ObjetivoDS as string) || ""
-                  // )
+                  
                 }}
                 isOptionEqualToValue={(option, value) => option.Id === value.Id}
               />

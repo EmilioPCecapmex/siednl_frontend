@@ -370,12 +370,12 @@ export default function FullModalMir({
             {value === 2 && (
               <TabComponente
                 edit={editMIR}
-                noComponentes={noComponentes}
+               
                 addComponente={addComponente}
                 removeComponente={removeComponente}
                 MIR={MIRPADRE}
                 setMIR={setMIRPADRE}
-                idMir={IdMir}
+              
                 mirEdit={mirEdirPadre}
               />
             )}

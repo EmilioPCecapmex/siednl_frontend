@@ -1,19 +1,25 @@
-import CloseIcon from "@mui/icons-material/Close";
-import { DialogTitle, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from "@mui/material";
-import AppBar from "@mui/material/AppBar";
+/* eslint-disable react-hooks/exhaustive-deps */
+import {  useState } from "react";
+import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
-import TextField from "@mui/material/TextField";
-import Toolbar from "@mui/material/Toolbar";
+
 import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
+
+import { DialogTitle, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import Swal from "sweetalert2";
+import TextField from "@mui/material/TextField";
+import { Typography, FormControl } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
 import { queries } from "../../queries";
-import { alertaError, alertaExito } from "../genericComponents/Alertas";
-import { CreatePorCatalogo, CreatePorCatalogoProgramap, createFechaDeCaptua } from "./AxiosCatalogo";
 import { PED } from "./PED";
+import { CreatePorCatalogo, CreatePorCatalogoProgramap, createFechaDeCaptua } from "./AxiosCatalogo";
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
 const modulo = [
   "Mir",
@@ -38,6 +44,19 @@ export const AddDialogCatalogo = ({
 
   handleClose: Function;
 }) => {
+  
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
 
   const cerrardialog = () => {
     handleClose();
@@ -48,15 +67,17 @@ export const AddDialogCatalogo = ({
   };
 
   
-  const [Idb, setIdb] = useState("");
-  const [Tipob, setTipoB] = useState("");
-  const [Tipo, setTipo] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [descripcionConac, setDescripcionConac] = useState("");
-  const [descripcionConsecutivo, setDescripcionConsecutivo] =useState("");
+  const [Idb, setIdb] = React.useState("");
+  const [Tipob, setTipoB] = React.useState("");
+  const [Tipo, setTipo] = React.useState("");
+  const [descripcion, setDescripcion] = React.useState("");
+  const [descripcionConac, setDescripcionConac] = React.useState("");
+  const [descripcionConsecutivo, setDescripcionConsecutivo] =
+    React.useState("");
 
-  const [programa, setPrograma] = useState("");
+  const [programa, setPrograma] = React.useState("");
   
+
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth() + 1;
@@ -65,35 +86,34 @@ export const AddDialogCatalogo = ({
   const monthS = month < 10 ? "0" + month : month.toString();
   const dateS = date < 10 ? "0" + date : date.toString();
 
-  const [fechaCaptura, setFechaCaptura] = useState(
+  const [fechaCaptura, setFechaCaptura] = React.useState(
     year + "-" + monthS + "-" + dateS
   );
-  const [institution, setInstitution] = useState("0");
-  const [unidad, setUnidad] = useState("0");
+  const [institution, setInstitution] = React.useState("0");
+  const [unidad, setUnidad] = React.useState("0");
 
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState([
+  const [catalogoInstituciones, setCatalogoInstituciones] = React.useState([
     { Id: "", Nombre: "" },
   ]);
 
-  const [catalogoEntidades, setCatalogoEntidades] = useState([
+  const [catalogoEntidades, setCatalogoEntidades] = React.useState([
     { Id: "", Label: "" },
   ]);
 
-  const [catalogoProgramas, setCatalogoProgramas] = useState([
+  const [catalogoProgramas, setCatalogoProgramas] = React.useState([
     { Id: "", NombrePrograma: "" },
   ]);
 
-  const [catalogoUnidades, setCatalogoUnidades] = useState([
+  const [catalogoUnidades, setCatalogoUnidades] = React.useState([
     { Id: "", Unidad: "" },
   ]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     getListasLogin(
       { Tabla: "Entidades", ValorCondicion: "" },
       setCatalogoInstituciones
     );
     getProgramas();
-    //getUnidadesAdministrativas();
   }, []);
 
   const getInstituciones = () => {
@@ -111,22 +131,6 @@ export const AddDialogCatalogo = ({
         setCatalogoInstituciones(r.data.data);
       });
   };
-
-  // const getUnidadesAdministrativas = () => {
-  //   axios
-  //     .get(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //           Rol: localStorage.getItem("Rol") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       setCatalogoUnidades(r.data.data);
-  //     });
-  // };
 
   const getListasLogin = (datos: any, setState: Function) => {
     axios
@@ -161,29 +165,6 @@ export const AddDialogCatalogo = ({
       .catch((err) => console.log(""));
   };
 
-  const CreatePorCatalogoFechas = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-fechaDeCaptura",
-        {
-          Descripcion: descripcion,
-          FechaCapturaInicio: fechaCaptura,
-          FechaCapturaFinal: fechaCaptura,
-          Modulo: "",
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        alertaExito(()=>{},"Elemento registrado con éxito.")
-      })
-      .catch((err) =>alertaError(err.response.data.result.error));
-  };
 
   const CreatePorCatalogoProgramaInstitucion = () => {
     axios
@@ -202,9 +183,17 @@ export const AddDialogCatalogo = ({
         }
       )
       .then((r) => {
+        //  handleClose();
         alertaExito(() => handleClose(), "Catalogo creado");
+
+        // actualizado();
       })
-      .catch((err) => alertaError(err.response.data.result.error));
+      .catch((err) =>
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.result.error,
+        })
+      );
   };
 
   const validarNumero = (dato: string, state: any) => {
@@ -216,14 +205,18 @@ export const AddDialogCatalogo = ({
     return state;
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
+
     // Utiliza una expresión regular para validar que solo haya una letra
     if (/^[a-zA-Z]$/.test(inputValue) || inputValue === "") {
       setDescripcionConac(inputValue);
     }
   };
+  // Funcionalidad de Fechas de captura
   const [modulos, setModulos] = useState("Mir");
+
+ 
 
   const handleCloseFc = () => {
     handleClose(false); 
@@ -238,8 +231,7 @@ export const AddDialogCatalogo = ({
   );
 
   const [fechaError, setFechaError] = useState(false);
-
-  const handleFechaCaptura1Change = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFechaCaptura1Change = (event: React.ChangeEvent<HTMLInputElement>) => {
     
     const selectedDate = event.target.value;
    
@@ -252,7 +244,7 @@ export const AddDialogCatalogo = ({
     }
   };
 
-  const handleFechaCaptura2Change = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFechaCaptura2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
     
     const selectedDate = event.target.value;
     
@@ -304,7 +296,7 @@ export const AddDialogCatalogo = ({
       });
   };
 
-  if (tabla.toUpperCase() === "FECHAS DE CAPTURA") {
+  if (tabla === "FECHAS DE CAPTURA") {
    
 
     return (
@@ -320,6 +312,15 @@ export const AddDialogCatalogo = ({
         <DialogContent>
           <Grid
             container
+            sx={
+              {
+                //width: "100%",
+                //justifyContent: "space-evenly",
+                //display: "flex",
+                // height: "16vh",
+                //alignItems: "center",
+              }
+            }
             lg={12}
             direction={"column"}
           >
@@ -359,6 +360,8 @@ export const AddDialogCatalogo = ({
                   }
                   multiline={descripcion.length < 20 ? false : true}
                   value={fechaCaptura1}
+                  
+                  //style={{ marginTop: "2vh" }}
                   type="date"
                   InputProps={{
                     style: {
@@ -388,6 +391,8 @@ export const AddDialogCatalogo = ({
                   onChange={handleFechaCaptura2Change}
                   multiline={descripcion.length < 20 ? false : true}
                   value={fechaCaptura2}
+                
+                  //style={{ marginTop: "2vh" }}
                   type="date"
                   InputProps={{
                     style: {
@@ -428,6 +433,7 @@ export const AddDialogCatalogo = ({
           <Button
             sx={queries.buttonContinuarSolicitudInscripcion}
             onClick={() => handleClick(modulos, fechaCaptura1, fechaCaptura2, handleClose )}
+            //autoFocus
           >
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
@@ -439,11 +445,20 @@ export const AddDialogCatalogo = ({
       </Dialog>
     </Grid>
     );
-  } else if (tabla.toUpperCase() === "PROGRAMAS - INSTITUCIONES") {
+  } else if (tabla.toUpperCase()  === "PROGRAMAS - INSTITUCIONES") {
     
 
     return (
       <Grid sx={{ display: "flex" }}>
+        {/* <IconButton onClick={handleClickOpen}>
+          <AddIcon
+            sx={{
+              width: 50,
+              height: 50,
+            }}
+          />
+        </IconButton> */}
+
         <Dialog fullWidth open={open} onClose={cerrardialog}>
           <Grid
             sx={{
@@ -570,6 +585,7 @@ export const AddDialogCatalogo = ({
             }}
           >
             <Button
+              // sx={queries.buttonCancelarSolicitudInscripcion}
               color="error"
               className="cancelar"
               onClick={cerrardialog}
@@ -602,10 +618,18 @@ export const AddDialogCatalogo = ({
         </Dialog>
       </Grid>
     );
-  } else if (tabla.toUpperCase() === "InstitucionUnidad") {
+  } else if (tabla === "InstitucionUnidad") {
    
     return (
       <Grid sx={{ display: "flex" }}>
+        {/* <IconButton onClick={handleClickOpen}>
+          <AddIcon
+            sx={{
+              width: 50,
+              height: 50,
+            }}
+          />
+        </IconButton> */}
         <Dialog fullWidth open={open} onClose={cerrardialog}>
           <Grid
             sx={{
@@ -761,10 +785,18 @@ export const AddDialogCatalogo = ({
         :
       </Grid>
     );
-  } else if (tabla.toUpperCase() === "PED") {
+  } else if (tabla === "PED") {
     
     return (
       <Grid>
+        {/* <IconButton onClick={handleClickOpen}>
+          <AddIcon
+            sx={{
+              width: 50,
+              height: 50,
+            }}
+          />
+        </IconButton> */}
         <Dialog fullWidth maxWidth={"xl"} open={open} onClose={cerrardialog}>
           <AppBar sx={{ position: "relative", backgroundColor: "#bdbdbd" }}>
             <Toolbar>
@@ -782,11 +814,20 @@ export const AddDialogCatalogo = ({
         </Dialog>
       </Grid>
     );
-  } else if (tabla.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS") {
+  } else if (tabla.toUpperCase()  === "PROGRAMAS PRESUPUESTARIOS") {
     
     return (
       <Grid sx={{ display: "flex" }}>
-       
+        {/* <Tooltip title="Editar">
+          <IconButton onClick={handleClickOpen}>
+            <AddIcon
+              sx={{
+                width: 50,
+                height: 50,
+              }}
+            />
+          </IconButton>
+        </Tooltip> */}
         <Dialog fullWidth open={open} onClose={cerrardialog}>
           <Grid
             sx={{
@@ -820,7 +861,6 @@ export const AddDialogCatalogo = ({
               justifyContent: "center",
             }}
           >
-            {/* ################################################################## */}
             <TextField
               label={"Nombre del programa"}
               variant="outlined"
@@ -848,7 +888,7 @@ export const AddDialogCatalogo = ({
             <TextField
               label={"Conac"}
               variant="outlined"
-              
+              // multiline={descripcionConac.length < 2 ? false : true}
               sx={{ width: "60%", mb: "2vh" }}
               value={descripcionConac}
               onChange={handleChange}
@@ -869,6 +909,7 @@ export const AddDialogCatalogo = ({
             <TextField
               label={"Consecutivo"}
               variant="outlined"
+              // multiline={descripcionConac.length < 2 ? false : true}
               sx={{ width: "60%" }}
               value={descripcionConsecutivo}
               onChange={(x) => {
@@ -986,6 +1027,14 @@ export const AddDialogCatalogo = ({
    
     return (
       <Grid>
+        {/* <IconButton onClick={handleClickOpen}>
+          <AddIcon
+            sx={{
+              width: 50,
+              height: 50,
+            }}
+          />
+        </IconButton> */}
         <Dialog open={open} onClose={cerrardialog} fullWidth>
           <Grid
             sx={{
@@ -1084,7 +1133,7 @@ export const AddDialogCatalogo = ({
               />
             ) : null}
 
-            {tabla.toUpperCase()  === "BENEFICIARIOS" ? (
+            {tabla.toUpperCase() === "BENEFICIARIOS" ? (
               <TextField
                 label={"Tipo Beneficiario"}
                 variant="outlined"
@@ -1097,6 +1146,7 @@ export const AddDialogCatalogo = ({
                 value={Tipob}
                 onChange={(v) => {
                   let valor = v.target.value;
+                  //let numeroValido = validarNumero(valor, Idb);
                   setTipoB(valor);
                 }}
                 style={{ marginBottom: 1 }}
@@ -1114,7 +1164,7 @@ export const AddDialogCatalogo = ({
               />
             ) : null}
 
-            {tabla.toUpperCase()  === "BENEFICIARIOS" ? (
+            {tabla.toUpperCase() === "BENEFICIARIOS" ? (
               <TextField
                 label={"Tipo"}
                 variant="outlined"
@@ -1127,6 +1177,7 @@ export const AddDialogCatalogo = ({
                 value={Tipo}
                 onChange={(v) => {
                   let valor = v.target.value;
+                  //let numeroValido = validarNumero(valor, Idb);
                   setTipo(valor);
                 }}
                 style={{ marginBottom: 1 }}

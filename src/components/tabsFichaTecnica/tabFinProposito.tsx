@@ -19,50 +19,24 @@ export function TabFinPropositoFT({
   show,
   setFTPropositoPadre,
   setFTFinPadre,
-  setFinPropositoFT,
   FinValues,
   PropositoValues,
-  FT,
   ftEditPadre,
 }: {
   edit: boolean;
   show: boolean;
   setFTPropositoPadre: Function;
   setFTFinPadre: Function;
-  setFinPropositoFT: Function;
   FinValues: IFinFT;
   PropositoValues: IPropositoFT;
-  FT: string;
   ftEditPadre: IFTEdit;
 }) {
-  // [
-  //   {
-  //     tipoDeIndicador: jsonFT?.fin?.tipoDeIndicador || "",
-  //     claridad: jsonFT?.fin?.claridad || "",
-  //     relevancia: jsonFT?.fin?.relevancia || "",
-  //     economia: jsonFT?.fin?.economia || "",
-  //     monitoreable: jsonFT?.fin?.monitoreable || "",
-  //     adecuado: jsonFT?.fin?.adecuado || "",
-  //     aporte_marginal: jsonFT?.fin?.aporte_marginal || "",
-  //     dimension: jsonFT?.fin?.dimension || "",
-  //     unidadDeMedida: jsonFT?.fin?.unidadDeMedida || "",
-  //   },
-  // ]
+
+
+
   const [fin, setFin] = useState<IFinFT>(FinValues);
 
-  // [
-  //   {
-  //     tipoDeIndicador: jsonFT?.proposito?.tipoDeIndicador || "",
-  //     claridad: jsonFT?.proposito?.claridad || "",
-  //     relevancia: jsonFT?.proposito?.relevancia || "",
-  //     economia: jsonFT?.proposito?.economia || "",
-  //     monitoreable: jsonFT?.proposito?.monitoreable || "",
-  //     adecuado: jsonFT?.proposito?.adecuado || "",
-  //     aporte_marginal: jsonFT?.proposito?.aporte_marginal || "",
-  //     dimension: jsonFT?.proposito?.dimension || "",
-  //     unidadDeMedida: jsonFT?.proposito?.unidadDeMedida || "",
-  //   },
-  // ]
+  
   const [proposito, setProposito] = useState<IPropositoFT>(PropositoValues);
 
   const [showFin, setShowFin] = useState(true);

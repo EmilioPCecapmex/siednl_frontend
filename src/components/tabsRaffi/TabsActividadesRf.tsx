@@ -44,32 +44,15 @@ export const TabActividadRf = ({
     setRFactividadesPadre(componentesActividadesValues);
   }, [componentesActividadesValues]);
 
-  // const [componentesValuesRF, setComponentesValuesRF] = useState<
-  //   Array<ICValorRF>
-  // >([]);
-
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
-  const [errorIndicador, setErrorIndicador] = useState(-1);
   const handleClose = () => {
     setOpenFormulaDialog(false);
   };
-  function mapeaindice(c = 0, a = 0) {
-    let x = 0;
-    //Componente 1
-    c == 0 && a == 0
-      ? (x = 0)
-      : c == 0 && a == 1
-      ? (x = 1)
-      : c == 1 && a == 0
-      ? (x = 2)
-      : (x = 3);
-
-    return x;
-  }
+ 
 
   
 
@@ -80,45 +63,21 @@ export const TabActividadRf = ({
         componentesActividadesValues[componenteSelect].actividades[
           actividadSelect
         ].metasPorFrecuencia[0].trimestre1 =getValueOperacion(txt, tipoFormula);
-        // componentesActividadesValues[
-        //   componenteSelect
-        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
-        // componentesActividadesValues[
-        //   componenteSelect
-        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre1 = txt.split(",")[1];
         break;
       case "trimestre2":
         componentesActividadesValues[componenteSelect].actividades[
           actividadSelect
         ].metasPorFrecuencia[0].trimestre2 =getValueOperacion(txt, tipoFormula);
-        // componentesActividadesValues[
-        //   componenteSelect
-        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre2 = txt.split(",")[0];
-        // componentesActividadesValues[
-        //   componenteSelect
-        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1];
         break;
       case "trimestre3":
         componentesActividadesValues[componenteSelect].actividades[
           actividadSelect
         ].metasPorFrecuencia[0].trimestre3 =getValueOperacion(txt, tipoFormula);
-        // componentesActividadesValues[
-        //   componenteSelect
-        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre3 = txt.split(",")[0];
-        // componentesActividadesValues[
-        //   componenteSelect
-        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre3 = txt.split(",")[1];
         break;
       case "trimestre4":
         componentesActividadesValues[componenteSelect].actividades[
           actividadSelect
         ].metasPorFrecuencia[0].trimestre4 =getValueOperacion(txt, tipoFormula);
-        // componentesActividadesValues[
-        //   componenteSelect
-        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre4 = txt.split(",")[0];
-        // componentesActividadesValues[
-        //   componenteSelect
-        // ].actividades[actividadSelect].metasPorFrecuencia[0].trimestre4 = txt.split(",")[1];
         break;
 
       default:
@@ -128,14 +87,7 @@ export const TabActividadRf = ({
   };
   const [open, setOpen] = useState(0);
 
-  const handleClickComponente = (index: number) => {
-    setOpen(index);
-  };
 
-  // const handleClickOpen = () => {
-  //   //setPrevTextFormula("Porcentaje");
-  //   setOpenFormulaDialog(true);
-  // };
 
   const [frecuencia, setFrecuencia] = useState("");
 
@@ -203,6 +155,7 @@ export const TabActividadRf = ({
     setOpenFormulaDialog(true);
   };
 
+  
 
   let jsonMA =
     MA === ""
@@ -224,8 +177,6 @@ export const TabActividadRf = ({
           borderRadius: 5,
           flexDirection: "column",
           backgroundColor: "#fff",
-          // justifyContent: "center",
-          // alignItems: "center",
           overflow: "auto"
         }}
       >
@@ -357,7 +308,6 @@ export const TabActividadRf = ({
                           >
                             <Typography
                               sx={{
-                                //  fontSize: "1vw",
                                 fontFamily: "MontserratMedium",
                               }}
                             >
@@ -518,7 +468,7 @@ export const TabActividadRf = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                // value={componentesActividadesValues[componenteSelect ]?.metaAnual || ""}
+                
                 value={jsonMA?.componentes[componenteSelect]?.metaAnual || ""}
               />
             </Grid>
@@ -561,7 +511,7 @@ export const TabActividadRf = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                // value={componentesActividadesValues[componenteSelect ]?.lineaBase || ""}
+               
                 value={jsonMA?.componentes[componenteSelect]?.lineaBase || ""}
               />
             </Grid>
@@ -659,7 +609,6 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
                       disabled={true}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -692,8 +641,7 @@ export const TabActividadRf = ({
                   xs={12}
                   direction={"column"}
                   sx={{
-                    //alignContent: "center",
-                    alignItems: "center",
+                  alignItems: "center",
                     display: "flex",
                     justifyContent: "space-around",
                   }}
@@ -706,7 +654,6 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
                       disabled={true}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -739,7 +686,6 @@ export const TabActividadRf = ({
                   xs={12}
                   direction={"column"}
                   sx={{
-                    //alignContent: "center",
                     alignItems: "center",
                     display: "flex",
                     justifyContent: "space-around",
@@ -753,7 +699,6 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
                       disabled={true}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -782,16 +727,6 @@ export const TabActividadRf = ({
             <Grid
               container
               direction={"row"}
-              // xl={12}
-              // lg={12}
-              // md={12}
-              // sm={12}
-              // xs={12}
-              // sx={{
-              //   alignContent: "center",
-              //   display: "flex",
-              //   justifyContent: "center",
-              // }}
             >
               <Grid
                 container
@@ -824,7 +759,7 @@ export const TabActividadRf = ({
                   </Grid>
 
                   <Grid item>
-                    {/* {JSON.stringify(componentesActividadesValues)}; */}
+                   
                     <TextField
                       //fullWidth
                       disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1}
@@ -843,8 +778,6 @@ export const TabActividadRf = ({
                       }}
                       onClick={() => handleClickOpen("trimestre1")}
                       value={
-                        // jsonMA?.componentes[componenteSelect]
-                        //   ?.metasPorFrecuencia[0]?.semestre1
                         componentesActividadesValues[componenteSelect]
                           .actividades[actividadSelect].metasPorFrecuencia[0]
                           ?.trimestre1 || ""
@@ -893,8 +826,7 @@ export const TabActividadRf = ({
                       }}
                       onClick={() => handleClickOpen("trimestre2")}
                       value={
-                        // jsonMA?.componentes[componenteSelect]
-                        //   ?.metasPorFrecuencia[0]?.semestre1
+
                         componentesActividadesValues[componenteSelect]
                           .actividades[actividadSelect].metasPorFrecuencia[0]
                           ?.trimestre2 || ""
@@ -912,7 +844,7 @@ export const TabActividadRf = ({
                   xs={12}
                   direction={"column"}
                   sx={{
-                    //alignContent: "center",
+
                     alignItems: "center",
                     display: "flex",
                     justifyContent: "space-around",
@@ -943,8 +875,7 @@ export const TabActividadRf = ({
                       }}
                       onClick={() => handleClickOpen("trimestre3")}
                       value={
-                        // jsonMA?.componentes[componenteSelect]
-                        //   ?.metasPorFrecuencia[0]?.semestre1
+
                         componentesActividadesValues[componenteSelect]
                           .actividades[actividadSelect].metasPorFrecuencia[0]
                           ?.trimestre3 || ""
@@ -991,8 +922,7 @@ export const TabActividadRf = ({
                       }}
                       onClick={() => handleClickOpen("trimestre4")}
                       value={
-                        // jsonMA?.componentes[componenteSelect]
-                        //   ?.metasPorFrecuencia[0]?.semestre1
+
                         componentesActividadesValues[componenteSelect]
                           .actividades[actividadSelect].metasPorFrecuencia[0]
                           ?.trimestre4 || ""
@@ -1008,6 +938,4 @@ export const TabActividadRf = ({
     </>
   );
 };
-// function setAIactividadesPadre(componentesActividadesValues: IComponenteRF[]) {
-//   throw new Error("Function not implemented.");
-// }
+

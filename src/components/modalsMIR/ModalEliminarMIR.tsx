@@ -23,22 +23,12 @@ export const DeleteDialogMIR = ({
   id: string;
   actualizado: Function;
 }) => {
-  // const Toast = Swal.mixin({
-  //   toast: true,
-  //   position: "top-end",
-  //   showConfirmButton: false,
-  //   timer: 5000,
-  //   timerProgressBar: true,
-  //   didOpen: (toast) => {
-  //     toast.addEventListener("mouseenter", Swal.stopTimer);
-  //     toast.addEventListener("mouseleave", Swal.resumeTimer);
-  //   },
-  // });
+
 
   
 
   const handleClickOpen = () => {
-    //setOpen(true);
+   
     alertaEliminar(() => {deleteMIR()},() => {},"Deseas eliminar la MIR y los documentos ligados?");
   };
 
@@ -49,7 +39,7 @@ export const DeleteDialogMIR = ({
       .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-mir", {
         data: {
           Id: id,
-          // se va a cambiar0
+        
           ModificadoPor: localStorage.getItem("IdUsuario"),
         },
         headers: {

@@ -17,13 +17,11 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 
 export function TabFinProposito({
-  // show,
   MIR,
   setMIR,
   mirEdit,
   edit,
 }: {
-  // show: boolean;
   edit:boolean;
   MIR: IMIR;
   setMIR: Function;
@@ -222,7 +220,6 @@ export function TabFinProposito({
 
   return (
     <Grid
-      // visibility={show ? "visible" : "hidden"}
       position="absolute"
       sx={{
         // display: "flex",
@@ -266,9 +263,6 @@ export function TabFinProposito({
           </Typography>
         </Grid>
       ) : null}
-
-
-
 
 
       <Grid

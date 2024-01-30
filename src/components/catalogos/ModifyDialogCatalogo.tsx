@@ -102,36 +102,7 @@ export const ModifyDialogCatalogos = ({
     year + "-" + monthS + "-" + dateS
   );
 
-  const ModifyPorCatalogoFechas = () => {
-    axios
-      .put(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/modify-fechaDeCaptura",
-        {
-          IdFechaDeCaptura: Id,
-          NuevoDescripcion: nuevaDescripcion,
-          //Se agregaron 3 campos nuevos pero esto se hizo en otro accios esto se va a modificar
-          NuevoFechaCapturaInicio: fechaCaptura,
-          NuevoFechaCapturaFinal: fechaCaptura,
-          NuevoModulo: "",
-          ModificadoPor: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        cerrardialog();
-      })
-      .catch((err) =>
-        Toast.fire({
-          icon: "error",
-          title: "Permisos denegados",
-        })
-      );
-  };
+  
 
   const ModifyPorCatalogoProgramasP = () => {
     axios
@@ -188,7 +159,7 @@ export const ModifyDialogCatalogos = ({
     { Id: "", NombreInstitucion: "" },
   ]);
 
-  if (tabla === "PROGRAMAS PRESUPUESTARIOS") {
+  if (tabla === "Programas Presupuestarios") {
     return (
       <Grid>
         <Dialog open={open} onClose={cerrardialog} fullWidth>

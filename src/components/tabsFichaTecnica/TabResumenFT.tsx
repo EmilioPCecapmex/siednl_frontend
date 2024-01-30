@@ -75,17 +75,6 @@ export function TabResumenFT({
     setOpenModalEnviar(false);
   };
 
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
 
   const creaFT = (estado: string) => {
     axios
@@ -119,20 +108,8 @@ export function TabResumenFT({
   };
 
 
-  const isCapturador = localStorage.getItem("Rol") === "Capturador";
 
-  const buttonStyles = {
-    ...queries.buttonContinuarSolicitudInscripcion,
-    ...(isCapturador && {
-      "&.Mui-disabled": {
-        backgroundColor: "rgba(175, 140, 85, 0.6)",
-        color: "white",
-        "&:hover": {
-          backgroundColor: "rgba(175, 140, 85, 0.6)",
-        },
-      },
-    }),
-  };
+
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
@@ -2402,9 +2379,9 @@ export function TabResumenFT({
             display: "flex",
             // Otros estilos específicos para pantallas pequeñas
           }),
-          //flexDirection: "row",
+          
 
-          //mt: 1,
+         
           alignItems: "center",
           justifyContent: "center",
 
@@ -2427,7 +2404,7 @@ export function TabResumenFT({
         >
           <Button
           className="cancelar"
-            //sx={queries.buttonCancelarSolicitudInscripcion}
+           
             onClick={() => showResume()}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -2449,7 +2426,7 @@ export function TabResumenFT({
             disabled={
               localStorage.getItem("Rol") === "Capturador" ? true : false
             }
-            //sx={buttonStyles}
+            
             className="aceptar"
             onClick={() => setOpenModalSolicitarModif(true)}
           >
@@ -2471,7 +2448,7 @@ export function TabResumenFT({
         >
           <Button
           className="aceptar"
-            //sx={queries.buttonContinuarSolicitudInscripcion}
+            
             onClick={() => {
               let estado = "";
               if (localStorage.getItem("Rol") === "Capturador") {
@@ -2504,7 +2481,7 @@ export function TabResumenFT({
         >
           <Button
           className="aceptar"
-            //sx={queries.buttonContinuarSolicitudInscripcion}
+           
             onClick={() =>{ console.log(estadoft)
             setOpenModalEnviar(true)}}
           >
@@ -2518,7 +2495,7 @@ export function TabResumenFT({
           </Button>
         </Grid>
 
-        {/*CAMBIAR POR EL MODAL DE MODIFICAR DE FICHA TÉCNICA*/}
+        
         <ModalsSolicitModifFT
           open={openModalSolicitarModif}
           handleClose={handleCloseModif}

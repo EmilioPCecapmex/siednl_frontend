@@ -101,7 +101,6 @@ export interface IActividadesRF {
     metasPorFrecuencia: Array<IFrecuenciasAct>;
   }
 
-//////////////////////////////// boolean
 
 export interface IAvanceFinancieroRFEdit {
   nombrePrograma: boolean;

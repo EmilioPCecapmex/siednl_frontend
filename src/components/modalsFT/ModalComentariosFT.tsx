@@ -21,7 +21,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { queries } from "../../queries";
-import { alertaEliminar, alertaExito } from "../genericComponents/Alertas";
+import { alertaEliminar, alertaError, alertaExito } from "../genericComponents/Alertas";
 
 export const ComentDialogFT = ({
   estado,
@@ -32,17 +32,6 @@ export const ComentDialogFT = ({
   id: string;
   actualizado: Function;
 }) => {
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
 
   const [coments, setComents] = React.useState([
     {
@@ -88,11 +77,7 @@ export const ComentDialogFT = ({
       });
   };
 
-  React.useEffect(() => {
-    if (open) {
-      // getUsuariosXInstitucion();
-    }
-  }, [open]);
+  
 
   const [coment, setComent] = React.useState("");
 
@@ -141,16 +126,12 @@ export const ComentDialogFT = ({
         setComent("");
         handleClose();
         actualizado();
-        Toast.fire({
-          icon: "success",
-          title: "Comentario añadido",
-        });
+        alertaExito(()=>{},"Comentario añadido")
+       
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: "Se produjo un error",
-        });
+        alertaError("Se produjo un error")
+       
       });
   };
 

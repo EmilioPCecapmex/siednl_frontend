@@ -18,51 +18,26 @@ import Radio from "@mui/material/Radio";
 import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 import { IComponentesFT, IFTEdit } from "./Interfaces";
 
-//funcion main
 export const TabActividadesFT = ({
   edit,
   show,
-
-  //asignarCValor,
-  compAct,
-  showMirFnc,
-  setTxtShowFnc,
-  FT,
   setFTcomponentesActividadPadre,
   componentesActividad,
-  setComponenteActividadFT,
   ftEditPadre,
 }: {
   edit: boolean;
   show: boolean;
-
-  //asignarCValor: Function;
-  compAct: Array<IComponenteActividad>;
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
-  FT: string;
   setFTcomponentesActividadPadre: Function;
   componentesActividad: IComponentesFT[];
-  setComponenteActividadFT: Function;
   ftEditPadre: IFTEdit;
 }) => {
-  // business logic-------------------------------------------------------------------------------
-
-  // const componenteActividad = [
-  //   {
-  //     componentes: componentes.map((x) => compAct),
-  //   },
-  // ];
-
   const [componentesActividadValues, setComponentesActividadValues] =
     useState<IComponentesFT[]>(componentesActividad);
 
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
-
   useEffect(() => {
-    // valoresComponenteFTFnc(componentesValues);
     setComponentesActividadValues(componentesActividad);
   }, []);
 
@@ -73,148 +48,8 @@ export const TabActividadesFT = ({
   useEffect(() => {
     setFTcomponentesActividadPadre(componentesActividadValues);
   }, []);
-  // const [aValorFT, setAValorFT] = useState(
-  //   componenteActividad.map((item) => {
-  //     return {
-  //       componentes: item.componentes.map((x, index) => {
-  //         return {
-  //           actividades: x.map((c, index2) => {
-  //             return {
-  //               actividad: "A" + (index2 + 1) + "C" + (index + 1),
-  //               tipoDeIndicador: "",
-  //               claridad: "",
-  //               relevancia: "",
-  //               economia: "",
-  //               monitoreable: "",
-  //               adecuado: "",
-  //               aporte_marginal: "",
-  //               dimension: "",
-  //               unidadDeMedida: "",
-  //             };
-  //           }),
-  //         };
-  //       }),
-  //     };
-  //   })
-  // );
-
-  // useEffect(() => {
-  //   asignarCValor(aValorFT);
-  // }, [aValorFT]);
-
-  // useEffect(() => {
-  //   if (componentes.length > componentesActividadValues.length) {
-  //     let restantes = componentes.length - aValorFT[0].componentes.length;
-  //     let prevState = [...componentesActividadValues];
-  //     for (let index = 1; index <= restantes; index++) {
-  //       prevState[0].componentes.push({
-  //         actividades: [
-  //           {
-  //             actividad: "A1" + "C" + (prevState[0].componentes.length + 1),
-  //             tipoDeIndicador: "",
-  //             claridad: "",
-  //             relevancia: "",
-  //             economia: "",
-  //             monitoreable: "",
-  //             adecuado: "",
-  //             aporte_marginal: "",
-  //             dimension: "",
-  //             unidadDeMedida: "",
-  //           },
-  //           {
-  //             actividad: "A2" + "C" + (prevState[0].componentes.length + 1),
-  //             tipoDeIndicador: "",
-  //             claridad: "",
-  //             relevancia: "",
-  //             economia: "",
-  //             monitoreable: "",
-  //             adecuado: "",
-  //             aporte_marginal: "",
-  //             dimension: "",
-  //             unidadDeMedida: "",
-  //           },
-  //         ],
-  //       });
-  //       setAValorFT(prevState);
-  //     }
-  //   } else if (componentes.length < aValorFT[0].componentes.length) {
-  //     let prevState = [...componentesActividadValues];
-  //     let restantes = aValorFT[0].componentes.length - componentes.length;
-  //     for (let index = 1; index <= restantes; index++) {
-  //       prevState[0].componentes.pop();
-  //       setAValorFT(prevState);
-  //     }
-  //     setComponenteSelect(0);
-  //   }
-  // }, [compAct]);
-
-  // useEffect(() => {
-  //   if (compAct.length > 0) {
-  //     loadActividadesFT();
-  //   }
-  // }, [compAct]);
-
-  // useEffect(() => {
-  //   asignarCValor(aValorFT);
-  // }, [aValorFT]);
 
   let aument_number = -1;
-
-  // const loadActividadesFT = () => {
-  //   let y = componenteActividad.map((item) => {
-  //     return {
-  //       componentes: compAct.map((x, index) => {
-  //         return {
-  //           actividades: x.actividades.map((c, index2) => {
-  //             aument_number++;
-
-  //             return {
-  //               actividad: "A" + (index2 + 1) + "C" + (index + 1),
-  //               tipoDeIndicador:
-  //                 FT === ""
-  //                   ? ""
-  //                   : jsonFT?.actividades[aument_number]?.tipoDeIndicador || "",
-  //               claridad:
-  //                 FT === ""
-  //                   ? ""
-  //                   : jsonFT?.actividades[aument_number]?.claridad || "",
-  //               relevancia:
-  //                 FT === ""
-  //                   ? ""
-  //                   : jsonFT?.actividades[aument_number]?.relevancia || "",
-  //               economia:
-  //                 FT === ""
-  //                   ? ""
-  //                   : jsonFT?.actividades[aument_number]?.economia || "",
-  //               monitoreable:
-  //                 FT === ""
-  //                   ? ""
-  //                   : jsonFT?.actividades[aument_number]?.monitoreable || "",
-  //               adecuado:
-  //                 FT === ""
-  //                   ? ""
-  //                   : jsonFT?.actividades[aument_number]?.adecuado || "",
-  //               aporte_marginal:
-  //                 FT === ""
-  //                   ? ""
-  //                   : jsonFT?.actividades[aument_number]?.aporte_marginal || "",
-  //               dimension:
-  //                 FT === ""
-  //                   ? ""
-  //                   : jsonFT?.actividades[aument_number]?.dimension || "",
-  //               unidadDeMedida:
-  //                 FT === ""
-  //                   ? ""
-  //                   : jsonFT?.actividades[aument_number]?.unidadDeMedida || "",
-  //             };
-  //           }),
-  //         };
-  //       }),
-  //     };
-  //   });
-
-  //  setComponentesActividadValues(y);
-  // };
 
   const [open, setOpen] = useState(0);
 
@@ -222,7 +57,7 @@ export const TabActividadesFT = ({
     setOpen(index);
   };
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
-  //return main
+
   return (
     <Grid
       visibility={show ? "visible" : "hidden"}

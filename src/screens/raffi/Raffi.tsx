@@ -36,61 +36,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
+import { estados, heads } from "../../services/validations";
 
-const estados = [
-  "Todos",
-  "En Captura",
-  "En Revisión",
-  "En Autorización",
-  "Autorizada",
-  "Borrador Autorizador",
-  "Borrador Verificador",
-  "Sin Asignar",
-];
 
-interface Head {
-  id: keyof IRaffi;
-  isNumeric: boolean;
-  label: string;
-}
-
-const heads: readonly Head[] = [
-  {
-    id: "AnioFiscal",
-    isNumeric: true,
-    label: "EJERCICIO FISCAL",
-  },
-  {
-    id: "Entidad",
-    isNumeric: true,
-    label: "ENTIDAD",
-  },
-  {
-    id: "Programa",
-    isNumeric: true,
-    label: "NOMBRE DEL PROGRAMA",
-  },
-  {
-    id: "Estado",
-    isNumeric: true,
-    label: "ESTADO",
-  },
-  {
-    id: "FechaCreacion",
-    isNumeric: true,
-    label: "FECHA DE CREACIÓN",
-  },
-  {
-    id: "CreadoPor",
-    isNumeric: true,
-    label: "CREADO POR",
-  },
-  {
-    id: "Opciones",
-    isNumeric: true,
-    label: "OPCIONES",
-  },
-];
 
 export const Raffi = () => {
   const [actionNumber, setActionNumber] = useState(0);
@@ -328,7 +276,7 @@ export const Raffi = () => {
     axios
       .post(
         // process.env.REACT_APP_APPLICATION_FILL + "/api/fill_rf",
-        "http://192.168.137.198:7001/api/fill_raffi",
+        "http://192.168.137.254:7001/api/fill_raffi",
         fullRF,
         {
           responseType: "blob",
@@ -367,6 +315,8 @@ export const Raffi = () => {
         });
       });
   };
+
+  const [estado, setEstado] = useState("");
 
   return (
     <Grid container justifyContent={"space-between"}>
@@ -1081,20 +1031,39 @@ export const Raffi = () => {
                                 <span>
                                   <IconButton
                                     onClick={() => {
-                                      getFichaRaffiDownload(
-                                        row.MIR,
+                                      
+                                        let auxArrayMIR = JSON.parse(row.MIR);
+                                        let auxArrayMIR2 = JSON.stringify(
+                                          auxArrayMIR[0]
+                                        );
+                                        if (auxArrayMIR[1]) {
+                                          getFichaRaffiDownload(
+                                        auxArrayMIR2,
                                         row.MetaAnual,
                                         row.RAFFI,
                                         row.Programa,
                                         row.FechaCreacion,
                                         row.Entidad
                                       );
+                                        }else{
+                                          getFichaRaffiDownload(
+                                            row.MIR,
+                                            row.MetaAnual,
+                                            row.RAFFI,
+                                            row.Programa,
+                                            row.FechaCreacion,
+                                            row.Entidad
+                                          );
+                                        }
+                                      
+
                                     }}
                                     disabled={
                                       row.Estado === "Autorizada" && validaFecha
                                         ? false
                                         : true
                                     }
+
                                   >
                                     <DownloadIcon
                                       sx={{

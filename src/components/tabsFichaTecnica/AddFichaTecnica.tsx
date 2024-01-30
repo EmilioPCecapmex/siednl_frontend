@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TabResumenFT from "./TabResumenFT";
-import { Grid, IconButton, useMediaQuery } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/material";
 import { TabActividadesFT } from "./tabActividades";
 import {
   IActividad,
@@ -18,7 +18,6 @@ import {
   IFT,
   IFTEdit,
   IComponenteEditFT,
-  IActividadesEditFT,
   IActividadesFT,
 } from "./Interfaces";
 import { TabEncabezado } from "./TabEncabezado";
@@ -33,19 +32,7 @@ const tabs = [
   "Resumen",
 ];
 
-function getNumComponents(MIR: string) {
-  let aux = JSON.parse(MIR).componentes?.length;
-  let arrayComponents = [];
-  for (let i = 0; i < aux; i++) {
-    arrayComponents.push(i + 1);
-  }
-
-  return arrayComponents;
-}
-
 function newFichaTecnica(MIR: string) {
-  
-
   let componentes: IComponente[] = JSON.parse(MIR).componentes;
 
   return {
@@ -201,7 +188,6 @@ export default function AddFichaTecnica({
   IdFT: string;
   estado: string;
 }) {
-
   const [ftPadre, setFTPadre] = useState<IFT>(newFichaTecnica(MIR));
 
   const [ftEditPadre, setFTEditPadre] = useState<IFTEdit>(
@@ -222,10 +208,6 @@ export default function AddFichaTecnica({
     setShowSt(st);
   };
 
-  const handleChange = (event: any, newValue: number) => {
-    setValue(newValue);
-  };
-
   const [compAct, setCompAct] = useState<Array<IComponenteActividad>>([]);
 
   const [editFT, setEditFT] = useState(false);
@@ -239,8 +221,6 @@ export default function AddFichaTecnica({
         let auxMA: IFT = newFichaTecnica(MIR);
 
         setEditFT(true);
-        // let lengthMA = auxMA.componentes.length
-        // let lengthMIR = auxMIR.componentes.length
 
         let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
           if (auxDBMA.componentes[indexC]) {
@@ -269,9 +249,6 @@ export default function AddFichaTecnica({
         let auxDBMA: IFT = JSON.parse(FT);
         let auxMIR: IMIR = JSON.parse(MIR);
         let auxMA: IFT = newFichaTecnica(MIR);
-
-        // let lengthMA = auxMA.componentes.length
-        // let lengthMIR = auxMIR.componentes.length
 
         let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
           if (auxDBMA.componentes[indexC]) {
@@ -329,57 +306,13 @@ export default function AddFichaTecnica({
     });
   };
 
-  const query = {
-    isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
-
-    isMobile: useMediaQuery("(min-width: 0px) and (max-width: 600px)"),
-  };
-
   const setFTcomponentesPadre = (componentesValues: IComponentesFT[]) => {
     setFTPadre({
       ...ftPadre,
       componentes: componentesValues,
     });
   };
-  let componentesMir: IComponente[] = JSON.parse(MIR).componentes;
 
-  // let ftEdit: IFTEdit =
-  //   FT !== "" && JSON.parse(FT).length > 1
-  //     ? JSON.parse(FT)[1]
-  //     : {
-  //         encabezado: {
-  //           programaSER: false,
-  //           objetivoSER: false,
-  //           objetivoODS: false,
-  //           metaODS: false,
-  //         },
-  //         fin: {
-  //           tipoDeIndicador: false,
-  //           claridad: false,
-  //           relevancia: false,
-  //           economia: false,
-  //           monitoreable: false,
-  //           adecuado: false,
-  //           aporte_marginal: false,
-  //           dimension: false,
-  //           unidadDeMedida: false,
-  //         },
-  //         proposito: {
-  //           tipoDeIndicador: false,
-  //           claridad: false,
-  //           relevancia: false,
-  //           economia: false,
-  //           monitoreable: false,
-  //           adecuado: false,
-  //           aporte_marginal: false,
-  //           dimension: false,
-  //           unidadDeMedida: false,
-  //         },
-
-  //         componentes: componentesMir.map((item, index) => {
-  //           return newComponentebooleanFT(item);
-  //         }),
-  //       };
   return (
     <Grid
       container
@@ -414,7 +347,6 @@ export default function AddFichaTecnica({
               edit={editFT}
               setFTEncabezadoPadre={setFTEncabezadoPadre}
               EncabezadoValues={ftPadre.encabezado}
-              FT={FT}
               MIR={MIR}
               ftEditPadre={ftEditPadre}
             ></TabEncabezado>
@@ -426,10 +358,8 @@ export default function AddFichaTecnica({
               show={value === 1 ? true : false}
               setFTPropositoPadre={setFTPropositoPadre}
               setFTFinPadre={setFTFinPadre}
-              setFinPropositoFT={setFTPadre}
               FinValues={ftPadre.fin}
               PropositoValues={ftPadre.proposito}
-              FT={FT}
               ftEditPadre={ftEditPadre}
             ></TabFinPropositoFT>
           ) : null}
@@ -438,11 +368,7 @@ export default function AddFichaTecnica({
               edit={editFT}
               show={value === 2 ? true : false}
               setFTcomponentesPadre={setFTcomponentesPadre}
-              setComponenteFT={setFTPadre}
               ComponentesFT={ftPadre.componentes}
-              showFnc={setTxtShowFnc}
-              showMirFnc={showMirFnc}
-              FT={FT}
               ftEditPadre={ftEditPadre}
             ></TabComponenteFT>
           ) : null}
@@ -450,14 +376,8 @@ export default function AddFichaTecnica({
             <TabActividadesFT
               edit={editFT}
               show={value === 3 ? true : false}
-              setTxtShowFnc={setTxtShowFnc}
-              showMirFnc={showMirFnc}
-              compAct={compAct}
               setFTcomponentesActividadPadre={setFTcomponentesActividadPadre}
-              setComponenteActividadFT={setFTPadre}
               componentesActividad={ftPadre.componentes}
-              //asignarCValor={[asignarCValorFT]}
-              FT={FT}
               ftEditPadre={ftEditPadre}
             ></TabActividadesFT>
           ) : null}
@@ -478,7 +398,7 @@ export default function AddFichaTecnica({
               showResume={showResume}
               MIR={MIR}
               ftEditPadre={ftEditPadre}
-              estadoft ={estado}
+              estadoft={estado}
               setFTEditPadre={setFTEditPadre}
             ></TabResumenFT>
           ) : null}

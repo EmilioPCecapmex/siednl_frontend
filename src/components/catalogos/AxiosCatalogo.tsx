@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
+
 import axios from "axios";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
 import Swal from "sweetalert2";

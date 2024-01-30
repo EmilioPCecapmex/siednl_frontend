@@ -13,6 +13,18 @@ const Toast = Swal.mixin({
   },
 });
 
+const ToastErrores = Swal.mixin({
+  toast: false,
+  position: "center",
+  showConfirmButton: true,
+  heightAuto: false,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
+
 const ToastConfirm = Swal.mixin({
   toast: false,
   position: "center",
@@ -25,7 +37,21 @@ const ToastConfirm = Swal.mixin({
   },
 });
 
-
+export function alertaErroresDocumento(errores: string[] = []) {
+  return ToastErrores.fire({
+    icon: "error",
+    html: `
+    <div style="height:50%;">
+    <h3>Se han encontrado los siguientes errores:</h3>
+    <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
+  <small>
+  <strong>
+  *</strong>${errores.join("<br><strong>*</strong>")}
+  </small>
+  </div>
+  </div>`,
+  });
+}
 
 export function alertaExito(fnc: Function, titulo = "Movimiento exitoso") {
   fnc(false);

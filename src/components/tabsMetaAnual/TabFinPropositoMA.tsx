@@ -23,7 +23,6 @@ import { IMAEdit } from "./IMA";
 
 export function TabFinPropositoMA({
   edit,
-  //show,
   setMAFinPadre,
   setMAPropositoPadre,
   showMirFnc,
@@ -35,7 +34,6 @@ export function TabFinPropositoMA({
   maPadreEdit,
 }: {
   edit: boolean;
-  //show: boolean;
   setMAFinPadre: Function;
   setMAPropositoPadre: Function;
   showMirFnc: Function;
@@ -68,13 +66,7 @@ export function TabFinPropositoMA({
 
   const [showProposito, setShowProposito] = useState(false);
 
-  // useEffect(() => {
-  //   resumenFinMa(valueFin);
-  //   resumenPropositoMa(valueProposito);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [valueFin, valueProposito]);
 
- 
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");

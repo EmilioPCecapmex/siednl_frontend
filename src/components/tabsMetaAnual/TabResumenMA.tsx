@@ -16,7 +16,6 @@ import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
 export function TabResumenMA({
   maPadre,
-
   IdMir,
   IdMA,
   MIR,
@@ -82,18 +81,11 @@ export function TabResumenMA({
         }
       )
       .then((r) => {
-        // Toast.fire({
-        //   icon: "success",
-        //   title: r.data.data.message,
-        // });
+       
         alertaExito(() => {}, r.data.data.message);
         showResume();
       })
       .catch((err) => {
-        // Toast.fire({
-        //   icon: "error",
-        //   title: err.response.data.result.error,
-        // });
         alertaError(err.response.data.result.error);
       });
   };
@@ -101,13 +93,6 @@ export function TabResumenMA({
   useEffect(() => {
     let arr: any[] = [];
     // eslint-disable-next-line array-callback-return
-    // cValor[0].componentes.map((a) => {
-    //   // eslint-disable-next-line array-callback-return
-    //   a.actividades.map((b) => {
-    //     Object.assign(b);
-    //     arr.push(b);
-    //   });
-    // });
     let cEdit = maPadre.componentes.map((item) => {
       return {
         componentes: item.componentes,
@@ -183,20 +168,10 @@ export function TabResumenMA({
 
     setEditActividades(aEdit);
 
-    // asignarMA(fin, proposito, componenteValor);
+    
   }, []);
 
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
+ 
 
   const [editFin, setEditFin] = useState<IFinEditMA>({
     metaAnual: true,
@@ -309,19 +284,8 @@ export function TabResumenMA({
     }),
   };
 
-  function mapeaindice(c = 0, a = 0) {
-    let x = 0;
-    //Componente 1
-    c === 0 && a === 0
-      ? (x = 0)
-      : c === 0 && a === 1
-      ? (x = 1)
-      : c === 1 && a === 0
-      ? (x = 2)
-      : (x = 3);
+  
 
-    return x;
-  }
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
