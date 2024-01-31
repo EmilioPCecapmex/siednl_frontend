@@ -47,7 +47,7 @@ export default function ModalSolicitaModif({
 
   const comentFT = () => {
     axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
       {
         IdMir: IdMIR,
         Coment: comentario,

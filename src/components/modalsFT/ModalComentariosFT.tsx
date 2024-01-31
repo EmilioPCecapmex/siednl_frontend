@@ -101,7 +101,7 @@ export const ComentDialogFT = ({
   const comentFt = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
         {
           IdMir: id,
           Coment: coment,
@@ -137,7 +137,7 @@ export const ComentDialogFT = ({
 
   React.useEffect(() => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/get-coment-mir", {
         params: {
           IdMir: id,
         },
