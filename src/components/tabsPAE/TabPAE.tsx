@@ -26,9 +26,11 @@ import { getListaPae, modifyPAE } from "./Services/ServicesPAE";
 export const TabPAE = ({
   TabSelect,
   Tabs,
+  tabsShow,
 }: {
   TabSelect: string;
   Tabs: string[];
+  tabsShow: string;
 }) => {
   interface Registro {
     Id: string;
@@ -58,13 +60,16 @@ export const TabPAE = ({
     setRegistrosFiltrados(registros);
 
     if (TabSelect !== "Todos los Documentos") {
+      
+      
       let aux = registros.filter((registro) => {
-        return registro.PerteneceA === TabSelect;
+        return registro.PerteneceA === tabsShow;
       });
+     
       setRegistrosFiltrados(aux);
     }
     setProgressBar(false);
-  }, [registros, TabSelect]);
+  }, [registros, tabsShow]);
 
   const [editMode, setEditMode] = useState(registrosFiltrados.map(() => false));
   const [editedDate, setEditedDate] = useState(
@@ -275,9 +280,13 @@ export const TabPAE = ({
                 <DialogCargaArchivo
                   Tabs={Tabs.filter((tab) => tab !== "Todos los Documentos")}
                   Tab={
-                    TabSelect === "Todos los Documentos" ? Tabs[1] : TabSelect
+                    TabSelect === "Todos los Documentos" ? Tabs[1] : tabsShow
                   }
-                  updateData={() => actuaizarDatos()}
+                  updateData={() => {actuaizarDatos()
+                  
+                  }
+                    
+                  }
                   open={open}
                   setOpen={setOpen}
                 />: null
