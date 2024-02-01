@@ -338,7 +338,7 @@ export default function ModalEnviarRF({
             }}
           >
             <Button
-              sx={queries.buttonCancelarSolicitudInscripcion}
+              className="cancelar"
               
               onClick={() => handleClose()}
             >
@@ -360,7 +360,7 @@ export default function ModalEnviarRF({
             </Button> */}
 
             <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
+               className="aceptar"
               
               onClick={() => {
                 checkMA(

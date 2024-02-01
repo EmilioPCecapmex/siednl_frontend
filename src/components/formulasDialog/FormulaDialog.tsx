@@ -242,14 +242,18 @@ export const FormulaDialog = ({
       
       <Box
 
-        sx={{ width: "100%", justifyContent: "space-evenly", display: "flex" }}
+        sx={{ width: "100%", justifyContent: "space-evenly", display: "flex", mb: 2 }}
       >
-        <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={() => close()} >
+        <Button 
+        className="cancelar"
+        onClick={() => close()} >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Cancelar
           </Typography>
         </Button>
-        <Button  sx={queries.buttonContinuarSolicitudInscripcion} onClick={() => checkValues()} >
+        <Button  
+        className="aceptar"
+        onClick={() => checkValues()} >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
             Agregar
           </Typography>

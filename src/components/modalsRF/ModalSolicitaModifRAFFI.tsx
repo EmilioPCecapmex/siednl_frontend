@@ -242,8 +242,8 @@ export default function ModalSolicitaModifRF({
           comentMA(IdRF);
         }
         alertaExitoConfirm((localStorage.getItem("Rol") === "Verificador"
-        ? "Ficha Tecnica enviada a capturador para corrección"
-        : "Ficha Tecnica enviada").toUpperCase())
+        ? "RAFFI enviada a capturador para corrección"
+        : "RAFFI enviada").toUpperCase())
 
         enviarNotificacion();
         handleClose();

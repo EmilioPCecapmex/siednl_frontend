@@ -143,13 +143,13 @@ export const DialogFinPropositoRaffi = ({
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
+                  
                 },
               }}
               InputProps={{
                 style: {
                   fontFamily: "MontserratRegular",
-                  fontSize: ".8vw",
+                  
                 },
               }}
             />
@@ -162,7 +162,7 @@ export const DialogFinPropositoRaffi = ({
                 label="DENOMINADOR"
                 multiline
                 rows={4}
-                sx={{ width: "100%" }}
+                sx={{ width: "100%" , }}
                 value={Denominador}
                 onChange={(x) =>
                   setDenominador(
@@ -176,13 +176,13 @@ export const DialogFinPropositoRaffi = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -192,7 +192,7 @@ export const DialogFinPropositoRaffi = ({
       </DialogContent>
       <DialogActions sx={{ justifyContent: "center" }}>
         <Button
-          sx={queries.buttonCancelarSolicitudInscripcion}
+          className="cancelar"
           onClick={() => close(false)}
         >
           Cancelar
@@ -202,7 +202,7 @@ export const DialogFinPropositoRaffi = ({
             handleChange();
           }}
           variant="text"
-          sx={queries.buttonContinuarSolicitudInscripcion}
+          className="aceptar"
         >
           Calcular
         </Button>

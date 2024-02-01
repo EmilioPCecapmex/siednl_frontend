@@ -587,7 +587,7 @@ export default function ModalEnviarMA({
         
         });
         alertaExito(()=>{},localStorage.getItem("Rol") === "Administrador"
-        ? "FT enviada a capturador"
+        ? "FT y RF enviada a capturador"
         : "FT enviada a revisión")
         showResume();
       })
@@ -685,7 +685,7 @@ export default function ModalEnviarMA({
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
             {localStorage.getItem("Rol") === "Administrador"
-              ? "Al confirmar, la Meta Anual se autorizará y el apartado de la Ficha Técnica será habilitado"
+              ? "Al confirmar, la Meta Anual se autorizará y el apartado de la Ficha Técnica y Raffi será habilitado"
               : localStorage.getItem("Rol") === "Verificador"
               ? "Al confirmar, la Meta Anual se enviará a los usuarios correspondientes para autorización"
               : "Al confirmar, la Meta Anual se enviará a los usuarios correspondientes para revisión"}

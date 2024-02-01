@@ -37,6 +37,7 @@ import Swal from "sweetalert2";
 import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
+import ComentDialogRF from "../../components/modalsRF/ModalComentariosRF";
 
 
 
@@ -1095,6 +1096,12 @@ export const Raffi = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
+
+                              <ComentDialogRF
+                                estado={row.Estado}
+                                id={row.IdMir}
+                                //actualizado={actualizaContador}
+                              />
                             </TableCell>
                           </TableRow>
                         );

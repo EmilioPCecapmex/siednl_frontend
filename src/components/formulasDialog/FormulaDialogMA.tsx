@@ -212,7 +212,7 @@ export const FormulaDialogMA = ({
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratSemiBold",
-                  fontSize: ".8vw",
+                  
                 },
               }}
               onChange={(c) =>
@@ -226,7 +226,7 @@ export const FormulaDialogMA = ({
               InputProps={{
                 style: {
                   fontFamily: "MontserratRegular",
-                  fontSize: ".8vw",
+                  
                 },
               }}
             />
@@ -249,7 +249,7 @@ export const FormulaDialogMA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 value={descA}
@@ -264,7 +264,7 @@ export const FormulaDialogMA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                   
                   },
                 }}
               />
@@ -284,7 +284,7 @@ export const FormulaDialogMA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                
                   },
                 }}
                 value={descB}
@@ -299,7 +299,7 @@ export const FormulaDialogMA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -307,11 +307,13 @@ export const FormulaDialogMA = ({
           )}{" "}
         </Grid>
       </DialogContent>
+
       <Grid
-        sx={{ width: "100%", justifyContent: "space-evenly", display: "flex" }}
+        sx={{ width: "100%", justifyContent: "space-evenly", display: "flex" , mb: 2}}
       >
         <Button
-          sx={queries.buttonCancelarSolicitudInscripcion}
+          
+          className="cancelar"
           onClick={() => close()}
         >
           <Typography
@@ -324,7 +326,7 @@ export const FormulaDialogMA = ({
           </Typography>
         </Button>
         <Button
-          sx={queries.buttonContinuarSolicitudInscripcion}
+          className="aceptar"
           onClick={() => checkValues()}
         >
           <Typography
@@ -337,6 +339,7 @@ export const FormulaDialogMA = ({
           </Typography>
         </Button>
       </Grid>
+
     </Dialog>
   );
 };

@@ -20,29 +20,18 @@ import {
 import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
-import { queries } from "../../queries";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
-export const ComentDialogMA = ({
+export const ComentDialogRF = ({
   estado,
   id,
-  actualizado,
+  //actualizado,
 }: {
   estado: string;
   id: string;
-  actualizado: Function;
+  //actualizado: Function;
 }) => {
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
+  
 
   const [coments, setComents] = React.useState([
     {
@@ -91,7 +80,7 @@ export const ComentDialogMA = ({
     );
   };
 
-  const comentMa = () => {
+  const comentRF = () => {
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
@@ -99,7 +88,7 @@ export const ComentDialogMA = ({
           IdMir: id,
           Coment: coment,
           CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA: "MA",
+          MIR_MA: "RF",
         },
         {
           headers: {
@@ -118,7 +107,7 @@ export const ComentDialogMA = ({
         setNewComent(false);
         setComent("");
         handleClose();
-        actualizado();
+       // actualizado();
         alertaExito(()=>{},"Comentario añadido")
         
       })
@@ -130,7 +119,7 @@ export const ComentDialogMA = ({
 
   React.useEffect(() => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/detail-commentMir", {
+      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/get-coment-mir", {
         params: {
           IdMir: id,
         },
@@ -141,7 +130,7 @@ export const ComentDialogMA = ({
       .then((r) => {
         setComents(r.data.data);
       });
-  }, [actualizado, id]);
+  }, [ id]);
 
   const isComentEmpty = () => {
     return !/^\s*$/.test(coment);
@@ -152,16 +141,31 @@ export const ComentDialogMA = ({
       <Tooltip title="COMENTARIOS">
         <span>
           <IconButton onClick={handleClickOpen}>
-            <MessageIcon
-              sx={[
+          <MessageIcon
+             sx={{
+              fontSize: "24px", // Tamaño predeterminado del icono
+
+              "@media (max-width: 600px)": {
+                fontSize: 20, // Pantalla extra pequeña (xs y sm)
+              },
+
+              "@media (min-width: 601px) and (max-width: 960px)":
                 {
-                  "&:hover": {
-                    color: "indigo",
-                  },
-                  width: "1.2vw",
-                  height: "1.2vw",
+                  fontSize: 20, // Pantalla pequeña (md)
                 },
-              ]}
+
+                "@media (min-width: 961px) and (max-width: 1280px)": {
+                  fontSize: 20, // Pantalla mediana (lg)
+                },
+
+              "@media (min-width: 1281px)": {
+                fontSize: 25, // Pantalla grande (xl)
+              },
+
+              "@media (min-width: 2200px)": {
+                ffontSize: 25, // Pantalla grande (xl)
+              },
+            }}
             />
           </IconButton>
         </span>
@@ -222,7 +226,7 @@ export const ComentDialogMA = ({
                 <TableBody>
                   {coments.length >= 1 && !coments[0]?.error ? (
                     coments.map((row, index) =>
-                      row.MIR_MA === "MA" ? (
+                      row.MIR_MA === "RF" ? (
                         <TableRow key={index}>
                           <TableCell
                             sx={{
@@ -313,31 +317,31 @@ export const ComentDialogMA = ({
               }}
             >
               <Button
-                sx={queries.buttonCancelarSolicitudInscripcion}
+                className="cancelar"
                 variant="contained"
                
                 onClick={handleClose}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+                  sx={{ fontFamily: "MontserratMedium",  }}
                 >
                   Cancelar
                 </Typography>{" "}
               </Button>
 
               <Button
-                sx={queries.buttonContinuarSolicitudInscripcion}
+                className="aceptar"
                 variant="contained"
                 disabled={estado === "Autorizada" && isComentEmpty()}
                 //color="info"
                 onClick={() => {
                   if (isComentEmpty()) {
-                    comentMa();
+                    comentRF();
                   }
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+                  sx={{ fontFamily: "MontserratMedium",  }}
                 >
                   {"Agregar"}
                 </Typography>
@@ -350,4 +354,4 @@ export const ComentDialogMA = ({
   );
 };
 
-export default ComentDialogMA;
+export default ComentDialogRF;

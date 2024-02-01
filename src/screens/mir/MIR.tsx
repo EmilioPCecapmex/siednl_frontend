@@ -1205,6 +1205,7 @@ export const MIR = () => {
                                 </span>
                               </Tooltip>
                             </Grid>
+                            
                           </TableCell>
                         </TableRow>
                       ))}

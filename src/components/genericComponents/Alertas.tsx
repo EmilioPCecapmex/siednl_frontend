@@ -87,6 +87,7 @@ export function alertaExitoConfirm(titulo: string) {
     title: titulo,
     iconColor: "#af8c55",
     color: "#af8c55",
+    confirmButtonColor: "#af8c55",
   });
 }
 
@@ -96,6 +97,7 @@ export function alertaErrorConfirm(titulo: string) {
     title: titulo,
     iconColor: "#af8c55",
     color: "#af8c55",
+    confirmButtonColor: "#af8c55",
   });
 }
 

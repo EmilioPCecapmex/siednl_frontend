@@ -510,11 +510,7 @@ export default function ModalSolicitaModif({
         if (comentario !== "") {
           comentFT();
         }
-        // if(localStorage.getItem("Rol") === "Verificador"){
-        //   alertaExitoConfirm("FICHA TECNICA ENVIADA A REVISION")
-        // }else{
-        //   alertaExitoConfirm("FICHA TECNICA ENVIADA ")
-        // }
+       
 
         alertaExitoConfirm((localStorage.getItem("Rol") === "Verificador"
         ? "Ficha Tecnica enviada a capturador para corrección"

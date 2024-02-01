@@ -94,13 +94,13 @@ export const DialogMonto = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -118,13 +118,13 @@ export const DialogMonto = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-                    fontSize: ".8vw",
+                    
                   },
                 }}
               />
@@ -135,7 +135,8 @@ export const DialogMonto = ({
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center" }}>
           <Button
-            sx={queries.buttonCancelarSolicitudInscripcion}
+            //sx={queries.buttonCancelarSolicitudInscripcion}
+            className="cancelar"
             onClick={() => close(false)}
           >
             Cancelar
@@ -145,7 +146,8 @@ export const DialogMonto = ({
               handleChange();
             }}
             variant="text"
-            sx={queries.buttonContinuarSolicitudInscripcion}
+            className="aceptar"
+            //sx={queries.buttonContinuarSolicitudInscripcion}
           >
             Calcular
           </Button>

@@ -21,7 +21,6 @@ import {
 import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "./ModalEnviarMIR";
-import { queries } from "../../queries";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
 export const ComentDialogMir = ({
@@ -121,11 +120,10 @@ export const ComentDialogMir = ({
   const comentMir = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
         {
           IdMir: id,
           Coment: coment,
-          // se va a modificar
           CreadoPor: localStorage.getItem("IdUsuario"),
           MIR_MA: "MIR",
         },
@@ -352,18 +350,19 @@ export const ComentDialogMir = ({
               }}
             >
               <Button
-                sx={queries.buttonCancelarSolicitudInscripcion}
+                className="cancelar"
                 variant="contained"
                 onClick={handleClose}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+                  sx={{ fontFamily: "MontserratMedium",  }}
                 >
                   Cancelar
                 </Typography>{" "}
               </Button>
               <Button
-                sx={queries.buttonContinuarSolicitudInscripcion}
+               // sx={queries.buttonContinuarSolicitudInscripcion}
+               className="aceptar"
                 variant="contained"
                 disabled={estado === "Autorizada" && isComentEmpty()}
                 color="info"
@@ -374,7 +373,7 @@ export const ComentDialogMir = ({
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+                  sx={{ fontFamily: "MontserratMedium",  }}
                 >
                   {"Agregar"}
                 </Typography>

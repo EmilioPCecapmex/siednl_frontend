@@ -278,7 +278,7 @@ export const FormulaDialogRF = ({
         sx={{ width: "100%", justifyContent: "space-evenly", display: "flex" }}
       >
         <Button
-          sx={queries.buttonCancelarSolicitudInscripcion}
+          className="cancelar"
           onClick={() => close()}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -286,7 +286,7 @@ export const FormulaDialogRF = ({
           </Typography>
         </Button>
         <Button
-          sx={queries.buttonContinuarSolicitudInscripcion}
+          className="aceptar"
           onClick={() => 
             checkValues()
             
