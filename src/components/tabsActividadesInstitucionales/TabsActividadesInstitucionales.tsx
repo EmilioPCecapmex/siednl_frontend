@@ -10,7 +10,7 @@ import { TabResumen } from "./TabResumen";
 import TabAvance from "./TabAvance";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import { IAI } from "../../screens/actividadesInstitucionales/InterfacesActividadesInstitucionales";
+import { IAI } from "../../screens/InterfacesActividadesInstitucionales";
 
 const newAI = {
   identificacion: {
