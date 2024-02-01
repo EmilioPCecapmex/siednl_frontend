@@ -4,7 +4,7 @@ import { TabPAE } from "./TabPAE";
 import GenericTabs from "../genericComponents/genericTabs";
 
 const tabsInfo = ["Todos los Documentos", "Programa Anual Evaluación", "Términos de Referencia", "Bitácoras de Información", "Informe Calidad de Información", "Informe Final", "Anexo CONAC", "Reporte Anual de Evaluación"]
-const tabsShow = ["Todos_los_Documentos", "Programa_Anual_Evaluación", "Términos_de_Referencia", "Bitácoras_de_Información", "Informe_Calidad_de_Información", "Informe_Final", "Anexo_CONAC", "Reporte_Anual_de Evaluación"]
+const tabsShow = ["Todos_los_Documentos", "Programa_Anual_Evaluación", "Términos_de_Referencia", "Bitácoras_de_Información", "Informe_Calidad_de_Información", "Informe_Final", "Anexo_CONAC", "Reporte_Anual_de_Evaluación"]
 export default function CapturaPAE() {
   const [value, setValue] = useState(0);
   return (

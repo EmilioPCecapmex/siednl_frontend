@@ -180,6 +180,7 @@ export const FormulaDialogMA = ({
             height: "7vh",
             display: "flex",
             justifyContent: "center",
+            mb: 4
           }}
         >
           {tipo === "Indice" || tipo === "Índice" ? (
@@ -240,18 +241,27 @@ export const FormulaDialogMA = ({
             >
               <TextField
                 type={"number"}
+                
                 label={
                   <Typography sx={{ fontFamily: "MontserratBold" }}>
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
                 }
-                sx={{ width: "45%", mr: 1 }}
+                sx={{ width: "45%", mr: 1, }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
                     
                   },
                 }}
+                error={
+                  !isFinite(parseFloat(descA)) || parseFloat(descA) <= 0 || descA === ""
+                }
+                helperText={
+                  !isFinite(parseFloat(descA)) || parseFloat(descA) <= 0 || descA === ""
+                    ? "Introducir un número mayor que 0"
+                    : null
+                }
                 value={descA}
                 onChange={(c) =>
                   setDescA(
@@ -288,6 +298,14 @@ export const FormulaDialogMA = ({
                   },
                 }}
                 value={descB}
+                error={
+                  !isFinite(parseFloat(descB)) || parseFloat(descB) <= 0 || descB === ""
+                }
+                helperText={
+                  !isFinite(parseFloat(descB)) || parseFloat(descB) <= 0 || descB === ""
+                    ? "Introducir un número mayor que 0"
+                    : null
+                }
                 onChange={(c) =>
                   setDescB(
                     c.target.value
@@ -327,6 +345,7 @@ export const FormulaDialogMA = ({
         </Button>
         <Button
           className="aceptar"
+          disabled={descB === "0"}
           onClick={() => checkValues()}
         >
           <Typography
