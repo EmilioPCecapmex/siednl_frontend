@@ -296,7 +296,7 @@ export const AddDialogCatalogo = ({
       });
   };
 
-  if (tabla === "FECHAS DE CAPTURA") {
+  if (tabla.toUpperCase() === "FECHAS DE CAPTURA") {
    
 
     return (
