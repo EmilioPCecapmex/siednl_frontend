@@ -25,6 +25,7 @@ import {
   alertaError,
   alertaExito,
   alertaEliminar,
+  alertaInfo,
 } from "../genericComponents/Alertas";
 export function DialogCargaArchivo({
   Tabs,
@@ -37,18 +38,15 @@ export function DialogCargaArchivo({
   Tab: string;
   updateData: Function;
   open: boolean;
-  setOpen: Function
+  setOpen: Function;
 }) {
-  
   const [tabSelected, setTabSelected] = useState(Tab);
 
-  const [fechaEdit, setFechaEdit] = useState(
-    new Date().toISOString().split("T")[0]
-  );
+  // const [fechaEdit, setFechaEdit] = useState(
+  //   new Date().toISOString().split("T")[0]
+  // );
 
- 
-
-  
+  const [fechaEdit, setFechaEdit] = useState<string | null>(null);
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -72,7 +70,7 @@ export function DialogCargaArchivo({
       guardarDoc(
         data,
         "2022" + "/" + tabSelected.replaceAll(" ", "_"),
-        fechaEdit
+        fechaEdit || ""
       ).then(() => actualizarDatos());
       fileInputRef.current.click();
     }
@@ -92,20 +90,18 @@ export function DialogCargaArchivo({
 
   return (
     <>
-      
-
       {open ? (
         <Dialog
           fullScreen={fullScreen}
           open={open}
-          onClose={()=>setOpen(false)}
+          onClose={() => setOpen(false)}
           aria-labelledby="responsive-dialog-title"
         >
           <DialogTitle
             id="responsive-dialog-title"
             sx={{ width: ["100vw", "100vw", "60vw", "40vw", "40vw"] }}
           >
-            Subir Documento:
+            SUBIR DOCUMENTO:
           </DialogTitle>
           <DialogContent
             sx={{
@@ -168,18 +164,17 @@ export function DialogCargaArchivo({
               }}
             >
               {" "}
-              Fecha de publicación{" "}
+              FECHA DE PUBLICACIÓN{" "}
             </Typography>
             <input
               type="date"
-              value={fechaEdit}
-              onChange={(e) => setFechaEdit(e.target.value)}
+              value={fechaEdit || ""}
+              onChange={(e) => setFechaEdit(e.target.value || null)}
               autoFocus
               style={{
                 border: "1px solid #ccc",
                 padding: "4px",
                 borderRadius: "4px",
-                fontSize: "0.7vw",
                 fontFamily: "MontserratMedium",
               }}
             />
@@ -255,17 +250,23 @@ export function DialogCargaArchivo({
             </Tooltip>
           </DialogContent>
           <DialogActions>
-            <Button className="cancelar" autoFocus onClick={()=>setOpen(false)}>
+            <Button
+              className="cancelar"
+              autoFocus
+              onClick={() => setOpen(false)}
+            >
               Cancelar
             </Button>
 
             <Button
               className="aceptar"
-              onClick={() => handleClickAddPDF()}
+              disabled={!fileName}
+              onClick={() =>fechaEdit? handleClickAddPDF(): alertaInfo("SELECCIONE UNA FECHA")}
               autoFocus
             >
               Cargar
             </Button>
+
           </DialogActions>
         </Dialog>
       ) : null}
@@ -284,13 +285,18 @@ export const DeleteDialogPAE = ({
 
   const handleClickOpen = () => {
     //setOpen(true);
-    alertaEliminar(() => {deletePAE(id)},() => {},"Deseas eliminar el documento?").then(() => handleClose());
+    alertaEliminar(
+      () => {
+        deletePAE(id);
+      },
+      () => {},
+      "Deseas eliminar el documento?"
+    ).then(() => handleClose());
     //deletePAE(id).then(() => handleClose());
   };
 
   const handleClose = () => {
     updateData();
-    
   };
 
   return (
@@ -326,7 +332,6 @@ export const DeleteDialogPAE = ({
           </IconButton>
         </span>
       </Tooltip>
-     
     </Grid>
   );
 };
