@@ -59,6 +59,34 @@ export const ComentDialogRF = ({
 
   const [userXInst, setUserXInst] = React.useState<Array<IIUserXInst>>([]);
 
+  const getUsuariosXInstitucion = () => {
+    axios
+      .post(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
+        {
+          TipoUsuario: localStorage.getItem("Rol"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdApp: localStorage.getItem("dApp"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 200) {
+          setUserXInst(r.data.data);
+        }
+      });
+  };
+
+  React.useEffect(() => {
+    if (open) {
+      getUsuariosXInstitucion();
+    }
+  }, [open]);
+
   
 
   const [coment, setComent] = React.useState("");
