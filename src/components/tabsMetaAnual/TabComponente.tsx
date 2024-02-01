@@ -19,43 +19,34 @@ import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import axios from "axios";
-import { isValidComponenteMA } from "../../funcs/ValidatorMA";
-import { alertaError } from "../genericComponents/Alertas";
-import { IMA, IMAEdit } from "./IMA";
+
 export const TabComponenteMA = ({
-  //show,
   edit,
-  setComponenteMA,
+ 
   setMAcomponentesPadre,
   showMirFnc,
   setTxtShowFnc,
   MA,
   MIR,
   ComponentesMA,
-  maPadreEdit,
+
 }: {
   edit: boolean;
-  //show: boolean;
-  setComponenteMA: Function;
+
   setMAcomponentesPadre: Function;
   showMirFnc: Function;
   setTxtShowFnc: Function;
   MA: string;
   MIR: string;
   ComponentesMA: IComponenteMA[];
-  maPadreEdit: IMAEdit;
+ 
 }) => {
   const [componentSelect, setComponentSelect] = useState(0);
 
   const [componentesValues, setComponentesValues] =
     useState<IComponenteMA[]>(ComponentesMA);
 
-  let jsonMA =
-    MA === ""
-      ? ""
-      : JSON.parse(MA).length > 1
-      ? JSON.parse(MA)[0]
-      : JSON.parse(MA);
+  
 
   let MAEdit =
     MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";

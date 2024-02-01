@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
 import {
   Box,
   Dialog,
@@ -10,9 +9,10 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-//import { sendMail} from "../../funcs/sendMailCustomMessage";
+
 import { queries } from "../../queries";
 import { IActividadesRF, IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
+import { alertaErrorConfirm, alertaErroresDocumento, alertaExitoConfirm } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -45,7 +45,7 @@ export default function ModalEnviarRF({
   const comentMA = (id: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -73,7 +73,7 @@ export default function ModalEnviarRF({
       ? JSON.parse(RF)[0]
       : JSON.parse(RF);
 
-  //const[padreRF, setPadreRF] = useState<IRF>(RF);
+  
 
   let err = 0;
 
@@ -119,145 +119,7 @@ export default function ModalEnviarRF({
   };
 
   const checkComponentes = (v: string) => {
-    // JSON.parse(MA)?.componentes.map((componente: any, index: number) => {
-    //   if (
-    //     componente.metaAnual === undefined ||
-    //     /^[\s]*$/.test(componente.metaAnual) ||
-    //     componente.metaAnual === null
-    //   ) {
-    //     err = 1;
-    //     errores.push(
-    //       `<strong> Componente ${
-    //         index + 1
-    //       } </strong>: Meta anual sin información.`
-    //     );
-    //   }
-    //   if (
-    //     componente.metasPorFrecuencia[0].trimestre4 !== componente.metaAnual &&
-    //     componente.metasPorFrecuencia[0].semestre2 !== componente.metaAnual
-    //   ) {
-    //     err = 1;
-    //     errores.push(
-    //       `<strong> Componente ${
-    //         index + 1
-    //       } </strong>: El valor de la meta anual debe coincidir con el valor del trimestre 4 o semestre 2 correspondiente.`
-    //     );
-    //   }
-    //   if (
-    //     componente.lineaBase === undefined ||
-    //     /^[\s]*$/.test(componente.lineaBase)
-    //   ) {
-    //     err = 1;
-    //     errores.push(
-    //       `<strong> Componente ${
-    //         index + 1
-    //       } </strong>: Línea base sin información.`
-    //     );
-    //   }
-    //   if (
-    //     (componente.metasPorFrecuencia[0].semestre1 === undefined ||
-    //       /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1) ||
-    //       componente.metasPorFrecuencia[0].semestre2 === undefined ||
-    //       /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre2)) &&
-    //     (componente.metasPorFrecuencia[0].trimestre1 === undefined ||
-    //       /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre1) ||
-    //       componente.metasPorFrecuencia[0].trimestre2 === undefined ||
-    //       /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre2) ||
-    //       componente.metasPorFrecuencia[0].trimestre3 === undefined ||
-    //       /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre3) ||
-    //       componente.metasPorFrecuencia[0].trimestre4 === undefined ||
-    //       /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre4))
-    //   ) {
-    //     err = 1;
-    //     errores.push(
-    //       `<strong> Componente ${
-    //         index + 1
-    //       } </strong>: Metas por frecuencia sin información.`
-    //     );
-    //   }
-    //   if (
-    //     componente.valorNumerador === undefined ||
-    //     /^[\s]*$/.test(componente.valorNumerador)
-    //   ) {
-    //     err = 1;
-    //     errores.push(
-    //       `<strong> Componente ${
-    //         index + 1
-    //       } </strong>: Valor del numerador sin información.`
-    //     );
-    //   }
-    //   if (
-    //     JSON.parse(MIR)
-    //       .componentes[index].indicador.toLowerCase()
-    //       .includes("índice" || "indice") &&
-    //     (componente.valorDenominador === undefined ||
-    //       /^[\s]*$/.test(componente.valorDenominador))
-    //   ) {
-    //     err = 1;
-    //     errores.push(
-    //       `<strong> Componente ${
-    //         index + 1
-    //       } </strong>: Valor del denominador sin información.`
-    //     );
-    //   }
-    //   if (
-    //     componente.sentidoDelIndicador === undefined ||
-    //     componente.sentidoDelIndicador === ""
-    //   ) {
-    //     err = 1;
-    //     errores.push(
-    //       `<strong> Componente ${
-    //         index + 1
-    //       } </strong>: Sentido del indicador sin seleccionar.`
-    //     );
-    //   }
-    //   if (
-    //     componente.unidadResponsable === undefined ||
-    //     /^[\s]*$/.test(componente.unidadResponsable)
-    //   ) {
-    //     err = 1;
-    //     errores.push(
-    //       `<strong> Componente ${
-    //         index + 1
-    //       } </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
-    //     );
-    //   }
-    //   if (
-    //     componente.descIndicador === undefined ||
-    //     /^[\s]*$/.test(componente.descIndicador)
-    //   ) {
-    //     err = 1;
-    //     errores.push(
-    //       `<strong> Componente ${
-    //         index + 1
-    //       } </strong>: Descripción del indicador sin información.`
-    //     );
-    //   }
-    //   if (
-    //     componente.descNumerador === undefined ||
-    //     /^[\s]*$/.test(componente.descNumerador)
-    //   ) {
-    //     err = 1;
-    //     errores.push(
-    //       `<strong> Componente ${
-    //         index + 1
-    //       } </strong>: Descripción del numerador sin información.`
-    //     );
-    //   }
-    //   if (
-    //     componente.descDenominador === undefined ||
-    //     /^[\s]*$/.test(componente.descDenominador)
-    //   ) {
-    //     err = 1;
-    //     errores.push(
-    //       `<strong> Componente ${
-    //         index + 1
-    //       } </strong>: Descripción del denominador sin información.`
-    //     );
-    //   }
-    //   return true;
-    // });
-
+    
     jsonRF.componentes.map((componente: IComponenteRF, index: number)=>{
       if (
         (componente.metasPorFrecuencia[0].semestre1 === undefined ||
@@ -286,119 +148,7 @@ export default function ModalEnviarRF({
   };
 
   const checkActividades = (v: string) => {
-    // eslint-disable-next-line array-callback-return
-    // JSON.parse(MA)?.actividades.map((actividad: any, index: number) => {
-    //   if (
-    //     actividad.metaAnual === undefined ||
-    //     /^[\s]*$/.test(actividad.metaAnual)
-    //   ) {
-    //     errores.push(
-    //       `<strong> Actividad ${actividad.actividad} </strong>: Meta anual sin información.`
-    //     );
-    //     err = 1;
-    //   }
-    //   if (actividad.metaAnual !== actividad.metasPorFrecuencia[0].trimestre4) {
-    //     errores.push(
-    //       `<strong> Actividad ${actividad.actividad} </strong>: El valor de la meta anual debe coincidir con el valor del trimestre 4.`
-    //     );
-    //     err = 1;
-    //   }
-    //   if (
-    //     actividad.lineaBase === undefined ||
-    //     /^[\s]*$/.test(actividad.lineaBase)
-    //   ) {
-    //     errores.push(
-    //       `<strong> Actividad ${actividad.actividad} </strong>: Línea base sin información.`
-    //     );
-    //     err = 1;
-    //   }
-    //   if (
-    //     (actividad.metasPorFrecuencia[0].semestre1 === undefined ||
-    //       /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre1) ||
-    //       actividad.metasPorFrecuencia[0].semestre2 === undefined ||
-    //       /^[\s]*$/.test(actividad.metasPorFrecuencia[0].semestre2)) &&
-    //     (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
-    //       /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
-    //       actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
-    //       /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2) ||
-    //       actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
-    //       /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3) ||
-    //       actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
-    //       /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4))
-    //   ) {
-    //     errores.push(
-    //       `<strong> Actividad ${actividad.actividad} </strong>: Metas por frecuencia sin información.`
-    //     );
-    //     err = 1;
-    //   }
-    //   if (
-    //     actividad.valorNumerador === undefined ||
-    //     /^[\s]*$/.test(actividad.valorNumerador)
-    //   ) {
-    //     errores.push(
-    //       `<strong> Actividad ${actividad.actividad} </strong>: Valor del numerador sin información.`
-    //     );
-    //     err = 1;
-    //   }
-    //   if (
-    //     JSON.parse(MIR)
-    //       .actividades[index].indicador.toUpperCase()
-    //       .includes("ÍNDICE" || "INDICE") &&
-    //     (actividad.valorDenominador === undefined ||
-    //       /^[\s]*$/.test(actividad.valorDenominador))
-    //   ) {
-    //     errores.push(
-    //       `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`
-    //     );
-    //     err = 1;
-    //   }
-    //   if (
-    //     actividad.sentidoDelIndicador === undefined ||
-    //     actividad.sentidoDelIndicador === ""
-    //   ) {
-    //     errores.push(
-    //       `<strong> Actividad ${actividad.actividad} </strong>: Sentido del indicador sin seleccionar.`
-    //     );
-    //     err = 1;
-    //   }
-    //   if (
-    //     actividad.unidadResponsable === undefined ||
-    //     /^[\s]*$/.test(actividad.unidadResponsable)
-    //   ) {
-    //     errores.push(
-    //       `<strong> Actividad ${actividad.actividad} </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
-    //     );
-    //     err = 1;
-    //   }
-    //   if (
-    //     actividad.descIndicador === undefined ||
-    //     /^[\s]*$/.test(actividad.descIndicador)
-    //   ) {
-    //     errores.push(
-    //       `<strong> Actividad ${actividad.actividad} </strong>: Descripción del indicador sin información.`
-    //     );
-    //     err = 1;
-    //   }
-    //   if (
-    //     actividad.descNumerador === undefined ||
-    //     /^[\s]*$/.test(actividad.descNumerador)
-    //   ) {
-    //     errores.push(
-    //       `<strong> Actividad ${actividad.actividad} </strong>: Descripción del numerador sin información.`
-    //     );
-    //     err = 1;
-    //   }
-    //   if (
-    //     actividad.descDenominador === undefined ||
-    //     /^[\s]*$/.test(actividad.descDenominador)
-    //   ) {
-    //     errores.push(
-    //       `<strong> Actividad ${actividad.actividad} </strong>: Descripción del denominador sin información.`
-    //     );
-    //     err = 1;
-    //   }
-    // });
-
+  
   jsonRF.componentes.map((componente: IComponenteRF, index: number) => {
     componente.actividades.map((actividad: IActividadesRF, index: number)=>{
 
@@ -426,19 +176,7 @@ export default function ModalEnviarRF({
     if (err === 0) {
       creaRF(v);
     } else {
-      Toast.fire({
-        icon: "error",
-        html: `
-        <div style="height:50%;">
-        <h3>Se han encontrado los siguientes errores:</h3>
-        <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
-      <small>
-      <strong>
-      *</strong>${errores.join("<br><strong>*</strong>")}
-      </small>
-      </div>
-      </div>`,
-      });
+      alertaErroresDocumento(errores)
     }
   };
 
@@ -464,36 +202,26 @@ export default function ModalEnviarRF({
         
         userXInst.map((user) => {
           enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA", "Meta Anual");
-          //sendMail(user.CorreoElectronico,enviarMensaje,"MA")
+     
         });
         if (estado === "Autorizada") {
           // CrearFichaTecnica();  
         }
-        Toast.fire({
-          icon: "success",
-          title: r.data.data.message,
-        });
+        alertaExitoConfirm((r.data.data.message).toUpperCase())
         if (comment !== "") {
           comentMA(IdRF);
         }
         showResume();
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        });
+        alertaErrorConfirm((err.response.data.result.error).toUpperCase())
       });
   };
 
 
   useEffect(() => {
     if (open) {
-      let inst = JSON.parse(MIR)?.encabezado.institucion;
-
-    // if (localStorage.getItem("Rol") === "Verificador") {
-    //   inst = "admin";
-    // }
+     
 
     axios
       .get(
@@ -537,17 +265,7 @@ export default function ModalEnviarRF({
     );
   };
 
-  const Toast = Swal.mixin({
-    toast: false,
-    position: "center",
-    showConfirmButton: true,
-    heightAuto: false,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
+
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>

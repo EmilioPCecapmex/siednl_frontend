@@ -63,7 +63,7 @@ export function TabFinPropositoRF({
     return "No existo"; // Devolver "No existo" si ninguna palabra se encontró
   };
 
-  // useEffect para ejecutar palabra() para ambas variables al cargar el componente
+  
   useEffect(() => {
     const palabraEncontrada1 = palabra(jsonMir.fin.indicador); // Buscar palabra en el primer texto
     const palabraEncontrada2 = palabra(jsonMir.proposito.indicador); // Buscar palabra en el segundo texto
@@ -147,7 +147,7 @@ export function TabFinPropositoRF({
             justifyContent: "flex-end",
             alignItems: "center",
           }}
-          //sx={{ display: "flex", justifyContent: "flex-end", borderRadius: 5 }}
+         
         >
           <Tooltip title="RESUMEN COMPONENTE">
             <InfoOutlinedIcon
@@ -218,13 +218,13 @@ export function TabFinPropositoRF({
               "& > .MuiGrid-item": {
                 marginBottom: "10px",
                 marginTop: "10px",
-                // Ajusta la cantidad de espacio vertical entre los elementos
+               
               },
             }}
           >
             <Grid mt={{ lg: 2 }} mb={{ lg: 2 }} item lg={6}>
               <TextField
-                disabled={!raffiboolean?.fin?.añoAvanceFisico}
+                disabled={edit && raffiboolean?.fin?.añoAvanceFisico}
                 fullWidth
                 size="small"
                 label="Año del Avance Fisico"
@@ -247,7 +247,7 @@ export function TabFinPropositoRF({
                   },
                 }}
                 InputProps={{
-                  //readOnly: true,
+                 
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -260,7 +260,7 @@ export function TabFinPropositoRF({
               
                 fullWidth
                 size="small"
-                //label="Operacion"
+               
 
                 value={palabraABuscar1}
                 InputLabelProps={{
@@ -269,7 +269,7 @@ export function TabFinPropositoRF({
                   },
                 }}
                 InputProps={{
-                  //readOnly: true,
+                 
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -296,7 +296,7 @@ export function TabFinPropositoRF({
                   },
                 }}
                 InputProps={{
-                  //readOnly: true,
+                  
                   style: {
                     fontFamily: "MontserratMedium",
                   },
@@ -336,7 +336,7 @@ export function TabFinPropositoRF({
               "& > .MuiGrid-item": {
                 marginBottom: "10px",
                 marginTop: "10px",
-                // Ajusta la cantidad de espacio vertical entre los elementos
+                
               },
             }}
           >

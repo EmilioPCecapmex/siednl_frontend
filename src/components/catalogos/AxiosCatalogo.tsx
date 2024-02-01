@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
+
 import axios from "axios";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
 import Swal from "sweetalert2";
@@ -100,33 +99,35 @@ export const deletePorCatalogoTodos = (Id: string, tabla: string, UpdateInfo: Fu
           title: "Permisos denegados.",
         })
       );
-  } else if (tabla === "programas presupuestarios") {
-    axios
-      .delete(
-        process.env.REACT_APP_APPLICATION_BACK +
-          "/api/delete-programaPresupuestario",
-        {
-          data: {
-            IdProgramaPresupuestario: Id,
-            ModificadoPor: localStorage.getItem("IdUsuario"),
-            Rol: localStorage.getItem("Rol"),
-          },
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        //actualizado();
-        alertaExito(UpdateInfo, "Registro Eliminado")
-      })
-      .catch((err) =>
-        Toast.fire({
-          icon: "error",
-          title: "Permisos denegados.",
-        })
-      );
-  } else {
+  } 
+  // else if (tabla === "programas presupuestarios") {
+  //   axios
+  //     .delete(
+  //       process.env.REACT_APP_APPLICATION_BACK +
+  //         "/api/delete-programaPresupuestario",
+  //       {
+  //         data: {
+  //           IdProgramaPresupuestario: Id,
+  //           ModificadoPor: localStorage.getItem("IdUsuario"),
+  //           Rol: localStorage.getItem("Rol"),
+  //         },
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       //actualizado();
+  //       alertaExito(UpdateInfo, "Registro Eliminado")
+  //     })
+  //     .catch((err) =>
+  //       Toast.fire({
+  //         icon: "error",
+  //         title: "Permisos denegados.",
+  //       })
+  //     );
+  // } 
+  else {
     axios
       .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-catalogo", {
         data: {

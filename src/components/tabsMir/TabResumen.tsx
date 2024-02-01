@@ -104,20 +104,16 @@ export function TabResumen({
 
   const checkMir = (estado: string) => {
     if (MIR?.encabezado.ejercicioFiscal === objetoVacio) {
-      return Toast.fire({
-        icon: "error",
-        title: "Selecciona año fiscal.",
-      });
+      return alertaError("Selecciona año fiscal.")
+    
     } else if (MIR?.encabezado.entidad === objetoVacio) {
-      return Toast.fire({
-        icon: "error",
-        title: "Selecciona institución.",
-      });
+      return alertaError("Selecciona institución.")
+     
     } else if (MIR?.encabezado.programa === objetoVacio) {
-      return Toast.fire({
-        icon: "error",
-        title: "Selecciona programa.",
-      });
+      
+      return alertaError("Selecciona programa.")
+      
+
     } else {
       createMIR(estado);
     }
@@ -155,10 +151,6 @@ export function TabResumen({
       })
       .catch((err) => {
         if (err.response.status === 409) {
-          // Toast.fire({
-          //   icon: "error",
-          //   title: err.response.data.result.error,
-          // });
           alertaError(err.response.data.result.error)
         }
       });
@@ -168,17 +160,7 @@ export function TabResumen({
     setMIR(MIRPADRE);
   }, [MIRPADRE, idMir]);
 
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
+ 
 
   const [editEncabezado, setEditEncabezado] = useState<IEncabezadoEdit>({
     ejercicioFiscal: true,
@@ -215,69 +197,8 @@ export function TabResumen({
   const [editComponentes, setEditComponentes] = useState<
     Array<IComponenteMirEdit>
   >([]);
-  // {
-  //   componentes: "C1",
-  //   formula: true,
-  //   frecuencia: true,
-  //   indicador: true,
-  //   medios: true,
-  //   resumen: true,
-  //   supuestos: true,
-  //   actividades: [
-  //     {
-  //       actividad: "A1",
-  //       formula: true,
-  //       frecuencia: true,
-  //       indicador: true,
-  //       medios: true,
-  //       resumen: true,
-  //       supuestos: true,
-  //     },
-  //     {
-  //       actividad: "A2",
-  //       formula: true,
-  //       frecuencia: true,
-  //       indicador: true,
-  //       medios: true,
-  //       resumen: true,
-  //       supuestos: true,
-  //     },
-  //   ],
-  // },
-  // {
-  //   componentes: "C2",
-  //   formula: true,
-  //   frecuencia: true,
-  //   indicador: true,
-  //   medios: true,
-  //   resumen: true,
-  //   supuestos: true,
-  //   actividades: [
-  //     {
-  //       actividad: "A1",
-  //       formula: true,
-  //       frecuencia: true,
-  //       indicador: true,
-  //       medios: true,
-  //       resumen: true,
-  //       supuestos: true,
-  //     },
-  //     {
-  //       actividad: "A2",
-  //       formula: true,
-  //       frecuencia: true,
-  //       indicador: true,
-  //       medios: true,
-  //       resumen: true,
-  //       supuestos: true,
-  //     },
-  //   ],
-  // },
-
-  //   const [editComponentes, setEditComponentes] = useState<
-  //   Array<IComponenteMirEdit>
-  // >([]);
-
+  
+  
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [editActividades, setEditActividades] = useState<
     Array<IActividadesMirEdit>
@@ -312,13 +233,13 @@ export function TabResumen({
 
       let x = a.every((value) => value === true);
 
-      //setEditComponentes(arrayComponentes)
+      
       return x;
     });
 
     let arrayActividad = editActividades.map((item) => {
       let a = [
-        //item.actividad,
+      
         item.formula,
         item.frecuencia,
         item.indicador,
@@ -357,28 +278,7 @@ export function TabResumen({
   const isCapturador = localStorage.getItem("Rol") === "Capturador";
   const isAutorizador = localStorage.getItem("Rol") === "Administrador";
 
-  const buttonStyles = {
-    ...queries.buttonContinuarSolicitudInscripcion,
-
-    ...(isCapturador && {
-      "&.Mui-disabled": {
-        //backgroundColor: "rgba(175, 140, 85, 0.6)",
-        color: "white",
-        "&:hover": {
-          backgroundColor: "rgba(175, 140, 85, 0.6)",
-        },
-      },
-    }),
-    ...(isAutorizador && {
-      "&.Mui-disabled": {
-        //backgroundColor: "rgba(175, 140, 85, 0.6)",
-        color: "white",
-        "&:hover": {
-          backgroundColor: "rgba(175, 140, 85, 0.6)",
-        },
-      },
-    }),
-  };
+  
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -388,7 +288,7 @@ export function TabResumen({
 
   return (
     <Grid
-      // visibility={show ? "visible" : "hidden"}
+      
 
       position="absolute"
       sx={{
@@ -435,10 +335,7 @@ export function TabResumen({
           sm={12}
           xs={12}
           sx={{
-            //display: "flex",
-            //flexDirection: "row",
-
-            //mt: 1,
+           
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",

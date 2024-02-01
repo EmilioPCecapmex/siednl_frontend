@@ -20,7 +20,7 @@ import {
   IComponenteRF,
   IRF,
 } from "../tabsRaffi/interfacesRaffi";
-import { alertaErrorConfirm, alertaExitoConfirm } from "../genericComponents/Alertas";
+import { alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExitoConfirm } from "../genericComponents/Alertas";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModifRF({
@@ -58,7 +58,7 @@ export default function ModalSolicitaModifRF({
   const comentMA = (id: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -77,21 +77,18 @@ export default function ModalSolicitaModifRF({
       })
       .catch((err) => {});
   };
-  ////////////////////////////////////////////
+ 
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
-      return Toast.fire({
-        icon: "error",
-        title: "Introduce usuario al que se le solicita modificación",
-      });
+      return alertaError( "Introduce usuario al que se le solicita modificación")
     } else {
       checkMA(estado);
     }
   };
-  ////////////////////////////
+
   let err = 0;
-  ////////////////////////////////////////////7
+
   const checkMA = (v: string) => {
     errores = [];
     if (jsonRF?.fin === null) {
@@ -128,9 +125,10 @@ export default function ModalSolicitaModifRF({
 
     checkComponentes(v);
   };
-  /////////////////////////////////////////////////////////////////////
+
   const checkComponentes = (v: string) => {
-    jsonRF.componentes.map((componente: IComponenteRF, index: number) => {
+    // eslint-disable-next-line array-callback-return
+    jsonRF.componentes.map((componente: IComponenteRF, index: number)  => {
       if (
         (componente.metasPorFrecuencia[0].semestre1 === undefined ||
           /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1) ||
@@ -156,7 +154,7 @@ export default function ModalSolicitaModifRF({
 
     checkActividades(v);
   };
-  ///////////////////////////////////////////////////////////////////
+
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
     jsonRF.componentes.map((componente: IComponenteRF, index: number) => {
@@ -184,28 +182,12 @@ export default function ModalSolicitaModifRF({
     if (err === 0) {
       creaRF(v);
     } else {
-      Toast.fire({
-        icon: "error",
-        html: `
-        <div style="height:50%;">
-        <h3>Se han encontrado los siguientes errores:</h3>
-        <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
-      <small>
-      <strong>
-      *</strong>${errores.join("<br><strong>*</strong>")}
-      </small>
-      </div>
-      </div>`,
-      });
+      alertaErroresDocumento(errores)
     }
   };
-  ///////////////////////////////////////////////////////////////////////
+  
   const creaRF = (estado: string) => {
-    // if (estado === "Autorizada" && userSelected !== "0") {
-    //   estado = "En Revisión";
-    // } else if (estado === "En Autorización" && userSelected !== "0") {
-    //   estado = "En Captura";
-    // }
+  
 
     let rolusuario = userXInst.find((user) => user.IdUsuario === userSelected);
 
@@ -304,19 +286,9 @@ export default function ModalSolicitaModifRF({
         });
     }
   }, [MIR, open]);
-  ///////////////////////////////////////////////////////////////////////////////////
-  const Toast = Swal.mixin({
-    toast: false,
-    position: "center",
-    showConfirmButton: true,
-    heightAuto: false,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
-  ///////////////////////////////////////////////////////////////////////////////////
+  
+
+
   const enviarNotificacion = () => {
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
@@ -333,7 +305,7 @@ export default function ModalSolicitaModifRF({
       }
     );
   };
-  //////////////////////////////////////////////////////////////////////////////
+
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>

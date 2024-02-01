@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
-import { alertaEliminar, alertaError, alertaErrorConfirm, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
+import { alertaEliminar, alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -47,7 +47,7 @@ export default function ModalSolicitaModif({
 
   const comentFT = () => {
     axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
       {
         IdMir: IdMIR,
         Coment: comentario,
@@ -64,10 +64,7 @@ export default function ModalSolicitaModif({
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
-      return Toast.fire({
-        icon: "error",
-        title: "Introduce usuario al que se le solicita modificación",
-      });
+       return alertaError("Introduce usuario al que se le solicita modificación")
     } else {
       checkFT(estado);
     }
@@ -456,19 +453,7 @@ export default function ModalSolicitaModif({
     if (err === 0) {
       createFT(v);
     } else {
-      Toast.fire({
-        icon: "error",
-        html: `
-        <div style="height:50%;">
-        <h3>Se han encontrado los siguientes errores:</h3>
-        <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
-      <small>
-      <strong>
-      *</strong>${errores.join("<br><strong>*</strong>")}
-      </small>
-      </div>
-      </div>`,
-      });
+      alertaErroresDocumento(errores)
     }
   };
 
@@ -580,17 +565,7 @@ export default function ModalSolicitaModif({
     }
   }, [MIR, open]);
 
-  const Toast = Swal.mixin({
-    toast: false,
-    position: "center",
-    showConfirmButton: true,
-    heightAuto: false,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
+
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>

@@ -20,45 +20,31 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
-import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 import axios from "axios";
 import { IComponenteMA } from "./Interfaces";
-import { IMAEdit } from "./IMA";
+
 
 //funcion main
 export const TabActividadesMA = ({
-  //show,
-  // componentes,
   edit,
-  asignarCValor,
-  compAct,
   setMAActividadesPadre,
   ComponentesActividadMA,
   showMirFnc,
   setTxtShowFnc,
   MA,
   MIR,
-  maPadreEdit,
+  
 }: {
-  //show: boolean;
-  //componentes: number[];
   edit: boolean;
-  asignarCValor: Function;
-  compAct: Array<IComponenteActividad>;
   setMAActividadesPadre: Function;
   ComponentesActividadMA: IComponenteMA[];
   showMirFnc: Function;
   setTxtShowFnc: Function;
   MA: string;
   MIR: string;
-  maPadreEdit: IMAEdit;
+
 }) => {
-  // business logic-------------------------------------------------------------------------------
-  // const componenteActividad = [
-  //   {
-  //     componentes: componentes.map((x) => compAct),
-  //   },
-  // ];
+
 
   const [componentesActividadValues, setComponentesActividadValues] = useState<
     IComponenteMA[]
@@ -67,17 +53,12 @@ export const TabActividadesMA = ({
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
-  let jsonMA =
-    MA === ""
-      ? ""
-      : JSON.parse(MA).length > 1
-      ? JSON.parse(MA)[0]
-      : JSON.parse(MA);
+ 
 
   let MAEdit =
     MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";
 
-  let aument_number = -1;
+ 
 
   useEffect(() => {
     setMAActividadesPadre(componentesActividadValues);

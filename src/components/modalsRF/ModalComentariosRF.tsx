@@ -21,6 +21,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { queries } from "../../queries";
+import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
 export const ComentDialogMA = ({
   estado,
@@ -69,32 +70,7 @@ export const ComentDialogMA = ({
 
   const [userXInst, setUserXInst] = React.useState<Array<IIUserXInst>>([]);
 
-  // const getUsuariosXInstitucion = () => {
-  //   axios
-  //     .get(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
-  //       {
-  //         params: {
-  //           IdUsuario: localStorage.getItem("IdUsuario"),
-  //           Institucion: localStorage.getItem("IdEntidad"),
-  //         },
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         setUserXInst(r.data.data);
-  //       }
-  //     });
-  // };
-
-  // React.useEffect(() => {
-  //   if (open) {
-  //     getUsuariosXInstitucion();
-  //   }
-  // }, [open]);
+  
 
   const [coment, setComent] = React.useState("");
 
@@ -118,7 +94,7 @@ export const ComentDialogMA = ({
   const comentMa = () => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
         {
           IdMir: id,
           Coment: coment,
@@ -143,16 +119,12 @@ export const ComentDialogMA = ({
         setComent("");
         handleClose();
         actualizado();
-        Toast.fire({
-          icon: "success",
-          title: "Comentario añadido",
-        });
+        alertaExito(()=>{},"Comentario añadido")
+        
       })
       .catch((err) => {
-        Toast.fire({
-          icon: "error",
-          title: "Se produjo un error",
-        });
+
+       alertaError("Se produjo un error")
       });
   };
 

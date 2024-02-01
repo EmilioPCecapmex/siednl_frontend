@@ -13,9 +13,8 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { queries } from "../../queries";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
-import { alertaError, alertaErrorConfirm, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
+import { alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -44,7 +43,7 @@ export default function ModalSolicitaModif({
   const comentMA = (id: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -63,22 +62,19 @@ export default function ModalSolicitaModif({
       })
       .catch((err) => {});
   };
-  ////////////////////////////////////////////
+
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
       return alertaError("Introduce usuario al que se le solicita modificación")
-      // Toast.fire({
-      //   icon: "error",
-      //   title: "Introduce usuario al que se le solicita modificación",
-      // });
+     
     } else {
       checkMA(estado);
     }
   };
-  ////////////////////////////
+
   let err = 0;
-  ////////////////////////////////////////////7
+
   const checkMA = (v: string) => {
     errores = [];
     if (JSON.parse(MA)?.fin === null) {
@@ -253,7 +249,7 @@ export default function ModalSolicitaModif({
 
     checkComponentes(v);
   };
-  /////////////////////////////////////////////////////////////////////
+  
   const checkComponentes = (v: string) => {
     JSON.parse(MA)?.componentes.every((componente: any, index: number) => {
       if (
@@ -388,7 +384,7 @@ export default function ModalSolicitaModif({
 
     checkActividades(v);
   };
-  ///////////////////////////////////////////////////////////////////
+
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
 
@@ -499,26 +495,14 @@ export default function ModalSolicitaModif({
         );
       }
     );
-    //////////////////////////////////////////777
+   
     if (err === 0) {
       createMA(v);
     } else {
-      Toast.fire({
-        icon: "error",
-        html: `
-        <div style="height:50%;">
-        <h3>Se han encontrado los siguientes errores:</h3>
-        <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
-      <small>
-      <strong>
-      *</strong>${errores.join("<br><strong>*</strong>")}
-      </small>
-      </div>
-      </div>`,
-      });
+      alertaErroresDocumento(errores)
     }
   };
-  ///////////////////////////////////////////////////////////////////////
+
   const createMA = (estado: string) => {
     let rolusuario = userXInst.find((user) => user.IdUsuario === userSelected);
 
@@ -575,13 +559,7 @@ export default function ModalSolicitaModif({
         if (comment !== "") {
           comentMA(IdMIR);
         }
-        // Toast.fire({
-        //   icon: "success",
-        //   title:
-        //     localStorage.getItem("Rol") === "Verificador"
-        //       ? "Meta anual enviada a capturador para corrección"
-        //       : "Meta anual enviada ",
-        // });
+   
         alertaExitoConfirm( (localStorage.getItem("Rol") === "Verificador"
                ? "Meta anual enviada a capturador para corrección"
                : "Meta anual enviada ").toUpperCase());
@@ -591,10 +569,7 @@ export default function ModalSolicitaModif({
         showResume();
       })
       .catch((err) => {
-        // Toast.fire({
-        //   icon: "error",
-        //   title: err.response.data.result.error,
-        // });
+  
         alertaErrorConfirm(err.response.data.result.error);
       });
   };
@@ -631,19 +606,9 @@ export default function ModalSolicitaModif({
         });
     }
   }, [MA, open]);
-  ///////////////////////////////////////////////////////////////////////////////////
-  const Toast = Swal.mixin({
-    toast: false,
-    position: "center",
-    showConfirmButton: true,
-    heightAuto: false,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
-  ///////////////////////////////////////////////////////////////////////////////////
+  
+  
+  
   const enviarNotificacion = () => {
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
@@ -660,7 +625,7 @@ export default function ModalSolicitaModif({
       }
     );
   };
-  //////////////////////////////////////////////////////////////////////////////
+ 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
@@ -762,7 +727,7 @@ export default function ModalSolicitaModif({
             <Button
             className="cancelar"
               sx={{
-                //...queries.buttonCancelarSolicitudInscripcion,
+               
                 display: "flex",
                 width: "15vw",
               }}
@@ -775,11 +740,11 @@ export default function ModalSolicitaModif({
             <Button
             className="aceptar"
               sx={{
-                //...queries.buttonContinuarSolicitudInscripcion,
+             
                 display: "flex",
                 width: "15vw",
               }}
-              //variant="contained"
+              
 
               onClick={() => {
                 checkUsuario(
@@ -793,7 +758,7 @@ export default function ModalSolicitaModif({
               }}
             >
               <Typography
-              //sx={{...queries.buttonContinuarSolicitudInscripcion, display: "flex", width: "10vw"}}
+           
               >
                 {comment === "" ? "Enviar sin comentarios" : "Confirmar"}
               </Typography>

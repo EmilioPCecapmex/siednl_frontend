@@ -1,26 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
+
 import axios from "axios";
 
 import { DialogTitle, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
-import AddIcon from "@mui/icons-material/Add";
 import { Typography, FormControl } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { queries } from "../../queries";
 import { PED } from "./PED";
-import { CapturarFechas } from "./AddFechaCapturaDialog";
-import { margin } from "@mui/system";
 import { CreatePorCatalogo, CreatePorCatalogoProgramap, createFechaDeCaptua } from "./AxiosCatalogo";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
@@ -47,7 +44,7 @@ export const AddDialogCatalogo = ({
 
   handleClose: Function;
 }) => {
-  //const [open, setOpen] = React.useState(false);
+  
   const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
@@ -60,16 +57,12 @@ export const AddDialogCatalogo = ({
     },
   });
 
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
+
   const cerrardialog = () => {
     handleClose();
   };
 
   const opendialog = () => {
-    //handleClose();
-    //actualizado();
     CreatePorCatalogo(descripcion, tabla, handleClose, Idb, Tipob, Tipo);
   };
 
@@ -84,26 +77,6 @@ export const AddDialogCatalogo = ({
 
   const [programa, setPrograma] = React.useState("");
   
-  // React.useEffect(() => {
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   today = new Date();
-  //   year = today.getFullYear();
-  //   month = today.getMonth();
-  //   month = month + 1;
-  //   date = today.getDate();
-
-  //   if (month < 10) {
-  //     monthS = "0" + month;
-  //   } else {
-  //     monthS = month.toString();
-  //   }
-
-  //   if (date < 10) {
-  //     dateS = "0" + date;
-  //   }
-
-  //   setFechaCaptura(year + "-" + monthS + "-" + dateS);
-  // }, [actualizado]);
 
   const today = new Date();
   const year = today.getFullYear();
@@ -141,7 +114,6 @@ export const AddDialogCatalogo = ({
       setCatalogoInstituciones
     );
     getProgramas();
-    //getUnidadesAdministrativas();
   }, []);
 
   const getInstituciones = () => {
@@ -159,22 +131,6 @@ export const AddDialogCatalogo = ({
         setCatalogoInstituciones(r.data.data);
       });
   };
-
-  // const getUnidadesAdministrativas = () => {
-  //   axios
-  //     .get(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/unidadesAdministrativas",
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //           Rol: localStorage.getItem("Rol") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       setCatalogoUnidades(r.data.data);
-  //     });
-  // };
 
   const getListasLogin = (datos: any, setState: Function) => {
     axios
@@ -209,75 +165,7 @@ export const AddDialogCatalogo = ({
       .catch((err) => console.log(""));
   };
 
-  const CreatePorCatalogoFechas = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-fechaDeCaptura",
-        {
-          Descripcion: descripcion,
-          FechaCapturaInicio: fechaCaptura,
-          FechaCapturaFinal: fechaCaptura,
-          Modulo: "",
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        // handleClose();
-        Toast.fire({
-          icon: "success",
-          title: "Elemento registrado con éxito.",
-        });
 
-        //actualizado();
-      })
-      .catch((err) =>
-        Toast.fire({
-          icon: "error",
-          title: err.response.data.result.error,
-        })
-      );
-  };
-
-  // const CreatePorCatalogoInstitucionUnidadAdmin = () => {
-  //   axios
-  //     .post(
-  //       process.env.REACT_APP_APPLICATION_BACK +
-  //         "/api/create-institucionUnidad",
-  //       {
-  //         CreadoPor: localStorage.getItem("IdUsuario"),
-  //         IdEntidad: institution,
-  //         IdUnidad: unidad,
-  //         Rol: localStorage.getItem("Rol"),
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       handleClose();
-  //       Toast.fire({
-  //         icon: "success",
-  //         title: "Elemento registrado con éxito.",
-  //       });
-
-  //       actualizado();
-  //     })
-  //     .catch((err) =>
-  //       Toast.fire({
-  //         icon: "error",
-  //         title: err.response.data.result.error,
-  //       })
-  //     );
-  // };
-  // Aqui
   const CreatePorCatalogoProgramaInstitucion = () => {
     axios
       .post(
@@ -328,22 +216,11 @@ export const AddDialogCatalogo = ({
   // Funcionalidad de Fechas de captura
   const [modulos, setModulos] = useState("Mir");
 
-  //   const handleClickOpen = () => {
-  //     setOpen(true);
-  //   };
-
-  //   const handleClose = () => {
-  //     setOpen(false);
-  //     actualizado();
-  //   };
-
-  const handleCloseFc = () => {
-    handleClose(false); // Call the close function provided as a prop when the dialog should be closed.
-  };
-
  
 
-  
+  const handleCloseFc = () => {
+    handleClose(false); 
+  };
 
   const [fechaCaptura1, setFechaCaptura1] = useState<string>(
     `${year}-${monthS}-${dateS}`
@@ -568,7 +445,7 @@ export const AddDialogCatalogo = ({
       </Dialog>
     </Grid>
     );
-  } else if (tabla === "PROGRAMAS - INSTITUCIONES") {
+  } else if (tabla.toUpperCase()  === "PROGRAMAS - INSTITUCIONES") {
     
 
     return (
@@ -937,7 +814,7 @@ export const AddDialogCatalogo = ({
         </Dialog>
       </Grid>
     );
-  } else if (tabla === "PROGRAMAS PRESUPUESTARIOS") {
+  } else if (tabla.toUpperCase()  === "PROGRAMAS PRESUPUESTARIOS") {
     
     return (
       <Grid sx={{ display: "flex" }}>
@@ -1225,7 +1102,7 @@ export const AddDialogCatalogo = ({
               }}
             />
 
-            {tabla === "BENEFICIARIOS" ? (
+            {tabla.toUpperCase() === "BENEFICIARIOS" ? (
               <TextField
                 label={"IdBeneficiario"}
                 variant="outlined"
@@ -1256,7 +1133,7 @@ export const AddDialogCatalogo = ({
               />
             ) : null}
 
-            {tabla === "BENEFICIARIOS" ? (
+            {tabla.toUpperCase() === "BENEFICIARIOS" ? (
               <TextField
                 label={"Tipo Beneficiario"}
                 variant="outlined"
@@ -1287,7 +1164,7 @@ export const AddDialogCatalogo = ({
               />
             ) : null}
 
-            {tabla === "BENEFICIARIOS" ? (
+            {tabla.toUpperCase() === "BENEFICIARIOS" ? (
               <TextField
                 label={"Tipo"}
                 variant="outlined"

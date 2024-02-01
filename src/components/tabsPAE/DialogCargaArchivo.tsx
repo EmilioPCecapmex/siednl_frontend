@@ -30,25 +30,26 @@ export function DialogCargaArchivo({
   Tabs,
   Tab,
   updateData,
+  open,
+  setOpen,
 }: {
   Tabs: string[];
   Tab: string;
   updateData: Function;
+  open: boolean;
+  setOpen: Function
 }) {
-  const [open, setOpen] = useState(false);
+  
   const [tabSelected, setTabSelected] = useState(Tab);
 
   const [fechaEdit, setFechaEdit] = useState(
     new Date().toISOString().split("T")[0]
   );
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+ 
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
+
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -91,14 +92,13 @@ export function DialogCargaArchivo({
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Cargar Archivo
-      </Button>
+      
+
       {open ? (
         <Dialog
           fullScreen={fullScreen}
           open={open}
-          onClose={handleClose}
+          onClose={()=>setOpen(false)}
           aria-labelledby="responsive-dialog-title"
         >
           <DialogTitle
@@ -255,7 +255,7 @@ export function DialogCargaArchivo({
             </Tooltip>
           </DialogContent>
           <DialogActions>
-            <Button className="cancelar" autoFocus onClick={handleClose}>
+            <Button className="cancelar" autoFocus onClick={()=>setOpen(false)}>
               Cancelar
             </Button>
 

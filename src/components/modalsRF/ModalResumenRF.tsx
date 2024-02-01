@@ -38,52 +38,7 @@ export function TabResumenMIR({
     },
   ]);
 
-  // const [cValor, setCValor] = useState(
-  //   componenteActividad.map((item) => {
-  //     return {
-  //       componentes: item.componentes.map((x, index) => {
-  //         return {
-  //           actividades: x.map((c, index2) => {
-  //             return {
-  //               actividad: "A" + (index2 + 1) + "C" + (index + 1),
-  //               resumen: "",
-  //               indicador: "",
-  //               formula: "",
-  //               frecuencia: "",
-  //               medios: "",
-  //               supuestos: "",
-  //             };
-  //           }),
-  //         };
-  //       }),
-  //     };
-  //   })
-  // );
-
-  // useEffect(() => {
-  //   let act: number[] = [];
-  //   let comp: string[] = [];
-  //   let ambos: any = [];
-  //   let i = 1;
-  //   let j = 1;
-
-  //   Componentes.map((x: any) => {
-  //     comp.push("C" + j);
-
-  //     actividades.map((a: any) => {
-  //       if (a.actividad.substring(0, 4) === "A" + i + "C" + j) {
-  //         act.push(i);
-  //         i++;
-  //       }
-  //     });
-  //     ambos.push({ actividades: act, componente: "C" + j });
-  //     act = [];
-  //     i = 1;
-  //     j++;
-  //   });
-
-  //   setCompAct(ambos);
-  // }, []);
+ 
 
   useEffect(() => {
     if (compAct.length > 0) {
@@ -134,7 +89,7 @@ export function TabResumenMIR({
         ].supuestos = x?.supuestos;
       });
   
-      //setCValor(y);
+     
     }
   }, []);
 

@@ -11,10 +11,9 @@ import {
   Typography,
 } from "@mui/material";
 //import { sendMail } from "../../funcs/sendMailCustomMessage";
-import { queries } from "../../queries";
+
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
-import { IActividad } from "../tabsMir/interfaces mir/IMIR";
-import { alertaEliminar, alertaErrorConfirm, alertaExito, alertaExitoConfirm, alertaInfo } from "../genericComponents/Alertas";
+import { alertaEliminar, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm, alertaInfo } from "../genericComponents/Alertas";
 
 export let errores: string[] = [];
 
@@ -44,7 +43,7 @@ export default function ModalEnviarMA({
   const comentMA = (id: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/coment-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
         {
           IdMir: id,
           Coment: comment,
@@ -500,19 +499,7 @@ export default function ModalEnviarMA({
     if (err === 0) {
       creaMA(v);
     } else {
-      Toast.fire({
-        icon: "error",
-        html: `
-        <div style="height:50%;">
-        <h3>Se han encontrado los siguientes errores:</h3>
-        <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
-      <small>
-      <strong>
-      *</strong>${errores.join("<br><strong>*</strong>")}
-      </small>
-      </div>
-      </div>`,
-      });
+      alertaErroresDocumento(errores)
     }
   };
 
@@ -544,13 +531,13 @@ export default function ModalEnviarMA({
             "MA",
             "Meta Anual"
           );
-          //sendMail(user.CorreoElectronico, enviarMensaje, "MA");
+     
         });
         if (estado === "Autorizada") {
           CrearFichaTecnica();
         }
         alertaExitoConfirm((r.data.data.message).toUpperCase())
-        //alertaExito(()=>{}, r.data.data.message
+      
         
         
 
@@ -597,7 +584,7 @@ export default function ModalEnviarMA({
             "FT",
             "Ficha Tecnica"
           );
-          //sendMail(user.CorreoElectronico, "Se ha creado una nueva", "FT");
+        
         });
         alertaExito(()=>{},localStorage.getItem("Rol") === "Administrador"
         ? "FT enviada a capturador"
@@ -612,11 +599,7 @@ export default function ModalEnviarMA({
 
   useEffect(() => {
     if (open) {
-      let inst = JSON.parse(MIR)?.encabezado.institucion;
-
-      // if (localStorage.getItem("Rol") === "Verificador") {
-      //   inst = "admin";
-      // }
+    
 
       axios
         .post(
@@ -666,18 +649,7 @@ export default function ModalEnviarMA({
     );
   };
 
-  const Toast = Swal.mixin({
-    toast: false,
-    position: "center",
-    showConfirmButton: true,
-    heightAuto: false,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
-
+  
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle
