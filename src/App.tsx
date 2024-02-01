@@ -6,17 +6,17 @@ import "./Fonts.css";
 import "./Globals.css";
 import { continueSession, sessionValid } from "./funcs/validation";
 import Ayuda from "./screens/Ayuda/Ayuda";
-import { ActividadesInstitucionales } from "./screens/ActividadesInstitucionales";
 import { PanelUsuarios } from "./screens/config/PanelUsuarios";
 import { Settings } from "./screens/config/Settings";
 import { E404 } from "./screens/e404/E404";
-import { FichaTecnica } from "./screens/FichaTecnica";
 import { Home } from "./screens/home/Home";
-import { MetaAnual } from "./screens/MetaAnual";
-import { MIR } from "./screens/MIR";
 import { Notification } from "./screens/notification/Notifications";
-import { ProgramaAnualEvaluacion } from "./screens/ProgramaAnualdeEvaluacion";
-import { Raffi } from "./screens/Raffi";
+import { ActividadesInstitucionales } from "./screens/actividadesInstitucionales/ActividadesInstitucionales";
+import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
+import { MetaAnual } from "./screens/metaAnual/MetaAnual";
+import { MIR } from "./screens/mir/MIR";
+import { ProgramaAnualEvaluacion } from "./screens/programaAnauldeEvaluacion/ProgramaAnualdeEvaluacion";
+import { Raffi } from "./screens/raffi/Raffi";
 
 function App() {
   const params = new URLSearchParams(window.location.search);
