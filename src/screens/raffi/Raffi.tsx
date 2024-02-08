@@ -277,7 +277,7 @@ export const Raffi = () => {
     axios
       .post(
         // process.env.REACT_APP_APPLICATION_FILL + "/api/fill_rf",
-        "http://192.168.137.254:7001/api/fill_raffi",
+        process.env.REACT_APP_APPLICATION_FILL + "/api/fill_raffi",
         fullRF,
         {
           responseType: "blob",
