@@ -108,7 +108,7 @@ export const DialogMonto = ({
 
             <Grid item lg={5}>
               <TextField
-                label="Denominador"
+                label="DENOMINADOR"
                 multiline
                 rows={4}
                 value={denominador}

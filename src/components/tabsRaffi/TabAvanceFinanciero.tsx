@@ -91,7 +91,7 @@ export const VPTrimestralboolean = {
 export function TabAvanceFinanciero({
 
 
-
+  edit,
   MIR,
   MA,
   avanceFinancieroRF,
@@ -99,7 +99,7 @@ export function TabAvanceFinanciero({
   raffiboolean,
 }: {
   
-  
+  edit:boolean;
   MIR: string;
   MA: string;
   avanceFinancieroRF: IAvanceFinancieroRF;
@@ -666,10 +666,13 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   size="small"
-                  disabled={
+                  disabled={(
                     valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
-                    valorProgramaPresupuestario === ""
+                    valorProgramaPresupuestario === "")
+                    || (edit && (!raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.t1?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.t1?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.t1?.resultado))
                   }
                   placeholder="SIN CAPTURAR"
                   onClick={(a) => {
@@ -702,10 +705,13 @@ export function TabAvanceFinanciero({
               <Grid item>
                 <TextField
                   fullWidth
-                  disabled={
+                  disabled={(
                     valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
-                    valorProgramaPresupuestario === ""
+                    valorProgramaPresupuestario === "")
+                    || (edit && (!raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.t1?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.t1?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.t1?.resultado))
                   }
                   size="small"
                   placeholder="SIN PORCENTAJE"
@@ -752,10 +758,13 @@ export function TabAvanceFinanciero({
               <Grid item>
                 <TextField
                   fullWidth
-                  disabled={
+                  disabled={(
                     valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
-                    valorProgramaPresupuestario === ""
+                    valorProgramaPresupuestario === "")
+                    || (edit && (!raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.t2?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.t2?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.t2?.resultado))
                   }
                   size="small"
                   placeholder="SIN CAPTURAR"
@@ -799,10 +808,13 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   placeholder="SIN PORCENTAJE"
-                  disabled={
+                  disabled={(
                     valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
-                    valorProgramaPresupuestario === ""
+                    valorProgramaPresupuestario === "")
+                    || (edit && (!raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.t2?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.t2?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.t2?.resultado))
                   }
                   sx={queries.medium_text}
                   value={
@@ -847,10 +859,13 @@ export function TabAvanceFinanciero({
 
               <Grid item>
                 <TextField
-                  disabled={
+                  disabled={(
                     valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
-                    valorProgramaPresupuestario === ""
+                    valorProgramaPresupuestario === "")
+                    || (edit && (!raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.t3?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.t3?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.t3?.resultado))
                   }
                   fullWidth
                   size="small"
@@ -895,10 +910,13 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   placeholder="SIN PORCENTAJE"
-                  disabled={
+                  disabled={(
                     valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
-                    valorProgramaPresupuestario === ""
+                    valorProgramaPresupuestario === "")
+                    || (edit && (!raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.t3?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.t3?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.t3?.resultado))
                   }
                   sx={queries.medium_text}
                   value={
@@ -943,10 +961,13 @@ export function TabAvanceFinanciero({
               <Grid item>
                 <TextField
                   fullWidth
-                  disabled={
+                  disabled={(
                     valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
-                    valorProgramaPresupuestario === ""
+                    valorProgramaPresupuestario === "")
+                    || (edit && (!raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.t4?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.t4?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.t4?.resultado))
                   }
                   size="small"
                   placeholder="SIN CAPTURAR"
@@ -992,10 +1013,13 @@ export function TabAvanceFinanciero({
                   size="small"
                   placeholder="SIN PORCENTAJE"
                   //label="porcentaje T1"
-                  disabled={
+                  disabled={(
                     valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
-                    valorProgramaPresupuestario === ""
+                    valorProgramaPresupuestario === "")
+                    || (edit && (!raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.t4?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.t4?.resultado ||
+                       !raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.t4?.resultado))
                   }
                   sx={queries.medium_text}
                   value={
