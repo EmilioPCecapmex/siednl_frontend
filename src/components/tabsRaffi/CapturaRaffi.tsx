@@ -385,6 +385,7 @@ export default function CapturaRaffi({
           >
             {value === 0 ? (
               <TabAvanceFinanciero
+                edit={editRF}
                 MIR={MIR}
                 MA={MA}
                 avanceFinancieroRF={raffi.avanceFinanciero}

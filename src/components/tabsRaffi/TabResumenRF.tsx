@@ -334,6 +334,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.t1?.resultado}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.devengadoModificado.t1 = { valor1: false, valor2: false, resultado: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -384,6 +390,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.t2?.resultado}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.devengadoModificado.t2 = { valor1: false, valor2: false, resultado: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
                 // value={!editEncabezado.programaSER}
                 // onChange={(v) => {
                 //   setEditEncabezado({
@@ -434,6 +446,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.t3?.resultado}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.devengadoModificado.t3 = { valor1: false, valor2: false, resultado: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -484,6 +502,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.t4?.resultado}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.devengadoModificado.t4 = { valor1: false, valor2: false, resultado: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -534,6 +558,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.devengadoModificado?.cuentaPublica}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.devengadoModificado.cuentaPublica =  v.target.checked ;
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -866,6 +896,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.t1?.resultado}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.modificadoAutorizado.t1 = { valor1: false, valor2: false, resultado: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -916,6 +952,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.t2?.resultado}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.modificadoAutorizado.t2 = { valor1: false, valor2: false, resultado: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -966,6 +1008,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.t3?.resultado}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.modificadoAutorizado.t3 = { valor1: false, valor2: false, resultado: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -1016,6 +1064,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.t4?.resultado}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.modificadoAutorizado.t4 = { valor1: false, valor2: false, resultado: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -1066,6 +1120,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.modificadoAutorizado?.cuentaPublica}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.modificadoAutorizado.cuentaPublica =  v.target.checked ;
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -1117,6 +1177,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
               disabled={true}
+              
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -1411,6 +1472,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.t1?.resultado}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.ejercidoModificado.t1 = { valor1: false, valor2: false, resultado: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -1462,6 +1529,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.t2?.resultado}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.ejercidoModificado.t2 = { valor1: false, valor2: false, resultado: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -1513,6 +1586,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.t3?.resultado}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.ejercidoModificado.t3 = { valor1: false, valor2: false, resultado: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -1564,6 +1643,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.t4?.resultado}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.ejercidoModificado.t4 = { valor1: false, valor2: false, resultado: v.target.checked };
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -1614,6 +1699,12 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
+              checked={raffiboolean?.avanceFinanciero?.monto?.ejercidoModificado?.cuentaPublica}
+              onChange={(v) => {
+                let aux = raffiboolean?.avanceFinanciero;
+                aux.monto.ejercidoModificado.cuentaPublica =  v.target.checked ;
+                setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
+              }}
               // value={!editEncabezado.programaSER}
               // onChange={(v) => {
               //   setEditEncabezado({
@@ -2005,7 +2096,7 @@ export const TabResumenRF = ({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-              checked={raffiboolean?.fin?.valorAvanceFisico}
+                checked={raffiboolean?.fin?.valorAvanceFisico}
                 onChange={(v) => {
                   let aux = raffiboolean?.fin;
                   aux = { ...aux, valorAvanceFisico: v.target.checked };

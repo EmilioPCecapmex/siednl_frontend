@@ -132,6 +132,7 @@ export function TabFinPropositoRF({
           overflow: "auto",
         }}
       >
+        {/* {JSON.stringify(raffiboolean)} */}
         <Grid
           item
           container
@@ -198,7 +199,7 @@ export function TabFinPropositoRF({
           }}
         >
           <Typography sx={{ ...queries.bold_text, width: "100%" }}>
-            Fin
+            FIN
           </Typography>
 
           <Grid
@@ -224,10 +225,10 @@ export function TabFinPropositoRF({
           >
             <Grid mt={{ lg: 2 }} mb={{ lg: 2 }} item lg={6}>
               <TextField
-                disabled={edit && raffiboolean?.fin?.añoAvanceFisico}
+                disabled={edit && !raffiboolean?.fin?.añoAvanceFisico}
                 fullWidth
                 size="small"
-                label="Año del Avance Fisico"
+                label="AÑO DEL AVANCE FÍSICO"
                 value={fin.añoAvanceFisico}
                 onChange={(c) => {
                   setFin({
@@ -282,7 +283,7 @@ export function TabFinPropositoRF({
                 disabled={edit && !raffiboolean?.fin?.valorAvanceFisico}
                 fullWidth
                 size="small"
-                label="Valor del Avance Fisico"
+                label="VALOR DEL AVANCE FÍSICO"
                 onClick={(a) => {
                   SetApartado("FIN");
                   setUnico(palabraABuscar1);
@@ -316,7 +317,7 @@ export function TabFinPropositoRF({
           }}
         >
           <Typography sx={{ ...queries.bold_text, width: "100%" }}>
-            Proposito
+            PROPÓSITO
           </Typography>
 
           <Grid
@@ -345,7 +346,7 @@ export function TabFinPropositoRF({
                 disabled={edit && !raffiboolean?.proposito?.añoAvanceFisico}
                 fullWidth
                 size="small"
-                label="Año del Avance Fisico"
+                label="AÑO DEL AVANCE FÍSICO"
                 value={proposito.añoAvanceFisico}
                 onChange={(c) => {
                   setProposito({
@@ -398,7 +399,7 @@ export function TabFinPropositoRF({
                 disabled={edit && !raffiboolean?.proposito?.valorAvanceFisico}
                 fullWidth
                 size="small"
-                label="Valor del Avance Fisico"
+                label="VALOR DEL AVANCE FÍSICO"
                 onClick={(a) => {
                   SetApartado("PROPOSITO");
                   setUnico(palabraABuscar2);
