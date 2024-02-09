@@ -526,6 +526,9 @@ export const Raffi = () => {
                         fontSize: [10, 10, 15, 15, 18, 20],
                       }}
                       value={institucionesb}
+                      disabled={
+                        localStorage.getItem("Rol") !== "Administrador"
+                      }
                       onChange={(v) => {
                         // v.target.value === "Todos"
                         //   ? findText(
