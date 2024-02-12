@@ -112,7 +112,7 @@ export function TabResumenMIR({
           mb: 2,
         }}
       >
-        Resumen MA
+        Resumen RF
       </DialogTitle>
 
       <DialogContent
