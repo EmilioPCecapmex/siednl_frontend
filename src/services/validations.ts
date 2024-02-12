@@ -4,13 +4,29 @@ import axios from "axios";
 import { IIFT } from "../screens/fichatecnica/FichaTecnica";
 
 export const validarNumero = (dato: string, state: any) => {
-    if (/^[0-9]+$/.test(dato)) {
-      return dato;
+ 
+    if (/^[0-9]+$/.test(dato) ) {
+      
+        return dato;
+
     } else if (dato.length === 0) {
       return "";
     }
+
     alertaError("Este campo solo acepta numeros.")
     return state;
+
+  };
+
+  export const validarNumeroMayorCero = (dato: string, state: any) => {
+    const numero = parseInt(dato, 10);
+  
+    if (isNaN(numero) || numero <= 0) {
+      alertaError("Este campo solo acepta números mayores a 0.");
+      return state;
+    }
+  
+    return dato
   };
 
   
