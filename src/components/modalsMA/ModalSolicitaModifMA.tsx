@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
+import { create_coment_mir, enviarNotificacion } from "../genericComponents/axiosGenericos";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -39,23 +40,10 @@ export default function ModalSolicitaModif({
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
 
-  const [comment, setComment] = useState("");
+  const [coment, setComment] = useState("");
   const comentMA = (id: string) => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
-        {
-          IdMir: id,
-          Coment: comment,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA: "MA",
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+    
+      create_coment_mir(id, coment, "MA")
       .then((r) => {
         setComment("");
         handleClose();
@@ -556,7 +544,7 @@ export default function ModalSolicitaModif({
       .then((r) => {
         
 
-        if (comment !== "") {
+        if (coment !== "") {
           comentMA(IdMIR);
         }
    
@@ -564,7 +552,8 @@ export default function ModalSolicitaModif({
                ? "Meta anual enviada a capturador para corrección"
                : "Meta anual enviada ").toUpperCase());
 
-        enviarNotificacion();
+        
+        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "MA" );
         handleClose();
         showResume();
       })
@@ -609,22 +598,7 @@ export default function ModalSolicitaModif({
   
   
   
-  const enviarNotificacion = () => {
-    axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
-      {
-        IdUsuarioDestino: userSelected,
-        Titulo: "Meta Anual",
-        Mensaje: "Se le ha solicitado una modificación.",
-        CreadoPor: localStorage.getItem("IdUsuario"),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    );
-  };
+  
  
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
@@ -760,7 +734,7 @@ export default function ModalSolicitaModif({
               <Typography
            
               >
-                {comment === "" ? "Enviar sin comentarios" : "Confirmar"}
+                {coment === "" ? "Enviar sin comentarios" : "Confirmar"}
               </Typography>
             </Button>
           </Grid>

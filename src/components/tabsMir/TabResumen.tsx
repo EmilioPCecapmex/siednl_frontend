@@ -2158,7 +2158,7 @@ export function TabResumen({
                       />
                     </Grid>
                   )}
-                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                  <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
@@ -2443,7 +2443,7 @@ export function TabResumen({
         }}
       >
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
           item
           xl={3}
           lg={3}
@@ -2463,7 +2463,7 @@ export function TabResumen({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
           item
           xl={3}
           lg={3}
@@ -2491,7 +2491,7 @@ export function TabResumen({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
           item
           xl={3}
           lg={3}

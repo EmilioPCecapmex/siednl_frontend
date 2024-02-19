@@ -8,6 +8,9 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { IEncabezadoFT, IFTEdit } from "./Interfaces";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+
 
 interface IObjetivoDS {
   Id: string;
@@ -136,6 +139,9 @@ export function TabEncabezado({
    
   }, [encabezado]);
 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
     <Grid
       sx={{
@@ -144,7 +150,11 @@ export function TabEncabezado({
         height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
         boxShadow: 10,
         borderRadius: 5,
-
+        ...(!isSmallScreen && {
+          height: "85%",
+          overflow: "auto",
+          // Otros estilos específicos para pantallas pequeñas
+        }),
       
         backgroundColor: "#fff",
       }}
@@ -227,7 +237,7 @@ export function TabEncabezado({
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
-                  fontSize: "1.3vw",
+                  
                 },
               }}
               InputProps={{
@@ -270,7 +280,7 @@ export function TabEncabezado({
               label="OBJETIVO SECTORIAL, ESPECIAL O REGIONAL"
               InputLabelProps={{
                 style: {
-                  fontSize: "1.3vw",
+                  
                   fontFamily: "MontserratMedium",
                 },
               }}

@@ -24,6 +24,7 @@ import { IComponentesFT, IFT } from "../tabsFichaTecnica/Interfaces";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { alertaEliminar, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
 import { IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
+import { create_coment_mir } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -161,7 +162,7 @@ export default function ModalEnviarMIR({
   };
   ///////////////////////////////////////////////////////////////////////////////////////////
 
-  const [comment, setComment] = useState("");
+  const [coment, setComment] = useState("");
 
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected] = useState("0"); //, setUserSelected
@@ -171,21 +172,7 @@ export default function ModalEnviarMIR({
   const enviarMensaje = "Se ha creado una nueva";
 
   const comentMir = (id: string) => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
-        {
-          IdMir: id,
-          Coment: comment,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA: "MIR",
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+      create_coment_mir(id, coment, "MIR")
       .then((r) => {
         setNewComent(false);
         setComment("");
@@ -625,7 +612,7 @@ export default function ModalEnviarMIR({
         ? "¡MIR autorizada con éxito!, Meta Anual disponible para captura"
         : "¡MIR enviada con éxito!").toUpperCase())
 
-        if (comment !== "") {
+        if (coment !== "") {
           comentMir(r.data.data.ID);
         }
         showResume();

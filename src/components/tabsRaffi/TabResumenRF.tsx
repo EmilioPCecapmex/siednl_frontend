@@ -2884,7 +2884,7 @@ export const TabResumenRF = ({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
           item
           xl={3}
           lg={3}
@@ -2904,7 +2904,7 @@ export const TabResumenRF = ({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
           item
           xl={3}
           lg={3}
@@ -2935,7 +2935,7 @@ export const TabResumenRF = ({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
           item
           xl={3}
           lg={3}

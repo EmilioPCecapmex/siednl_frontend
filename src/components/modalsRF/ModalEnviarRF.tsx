@@ -13,6 +13,7 @@ import {
 import { queries } from "../../queries";
 import { IActividadesRF, IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
 import { alertaErrorConfirm, alertaErroresDocumento, alertaExitoConfirm } from "../genericComponents/Alertas";
+import { create_coment_mir } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -36,28 +37,15 @@ export default function ModalEnviarRF({
   showResume: Function;
 }) {
 
-  const [comment, setComment] = useState("");
+  const [coment, setComment] = useState("");
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [newComent, setNewComent] = React.useState(false);
 
    const enviarMensaje = "Se ha creado una nueva";
 
   const comentMA = (id: string) => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
-        {
-          IdMir: id,
-          Coment: comment,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA: "MA",
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+  
+      create_coment_mir(id, coment, "RF")
       .then((r) => {
         setNewComent(false);
         setComment("");
@@ -201,14 +189,14 @@ export default function ModalEnviarRF({
       .then((r) => {
         
         userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA", "Meta Anual");
+          enviarNotificacion(user.IdUsuario, r.data.data.Id, "RF", "Raffi");
      
         });
         if (estado === "Autorizada") {
           // CrearFichaTecnica();  
         }
         alertaExitoConfirm((r.data.data.message).toUpperCase())
-        if (comment !== "") {
+        if (coment !== "") {
           comentMA(IdRF);
         }
         showResume();

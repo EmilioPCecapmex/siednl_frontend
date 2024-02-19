@@ -1,3 +1,5 @@
+
+
 import * as React from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -21,6 +23,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
+import { create_coment_mir, enviarNotificacion, obtenerComentarios } from "../genericComponents/axiosGenericos";
 
 export const ComentDialogRF = ({
   estado,
@@ -63,44 +66,17 @@ export const ComentDialogRF = ({
 
   const [coment, setComent] = React.useState("");
 
-  const enviarNotificacion = (v: string) => {
-    axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
-      {
-        IdUsuarioDestino: v,
-        Titulo: "Nuevo comentario RAFFI",
-        Mensaje: coment,
-        CreadoPor: localStorage.getItem("IdUsuario"),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    );
-  };
+  
 
   const comentRF = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
-        {
-          IdMir: id,
-          Coment: coment,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA: "RF",
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+   
+      create_coment_mir(id, coment, "RF")
       .then((r) => {
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
           userXInst.map((user) => {
-            enviarNotificacion(user.IdUsuario);
+           
+            enviarNotificacion(user.IdUsuario, coment,  "Nuevo comentario RF",  );
           });
         }
 
@@ -117,20 +93,24 @@ export const ComentDialogRF = ({
       });
   };
 
+  // React.useEffect(() => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/get-coment-mir", {
+  //       params: {
+  //         IdMir: id,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setComents(r.data.data);
+  //     });
+  // }, [ id]);
+
   React.useEffect(() => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/get-coment-mir", {
-        params: {
-          IdMir: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setComents(r.data.data);
-      });
-  }, [ id]);
+    obtenerComentarios(id,  setComents);
+  }, [, id]);
 
   const isComentEmpty = () => {
     return !/^\s*$/.test(coment);

@@ -5,6 +5,7 @@ import {
   IconButton,
   List,
   ListItemButton,
+  ToggleButton,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -13,10 +14,26 @@ import { useEffect, useState } from "react";
 import { ButtonAdd } from "../genericComponents/AddButton";
 import DataGridTable from "../genericComponents/DataGridTable";
 import AddDialogCatalogo from "./AddDialogCatalogo";
-import { listaGenericaCatalogos } from "./AxiosCatalogo";
+import { DescargarExcel, listaGenericaCatalogos } from "./AxiosCatalogo";
 import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
-import { configOptions, newBeneficiario, newCatalogo, newFecha, newPed, newProgramas, newProgramasPresupuestario } from "./ExportsCatalogos";
-import { IObjetoBeneficiario, IObjetoCatalogo, IObjetoFechaDeCaptura, IObjetoPed, IObjetoProgramasInstitucionales, IObjetoProgramasPresupuestarios } from "./InterfacesCatalogos";
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import {
+  configOptions,
+  newBeneficiario,
+  newCatalogo,
+  newFecha,
+  newPed,
+  newProgramas,
+  newProgramasPresupuestario,
+} from "./ExportsCatalogos";
+import {
+  IObjetoBeneficiario,
+  IObjetoCatalogo,
+  IObjetoFechaDeCaptura,
+  IObjetoPed,
+  IObjetoProgramasInstitucionales,
+  IObjetoProgramasPresupuestarios,
+} from "./InterfacesCatalogos";
 import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
@@ -36,7 +53,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Eliminar descripcion">
               <IconButton
                 onClick={() => {
-                
                   setCatalogoSelected(v.row);
 
                   setOpenDel(true);
@@ -169,13 +185,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             <Tooltip title="Editar descripcion">
               <IconButton
                 onClick={() => {
-                
                   return (
                     <Grid>
                       <Tooltip title="Editar descripcion">
                         <IconButton
                           onClick={() => {
-                           
                             setPedSelected(v.row);
                             setOpenDel(true);
                             //eliminar(v)
@@ -369,27 +383,45 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     },
   ];
 
-  const [objetoCatalogo, setObjetoCatalogo] = useState<Array<IObjetoCatalogo>>([]);
-  const [objetoProgramasInstitucionales, setObjetoProgramasInstitucionales] = useState<Array<IObjetoProgramasInstitucionales>>([]);
+  const [objetoCatalogo, setObjetoCatalogo] = useState<Array<IObjetoCatalogo>>(
+    []
+  );
+  const [objetoProgramasInstitucionales, setObjetoProgramasInstitucionales] =
+    useState<Array<IObjetoProgramasInstitucionales>>([]);
   const [objetoPed, setObjetoPed] = useState<Array<IObjetoPed>>([]);
-  const [objetoFechaDeCaptura, setObjetoFechaDeCaptura] = useState<Array<IObjetoFechaDeCaptura>>([]);
-  const [objetoBeneficiario, setObjetoBeneficiario] = useState<Array<IObjetoBeneficiario>>([]);
+  const [objetoFechaDeCaptura, setObjetoFechaDeCaptura] = useState<
+    Array<IObjetoFechaDeCaptura>
+  >([]);
+  const [objetoBeneficiario, setObjetoBeneficiario] = useState<
+    Array<IObjetoBeneficiario>
+  >([]);
 
-  const [objetoProgamaPresupuestario, setObjetoProgamaPresupuestario] = useState<Array<IObjetoProgramasPresupuestarios>>([]);
+  const [objetoProgamaPresupuestario, setObjetoProgamaPresupuestario] =
+    useState<Array<IObjetoProgramasPresupuestarios>>([]);
 
-  const [catalogoSelected, setCatalogoSelected] = useState<IObjetoCatalogo>(newCatalogo);
+  const [catalogoSelected, setCatalogoSelected] =
+    useState<IObjetoCatalogo>(newCatalogo);
 
-  const [programasISelected, setProgramasISelected] = useState<IObjetoProgramasInstitucionales>(newProgramas);
+  const [programasISelected, setProgramasISelected] =
+    useState<IObjetoProgramasInstitucionales>(newProgramas);
 
   const [pedSelected, setPedSelected] = useState<IObjetoPed>();
 
-  const [fechaDeCapturaSelected, setFechaDeCapturaSelected] = useState<IObjetoFechaDeCaptura>(newFecha);
+  const [fechaDeCapturaSelected, setFechaDeCapturaSelected] =
+    useState<IObjetoFechaDeCaptura>(newFecha);
 
-  const [beneficiarioSelected, setBeneficiarioSelected] = useState<IObjetoBeneficiario>(newBeneficiario);
+  const [beneficiarioSelected, setBeneficiarioSelected] =
+    useState<IObjetoBeneficiario>(newBeneficiario);
 
-  const [ programasPresupuestariosISelected, setProgramasPresupuestariosISelected] = useState<IObjetoProgramasPresupuestarios>(newProgramasPresupuestario);
+  const [
+    programasPresupuestariosISelected,
+    setProgramasPresupuestariosISelected,
+  ] = useState<IObjetoProgramasPresupuestarios>(newProgramasPresupuestario);
 
   const [openAdd, setOpenAdd] = useState(false);
+
+  const [openDownload, setOpenDownload] = useState(false);
+
   const [openMody, setOpenMody] = useState(false);
   const [openDel, setOpenDel] = useState(false);
   const [actualizacion, setActualizacion] = useState(0);
@@ -398,6 +430,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const handleClose = () => {
     UpdateInfo();
     setOpenAdd(false);
+  };
+
+  const handleCloseDownload = () => {
+    setOpenDownload(false);
   };
 
   const handleCloseDel = () => {
@@ -416,10 +452,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   useEffect(() => {
     // Este código se ejecuta solo una vez al cargar el componente
     setUpdata(defSelected);
-    
+
     UpdateInfo();
   }, []); // Dependencia vacía significa que se ejecuta solo una vez al montar el componente
-  
 
   useEffect(() => {
     UpdateInfo();
@@ -441,8 +476,6 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         : setObjetoCatalogo
     );
   };
-
-
 
   return (
     //Grid Padre con tamaño de la pantalla a usar
@@ -478,21 +511,13 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 sx={{
                   "&.Mui-selected": {
                     backgroundColor: "#af8c55",
-                    color:
-                      item.Desc === opcionCatalogo
-                      ? "white"
-                        : "inherit",
+                    color: item.Desc === opcionCatalogo ? "white" : "inherit",
                   },
                   "&.Mui-selected:hover": {
                     backgroundColor: "#af8c55",
-                    color:
-                      item.Desc === opcionCatalogo
-                        ? "white"
-                        : "inherit",
+                    color: item.Desc === opcionCatalogo ? "white" : "inherit",
                   },
                 }}
-
-                
                 onClick={() => {
                   setObjetoPed([]);
                   setObjetoProgramasInstitucionales([]);
@@ -505,7 +530,9 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                   setPedSelected(newPed);
                   setFechaDeCapturaSelected(newFecha);
                   setBeneficiarioSelected(newBeneficiario);
-                  setProgramasPresupuestariosISelected(newProgramasPresupuestario);
+                  setProgramasPresupuestariosISelected(
+                    newProgramasPresupuestario
+                  );
                   setOpcionCatalogo(item.Desc);
                   setUpdata(item.Desc);
                 }}
@@ -578,7 +605,37 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             xs={2}
             sx={{ display: "flex", justifyContent: "center" }}
           >
-            <ButtonAdd agregar={true} handleOpen={() => setOpenAdd(true)} />
+            <Grid item sx={{ marginRight: 1 }}>
+              <ButtonAdd agregar={true} handleOpen={() => setOpenAdd(true)} />
+            </Grid>
+            <Grid item sx={{ marginLeft: 1 }}>
+              <Grid>
+                <Tooltip title={"Descargar"}>
+                  <ToggleButton
+                    className="aceptar"
+                    value="check"
+                    onClick={() => {
+                      console.log("objetoProgamaPresupuestario: ",objetoProgamaPresupuestario);
+                      
+                      DescargarExcel(() => {}, opcionCatalogo.toUpperCase() === "BENEFICIARIOS"
+                      ? objetoBeneficiario
+                      : opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"
+                      ? objetoFechaDeCaptura
+                      : opcionCatalogo.toUpperCase() === "PED"
+                      ? objetoPed
+                      : opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES"
+                      ? objetoProgramasInstitucionales
+                      : opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"
+                      ? objetoProgamaPresupuestario
+                      : objetoCatalogo, opcionCatalogo
+                      );
+                    }}
+                  >
+                    <ArrowCircleDownIcon />
+                  </ToggleButton>
+                </Tooltip>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
 
@@ -595,20 +652,30 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           <DataGridTable
             id={(row: any) => row.Id || Math.random}
             columns={
-              opcionCatalogo.toUpperCase() === "BENEFICIARIOS"? columsBeneficiario: 
-              opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"? columsFechaDeCaptura: 
-              opcionCatalogo.toUpperCase() === "PED"? columsPed: 
-              opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES"? columsProgramasInstituciones: 
-              opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"? columProgramaPresupuestario: 
-              columsCatalogo
+              opcionCatalogo.toUpperCase() === "BENEFICIARIOS"
+                ? columsBeneficiario
+                : opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"
+                ? columsFechaDeCaptura
+                : opcionCatalogo.toUpperCase() === "PED"
+                ? columsPed
+                : opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES"
+                ? columsProgramasInstituciones
+                : opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"
+                ? columProgramaPresupuestario
+                : columsCatalogo
             }
             rows={
-              opcionCatalogo.toUpperCase() === "BENEFICIARIOS"? objetoBeneficiario: 
-              opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"? objetoFechaDeCaptura: 
-              opcionCatalogo.toUpperCase() === "PED"? objetoPed: 
-              opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES"? objetoProgramasInstitucionales: 
-              opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"? objetoProgamaPresupuestario: 
-              objetoCatalogo
+              opcionCatalogo.toUpperCase() === "BENEFICIARIOS"
+                ? objetoBeneficiario
+                : opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"
+                ? objetoFechaDeCaptura
+                : opcionCatalogo.toUpperCase() === "PED"
+                ? objetoPed
+                : opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES"
+                ? objetoProgramasInstitucionales
+                : opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"
+                ? objetoProgamaPresupuestario
+                : objetoCatalogo
             }
             camposCsv={[]}
             exportTitle={"Columnas"}
@@ -616,81 +683,85 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
         </Grid>
       </Grid>
 
-      {openDel?<DeleteDialogCatalogos
-        deleteText={
-          catalogoSelected?.descripcion !== ""
-            ? catalogoSelected?.descripcion
-            : fechaDeCapturaSelected?.descripcion !== ""
-            ? fechaDeCapturaSelected?.descripcion
-            : beneficiarioSelected?.descripcion !== ""
-            ? beneficiarioSelected?.descripcion
-            : programasISelected?.NombrePrograma !== ""
-            ? programasISelected?.NombrePrograma
-            : programasPresupuestariosISelected?.descripcion !== ""
-            ? programasPresupuestariosISelected?.descripcion
-            : "Objeto Ped"
-        }
-        Id={
-          catalogoSelected?.Id !== ""
-            ? catalogoSelected?.Id
-            : fechaDeCapturaSelected?.Id !== ""
-            ? fechaDeCapturaSelected?.Id
-            : beneficiarioSelected?.Id !== ""
-            ? beneficiarioSelected?.Id
-            : programasISelected?.Id !== ""
-            ? programasISelected?.Id
-            : programasPresupuestariosISelected?.Id !== ""
-            ? programasPresupuestariosISelected?.Id
-            : pedSelected?.Id || ""
-        }
-        tabla={opcionCatalogo || ""}
-        actualizado={actualizaContador}
-        open={openDel}
-        handleCloseDel={handleCloseDel}
-        UpdateInfo={UpdateInfo}
-      />:null}
+      {openDel ? (
+        <DeleteDialogCatalogos
+          deleteText={
+            catalogoSelected?.descripcion !== ""
+              ? catalogoSelected?.descripcion
+              : fechaDeCapturaSelected?.descripcion !== ""
+              ? fechaDeCapturaSelected?.descripcion
+              : beneficiarioSelected?.descripcion !== ""
+              ? beneficiarioSelected?.descripcion
+              : programasISelected?.NombrePrograma !== ""
+              ? programasISelected?.NombrePrograma
+              : programasPresupuestariosISelected?.descripcion !== ""
+              ? programasPresupuestariosISelected?.descripcion
+              : "Objeto Ped"
+          }
+          Id={
+            catalogoSelected?.Id !== ""
+              ? catalogoSelected?.Id
+              : fechaDeCapturaSelected?.Id !== ""
+              ? fechaDeCapturaSelected?.Id
+              : beneficiarioSelected?.Id !== ""
+              ? beneficiarioSelected?.Id
+              : programasISelected?.Id !== ""
+              ? programasISelected?.Id
+              : programasPresupuestariosISelected?.Id !== ""
+              ? programasPresupuestariosISelected?.Id
+              : pedSelected?.Id || ""
+          }
+          tabla={opcionCatalogo || ""}
+          actualizado={actualizaContador}
+          open={openDel}
+          handleCloseDel={handleCloseDel}
+          UpdateInfo={UpdateInfo}
+        />
+      ) : null}
 
-      {openAdd?<AddDialogCatalogo
-        open={openAdd}
-        handleClose={handleClose}
-        catalogo={opcionCatalogo || ""}
-        tabla={opcionCatalogo || ""}
-        select={updata}
-      />:null}
+      {openAdd ? (
+        <AddDialogCatalogo
+          open={openAdd}
+          handleClose={handleClose}
+          catalogo={opcionCatalogo || ""}
+          tabla={opcionCatalogo || ""}
+          select={updata}
+        />
+      ) : null}
 
-      {openMody?<ModifyDialogCatalogos
-        descripcion={
-          catalogoSelected?.descripcion !== ""
-            ? catalogoSelected?.descripcion
-            : fechaDeCapturaSelected?.descripcion !== ""
-            ? fechaDeCapturaSelected?.descripcion
-            : beneficiarioSelected?.descripcion !== ""
-            ? beneficiarioSelected?.descripcion
-            : programasISelected?.NombrePrograma !== ""
-            ? programasISelected?.NombrePrograma
-            : programasPresupuestariosISelected?.descripcion !== ""
-            ? programasPresupuestariosISelected?.descripcion
-            : "Objeto Ped"
-        }
-        Id={
-          catalogoSelected?.Id !== ""
-            ? catalogoSelected?.Id
-            : fechaDeCapturaSelected?.Id !== ""
-            ? fechaDeCapturaSelected?.Id
-            : beneficiarioSelected?.Id !== ""
-            ? beneficiarioSelected?.Id
-            : programasISelected?.Id !== ""
-            ? programasISelected?.Id
-            : programasPresupuestariosISelected?.Id !== ""
-            ? programasPresupuestariosISelected?.Id
-            : pedSelected?.Id || ""
-        }
-        tabla={opcionCatalogo || ""}
-        open={openMody}
-        handleCloseMody={handleCloseMody}
-      />:null}
+      {openMody ? (
+        <ModifyDialogCatalogos
+          descripcion={
+            catalogoSelected?.descripcion !== ""
+              ? catalogoSelected?.descripcion
+              : fechaDeCapturaSelected?.descripcion !== ""
+              ? fechaDeCapturaSelected?.descripcion
+              : beneficiarioSelected?.descripcion !== ""
+              ? beneficiarioSelected?.descripcion
+              : programasISelected?.NombrePrograma !== ""
+              ? programasISelected?.NombrePrograma
+              : programasPresupuestariosISelected?.descripcion !== ""
+              ? programasPresupuestariosISelected?.descripcion
+              : "Objeto Ped"
+          }
+          Id={
+            catalogoSelected?.Id !== ""
+              ? catalogoSelected?.Id
+              : fechaDeCapturaSelected?.Id !== ""
+              ? fechaDeCapturaSelected?.Id
+              : beneficiarioSelected?.Id !== ""
+              ? beneficiarioSelected?.Id
+              : programasISelected?.Id !== ""
+              ? programasISelected?.Id
+              : programasPresupuestariosISelected?.Id !== ""
+              ? programasPresupuestariosISelected?.Id
+              : pedSelected?.Id || ""
+          }
+          tabla={opcionCatalogo || ""}
+          open={openMody}
+          handleCloseMody={handleCloseMody}
+        />
+      ) : null}
     </Grid>
   );
 };
-
-

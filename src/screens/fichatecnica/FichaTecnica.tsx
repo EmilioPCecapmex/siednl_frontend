@@ -530,6 +530,8 @@ export const FichaTecnica = () => {
                   direction: "row",
                 }}
               >
+                 {
+  localStorage.getItem("Rol") === "Administrador" ? (
                 <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
                   <Tooltip
                     title={findInstStr}
@@ -603,7 +605,39 @@ export const FichaTecnica = () => {
                     </FormControl>
                   </Tooltip>
                 </Grid>
-                <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                 ) : null
+                }
+
+                <Grid item xl={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 10
+                  }
+                  lg={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 10
+                  }
+                  md={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 10
+                  }
+                  sm={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 1
+                  }
+                  xs={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 10
+                  }>
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
                       <Tooltip
@@ -730,7 +764,8 @@ export const FichaTecnica = () => {
                   xl={validaFecha?11:7}
                   lg={validaFecha?11:6}
                   md={validaFecha?11:6}
-                  sm={validaFecha?11:7}
+                  sm={validaFecha?11:11}
+                  xs={validaFecha?11:11}
                 >
                 <Paper
                   component="form"
@@ -855,7 +890,7 @@ export const FichaTecnica = () => {
                     //mt: 1,
                   },
                   "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "red",
+                    //backgroundColor: "red",
                     //outline: "1px solid slategrey",
                     borderRadius: 1,
                   },

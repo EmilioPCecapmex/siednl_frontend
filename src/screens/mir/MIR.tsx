@@ -40,7 +40,6 @@ export let setResumeDefaultMIR = () => {
   resumeDefaultMIR = !resumeDefaultMIR;
 };
 
-
 export const MIR = () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -92,9 +91,9 @@ export const MIR = () => {
       })
       .then((r) => {
         if (r.status === 200) {
-          let aux=r.data.data
-          
-          aux.unshift( {
+          let aux = r.data.data;
+
+          aux.unshift({
             ClaveSiregob: null,
             ControlInterno: "",
             Direccion: "",
@@ -108,8 +107,8 @@ export const MIR = () => {
             NombreTipoEntidad: "",
             Telefono: "",
             Titular: "",
-            UltimaActualizacion: ""
-          })
+            UltimaActualizacion: "",
+          });
           setstate(aux);
         }
       });
@@ -117,12 +116,10 @@ export const MIR = () => {
 
   useEffect(() => {
     setShowResume(true);
-   
   }, []);
 
   const returnMain = () => {
     setShowResume(true);
-    
   };
   const validaFechaCaptura = () => {
     axios
@@ -294,8 +291,6 @@ export const MIR = () => {
   };
 
   useEffect(() => {
-   
-
     getInstituciones(setInstituciones);
   }, []);
 
@@ -359,12 +354,11 @@ export const MIR = () => {
         URL.revokeObjectURL(href);
       })
       .catch((err) => {
-        alertaError("Error al intentar descargar el documento.")
+        alertaError("Error al intentar descargar el documento.");
         // Toast.fire({
         //   icon: "error",
         //   title: "Error al intentar descargar el documento.",
         // });
-
       });
   };
   ///////////////////////////////////////
@@ -517,89 +511,110 @@ export const MIR = () => {
                   direction: "row",
                 }}
               >
-                <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
-                  <Tooltip
-                    PopperProps={{
-                      modifiers: [
-                        {
-                          name: "offset",
-                          options: {
-                            offset: [0, -13],
+                {localStorage.getItem("Rol") === "Administrador" ? (
+                  <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                    <Tooltip
+                      PopperProps={{
+                        modifiers: [
+                          {
+                            name: "offset",
+                            options: {
+                              offset: [0, -13],
+                            },
                           },
-                        },
-                      ],
-                    }}
-                    title={findInstStr}
-                  >
-                    <FormControl fullWidth>
-                      <InputLabel sx={queries.text}>
-                        <Tooltip
-                          PopperProps={{
-                            modifiers: [
-                              {
-                                name: "offset",
-                                options: {
-                                  offset: [0, -13],
+                        ],
+                      }}
+                      title={findInstStr}
+                    >
+                      <FormControl fullWidth>
+                        <InputLabel sx={queries.text}>
+                          <Tooltip
+                            PopperProps={{
+                              modifiers: [
+                                {
+                                  name: "offset",
+                                  options: {
+                                    offset: [0, -13],
+                                  },
                                 },
-                              },
-                            ],
-                          }}
-                          title={"FILTRO POR INSTITUCION"}
-                        >
-                          <span>FILTRO POR INSTITUCION</span>
-                        </Tooltip>
-                      </InputLabel>
-                      <Select
-                        size="small"
-                        variant="outlined"
-                        label="FILTRO POR INSTITUCION"
-                        value={institucionesb}
-                        disabled={
-                          localStorage.getItem("Rol") !== "Administrador"
-                        }
-                        sx={{
-                          fontFamily: "MontserratRegular",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          // textAlign: "center",
-                          fontSize: [10, 10, 15, 15, 18, 20], // Tamaños de fuente para diferentes breakpoints
-                          // color: "#AF8C55"
-                        }}
-                        fullWidth
-                        onChange={(v) => {
-                          //setFindInstStr(v.target.value);
-                          
-                          setInstitucionesb(v.target.value);
-                        }}
-                      >
-                        <MenuItem
+                              ],
+                            }}
+                            title={"FILTRO POR INSTITUCION"}
+                          >
+                            <span>FILTRO POR INSTITUCION</span>
+                          </Tooltip>
+                        </InputLabel>
+                        <Select
+                          size="small"
+                          variant="outlined"
+                          label="FILTRO POR INSTITUCION"
                           value={institucionesb}
-                          sx={{ fontFamily: "MontserratRegular" }}
+                          disabled={
+                            localStorage.getItem("Rol") !== "Administrador"
+                          }
+                          sx={{
+                            fontFamily: "MontserratRegular",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            fontSize: [10, 10, 15, 15, 18, 20],
+                          }}
+                          fullWidth
+                          onChange={(v) => {
+                            setInstitucionesb(v.target.value);
+                          }}
                         >
-                          TODOS
-                        </MenuItem>
+                          <MenuItem
+                            value={institucionesb}
+                            sx={{ fontFamily: "MontserratRegular" }}
+                          >
+                            TODOS
+                          </MenuItem>
 
-                        {instituciones?.map((item) => {
-                          return (
+                          {instituciones?.map((item) => (
                             <MenuItem value={item.Nombre} key={item.Id}>
                               {item.Nombre}
                             </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Tooltip>
-                </Grid>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Tooltip>
+                  </Grid>
+                ) : null}
 
                 <Grid
                   // sx={{ fontFamily: "MontserratRegular" }}
                   item
-                  xl={5}
-                  lg={5}
-                  md={5}
-                  sm={5}
-                  xs={5}
+                  xl={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                  lg={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                  md={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                  sm={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                  xs={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
                 >
                   <Tooltip
                     PopperProps={{
@@ -681,10 +696,11 @@ export const MIR = () => {
                     </FormControl>
                   </Tooltip>
                 </Grid>
+
                 {localStorage.getItem("Rol") === "Administrador" && (
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
-                   // disabled ={estadomir === "Todos" && institucionesb === "Todos" }
+                      // disabled ={estadomir === "Todos" && institucionesb === "Todos" }
                       onClick={() => {
                         buscador(estadomir, institucionesb);
                       }}
@@ -803,7 +819,7 @@ export const MIR = () => {
                   </Paper>
                 </Grid>
 
-                <Grid item xl={3} lg={3} md={4} sm={3}>
+                <Grid item xl={3} lg={3} md={4} sm={4} xs={4}>
                   <Button
                     disabled={!validaFecha}
                     className="aceptar"
@@ -811,8 +827,8 @@ export const MIR = () => {
                       //backgroundColor: "#c2a37b",
                       // width: "10vw",
                       // height: "3.3vh",
-                      width: ["80px", "120px", "160px", "180px", "250px"],
-                      height: ["30px", "20px", "30px", "40px", "50px"],
+                      width: ["100px", "120px", "160px", "180px", "250px"],
+                      height: ["40px", "40px", "40px", "40px", "50px"],
                       //color: "black",
                       fontFamily: "MontserratMedium",
                       fontSize: [5, 7, 10, 12, 16, 20],
@@ -1102,7 +1118,8 @@ export const MIR = () => {
                                       localStorage.getItem("Rol") ===
                                         "Verificador"
                                     ? false
-                                    : (row.Estado === "En Autorización" || row.Estado === "Autorizada" ) &&
+                                    : (row.Estado === "En Autorización" ||
+                                        row.Estado === "Autorizada") &&
                                       localStorage.getItem("Rol") ===
                                         "Administrador"
                                     ? false
@@ -1205,7 +1222,6 @@ export const MIR = () => {
                                 </span>
                               </Tooltip>
                             </Grid>
-                            
                           </TableCell>
                         </TableRow>
                       ))}
