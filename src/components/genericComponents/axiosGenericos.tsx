@@ -57,3 +57,26 @@ export const obtenerComentarios = async (id: string,  state: Function) => {
       // Puedes manejar el error según tus necesidades
     }
   };
+
+  export const getObtenerUsuariosRol = (Rol: string,) => {
+    axios.post(
+      process.env.REACT_APP_APPLICATION_BACK + "/api/list-Usuarios-notif",
+      {
+        Rol: Rol,
+        IdEntidad: localStorage.getItem("IdEntidad"),
+        IdApp: localStorage.getItem("IdApp"),
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    )
+    .then((r) => {
+     
+    
+    })
+    .catch((err) => {
+     
+    });
+  };
