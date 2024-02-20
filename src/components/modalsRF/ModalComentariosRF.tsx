@@ -23,7 +23,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
-import { create_coment_mir, enviarNotificacion, obtenerComentarios } from "../genericComponents/axiosGenericos";
+import { create_coment_mir, soliModyNoty, obtenerComentarios } from "../genericComponents/axiosGenericos";
 
 export const ComentDialogRF = ({
   estado,
@@ -75,7 +75,7 @@ export const ComentDialogRF = ({
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
           userXInst.map((user) => {
-            enviarNotificacion(user.IdUsuario, coment,  "Nuevo comentario RF", id  );
+            soliModyNoty(user.IdUsuario, coment,  "Nuevo comentario RF", id  );
           });
         }
 

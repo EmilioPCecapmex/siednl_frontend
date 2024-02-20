@@ -16,7 +16,7 @@ import {
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 import { alertaEliminar, alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
-import { create_coment_mir, enviarNotificacion } from "../genericComponents/axiosGenericos";
+import { create_coment_mir, soliModyNoty } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -513,7 +513,7 @@ export default function ModalSolicitaModif({
         : "Ficha Tecnica enviada").toUpperCase())
        
         
-        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "FT", IdFT );
+        soliModyNoty(userSelected, "Se le ha solicitado una modificación.", "FT", IdFT );
         handleClose();
         showResume();
       })

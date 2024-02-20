@@ -21,7 +21,7 @@ import {
   IRF,
 } from "../tabsRaffi/interfacesRaffi";
 import { alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExitoConfirm } from "../genericComponents/Alertas";
-import { create_coment_mir, enviarNotificacion } from "../genericComponents/axiosGenericos";
+import { create_coment_mir, soliModyNoty } from "../genericComponents/axiosGenericos";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModifRF({
@@ -235,7 +235,7 @@ export default function ModalSolicitaModifRF({
         : "RAFFI enviada").toUpperCase())
 
       
-        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "RF", IdRF );
+        soliModyNoty(userSelected, "Se le ha solicitado una modificación.", "RF", IdRF );
         handleClose();
         showResume();
       })

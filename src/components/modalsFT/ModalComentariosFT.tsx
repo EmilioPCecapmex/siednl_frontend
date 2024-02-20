@@ -22,7 +22,7 @@ import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { queries } from "../../queries";
 import { alertaEliminar, alertaError, alertaExito } from "../genericComponents/Alertas";
-import { create_coment_mir, enviarNotificacion, obtenerComentarios } from "../genericComponents/axiosGenericos";
+import { create_coment_mir, soliModyNoty, obtenerComentarios, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
 
 export const ComentDialogFT = ({
   estado,
@@ -72,9 +72,11 @@ export const ComentDialogFT = ({
       .then((r) => {
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
-          userXInst.map((user) => {
-            enviarNotificacion(user.IdUsuario, coment, "Nuevo comentario Ficha Tecnica", id );
-          });
+
+          // userXInst.map((user) => {
+          //   soliModyNoty(user.IdUsuario, coment, "Nuevo comentario Ficha Tecnica", id );
+          // });
+          enviarNotificacionRol("FT", "Nuevo comentario Ficha Tecnica", id, ["Verificador"])
         }
 
         setNewComent(false);

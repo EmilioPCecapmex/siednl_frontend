@@ -22,7 +22,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "./ModalEnviarMIR";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
-import { create_coment_mir, enviarNotificacion, obtenerComentarios } from "../genericComponents/axiosGenericos";
+import { create_coment_mir, soliModyNoty, obtenerComentarios, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
 
 export const ComentDialogMir = ({
   estado,
@@ -108,9 +108,7 @@ export const ComentDialogMir = ({
       .then((r) => {
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
-          userXInst.map((user) => {
-            enviarNotificacion(user.IdUsuario, coment,  "Nuevo comentario MIR", id  );
-          });
+          enviarNotificacionRol("FT", "Nuevo comentario Ficha Tecnica", id, ["Verificador"])
         }
        
         setNewComent(false);

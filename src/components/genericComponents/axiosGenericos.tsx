@@ -1,15 +1,36 @@
 import axios from "axios";
 
 
- export const enviarNotificacion = (v: string, coment: string, titulo: string, Id: string) => {
+ export const soliModyNoty = (v: string, coment: string, titulo: string, Id: string) => {
     axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/soly-notif",
       {
         IdUsuarioDestino: v,
         Titulo: titulo,
         Mensaje: coment,
         CreadoPor: localStorage.getItem("IdUsuario"),
         IdDocumento: Id
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    );
+  };
+
+  export const enviarNotificacionRol = (titulo: string, coment: string, Id: string, Rol: string[]) => {
+    axios.post(
+      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
+      {
+        Titulo: titulo,
+        Mensaje: coment,
+        IdDocumento: Id,
+        Rol: Rol,
+        IdEntidad: localStorage.getItem("IdEntidad"),
+        IdApp: localStorage.getItem("IdApp"),
+        CreadoPor: localStorage.getItem("IdUsuario"),
+        
       },
       {
         headers: {

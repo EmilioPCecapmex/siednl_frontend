@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
-import { create_coment_mir, enviarNotificacion } from "../genericComponents/axiosGenericos";
+import { create_coment_mir, soliModyNoty } from "../genericComponents/axiosGenericos";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -553,7 +553,7 @@ export default function ModalSolicitaModif({
                : "Meta anual enviada ").toUpperCase());
 
         
-        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "MA",IdMA );
+        soliModyNoty(userSelected, "Se le ha solicitado una modificación.", "MA",IdMA );
         handleClose();
         showResume();
       })

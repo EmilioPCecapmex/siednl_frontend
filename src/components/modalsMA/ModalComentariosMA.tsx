@@ -23,7 +23,7 @@ import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 
 import "../../../src/Globals.css"
 import {alertaExito, alertaError, alertaInfo} from "../genericComponents/Alertas";
-import { create_coment_mir, enviarNotificacion, obtenerComentarios } from "../genericComponents/axiosGenericos";
+import { create_coment_mir, soliModyNoty, obtenerComentarios, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
 
 export const ComentDialogMA = ({
   estado,
@@ -99,9 +99,20 @@ export const ComentDialogMA = ({
       .then((r) => {
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
-          userXInst.map((user) => {
-            enviarNotificacion(user.IdUsuario, coment, "Nuevo comentario Meta Anual", id );
-          });
+          let rol: string[] = [];
+        if(localStorage.getItem("Rol") === "Verificador"){
+          rol = ["Administrador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Capturador"){
+          rol = ["Verificador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Administrador"){
+          rol = ["Capturador","Verificador"]
+        }
+
+        enviarNotificacionRol("MA", "MA enviada", id, rol)
         }
 
         setNewComent(false);

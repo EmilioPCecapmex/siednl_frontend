@@ -20,7 +20,7 @@ import {
   alertaExito,
   alertaExitoConfirm,
 } from "../genericComponents/Alertas";
-import { create_coment_mir } from "../genericComponents/axiosGenericos";
+import { create_coment_mir, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -383,10 +383,20 @@ export default function ModalEnviarFT({
         }
       )
       .then((r) => {
-        userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario, IdFT, "FT", "Ficha Tecnica");
-          //sendMail(user.CorreoElectronico, enviarMensaje, "FT");
-        });
+        let rol: string[] = [];
+        if(localStorage.getItem("Rol") === "Verificador"){
+          rol = ["Administrador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Capturador"){
+          rol = ["Verificador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Administrador"){
+          rol = ["Capturador","Verificador"]
+        }
+
+        enviarNotificacionRol("FT", "FT enviada", IdFT, rol)
 
         alertaExitoConfirm(r.data.data.message.toUpperCase());
 
@@ -425,28 +435,28 @@ export default function ModalEnviarFT({
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (
-    IdUsuarioDestino: string,
-    IdDoc = "",
-    tipoDoc = "",
-    Nombre = ""
-  ) => {
-    axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
-      {
-        IdUsuarioDestino: IdUsuarioDestino,
-        Titulo: tipoDoc,
-        Mensaje: enviarMensaje + " " + Nombre,
-        IdDocumento: IdDoc,
-        CreadoPor: localStorage.getItem("IdUsuario"),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    );
-  };
+  // const soliModyNoty = (
+  //   IdUsuarioDestino: string,
+  //   IdDoc = "",
+  //   tipoDoc = "",
+  //   Nombre = ""
+  // ) => {
+  //   axios.post(
+  //     process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
+  //     {
+  //       IdUsuarioDestino: IdUsuarioDestino,
+  //       Titulo: tipoDoc,
+  //       Mensaje: enviarMensaje + " " + Nombre,
+  //       IdDocumento: IdDoc,
+  //       CreadoPor: localStorage.getItem("IdUsuario"),
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     }
+  //   );
+  // };
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>

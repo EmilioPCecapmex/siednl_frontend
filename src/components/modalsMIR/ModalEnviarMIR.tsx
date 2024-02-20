@@ -24,7 +24,7 @@ import { IComponentesFT, IFT } from "../tabsFichaTecnica/Interfaces";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { alertaEliminar, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
 import { IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
-import { create_coment_mir } from "../genericComponents/axiosGenericos";
+import { create_coment_mir, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -556,11 +556,20 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
-        userXInst.map((user) => {
+        let rol: string[] = [];
+        if(localStorage.getItem("Rol") === "Verificador"){
+          rol = ["Administrador"]
+        }
 
-          //enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
-      
-        });
+        if(localStorage.getItem("Rol") === "Capturador"){
+          rol = ["Verificador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Administrador"){
+          rol = ["Capturador","Verificador"]
+        }
+
+        enviarNotificacionRol("MIR", "MIR enviada", IdMir, rol)
         showResume();
       })
       .catch((err) => {
@@ -598,10 +607,24 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
-        userXInst.map((user) => {
+        // userXInst.map((user) => {
           
-        //  enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
-        });
+        //  soliModyNoty(user.IdUsuario, r.data.data.ID, "MIR");
+        // });
+        let rol: string[] = [];
+        if(localStorage.getItem("Rol") === "Verificador"){
+          rol = ["Administrador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Capturador"){
+          rol = ["Verificador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Administrador"){
+          rol = ["Capturador","Verificador"]
+        }
+
+        enviarNotificacionRol("MIR", "MIR enviada", IdMir, rol)
 
         if (estado === "Autorizada") {
           CrearMetaAnual(r.data.data.Id, IdMir);
@@ -653,7 +676,7 @@ export default function ModalEnviarMIR({
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (
+  const soliModyNoty = (
     IdUsuarioDestino: string,
     IdDoc = "",
     Nombre = ""

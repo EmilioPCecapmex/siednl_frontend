@@ -18,7 +18,7 @@ import {
 import { IActividad, IComponente } from "../tabsMir/interfaces mir/IMIR";
 
 import { alertaError, alertaErroresDocumento, alertaExito } from "../genericComponents/Alertas";
-import { create_coment_mir, enviarNotificacion } from "../genericComponents/axiosGenericos";
+import { create_coment_mir, soliModyNoty } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -395,7 +395,7 @@ export default function ModalSolicitaModif({
         );
         console.log(IdMir,"IdMirS");
         
-        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "MIR", IdMir );
+        soliModyNoty(userSelected, "Se le ha solicitado una modificación.", "MIR", IdMir );
         handleClose();
         showResume();
       })

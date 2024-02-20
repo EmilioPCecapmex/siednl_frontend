@@ -7,7 +7,7 @@ export const WelcomeBox = () => {
   const firstSign = localStorage.getItem("FirstSignIn");
     const [welcomeBoxValue, setWelcomeBoxValue] = useState(firstSign);
 
-    const enviarNotificacion = (v: string) => {
+    const soliModyNoty = (v: string) => {
       axios.post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
         {
@@ -26,7 +26,7 @@ export const WelcomeBox = () => {
   
     useEffect(() => {
       if (localStorage.getItem("FirstSignIn") === '1') {
-        enviarNotificacion(localStorage.getItem("IdUsuario") || '');
+        soliModyNoty(localStorage.getItem("IdUsuario") || '');
       }
     }, [])
 

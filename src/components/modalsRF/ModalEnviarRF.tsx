@@ -13,7 +13,7 @@ import {
 import { queries } from "../../queries";
 import { IActividadesRF, IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
 import { alertaErrorConfirm, alertaErroresDocumento, alertaExitoConfirm } from "../genericComponents/Alertas";
-import { create_coment_mir } from "../genericComponents/axiosGenericos";
+import { create_coment_mir, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -188,10 +188,20 @@ export default function ModalEnviarRF({
       )
       .then((r) => {
         
-        userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario, r.data.data.Id, "RF", "Raffi");
-     
-        });
+        let rol: string[] = [];
+        if(localStorage.getItem("Rol") === "Verificador"){
+          rol = ["Administrador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Capturador"){
+          rol = ["Verificador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Administrador"){
+          rol = ["Capturador","Verificador"]
+        }
+
+        enviarNotificacionRol("RF", "RF enviada", IdMA, rol)
         if (estado === "Autorizada") {
           // CrearFichaTecnica();  
         }
@@ -234,24 +244,7 @@ export default function ModalEnviarRF({
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (IdUsuarioDestino: string, IdDoc="",tipoDoc ="", Nombre ="") => {
-   
-    axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
-      {
-        IdUsuarioDestino: IdUsuarioDestino,
-        Titulo: tipoDoc,
-        Mensaje:  enviarMensaje + " "+ Nombre,
-        IdDocumento: IdDoc,
-        CreadoPor: localStorage.getItem("IdUsuario"),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    );
-  };
+  
 
 
 
