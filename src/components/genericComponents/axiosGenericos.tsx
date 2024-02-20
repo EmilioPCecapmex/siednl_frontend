@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
- export const enviarNotificacion = (v: string, coment: string, titulo: string) => {
+ export const enviarNotificacion = (v: string, coment: string, titulo: string, Id: string) => {
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
@@ -9,6 +9,7 @@ import axios from "axios";
         Titulo: titulo,
         Mensaje: coment,
         CreadoPor: localStorage.getItem("IdUsuario"),
+        IdDocumento: Id
       },
       {
         headers: {

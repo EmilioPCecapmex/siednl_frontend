@@ -235,7 +235,7 @@ export default function ModalSolicitaModifRF({
         : "RAFFI enviada").toUpperCase())
 
       
-        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "RF" );
+        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "RF", IdRF );
         handleClose();
         showResume();
       })

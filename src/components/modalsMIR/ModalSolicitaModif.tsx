@@ -393,8 +393,9 @@ export default function ModalSolicitaModif({
             ? "MIR enviada a capturador"
             : "MIR enviada a revisión",
         );
+        console.log(IdMir,"IdMirS");
         
-        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "MIR" );
+        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "MIR", IdMir );
         handleClose();
         showResume();
       })

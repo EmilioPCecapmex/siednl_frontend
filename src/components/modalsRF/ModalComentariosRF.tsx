@@ -75,8 +75,7 @@ export const ComentDialogRF = ({
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
           userXInst.map((user) => {
-           
-            enviarNotificacion(user.IdUsuario, coment,  "Nuevo comentario RF",  );
+            enviarNotificacion(user.IdUsuario, coment,  "Nuevo comentario RF", id  );
           });
         }
 

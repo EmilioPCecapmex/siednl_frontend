@@ -100,7 +100,7 @@ export const ComentDialogMA = ({
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
           userXInst.map((user) => {
-            enviarNotificacion(user.IdUsuario, coment, "Nuevo comentario Meta Anual" );
+            enviarNotificacion(user.IdUsuario, coment, "Nuevo comentario Meta Anual", id );
           });
         }
 

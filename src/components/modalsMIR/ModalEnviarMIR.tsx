@@ -558,7 +558,7 @@ export default function ModalEnviarMIR({
       .then((r) => {
         userXInst.map((user) => {
 
-          enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
+          //enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
       
         });
         showResume();
@@ -600,7 +600,7 @@ export default function ModalEnviarMIR({
       .then((r) => {
         userXInst.map((user) => {
           
-          enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
+        //  enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
         });
 
         if (estado === "Autorizada") {

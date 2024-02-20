@@ -553,7 +553,7 @@ export default function ModalSolicitaModif({
                : "Meta anual enviada ").toUpperCase());
 
         
-        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "MA" );
+        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "MA",IdMA );
         handleClose();
         showResume();
       })

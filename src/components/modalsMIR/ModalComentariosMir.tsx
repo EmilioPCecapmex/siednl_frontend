@@ -109,7 +109,7 @@ export const ComentDialogMir = ({
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
           userXInst.map((user) => {
-            enviarNotificacion(user.IdUsuario, coment,  "Nuevo comentario MIR",  );
+            enviarNotificacion(user.IdUsuario, coment,  "Nuevo comentario MIR", id  );
           });
         }
        

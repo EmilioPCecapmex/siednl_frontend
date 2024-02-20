@@ -73,7 +73,7 @@ export const ComentDialogFT = ({
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
           userXInst.map((user) => {
-            enviarNotificacion(user.IdUsuario, coment, "Nuevo comentario Ficha Tecnica" );
+            enviarNotificacion(user.IdUsuario, coment, "Nuevo comentario Ficha Tecnica", id );
           });
         }
 

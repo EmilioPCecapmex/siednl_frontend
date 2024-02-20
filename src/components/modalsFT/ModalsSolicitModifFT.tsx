@@ -513,7 +513,7 @@ export default function ModalSolicitaModif({
         : "Ficha Tecnica enviada").toUpperCase())
        
         
-        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "FT" );
+        enviarNotificacion(userSelected, "Se le ha solicitado una modificación.", "FT", IdFT );
         handleClose();
         showResume();
       })
