@@ -2491,7 +2491,7 @@ export function TabResumen({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+          sx={{ justifyContent: "center", display: "flex", }}
           item
           xl={3}
           lg={3}
