@@ -549,9 +549,7 @@ export const PanelUsuarios = () => {
                                   <EditIcon
                                     sx={[
                                       {
-                                        "&:hover": {
-                                          color: "blue",
-                                        },
+                                        
                                         width: "1.2vw",
                                         height: "1.2vw",
                                       },
