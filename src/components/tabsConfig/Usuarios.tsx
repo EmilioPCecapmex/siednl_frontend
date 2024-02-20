@@ -1,18 +1,8 @@
-import { useEffect, useState } from "react";
-import { Box, Grid } from "@mui/material";
-import { LateralMenu } from "../lateralMenu/LateralMenu";
-import { Button, Typography, Input } from "@mui/material";
-import { Header } from "../header/Header";
-import SearchIcon from "@mui/icons-material/Search";
-import DataTable from "../datatable/DataTable";
-import ModalCrearUsuario from "../modalUsuarios/ModalCrearUsuario";
-import AddLinkIcon from "@mui/icons-material/AddLink";
-import ModalVincularUsuario from "../modalUsuarios/ModalVincularUsuario";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import SendIcon from "@mui/icons-material/Send";
-import ScheduleSendIcon from "@mui/icons-material/ScheduleSend";
-import DialogSolicitudes from "../solicitudes/DialogSolicitudes";
+import {useEffect} from "react";
+import { Grid, Tooltip, IconButton } from "@mui/material";
+import {useNavigate} from "react-router-dom";
 import IFrame from "./AgregarUsuarios";
+import { GridCloseIcon } from "@mui/x-data-grid";
 
 export const getToken = () => {
   let token = localStorage.getItem("jwtToken");
@@ -46,33 +36,15 @@ export default function Usuarios({
       <Grid container rowSpacing={3}>
         <Grid container item width={"100%"} display={"flex"} justifyContent={"flex-end"}
         sx={{height: "8vh"}}>
-     
-            <Button
-              sx={{
-                // backgroundColor: "#15212f",
-                backgroundColor: "#912c34",
-                color: "white",
-                "&&:hover": {
-                  backgroundColor: "rgba(47, 47, 47, 0.4)",
-                  color: "#000",
-                },
-                //fontSize: "90%",
-                borderRadius: "0.8vh",
-                textTransform: "capitalize",
-                fontSize: "50%",
-                "@media (min-width: 480px)": {
-                  fontSize: "70%",
-                },
-
-                "@media (min-width: 768px)": {
-                  fontSize: "80%",
-                },
-                mr:"2vw",
-              }}
+            <Tooltip title={"Salir"}>
+            <IconButton
               onClick={() => showResumen()}
             >
-              x
-            </Button>
+              <GridCloseIcon sx={{
+                fontSize: [30, 30, 30, 40, 40]
+              }} />
+            </IconButton>
+          </Tooltip>
          
         </Grid>
         <Grid item
