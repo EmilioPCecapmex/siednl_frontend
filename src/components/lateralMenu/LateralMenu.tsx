@@ -4,7 +4,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 import GroupIcon from "@mui/icons-material/Group";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
@@ -26,7 +26,7 @@ import {
   Tooltip,
   Typography,
   useMediaQuery,
-  useTheme
+  useTheme,
 } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Collapse from "@mui/material/Collapse";
@@ -48,8 +48,8 @@ import { getAyuda } from "../../screens/Ayuda/ServicesAyuda";
 import { VisualizadorAyudas } from "../../screens/Ayuda/VisualizadorAyudas";
 //import { getAllusers } from "../../screens/config/GetUsuarios";
 import HelpIcon from "@mui/icons-material/Help";
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 
 interface MenuObject {
   Id: string;
@@ -76,7 +76,6 @@ interface MenuProps {
 
 export const IconsMenu = (icon: string) => {
   switch (icon) {
-
     case "HomeOutlinedIcon":
       return <HomeOutlinedIcon />;
     case "FolderOutlinedIcon":
@@ -107,7 +106,6 @@ export const IconsMenu = (icon: string) => {
   }
 };
 
-
 export const LateralMenu = ({
   selection,
   actionNumber,
@@ -117,10 +115,9 @@ export const LateralMenu = ({
   actionNumber: number;
   settingsCard?: Function;
 }) => {
-
   const menus: MenuObject[] =
     localStorage.getItem("Menus") !== undefined &&
-      localStorage.getItem("Menus") !== null
+    localStorage.getItem("Menus") !== null
       ? JSON.parse(localStorage.getItem("Menus")!)
       : [];
 
@@ -444,16 +441,15 @@ export const LateralMenu = ({
     item: MenuObject[]; // Esto es para el arreglo de objetos anidados, si los hay
   }
 
-  let idMenu = localStorage.getItem("IdMenuACtual") || ""
+  let idMenu = localStorage.getItem("IdMenuACtual") || "";
 
-
-  const [arrayAyudas, setArrayAyudas] = useState<any[]>([])
+  const [arrayAyudas, setArrayAyudas] = useState<any[]>([]);
 
   const [openVAyudas, setOpenVAyudas] = useState(false);
   const [option, setOption] = useState("Videos");
 
   function handleCloseVAyudas() {
-    setOpenVAyudas(false)
+    setOpenVAyudas(false);
   }
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -471,28 +467,26 @@ export const LateralMenu = ({
       setOpen(!open);
     };
 
-
     if (data.item.length !== 0) {
       return (
         <>
           <ListItemButton onClick={handleToggle} sx={{ width: "98%" }}>
-            <ListItemIcon>
-              {IconsMenu(data.Icon || "")}
-            </ListItemIcon>
+            <ListItemIcon>{IconsMenu(data.Icon || "")}</ListItemIcon>
             <ListItemText primary={data.Menu} sx={{ width: "100%" }} />
             {data.item && data.item.length > 0 && (
-              <ListItemIcon sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <ListItemIcon
+                sx={{ display: "flex", justifyContent: "flex-end" }}
+              >
                 {open ? <ExpandLess /> : <ExpandMore />}
               </ListItemIcon>
             )}
           </ListItemButton>
           {data.item && data.item.length > 0 && (
             <Collapse in={open} timeout="auto" unmountOnExit>
-
               <List component="div" disablePadding sx={{ ml: "2vw" }}>
-                {data.item.map((subItem) =>
-                  <RecursiveMenu key={subItem.Id} data={subItem} />)}
-
+                {data.item.map((subItem) => (
+                  <RecursiveMenu key={subItem.Id} data={subItem} />
+                ))}
               </List>
             </Collapse>
           )}
@@ -501,40 +495,62 @@ export const LateralMenu = ({
     } else {
       return (
         <Grid>
-          <ListItemButton onClick={() => {
-            localStorage.setItem("IdMenuActual", data.Id);
-            if (data.Path.includes("setting")) {
-              goSettings();
-            } else { exitAlert(data.Path) }
-          }} sx={{ width: "98%" }}>
-            <ListItemIcon>
-              {IconsMenu(data.Icon || "")}
-            </ListItemIcon>
+          <ListItemButton
+            onClick={() => {
+              localStorage.setItem("IdMenuActual", data.Id);
+              if (data.Path.includes("setting")) {
+                goSettings();
+              } else {
+                exitAlert(data.Path);
+              }
+            }}
+            sx={{ width: "98%" }}
+          >
+            <ListItemIcon>{IconsMenu(data.Icon || "")}</ListItemIcon>
             <ListItemText primary={data.Menu} sx={{ width: "98%" }} />
             <Grid
               visibility={
-                localStorage.getItem("IdMenuActual") === data.Id ? "visible" : "hidden"
+                localStorage.getItem("IdMenuActual") === data.Id
+                  ? "visible"
+                  : "hidden"
               }
               sx={{ ...st.selectedBox, width: "2%" }}
             />
           </ListItemButton>
-
-        </Grid>)
+        </Grid>
+      );
     }
-
-  }
-
-
+  };
 
   return (
     <Grid
       container
-      sx={{ alignItems: "center", justifyContent: "space-between", height: "100%", }}
+      sx={{
+        alignItems: "center",
+        justifyContent: "space-between",
+        height: "100%",
+      }}
     >
       <AppBar position="static">
         <Toolbar variant="dense" sx={{ height: "7vh", width: "100vw" }}>
-          <Grid container sx={{ height: "7vh", width: "100vw", display: "flex"}}>
-            <Grid container item xl={8} lg={8} md={5} sm={8} xs={8} sx={{ display: "flex", alignItems: "center",justifyContent:"flex-start" }}>
+          <Grid
+            container
+            sx={{ height: "7vh", width: "100vw", display: "flex" }}
+          >
+            <Grid
+              container
+              item
+              xl={8}
+              lg={8}
+              md={5}
+              sm={8}
+              xs={8}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-start",
+              }}
+            >
               <Grid item xl={1} lg={1} md={1} sm={3} xs={3}>
                 <Tooltip title="Menu Lateral">
                   <IconButton
@@ -560,15 +576,22 @@ export const LateralMenu = ({
               </Grid>
             </Grid>
 
-            <Grid container item xl={4} lg={4} md={4} sm={4} xs={4} sx={{ display: "flex", alignItems: "center",justifyContent:"flex-end" }}>
-              <Grid
-                display={"flex"}
-                justifyContent={"flex-end"}
-              >
-                <IconButton
-                  color="inherit"
-                  onClick={handleMenu}
-                >
+            <Grid
+              container
+              item
+              xl={4}
+              lg={4}
+              md={4}
+              sm={4}
+              xs={4}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+              }}
+            >
+              <Grid display={"flex"} justifyContent={"flex-end"}>
+                <IconButton color="inherit" onClick={handleMenu}>
                   {IconsMenu("InfoOutlinedIcon")}
                 </IconButton>
 
@@ -576,27 +599,62 @@ export const LateralMenu = ({
                   id="menu-appbar"
                   anchorEl={anchorEl}
                   anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                   keepMounted
                   transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Videos", "1"); setOpenVAyudas(true); setOption("Videos") }}>{IconsMenu("OndemandVideoIcon")} VER TUTORIALES </MenuItem>}
-                  {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Guías", "1"); setOpenVAyudas(true); setOption("Guías") }}>{IconsMenu("MenuBookIcon")} VER GUÍAS </MenuItem>}
-                  {<MenuItem onClick={() => { getAyuda(setArrayAyudas, "1", "Preguntas", "1"); setOpenVAyudas(true); setOption("Preguntas") }}>{IconsMenu("HelpIcon")} PREGUNTAS </MenuItem>}
-
+                  {
+                    <MenuItem
+                      onClick={() => {
+                        getAyuda(setArrayAyudas, "1", "Videos", "1");
+                        setOpenVAyudas(true);
+                        setOption("Videos");
+                      }}
+                    >
+                      {IconsMenu("OndemandVideoIcon")} VER TUTORIALES{" "}
+                    </MenuItem>
+                  }
+                  {
+                    <MenuItem
+                      onClick={() => {
+                        getAyuda(setArrayAyudas, "1", "Guías", "1");
+                        setOpenVAyudas(true);
+                        setOption("Guías");
+                      }}
+                    >
+                      {IconsMenu("MenuBookIcon")} VER GUÍAS{" "}
+                    </MenuItem>
+                  }
+                  {
+                    <MenuItem
+                      onClick={() => {
+                        getAyuda(setArrayAyudas, "1", "Preguntas", "1");
+                        setOpenVAyudas(true);
+                        setOption("Preguntas");
+                      }}
+                    >
+                      {IconsMenu("HelpIcon")} PREGUNTAS{" "}
+                    </MenuItem>
+                  }
                 </Menu>
-
               </Grid>
 
-              {openVAyudas ? <VisualizadorAyudas handleClose={() => { handleCloseVAyudas() }} arrayAyudas={arrayAyudas} value={option} /> : null}
-
+              {openVAyudas ? (
+                <VisualizadorAyudas
+                  handleClose={() => {
+                    handleCloseVAyudas();
+                  }}
+                  arrayAyudas={arrayAyudas}
+                  value={option}
+                />
+              ) : null}
 
               <Grid>
                 <NotificationsPanel />
@@ -605,12 +663,6 @@ export const LateralMenu = ({
           </Grid>
 
           {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}> */}
-
-
-
-
-
-
         </Toolbar>
         <Drawer
           anchor="left"
@@ -619,19 +671,44 @@ export const LateralMenu = ({
         >
           <Grid
             container
-            sx={{ width: ["100vw", "100vw", "60vw", "40vw", "30vw"], height: "100vh" }}>
+            sx={{
+              width: ["100vw", "100vw", "60vw", "40vw", "30vw"],
+              height: "100vh",
+            }}
+          >
             <Grid
               item
               container
-              sx={{ width: "100%", height: "40vh", alignContent: "flex-start", display: "flex" }}>
-
-
-              <Grid sx={{ height: "7vh", width: "100%", justifyContent: "center", display: "flex", alignItems: "center", mt: "1vh" }}>
-                <img src={logo} alt="Logo" height={"100%"}  />
+              sx={{
+                width: "100%",
+                height: "40vh",
+                alignContent: "flex-start",
+                display: "flex",
+              }}
+            >
+              <Grid
+                sx={{
+                  height: "7vh",
+                  width: "100%",
+                  justifyContent: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  mt: "1vh",
+                }}
+              >
+                <img src={logo} alt="Logo" height={"100%"} />
               </Grid>
 
-
-              <Grid sx={{ height: "7vh", width: "100%", justifyContent: "center", display: "flex", alignItems: "center", mt: "1vh" }}>
+              <Grid
+                sx={{
+                  height: "7vh",
+                  width: "100%",
+                  justifyContent: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  mt: "1vh",
+                }}
+              >
                 <Typography
                   sx={{ textAlign: "center", fontFamily: "MontserratSemiBold" }}
                 >
@@ -639,8 +716,15 @@ export const LateralMenu = ({
                 </Typography>
               </Grid>
 
-
-              <Grid sx={{ width: "100%", height: "11vh", justifyContent: "center", display: "flex", alignItems: "center", }}>
+              <Grid
+                sx={{
+                  width: "100%",
+                  height: "11vh",
+                  justifyContent: "center",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
                 <Avatar
                   style={{
                     backgroundColor: stringToColor(
@@ -661,7 +745,16 @@ export const LateralMenu = ({
                 </Avatar>
               </Grid>
 
-              <Grid sx={{ ...st.userInfoBox, width: "100%", height: "7vh", alignItems: "center", display: "flex", flexDirection: "column" }}>
+              <Grid
+                sx={{
+                  ...st.userInfoBox,
+                  width: "100%",
+                  height: "7vh",
+                  alignItems: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
                 {localStorage.getItem("NombreUsuario")}
                 <Typography sx={st.rolStyle}>
                   {localStorage.getItem("Rol") === "Administrador"
@@ -670,8 +763,19 @@ export const LateralMenu = ({
                 </Typography>
               </Grid>
 
-              <Grid sx={{ ...st.userInfoBox, width: "100%", height: "7vh", alignItems: "center", display: "flex", flexDirection: "column" }}>
-                <Typography sx={{ fontFamily: "MontserratMedium", display: "flex" }}>
+              <Grid
+                sx={{
+                  ...st.userInfoBox,
+                  width: "100%",
+                  height: "7vh",
+                  alignItems: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <Typography
+                  sx={{ fontFamily: "MontserratMedium", display: "flex" }}
+                >
                   INSTITUCION ASIGNADA
                 </Typography>
                 <Tooltip title={localStorage.getItem("Entidad")}>
@@ -691,46 +795,61 @@ export const LateralMenu = ({
                 </Tooltip>
               </Grid>
 
-
-              <Grid sx={st.selectInstitucionBox}>
-
-              </Grid>
-
+              <Grid sx={st.selectInstitucionBox}></Grid>
             </Grid>
             <Divider />
             <Grid
               item
               container
-              sx={{ width: "100%", height: "60vh", overflow: "auto" }}>
-
+              sx={{ width: "100%", height: "60vh", overflow: "auto" }}
+            >
               <List sx={{ width: "100%" }}>
                 <Divider />
-                {menus.map((menuItem) => <RecursiveMenu key={menuItem.Id} data={menuItem} />)}
+                {menus.map((menuItem) => (
+                  <RecursiveMenu key={menuItem.Id} data={menuItem} />
+                ))}
 
-
-                <ListItemButton onClick={() => setOpenPasswordChange(true)} sx={{ width: "100%" }}>
-                  <ListItemIcon>
-                    {IconsMenu("LockResetIcon")}
-                  </ListItemIcon>
-                  <ListItemText primary={"Cambiar Contraseña"} sx={{ width: "100%" }} />
+                <ListItemButton
+                  onClick={() => setOpenPasswordChange(true)}
+                  sx={{ width: "100%" }}
+                >
+                  <ListItemIcon>{IconsMenu("LockResetIcon")}</ListItemIcon>
+                  <ListItemText
+                    primary={"Cambiar Contraseña"}
+                    sx={{ width: "100%" }}
+                  />
                 </ListItemButton>
 
-                <ListItemButton onClick={() => setIsDrawerOpen(false)} sx={{ width: "100%" }}>
-                  <ListItemIcon>
-                    {IconsMenu("LogoutOutlinedIcon")}
-                  </ListItemIcon>
-                  <ListItemText primary={"Cerrar Menú"} sx={{ width: "100%" }} />
+                <ListItemButton
+                  onClick={() => setIsDrawerOpen(false)}
+                  sx={{
+                    width: "100%",
+                    display: {
+                      xs: "block",
+                      sm: "block",
+                      md: "block",
+                      lg: "none",
+                      xl: "none",
+                    },
+                  }}
+                >
+                  <ListItemIcon>{IconsMenu("LogoutOutlinedIcon")}</ListItemIcon>
+                  <ListItemText
+                    primary={"Cerrar Menú"}
+                    sx={{ width: "100%" }}
+                  />
                 </ListItemButton>
 
                 <ListItemButton onClick={() => logout()} sx={{ width: "100%" }}>
-                  <ListItemIcon>
-                    {IconsMenu("LogoutOutlinedIcon")}
-                  </ListItemIcon>
-                  <ListItemText primary={"Cerrar Sesión"} sx={{ width: "100%" }} />
+                  <ListItemIcon>{IconsMenu("LogoutOutlinedIcon")}</ListItemIcon>
+
+                  <ListItemText
+                    primary={"Cerrar Sesión"}
+                    sx={{ width: "100%" }}
+                  />
                 </ListItemButton>
               </List>
             </Grid>
-
           </Grid>
         </Drawer>
       </AppBar>

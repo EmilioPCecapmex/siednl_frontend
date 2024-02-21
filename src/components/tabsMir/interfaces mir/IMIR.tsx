@@ -96,7 +96,7 @@ export interface IEncabezado {
   objetivo: ILista;
   estrategia: ILista;
   lineas_de_accion: Array<ILista>;
-  beneficiario: ILista;
+  beneficiario: Array<ILista>;
   conac: string;
   consecutivo: string;
   anticorrupcion: string;

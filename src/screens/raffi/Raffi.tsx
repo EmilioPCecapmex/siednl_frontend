@@ -39,8 +39,6 @@ import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
 import ComentDialogRF from "../../components/modalsRF/ModalComentariosRF";
 
-
-
 export const Raffi = () => {
   const [actionNumber, setActionNumber] = useState(0);
 
@@ -317,8 +315,6 @@ export const Raffi = () => {
       });
   };
 
-
-
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid
@@ -405,6 +401,8 @@ export const Raffi = () => {
                   xl={11}
                   lg={10}
                   md={8}
+                  sm={11}
+                  xs={11}
                 >
                   <Paper
                     component="form"
@@ -492,73 +490,107 @@ export const Raffi = () => {
                 xl={12}
                 lg={12}
                 md={12}
+                
                 container
                 direction="row"
                 justifyContent="space-around"
                 alignItems="center"
               >
-                <Grid item xl={5} lg={4} md={3} sm={2}>
-                  <FormControl
-                    sx={{
-                      display: "flex",
-                      width: "100%",
-                      // alignItems: "center",
-                      // justifyContent: "center",
-                      // //border: 1,
-                      borderRadius: 2,
-                      borderColor: "#616161",
-                    }}
-                  >
-                    <InputLabel sx={queries.text}>
-                      FILTRO POR INSTITUCION
-                    </InputLabel>
-                    <Select
-                      size="small"
-                      fullWidth
-                      variant="outlined"
-                      label="FILTRO POR INSTITUCION"
+                {localStorage.getItem("Rol") === "Administrador" ? (
+                   <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                    <FormControl
                       sx={{
-                        fontFamily: "MontserratRegular",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        //textAlign: "center",
-                        fontSize: [10, 10, 15, 15, 18, 20],
-                      }}
-                      value={institucionesb}
-                      disabled={
-                        localStorage.getItem("Rol") !== "Administrador"
-                      }
-                      onChange={(v) => {
-                        // v.target.value === "Todos"
-                        //   ? findText(
-                        //       findTextStr,
-                        //       findSelectStr === "Todos" ? "0" : findSelectStr,
-                        //       "0"
-                        //     )
-                        //   : findText(findTextStr, findSelectStr, v.target.value);
-                        setInstitucionesb(v.target.value);
+                        display: "flex",
+                        width: "100%",
+                        // alignItems: "center",
+                        // justifyContent: "center",
+                        // //border: 1,
+                        borderRadius: 2,
+                        borderColor: "#616161",
                       }}
                     >
-                      <MenuItem
+                      <InputLabel sx={queries.text}>
+                        FILTRO POR INSTITUCION
+                      </InputLabel>
+                      <Select
+                        size="small"
+                        fullWidth
+                        variant="outlined"
+                        label="FILTRO POR INSTITUCION"
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          //textAlign: "center",
+                          fontSize: [10, 10, 15, 15, 18, 20],
+                        }}
                         value={institucionesb}
-                        sx={{ fontFamily: "MontserratRegular" }}
+                        disabled={
+                          localStorage.getItem("Rol") !== "Administrador"
+                        }
+                        onChange={(v) => {
+                          // v.target.value === "Todos"
+                          //   ? findText(
+                          //       findTextStr,
+                          //       findSelectStr === "Todos" ? "0" : findSelectStr,
+                          //       "0"
+                          //     )
+                          //   : findText(findTextStr, findSelectStr, v.target.value);
+                          setInstitucionesb(v.target.value);
+                        }}
                       >
-                        Todos
-                      </MenuItem>
+                        <MenuItem
+                          value={institucionesb}
+                          sx={{ fontFamily: "MontserratRegular" }}
+                        >
+                          Todos
+                        </MenuItem>
 
-                      {instituciones?.map((item) => {
-                        return (
-                          <MenuItem value={item.Nombre} key={item.Id}>
-                            {item.Nombre.toUpperCase()}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                <Grid item xl={5} lg={4} md={3}>
+                        {instituciones?.map((item) => {
+                          return (
+                            <MenuItem value={item.Nombre} key={item.Id}>
+                              {item.Nombre.toUpperCase()}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                ) : null}
+                <Grid
+                  item
+                  xl={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                  lg={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                  md={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                  sm={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                  xs={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                >
                   <FormControl
                     sx={{
                       display: "flex",
@@ -899,7 +931,7 @@ export const Raffi = () => {
                                           },
                                         ]);
                                       }
-                                      setEstado(row.Estado)
+                                      setEstado(row.Estado);
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -940,7 +972,6 @@ export const Raffi = () => {
                                 ("Sin Asignar" || "SIN ASIGNAR") && (
                                 <Tooltip title="REGISTRAR RAFFI">
                                   <IconButton
-                                   
                                     type="button"
                                     onClick={() => {
                                       let auxArrayMIR = JSON.parse(row.MIR);
@@ -994,7 +1025,7 @@ export const Raffi = () => {
                                           },
                                         ]);
                                       }
-                                      setEstado(row.Estado)
+                                      setEstado(row.Estado);
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -1035,39 +1066,35 @@ export const Raffi = () => {
                                 <span>
                                   <IconButton
                                     onClick={() => {
-                                      
-                                        let auxArrayMIR = JSON.parse(row.MIR);
-                                        let auxArrayMIR2 = JSON.stringify(
-                                          auxArrayMIR[0]
-                                        );
-                                        if (auxArrayMIR[1]) {
-                                          getFichaRaffiDownload(
-                                        auxArrayMIR2,
-                                        row.MetaAnual,
-                                        row.RAFFI,
-                                        row.Programa,
-                                        row.FechaCreacion,
-                                        row.Entidad
+                                      let auxArrayMIR = JSON.parse(row.MIR);
+                                      let auxArrayMIR2 = JSON.stringify(
+                                        auxArrayMIR[0]
                                       );
-                                        }else{
-                                          getFichaRaffiDownload(
-                                            row.MIR,
-                                            row.MetaAnual,
-                                            row.RAFFI,
-                                            row.Programa,
-                                            row.FechaCreacion,
-                                            row.Entidad
-                                          );
-                                        }
-                                      
-
+                                      if (auxArrayMIR[1]) {
+                                        getFichaRaffiDownload(
+                                          auxArrayMIR2,
+                                          row.MetaAnual,
+                                          row.RAFFI,
+                                          row.Programa,
+                                          row.FechaCreacion,
+                                          row.Entidad
+                                        );
+                                      } else {
+                                        getFichaRaffiDownload(
+                                          row.MIR,
+                                          row.MetaAnual,
+                                          row.RAFFI,
+                                          row.Programa,
+                                          row.FechaCreacion,
+                                          row.Entidad
+                                        );
+                                      }
                                     }}
                                     disabled={
                                       row.Estado === "Autorizada" && validaFecha
                                         ? false
                                         : true
                                     }
-
                                   >
                                     <DownloadIcon
                                       sx={{

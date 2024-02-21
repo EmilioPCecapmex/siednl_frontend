@@ -10,7 +10,8 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { queries } from "../../queries";
-import { validarNumero } from "../../services/validations";
+import { validarNumero, validarNumeroMayorCero } from "../../services/validations";
+import { alertaError } from "../genericComponents/Alertas";
 
 
 export const DialogMonto = ({
@@ -112,7 +113,16 @@ export const DialogMonto = ({
                 multiline
                 rows={4}
                 value={denominador}
-                onChange={(x) =>setdenominador(validarNumero(x.target.value,denominador))}
+                onChange={(x) =>{
+                   if(parseInt(x.target.value) > 0){
+                  setdenominador(validarNumero(x.target.value,denominador))
+                  }else{
+                    alertaError("Introdusca un numero mayor a 0.")
+                    setdenominador("")
+                  }
+                }
+                
+                }
                 sx={{ width: "100%" }}
                 //value={descA}
                 InputLabelProps={{

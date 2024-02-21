@@ -13,6 +13,7 @@ import {
 import { queries } from "../../queries";
 import { IActividadesRF, IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
 import { alertaErrorConfirm, alertaErroresDocumento, alertaExitoConfirm } from "../genericComponents/Alertas";
+import { create_coment_mir, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -36,28 +37,15 @@ export default function ModalEnviarRF({
   showResume: Function;
 }) {
 
-  const [comment, setComment] = useState("");
+  const [coment, setComment] = useState("");
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [newComent, setNewComent] = React.useState(false);
 
    const enviarMensaje = "Se ha creado una nueva";
 
   const comentMA = (id: string) => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
-        {
-          IdMir: id,
-          Coment: comment,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA: "MA",
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+  
+      create_coment_mir(id, coment, "RF")
       .then((r) => {
         setNewComent(false);
         setComment("");
@@ -200,15 +188,25 @@ export default function ModalEnviarRF({
       )
       .then((r) => {
         
-        userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA", "Meta Anual");
-     
-        });
+        let rol: string[] = [];
+        if(localStorage.getItem("Rol") === "Verificador"){
+          rol = ["Administrador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Capturador"){
+          rol = ["Verificador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Administrador"){
+          rol = ["Capturador","Verificador"]
+        }
+
+        enviarNotificacionRol("RF", "RF enviada", IdMA, rol)
         if (estado === "Autorizada") {
           // CrearFichaTecnica();  
         }
         alertaExitoConfirm((r.data.data.message).toUpperCase())
-        if (comment !== "") {
+        if (coment !== "") {
           comentMA(IdRF);
         }
         showResume();
@@ -246,24 +244,7 @@ export default function ModalEnviarRF({
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (IdUsuarioDestino: string, IdDoc="",tipoDoc ="", Nombre ="") => {
-   
-    axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
-      {
-        IdUsuarioDestino: IdUsuarioDestino,
-        Titulo: tipoDoc,
-        Mensaje:  enviarMensaje + " "+ Nombre,
-        IdDocumento: IdDoc,
-        CreadoPor: localStorage.getItem("IdUsuario"),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    );
-  };
+  
 
 
 

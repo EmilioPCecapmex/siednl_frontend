@@ -219,6 +219,44 @@ export const CreatePorCatalogo = (descripcion: string, tabla: string, state: Fun
     );
 };
 
+export const DescargarExcel = (state: Function, objeto: any, nombre: string) => {
+
+  console.log(nombre);
+  
+  axios.post(
+    process.env.REACT_APP_APPLICATION_BACK + "/api/crearExcel",
+    {
+      objeto: objeto,
+    },
+    {
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+      responseType: 'arraybuffer',  // Indica que esperamos datos binarios en la respuesta
+    }
+  ).then((response) => {
+    const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+    // Crear un enlace para la descarga
+    const enlace = document.createElement('a');
+    enlace.href = window.URL.createObjectURL(blob);
+    enlace.download = nombre + '.xlsx';
+
+    // Agregar el enlace al documento y hacer clic en él
+    document.body.appendChild(enlace);
+    enlace.click();
+
+    // Limpiar el enlace y el Blob
+    document.body.removeChild(enlace);
+    window.URL.revokeObjectURL(enlace.href);
+
+    alertaExito(() => (state()), "Reporte Descargado");
+  }).catch((error) => {
+    console.error('Error en la descarga:', error);
+    alertaError("Fallo en la descarga");
+  });
+};
+
 export const ModifyPorCatalogo = (Id: string, tabla: string, nuevaDescripcion: string, state: Function) => {
     if (tabla === "PROGRAMAS PRESUPUESTARIOS") {
       axios
@@ -280,3 +318,5 @@ export const ModifyPorCatalogo = (Id: string, tabla: string, nuevaDescripcion: s
         );
     }
   }; 
+
+

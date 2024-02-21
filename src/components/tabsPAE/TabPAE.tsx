@@ -60,17 +60,14 @@ export const TabPAE = ({
     setRegistrosFiltrados(registros);
 
     if (TabSelect !== "Todos los Documentos") {
+      
+      
       let aux = registros.filter((registro) => {
         return registro.PerteneceA === tabsShow;
       });
-
+     
       setRegistrosFiltrados(aux);
     }
-    console.log(registros)
-    console.log(TabSelect)
-    console.log(tabsShow);
-    
-    
     setProgressBar(false);
   }, [registros, tabsShow]);
 
@@ -275,27 +272,26 @@ export const TabPAE = ({
                 justifyContent: "flex-end",
               }}
             >
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  handleClickOpen();
-                }}
-              >
+              <Button variant="outlined" onClick={()=>{handleClickOpen()}}
+                >
                 Cargar Archivo
               </Button>
-              {open ? (
+              {open ?
                 <DialogCargaArchivo
                   Tabs={Tabs.filter((tab) => tab !== "Todos los Documentos")}
                   Tab={
                     TabSelect === "Todos los Documentos" ? Tabs[1] : tabsShow
                   }
-                  updateData={() => {
-                    actuaizarDatos();
-                  }}
+                  updateData={() => {actuaizarDatos()
+                  
+                  }
+                    
+                  }
                   open={open}
                   setOpen={setOpen}
-                />
-              ) : null}
+                />: null
+              } 
+
             </Grid>
           ) : (
             ""
@@ -513,15 +509,12 @@ export const TabPAE = ({
                             </IconButton>
                           </span>
                         </Tooltip>
-
-                        {localStorage.getItem("Rol") === "Administrador" && (
-                          <DeleteDialogPAE
-                            id={row.Id}
-                            updateData={() => {
-                              actuaizarDatos();
-                            }}
-                          />
-                        )}
+                        <DeleteDialogPAE
+                          id={row.Id}
+                          updateData={() => {
+                            actuaizarDatos();
+                          }}
+                        />
                       </TableCell>
                     </TableRow>
                   ))}

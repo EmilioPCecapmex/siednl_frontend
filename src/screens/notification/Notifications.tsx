@@ -98,12 +98,12 @@ export const Notification = () => {
         type: "mensaje",
       });
     } else {
-      enviarNotificacion();
+      soliModyNoty();
       enviarNotificacionMail();
     }
   };
 
-  const enviarNotificacion = () => {
+  const soliModyNoty = () => {
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",

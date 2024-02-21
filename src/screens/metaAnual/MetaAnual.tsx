@@ -501,86 +501,113 @@ export const MetaAnual = () => {
                   direction: "row",
                 }}
               >
-                <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
-                  <Tooltip
-                    title={findInstStr}
-                    PopperProps={{
-                      modifiers: [
-                        {
-                          name: "offset",
-                          options: {
-                            offset: [0, -13],
+                {localStorage.getItem("Rol") === "Administrador" ? (
+                  <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                    <Tooltip
+                      title={findInstStr}
+                      PopperProps={{
+                        modifiers: [
+                          {
+                            name: "offset",
+                            options: {
+                              offset: [0, -13],
+                            },
                           },
-                        },
-                      ],
-                    }}
-                  >
-                    <FormControl fullWidth>
-                      <InputLabel sx={queries.text}>
-                        <Tooltip
-                          PopperProps={{
-                            modifiers: [
-                              {
-                                name: "offset",
-                                options: {
-                                  offset: [0, -13],
+                        ],
+                      }}
+                    >
+                      <FormControl fullWidth>
+                        <InputLabel sx={queries.text}>
+                          <Tooltip
+                            PopperProps={{
+                              modifiers: [
+                                {
+                                  name: "offset",
+                                  options: {
+                                    offset: [0, -13],
+                                  },
                                 },
-                              },
-                            ],
+                              ],
+                            }}
+                            title={"FILTRO POR INSTITUCION"}
+                          >
+                            <span>FILTRO POR INSTITUCION</span>
+                          </Tooltip>
+                        </InputLabel>
+
+                        <Select
+                          size="small"
+                          variant="outlined"
+                          fullWidth
+                          label="FILTRO POR INSTITUCION"
+                          disabled={
+                            localStorage.getItem("Rol") !== "Administrador"
+                          }
+                          sx={{
+                            fontFamily: "MontserratRegular",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            //textAlign: "center",
+                            fontSize: [10, 10, 15, 15, 18, 20],
                           }}
-                          title={"FILTRO POR INSTITUCION"}
-                        >
-                          <span>FILTRO POR INSTITUCION</span>
-                        </Tooltip>
-                      </InputLabel>
-
-                      <Select
-                        size="small"
-                        variant="outlined"
-                        fullWidth
-                        label="FILTRO POR INSTITUCION"
-                        disabled={
-                          localStorage.getItem("Rol") !== "Administrador"
-                        }
-
-
-
-                        
-                        sx={{
-                          fontFamily: "MontserratRegular",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          //textAlign: "center",
-                          fontSize: [10, 10, 15, 15, 18, 20],
-                        }}
-                        value={institucionesb}
-                        // sx={{ fontFamily: "MontserratRegular" }}
-
-                        onChange={(v) => {
-                          setInstitucionesb(v.target.value);
-                        }}
-                      >
-                        <MenuItem
                           value={institucionesb}
-                          sx={{ fontFamily: "MontserratRegular" }}
+                          // sx={{ fontFamily: "MontserratRegular" }}
+
+                          onChange={(v) => {
+                            setInstitucionesb(v.target.value);
+                          }}
                         >
-                          TODOS
-                        </MenuItem>
+                          <MenuItem
+                            value={institucionesb}
+                            sx={{ fontFamily: "MontserratRegular" }}
+                          >
+                            TODOS
+                          </MenuItem>
 
-                        {instituciones?.map((item) => {
-                          return (
-                            <MenuItem value={item.Nombre} key={item.Id}>
-                              {item.Nombre.toUpperCase()}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Tooltip>
-                </Grid>
+                          {instituciones?.map((item) => {
+                            return (
+                              <MenuItem value={item.Nombre} key={item.Id}>
+                                {item.Nombre.toUpperCase()}
+                              </MenuItem>
+                            );
+                          })}
+                        </Select>
+                      </FormControl>
+                    </Tooltip>
+                  </Grid>
+                ) : null}
 
-                <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                <Grid item  xl={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                  lg={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                  md={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                  sm={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }
+                  xs={
+                    localStorage.getItem("Rol") === "Administrador" ||
+                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                      ? 5
+                      : 11
+                  }>
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
                       <Tooltip
@@ -690,9 +717,9 @@ export const MetaAnual = () => {
               <Grid
                 // item
                 container
-                xl={11}
-                lg={11}
-                md={11}
+                xl={12}
+                lg={12}
+                md={12}
                 sm={11}
                 xs={11}
                 sx={{
@@ -704,105 +731,107 @@ export const MetaAnual = () => {
                 <Grid
                   sx={{ fontFamily: "MontserratRegular" }}
                   item
-                  xl={validaFecha?11:7}
-                  lg={validaFecha?11:6}
-                  md={validaFecha?11:6}
-                  sm={validaFecha?11:7}
+                  xl={validaFecha ? 11 : 7}
+                  lg={validaFecha ? 11 : 6}
+                  md={validaFecha ? 11 : 6}
+                  sm={validaFecha ? 11 : 11}
+                  xs={validaFecha ? 11 : 11}
                 >
-                <Paper
-                  component="form"
-                  sx={{
-                    display: "flex",
-                    width: "100%",
-                  }}
-                >
-                  <InputBase
+                  <Paper
+                    component="form"
                     sx={{
-                      ml: 1,
-                      flex: 1,
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      textAlign: "center",
-                      fontSize: [10, 10, 15, 15, 18, 20],
+                      display: "flex",
+                      width: "100%",
                     }}
-                    placeholder="Buscar"
-                    value={findTextStr}
-                    onChange={(e) => {
-                      handleChange(e.target.value);
-                    }}
-                    onKeyPress={(ev) => {
-                      if (ev.key === "Enter") {
-                        filtrarDatos();
-                        ev.preventDefault();
-                        return false;
-                      }
-                    }}
-                  />
-                  <IconButton
-                    type="button"
-                    sx={{ p: "10px" }}
-                    aria-label="search"
-                    onClick={() => filtrarDatos()}
                   >
-                    <SearchIcon
+                    <InputBase
                       sx={{
-                        fontSize: "24px", // Tamaño predeterminado del icono
-
-                        "@media (max-width: 600px)": {
-                          fontSize: 25, // Pantalla extra pequeña (xs y sm)
-                        },
-
-                        "@media (min-width: 601px) and (max-width: 960px)": {
-                          fontSize: 25, // Pantalla pequeña (md)
-                        },
-
-                        "@media (min-width: 961px) and (max-width: 1280px)": {
-                          fontSize: 30, // Pantalla mediana (lg)
-                        },
-
-                        "@media (min-width: 1281px)": {
-                          fontSize: 30, // Pantalla grande (xl)
-                        },
-
-                        "@media (min-width: 2200px)": {
-                          fontSize: 30, // Pantalla grande (xl)
-                        },
+                        ml: 1,
+                        flex: 1,
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        textAlign: "center",
+                        fontSize: [10, 10, 15, 15, 18, 20],
+                      }}
+                      placeholder="Buscar"
+                      value={findTextStr}
+                      onChange={(e) => {
+                        handleChange(e.target.value);
+                      }}
+                      onKeyPress={(ev) => {
+                        if (ev.key === "Enter") {
+                          filtrarDatos();
+                          ev.preventDefault();
+                          return false;
+                        }
                       }}
                     />
-                  </IconButton>
-                </Paper>
+                    <IconButton
+                      type="button"
+                      sx={{ p: "10px" }}
+                      aria-label="search"
+                      onClick={() => filtrarDatos()}
+                    >
+                      <SearchIcon
+                        sx={{
+                          fontSize: "24px", // Tamaño predeterminado del icono
+
+                          "@media (max-width: 600px)": {
+                            fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                          },
+
+                          "@media (min-width: 601px) and (max-width: 960px)": {
+                            fontSize: 25, // Pantalla pequeña (md)
+                          },
+
+                          "@media (min-width: 961px) and (max-width: 1280px)": {
+                            fontSize: 30, // Pantalla mediana (lg)
+                          },
+
+                          "@media (min-width: 1281px)": {
+                            fontSize: 30, // Pantalla grande (xl)
+                          },
+
+                          "@media (min-width: 2200px)": {
+                            fontSize: 30, // Pantalla grande (xl)
+                          },
+                        }}
+                      />
+                    </IconButton>
+                  </Paper>
                 </Grid>
-                {validaFecha?"":
-                <Grid
-                sx={{ fontFamily: "MontserratRegular" }}
-                item
-                xl={4}
-                lg={3}
-                md={3}
-                sm={4}
-              >
-                <Button
-                    disabled={true}
-                    className="aceptar"
-                    sx={{
-                      //backgroundColor: "#c2a37b",
-                      // width: "10vw",
-                      // height: "3.3vh",
-                      width: ["80px", "120px", "160px", "180px", "250px"],
-                      height: ["30px", "20px", "30px", "40px", "50px"],
-                      //color: "black",
-                      fontFamily: "MontserratMedium",
-                      fontSize: [5, 7, 10, 12, 16, 20],
-                    }}
-                    
+                {validaFecha ? (
+                  ""
+                ) : (
+                  <Grid
+                    sx={{ fontFamily: "MontserratRegular" }}
+                    item
+                    xl={4}
+                    lg={3}
+                    md={3}
+                    sm={4}
                   >
-                    {!validaFecha
-                      ? "Fecha de captura terminada"
-                      : "Añadir registro"}
-                  </Button>
+                    <Button
+                      disabled={true}
+                      className="aceptar"
+                      sx={{
+                        //backgroundColor: "#c2a37b",
+                        // width: "10vw",
+                        // height: "3.3vh",
+                        width: ["80px", "120px", "160px", "180px", "250px"],
+                        height: ["30px", "20px", "30px", "40px", "50px"],
+                        //color: "black",
+                        fontFamily: "MontserratMedium",
+                        fontSize: [5, 7, 10, 12, 16, 20],
+                      }}
+                    >
+                      {!validaFecha
+                        ? "Fecha de captura terminada"
+                        : "Añadir registro"}
+                    </Button>
                   </Grid>
-                  }
+                )}
               </Grid>
             </Grid>
 
@@ -1033,10 +1062,11 @@ export const MetaAnual = () => {
                                       },
                                     }}
                                     onClick={() => {
-
                                       let auxArrayMIR = JSON.parse(row.MIR);
-                                      let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0])
-                                      if(auxArrayMIR[1]){
+                                      let auxArrayMIR2 = JSON.stringify(
+                                        auxArrayMIR[0]
+                                      );
+                                      if (auxArrayMIR[1]) {
                                         setMaEdit([
                                           {
                                             IdMa: row.IdMa,
@@ -1053,26 +1083,26 @@ export const MetaAnual = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
-                                      }else{
+                                      } else {
                                         setMaEdit([
-                                        {
-                                          IdMa: row.IdMa,
-                                          IdMir: row.IdMir,
-                                          AnioFiscal: row.AnioFiscal,
-                                          Entidad: row.Entidad,
-                                          Programa: row.Programa,
-                                          MIR: row.MIR,
-                                          //meta anual completa
-                                          MetaAnual: row.MetaAnual,
-                                          Estado: row.Estado,
-                                          CreadoPor: row.CreadoPor,
-                                          FechaCreacion: row.FechaCreacion,
-                                          Opciones: row.Opciones,
-                                        },
-                                      ]);
+                                          {
+                                            IdMa: row.IdMa,
+                                            IdMir: row.IdMir,
+                                            AnioFiscal: row.AnioFiscal,
+                                            Entidad: row.Entidad,
+                                            Programa: row.Programa,
+                                            MIR: row.MIR,
+                                            //meta anual completa
+                                            MetaAnual: row.MetaAnual,
+                                            Estado: row.Estado,
+                                            CreadoPor: row.CreadoPor,
+                                            FechaCreacion: row.FechaCreacion,
+                                            Opciones: row.Opciones,
+                                          },
+                                        ]);
                                       }
-                                      
-                                      setEstado(row.Estado)
+
+                                      setEstado(row.Estado);
                                       setShowResume(false);
                                       setActionNumber(1);
                                     }}

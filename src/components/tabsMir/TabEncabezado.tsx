@@ -8,6 +8,7 @@ import {
   Autocomplete,
   Checkbox,
   FormControlLabel,
+  Typography,
 } from "@mui/material";
 import { ILista, IListaProgramas, IMIR, IMIREdit } from "./interfaces mir/IMIR";
 import Stack from "@mui/material/Stack";
@@ -17,7 +18,9 @@ import {
   getListasLogin,
   getListasLoginProgramas,
 } from "./services mir/servicesMIR";
-
+import { alertaInfo } from "../genericComponents/Alertas";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 export function TabEncabezado({
   edit,
   show,
@@ -35,9 +38,6 @@ export function TabEncabezado({
   //   "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
   // );
   const objetoVacio: ILista = { Id: "", Label: "" };
- 
-
-  
 
   //Desactivar si el anterior no tiene value
   const [disabledProgramas, setDisabledProgramas] = useState(true);
@@ -45,7 +45,6 @@ export function TabEncabezado({
   const [disabledObjetivos, setDisabledObjetivos] = useState(true);
   const [disabledEstrategias, setDisabledEstrategias] = useState(true);
   const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
-
 
   const [anticorrupcion, setAnticorrupcion] = React.useState(
     MIR.encabezado?.anticorrupcion || "NO"
@@ -108,6 +107,7 @@ export function TabEncabezado({
   const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState<
     Array<ILista>
   >([]);
+
   const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILista>>(
     MIR.encabezado?.lineas_de_accion || []
   );
@@ -115,19 +115,18 @@ export function TabEncabezado({
   const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState<
     Array<ILista>
   >([]);
-  const [beneficiario, setBeneficiario] = useState<ILista>(
-    MIR.encabezado?.beneficiario || objetoVacio
+
+  const [beneficiario, setBeneficiario] = useState<Array<ILista>>(
+    MIR.encabezado?.beneficiario || []
   );
 
   useEffect(() => {
     getLista("AniosFiscales", "", setCatalogoAniosFiscales);
-    
+
     getListasLoginProgramas(setCatalogoInstituciones);
     getListPedColumns({ Col: "Ejes", Id: "" }, setCatalogoEjes, () => {});
     getLista("Beneficiario", "", setCatalogoBeneficiarios);
     setEje(MIR.encabezado?.eje || objetoVacio);
-
-   
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -139,7 +138,7 @@ export function TabEncabezado({
         entidadSeleccionada?.Id,
         setCatalogoProgramas
       );
-     
+
       setConac("");
       setConsecutivo("");
       setDisabledProgramas(false);
@@ -147,13 +146,12 @@ export function TabEncabezado({
   }, [entidadSeleccionada?.Id]);
 
   useEffect(() => {
-    
     setDisabledObjetivos(true);
-    
+
     setDisabledEstrategias(true);
-    
+
     setDisabledLineasDeAccion(true);
-   
+
     getListPedColumns(
       { Col: "Temáticas", Id: eje.Id },
       setCatalogoTematicas,
@@ -163,9 +161,8 @@ export function TabEncabezado({
   }, [eje]);
 
   useEffect(() => {
-    
     setDisabledEstrategias(true);
-    
+
     setDisabledLineasDeAccion(true);
     getListPedColumns(
       { Col: "Objetivos", Id: tematica.Id },
@@ -176,9 +173,8 @@ export function TabEncabezado({
   }, [tematica]);
 
   useEffect(() => {
-    
     setDisabledLineasDeAccion(true);
-    
+
     getListPedColumns(
       { Col: "Estrategias", Id: objetivo.Id },
       setCatalogoEstrategias,
@@ -188,7 +184,6 @@ export function TabEncabezado({
   }, [objetivo]);
 
   useEffect(() => {
-   
     getListPedColumns(
       { Col: "Lineas de Acción", Id: estrategia.Id },
       setCatalogoLineasDeAccion,
@@ -199,6 +194,10 @@ export function TabEncabezado({
 
   const onClearLineasDeAccion = () => {
     setLineaDeAccion([]);
+  };
+
+  const onClearBeneficiario = () => {
+    setBeneficiario([]);
   };
 
   function RestaurarValores(tipo: string) {
@@ -254,7 +253,7 @@ export function TabEncabezado({
     objetivo.Id,
     estrategia.Id,
     lineaDeAccion,
-    beneficiario.Id,
+    beneficiario,
     conac,
     consecutivo,
     anticorrupcion,
@@ -265,7 +264,8 @@ export function TabEncabezado({
     setConsecutivo(programa.Consecutivo);
   }, [programa]);
 
-  
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
     <Grid
@@ -282,6 +282,11 @@ export function TabEncabezado({
         backgroundColor: "#fff",
         boxShadow: 10,
         borderRadius: 5,
+        ...(!isSmallScreen && {
+          height: "85%",
+          overflow: "auto",
+          // Otros estilos específicos para pantallas pequeñas
+        }),
         // display: "grid",
         // gridTemplateColumns: "repeat(3, 1fr)",
         // gridTemplateRows: "1fr 1fr 1fr 2fr",
@@ -324,7 +329,10 @@ export function TabEncabezado({
           sm={3}
           xs={10}
           item
-          sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
+          sx={{
+            fontSize: [10, 10, 10, 13, 15, 18],
+            margin: isSmallScreen ? "2px" : "5px",
+          }}
         >
           <FormControl required fullWidth>
             <Autocomplete
@@ -350,7 +358,6 @@ export function TabEncabezado({
                     <p
                       style={{
                         fontFamily: "MontserratRegular",
-                        fontSize: ".7vw",
                       }}
                     >
                       {option.Label}
@@ -380,6 +387,7 @@ export function TabEncabezado({
             />
           </FormControl>
         </Grid>
+
         <Grid
           xl={4}
           lg={4}
@@ -387,7 +395,10 @@ export function TabEncabezado({
           sm={4}
           xs={10}
           item
-          sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
+          sx={{
+            margin: isSmallScreen ? "2px" : "5px",
+            fontSize: [10, 10, 10, 13, 15, 18],
+          }}
         >
           <FormControl required fullWidth>
             <Autocomplete
@@ -408,7 +419,6 @@ export function TabEncabezado({
                     <p
                       style={{
                         fontFamily: "MontserratRegular",
-                        fontSize: ".7vw",
                       }}
                     >
                       {option.Label?.toUpperCase()}
@@ -427,13 +437,11 @@ export function TabEncabezado({
                       fontFamily: "MontserratSemiBold",
                     },
                   }}
-                  
                   sx={{
                     "& .MuiAutocomplete-input": {
                       fontFamily: "MontserratRegular",
                       textTransform: "uppercase",
                     },
-                   
                   }}
                 ></TextField>
               )}
@@ -447,7 +455,18 @@ export function TabEncabezado({
             />
           </FormControl>
         </Grid>
-        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+
+        <Grid
+          xl={3}
+          lg={3}
+          md={3}
+          sm={3}
+          xs={10}
+          item
+          sx={{
+            margin: isSmallScreen ? "2px" : "5px",
+          }}
+        >
           <FormControl required fullWidth>
             <Autocomplete
               clearText="Borrar"
@@ -463,7 +482,6 @@ export function TabEncabezado({
               getOptionLabel={(option) => option.Label || ""}
               value={programa}
               onChange={(event, value) => {
-                
                 setPrograma(
                   value || { ...objetoVacio, Conac: "", Consecutivo: "" }
                 );
@@ -474,7 +492,6 @@ export function TabEncabezado({
                     <p
                       style={{
                         fontFamily: "MontserratRegular",
-                        fontSize: ".7vw",
                       }}
                     >
                       {option.Label}
@@ -505,7 +522,17 @@ export function TabEncabezado({
           </FormControl>
         </Grid>
 
-        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+        <Grid
+          xl={3}
+          lg={3}
+          md={3}
+          sm={3}
+          xs={10}
+          sx={{
+            margin: isSmallScreen ? "2px" : "5px",
+          }}
+          item
+        >
           <FormControlLabel
             label="ANTICORRUPCIÓN"
             control={
@@ -520,7 +547,18 @@ export function TabEncabezado({
             }
           />
         </Grid>
-        <Grid xl={4} lg={4} md={4} sm={4} xs={10} item>
+
+        <Grid
+          xl={4}
+          lg={4}
+          md={4}
+          sm={4}
+          xs={10}
+          item
+          sx={{
+            margin: isSmallScreen ? "2px" : "5px",
+          }}
+        >
           <TextField
             fullWidth
             disabled
@@ -529,7 +567,18 @@ export function TabEncabezado({
             value={conac}
           />
         </Grid>
-        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+
+        <Grid
+          xl={3}
+          lg={3}
+          md={3}
+          sm={3}
+          xs={10}
+          item
+          sx={{
+            margin: isSmallScreen ? "2px" : "5px",
+          }}
+        >
           <TextField
             fullWidth
             disabled
@@ -539,7 +588,17 @@ export function TabEncabezado({
           />
         </Grid>
 
-        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+        <Grid
+          xl={3}
+          lg={3}
+          md={3}
+          sm={3}
+          xs={10}
+          sx={{
+            margin: isSmallScreen ? "2px" : "5px",
+          }}
+          item
+        >
           <FormControl required fullWidth>
             <Autocomplete
               clearText="Borrar"
@@ -564,7 +623,6 @@ export function TabEncabezado({
                     <p
                       style={{
                         fontFamily: "MontserratRegular",
-                        fontSize: ".7vw",
                       }}
                     >
                       {option.Label}
@@ -598,7 +656,17 @@ export function TabEncabezado({
           </FormControl>
         </Grid>
 
-        <Grid xl={4} lg={4} md={4} sm={4} xs={10} item>
+        <Grid
+          xl={4}
+          lg={4}
+          md={4}
+          sm={4}
+          xs={10}
+          sx={{
+            margin: isSmallScreen ? "2px" : "5px",
+          }}
+          item
+        >
           <FormControl required fullWidth>
             <Autocomplete
               clearText="Borrar"
@@ -625,7 +693,6 @@ export function TabEncabezado({
                     <p
                       style={{
                         fontFamily: "MontserratRegular",
-                        fontSize: ".7vw",
                       }}
                     >
                       {option.Label.toUpperCase()}
@@ -660,7 +727,17 @@ export function TabEncabezado({
           </FormControl>
         </Grid>
 
-        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+        <Grid
+          xl={3}
+          lg={3}
+          md={3}
+          sm={3}
+          xs={10}
+          sx={{
+            margin: isSmallScreen ? "2px" : "5px",
+          }}
+          item
+        >
           <FormControl required fullWidth>
             <Autocomplete
               clearText="Borrar"
@@ -681,7 +758,6 @@ export function TabEncabezado({
                     <p
                       style={{
                         fontFamily: "MontserratRegular",
-                        fontSize: ".7vw",
                       }}
                     >
                       {option.Label.toUpperCase()}
@@ -716,7 +792,17 @@ export function TabEncabezado({
           </FormControl>
         </Grid>
 
-        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+        <Grid
+          xl={3}
+          lg={3}
+          md={3}
+          sm={3}
+          xs={10}
+          sx={{
+            margin: isSmallScreen ? "2px" : "5px",
+          }}
+          item
+        >
           <FormControl required fullWidth>
             <Autocomplete
               clearText="Borrar"
@@ -739,7 +825,6 @@ export function TabEncabezado({
                     <p
                       style={{
                         fontFamily: "MontserratRegular",
-                        fontSize: ".7vw",
                       }}
                     >
                       {option.Label}
@@ -773,9 +858,18 @@ export function TabEncabezado({
           </FormControl>
         </Grid>
 
-        <Grid xl={4} lg={4} md={4} sm={4} xs={10} item>
+        <Grid
+          xl={4}
+          lg={4}
+          md={4}
+          sm={4}
+          xs={10}
+          sx={{
+            margin: isSmallScreen ? "2px" : "5px",
+          }}
+          item
+        >
           <FormControl required fullWidth>
-            {/*---------------------------------Aqui esta el error de borrar lineas da aciion199----------------------------------*/}
             <Stack spacing={3}>
               <Autocomplete
                 clearText="Borrar"
@@ -800,7 +894,6 @@ export function TabEncabezado({
                       <p
                         style={{
                           fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
                         }}
                       >
                         {option.Label.toUpperCase()}
@@ -850,55 +943,93 @@ export function TabEncabezado({
           </FormControl>
         </Grid>
 
-        <Grid xl={3} lg={3} md={3} sm={3} xs={10} item>
+        <Grid
+          xl={3}
+          lg={3}
+          md={3}
+          sm={3}
+          xs={10}
+          sx={{
+            margin: isSmallScreen ? "2px" : "5px",
+          }}
+          item
+        >
           <FormControl required fullWidth>
-            <Autocomplete
-              disabled={edit && !mirEdit?.encabezado.beneficiario}
-              clearText="Borrar"
-              noOptionsText="Sin opciones"
-              closeText="Cerrar"
-              openText="Abrir"
-              disablePortal
-              size="small"
-              options={catalogoBeneficiarios}
-              getOptionLabel={(option) => option.Label || ""}
-              value={beneficiario}
-              renderOption={(props, option) => {
-                return (
-                  <li {...props} key={option.Id}>
-                    <p
-                      style={{
+            <Stack spacing={3}>
+              <Autocomplete
+                disabled={edit && !mirEdit?.encabezado.beneficiario}
+                clearText="Borrar"
+                noOptionsText="Sin opciones"
+                closeText="Cerrar"
+                openText="Abrir"
+                disablePortal
+                size="small"
+                multiple
+                limitTags={2}
+                options={catalogoBeneficiarios}
+                getOptionLabel={(option) => option.Label?.toUpperCase() || ""}
+                value={beneficiario}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.Id}>
+                      <p
+                        style={{
+                          fontFamily: "MontserratRegular",
+                        }}
+                      >
+                        {option.Label}
+                      </p>
+                    </li>
+                  );
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={"BENEFICIARIO"}
+                    variant="standard"
+                    InputProps={{
+                      ...params.InputProps,
+                      endAdornment: (
+                        <React.Fragment>
+                          {beneficiario?.length > 2 && (
+                            <Typography color="error" variant="caption">
+                              Máximo 2 beneficiarios
+                            </Typography>
+                          )}
+                        </React.Fragment>
+                      ),
+                    }}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                      },
+                    }}
+                    sx={{
+                      "& .MuiAutocomplete-input": {
                         fontFamily: "MontserratRegular",
-                        fontSize: ".7vw",
-                      }}
-                    >
-                      {option.Label}
-                    </p>
-                  </li>
-                );
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label={"BENEFICIARIO"}
-                  variant="standard"
-                  InputLabelProps={{
-                    style: {
-                      fontFamily: "MontserratSemiBold",
-                    },
-                  }}
-                  sx={{
-                    "& .MuiAutocomplete-input": {
-                      fontFamily: "MontserratRegular",
-                    },
-                  }}
-                ></TextField>
-              )}
-              onChange={(event, value) => {
-                setBeneficiario(value || objetoVacio);
-              }}
-              isOptionEqualToValue={(option, value) => option.Id === value.Id}
-            />
+                      },
+                    }}
+                  ></TextField>
+                )}
+                onChange={(event, value) => {
+                  //setBeneficiario(value || objetoVacio);
+                  if (value.length <= 2) {
+                    setBeneficiario(value);
+                  } else alertaInfo("Maximo 2 beneficiarios");
+                }}
+                isOptionEqualToValue={(
+                  option: {
+                    Id: string;
+                    Label: string;
+                  },
+                  value: {
+                    Id: string;
+                    Label: string;
+                  }
+                ) => value.Id === option.Id}
+                onInputChange={() => onClearBeneficiario()}
+              />
+            </Stack>
           </FormControl>
         </Grid>
       </Grid>

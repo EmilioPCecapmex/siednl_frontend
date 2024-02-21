@@ -24,6 +24,7 @@ import { IComponentesFT, IFT } from "../tabsFichaTecnica/Interfaces";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { alertaEliminar, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
 import { IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
+import { create_coment_mir, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -161,7 +162,7 @@ export default function ModalEnviarMIR({
   };
   ///////////////////////////////////////////////////////////////////////////////////////////
 
-  const [comment, setComment] = useState("");
+  const [coment, setComment] = useState("");
 
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected] = useState("0"); //, setUserSelected
@@ -171,21 +172,7 @@ export default function ModalEnviarMIR({
   const enviarMensaje = "Se ha creado una nueva";
 
   const comentMir = (id: string) => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
-        {
-          IdMir: id,
-          Coment: comment,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA: "MIR",
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+      create_coment_mir(id, coment, "MIR")
       .then((r) => {
         setNewComent(false);
         setComment("");
@@ -209,43 +196,56 @@ export default function ModalEnviarMIR({
       err = 1;
       errores.push("SECCIÓN <strong>ENCABEZADO </strong> INCOMPLETA.");
     }
-    if (JSON.parse(MIR)?.encabezado.ejercicioFiscal === "") {
+    if (JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label === "" || JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label === undefined ||
+    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label )) {
+      console.log("ejercicioFiscal");
+      
       err = 1;
       errores.push("<strong> EJERCICIO FISCAL</strong> NO SELECCIONADO.");
     }
-    if (JSON.parse(MIR)?.encabezado.entidad === "") {
+    if (JSON.parse(MIR)?.encabezado.entidad.Label === "" || JSON.parse(MIR)?.encabezado.entidad.Label === undefined ||
+    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.entidad.Label )) {
       err = 1;
       errores.push("<strong> INSTITUCIÓN</strong> NO SELECCIONADA.");
     }
-    if (JSON.parse(MIR)?.encabezado.programa === "") {
+    if (JSON.parse(MIR)?.encabezado.programa.Label === "" || JSON.parse(MIR)?.encabezado.programa.Label === undefined ||
+    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.programa.Label )) {
       err = 1;
       errores.push(
         "<strong> PROGRAMA PRESUPUESTARIO</strong> NO SELECCIONADO."
       );
     }
-    if (JSON.parse(MIR)?.encabezado.eje === "") {
+    if (JSON.parse(MIR)?.encabezado.eje.Label === "" || JSON.parse(MIR)?.encabezado.eje.Label === undefined ||
+    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.eje.Label ) ) {
       err = 1;
       errores.push("<strong> EJE</strong> NO SELECCIONADO.");
     }
-    if (JSON.parse(MIR)?.encabezado.tema === "") {
+    if (JSON.parse(MIR)?.encabezado.tema.Label === "" || JSON.parse(MIR)?.encabezado.tema.Label === undefined ||
+    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.tema.Label ) ) {
       err = 1;
       errores.push("<strong> TÉMATICA</strong> NO SELECCIONADA.");
     }
-    if (JSON.parse(MIR)?.encabezado.objetivo === "") {
+    if (JSON.parse(MIR)?.encabezado.objetivo.Label === "" || JSON.parse(MIR)?.encabezado.objetivo.Label === undefined ||
+    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.objetivo.Label ) ) {
       err = 1;
       errores.push("<strong> OBJETIVO</strong> NO SELECCIONADO.");
     }
-    if (JSON.parse(MIR)?.encabezado.estrategia === "") {
+    if (JSON.parse(MIR)?.encabezado.estrategia.Label === "" || JSON.parse(MIR)?.encabezado.estrategia.Label === undefined ||
+    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.estrategia.Label )) {
       err = 1;
       errores.push("<strong> ESTRATEGIA</strong> NO SELECCIONADA.");
     }
-    if (JSON.parse(MIR)?.encabezado.lineas_de_accion === "") {
+    if (JSON.parse(MIR)?.encabezado.lineas_de_accion === "" || JSON.parse(MIR)?.encabezado.lineas_de_accion === undefined ||
+    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.lineas_de_accion)) {
       err = 1;
       errores.push(
         "<strong> LÍNEA DE ACCIÓN</strong> SELECCIONA AL MENOS 1 OPCIÓN."
       );
     }
-    if (JSON.parse(MIR)?.encabezado.beneficiario === "") {
+    if (JSON.parse(MIR)?.encabezado.beneficiario === "" || JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
+    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario) ) {
+      console.log("JSON.parse(MIR)?.encabezado: ",JSON.parse(MIR)?.encabezado);
+      
       err = 1;
       errores.push("<strong> BENEFICIARIO</strong> NO SELECCIONADO.");
     }
@@ -556,11 +556,20 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
-        userXInst.map((user) => {
+        let rol: string[] = [];
+        if(localStorage.getItem("Rol") === "Verificador"){
+          rol = ["Administrador"]
+        }
 
-          enviarNotificacion(user.IdUsuario, r.data.data.Id, "MA");
-      
-        });
+        if(localStorage.getItem("Rol") === "Capturador"){
+          rol = ["Verificador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Administrador"){
+          rol = ["Capturador","Verificador"]
+        }
+
+        enviarNotificacionRol("MIR", "MIR enviada", IdMir, rol)
         showResume();
       })
       .catch((err) => {
@@ -598,10 +607,24 @@ export default function ModalEnviarMIR({
         }
       )
       .then((r) => {
-        userXInst.map((user) => {
+        // userXInst.map((user) => {
           
-          enviarNotificacion(user.IdUsuario, r.data.data.ID, "MIR");
-        });
+        //  soliModyNoty(user.IdUsuario, r.data.data.ID, "MIR");
+        // });
+        let rol: string[] = [];
+        if(localStorage.getItem("Rol") === "Verificador"){
+          rol = ["Administrador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Capturador"){
+          rol = ["Verificador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Administrador"){
+          rol = ["Capturador","Verificador"]
+        }
+
+        enviarNotificacionRol("MIR", "MIR enviada", IdMir, rol)
 
         if (estado === "Autorizada") {
           CrearMetaAnual(r.data.data.Id, IdMir);
@@ -612,7 +635,7 @@ export default function ModalEnviarMIR({
         ? "¡MIR autorizada con éxito!, Meta Anual disponible para captura"
         : "¡MIR enviada con éxito!").toUpperCase())
 
-        if (comment !== "") {
+        if (coment !== "") {
           comentMir(r.data.data.ID);
         }
         showResume();
@@ -653,7 +676,7 @@ export default function ModalEnviarMIR({
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (
+  const soliModyNoty = (
     IdUsuarioDestino: string,
     IdDoc = "",
     Nombre = ""

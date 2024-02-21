@@ -794,9 +794,24 @@ export function TabResumen({
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
-              {MIRPADRE.encabezado?.beneficiario?.Label}
-            </Typography>
+            {MIRPADRE.encabezado?.beneficiario.map(
+              (value: { Id: string; Label: string }, x: any) => {
+                return (
+                  <Typography
+                    key={x}
+                    sx={{
+                      fontFamily: "MontserratLight",
+
+                      borderBottom: "1px solid lightGrey",
+                      "&:last-Child": { borderBottom: 0 },
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {value?.Label}
+                  </Typography>
+                );
+              }
+            )}
           </Grid>
         </Grid>
 
@@ -2143,7 +2158,7 @@ export function TabResumen({
                       />
                     </Grid>
                   )}
-                  <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
+                  <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
@@ -2428,7 +2443,7 @@ export function TabResumen({
         }}
       >
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
           item
           xl={3}
           lg={3}
@@ -2448,7 +2463,7 @@ export function TabResumen({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
           item
           xl={3}
           lg={3}
@@ -2476,7 +2491,7 @@ export function TabResumen({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+          sx={{ justifyContent: "center", display: "flex", }}
           item
           xl={3}
           lg={3}

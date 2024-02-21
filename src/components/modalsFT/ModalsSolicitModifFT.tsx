@@ -16,6 +16,7 @@ import {
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
 import { alertaEliminar, alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
+import { create_coment_mir, soliModyNoty } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -46,20 +47,15 @@ export default function ModalSolicitaModif({
   const [comentario, setComentario] = useState("");
 
   const comentFT = () => {
-    axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
-      {
-        IdMir: IdMIR,
-        Coment: comentario,
-        CreadoPor: localStorage.getItem("IdUsuario"),
-        MIR_MA: "FT",
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    );
+
+    
+
+    create_coment_mir(IdMIR, comentario, "FT")
+      .then((r) => {
+        setComentario("");
+        handleClose();
+      })
+      .catch((err) => {});
   };
 
   const checkUsuario = (estado: string) => {
@@ -516,7 +512,8 @@ export default function ModalSolicitaModif({
         ? "Ficha Tecnica enviada a capturador para corrección"
         : "Ficha Tecnica enviada").toUpperCase())
        
-        //enviarNotificacion();
+        
+        soliModyNoty(userSelected, "Se le ha solicitado una modificación.", "FT", IdFT );
         handleClose();
         showResume();
       })

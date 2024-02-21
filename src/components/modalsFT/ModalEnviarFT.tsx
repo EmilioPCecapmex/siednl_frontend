@@ -13,7 +13,14 @@ import {
 //import { sendMail } from "../../funcs/sendMailCustomMessage";
 import { queries } from "../../queries";
 import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
-import { alertaEliminar, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
+import {
+  alertaEliminar,
+  alertaErrorConfirm,
+  alertaErroresDocumento,
+  alertaExito,
+  alertaExitoConfirm,
+} from "../genericComponents/Alertas";
+import { create_coment_mir, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -40,22 +47,9 @@ export default function ModalEnviarFT({
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [newComent, setNewComent] = React.useState(false);
   const enviarMensaje = "Se ha creado una nueva";
+
   const comentFT = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
-        {
-          IdMir: IdMIR,
-          Coment: comment,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA: "FT",
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+    create_coment_mir(IdMIR, comment, "FT")
       .then((r) => {
         setNewComent(false);
         setComment("");
@@ -64,7 +58,6 @@ export default function ModalEnviarFT({
   };
 
   let err = 0;
-
 
   const checkFT = (v: string) => {
     errores = [];
@@ -296,79 +289,80 @@ export default function ModalEnviarFT({
 
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
-    JSON.parse(FT)?.componentes.map((componente: IComponentesFT, indexC: number) => {
-      componente.actividades.map((actividad: IActividadesFT,indexA: number) =>{
-         if (actividad.tipoDeIndicador === "") {
-        errores.push(
-          `<strong>Actividad ${actividad.tipoDeIndicador} </strong>: Tipo de indicador no seleccionado.`
+    JSON.parse(FT)?.componentes.map(
+      (componente: IComponentesFT, indexC: number) => {
+        componente.actividades.map(
+          (actividad: IActividadesFT, indexA: number) => {
+            if (actividad.tipoDeIndicador === "") {
+              errores.push(
+                `<strong>Actividad ${actividad.tipoDeIndicador} </strong>: Tipo de indicador no seleccionado.`
+              );
+              err = 1;
+            }
+            if (actividad.dimension === "") {
+              errores.push(
+                `<strong>Actividad ${actividad.actividades} </strong>: Dimension no seleccionado.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.unidadDeMedida === undefined ||
+              /^[\s]*$/.test(actividad.unidadDeMedida) ||
+              actividad.unidadDeMedida === ""
+            ) {
+              errores.push(
+                `<strong>Actividad ${actividad.actividades} </strong>: Unidad de medida sin información.`
+              );
+              err = 1;
+            }
+            if (actividad.claridad === "") {
+              errores.push(
+                `<strong>Actividad ${actividad.actividades} </strong>: Claridad no seleccionado.`
+              );
+              err = 1;
+            }
+            if (actividad.relevancia === "") {
+              errores.push(
+                `<strong>Actividad ${actividad.actividades} </strong>: Relevancia no seleccionado.`
+              );
+              err = 1;
+            }
+            if (actividad.economia === "") {
+              errores.push(
+                `<strong>Actividad ${actividad.actividades} </strong>: Economia no seleccionado.`
+              );
+              err = 1;
+            }
+            if (actividad.monitoreable === "") {
+              errores.push(
+                `<strong>Actividad ${actividad.actividades} </strong>: Monitoreable no seleccionado.`
+              );
+              err = 1;
+            }
+            if (actividad.adecuado === "") {
+              errores.push(
+                `<strong>Actividad ${actividad.actividades} </strong>: Adecuado no seleccionado.`
+              );
+              err = 1;
+            }
+            if (actividad.aporte_marginal === "") {
+              errores.push(
+                `<strong>Actividad ${actividad.actividades} </strong>: Aporte marginal no seleccionado.`
+              );
+              err = 1;
+            }
+          }
         );
-        err = 1;
       }
-      if (actividad.dimension === "") {
-        errores.push(
-          `<strong>Actividad ${actividad.actividades} </strong>: Dimension no seleccionado.`
-        );
-        err = 1;
-      }
-      if (
-        actividad.unidadDeMedida === undefined ||
-        /^[\s]*$/.test(actividad.unidadDeMedida) ||
-        actividad.unidadDeMedida === ""
-      ) {
-        errores.push(
-          `<strong>Actividad ${actividad.actividades} </strong>: Unidad de medida sin información.`
-        );
-        err = 1;
-      }
-      if (actividad.claridad === "") {
-        errores.push(
-          `<strong>Actividad ${actividad.actividades} </strong>: Claridad no seleccionado.`
-        );
-        err = 1;
-      }
-      if (actividad.relevancia === "") {
-        errores.push(
-          `<strong>Actividad ${actividad.actividades} </strong>: Relevancia no seleccionado.`
-        );
-        err = 1;
-      }
-      if (actividad.economia === "") {
-        errores.push(
-          `<strong>Actividad ${actividad.actividades} </strong>: Economia no seleccionado.`
-        );
-        err = 1;
-      }
-      if (actividad.monitoreable === "") {
-        errores.push(
-          `<strong>Actividad ${actividad.actividades} </strong>: Monitoreable no seleccionado.`
-        );
-        err = 1;
-      }
-      if (actividad.adecuado === "") {
-        errores.push(
-          `<strong>Actividad ${actividad.actividades} </strong>: Adecuado no seleccionado.`
-        );
-        err = 1;
-      }
-      if (actividad.aporte_marginal === "") {
-        errores.push(
-          `<strong>Actividad ${actividad.actividades} </strong>: Aporte marginal no seleccionado.`
-        );
-        err = 1;
-      }
-      })
-     
-    });
+    );
     if (err === 0) {
       crearFichaTecnica(v);
     } else {
-      alertaErroresDocumento(errores)
-     
+      alertaErroresDocumento(errores);
     }
   };
 
   const crearFichaTecnica = (estado: string) => {
-  
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
@@ -380,7 +374,7 @@ export default function ModalEnviarFT({
           Id: IdFT,
           Estado: estado,
           Rol: localStorage.getItem("Rol"),
-          IdEntidad:localStorage.getItem("IdEntidad"),
+          IdEntidad: localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -389,14 +383,22 @@ export default function ModalEnviarFT({
         }
       )
       .then((r) => {
-      
-        userXInst.map((user) => {
-          enviarNotificacion(user.IdUsuario, IdFT, "FT", "Ficha Tecnica");
-          //sendMail(user.CorreoElectronico, enviarMensaje, "FT");
-        });
+        let rol: string[] = [];
+        if(localStorage.getItem("Rol") === "Verificador"){
+          rol = ["Administrador"]
+        }
 
-        alertaExitoConfirm((r.data.data.message).toUpperCase())
-       
+        if(localStorage.getItem("Rol") === "Capturador"){
+          rol = ["Verificador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Administrador"){
+          rol = ["Capturador","Verificador"]
+        }
+
+        enviarNotificacionRol("FT", "FT enviada", IdFT, rol)
+
+        alertaExitoConfirm(r.data.data.message.toUpperCase());
 
         if (comment !== "") {
           comentFT();
@@ -404,30 +406,27 @@ export default function ModalEnviarFT({
         showResume();
       })
       .catch((err) => {
-        alertaErrorConfirm((err.response.data.result.error).toUpperCase())
-        
+        alertaErrorConfirm(err.response.data.result.error.toUpperCase());
       });
   };
 
   useEffect(() => {
     if (open) {
-    
-
       ////////////////////////Esto esta fallando
       axios
-        .post(process.env.REACT_APP_APPLICATION_BACK + 
-          "/api/tipo-usuario",
-         {
+        .post(
+          process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
+          {
             TipoUsuario: localStorage.getItem("Rol"),
             IdEntidad: localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("dApp"),
-         },
-         {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
           },
-
-        })
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+            },
+          }
+        )
         .then((r) => {
           if (r.status === 200) {
             setUserXInst(r.data.data);
@@ -436,30 +435,28 @@ export default function ModalEnviarFT({
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (
-    IdUsuarioDestino: string,
-    IdDoc = "",
-    tipoDoc = "",
-    Nombre = ""
-  ) => {
-    axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
-      {
-        IdUsuarioDestino: IdUsuarioDestino,
-        Titulo: tipoDoc,
-        Mensaje: enviarMensaje + " " + Nombre,
-        IdDocumento: IdDoc,
-        CreadoPor: localStorage.getItem("IdUsuario"),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    );
-  };
-
-  
+  // const soliModyNoty = (
+  //   IdUsuarioDestino: string,
+  //   IdDoc = "",
+  //   tipoDoc = "",
+  //   Nombre = ""
+  // ) => {
+  //   axios.post(
+  //     process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
+  //     {
+  //       IdUsuarioDestino: IdUsuarioDestino,
+  //       Titulo: tipoDoc,
+  //       Mensaje: enviarMensaje + " " + Nombre,
+  //       IdDocumento: IdDoc,
+  //       CreadoPor: localStorage.getItem("IdUsuario"),
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     }
+  //   );
+  // };
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
@@ -531,7 +528,7 @@ export default function ModalEnviarFT({
             }}
           >
             <Button
-            className="cancelar"
+              className="cancelar"
               //sx={queries.buttonCancelarSolicitudInscripcion}
               onClick={() => handleClose()}
             >
@@ -541,7 +538,7 @@ export default function ModalEnviarFT({
             </Button>
 
             <Button
-            className="aceptar"
+              className="aceptar"
               //sx={queries.buttonContinuarSolicitudInscripcion}
               variant="contained"
               onClick={() => {

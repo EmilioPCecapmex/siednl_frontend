@@ -111,9 +111,6 @@ export function alertaErrorConfirm(titulo: string) {
 // export function alertaEliminar(fnc:Function){
 //   fnc();
 // }
-
-
-
 export const alertaEliminar = (  confirmedfunction: Function, cancelfunction: Function, title= "¿Desea eliminar elemento?") => {
  return Swal.fire({
     title: title,

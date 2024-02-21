@@ -14,6 +14,7 @@ import {
 
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { alertaEliminar, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm, alertaInfo } from "../genericComponents/Alertas";
+import { enviarNotificacionRol } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -524,15 +525,22 @@ export default function ModalEnviarMA({
         }
       )
       .then((r) => {
-        userXInst.map((user) => {
-          enviarNotificacion(
-            user.IdUsuario,
-            r.data.data.Id,
-            "MA",
-            "Meta Anual"
-          );
-     
-        });
+        let rol: string[] = [];
+        if(localStorage.getItem("Rol") === "Verificador"){
+          rol = ["Administrador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Capturador"){
+          rol = ["Verificador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Administrador"){
+          rol = ["Capturador","Verificador"]
+        }
+
+        enviarNotificacionRol("MA", "MA enviada", IdMA, rol)
+
+        
         if (estado === "Autorizada") {
           CrearFichaTecnica();
         }
@@ -575,17 +583,20 @@ export default function ModalEnviarMA({
       )
       .then((r) => {
        
-        userXInst.map((user) => {
-          
+        let rol: string[] = [];
+        if(localStorage.getItem("Rol") === "Verificador"){
+          rol = ["Administrador"]
+        }
 
-          enviarNotificacion(
-            user.IdUsuario,
-            r.data.data.Id,
-            "FT",
-            "Ficha Tecnica"
-          );
-        
-        });
+        if(localStorage.getItem("Rol") === "Capturador"){
+          rol = ["Verificador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Administrador"){
+          rol = ["Capturador","Verificador"]
+        }
+
+        enviarNotificacionRol("MA", "MA enviada", IdMA, rol)
         alertaExito(()=>{},localStorage.getItem("Rol") === "Administrador"
         ? "FT y RF enviada a capturador"
         : "FT enviada a revisión")
@@ -624,7 +635,7 @@ export default function ModalEnviarMA({
     }
   }, [MIR, open]);
 
-  const enviarNotificacion = (
+  const soliModyNoty = (
     IdUsuarioDestino: string,
     IdDoc = "",
     tipoDoc = "",

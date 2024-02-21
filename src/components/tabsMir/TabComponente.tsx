@@ -208,10 +208,12 @@ export const TabComponente = ({
               justifyContent:
                 MIR.componentes.length > 9 ? "flex-start" : "center",
               borderColor: "#BCBCBC",
+
               overflow: MIR.componentes.length > 9 ? "scroll" : "",
               "&::-webkit-scrollbar": {
                 width: ".3vw",
               },
+              
               "&::-webkit-scrollbar-thumb": {
                 backgroundColor: "rgba(0,0,0,.5)",
                 outline: "1px solid slategrey",

@@ -21,6 +21,7 @@ import {
   IRF,
 } from "../tabsRaffi/interfacesRaffi";
 import { alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExitoConfirm } from "../genericComponents/Alertas";
+import { create_coment_mir, soliModyNoty } from "../genericComponents/axiosGenericos";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModifRF({
@@ -54,23 +55,11 @@ export default function ModalSolicitaModifRF({
       ? JSON.parse(RF)[0]
       : JSON.parse(RF);
 
-  const [comment, setComment] = useState("");
+  const [coment, setComment] = useState("");
+
   const comentMA = (id: string) => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
-        {
-          IdMir: id,
-          Coment: comment,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA: "RF",
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+   
+      create_coment_mir(id, coment, "RF")
       .then((r) => {
         setComment("");
         handleClose();
@@ -238,14 +227,15 @@ export default function ModalSolicitaModifRF({
         }
       )
       .then((r) => {
-        if (comment !== "") {
+        if (coment !== "") {
           comentMA(IdRF);
         }
         alertaExitoConfirm((localStorage.getItem("Rol") === "Verificador"
         ? "RAFFI enviada a capturador para corrección"
         : "RAFFI enviada").toUpperCase())
 
-        enviarNotificacion();
+      
+        soliModyNoty(userSelected, "Se le ha solicitado una modificación.", "RF", IdRF );
         handleClose();
         showResume();
       })
@@ -289,22 +279,7 @@ export default function ModalSolicitaModifRF({
   
 
 
-  const enviarNotificacion = () => {
-    axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
-      {
-        IdUsuarioDestino: userSelected,
-        Titulo: "RAFFI",
-        Mensaje: "Se le ha solicitado una modificación.",
-        CreadoPor: localStorage.getItem("IdUsuario"),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    );
-  };
+
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
@@ -436,7 +411,7 @@ export default function ModalSolicitaModifRF({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                {comment === "" ? "Enviar sin comentarios" : "Confirmar"}
+                {coment === "" ? "Enviar sin comentarios" : "Confirmar"}
               </Typography>
             </Button>
           </Box>

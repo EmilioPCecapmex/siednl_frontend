@@ -22,6 +22,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "./ModalEnviarMIR";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
+import { create_coment_mir, soliModyNoty, obtenerComentarios, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
 
 export const ComentDialogMir = ({
   estado,
@@ -99,53 +100,22 @@ export const ComentDialogMir = ({
 
   const [coment, setComent] = React.useState("");
 
-  const enviarNotificacion = (v: string) => {
-    axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
-      {
-        IdUsuarioDestino: v,
-        Titulo: "Nuevo comentario MIR",
-        Mensaje: coment,
-        // Se va a modificar
-        CreadoPor: localStorage.getItem("IdUsuario"),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    );
-  };
+  
 
   const comentMir = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-coment-mir",
-        {
-          IdMir: id,
-          Coment: coment,
-          CreadoPor: localStorage.getItem("IdUsuario"),
-          MIR_MA: "MIR",
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
+    
+      create_coment_mir(id, coment, "MIR")
       .then((r) => {
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
-          userXInst.map((user) => {
-            enviarNotificacion(user.IdUsuario);
-          });
+          enviarNotificacionRol("FT", "Nuevo comentario Ficha Tecnica", id, ["Verificador"])
         }
        
         setNewComent(false);
         setComent("");
         handleClose();
         actualizado();
-        alertaExito(()=>{}, "Comentario añadidoa")
+        alertaExito(()=>{}, "Comentario añadido")
        
       })
       .catch((err) => {
@@ -154,19 +124,25 @@ export const ComentDialogMir = ({
       });
   };
 
+
+
+  // React.useEffect(() => {
+  //   axios
+  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/get-coment-mir", {
+  //       params: {
+  //         IdMir: id,
+  //       },
+  //       headers: {
+  //         Authorization: localStorage.getItem("jwtToken") || "",
+  //       },
+  //     })
+  //     .then((r) => {
+  //       setComents(r.data.data);
+  //     });
+  // }, [actualizado, id]);
+
   React.useEffect(() => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/get-coment-mir", {
-        params: {
-          IdMir: id,
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setComents(r.data.data);
-      });
+    obtenerComentarios(id,  setComents);
   }, [actualizado, id]);
 
   const isComentEmpty = () => {
