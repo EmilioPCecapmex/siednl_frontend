@@ -505,6 +505,7 @@ export default function ModalEnviarMA({
   };
 
   const creaMA = (estado: string) => {
+   console.log("IdMA: ",IdMA);
    
     axios
       .post(
@@ -539,6 +540,7 @@ export default function ModalEnviarMA({
         }
 
         enviarNotificacionRol("MA", "MA enviada", IdMA, rol)
+        enviarNotificacionRol("RF", "RF enviada", r.data.data.IdRF, rol)
 
         
         if (estado === "Autorizada") {
@@ -596,7 +598,7 @@ export default function ModalEnviarMA({
           rol = ["Capturador","Verificador"]
         }
 
-        enviarNotificacionRol("MA", "MA enviada", IdMA, rol)
+        enviarNotificacionRol("FT", "FT enviada", r.data.data.Id, rol)
         alertaExito(()=>{},localStorage.getItem("Rol") === "Administrador"
         ? "FT y RF enviada a capturador"
         : "FT enviada a revisión")
@@ -609,6 +611,7 @@ export default function ModalEnviarMA({
   };
 
   useEffect(() => {
+    console.log("IdMA: ",IdMA);
     if (open) {
     
 
@@ -635,30 +638,7 @@ export default function ModalEnviarMA({
     }
   }, [MIR, open]);
 
-  const soliModyNoty = (
-    IdUsuarioDestino: string,
-    IdDoc = "",
-    tipoDoc = "",
-    Nombre = ""
-  ) => {
-
-
-    axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
-      {
-        IdUsuarioDestino: IdUsuarioDestino,
-        Titulo: tipoDoc,
-        Mensaje: enviarMensaje + " " + Nombre,
-        IdDocumento: IdDoc,
-        CreadoPor: localStorage.getItem("IdUsuario"),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    );
-  };
+  
 
   
   return (
@@ -756,6 +736,7 @@ export default function ModalEnviarMA({
             className="aceptar"
               //sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
+                console.log("IdMA: ",IdMA);
                 checkMA(
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"

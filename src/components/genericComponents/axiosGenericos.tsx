@@ -102,3 +102,61 @@ export const obtenerComentarios = async (id: string,  state: Function) => {
      
     });
   };
+
+  export const verNotificacion = (IdNoti: string, state1: Function, state2: Function
+    ) => {
+    axios.post(
+      process.env.REACT_APP_APPLICATION_BACK + "/api/ver-notif",
+      {
+        IdNoti: IdNoti,
+        IdUsuario: localStorage.getItem("IdUsuario"),
+        
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    )
+    .then((r) => {
+      if (r.status === 200) {
+        obtenerNotificaciones(state1, state2);
+        state1([]);
+      }
+    })
+    .catch((err) => {
+      if (err.response.status === 409) {
+        state2(true);
+        state1([]);
+      }
+    });
+  };
+
+ export const obtenerNotificaciones = (state1: Function, state2: Function) => {
+    axios
+      .post(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/list-notif",
+        {
+          IdUsuarioDestino: localStorage.getItem("IdUsuario"),
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 200) {
+          if (r.data.data.length >= 1) {
+            console.log("axiosGenericos Noti - r.status: ",r.status);
+            
+            state1(r.data.data);
+          } else {
+            state2(false);
+          }
+        }
+      })
+      .catch((e) => {
+        return null;
+      });
+  };

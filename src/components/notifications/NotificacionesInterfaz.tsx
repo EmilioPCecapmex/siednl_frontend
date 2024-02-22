@@ -4,7 +4,6 @@ export interface INotificacion {
     Titulo:    string;
     Mensaje:   string;
     CreadoPor: string;
-    Deleted:   number;
-    FechaCreacion: string;
     IdDocumento: string;
+    FechaCreacion: string;
 }

@@ -537,13 +537,17 @@ export default function ModalEnviarMIR({
   };
 
   const CrearMetaAnual = (mensaje: string, IdMir: string) => {
+    console.log("mensaje: ",mensaje);
+    console.log("IdMir: ",IdMir);
+    const idMirFinal = IdMir || mensaje;
+
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
         {
           MetaAnual: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
-          IdMir: IdMir,
+          IdMir: idMirFinal,
           Estado: "En Captura",
           Id: "",
           Rol: localStorage.getItem("Rol"),
@@ -568,8 +572,9 @@ export default function ModalEnviarMIR({
         if(localStorage.getItem("Rol") === "Administrador"){
           rol = ["Capturador","Verificador"]
         }
-
-        enviarNotificacionRol("MIR", "MIR enviada", IdMir, rol)
+        console.log("MA-r.data.data.Id: ",r.data.data);
+        
+        enviarNotificacionRol("MA", "MA enviada", r.data.data.Id, rol)
         showResume();
       })
       .catch((err) => {
@@ -623,10 +628,14 @@ export default function ModalEnviarMIR({
         if(localStorage.getItem("Rol") === "Administrador"){
           rol = ["Capturador","Verificador"]
         }
-
-        enviarNotificacionRol("MIR", "MIR enviada", IdMir, rol)
-
+        console.log("r.dada.data: ",r.data.data);
+        
+        enviarNotificacionRol("MIR", "MIR enviada", r.data.data.Id, rol)
+        console.log("estado: ",estado);
+        
         if (estado === "Autorizada") {
+          console.log("r.data.data.Id: ",r.data.data.Id);
+          console.log("IdMir: ",IdMir);
           CrearMetaAnual(r.data.data.Id, IdMir);
         }
 
@@ -636,7 +645,7 @@ export default function ModalEnviarMIR({
         : "¡MIR enviada con éxito!").toUpperCase())
 
         if (coment !== "") {
-          comentMir(r.data.data.ID);
+          comentMir(r.data.data.Id);
         }
         showResume();
       })
@@ -676,30 +685,7 @@ export default function ModalEnviarMIR({
     }
   }, [MIR, open]);
 
-  const soliModyNoty = (
-    IdUsuarioDestino: string,
-    IdDoc = "",
-    Nombre = ""
-  ) => {
-    axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
-
-      {
-        IdUsuarioDestino: IdUsuarioDestino,
-        Titulo: Nombre,
-        Mensaje: enviarMensaje + " " + Nombre,
-        IdDocumento: IdDoc,
-        CreadoPor: localStorage.getItem("IdUsuario"),
-      },
-      {
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      }
-    );
-  };
-
-  
+ 
 
   const mirFuncionAutorizada = () => {
     let auxMA: string;
