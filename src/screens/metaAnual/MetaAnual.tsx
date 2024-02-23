@@ -152,7 +152,13 @@ export const MetaAnual = () => {
   });
 
   useEffect(() => {
-    let id = urlParams.get("Id");
+    const url = window.location.href;
+
+    const urlSearchParams = new URLSearchParams(url);
+
+    const id = url.split("?")[1].split("=")[1];
+
+    //let id = urlParams.get("Id");
     setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
   }, [ma]);
 
@@ -578,7 +584,9 @@ export const MetaAnual = () => {
                   </Grid>
                 ) : null}
 
-                <Grid item  xl={
+                <Grid
+                  item
+                  xl={
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
                       ? 5
@@ -607,7 +615,8 @@ export const MetaAnual = () => {
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
                       ? 5
                       : 11
-                  }>
+                  }
+                >
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
                       <Tooltip

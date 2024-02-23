@@ -363,7 +363,11 @@ export const FichaTecnica = () => {
   const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
-    let id = urlParams.get("Id");
+    const url = window.location.href;
+
+    const urlSearchParams = new URLSearchParams(url);
+
+    const id = url.split("?")[1].split("=")[1];
     setFtFiltered(ft.filter((x) => x.IdFt.toLowerCase().includes(id || "")));
   }, [ft]);
 

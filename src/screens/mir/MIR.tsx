@@ -300,7 +300,14 @@ export const MIR = () => {
   };
 
   useEffect(() => {
-    let id = urlParams.get("Id");
+   
+const url = window.location.href;
+
+const urlSearchParams = new URLSearchParams(url);
+
+const id = url.split("?")[1].split("=")[1];
+
+    
     setMirsFiltered(mirs.filter((x) => x.Id.toLowerCase().includes(id || "")));
   }, [mirs]);
 
