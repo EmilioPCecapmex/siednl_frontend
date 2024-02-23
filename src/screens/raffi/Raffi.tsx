@@ -322,7 +322,7 @@ export const Raffi = () => {
   useEffect(() => {
     const url = window.location.href;
 
-    const urlSearchParams = new URLSearchParams(url);
+    
 
     const id = url.split("?")[1].split("=")[1];
     //console.log("rfilterd", rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
