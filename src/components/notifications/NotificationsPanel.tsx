@@ -162,7 +162,7 @@ export default function NotificationsPanel() {
                   <Button
                     variant="text"
                     onClick={() => {
-                      verNotificacion(index.Id, setNotificaciones, setSinNotificaciones );
+                     // verNotificacion(index.Id, setNotificaciones, setSinNotificaciones );
                       if (index.Titulo === "MIR") {
                         navigate("../MIR" + "?Id=" + index.IdDocumento);
                       }

@@ -474,8 +474,8 @@ export function TabAvanceFinanciero({
                   setValorProgramaPresupuestario(
                     validarNumero(a.target.value, valorProgramaPresupuestario)
                   );
-                }else{
-                  setValorProgramaPresupuestario("")
+                } else {
+                  setValorProgramaPresupuestario("");
                 }
               }}
               value={
@@ -513,7 +513,7 @@ export function TabAvanceFinanciero({
               justifyContent: "center",
               boxShadow: 2,
               border: "1px solid #ccc",
-              height: "22vh",
+              height: "24vh",
             }}
           >
             <FormControl>
@@ -537,6 +537,7 @@ export function TabAvanceFinanciero({
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
+                        fontSize: ["2vh", "3vh", "3vh", "3vh", "2vh"],
                       }}
                     >
                       MODIFICADO/AUTORIZADO
@@ -560,6 +561,7 @@ export function TabAvanceFinanciero({
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
+                        fontSize: ["2vh", "3vh", "3vh", "3vh", "2vh"],
                       }}
                     >
                       DEVENGADO/MODIFICADO
@@ -584,6 +586,7 @@ export function TabAvanceFinanciero({
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
+                        fontSize: ["2vh", "3vh", "3vh", "3vh", "2vh"],
                       }}
                     >
                       EJERCIDO/MODIFICADO
@@ -610,6 +613,11 @@ export function TabAvanceFinanciero({
           <Grid
             container
             item
+            // xl={11}
+            // lg={11}
+            // md={5}
+            //sm={11.9}
+            //xs={11}
             direction={"row"}
             sx={{
               justifyContent: "space-around",

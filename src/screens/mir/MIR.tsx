@@ -300,16 +300,21 @@ export const MIR = () => {
   };
 
   useEffect(() => {
-   
-const url = window.location.href;
-
-const urlSearchParams = new URLSearchParams(url);
-
-const id = url.split("?")[1].split("=")[1];
-
-    
-    setMirsFiltered(mirs.filter((x) => x.Id.toLowerCase().includes(id || "")));
+    const url = window.location.href;
+  
+    // Verificar si el parámetro 'Id' está presente en la URL
+    if (url.includes('?Id=')) {
+      const id = url.split("?")[1].split("=")[1];
+  
+      // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
+      if (id) {
+        setMirsFiltered(mirs.filter((x) => x.Id.toLowerCase().includes(id || "")));
+      }
+    }
   }, [mirs]);
+  
+
+  
 
   const [actualizacion, setActualizacion] = useState(0);
 

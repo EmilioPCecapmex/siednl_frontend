@@ -319,18 +319,27 @@ export const Raffi = () => {
   };
 
 
+  // useEffect(() => {
+  //   const url = window.location.href;
+  //   const id = url.split("?")[1].split("=")[1];
+  //   //console.log("rfilterd", rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
+    
+  //   setRfFiltered(rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
+   
+  // }, [rf]);
+
   useEffect(() => {
     const url = window.location.href;
-
-    
-
-    const id = url.split("?")[1].split("=")[1];
-    //console.log("rfilterd", rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
-    
-    setRfFiltered(rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
-   
-    
-    
+  
+    // Verificar si el parámetro 'Id' está presente en la URL
+    if (url.includes('?Id=')) {
+      const id = url.split("?")[1].split("=")[1];
+  
+      // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
+      if (id) {
+        setRfFiltered(rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
+      }
+    }
   }, [rf]);
 
   return (

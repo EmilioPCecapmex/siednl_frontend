@@ -151,15 +151,29 @@ export const MetaAnual = () => {
     },
   });
 
+  // useEffect(() => {
+  //   const url = window.location.href;
+
+  //   const urlSearchParams = new URLSearchParams(url);
+
+  //   const id = url.split("?")[1].split("=")[1];
+
+  //   //let id = urlParams.get("Id");
+  //   setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
+  // }, [ma]);
+
   useEffect(() => {
     const url = window.location.href;
-
-    const urlSearchParams = new URLSearchParams(url);
-
-    const id = url.split("?")[1].split("=")[1];
-
-    //let id = urlParams.get("Id");
-    setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
+  
+    // Verificar si el parámetro 'Id' está presente en la URL
+    if (url.includes('?Id=')) {
+      const id = url.split("?")[1].split("=")[1];
+  
+      // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
+      if (id) {
+        setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
+      }
+    }
   }, [ma]);
 
   const validaFechaCaptura = () => {
