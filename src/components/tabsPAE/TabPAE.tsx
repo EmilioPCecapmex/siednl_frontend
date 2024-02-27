@@ -509,12 +509,14 @@ export const TabPAE = ({
                             </IconButton>
                           </span>
                         </Tooltip>
-                        <DeleteDialogPAE
-                          id={row.Id}
-                          updateData={() => {
-                            actuaizarDatos();
-                          }}
-                        />
+                        {localStorage.getItem("Rol") === "Administrador" ? (
+                          <DeleteDialogPAE
+                            id={row.Id}
+                            updateData={() => {
+                              actuaizarDatos();
+                            }}
+                          />
+                        ) : null}
                       </TableCell>
                     </TableRow>
                   ))}
