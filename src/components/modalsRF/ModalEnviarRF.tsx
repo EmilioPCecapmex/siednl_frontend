@@ -200,8 +200,10 @@ export default function ModalEnviarRF({
         if(localStorage.getItem("Rol") === "Administrador"){
           rol = ["Capturador","Verificador"]
         }
+        console.log("r.data.data.Id: ",r.data.data.Id);
+        console.log("IdRF: ",IdRF);
 
-        enviarNotificacionRol("RF", "RF enviada", IdMA, rol)
+        enviarNotificacionRol("RF", "RF enviada", r.data.data.Id, rol)
         if (estado === "Autorizada") {
           // CrearFichaTecnica();  
         }

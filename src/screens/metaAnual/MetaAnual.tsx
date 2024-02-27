@@ -151,9 +151,29 @@ export const MetaAnual = () => {
     },
   });
 
+  // useEffect(() => {
+  //   const url = window.location.href;
+
+  //   const urlSearchParams = new URLSearchParams(url);
+
+  //   const id = url.split("?")[1].split("=")[1];
+
+  //   //let id = urlParams.get("Id");
+  //   setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
+  // }, [ma]);
+
   useEffect(() => {
-    let id = urlParams.get("Id");
-    setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
+    const url = window.location.href;
+  
+    // Verificar si el parámetro 'Id' está presente en la URL
+    if (url.includes('?Id=')) {
+      const id = url.split("?")[1].split("=")[1];
+  
+      // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
+      if (id) {
+        setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
+      }
+    }
   }, [ma]);
 
   const validaFechaCaptura = () => {
@@ -578,7 +598,9 @@ export const MetaAnual = () => {
                   </Grid>
                 ) : null}
 
-                <Grid item  xl={
+                <Grid
+                  item
+                  xl={
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
                       ? 5
@@ -607,7 +629,8 @@ export const MetaAnual = () => {
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
                       ? 5
                       : 11
-                  }>
+                  }
+                >
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
                       <Tooltip

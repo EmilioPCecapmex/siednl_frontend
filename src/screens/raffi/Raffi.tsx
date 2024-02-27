@@ -103,6 +103,7 @@ export const Raffi = () => {
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
             x.Entidad.toLowerCase().includes(inst.toLowerCase())
+            
         )
       );
     } else if (
@@ -164,6 +165,8 @@ export const Raffi = () => {
     } else {
       setRfFiltered(rf);
     }
+    
+    
   };
 
   const validaFechaCaptura = () => {
@@ -314,6 +317,30 @@ export const Raffi = () => {
         });
       });
   };
+
+
+  // useEffect(() => {
+  //   const url = window.location.href;
+  //   const id = url.split("?")[1].split("=")[1];
+  //   //console.log("rfilterd", rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
+    
+  //   setRfFiltered(rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
+   
+  // }, [rf]);
+
+  useEffect(() => {
+    const url = window.location.href;
+  
+    // Verificar si el parámetro 'Id' está presente en la URL
+    if (url.includes('?Id=')) {
+      const id = url.split("?")[1].split("=")[1];
+  
+      // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
+      if (id) {
+        setRfFiltered(rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
+      }
+    }
+  }, [rf]);
 
   return (
     <Grid container justifyContent={"space-between"}>

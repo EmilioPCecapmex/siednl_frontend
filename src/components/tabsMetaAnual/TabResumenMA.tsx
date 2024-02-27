@@ -3120,7 +3120,7 @@ export function TabResumenMA({
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
             {localStorage.getItem("Rol") === "Administrador"
                 ? estadoma === "Autorizada"
-                  ? "Modificar FT Autorizada"
+                  ? "Modificar MA Autorizada"
                   : "Autorizar"
                 : "Enviar"}
             </Typography>
