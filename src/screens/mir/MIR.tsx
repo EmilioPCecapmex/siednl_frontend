@@ -998,7 +998,7 @@ export const MIR = () => {
                             component="th"
                             scope="row"
                           >
-                            {(row.Estado === "En Captura" &&
+                            {((row.Estado === "En Captura" || row.Estado === "Borrador Capturador") &&
                             localStorage.getItem("Rol") === "Capturador"
                               ? "Borrador Capturador"
                               : row.Estado === "En Revisión" &&
@@ -1122,7 +1122,9 @@ export const MIR = () => {
 
                               <DeleteDialogMIR
                                 disab={
-                                  row.Estado === "En Captura" &&
+                                  (row.Estado === "En Captura" 
+                                 // || row.Estado === "Borrador Capturador"
+                                  ) &&
                                   validaFecha &&
                                   localStorage.getItem("Rol") === "Capturador"
                                     ? false
@@ -1156,7 +1158,7 @@ export const MIR = () => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      (row.Estado === "En Captura" &&
+                                      ((row.Estado === "En Captura" || row.Estado === "Borrador Capturador") &&
                                         validaFecha &&
                                         localStorage.getItem("Rol") ===
                                           "Capturador") ||
