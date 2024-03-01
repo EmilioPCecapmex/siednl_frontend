@@ -509,7 +509,7 @@ export default function ModalEnviarMA({
    
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-ma-generic",
         {
           MetaAnual: MA,
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -597,7 +597,8 @@ export default function ModalEnviarMA({
         if(localStorage.getItem("Rol") === "Administrador"){
           rol = ["Capturador","Verificador"]
         }
-
+        console.log("ModalEnviarMA: ",r.data.data);
+        
         enviarNotificacionRol("FT", "FT enviada", r.data.data.Id, rol)
         alertaExito(()=>{},localStorage.getItem("Rol") === "Administrador"
         ? "FT y RF enviada a capturador"

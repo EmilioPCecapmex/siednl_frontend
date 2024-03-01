@@ -543,7 +543,7 @@ export default function ModalEnviarMIR({
 
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-ma-generic",
         {
           MetaAnual: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -586,7 +586,7 @@ export default function ModalEnviarMIR({
   const createMIR = (estado: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir-generic",
 
         {
           MIR: MIR,

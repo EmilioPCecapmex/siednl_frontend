@@ -362,15 +362,6 @@ export const FichaTecnica = () => {
   const [validaFecha, setValidaFecha] = useState(true);
   const [actualizacion, setActualizacion] = useState(0);
 
-  // useEffect(() => {
-  //   const url = window.location.href;
-
-  //   const urlSearchParams = new URLSearchParams(url);
-
-  //   const id = url.split("?")[1].split("=")[1];
-  //   setFtFiltered(ft.filter((x) => x.IdFt.toLowerCase().includes(id || "")));
-  // }, [ft]);
-
   useEffect(() => {
     const url = window.location.href;
   
@@ -380,7 +371,8 @@ export const FichaTecnica = () => {
   
       // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
       if (id) {
-        setFtFiltered(ft.filter((x) => x.IdFt.toLowerCase().includes(id || "")));
+        
+        setFtFiltered(ft.filter((x) => x.IdFt.includes(id || "")));
       }
     }
   }, [ft]);
