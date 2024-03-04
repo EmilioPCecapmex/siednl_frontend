@@ -204,7 +204,7 @@ export default function ModalSolicitaModifRF({
 
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-raffi",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-rf-generic",
         {
           Raffi:
             RFEdit === undefined || RFEdit === ""

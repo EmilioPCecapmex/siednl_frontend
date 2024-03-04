@@ -171,7 +171,7 @@ export default function ModalEnviarRF({
   const creaRF = (estado: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-raffi",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-rf-generic",
         {
           Raffi: RF,
           CreadoPor: localStorage.getItem("IdUsuario"),

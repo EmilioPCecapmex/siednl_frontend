@@ -114,7 +114,7 @@ export const TabResumenRF = ({
   const creaRF = (estado: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-Raffi",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-rf-generic",
         {
           Raffi: JSON.stringify(RF),
           CreadoPor: localStorage.getItem("IdUsuario"),
