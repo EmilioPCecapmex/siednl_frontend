@@ -135,7 +135,7 @@ export const TabResumenRF = ({
         showResume();
       })
       .catch((err) => {
-        alertaError(err.response.data.result.error);
+        //alertaError(err.response.data.result.error);
       });
   };
 

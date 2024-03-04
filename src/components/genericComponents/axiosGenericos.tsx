@@ -2,8 +2,10 @@ import axios from "axios";
 
 
  export const soliModyNoty = (v: string, coment: string, titulo: string, Id: string) => {
+  console.log("Id: ", Id);
+  
     axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/soly-notif",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/soli-notif",
       {
         IdUsuarioDestino: v,
         Titulo: titulo,
