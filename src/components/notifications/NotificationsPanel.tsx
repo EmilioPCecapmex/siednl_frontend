@@ -142,7 +142,7 @@ export default function NotificationsPanel() {
                       }}
                     >
                       {" "}
-                      {index.Titulo.includes("MIR") ? "Ver" : ""}
+                      { "Ver"}
                     </Typography>
                   </Button>
 

@@ -540,11 +540,26 @@ export default function ModalEnviarMA({
         }
 
         enviarNotificacionRol("MA", "MA enviada", IdMA, rol)
-        enviarNotificacionRol("RF", "RF enviada", r.data.data.IdRF, rol)
+        console.log("en ma data?.data?.IdRF: ", r.data.data.IdRF);
+        
+         const idRF = r?.data?.data?.IdRF;
+         const idFT = r?.data?.data?.Id;
+
+      if (idFT && idFT.trim() !== "") {
+        // Verifica si IdRF no es nulo ni vacío antes de enviar la notificación
+        enviarNotificacionRol("RF", "RF enviada", idRF, rol);
+      }
+
+      if (idRF && idRF.trim() !== "") {
+        // Verifica si IdRF no es nulo ni vacío antes de enviar la notificación
+        enviarNotificacionRol("FT", "FT enviada", idFT, rol);
+      }
 
         
         if (estado === "Autorizada") {
-          CrearFichaTecnica();
+          console.log("Entre");
+          
+          //CrearFichaTecnica();
         }
         alertaExitoConfirm((r.data.data.message).toUpperCase())
       
@@ -600,6 +615,7 @@ export default function ModalEnviarMA({
         console.log("ModalEnviarMA: ",r.data.data);
         
         enviarNotificacionRol("FT", "FT enviada", r.data.data.Id, rol)
+        
         alertaExito(()=>{},localStorage.getItem("Rol") === "Administrador"
         ? "FT y RF enviada a capturador"
         : "FT enviada a revisión")

@@ -536,9 +536,8 @@ export default function ModalEnviarMIR({
     }
   };
 
-  const CrearMetaAnual = (mensaje: string, IdMir: string) => {
-    console.log("mensaje: ",mensaje);
-    console.log("IdMir: ",IdMir);
+  const CrearMetaAnual = (mensaje: string, IdMir: string, IdMa: String) => {
+    
     const idMirFinal = IdMir || mensaje;
 
     axios
@@ -574,7 +573,7 @@ export default function ModalEnviarMIR({
         }
         console.log("MA-r.data.data.Id: ",r.data.data);
         
-        enviarNotificacionRol("MA", "MA enviada", r.data.data.Id, rol)
+        enviarNotificacionRol("MA", "MA enviada", r?.data?.data?.Id || IdMa, rol);
         showResume();
       })
       .catch((err) => {
@@ -636,7 +635,8 @@ export default function ModalEnviarMIR({
         if (estado === "Autorizada") {
           console.log("r.data.data.Id: ",r.data.data.Id);
           console.log("IdMir: ",IdMir);
-          CrearMetaAnual(r.data.data.Id, IdMir);
+          console.log("r.data.data.IdMa: ",r.data.data.IdMa)
+          CrearMetaAnual(r.data.data.Id, IdMir, r.data.data.IdMa);
         }
 
         
