@@ -79,7 +79,7 @@ export function TabResumenFT({
   const creaFT = (estado: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-ft-generic",
         {
           FichaTecnica: JSON.stringify(FT),
           CreadoPor: localStorage.getItem("IdUsuario"),

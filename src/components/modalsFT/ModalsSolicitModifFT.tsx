@@ -480,7 +480,7 @@ export default function ModalSolicitaModif({
 
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-FichaTecnica",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-ft-generic",
         {
           FichaTecnica:
             FTEdit === undefined || FTEdit === ""

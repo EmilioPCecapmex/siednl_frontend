@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
 import DownloadIcon from "@mui/icons-material/Download";
 import EditIcon from "@mui/icons-material/Edit";
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import {
   Button,
   FormControl,
@@ -34,6 +36,7 @@ import FullModalMir from "../../components/tabsMir/AddMir";
 import SearchIcon from "@mui/icons-material/Search";
 import { alertaError } from "../../components/genericComponents/Alertas";
 import { estados, heads } from "../../services/validations";
+
 export let resumeDefaultMIR = true;
 
 export let setResumeDefaultMIR = () => {
@@ -155,6 +158,7 @@ export const MIR = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
   const [actionNumber, setActionNumber] = useState(0);
 
+  const [openVisualizador, setOpenVisualizador] = useState(false);
   const onChangeActionNumberValue = () => {
     setActionNumber(1);
   };
@@ -998,7 +1002,7 @@ export const MIR = () => {
                             component="th"
                             scope="row"
                           >
-                            {(row.Estado === "En Captura" &&
+                            {((row.Estado === "En Captura" || row.Estado === "Borrador Capturador") &&
                             localStorage.getItem("Rol") === "Capturador"
                               ? "Borrador Capturador"
                               : row.Estado === "En Revisión" &&
@@ -1122,7 +1126,9 @@ export const MIR = () => {
 
                               <DeleteDialogMIR
                                 disab={
-                                  row.Estado === "En Captura" &&
+                                  (row.Estado === "En Captura" 
+                                 // || row.Estado === "Borrador Capturador"
+                                  ) &&
                                   validaFecha &&
                                   localStorage.getItem("Rol") === "Capturador"
                                     ? false
@@ -1156,7 +1162,7 @@ export const MIR = () => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      (row.Estado === "En Captura" &&
+                                      ((row.Estado === "En Captura" || row.Estado === "Borrador Capturador") &&
                                         validaFecha &&
                                         localStorage.getItem("Rol") ===
                                           "Capturador") ||
@@ -1233,6 +1239,84 @@ export const MIR = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
+
+                              <Tooltip
+                                title="Lista"
+                                PopperProps={{
+                                  modifiers: [
+                                    {
+                                      name: "offset",
+                                      options: {
+                                        offset: [0, -13],
+                                      },
+                                    },
+                                  ],
+                                }}
+                              >
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      ((row.Estado === "En Captura" || row.Estado === "Borrador Capturador") &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Capturador") ||
+                                      (row.Estado === "En Revisión" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      (row.Estado === "Borrador Verificador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      ((row.Estado === "En Autorización" ||
+                                        row.Estado === "Autorizada") &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador") ||
+                                      (row.Estado === "Borrador Autorizador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador")
+                                        ? false
+                                        : true
+                                    }
+                                    onClick={() => {
+                                      setOpenVisualizador(true)
+                                    }}
+                                  >
+                                    <ListAltIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
+
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
+
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
+
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
+
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
+
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+
+
+
                             </Grid>
                           </TableCell>
                         </TableRow>
@@ -1255,6 +1339,13 @@ export const MIR = () => {
                 />
               </Grid>
             </Grid>
+            {openVisualizador ? (
+        <MostrarLista
+          handleClose={() => {
+            setOpenVisualizador(false);
+          }}
+        />
+      ) : null}
           </>
         ) : (
           <Grid

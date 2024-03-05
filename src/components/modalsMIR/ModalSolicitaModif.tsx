@@ -358,7 +358,7 @@ export default function ModalSolicitaModif({
 
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir-generic",
         {
           MIR: MIREdit === undefined ? MIR : "[" + MIR + "," + MIREdit + "]",
           Estado: estado,

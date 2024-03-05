@@ -20,63 +20,13 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { queries } from "../../queries";
 import { obtenerNotificaciones, verNotificacion } from "../genericComponents/axiosGenericos";
+import { log } from "console";
 
 export default function NotificationsPanel() {
   const navigate = useNavigate();
 
   const [notificaciones, setNotificaciones] = useState<Array<INotificacion>>();
   const [sinNotificaciones, setSinNotificaciones] = useState(true);
-
-  // const obtenerNotificaciones = () => {
-  //   axios
-  //     .post(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/list-notif",
-  //       {
-  //         IdUsuarioDestino: localStorage.getItem("IdUsuario"),
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //         },
-  //       }
-  //     )
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         if (r.data.data.length >= 1) {
-  //           setNotificaciones(r.data.data);
-  //         } else {
-  //           setSinNotificaciones(false);
-  //         }
-  //       }
-  //     })
-  //     .catch((e) => {
-  //       return null;
-  //     });
-  // };
-
-  // const verNotificacion = (v: string) => {
-  //   axios
-  //     .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-notif", {
-  //       data: {
-  //         IdNotificacion: v,
-  //       },
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //     })
-  //     .then((r) => {
-  //       if (r.status === 200) {
-  //         obtenerNotificaciones(setNotificaciones, setSinNotificaciones);
-  //         setNotificaciones([]);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       if (err.response.status === 409) {
-  //         setSinNotificaciones(true);
-  //         setNotificaciones([]);
-  //       }
-  //     });
-  // };
 
   const [openNotifPanel, setOpenNotifPanel] = useState(false);
 
@@ -131,6 +81,8 @@ export default function NotificationsPanel() {
       {sinNotificaciones ? (
         <List sx={{ width: "15vw", height: "auto" }}>
           {notificaciones?.map((index) => (
+            
+            
             <ListItem key={index.Id || Math.random()} disablePadding>
               <Box
                 sx={{
@@ -170,6 +122,7 @@ export default function NotificationsPanel() {
                         navigate("../metaAnual" + "?Id=" + index.IdDocumento);
                       }
                       if (index.Titulo === "FT") {
+                        
                         navigate(
                           "../fichaTecnica" + "?Id=" + index.IdDocumento
                         );
@@ -189,7 +142,7 @@ export default function NotificationsPanel() {
                       }}
                     >
                       {" "}
-                      {index.Titulo.includes("MIR") ? "Ver" : ""}
+                      { "Ver"}
                     </Typography>
                   </Button>
 

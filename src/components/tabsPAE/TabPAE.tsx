@@ -508,7 +508,6 @@ export const TabPAE = ({
                             </IconButton>
                           </span>
                         </Tooltip>
-
                         {localStorage.getItem("Rol") === "Administrador" ? (
                           <DeleteDialogPAE
                             id={row.Id}
