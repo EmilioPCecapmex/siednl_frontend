@@ -76,6 +76,7 @@ export const TabActividadesMA = ({
   const [elementoFormulaActividad, setElementoFormulaActividad] = useState("");
   // revisado
   const handleClickOpen = () => {
+    console.log("componentesActividadValues: ",componentesActividadValues);
     setTipoFormula(
       JSON.parse(MIR)
         .componentes[componenteSelect].actividades[
@@ -174,6 +175,7 @@ export const TabActividadesMA = ({
       ].metaAnual = txt.split(",")[2];
     }
     setComponentesActividadValues([...componentesActividadValues]);
+    console.log("componentesActividadValues: ",componentesActividadValues);
   };
 
   const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
@@ -246,6 +248,9 @@ export const TabActividadesMA = ({
   };
 
   const changeFormula2 = (txt: string) => {
+
+    console.log("componentesActividadValues: ",componentesActividadValues);
+
     componentesActividadValues[componenteSelect].actividades[
       actividadSelect
     ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
@@ -382,6 +387,10 @@ export const TabActividadesMA = ({
         elementoA={elementoFormulaActividad}
         MIR={MIR}
         frecuencia={"trimestral"}
+        componentesMA={componentesActividadValues}
+        componentesMAFunction={setComponentesActividadValues}
+        componentSelect={componenteSelect}
+        actividadSelect={actividadSelect}
       />
 
       <Grid

@@ -295,6 +295,10 @@ export const TabComponenteMA = ({
         elementoA={""}
         MIR={MIR}
         frecuencia={frecuencia}
+        componentesMA={componentesValues}
+        componentesMAFunction={setComponentesValues}
+        componentSelect={componentSelect}
+        actividadSelect={0}
       />
 
       <Grid
