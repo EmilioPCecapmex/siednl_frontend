@@ -78,7 +78,6 @@ export const FormulaDialogMACA = ({
   }, [open]);
 
   const checkValues = () => {
-     
     if (frecuencia === "trimestral") {
       if (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice") {
         if (
@@ -87,18 +86,8 @@ export const FormulaDialogMACA = ({
           /^[\s]*$/.test(descC) ||
           /^[\s]*$/.test(descD)
         ) {
-          componentesMA[componentSelect].valoresPorFrecuencia[0].valorA = descA;
-          componentesMA[componentSelect].valoresPorFrecuencia[0].valorB = descB;
-          componentesMA[componentSelect].valoresPorFrecuencia[0].valorC = descC;
-          componentesMA[componentSelect].valoresPorFrecuencia[0].valorD = descD;
-          componentesMAFunction(componentesMA);
           setEmptyTxt(true);
         } else {
-          componentesMA[componentSelect].valoresPorFrecuencia[0].valorA = descA;
-          componentesMA[componentSelect].valoresPorFrecuencia[0].valorB = descB;
-          componentesMA[componentSelect].valoresPorFrecuencia[0].valorC = descC;
-          componentesMA[componentSelect].valoresPorFrecuencia[0].valorD = descD;
-          componentesMAFunction(componentesMA);
           textoSet(
             parseFloat(descA).toFixed(2) +
               "," +
@@ -284,6 +273,7 @@ export const FormulaDialogMACA = ({
       }
     }
   };
+
 
   useLayoutEffect(() => {
     setEmptyTxt(false);
