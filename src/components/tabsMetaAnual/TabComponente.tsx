@@ -295,6 +295,7 @@ export const TabComponenteMA = ({
         elementoA={""}
         MIR={MIR}
         frecuencia={frecuencia}
+        valores={JSON.stringify(componentesValues[componentSelect])}
       />
 
       <Grid

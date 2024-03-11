@@ -382,6 +382,9 @@ export const TabActividadesMA = ({
         elementoA={elementoFormulaActividad}
         MIR={MIR}
         frecuencia={"trimestral"}
+        valores={JSON.stringify(componentesActividadValues[componenteSelect].actividades[
+          actividadSelect
+        ])}
       />
 
       <Grid

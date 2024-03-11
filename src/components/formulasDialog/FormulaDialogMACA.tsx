@@ -8,7 +8,7 @@ import {
   Alert,
   Snackbar,
 } from "@mui/material";
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState, useEffect } from "react";
 import { queries } from "../../queries";
 
 export const FormulaDialogMACA = ({
@@ -20,6 +20,7 @@ export const FormulaDialogMACA = ({
   elementoA,
   MIR,
   frecuencia,
+  valores,
 }: {
   open: boolean;
   close: Function;
@@ -29,7 +30,10 @@ export const FormulaDialogMACA = ({
   elementoA: string;
   MIR: string;
   frecuencia: string;
+  valores: string;
 }) => {
+  let valoresJSON=JSON.parse(valores)
+
   const [descA, setDescA] = useState("");
   const [descB, setDescB] = useState("");
   const [descC, setDescC] = useState("");
@@ -50,6 +54,27 @@ export const FormulaDialogMACA = ({
     setDescG("");
     setDescH("");
   };
+
+  useEffect(() => {
+    if (frecuencia === "trimestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice"))
+    {
+      setDescA(valoresJSON?.metasPorFrecuencia[0]?.trimestre1)
+      setDescB(valoresJSON?.metasPorFrecuencia[0]?.trimestre2)
+      setDescC(valoresJSON?.metasPorFrecuencia[0]?.trimestre3)
+      setDescD(valoresJSON?.metasPorFrecuencia[0]?.trimestre4)
+    }else if(frecuencia === "trimestral")
+    {
+
+    }else if (frecuencia === "semestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice"))
+    {
+      setDescA(valoresJSON?.metasPorFrecuencia[0]?.semestre1)
+      setDescB(valoresJSON?.metasPorFrecuencia[0]?.semestre2)
+      
+    }else
+    {
+
+    }
+  }, [open]);
 
   const checkValues = () => {
     if (frecuencia === "trimestral") {
