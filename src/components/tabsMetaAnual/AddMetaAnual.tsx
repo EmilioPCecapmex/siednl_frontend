@@ -55,6 +55,18 @@ export function newActividadMA(ActividadMIR: IActividad) {
         trimestre4: "",
       },
     ],
+    valoresPorFrecuencia: [
+      {
+        valorA: "",
+        valorB: "",
+        valorC: "",
+        valorD: "",
+        valorE: "",
+        valorF: "",
+        valorG: "",
+        valorH: "",
+      }
+    ],
     valorNumerador: "",
     valorDenominador: "",
     sentidoDelIndicador: "",
@@ -80,6 +92,18 @@ export function newComponenteMA(ComponenteMIR: IComponente) {
         trimestre3: "",
         trimestre4: "",
       },
+    ],
+    valoresPorFrecuencia: [
+      {
+        valorA: "",
+        valorB: "",
+        valorC: "",
+        valorD: "",
+        valorE: "",
+        valorF: "",
+        valorG: "",
+        valorH: "",
+      }
     ],
     valorNumerador: "",
     valorDenominador: "",
@@ -222,6 +246,8 @@ export default function AddMetaAnual({
     });
   };
   const setMAcomponentesPadre = (componentesValues: IComponenteMA[]) => {
+    console.log("componentesValues: ",componentesValues);
+    
     setMAPadre({
       ...maPadre,
       componentes: componentesValues,

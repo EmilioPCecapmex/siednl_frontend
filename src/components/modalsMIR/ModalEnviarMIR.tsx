@@ -536,14 +536,13 @@ export default function ModalEnviarMIR({
     }
   };
 
-  const CrearMetaAnual = (mensaje: string, IdMir: string) => {
-    console.log("mensaje: ",mensaje);
-    console.log("IdMir: ",IdMir);
+  const CrearMetaAnual = (mensaje: string, IdMir: string, IdMa: String) => {
+    
     const idMirFinal = IdMir || mensaje;
 
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-ma-generic",
         {
           MetaAnual: "",
           CreadoPor: localStorage.getItem("IdUsuario"),
@@ -574,7 +573,7 @@ export default function ModalEnviarMIR({
         }
         console.log("MA-r.data.data.Id: ",r.data.data);
         
-        enviarNotificacionRol("MA", "MA enviada", r.data.data.Id, rol)
+        enviarNotificacionRol("MA", "MA enviada", r?.data?.data?.Id || IdMa, rol);
         showResume();
       })
       .catch((err) => {
@@ -586,7 +585,7 @@ export default function ModalEnviarMIR({
   const createMIR = (estado: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir-generic",
 
         {
           MIR: MIR,
@@ -636,7 +635,8 @@ export default function ModalEnviarMIR({
         if (estado === "Autorizada") {
           console.log("r.data.data.Id: ",r.data.data.Id);
           console.log("IdMir: ",IdMir);
-          CrearMetaAnual(r.data.data.Id, IdMir);
+          console.log("r.data.data.IdMa: ",r.data.data.IdMa)
+          CrearMetaAnual(r.data.data.Id, IdMir, r.data.data.IdMa);
         }
 
         

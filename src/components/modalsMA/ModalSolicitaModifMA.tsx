@@ -517,7 +517,7 @@ export default function ModalSolicitaModif({
     }
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-ma-generic",
         {
           MetaAnual:
             MAEdit === undefined || MAEdit === ""

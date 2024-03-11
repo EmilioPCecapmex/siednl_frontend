@@ -64,7 +64,7 @@ export function TabResumenMA({
   const creaMA = (estado: string) => {
     axios
       .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/create-MetaAnual",
+        process.env.REACT_APP_APPLICATION_BACK + "/api/create-ma-generic",
         {
           MetaAnual: JSON.stringify(MA),
           CreadoPor: localStorage.getItem("IdUsuario"),

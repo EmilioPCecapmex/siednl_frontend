@@ -2,8 +2,10 @@ import axios from "axios";
 
 
  export const soliModyNoty = (v: string, coment: string, titulo: string, Id: string) => {
+  console.log("Id: ", Id);
+  
     axios.post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/soly-notif",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/soli-notif",
       {
         IdUsuarioDestino: v,
         Titulo: titulo,
@@ -20,6 +22,8 @@ import axios from "axios";
   };
 
   export const enviarNotificacionRol = (titulo: string, coment: string, Id: string, Rol: string[]) => {
+    console.log("Id");
+    
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
@@ -149,7 +153,7 @@ export const obtenerComentarios = async (id: string,  state: Function) => {
         if (r.status === 200) {
           if (r.data.data.length >= 1) {
             console.log("axiosGenericos Noti - r.status: ",r.status);
-            
+            console.log("r.data.data: ",r.data.data);
             state1(r.data.data);
           } else {
             state2(false);
