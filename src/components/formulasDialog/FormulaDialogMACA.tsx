@@ -532,7 +532,7 @@ export const FormulaDialogMACA = ({
                 label={
                   <Typography
                     sx={{
-                      fontSize: "0.8vw",
+                     
                       fontFamily: "MontserratMedium",
                     }}
                   >
@@ -597,7 +597,7 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.8vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -627,7 +627,7 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.8vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -658,7 +658,7 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.8vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -688,7 +688,7 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.8vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -719,7 +719,7 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.8vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -749,7 +749,7 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.8vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -894,7 +894,7 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.8vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -936,7 +936,7 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.8vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -967,7 +967,7 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.8vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -997,7 +997,7 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontSize: "0.8vw", fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>

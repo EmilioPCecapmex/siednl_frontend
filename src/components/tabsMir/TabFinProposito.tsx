@@ -497,8 +497,9 @@ export function TabFinProposito({
                       ...fin,
                       resumen: c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", ""),
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd(),
                     });
                   }}
                   value={fin.resumen}
@@ -556,8 +557,9 @@ export function TabFinProposito({
                       ...fin,
                       indicador: c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", ""),
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd(),
                       formula: "",
                     });
                   }}
@@ -713,8 +715,9 @@ export function TabFinProposito({
                       ...fin,
                       medios: c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", ""),
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd(),
                     });
                   }}
                   value={fin.medios}
@@ -762,8 +765,9 @@ export function TabFinProposito({
                       ...fin,
                       supuestos: c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", ""),
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd(),
                     });
                   }}
                   value={fin.supuestos}
@@ -899,8 +903,9 @@ export function TabFinProposito({
                       ...proposito,
                       resumen: c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", ""),
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd(),
                     });
                   }}
                   value={proposito.resumen}
@@ -958,8 +963,9 @@ export function TabFinProposito({
                       ...proposito,
                       indicador: c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", ""),
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd(),
                       formula: "",
                     });
                   }}
@@ -1094,8 +1100,9 @@ export function TabFinProposito({
                       ...proposito,
                       medios_verificacion: c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", ""),
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd(),
                     });
                   }}
                   value={proposito.medios_verificacion}
@@ -1142,8 +1149,9 @@ export function TabFinProposito({
                       ...proposito,
                       supuestos: c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", ""),
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd(),
                     });
                   }}
                   value={proposito.supuestos}

@@ -695,8 +695,9 @@ export const TabActividades = ({
                         actividadSelect
                       ].frecuencia = c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
 
                       setComponentes(prevLocal);
                     }}

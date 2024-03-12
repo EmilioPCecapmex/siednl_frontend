@@ -228,7 +228,8 @@ export function TabEncabezado({
               value={encabezado.programaSER
                 .replaceAll('"', "")
                 .replaceAll("'", "")
-                .replaceAll("\n", "")}
+                .trimEnd()}
+                
               rows={8}
               multiline
               sx={{ width: "90%", boxShadow: 2 }}
@@ -264,7 +265,9 @@ export function TabEncabezado({
                 encabezado.objetivoSER = a.target.value
                   .replaceAll('"', "")
                   .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                  .replaceAll("\n", "")
+                  .trimEnd();
+                  
                 setEncabezado({
                   ...encabezado,
                 });
@@ -272,7 +275,10 @@ export function TabEncabezado({
               value={encabezado.objetivoSER
                 .replaceAll('"', "")
                 .replaceAll("'", "")
-                .replaceAll("\n", "")}
+                .replaceAll("\n", "")
+                .trimEnd()}
+               
+                
               rows={8}
               multiline
               sx={{ width: "90%", boxShadow: 2 }}

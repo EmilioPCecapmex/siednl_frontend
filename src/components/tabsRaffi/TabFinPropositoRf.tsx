@@ -236,8 +236,9 @@ export function TabFinPropositoRF({
                     añoAvanceFisico: validarNumero(
                       c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", ""),
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd(),
                       fin.añoAvanceFisico
                     ),
                   });
@@ -354,8 +355,9 @@ export function TabFinPropositoRF({
                     añoAvanceFisico: validarNumero(
                       c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", ""),
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd(),
                       proposito.añoAvanceFisico
                     ),
                   });

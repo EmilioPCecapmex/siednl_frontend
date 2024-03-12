@@ -107,6 +107,27 @@ export const obtenerComentarios = async (id: string,  state: Function) => {
     });
   };
 
+  export const getMovimientosTrazabilidad = (Id: string, state: Function) => {
+    axios.get(
+      process.env.REACT_APP_APPLICATION_BACK + "/api/list-trazabilidad",
+      {
+        params: {
+          Id: Id,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    )
+    .then((r) => {
+      state(r)
+    
+    })
+    .catch((err) => {
+     
+    });
+  };
+
   export const verNotificacion = (IdNoti: string, state1: Function, state2: Function
     ) => {
     axios.post(

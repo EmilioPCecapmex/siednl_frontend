@@ -86,8 +86,7 @@ export const DialogFinPropositoRaffi = ({
       case "TASA":
         let aux4 =
           ((parseFloat(Numerodador) - parseFloat(Denominador)) /
-            parseFloat(Denominador)) *
-          100;
+            parseFloat(Denominador)) *100;
         if (
           Numerodador === "" ||
           Numerodador === null ||

@@ -501,8 +501,9 @@ export const TabComponente = ({
                       let prevLocal = [...componentes];
                       prevLocal[componentSelect - 1].frecuencia = c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                       setComponentes(prevLocal);
                     }}
                   />
@@ -524,8 +525,9 @@ export const TabComponente = ({
                       let prevLocal = [...componentes];
                       prevLocal[componentSelect - 1].frecuencia = c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                       setComponentes(prevLocal);
                     }}
                   />

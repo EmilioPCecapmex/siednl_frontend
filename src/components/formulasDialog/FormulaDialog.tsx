@@ -51,13 +51,15 @@ export const FormulaDialog = ({
             "(" +
               descA
                 .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "") +
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "")
+                  .trimEnd() +
               "/" +
               descB
                 .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "") +
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "")
+                  .trimEnd() +
               ")*100"
           );
           close();
@@ -67,19 +69,22 @@ export const FormulaDialog = ({
               "(" +
               descA
                 .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "") +
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "")
+                  .trimEnd() +
               "-" +
               descB
                 .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "") +
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "")
+                  .trimEnd() +
               ")" +
               "/" +
               descB
                 .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "") +
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "")
+                  .trimEnd() +
               ")" +
               "*100"
           );
@@ -89,13 +94,15 @@ export const FormulaDialog = ({
             "(" +
               descA
                 .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "") +
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "")
+                  .trimEnd() +
               "/" +
               descB
                 .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "") +
+                  .replaceAll("'", "")
+                  .replaceAll("\n", "")
+                  .trimEnd() +
               ")"
           );
           close();
