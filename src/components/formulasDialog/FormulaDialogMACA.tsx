@@ -65,7 +65,14 @@ export const FormulaDialogMACA = ({
       setDescD(valoresJSON?.metasPorFrecuencia[0]?.trimestre4)
     }else if(frecuencia === "trimestral")
     {
-
+      setDescA(valoresJSON?.valoresPorFrecuencia[0]?.valorA)
+      setDescB(valoresJSON?.valoresPorFrecuencia[0]?.valorB)
+      setDescC(valoresJSON?.valoresPorFrecuencia[0]?.valorC)
+      setDescD(valoresJSON?.valoresPorFrecuencia[0]?.valorD)
+      setDescE(valoresJSON?.valoresPorFrecuencia[0]?.valorE)
+      setDescF(valoresJSON?.valoresPorFrecuencia[0]?.valorF)
+      setDescG(valoresJSON?.valoresPorFrecuencia[0]?.valorG)
+      setDescH(valoresJSON?.valoresPorFrecuencia[0]?.valorH)
     }else if (frecuencia === "semestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice"))
     {
       setDescA(valoresJSON?.metasPorFrecuencia[0]?.semestre1)
@@ -73,7 +80,11 @@ export const FormulaDialogMACA = ({
       
     }else
     {
-
+      setDescA(valoresJSON?.valoresPorFrecuencia[0]?.valorA)
+      setDescB(valoresJSON?.valoresPorFrecuencia[0]?.valorB)
+      setDescC(valoresJSON?.valoresPorFrecuencia[0]?.valorC)
+      setDescD(valoresJSON?.valoresPorFrecuencia[0]?.valorD)
+      
     }
   }, [open]);
 
@@ -96,6 +107,7 @@ export const FormulaDialogMACA = ({
               parseFloat(descC).toFixed(2) +
               "," +
               parseFloat(descD).toFixed(2)
+              ,""
           );
           limpiaVar();
           close();
@@ -141,6 +153,22 @@ export const FormulaDialogMACA = ({
                 T3.toFixed(2) +
                 "," +
                 T4.toFixed(2)
+                ,
+              descA +
+              "," +
+              descB +
+              "," +
+              descC +
+              "," +
+              descD +
+              "," +
+              descE +
+              "," +
+              descF +
+              "," +
+              descG +
+              "," +
+              descH
             );
             limpiaVar();
             close();
@@ -183,6 +211,22 @@ export const FormulaDialogMACA = ({
                 T3.toFixed(2) +
                 "," +
                 T4.toFixed(2)
+                ,
+              descA +
+              "," +
+              descB +
+              "," +
+              descC +
+              "," +
+              descD +
+              "," +
+              descE +
+              "," +
+              descF +
+              "," +
+              descG +
+              "," +
+              descH
             );
 
             limpiaVar();
@@ -212,6 +256,22 @@ export const FormulaDialogMACA = ({
                 T3.toFixed(2) +
                 "," +
                 T4.toFixed(2)
+                ,
+              descA +
+              "," +
+              descB +
+              "," +
+              descC +
+              "," +
+              descD +
+              "," +
+              descE +
+              "," +
+              descF +
+              "," +
+              descG +
+              "," +
+              descH
             );
 
             limpiaVar();
@@ -220,12 +280,13 @@ export const FormulaDialogMACA = ({
         }
       }
     } else {
+      console.log("tipo ",tipo)
       if (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice")
         if (/^[\s]*$/.test(descA) || /^[\s]*$/.test(descB)) {
           setEmptyTxt(true);
         } else {
           textoSet(
-            parseFloat(descA).toFixed(2) + "," + parseFloat(descB).toFixed(2)
+            parseFloat(descA).toFixed(2) + "," + parseFloat(descB).toFixed(2),""
           );
           limpiaVar();
           close();
@@ -244,7 +305,15 @@ export const FormulaDialogMACA = ({
             (parseFloat(descB) + parseFloat(descD))) *
           100;
 
-        textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
+        textoSet(S1.toFixed(2) + "," + S2.toFixed(2)
+        ,
+              descA +
+              "," +
+              descB +
+              "," +
+              descC +
+              "," +
+              descD);
 
         limpiaVar();
         close();
@@ -257,7 +326,16 @@ export const FormulaDialogMACA = ({
             (parseFloat(descB) + parseFloat(descD))) /
             (parseFloat(descB) + parseFloat(descD))) *
           100;
-        textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
+          
+        textoSet(S1.toFixed(2) + "," + S2.toFixed(2)
+        ,
+              descA +
+              "," +
+              descB +
+              "," +
+              descC +
+              "," +
+              descD);
 
         limpiaVar();
         close();
@@ -266,7 +344,15 @@ export const FormulaDialogMACA = ({
         let S2 =
           (parseFloat(descA) + parseFloat(descC)) /
           (parseFloat(descB) + parseFloat(descD));
-        textoSet(S1.toFixed(2) + "," + S2.toFixed(2));
+        textoSet(S1.toFixed(2) + "," + S2.toFixed(2)
+        ,
+              descA +
+              "," +
+              descB +
+              "," +
+              descC +
+              "," +
+              descD);
 
         limpiaVar();
         close();
@@ -597,6 +683,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
+              
               <Typography>Trimestre 2</Typography>
               <TextField
                 type={"number"}
