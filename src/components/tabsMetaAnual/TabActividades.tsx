@@ -1641,8 +1641,9 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].descIndicador = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setComponentesActividadValues(y);
               }}
               InputLabelProps={{
@@ -1713,8 +1714,9 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].descNumerador = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setComponentesActividadValues(y);
               }}
               InputLabelProps={{
@@ -1785,8 +1787,9 @@ export const TabActividadesMA = ({
                   actividadSelect
                 ].descDenominador = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setComponentesActividadValues(y);
               }}
               InputLabelProps={{

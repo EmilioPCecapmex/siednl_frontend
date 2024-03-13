@@ -612,8 +612,9 @@ export const TabComponenteMA = ({
               onChange={(c) => {
                 componentesValues[componentSelect].lineaBase = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setComponentesValues([...componentesValues]);
               }}
               value={componentesValues[componentSelect]?.lineaBase || ""}

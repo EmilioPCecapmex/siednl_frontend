@@ -219,8 +219,9 @@ export function TabEncabezado({
                 
                 encabezado.programaSER = a.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setEncabezado({
                   ...encabezado,
                 });
@@ -264,8 +265,9 @@ export function TabEncabezado({
                
                 encabezado.objetivoSER = a.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd()
                   .trimEnd();
                   
                 setEncabezado({

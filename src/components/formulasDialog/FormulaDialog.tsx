@@ -51,14 +51,16 @@ export const FormulaDialog = ({
             "(" +
               descA
                 .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd()
                   .trimEnd() +
               "/" +
               descB
                 .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd()
                   .trimEnd() +
               ")*100"
           );
@@ -69,21 +71,24 @@ export const FormulaDialog = ({
               "(" +
               descA
                 .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd()
                   .trimEnd() +
               "-" +
               descB
                 .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd()
                   .trimEnd() +
               ")" +
               "/" +
               descB
                 .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd()
                   .trimEnd() +
               ")" +
               "*100"
@@ -94,14 +99,16 @@ export const FormulaDialog = ({
             "(" +
               descA
                 .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd()
                   .trimEnd() +
               "/" +
               descB
                 .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd()
                   .trimEnd() +
               ")"
           );
@@ -198,8 +205,9 @@ export const FormulaDialog = ({
               setDescA(
                 c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "")
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd()
               )
             }
             InputProps={{

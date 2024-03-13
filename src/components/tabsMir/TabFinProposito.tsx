@@ -22,7 +22,7 @@ export function TabFinProposito({
   mirEdit,
   edit,
 }: {
-  edit:boolean;
+  edit: boolean;
   MIR: IMIR;
   setMIR: Function;
   mirEdit: IMIREdit;
@@ -220,9 +220,9 @@ export function TabFinProposito({
 
   return (
     <Grid
-      position="absolute"
+      //position="absolute"
       sx={{
-        // display: "flex",
+        display: "flex",
         width: "93vw",
         height: ["82vh", "82vh", "82vh", "82vh", "82vh", "82vh"],
         boxShadow: 10,
@@ -263,7 +263,6 @@ export function TabFinProposito({
           </Typography>
         </Grid>
       ) : null}
-
 
       <Grid
         sx={{
@@ -384,8 +383,13 @@ export function TabFinProposito({
               }}
             >
               {isSmallScreen && (
-
-                <Grid>
+                <Grid
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                >
                   <List sx={{}}>
                     <Divider />
                     <ListItemButton
@@ -405,10 +409,10 @@ export function TabFinProposito({
                       }}
                     >
                       <Typography
-                         sx={{
-                        fontFamily: "MontserratMedium",
-                        fontSize: [10, 10, 10, 13, 15, 18],
-                      }}
+                        sx={{
+                          fontFamily: "MontserratMedium",
+                          fontSize: [10, 10, 10, 13, 15, 18],
+                        }}
                       >
                         FIN
                       </Typography>
@@ -440,7 +444,7 @@ export function TabFinProposito({
                         }}
                       >
                         <Typography
-                           sx={{
+                          sx={{
                             fontFamily: "MontserratMedium",
                             fontSize: [10, 10, 10, 13, 15, 18],
                           }}
@@ -468,14 +472,11 @@ export function TabFinProposito({
                   justifyContent: "center",
                 }}
               >
-
                 <TextField
                   rows={8}
                   multiline
                   variant="filled"
-                  disabled={
-                    edit && !mirEdit?.fin.resumen && fin.resumen !== ""
-                  }
+                  disabled={edit && !mirEdit?.fin.resumen && fin.resumen !== ""}
                   sx={{
                     boxShadow: 2,
                     width: ["none", "30vh", "40vh", "50vh", "50vh"],
@@ -497,9 +498,9 @@ export function TabFinProposito({
                       ...fin,
                       resumen: c.target.value
                         .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd(),
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "")
+                        .trimEnd(),
                     });
                   }}
                   value={fin.resumen}
@@ -519,7 +520,6 @@ export function TabFinProposito({
                   justifyContent: "center",
                 }}
               >
-
                 <TextField
                   disabled={
                     edit && !mirEdit?.fin.indicador && fin.indicador !== ""
@@ -557,9 +557,9 @@ export function TabFinProposito({
                       ...fin,
                       indicador: c.target.value
                         .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd(),
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "")
+                        .trimEnd(),
                       formula: "",
                     });
                   }}
@@ -581,9 +581,7 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  disabled={
-                    edit && !mirEdit?.fin.formula && fin.formula !== ""
-                  }
+                  disabled={edit && !mirEdit?.fin.formula && fin.formula !== ""}
                   rows={8}
                   multiline
                   variant="filled"
@@ -687,10 +685,7 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  disabled={
-                    edit && !mirEdit?.fin.medios &&
-                    fin.medios !== ""
-                  }
+                  disabled={edit && !mirEdit?.fin.medios && fin.medios !== ""}
                   rows={8}
                   multiline
                   variant="filled"
@@ -715,9 +710,9 @@ export function TabFinProposito({
                       ...fin,
                       medios: c.target.value
                         .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd(),
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "")
+                        .trimEnd(),
                     });
                   }}
                   value={fin.medios}
@@ -765,15 +760,14 @@ export function TabFinProposito({
                       ...fin,
                       supuestos: c.target.value
                         .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd(),
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "")
+                        .trimEnd(),
                     });
                   }}
                   value={fin.supuestos}
                 />
               </Grid>
-              
             </Grid>
           </>
         ) : null}
@@ -878,7 +872,9 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    edit && !mirEdit?.proposito.resumen && proposito.resumen !== ""
+                    edit &&
+                    !mirEdit?.proposito.resumen &&
+                    proposito.resumen !== ""
                   }
                   rows={8}
                   multiline
@@ -903,9 +899,9 @@ export function TabFinProposito({
                       ...proposito,
                       resumen: c.target.value
                         .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd(),
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "")
+                        .trimEnd(),
                     });
                   }}
                   value={proposito.resumen}
@@ -927,7 +923,9 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    edit && !mirEdit?.proposito.indicador && proposito.indicador !== ""
+                    edit &&
+                    !mirEdit?.proposito.indicador &&
+                    proposito.indicador !== ""
                   }
                   rows={8}
                   multiline
@@ -963,9 +961,9 @@ export function TabFinProposito({
                       ...proposito,
                       indicador: c.target.value
                         .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd(),
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "")
+                        .trimEnd(),
                       formula: "",
                     });
                   }}
@@ -988,7 +986,9 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    edit && !mirEdit?.proposito.formula && proposito.formula !== ""
+                    edit &&
+                    !mirEdit?.proposito.formula &&
+                    proposito.formula !== ""
                   }
                   rows={8}
                   multiline
@@ -1074,7 +1074,8 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    edit && !mirEdit?.proposito.medios &&
+                    edit &&
+                    !mirEdit?.proposito.medios &&
                     proposito.medios_verificacion !== ""
                   }
                   rows={8}
@@ -1100,9 +1101,9 @@ export function TabFinProposito({
                       ...proposito,
                       medios_verificacion: c.target.value
                         .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd(),
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "")
+                        .trimEnd(),
                     });
                   }}
                   value={proposito.medios_verificacion}
@@ -1124,7 +1125,9 @@ export function TabFinProposito({
               >
                 <TextField
                   disabled={
-                    edit && !mirEdit?.proposito.supuestos && proposito.supuestos !== ""
+                    edit &&
+                    !mirEdit?.proposito.supuestos &&
+                    proposito.supuestos !== ""
                   }
                   rows={8}
                   multiline
@@ -1149,9 +1152,9 @@ export function TabFinProposito({
                       ...proposito,
                       supuestos: c.target.value
                         .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd(),
+                        .replaceAll("'", "")
+                        .replaceAll("\n", "")
+                        .trimEnd(),
                     });
                   }}
                   value={proposito.supuestos}
@@ -1161,7 +1164,6 @@ export function TabFinProposito({
           </>
         ) : null}
       </Grid>
-
     </Grid>
   );
 }
