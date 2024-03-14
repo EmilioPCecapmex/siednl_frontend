@@ -120,7 +120,9 @@ export const obtenerComentarios = async (id: string,  state: Function) => {
       }
     )
     .then((r) => {
-      state(r)
+      //console.log("r.data.data:", r.data.data);
+      
+      state(r.data.data)
     
     })
     .catch((err) => {

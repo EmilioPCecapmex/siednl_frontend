@@ -1239,7 +1239,9 @@ export const MIR = () => {
                                 </span>
                               </Tooltip>
                                       <MostrarLista
-                                      st=""/>
+                                      st=""
+                                      Id={row.Id}
+                                      />
                               {/* <Tooltip
                                 title="Lista"
                                 PopperProps={{
