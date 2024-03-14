@@ -247,10 +247,25 @@ export const TabActividadesMA = ({
     setOpenFormulaDialogMACA(false);
   };
 
-  const changeFormula2 = (txt: string) => {
+  const changeFormula2 = (txt: string, txtValores:string) => {
+    if (tipoFormula.toLowerCase()==="índice" || tipoFormula.toLowerCase()==="indice") {
+    componentesActividadValues[componenteSelect].actividades[
+      actividadSelect
+    ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
 
-    console.log("componentesActividadValues: ",componentesActividadValues);
+    componentesActividadValues[componenteSelect].actividades[
+      actividadSelect
+    ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1];
 
+    componentesActividadValues[componenteSelect].actividades[
+      actividadSelect
+    ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2];
+
+    componentesActividadValues[componenteSelect].actividades[
+      actividadSelect
+    ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3];
+  }else
+  {
     componentesActividadValues[componenteSelect].actividades[
       actividadSelect
     ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
@@ -267,6 +282,15 @@ export const TabActividadesMA = ({
       actividadSelect
     ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3];
 
+    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorA = txtValores.split(",")[0];
+    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorB = txtValores.split(",")[1];
+    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorC = txtValores.split(",")[2];
+    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorD = txtValores.split(",")[3];
+    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorE = txtValores.split(",")[4];
+    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorF = txtValores.split(",")[5];
+    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorG = txtValores.split(",")[6];
+    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorH = txtValores.split(",")[7];
+  }
     setComponentesActividadValues([...componentesActividadValues]);
   };
 
@@ -387,10 +411,9 @@ export const TabActividadesMA = ({
         elementoA={elementoFormulaActividad}
         MIR={MIR}
         frecuencia={"trimestral"}
-        componentesMA={componentesActividadValues}
-        componentesMAFunction={setComponentesActividadValues}
-        componentSelect={componenteSelect}
-        actividadSelect={actividadSelect}
+        valores={JSON.stringify(componentesActividadValues[componenteSelect].actividades[
+          actividadSelect
+        ])}
       />
 
       <Grid
@@ -1266,7 +1289,7 @@ export const TabActividadesMA = ({
                 value={
                   componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
-                  ]?.metasPorFrecuencia[0].trimestre1 || ""
+                  ]?.metasPorFrecuencia[0].trimestre1
                 }
                 InputLabelProps={{
                   style: {
