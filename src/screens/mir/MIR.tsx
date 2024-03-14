@@ -2,7 +2,8 @@
 import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
 import DownloadIcon from "@mui/icons-material/Download";
 import EditIcon from "@mui/icons-material/Edit";
-import ListAltIcon from '@mui/icons-material/ListAlt';
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Button,
   FormControl,
@@ -36,6 +37,8 @@ import FullModalMir from "../../components/tabsMir/AddMir";
 import SearchIcon from "@mui/icons-material/Search";
 import { alertaError } from "../../components/genericComponents/Alertas";
 import { estados, heads } from "../../services/validations";
+import DataGridTable from "../../components/genericComponents/DataGridTable";
+import { GridColDef } from "@mui/x-data-grid";
 
 export let resumeDefaultMIR = true;
 
@@ -305,20 +308,19 @@ export const MIR = () => {
 
   useEffect(() => {
     const url = window.location.href;
-  
+
     // Verificar si el parámetro 'Id' está presente en la URL
-    if (url.includes('?Id=')) {
+    if (url.includes("?Id=")) {
       const id = url.split("?")[1].split("=")[1];
-  
+
       // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
       if (id) {
-        setMirsFiltered(mirs.filter((x) => x.Id.toLowerCase().includes(id || "")));
+        setMirsFiltered(
+          mirs.filter((x) => x.Id.toLowerCase().includes(id || ""))
+        );
       }
     }
   }, [mirs]);
-  
-
-  
 
   const [actualizacion, setActualizacion] = useState(0);
 
@@ -449,6 +451,195 @@ export const MIR = () => {
         //setInstitucionesb("Todos")
       });
   };
+
+  const columsMir: GridColDef[] = [
+    {
+      field: "Acciones",
+      disableExport: true,
+      headerName: "Acciones",
+      description: "Acciones",
+      sortable: false,
+      flex: 2,
+      renderCell: (v: any) => {
+        return (
+          <Grid sx={{ display: "flex" }}>
+            {/* <Tooltip title="Eliminar Mir">
+              <IconButton onClick={() => {}}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip> */}
+
+            <DeleteDialogMIR
+              disab={
+                v.row.Estado === "En Captura" &&
+                // || row.Estado === "Borrador Capturador"
+                validaFecha &&
+                localStorage.getItem("Rol") === "Capturador"
+                  ? false
+                  : v.row.Estado === "En Revisión" &&
+                    localStorage.getItem("Rol") === "Verificador"
+                  ? false
+                  : (v.row.Estado === "En Autorización" ||
+                      v.row.Estado === "Autorizada") &&
+                    localStorage.getItem("Rol") === "Administrador"
+                  ? false
+                  : true
+              }
+              id={v.row.Id}
+              actualizado={actualizaContador}
+            />
+
+            <Tooltip title="Descargar Mir">
+              <IconButton
+                onClick={() => {
+                  console.log("v: ", v.row.MIR);
+
+                  downloadMIR(
+                    v.row.AnioFiscal,
+                    v.row.Entidad,
+                    v.row.Programa,
+                    v.row.MIR
+                  );
+                }}
+              >
+                <DownloadIcon />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip
+              title={title_texto}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -13],
+                    },
+                  },
+                ],
+              }}
+            >
+              <span>
+                <IconButton
+                  disabled={
+                    ((v.row.Estado === "En Captura" ||
+                      v.row.Estado === "Borrador Capturador") &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Capturador") ||
+                    (v.row.Estado === "En Revisión" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Verificador") ||
+                    (v.row.Estado === "Borrador Verificador" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Verificador") ||
+                    ((v.row.Estado === "En Autorización" ||
+                      v.row.Estado === "Autorizada") &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Administrador") ||
+                    (v.row.Estado === "Borrador Autorizador" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Administrador")
+                      ? false
+                      : true
+                  }
+                  onClick={() => {
+                    setMirEdit([
+                      {
+                        Id: v.row.Id,
+                        AnioFiscal: v.row.AnioFiscal,
+                        Entidad: v.row.Entidad,
+                        Programa: v.row.Programa,
+                        Eje: v.row.Eje,
+                        Tematica: v.row.Tematica,
+                        MIR: v.row.MIR,
+                        Estado: v.row.Estado,
+                        FechaCreacion: v.row.FechaCreacion,
+                        CreadoPor: v.row.CreadoPor,
+                        Conac: v.row.Conac,
+                        Consecutivo: v.row.Consecutivo,
+                        Opciones: v.row.Opciones,
+                      },
+                    ]);
+                    setShowResume(false);
+                    setActionNumber(1);
+                    setEstado(v.row.Estado);
+                  }}
+                >
+                  <EditIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                </IconButton>
+              </span>
+            </Tooltip>
+
+            <ComentDialogMir
+              estado={v.row.Estado}
+              id={v.row.Id}
+              actualizado={actualizaContador}
+            />
+          </Grid>
+        );
+      },
+    },
+    {
+      field: "AnioFiscal",
+      headerName: "Año Fiscal",
+      description: "Año Fiscal",
+      flex: 1,
+    },
+    {
+      field: "Entidad",
+      headerName: "Entidad",
+      description: "Entidad",
+      flex: 2,
+    },
+    {
+      field: "Programa",
+      headerName: "Programa",
+      description: "Programa",
+      flex: 2,
+    },
+    {
+      field: "Estado",
+      headerName: "Estado",
+      description: "Estado",
+      flex: 2,
+    },
+    {
+      field: "FechaCreacion",
+      headerName: "Fehca de creacion",
+      description: "Fecha de creacion",
+      flex: 2,
+    },
+    {
+      field: "CreadoPor",
+      headerName: "Creado por",
+      description: "Creado por",
+      flex: 2,
+    },
+  ];
 
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
@@ -880,7 +1071,7 @@ export const MIR = () => {
 
             {/* TABLA */}
 
-            <Grid
+            {/* <Grid
               item
               xl={10}
               lg={10}
@@ -929,8 +1120,6 @@ export const MIR = () => {
                             borderBottom: 0,
                             fontSize: [10, 10, 10, 15, 16, 18],
                             textAlign: "center",
-                            // fontFamily: "MontserratRegular",
-                            //   fontSize: ".7vw",
                             justifyContent: "center",
                             alignItems: "center",
                           }}
@@ -1048,7 +1237,7 @@ export const MIR = () => {
                           <TableCell
                             sx={{
                               flexDirection: "row",
-                              //display: "grid",
+               
                               gridTemplateColumns: "repeat(2,2fr)",
                               fontSize: [10, 10, 10, 15, 15, 18],
                               textAlign: "center",
@@ -1322,7 +1511,7 @@ export const MIR = () => {
                         </TableRow>
                       ))}
 
-                    {/* ))} */}
+                    
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -1338,14 +1527,41 @@ export const MIR = () => {
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
               </Grid>
+            </Grid> */}
+
+            <Grid
+              item
+              xl={11}
+              lg={11}
+              md={11}
+              sm={11}
+              xs={11}
+              //width={"80%"}
+              // height="65vh"
+              // direction="row"
+              sx={{
+                backgroundColor: "#FFFF",
+                borderRadius: 5,
+                boxShadow: 5,
+                height: "65vh",
+                direction: "row",
+              }}
+            >
+              <DataGridTable
+                id={(row: any) => row.Id || Math.random}
+                columns={columsMir}
+                rows={mirsFiltered}
+                camposCsv={[]}
+                exportTitle={"Columnas"}
+              />
             </Grid>
             {openVisualizador ? (
-        <MostrarLista
-          handleClose={() => {
-            setOpenVisualizador(false);
-          }}
-        />
-      ) : null}
+              <MostrarLista
+                handleClose={() => {
+                  setOpenVisualizador(false);
+                }}
+              />
+            ) : null}
           </>
         ) : (
           <Grid

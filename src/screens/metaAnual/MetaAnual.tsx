@@ -33,6 +33,8 @@ import { queries } from "../../queries";
 import { buscador } from "../../services/servicesGlobals";
 import SearchIcon from "@mui/icons-material/Search";
 import { estados, heads } from "../../services/validations";
+import { GridColDef } from "@mui/x-data-grid";
+import DataGridTable from "../../components/genericComponents/DataGridTable";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
@@ -164,14 +166,16 @@ export const MetaAnual = () => {
 
   useEffect(() => {
     const url = window.location.href;
-  
+
     // Verificar si el parámetro 'Id' está presente en la URL
-    if (url.includes('?Id=')) {
+    if (url.includes("?Id=")) {
       const id = url.split("?")[1].split("=")[1];
-  
+
       // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
       if (id) {
-        setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
+        setMaFiltered(
+          ma.filter((x) => x.IdMa.toLowerCase().includes(id || ""))
+        );
       }
     }
   }, [ma]);
@@ -418,6 +422,224 @@ export const MetaAnual = () => {
   const handleChange = (dato: string) => {
     setFindTextStr(dato);
   };
+
+  const columsMa: GridColDef[] = [
+    {
+      field: "Acciones",
+      disableExport: true,
+      headerName: "Acciones",
+      description: "Acciones",
+      sortable: false,
+      flex: 1,
+      renderCell: (v: any) => {
+        return (
+          <Grid sx={{ display: "flex" }}>
+            {/* <Tooltip title="Eliminar Mir">
+              <IconButton onClick={() => {}}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip> */}
+
+           
+
+            <Tooltip title="Descargar Ma">
+              <IconButton
+                onClick={() => {
+                  getMetaAnualDownload(
+                    v.row.MIR,
+                    v.row.MetaAnual,
+                    v.row.Programa,
+                    v.row.FechaCreacion,
+                    v.row.Entidad
+                  );
+                }}
+                disabled={
+                  v.row.Estado === "Autorizada" && validaFecha ? false : true
+                }
+              >
+                <DownloadIcon
+                  sx={{
+                    fontSize: "24px", // Tamaño predeterminado del icono
+
+                    "@media (max-width: 600px)": {
+                      fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                    },
+
+                    "@media (min-width: 601px) and (max-width: 960px)": {
+                      fontSize: 20, // Pantalla pequeña (md)
+                    },
+
+                    "@media (min-width: 961px) and (max-width: 1280px)": {
+                      fontSize: 20, // Pantalla mediana (lg)
+                    },
+
+                    "@media (min-width: 1281px)": {
+                      fontSize: 25, // Pantalla grande (xl)
+                    },
+
+                    "@media (min-width: 2200px)": {
+                      ffontSize: 25, // Pantalla grande (xl)
+                    },
+                  }}
+                />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip
+              title={title_texto}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -13],
+                    },
+                  },
+                ],
+              }}
+            >
+              <span>
+                <IconButton
+                  disabled={
+                    ((v.row.Estado === "En Captura" ||
+                      v.row.Estado === "Borrador Capturador") &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Capturador") ||
+                    (v.row.Estado === "En Revisión" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Verificador") ||
+                    (v.row.Estado === "Borrador Verificador" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Verificador") ||
+                    ((v.row.Estado === "En Autorización" ||
+                      v.row.Estado === "Autorizada") &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Administrador") ||
+                    (v.row.Estado === "Borrador Autorizador" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Administrador")
+                      ? false
+                      : true
+                  }
+                  onClick={() => {
+                    let auxArrayMIR = JSON.parse(v.row.MIR);
+                    let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0]);
+                    if (auxArrayMIR[1]) {
+                      setMaEdit([
+                        {
+                          IdMa: v.row.IdMa,
+                          IdMir: v.row.IdMir,
+                          AnioFiscal: v.row.AnioFiscal,
+                          Entidad: v.row.Entidad,
+                          Programa: v.row.Programa,
+                          MIR: auxArrayMIR2,
+                          //meta anual completa
+                          MetaAnual: v.row.MetaAnual,
+                          Estado: v.row.Estado,
+                          CreadoPor: v.row.CreadoPor,
+                          FechaCreacion: v.row.FechaCreacion,
+                          Opciones: v.row.Opciones,
+                        },
+                      ]);
+                    } else {
+                      setMaEdit([
+                        {
+                          IdMa: v.row.IdMa,
+                          IdMir: v.row.IdMir,
+                          AnioFiscal: v.row.AnioFiscal,
+                          Entidad: v.row.Entidad,
+                          Programa: v.row.Programa,
+                          MIR: v.row.MIR,
+                          //meta anual completa
+                          MetaAnual: v.row.MetaAnual,
+                          Estado: v.row.Estado,
+                          CreadoPor: v.row.CreadoPor,
+                          FechaCreacion: v.row.FechaCreacion,
+                          Opciones: v.row.Opciones,
+                        },
+                      ]);
+                    }
+
+                    setEstado(v.row.Estado);
+                    setShowResume(false);
+                    setActionNumber(1);
+                  }}
+                >
+                  <AddCircleOutlineIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                </IconButton>
+              </span>
+            </Tooltip>
+
+            <ComentDialogMA
+              estado={v.row.Estado}
+              id={v.row.Id}
+              actualizado={actualizaContador}
+            />
+          </Grid>
+        );
+      },
+    },
+    {
+      field: "AnioFiscal",
+      headerName: "Año Fiscal",
+      description: "Año Fiscal",
+      flex: 1,
+    },
+    {
+      field: "Entidad",
+      headerName: "Entidad",
+      description: "Entidad",
+      flex: 2,
+    },
+    {
+      field: "Programa",
+      headerName: "Programa",
+      description: "Programa",
+      flex: 2,
+    },
+    {
+      field: "Estado",
+      headerName: "Estado",
+      description: "Estado",
+      flex: 2,
+    },
+    {
+      field: "FechaCreacion",
+      headerName: "Fehca de creacion",
+      description: "Fecha de creacion",
+      flex: 2,
+    },
+    {
+      field: "CreadoPor",
+      headerName: "Creado por",
+      description: "Creado por",
+      flex: 2,
+    },
+  ];
 
   return (
     <Grid container justifyContent={"space-between"}>
@@ -859,7 +1081,7 @@ export const MetaAnual = () => {
             </Grid>
 
             {/* TABLA */}
-            <Grid
+            {/* <Grid
               item
               xl={10}
               lg={10}
@@ -1234,6 +1456,33 @@ export const MetaAnual = () => {
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
               </Grid>
+            </Grid> */}
+
+<Grid
+              item
+              xl={11}
+              lg={11}
+              md={11}
+              sm={11}
+              xs={11}
+              //width={"80%"}
+              // height="65vh"
+              // direction="row"
+              sx={{
+                backgroundColor: "#FFFF",
+                borderRadius: 5,
+                boxShadow: 5,
+                height: "65vh",
+                direction: "row",
+              }}
+            >
+              <DataGridTable
+                id={(row: any) => row.Id || Math.random}
+                columns={columsMa}
+                rows={maFiltered}
+                camposCsv={[]}
+                exportTitle={"Columnas"}
+              />
             </Grid>
           </>
         ) : (
