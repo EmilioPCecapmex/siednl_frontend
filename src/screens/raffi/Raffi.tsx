@@ -38,6 +38,7 @@ import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
 import ComentDialogRF from "../../components/modalsRF/ModalComentariosRF";
+import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
 
 export const Raffi = () => {
   const [actionNumber, setActionNumber] = useState(0);
@@ -1159,6 +1160,10 @@ export const Raffi = () => {
                                 id={row.IdMir}
                                 //actualizado={actualizaContador}
                               />
+                              <MostrarLista
+                                      st=""
+                                      Id={row.IdRaffi}
+                                      />
                             </TableCell>
                           </TableRow>
                         );

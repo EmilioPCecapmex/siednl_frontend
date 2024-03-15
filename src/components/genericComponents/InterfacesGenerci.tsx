@@ -7,5 +7,6 @@ Estatus: string;
 NombreUsuario: string;
 Nombre: string;
 ApellidoPaterno: string;
-ApellidoMterno: string;
+ApellidoMaterno: string;
+Rol: string;
 }

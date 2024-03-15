@@ -35,55 +35,55 @@ export const FormulaDialogMACA = ({
 }) => {
   let valoresJSON=JSON.parse(valores)
 
-  const [descA, setDescA] = useState("");
-  const [descB, setDescB] = useState("");
-  const [descC, setDescC] = useState("");
-  const [descD, setDescD] = useState("");
-  const [descE, setDescE] = useState("");
-  const [descF, setDescF] = useState("");
-  const [descG, setDescG] = useState("");
-  const [descH, setDescH] = useState("");
+  const [ValorA, setValorA] = useState("");
+  const [ValorB, setValorB] = useState("");
+  const [ValorC, setValorC] = useState("");
+  const [ValorD, setValorD] = useState("");
+  const [ValorE, setValorE] = useState("");
+  const [ValorF, setValorF] = useState("");
+  const [ValorG, setValorG] = useState("");
+  const [ValorH, setValorH] = useState("");
   const [emptyTxt, setEmptyTxt] = useState(false);
 
   const limpiaVar = () => {
-    setDescA("");
-    setDescB("");
-    setDescC("");
-    setDescD("");
-    setDescE("");
-    setDescF("");
-    setDescG("");
-    setDescH("");
+    setValorA("");
+    setValorB("");
+    setValorC("");
+    setValorD("");
+    setValorE("");
+    setValorF("");
+    setValorG("");
+    setValorH("");
   };
 
   useEffect(() => {
     if (frecuencia === "trimestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice"))
     {
-      setDescA(valoresJSON?.metasPorFrecuencia[0]?.trimestre1)
-      setDescB(valoresJSON?.metasPorFrecuencia[0]?.trimestre2)
-      setDescC(valoresJSON?.metasPorFrecuencia[0]?.trimestre3)
-      setDescD(valoresJSON?.metasPorFrecuencia[0]?.trimestre4)
+      setValorA(valoresJSON?.metasPorFrecuencia[0]?.trimestre1)
+      setValorB(valoresJSON?.metasPorFrecuencia[0]?.trimestre2)
+      setValorC(valoresJSON?.metasPorFrecuencia[0]?.trimestre3)
+      setValorD(valoresJSON?.metasPorFrecuencia[0]?.trimestre4)
     }else if(frecuencia === "trimestral")
     {
-      setDescA(valoresJSON?.valoresPorFrecuencia[0]?.valorA)
-      setDescB(valoresJSON?.valoresPorFrecuencia[0]?.valorB)
-      setDescC(valoresJSON?.valoresPorFrecuencia[0]?.valorC)
-      setDescD(valoresJSON?.valoresPorFrecuencia[0]?.valorD)
-      setDescE(valoresJSON?.valoresPorFrecuencia[0]?.valorE)
-      setDescF(valoresJSON?.valoresPorFrecuencia[0]?.valorF)
-      setDescG(valoresJSON?.valoresPorFrecuencia[0]?.valorG)
-      setDescH(valoresJSON?.valoresPorFrecuencia[0]?.valorH)
+      setValorA(valoresJSON?.valoresPorFrecuencia[0]?.valorA)
+      setValorB(valoresJSON?.valoresPorFrecuencia[0]?.valorB)
+      setValorC(valoresJSON?.valoresPorFrecuencia[0]?.valorC)
+      setValorD(valoresJSON?.valoresPorFrecuencia[0]?.valorD)
+      setValorE(valoresJSON?.valoresPorFrecuencia[0]?.valorE)
+      setValorF(valoresJSON?.valoresPorFrecuencia[0]?.valorF)
+      setValorG(valoresJSON?.valoresPorFrecuencia[0]?.valorG)
+      setValorH(valoresJSON?.valoresPorFrecuencia[0]?.valorH)
     }else if (frecuencia === "semestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice"))
     {
-      setDescA(valoresJSON?.metasPorFrecuencia[0]?.semestre1)
-      setDescB(valoresJSON?.metasPorFrecuencia[0]?.semestre2)
+      setValorA(valoresJSON?.metasPorFrecuencia[0]?.semestre1)
+      setValorB(valoresJSON?.metasPorFrecuencia[0]?.semestre2)
       
     }else
     {
-      setDescA(valoresJSON?.valoresPorFrecuencia[0]?.valorA)
-      setDescB(valoresJSON?.valoresPorFrecuencia[0]?.valorB)
-      setDescC(valoresJSON?.valoresPorFrecuencia[0]?.valorC)
-      setDescD(valoresJSON?.valoresPorFrecuencia[0]?.valorD)
+      setValorA(valoresJSON?.valoresPorFrecuencia[0]?.valorA)
+      setValorB(valoresJSON?.valoresPorFrecuencia[0]?.valorB)
+      setValorC(valoresJSON?.valoresPorFrecuencia[0]?.valorC)
+      setValorD(valoresJSON?.valoresPorFrecuencia[0]?.valorD)
       
     }
   }, [open]);
@@ -92,21 +92,21 @@ export const FormulaDialogMACA = ({
     if (frecuencia === "trimestral") {
       if (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice") {
         if (
-          /^[\s]*$/.test(descA) ||
-          /^[\s]*$/.test(descB) ||
-          /^[\s]*$/.test(descC) ||
-          /^[\s]*$/.test(descD)
+          /^[\s]*$/.test(ValorA) ||
+          /^[\s]*$/.test(ValorB) ||
+          /^[\s]*$/.test(ValorC) ||
+          /^[\s]*$/.test(ValorD)
         ) {
           setEmptyTxt(true);
         } else {
           textoSet(
-            parseFloat(descA).toFixed(2) +
+            parseFloat(ValorA).toFixed(2) +
               "," +
-              parseFloat(descB).toFixed(2) +
+              parseFloat(ValorB).toFixed(2) +
               "," +
-              parseFloat(descC).toFixed(2) +
+              parseFloat(ValorC).toFixed(2) +
               "," +
-              parseFloat(descD).toFixed(2)
+              parseFloat(ValorD).toFixed(2)
               ,""
           );
           limpiaVar();
@@ -114,36 +114,36 @@ export const FormulaDialogMACA = ({
         }
       } else {
         if (
-          /^[\s]*$/.test(descA) ||
-          /^[\s]*$/.test(descB) ||
-          /^[\s]*$/.test(descC) ||
-          /^[\s]*$/.test(descD) ||
-          /^[\s]*$/.test(descE) ||
-          /^[\s]*$/.test(descF) ||
-          /^[\s]*$/.test(descG) ||
-          /^[\s]*$/.test(descH)
+          /^[\s]*$/.test(ValorA) ||
+          /^[\s]*$/.test(ValorB) ||
+          /^[\s]*$/.test(ValorC) ||
+          /^[\s]*$/.test(ValorD) ||
+          /^[\s]*$/.test(ValorE) ||
+          /^[\s]*$/.test(ValorF) ||
+          /^[\s]*$/.test(ValorG) ||
+          /^[\s]*$/.test(ValorH)
         ) {
           setEmptyTxt(true);
         } else {
           if (tipo === "Porcentaje") {
-            let T1 = (parseFloat(descA) / parseFloat(descB)) * 100;
+            let T1 = (parseFloat(ValorA) / parseFloat(ValorB)) * 100;
             let T2 =
-              ((parseFloat(descA) + parseFloat(descC)) /
-                (parseFloat(descB) + parseFloat(descD))) *
+              ((parseFloat(ValorA) + parseFloat(ValorC)) /
+                (parseFloat(ValorB) + parseFloat(ValorD))) *
               100;
             let T3 =
-              ((parseFloat(descA) + parseFloat(descC) + parseFloat(descE)) /
-                (parseFloat(descB) + parseFloat(descD) + parseFloat(descF))) *
+              ((parseFloat(ValorA) + parseFloat(ValorC) + parseFloat(ValorE)) /
+                (parseFloat(ValorB) + parseFloat(ValorD) + parseFloat(ValorF))) *
               100;
             let T4 =
-              ((parseFloat(descA) +
-                parseFloat(descC) +
-                parseFloat(descE) +
-                parseFloat(descG)) /
-                (parseFloat(descB) +
-                  parseFloat(descD) +
-                  parseFloat(descF) +
-                  parseFloat(descH))) *
+              ((parseFloat(ValorA) +
+                parseFloat(ValorC) +
+                parseFloat(ValorE) +
+                parseFloat(ValorG)) /
+                (parseFloat(ValorB) +
+                  parseFloat(ValorD) +
+                  parseFloat(ValorF) +
+                  parseFloat(ValorH))) *
               100;
             textoSet(
               T1.toFixed(2) +
@@ -154,54 +154,48 @@ export const FormulaDialogMACA = ({
                 "," +
                 T4.toFixed(2)
                 ,
-              descA +
+              ValorA +
               "," +
-              descB +
+              ValorB +
               "," +
-              descC +
+              ValorC +
               "," +
-              descD +
+              ValorD +
               "," +
-              descE +
+              ValorE +
               "," +
-              descF +
+              ValorF +
               "," +
-              descG +
+              ValorG +
               "," +
-              descH
+              ValorH
             );
             limpiaVar();
             close();
           } else if (tipo === "Tasa") {
             let T1 =
-              ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) *
+              ((parseFloat(ValorA) - parseFloat(ValorB)) / parseFloat(ValorB)) *
               100;
             let T2 =
-              ((parseFloat(descA) +
-                parseFloat(descC) -
-                (parseFloat(descB) + parseFloat(descD))) /
-                (parseFloat(descB) + parseFloat(descD))) *
-              100;
+              ((parseFloat(ValorA) +parseFloat(ValorC) - (parseFloat(ValorB) + parseFloat(ValorD))) /(parseFloat(ValorB) + parseFloat(ValorD))) * 100;
             let T3 =
-              ((parseFloat(descA) +
-                parseFloat(descC) +
-                parseFloat(descE) -
-                (parseFloat(descB) + parseFloat(descD) + parseFloat(descF))) /
-                (parseFloat(descB) + parseFloat(descD) + parseFloat(descF))) *
+              ((parseFloat(ValorA) + parseFloat(ValorC) + parseFloat(ValorE) -
+                (parseFloat(ValorB) + parseFloat(ValorD) + parseFloat(ValorF))) /
+                (parseFloat(ValorB) + parseFloat(ValorD) + parseFloat(ValorF))) *
               100;
             let T4 =
-              ((parseFloat(descA) +
-                parseFloat(descC) +
-                parseFloat(descE) +
-                parseFloat(descG) -
-                (parseFloat(descB) +
-                  parseFloat(descD) +
-                  parseFloat(descF) +
-                  parseFloat(descH))) /
-                (parseFloat(descB) +
-                  parseFloat(descD) +
-                  parseFloat(descF) +
-                  parseFloat(descH))) *
+              ((parseFloat(ValorA) +
+                parseFloat(ValorC) +
+                parseFloat(ValorE) +
+                parseFloat(ValorG) -
+                (parseFloat(ValorB) +
+                  parseFloat(ValorD) +
+                  parseFloat(ValorF) +
+                  parseFloat(ValorH))) /
+                (parseFloat(ValorB) +
+                  parseFloat(ValorD) +
+                  parseFloat(ValorF) +
+                  parseFloat(ValorH))) *
               100;
             textoSet(
               T1.toFixed(2) +
@@ -212,42 +206,42 @@ export const FormulaDialogMACA = ({
                 "," +
                 T4.toFixed(2)
                 ,
-              descA +
+              ValorA +
               "," +
-              descB +
+              ValorB +
               "," +
-              descC +
+              ValorC +
               "," +
-              descD +
+              ValorD +
               "," +
-              descE +
+              ValorE +
               "," +
-              descF +
+              ValorF +
               "," +
-              descG +
+              ValorG +
               "," +
-              descH
+              ValorH
             );
 
             limpiaVar();
             close();
           } else if (tipo === "Promedio") {
-            let T1 = parseFloat(descA) / parseFloat(descB);
+            let T1 = parseFloat(ValorA) / parseFloat(ValorB);
             let T2 =
-              (parseFloat(descA) + parseFloat(descC)) /
-              (parseFloat(descB) + parseFloat(descD));
+              (parseFloat(ValorA) + parseFloat(ValorC)) /
+              (parseFloat(ValorB) + parseFloat(ValorD));
             let T3 =
-              (parseFloat(descA) + parseFloat(descC) + parseFloat(descE)) /
-              (parseFloat(descB) + parseFloat(descD) + parseFloat(descF));
+              (parseFloat(ValorA) + parseFloat(ValorC) + parseFloat(ValorE)) /
+              (parseFloat(ValorB) + parseFloat(ValorD) + parseFloat(ValorF));
             let T4 =
-              (parseFloat(descA) +
-                parseFloat(descC) +
-                parseFloat(descE) +
-                parseFloat(descG)) /
-              (parseFloat(descB) +
-                parseFloat(descD) +
-                parseFloat(descF) +
-                parseFloat(descH));
+              (parseFloat(ValorA) +
+                parseFloat(ValorC) +
+                parseFloat(ValorE) +
+                parseFloat(ValorG)) /
+              (parseFloat(ValorB) +
+                parseFloat(ValorD) +
+                parseFloat(ValorF) +
+                parseFloat(ValorH));
             textoSet(
               T1.toFixed(2) +
                 "," +
@@ -257,21 +251,21 @@ export const FormulaDialogMACA = ({
                 "," +
                 T4.toFixed(2)
                 ,
-              descA +
+              ValorA +
               "," +
-              descB +
+              ValorB +
               "," +
-              descC +
+              ValorC +
               "," +
-              descD +
+              ValorD +
               "," +
-              descE +
+              ValorE +
               "," +
-              descF +
+              ValorF +
               "," +
-              descG +
+              ValorG +
               "," +
-              descH
+              ValorH
             );
 
             limpiaVar();
@@ -282,77 +276,77 @@ export const FormulaDialogMACA = ({
     } else {
       console.log("tipo ",tipo)
       if (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice")
-        if (/^[\s]*$/.test(descA) || /^[\s]*$/.test(descB)) {
+        if (/^[\s]*$/.test(ValorA) || /^[\s]*$/.test(ValorB)) {
           setEmptyTxt(true);
         } else {
           textoSet(
-            parseFloat(descA).toFixed(2) + "," + parseFloat(descB).toFixed(2),""
+            parseFloat(ValorA).toFixed(2) + "," + parseFloat(ValorB).toFixed(2),""
           );
           limpiaVar();
           close();
         }
       else if (
-        /^[\s]*$/.test(descA) ||
-        /^[\s]*$/.test(descB) ||
-        /^[\s]*$/.test(descC) ||
-        /^[\s]*$/.test(descD)
+        /^[\s]*$/.test(ValorA) ||
+        /^[\s]*$/.test(ValorB) ||
+        /^[\s]*$/.test(ValorC) ||
+        /^[\s]*$/.test(ValorD)
       ) {
         setEmptyTxt(true);
       } else if (tipo === "Porcentaje") {
-        let S1 = (parseFloat(descA) / parseFloat(descB)) * 100;
+        let S1 = (parseFloat(ValorA) / parseFloat(ValorB)) * 100;
         let S2 =
-          ((parseFloat(descA) + parseFloat(descC)) /
-            (parseFloat(descB) + parseFloat(descD))) *
+          ((parseFloat(ValorA) + parseFloat(ValorC)) /
+            (parseFloat(ValorB) + parseFloat(ValorD))) *
           100;
 
         textoSet(S1.toFixed(2) + "," + S2.toFixed(2)
         ,
-              descA +
+              ValorA +
               "," +
-              descB +
+              ValorB +
               "," +
-              descC +
+              ValorC +
               "," +
-              descD);
+              ValorD);
 
         limpiaVar();
         close();
       } else if (tipo === "Tasa") {
         let S1 =
-          ((parseFloat(descA) - parseFloat(descB)) / parseFloat(descB)) * 100;
+          ((parseFloat(ValorA) - parseFloat(ValorB)) / parseFloat(ValorB)) * 100;
         let S2 =
-          ((parseFloat(descA) +
-            parseFloat(descC) -
-            (parseFloat(descB) + parseFloat(descD))) /
-            (parseFloat(descB) + parseFloat(descD))) *
+          ((parseFloat(ValorA) +
+            parseFloat(ValorC) -
+            (parseFloat(ValorB) + parseFloat(ValorD))) /
+            (parseFloat(ValorB) + parseFloat(ValorD))) *
           100;
           
         textoSet(S1.toFixed(2) + "," + S2.toFixed(2)
         ,
-              descA +
+              ValorA +
               "," +
-              descB +
+              ValorB +
               "," +
-              descC +
+              ValorC +
               "," +
-              descD);
+              ValorD);
 
         limpiaVar();
         close();
       } else if (tipo === "Promedio") {
-        let S1 = parseFloat(descA) / parseFloat(descB);
+        let S1 = parseFloat(ValorA) / parseFloat(ValorB);
         let S2 =
-          (parseFloat(descA) + parseFloat(descC)) /
-          (parseFloat(descB) + parseFloat(descD));
+          (parseFloat(ValorA) + parseFloat(ValorC)) /
+          (parseFloat(ValorB) + parseFloat(ValorD));
         textoSet(S1.toFixed(2) + "," + S2.toFixed(2)
         ,
-              descA +
+              ValorA +
               "," +
-              descB +
+              ValorB +
               "," +
-              descC +
+              ValorC +
               "," +
-              descD);
+              ValorD);
 
         limpiaVar();
         close();
@@ -462,16 +456,16 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={"Valor"}
                 sx={{ width: "80%", mb: 2 }}
-                value={descA}
+                value={ValorA}
                 error={
-                  parseFloat(descA) < 0 ||
-                  (isNaN(parseFloat(descA)) && descA !== "")
+                  parseFloat(ValorA) < 0 ||
+                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
                     ? true
                     : false
                 }
                 helperText={
-                  parseFloat(descA) < 0 ||
-                  (isNaN(parseFloat(descA)) && descA !== "")
+                  parseFloat(ValorA) < 0 ||
+                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -481,7 +475,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
                 onChange={(c) =>
-                  setDescA(
+                  setValorA(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -499,16 +493,16 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={"Valor"}
                 sx={{ width: "80%", mb: 2 }}
-                value={descB}
+                value={ValorB}
                 error={
-                  parseFloat(descB) < 0 ||
-                  (isNaN(parseFloat(descB)) && descB !== "")
+                  parseFloat(ValorB) < 0 ||
+                  (isNaN(parseFloat(ValorB)) && ValorB !== "")
                     ? true
                     : false
                 }
                 helperText={
-                  parseFloat(descB) < 0 ||
-                  (isNaN(parseFloat(descB)) && descB !== "")
+                  parseFloat(ValorB) < 0 ||
+                  (isNaN(parseFloat(ValorB)) && ValorB !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -518,7 +512,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
                 onChange={(c) =>
-                  setDescB(
+                  setValorB(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -536,16 +530,16 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={"Valor"}
                 sx={{ width: "80%", mb: 2 }}
-                value={descC}
+                value={ValorC}
                 error={
-                  parseFloat(descC) < 0 ||
-                  (isNaN(parseFloat(descC)) && descC !== "")
+                  parseFloat(ValorC) < 0 ||
+                  (isNaN(parseFloat(ValorC)) && ValorC !== "")
                     ? true
                     : false
                 }
                 helperText={
-                  parseFloat(descC) < 0 ||
-                  (isNaN(parseFloat(descC)) && descC !== "")
+                  parseFloat(ValorC) < 0 ||
+                  (isNaN(parseFloat(ValorC)) && ValorC !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -555,7 +549,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
                 onChange={(c) =>
-                  setDescC(
+                  setValorC(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -573,16 +567,16 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={"Valor"}
                 sx={{ width: "80%" }}
-                value={descD}
+                value={ValorD}
                 error={
-                  parseFloat(descD) < 0 ||
-                  (isNaN(parseFloat(descD)) && descD !== "")
+                  parseFloat(ValorD) < 0 ||
+                  (isNaN(parseFloat(ValorD)) && ValorD !== "")
                     ? true
                     : false
                 }
                 helperText={
-                  parseFloat(descD) < 0 ||
-                  (isNaN(parseFloat(descD)) && descD !== "")
+                  parseFloat(ValorD) < 0 ||
+                  (isNaN(parseFloat(ValorD)) && ValorD !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -592,7 +586,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
                 onChange={(c) =>
-                  setDescD(
+                  setValorD(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -631,10 +625,10 @@ export const FormulaDialogMACA = ({
                   </Typography>
                 }
                 sx={{ width: "95%", mb: 2 }}
-                value={descA}
-                error={parseFloat(descA) < 0 ? true : false}
+                value={ValorA}
+                error={parseFloat(ValorA) < 0 ? true : false}
                 helperText={
-                  parseFloat(descA) < 0 ? "Introducir valor mayor que 0" : null
+                  parseFloat(ValorA) < 0 ? "Introducir valor mayor que 0" : null
                 }
                 InputLabelProps={{
                   style: {
@@ -642,7 +636,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
                 onChange={(c) =>
-                  setDescA(
+                  setValorA(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -668,9 +662,9 @@ export const FormulaDialogMACA = ({
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={descB}
+                value={ValorB}
                 onChange={(c) =>
-                  setDescB(
+                  setValorB(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -700,9 +694,9 @@ export const FormulaDialogMACA = ({
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={descC}
+                value={ValorC}
                 onChange={(c) =>
-                  setDescC(
+                  setValorC(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -730,9 +724,9 @@ export const FormulaDialogMACA = ({
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={descD}
+                value={ValorD}
                 onChange={(c) =>
-                  setDescD(
+                  setValorD(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -761,9 +755,9 @@ export const FormulaDialogMACA = ({
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={descE}
+                value={ValorE}
                 onChange={(c) =>
-                  setDescE(
+                  setValorE(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -791,9 +785,9 @@ export const FormulaDialogMACA = ({
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={descF}
+                value={ValorF}
                 onChange={(c) =>
-                  setDescF(
+                  setValorF(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -822,9 +816,9 @@ export const FormulaDialogMACA = ({
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={descG}
+                value={ValorG}
                 onChange={(c) =>
-                  setDescG(
+                  setValorG(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -852,9 +846,9 @@ export const FormulaDialogMACA = ({
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={descH}
+                value={ValorH}
                 onChange={(c) =>
-                  setDescH(
+                  setValorH(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -870,16 +864,16 @@ export const FormulaDialogMACA = ({
               <Typography>Acumulado Anual</Typography>
 
               <Typography>
-                {parseFloat(descA) +
-                  parseFloat(descC) +
-                  parseFloat(descE) +
-                  parseFloat(descG) || 0}
+                {parseFloat(ValorA) +
+                  parseFloat(ValorC) +
+                  parseFloat(ValorE) +
+                  parseFloat(ValorG) || 0}
               </Typography>
               <Typography>
-                {parseFloat(descB) +
-                  parseFloat(descD) +
-                  parseFloat(descF) +
-                  parseFloat(descH) || 0}
+                {parseFloat(ValorB) +
+                  parseFloat(ValorD) +
+                  parseFloat(ValorF) +
+                  parseFloat(ValorH) || 0}
               </Typography>
             </Box>
           ) : frecuencia === "semestral" &&
@@ -900,16 +894,16 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={"Valor"}
                 sx={{ width: "95%", mb: 2 }}
-                value={descA}
+                value={ValorA}
                 error={
-                  parseFloat(descA) < 0 ||
-                  (isNaN(parseFloat(descA)) && descA !== "")
+                  parseFloat(ValorA) < 0 ||
+                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
                     ? true
                     : false
                 }
                 helperText={
-                  parseFloat(descA) < 0 ||
-                  (isNaN(parseFloat(descA)) && descA !== "")
+                  parseFloat(ValorA) < 0 ||
+                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -919,7 +913,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
                 onChange={(c) =>
-                  setDescA(
+                  setValorA(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -937,16 +931,16 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={"Valor"}
                 sx={{ width: "95%" }}
-                value={descB}
+                value={ValorB}
                 error={
-                  parseFloat(descB) < 0 ||
-                  (isNaN(parseFloat(descB)) && descB !== "")
+                  parseFloat(ValorB) < 0 ||
+                  (isNaN(parseFloat(ValorB)) && ValorB !== "")
                     ? true
                     : false
                 }
                 helperText={
-                  parseFloat(descB) < 0 ||
-                  (isNaN(parseFloat(descB)) && descB !== "")
+                  parseFloat(ValorB) < 0 ||
+                  (isNaN(parseFloat(ValorB)) && ValorB !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -956,7 +950,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
                 onChange={(c) =>
-                  setDescB(
+                  setValorB(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -992,16 +986,16 @@ export const FormulaDialogMACA = ({
                   </Typography>
                 }
                 sx={{ width: "95%", mb: 2 }}
-                value={descA}
+                value={ValorA}
                 error={
-                  parseFloat(descA) < 0 ||
-                  (isNaN(parseFloat(descA)) && descA !== "")
+                  parseFloat(ValorA) < 0 ||
+                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
                     ? true
                     : false
                 }
                 helperText={
-                  parseFloat(descA) < 0 ||
-                  (isNaN(parseFloat(descA)) && descA !== "")
+                  parseFloat(ValorA) < 0 ||
+                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -1011,7 +1005,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
                 onChange={(c) =>
-                  setDescA(
+                  setValorA(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -1039,9 +1033,9 @@ export const FormulaDialogMACA = ({
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={descB}
+                value={ValorB}
                 onChange={(c) =>
-                  setDescB(
+                  setValorB(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -1070,9 +1064,9 @@ export const FormulaDialogMACA = ({
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={descC}
+                value={ValorC}
                 onChange={(c) =>
-                  setDescC(
+                  setValorC(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -1100,9 +1094,9 @@ export const FormulaDialogMACA = ({
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={descD}
+                value={ValorD}
                 onChange={(c) =>
-                  setDescD(
+                  setValorD(
                     c.target.value
                       .replaceAll('"', "")
                       .replaceAll("'", "")
@@ -1118,10 +1112,10 @@ export const FormulaDialogMACA = ({
               <Typography>Acumulado Anual</Typography>
 
               <Typography>
-                {parseFloat(descA) + parseFloat(descC) || 0}
+                {parseFloat(ValorA) + parseFloat(ValorC) || 0}
               </Typography>
               <Typography>
-                {parseFloat(descB) + parseFloat(descD) || 0}
+                {parseFloat(ValorB) + parseFloat(ValorD) || 0}
               </Typography>
             </Box>
           )}

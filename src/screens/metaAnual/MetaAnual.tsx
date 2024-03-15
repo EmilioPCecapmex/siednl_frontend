@@ -33,6 +33,7 @@ import { queries } from "../../queries";
 import { buscador } from "../../services/servicesGlobals";
 import SearchIcon from "@mui/icons-material/Search";
 import { estados, heads } from "../../services/validations";
+import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
@@ -164,14 +165,16 @@ export const MetaAnual = () => {
 
   useEffect(() => {
     const url = window.location.href;
-  
+
     // Verificar si el parámetro 'Id' está presente en la URL
-    if (url.includes('?Id=')) {
+    if (url.includes("?Id=")) {
       const id = url.split("?")[1].split("=")[1];
-  
+
       // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
       if (id) {
-        setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
+        setMaFiltered(
+          ma.filter((x) => x.IdMa.toLowerCase().includes(id || ""))
+        );
       }
     }
   }, [ma]);
@@ -1215,6 +1218,8 @@ export const MetaAnual = () => {
                                 id={row.IdMir}
                                 actualizado={actualizaContador}
                               />
+
+                              <MostrarLista st="" Id={row.IdMa} />
                             </Grid>
                           </TableCell>
                         </TableRow>

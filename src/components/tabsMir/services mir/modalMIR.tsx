@@ -130,7 +130,6 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
       description: "NombreUsuario",
       flex: 5,
     },
-    
   ];
 
   return (
@@ -187,13 +186,22 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
               //flexDirection: "column",
             }}
           >
+            <Typography>TRAZABILIDAD</Typography>
             <Grid
               item
               container
               direction={"row"}
-              justifyContent={"space-evenly"}
+              //justifyContent={"space-evenly"}
               alignItems={"center"}
-              sx={{ overflow: "auto", height: "85%" }}
+              sx={{
+                height: "80%",
+                width: "auto",
+                // flexDirection: "row",
+                // alignItems: "center",
+                borderBottom: 1,
+                borderColor: "#cfcfcf",
+                display: "flex"
+              }}
             >
               {/* {trazabilidad.map((item, index) => {
                 return (
@@ -225,7 +233,7 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
                         sx={{
                           fontFamily: "MontserratMedium",
 
-                          mt: 2,
+                          mt: 1,
                         }}
                       >
                         Documento: {item.Documentos}
@@ -245,7 +253,7 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
                         sx={{
                           fontFamily: "MontserratMedium",
 
-                          mt: 2,
+                          mt: 1,
                         }}
                       >
                         Estatus: {item.Estatus}
@@ -265,7 +273,7 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
                         sx={{
                           fontFamily: "MontserratMedium",
 
-                          mt: 2,
+                          mt: 1,
                         }}
                       >
                         Usuario: {item.NombreUsuario}
@@ -285,7 +293,7 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
                         sx={{
                           fontFamily: "MontserratMedium",
 
-                          mt: 2,
+                          mt: 1,
                         }}
                       >
                         Fecha del movimienti:{" "}
@@ -296,13 +304,74 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
                 );
               })} */}
 
-              <DataGridTable
+              {/* <DataGridTable
                 id={(row: any) => row.Id || Math.random}
                 columns={columsTrazabilidad}
                 rows={trazabilidad}
                 camposCsv={[]}
                 exportTitle={"Columnas"}
-              />
+              /> */}
+
+              {trazabilidad.map((label) => (
+                <Step key={label.IdDoc}>
+                  <StepContent>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+
+                        mt: 1,
+                      }}
+                    >
+                      {label.Documentos}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+
+                        mt: 1,
+                      }}
+                    >
+                      {label.Rol}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+
+                        mt: 1,
+                      }}
+                    >
+                      {label.Estatus}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+
+                        mt: 1,
+                      }}
+                    >
+                      {label.NombreUsuario}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+
+                        mt: 1,
+                      }}
+                    >
+                      {label.Nombre + " " + label.ApellidoPaterno + " " + label.ApellidoMaterno}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "MontserratMedium",
+
+                        mt: 1,
+                      }}
+                    >
+                      {label.FechaModificacion}
+                    </Typography>
+                  </StepContent>
+                </Step>
+              ))}
             </Grid>
 
             <Grid
