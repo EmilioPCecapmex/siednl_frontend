@@ -1,62 +1,43 @@
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import { useState, useEffect } from "react";
 import {
-  Grid,
-  Tooltip,
-  IconButton,
   Button,
-  Paper,
   Dialog,
   DialogContent,
-  Stepper,
+  DialogTitle,
+  Grid,
+  IconButton,
   Step,
   StepLabel,
-  StepContent,
+  Stepper,
+  Tooltip,
   Typography,
 } from "@mui/material";
-import { getMovimientosTrazabilidad } from "../../genericComponents/axiosGenericos";
+import { useEffect, useState } from "react";
 import { TrazabilidadI } from "../../genericComponents/InterfacesGenerci";
-import DataGridTable from "../../genericComponents/DataGridTable";
-import { GridColDef } from "@mui/x-data-grid";
+import { getMovimientosTrazabilidad } from "../../genericComponents/axiosGenericos";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import ManageSearchOutlinedIcon from "@mui/icons-material/ManageSearchOutlined";
+import SafetyCheckOutlinedIcon from "@mui/icons-material/SafetyCheckOutlined";
+import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
+
+function IconSwitch({ Estado }: { Estado: string }) {
+  if (Estado.toUpperCase().includes("BORRADOR"))
+    return <BorderColorOutlinedIcon style={{ fontSize: "5em" }} />;
+  if (Estado.toUpperCase().includes("CAPTURA"))
+    return <DriveFileRenameOutlineOutlinedIcon style={{ fontSize: "5em" }} />;
+  else if (Estado.toUpperCase().includes("REVISIÓN"))
+    return <ManageSearchOutlinedIcon style={{ fontSize: "5em" }} />;
+  else if (Estado.toUpperCase().includes("AUTORIZACIÓN"))
+    return <SafetyCheckOutlinedIcon style={{ fontSize: "5em" }} />;
+  else if (Estado.toUpperCase().includes("AUTORIZADA"))
+    return <VerifiedUserOutlinedIcon style={{ fontSize: "5em" }} />;
+  else return <HelpOutlineOutlinedIcon style={{ fontSize: "5em" }} />;
+}
 
 export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
-  // const steps = [
-  //   {
-  //     label: "LABEL 1",
-  //     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
-  //   },
-  //   {
-  //     label: "LABEL 2",
-  //     description:
-  //       "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-  //   },
-  //   {
-  //     label: "LABEL 3",
-  //     description: `Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`,
-  //   },
-  // ];
-
-  const [activeStep, setActiveStep] = useState(0);
-
-  const [trazabilidad, setTrazabilidad] = useState<Array<TrazabilidadI>>([]);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  useEffect(() => {
-    getMovimientosTrazabilidad(Id, setTrazabilidad);
-    // console.log("Id: ",Id);
-    //console.log("trazabilidad: ",trazabilidad);
-  }, [trazabilidad]);
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
+  const [trazabilidad, setTrazabilidad] = useState<TrazabilidadI[]>([]);
 
   const [open, setOpen] = useState(false);
 
@@ -67,70 +48,80 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
   const handleClose = () => {
     setOpen(false);
   };
+  useEffect(() => {
+    if (open) {
+      getMovimientosTrazabilidad(Id, setTrazabilidad);
+    }
+  }, [open]);
 
-  const columsTrazabilidad: GridColDef[] = [
-    // {
-    //   field: "Acciones",
-    //   disableExport: true,
-    //   headerName: "Acciones",
-    //   description: "Acciones",
-    //   sortable: false,
-    //   flex: 1,
-    //   renderCell: (v: any) => {
-    //     return (
-    //       <Grid>
-    //         <Tooltip title="Eliminar descripcion">
-    //           <IconButton
-    //             onClick={() => {
-    //               setCatalogoSelected(v.row);
+  const TrazabilidadStepper = () => {
+    return (
+      <>
+        {trazabilidad.map((step, index) => (
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={11}
+            lg={11}
+            xl={11}
+            key={index}
+            sx={{ display: "flex", justifyContent:['space-between','space-evenly','space-evenly','space-evenly','space-evenly',], mb: "5vh",alignItems:'center',border:'solid 1px'}}
+           
+          >
+            <Grid
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+               
+              }}
+            >
+              <IconSwitch Estado={step.Estatus} />
+            </Grid>
+            <Grid sx={{ justifyContent: ["","center","center","center","center",], alignItems: "center", ml:["2","","","2vw","",] }}>
+              <Typography>
+                {`Movimiento:`}
 
-    //               setOpenDel(true);
-    //               //eliminar(v)
-    //             }}
-    //           >
-    //             <DeleteIcon />
-    //           </IconButton>
-    //         </Tooltip>
+                {` ${step.Estatus}`}
+              </Typography>
+              <Typography>
+                {`Modificado por: `}
 
-    //         <Tooltip title="Editar descripcion">
-    //           <IconButton
-    //             onClick={() => {
-    //               setCatalogoSelected(v.row);
-    //               setOpenMody(true);
-    //             }}
-    //           >
-    //             <EditIcon />
-    //           </IconButton>
-    //         </Tooltip>
-    //       </Grid>
-    //     );
-    //   },
-    // },
-    {
-      field: "Documentos",
-      headerName: "Documentos",
-      description: "Documentos",
-      flex: 5,
-    },
-    {
-      field: "Estatus",
-      headerName: "Estatus",
-      description: "Estatus",
-      flex: 5,
-    },
-    {
-      field: "FechaModificacion",
-      headerName: "FechaModificacion",
-      description: "FechaModificacion",
-      flex: 5,
-    },
-    {
-      field: "NombreUsuario",
-      headerName: "NombreUsuario",
-      description: "NombreUsuario",
-      flex: 5,
-    },
-  ];
+                {`${step.Nombre}`}
+              </Typography>
+              <Typography>
+                {`Usuario: `}
+
+                {`${step.NombreUsuario}`}
+              </Typography>
+              <Typography>
+                {`Fecha de Modificación: `}
+
+                {`${step.FechaModificacion}`}
+              </Typography>
+              <Typography>
+                {`Hora de Modificación: `}
+
+                {`${step.Hora}`}
+              </Typography>
+              {/* Agrega más detalles según tus necesidades */}
+            </Grid>
+          </Grid>
+        ))}
+      </>
+    );
+  };
+
+  const [activeStep, setActiveStep] = useState(0);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
 
   return (
     <Grid>
@@ -167,11 +158,12 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
       </Tooltip>
 
       <Dialog open={open} onClose={handleClose} fullScreen>
+        <DialogTitle>Historial de movimientos del documento</DialogTitle>
         <DialogContent
           sx={{
             display: "flex",
-            flexDirection: "column",
-            height: "100vh",
+            maxHeight: "90vh",
+            overflow: "auto",
           }}
         >
           <Grid
@@ -183,203 +175,33 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
             item
             sx={{
               display: "flex",
-              //flexDirection: "column",
+              justifyContent: "center",
             }}
           >
-            <Typography>TRAZABILIDAD</Typography>
             <Grid
-              item
+              xs={12}
+              sm={12}
+              md={12}
+              lg={12}
+              xl={12}
               container
-              direction={"row"}
-              //justifyContent={"space-evenly"}
-              alignItems={"center"}
+              item
               sx={{
-                height: "80%",
-                width: "auto",
-                // flexDirection: "row",
-                // alignItems: "center",
-                borderBottom: 1,
-                borderColor: "#cfcfcf",
-                display: "flex"
+                height: "90%",
+                overflow: "auto",
+                justifyContent: "center",
+                display: "flex",
               }}
             >
-              {/* {trazabilidad.map((item, index) => {
-                return (
-                  <Grid
-                    item
-                    container
-                    xs={12}
-                    sm={12}
-                    md={12}
-                    lg={12}
-                    sx={{
-                      width: "auto",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      borderBottom: 1,
-                      borderColor: "#cfcfcf",
-                    }}
-                  >
-                    <Grid
-                      sx={{ justifyContent: "center", display: "flex" }}
-                      item
-                      xl={3}
-                      lg={3}
-                      md={3}
-                      sm={12}
-                      xs={12}
-                    >
-                      <Typography
-                        sx={{
-                          fontFamily: "MontserratMedium",
-
-                          mt: 1,
-                        }}
-                      >
-                        Documento: {item.Documentos}
-                      </Typography>
-                    </Grid>
-
-                    <Grid
-                      sx={{ justifyContent: "center", display: "flex" }}
-                      item
-                      xl={3}
-                      lg={3}
-                      md={3}
-                      sm={12}
-                      xs={12}
-                    >
-                      <Typography
-                        sx={{
-                          fontFamily: "MontserratMedium",
-
-                          mt: 1,
-                        }}
-                      >
-                        Estatus: {item.Estatus}
-                      </Typography>
-                    </Grid>
-
-                    <Grid
-                      sx={{ justifyContent: "center", display: "flex" }}
-                      item
-                      xl={3}
-                      lg={3}
-                      md={3}
-                      sm={12}
-                      xs={12}
-                    >
-                      <Typography
-                        sx={{
-                          fontFamily: "MontserratMedium",
-
-                          mt: 1,
-                        }}
-                      >
-                        Usuario: {item.NombreUsuario}
-                      </Typography>
-                    </Grid>
-
-                    <Grid
-                      sx={{ justifyContent: "center", display: "flex" }}
-                      item
-                      xl={3}
-                      lg={3}
-                      md={3}
-                      sm={12}
-                      xs={12}
-                    >
-                      <Typography
-                        sx={{
-                          fontFamily: "MontserratMedium",
-
-                          mt: 1,
-                        }}
-                      >
-                        Fecha del movimienti:{" "}
-                        {item.FechaModificacion.slice(0, 10)}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                );
-              })} */}
-
-              {/* <DataGridTable
-                id={(row: any) => row.Id || Math.random}
-                columns={columsTrazabilidad}
-                rows={trazabilidad}
-                camposCsv={[]}
-                exportTitle={"Columnas"}
-              /> */}
-
-              {trazabilidad.map((label) => (
-                <Step key={label.IdDoc}>
-                  <StepContent>
-                    <Typography
-                      sx={{
-                        fontFamily: "MontserratMedium",
-
-                        mt: 1,
-                      }}
-                    >
-                      {label.Documentos}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontFamily: "MontserratMedium",
-
-                        mt: 1,
-                      }}
-                    >
-                      {label.Rol}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontFamily: "MontserratMedium",
-
-                        mt: 1,
-                      }}
-                    >
-                      {label.Estatus}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontFamily: "MontserratMedium",
-
-                        mt: 1,
-                      }}
-                    >
-                      {label.NombreUsuario}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontFamily: "MontserratMedium",
-
-                        mt: 1,
-                      }}
-                    >
-                      {label.Nombre + " " + label.ApellidoPaterno + " " + label.ApellidoMaterno}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontFamily: "MontserratMedium",
-
-                        mt: 1,
-                      }}
-                    >
-                      {label.FechaModificacion}
-                    </Typography>
-                  </StepContent>
-                </Step>
-              ))}
+              <TrazabilidadStepper />
             </Grid>
 
             <Grid
               sx={{
                 justifyContent: "center",
-                alignItems: "center",
+                alignItems: "flex-end",
                 display: "flex",
-                height: "15%",
+                height: "10%",
               }}
               item
               xl={12}

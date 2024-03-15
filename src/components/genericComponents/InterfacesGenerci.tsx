@@ -1,12 +1,11 @@
 export interface TrazabilidadI {
-IdDoc: string;
-Documentos: string;
-FechaModificacion: string;
-CreadoPor: string;
-Estatus: string;
-NombreUsuario: string;
-Nombre: string;
-ApellidoPaterno: string;
-ApellidoMaterno: string;
-Rol: string;
+  Id: string;
+  IdDoc: string;
+  Documentos: string;
+  Estatus: string;
+  Nombre: string;
+  NombreUsuario: string;
+  FechaModificacion: string;
+  Hora: string;
+  CreadoPor: string;
 }
