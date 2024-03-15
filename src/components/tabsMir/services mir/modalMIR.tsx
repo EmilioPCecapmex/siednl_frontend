@@ -43,12 +43,19 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-
+ const [open, setOpen] = useState(false);
   useEffect(() => {
-    getMovimientosTrazabilidad(Id, setTrazabilidad);
+
+    
     // console.log("Id: ",Id);
     //console.log("trazabilidad: ",trazabilidad);
-  }, [trazabilidad]);
+  }, []);
+
+  useEffect(() => {
+    if (open) {
+      getMovimientosTrazabilidad(Id, setTrazabilidad);
+    }
+  }, [Id, open]);
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -58,7 +65,7 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
     setActiveStep(0);
   };
 
-  const [open, setOpen] = useState(false);
+ 
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -136,7 +143,7 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
     <Grid>
       <Tooltip title="LISTA">
         <span>
-          <IconButton onClick={handleClickOpen}>
+          <IconButton  onClick={handleClickOpen}>
             <ListAltIcon
               sx={{
                 fontSize: "24px", // Tamaño predeterminado del icono
