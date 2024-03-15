@@ -80,6 +80,11 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
               <IconSwitch Estado={step.Estatus} />
             </Grid>
             <Grid sx={{ justifyContent: ["","center","center","center","center",], alignItems: "center", ml:["2","","","2vw","",] }}>
+            <Typography>
+                {`Documento:`}
+
+                {` ${step.Documentos}`}
+              </Typography>
               <Typography>
                 {`Movimiento:`}
 
