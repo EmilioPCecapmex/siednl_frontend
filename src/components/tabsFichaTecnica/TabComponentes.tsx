@@ -13,6 +13,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { IComponentesFT, IFTEdit } from "../tabsFichaTecnica/Interfaces";
+import { clearInfo } from "../genericComponents/GenericMethods";
 
 export const TabComponenteFT = ({
   edit,
@@ -508,10 +509,7 @@ export const TabComponenteFT = ({
               value={componentesValues[componentSelect]?.unidadDeMedida || ""}
               onChange={(c) => {
                 componentesValues[componentSelect].unidadDeMedida =
-                  c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
+                clearInfo(c.target.value);
                 setComponentesValues([...componentesValues]);
               }}
             />

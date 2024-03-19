@@ -15,6 +15,8 @@ import { IMIR, IMIREdit } from "./interfaces mir/IMIR";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
+import { clearInfo } from "../genericComponents/GenericMethods";
+
 
 export function TabFinProposito({
   MIR,
@@ -496,11 +498,7 @@ export function TabFinProposito({
                   onChange={(c) => {
                     setFin({
                       ...fin,
-                      resumen: c.target.value
-                        .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "")
-                        .trimEnd(),
+                      resumen: clearInfo(c.target.value)
                     });
                   }}
                   value={fin.resumen}
@@ -555,11 +553,7 @@ export function TabFinProposito({
                   onChange={(c) => {
                     setFin({
                       ...fin,
-                      indicador: c.target.value
-                        .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "")
-                        .trimEnd(),
+                      indicador: clearInfo(c.target.value),
                       formula: "",
                     });
                   }}
@@ -708,11 +702,7 @@ export function TabFinProposito({
                   onChange={(c) => {
                     setFin({
                       ...fin,
-                      medios: c.target.value
-                        .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "")
-                        .trimEnd(),
+                      medios: clearInfo(c.target.value),
                     });
                   }}
                   value={fin.medios}
@@ -758,11 +748,7 @@ export function TabFinProposito({
                   onChange={(c) => {
                     setFin({
                       ...fin,
-                      supuestos: c.target.value
-                        .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "")
-                        .trimEnd(),
+                      supuestos: clearInfo(c.target.value),
                     });
                   }}
                   value={fin.supuestos}
@@ -897,11 +883,7 @@ export function TabFinProposito({
                   onChange={(c) => {
                     setProposito({
                       ...proposito,
-                      resumen: c.target.value
-                        .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "")
-                        .trimEnd(),
+                      resumen: clearInfo(c.target.value),
                     });
                   }}
                   value={proposito.resumen}
@@ -959,11 +941,7 @@ export function TabFinProposito({
                   onChange={(c) => {
                     setProposito({
                       ...proposito,
-                      indicador: c.target.value
-                        .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "")
-                        .trimEnd(),
+                      indicador: clearInfo(c.target.value),
                       formula: "",
                     });
                   }}
@@ -1099,11 +1077,7 @@ export function TabFinProposito({
                   onChange={(c) => {
                     setProposito({
                       ...proposito,
-                      medios_verificacion: c.target.value
-                        .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "")
-                        .trimEnd(),
+                      medios_verificacion: clearInfo(c.target.value),
                     });
                   }}
                   value={proposito.medios_verificacion}
@@ -1150,11 +1124,7 @@ export function TabFinProposito({
                   onChange={(c) => {
                     setProposito({
                       ...proposito,
-                      supuestos: c.target.value
-                        .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "")
-                        .trimEnd(),
+                      supuestos: clearInfo(c.target.value),
                     });
                   }}
                   value={proposito.supuestos}

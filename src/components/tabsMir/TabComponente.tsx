@@ -18,6 +18,7 @@ import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import { alertaError } from "../genericComponents/Alertas";
+import { clearInfo } from "../genericComponents/GenericMethods";
 
 export const TabComponente = ({
   edit,
@@ -353,11 +354,7 @@ export const TabComponente = ({
               }}
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect - 1].resumen = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                prevLocal[componentSelect - 1].resumen = clearInfo(c.target.value);
                 setComponentes(prevLocal);
               }}
               value={componentes[componentSelect - 1]?.resumen}
@@ -408,11 +405,7 @@ export const TabComponente = ({
               }
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect - 1].indicador = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                prevLocal[componentSelect - 1].indicador = clearInfo(c.target.value);
                 prevLocal[componentSelect - 1].formula = "";
                 setComponentes(prevLocal);
               }}
@@ -501,11 +494,7 @@ export const TabComponente = ({
                     }
                     onChange={(c) => {
                       let prevLocal = [...componentes];
-                      prevLocal[componentSelect - 1].frecuencia = c.target.value
-                        .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                      prevLocal[componentSelect - 1].frecuencia = clearInfo(c.target.value);
                       setComponentes(prevLocal);
                     }}
                   />
@@ -525,11 +514,7 @@ export const TabComponente = ({
                     }
                     onChange={(c) => {
                       let prevLocal = [...componentes];
-                      prevLocal[componentSelect - 1].frecuencia = c.target.value
-                        .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                      prevLocal[componentSelect - 1].frecuencia = clearInfo(c.target.value);
                       setComponentes(prevLocal);
                     }}
                   />
@@ -576,11 +561,7 @@ export const TabComponente = ({
               }}
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect - 1].medios = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                prevLocal[componentSelect - 1].medios = clearInfo(c.target.value);
                 setComponentes(prevLocal);
               }}
               value={componentes[componentSelect - 1]?.medios}
@@ -625,11 +606,7 @@ export const TabComponente = ({
               }}
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect - 1].supuestos = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                prevLocal[componentSelect - 1].supuestos = clearInfo(c.target.value);
                 setComponentes(prevLocal);
               }}
               value={componentes[componentSelect - 1]?.supuestos}

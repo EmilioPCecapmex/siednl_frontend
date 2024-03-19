@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { queries } from "../../queries";
-
+import { clearInfo } from "../genericComponents/GenericMethods";
 export const FormulaDialog = ({
   open,
   close,
@@ -37,7 +37,7 @@ export const FormulaDialog = ({
       } else {
         if (tipo === "Indice" || tipo === "Índice" || tipo === "indice") {
           textoSet(
-            descA.replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "")
+            clearInfo(descA)
           );
           close();
         }
@@ -49,19 +49,9 @@ export const FormulaDialog = ({
         if ( tipo === "Porcentaje" || tipo === "porcentaje" || tipo === "PORCENTAJE") {
           textoSet(
             "(" +
-              descA
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd()
-                  .trimEnd() +
+              clearInfo(descA) +
               "/" +
-              descB
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd()
-                  .trimEnd() +
+              clearInfo(descB) +
               ")*100"
           );
           close();
@@ -69,27 +59,12 @@ export const FormulaDialog = ({
           textoSet(
             "(" +
               "(" +
-              descA
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd()
-                  .trimEnd() +
+              clearInfo(descA) +
               "-" +
-              descB
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd()
-                  .trimEnd() +
+              clearInfo(descB) +
               ")" +
               "/" +
-              descB
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd()
-                  .trimEnd() +
+              clearInfo(descB) +
               ")" +
               "*100"
           );
@@ -97,19 +72,9 @@ export const FormulaDialog = ({
         } else if (tipo === "Promedio") {
           textoSet(
             "(" +
-              descA
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd()
-                  .trimEnd() +
+            clearInfo(descA) +
               "/" +
-              descB
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd()
-                  .trimEnd() +
+              clearInfo(descB) +
               ")"
           );
           close();
@@ -203,11 +168,7 @@ export const FormulaDialog = ({
             }}
             onChange={(c) =>
               setDescA(
-                c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd()
+                clearInfo(c.target.value)
               )
             }
             InputProps={{
@@ -237,10 +198,7 @@ export const FormulaDialog = ({
               value={descB}
               onChange={(c) =>
                 setDescB(
-                  c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "")
+                  clearInfo(c.target.value)
                 )
               }
               InputProps={{

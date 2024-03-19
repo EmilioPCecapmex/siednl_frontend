@@ -6,6 +6,7 @@ import { validarNumero } from "../../services/validations";
 import { DialogFinPropositoRaffi } from "../formulasDialog/FormulaDialogRaffiFinProposito";
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import { IFinRF, IPropositoRF, IRFEdit } from "./interfacesRaffi";
+import { clearInfo } from "../genericComponents/GenericMethods";
 
 export function TabFinPropositoRF({
   edit,
@@ -234,11 +235,7 @@ export function TabFinPropositoRF({
                   setFin({
                     ...fin,
                     añoAvanceFisico: validarNumero(
-                      c.target.value
-                        .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd(),
+                      clearInfo(c.target.value),
                       fin.añoAvanceFisico
                     ),
                   });
@@ -353,11 +350,7 @@ export function TabFinPropositoRF({
                   setProposito({
                     ...proposito,
                     añoAvanceFisico: validarNumero(
-                      c.target.value
-                        .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd(),
+                      clearInfo(c.target.value),
                       proposito.añoAvanceFisico
                     ),
                   });

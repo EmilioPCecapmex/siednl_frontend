@@ -17,6 +17,7 @@ import { IAI } from "../../screens/actividadesInstitucionales/InterfacesActivida
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IAccion } from "./IAccion1";
+import { clearInfo } from "../genericComponents/GenericMethods";
 export function TabAccion1({
   AI,
   noAcciones,
@@ -411,11 +412,7 @@ export function TabAccion1({
               label={"Descripción de la accion"}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].descripcion = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                prevLocal[componentSelect - 1].descripcion = clearInfo(c.target.value);
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.descripcion}
@@ -454,11 +451,7 @@ export function TabAccion1({
               }
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].nombreIndicador = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                prevLocal[componentSelect - 1].nombreIndicador = clearInfo(c.target.value);
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.nombreIndicador}
@@ -522,11 +515,7 @@ export function TabAccion1({
               label={"Numerador"}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].numerador = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                prevLocal[componentSelect - 1].numerador = clearInfo(c.target.value);
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.numerador}
@@ -559,11 +548,7 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].unidadMedida = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value);
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.unidadMedida}
@@ -596,11 +581,7 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].medio_fuente = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                prevLocal[componentSelect - 1].medio_fuente = clearInfo(c.target.value);
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.medio_fuente}
@@ -633,11 +614,7 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].denomidador = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                prevLocal[componentSelect - 1].denomidador = clearInfo(c.target.value);
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.denomidador}
@@ -670,11 +647,7 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].unidadMedida = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value);
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.unidadMedida}
@@ -707,11 +680,7 @@ export function TabAccion1({
               label={"Medio de Verificación / Fuente de Información"}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].medio_fuente2 = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                prevLocal[componentSelect - 1].medio_fuente2 = clearInfo(c.target.value);
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.medio_fuente2}

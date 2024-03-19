@@ -21,6 +21,7 @@ import {
 import { alertaInfo } from "../genericComponents/Alertas";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { clearInfo } from "../genericComponents/GenericMethods";
 export function TabEncabezado({
   edit,
   show,

@@ -19,6 +19,7 @@ import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import axios from "axios";
+import { clearInfo } from "../genericComponents/GenericMethods";
 
 export const TabComponenteMA = ({
   edit,
@@ -640,11 +641,7 @@ export const TabComponenteMA = ({
                 },
               }}
               onChange={(c) => {
-                componentesValues[componentSelect].lineaBase = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                componentesValues[componentSelect].lineaBase = clearInfo(c.target.value);
                 setComponentesValues([...componentesValues]);
               }}
               value={componentesValues[componentSelect]?.lineaBase || ""}
@@ -1454,10 +1451,7 @@ export const TabComponenteMA = ({
               value={componentesValues[componentSelect]?.descIndicador || ""}
               onChange={(c) => {
                 componentesValues[componentSelect].descIndicador =
-                  c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
+                clearInfo(c.target.value);
                 setComponentesValues([...componentesValues]);
               }}
               InputLabelProps={{
@@ -1510,10 +1504,7 @@ export const TabComponenteMA = ({
               value={componentesValues[componentSelect]?.descNumerador || ""}
               onChange={(c) => {
                 componentesValues[componentSelect].descNumerador =
-                  c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
+                clearInfo(c.target.value);
                 setComponentesValues([...componentesValues]);
               }}
               InputLabelProps={{
@@ -1567,10 +1558,7 @@ export const TabComponenteMA = ({
               value={componentesValues[componentSelect]?.descDenominador || ""}
               onChange={(c) => {
                 componentesValues[componentSelect].descDenominador =
-                  c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
+                clearInfo(c.target.value);
                 setComponentesValues([...componentesValues]);
               }}
               InputLabelProps={{

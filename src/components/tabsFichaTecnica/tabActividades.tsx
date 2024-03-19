@@ -17,6 +17,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 import { IComponentesFT, IFTEdit } from "./Interfaces";
+import { clearInfo } from "../genericComponents/GenericMethods";
 
 export const TabActividadesFT = ({
   edit,
@@ -625,11 +626,7 @@ export const TabActividadesFT = ({
                 let y = [...componentesActividadValues];
                 y[componenteSelect].actividades[
                   actividadSelect
-                ].unidadDeMedida = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                ].unidadDeMedida = clearInfo(c.target.value);
                 setComponentesActividadValues(y);
               }}
               value={

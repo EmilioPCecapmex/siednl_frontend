@@ -10,7 +10,7 @@ import axios from "axios";
 import { IEncabezadoFT, IFTEdit } from "./Interfaces";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-
+import { clearInfo } from "../genericComponents/GenericMethods";
 
 interface IObjetivoDS {
   Id: string;
@@ -217,19 +217,12 @@ export function TabEncabezado({
               disabled={edit && !ftEditPadre?.encabezado?.programaSER}
               onChange={(a) => {
                 
-                encabezado.programaSER = a.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                encabezado.programaSER = clearInfo(a.target.value);
                 setEncabezado({
                   ...encabezado,
                 });
               }}
-              value={encabezado.programaSER
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .trimEnd()}
+              value={clearInfo(encabezado.programaSER)}
                 
               rows={8}
               multiline
@@ -263,22 +256,13 @@ export function TabEncabezado({
               disabled={edit && !ftEditPadre?.encabezado?.programaSER}
               onChange={(a) => {
                
-                encabezado.objetivoSER = a.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd()
-                  .trimEnd();
+                encabezado.objetivoSER = clearInfo(a.target.value);
                   
                 setEncabezado({
                   ...encabezado,
                 });
               }}
-              value={encabezado.objetivoSER
-                .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd()}
+              value={clearInfo(encabezado.objetivoSER)}
                
                 
               rows={8}
