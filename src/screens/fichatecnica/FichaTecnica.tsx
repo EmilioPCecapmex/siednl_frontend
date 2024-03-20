@@ -114,7 +114,7 @@ export const FichaTecnica = () => {
   const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
 
   const [estadoft, setEstadoFT] = useState("Todos");
-
+  const [IdEntidad, setIdEntidad] = useState("Todos");
   const [institucionesb, setInstitucionesb] = useState("Todos");
 
   const getInstituciones = (setstate: Function) => {
@@ -1082,6 +1082,7 @@ export const FichaTecnica = () => {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
                                             IdMa: row.IdMa,
+                                            IdEntidad: row.IdEntidad,
                                             FichaT: row.FichaT,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1102,6 +1103,7 @@ export const FichaTecnica = () => {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
                                             IdMa: row.IdMa,
+                                            IdEntidad: row.IdEntidad,
                                             FichaT: row.FichaT,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1120,6 +1122,7 @@ export const FichaTecnica = () => {
                                       setShowResume(false);
                                       setActionNumber(1);
                                       setEstado(row.Estado);
+                                      setIdEntidad(row.IdEntidad);
                                     }}
                                   >
                                     <AddCircleOutlineIcon
@@ -1222,6 +1225,7 @@ export const FichaTecnica = () => {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
                                             IdMa: row.IdMa,
+                                            IdEntidad: row.IdEntidad,
                                             FichaT: row.FichaT,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1242,6 +1246,7 @@ export const FichaTecnica = () => {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
                                             IdMa: row.IdMa,
+                                            IdEntidad: row.IdEntidad,
                                             FichaT: row.FichaT,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1258,6 +1263,7 @@ export const FichaTecnica = () => {
                                         ]);
                                       }
                                       setOpenModalVerResumenFT(true);
+                                      
                                     }}
                                   >
                                     <VisibilityIcon
@@ -1358,6 +1364,7 @@ export const FichaTecnica = () => {
               IdMA={FTEdit[0]?.IdMa || ""}
               IdFT={FTEdit[0]?.IdFt || ""}
               estado={estado}
+              IdEntidad={IdEntidad}
             />
             {/* {FTEdit[0].FichaT} */}
           </Grid>
@@ -1371,6 +1378,7 @@ export interface IIFT {
   IdFt: string;
   IdMir: string;
   IdMa: string;
+  IdEntidad: string;
   FichaT: string;
   Estado: string;
   CreadoPor: string;

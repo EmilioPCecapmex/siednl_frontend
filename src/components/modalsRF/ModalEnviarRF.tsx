@@ -26,6 +26,7 @@ export default function ModalEnviarRF({
   IdMA,
   IdRF,
   showResume,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -35,6 +36,7 @@ export default function ModalEnviarRF({
   IdMA: string;
   IdRF: string;
   showResume: Function;
+  IdEntidad: string;
 }) {
 
   const [coment, setComment] = useState("");
@@ -230,7 +232,7 @@ export default function ModalEnviarRF({
         {
           params: {
             TipoUsuario: localStorage.getItem("Rol"),
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad,
             IdApp: localStorage.getItem("dApp"),
           },
           headers: {

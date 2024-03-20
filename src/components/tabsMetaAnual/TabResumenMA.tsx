@@ -23,6 +23,7 @@ export function TabResumenMA({
   maPadreEdit,
   setMAPadreEdit,
   estadoma,
+  IdEntidad,
 }: {
   IdMir: string;
   IdMA: string;
@@ -32,6 +33,7 @@ export function TabResumenMA({
   maPadreEdit: IMAEdit;
   setMAPadreEdit: Function;
   estadoma: string;
+  IdEntidad: string;
 }) {
   const [MA, setMA] = useState<IMA>(maPadre);
 
@@ -3140,6 +3142,7 @@ export function TabResumenMA({
               ? ""
               : JSON.stringify(maPadreEdit)
           }
+          IdEntidad={IdEntidad}
         />
 
         <ModalEnviarMA
@@ -3150,6 +3153,7 @@ export function TabResumenMA({
           IdMA={IdMA}
           IdMIR={IdMir}
           showResume={showResume}
+          IdEntidad={IdEntidad}
         ></ModalEnviarMA>
       </Grid>
 

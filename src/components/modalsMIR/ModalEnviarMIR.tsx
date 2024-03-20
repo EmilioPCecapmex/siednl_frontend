@@ -45,6 +45,7 @@ export default function ModalEnviarMIR({
   estadoMIR,
   RestructuraMAyFT,
   mDocumentos,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -54,6 +55,7 @@ export default function ModalEnviarMIR({
   estadoMIR: string;
   RestructuraMAyFT: Function;
   mDocumentos: IMovimientos[];
+  IdEntidad: string;
 }) {
   const [ma, setMA] = useState<IMA>();
   const [ft, setFT] = useState<IFT>();
@@ -714,7 +716,7 @@ export default function ModalEnviarMIR({
 
           {
             TipoUsuario: localStorage.getItem("Rol"),
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad,
             IdApp: localStorage.getItem("IdApp"),
           },
 

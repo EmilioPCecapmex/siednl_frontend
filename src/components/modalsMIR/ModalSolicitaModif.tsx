@@ -36,6 +36,7 @@ export default function ModalSolicitaModif({
   MIREdit,
   showResume,
   IdMir,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -43,6 +44,7 @@ export default function ModalSolicitaModif({
   MIREdit: string;
   showResume: Function;
   IdMir: string;
+  IdEntidad: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
@@ -551,7 +553,7 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad,
             IdApp: localStorage.getItem("IdApp"),
           },
           {

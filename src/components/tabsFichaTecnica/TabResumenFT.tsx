@@ -35,6 +35,7 @@ export function TabResumenFT({
   ftEditPadre,
   setFTEditPadre,
   estadoft,
+  IdEntidad,
 }: {
   show: boolean;
   encabezado: IEncabezadoFT;
@@ -53,6 +54,7 @@ export function TabResumenFT({
   ftEditPadre: IFTEdit;
   setFTEditPadre: Function;
   estadoft: string;
+  IdEntidad: string;
 }) {
   const [FT, setFT] = useState<IFT>(ftPadre);
 
@@ -2500,6 +2502,7 @@ export function TabResumenFT({
           IdMIR={IdMir}
           FTEdit={JSON.stringify(ftEditPadre)}
           FT={JSON.stringify(FT)}
+          IdEntidad={IdEntidad}
         />
 
         <ModalEnviarFT
@@ -2511,6 +2514,7 @@ export function TabResumenFT({
           showResume={showResume}
           FT={JSON.stringify(FT)}
           IdMA={IdMA}
+          IdEntidad={IdEntidad}
         />
       </Grid>
 

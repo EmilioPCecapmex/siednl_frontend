@@ -125,12 +125,14 @@ export default function FullModalMir({
   IdMir,
   anioFiscalEdit,
   estado,
+  IdEntidad,
 }: {
   MIR: string;
   showResume: Function;
   IdMir: string;
   anioFiscalEdit: string;
   estado: string;
+  IdEntidad: string;
 }) {
   // useEffect(() => {
   //   getMAyFT(IdMir);
@@ -406,6 +408,7 @@ export default function FullModalMir({
                 mDocumentos={mDocumentos}
                 mirEdit={mirEdirPadre}
                 setMIREDITPADRE={setMIREDITPADRE}
+                IdEntidad={IdEntidad}
               />
             )}
           </Grid>
