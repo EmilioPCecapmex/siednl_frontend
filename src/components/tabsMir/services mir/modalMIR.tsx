@@ -1,4 +1,10 @@
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import ListAltIcon from "@mui/icons-material/ListAlt";
+import ManageSearchOutlinedIcon from "@mui/icons-material/ManageSearchOutlined";
+import SafetyCheckOutlinedIcon from "@mui/icons-material/SafetyCheckOutlined";
+import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
 import {
   Button,
   Dialog,
@@ -6,21 +12,12 @@ import {
   DialogTitle,
   Grid,
   IconButton,
-  Step,
-  StepLabel,
-  Stepper,
   Tooltip,
-  Typography,
+  Typography
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { TrazabilidadI } from "../../genericComponents/InterfacesGenerci";
 import { getMovimientosTrazabilidad } from "../../genericComponents/axiosGenericos";
-import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
-import ManageSearchOutlinedIcon from "@mui/icons-material/ManageSearchOutlined";
-import SafetyCheckOutlinedIcon from "@mui/icons-material/SafetyCheckOutlined";
-import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 
 function IconSwitch({ Estado }: { Estado: string }) {
   if (Estado.toUpperCase().includes("BORRADOR"))
@@ -60,11 +57,11 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
         {trazabilidad.map((step, index) => (
           <Grid
             item
-            xs={12}
-            sm={12}
+            xs={11.5}
+            sm={11.5}
             md={11}
-            lg={11}
-            xl={11}
+            lg={10}
+            xl={10}
             key={index}
             sx={{ display: "flex", justifyContent:['space-between','space-evenly','space-evenly','space-evenly','space-evenly',], mb: "5vh",alignItems:'center',border:'solid 1px'}}
            
@@ -116,16 +113,6 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
         ))}
       </>
     );
-  };
-
-  const [activeStep, setActiveStep] = useState(0);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   return (
