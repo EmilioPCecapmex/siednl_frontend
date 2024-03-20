@@ -178,6 +178,7 @@ export default function AddFichaTecnica({
   IdMA,
   IdFT,
   estado,
+  IdEntidad,
 }: {
   MIR: string;
   MA: string;
@@ -187,6 +188,7 @@ export default function AddFichaTecnica({
   IdMA: string;
   IdFT: string;
   estado: string;
+  IdEntidad: string;
 }) {
   const [ftPadre, setFTPadre] = useState<IFT>(newFichaTecnica(MIR));
 
@@ -400,6 +402,7 @@ export default function AddFichaTecnica({
               ftEditPadre={ftEditPadre}
               estadoft={estado}
               setFTEditPadre={setFTEditPadre}
+              IdEntidad={IdEntidad}
             ></TabResumenFT>
           ) : null}
         </Grid>

@@ -63,6 +63,8 @@ export const Raffi = () => {
 
   const [estadorf, setEstadoRF] = useState("Todos");
   const [estado, setEstado] = useState("");
+  const [IdEntidad, setIdEntidad] = useState("");
+  
   const [institucionesb, setInstitucionesb] = useState("Todos");
 
   useEffect(() => {
@@ -918,6 +920,7 @@ export const Raffi = () => {
                                             IdRaffi: row.IdRaffi,
                                             IdMir: row.IdMir,
                                             IdMetaAnual: row.IdMetaAnual,
+                                            IdEntidad: row.IdEntidad,
                                             RAFFI: row.RAFFI,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -941,6 +944,7 @@ export const Raffi = () => {
                                             IdRaffi: row.IdRaffi,
                                             IdMir: row.IdMir,
                                             IdMetaAnual: row.IdMetaAnual,
+                                            IdEntidad: row.IdEntidad,
                                             RAFFI: row.RAFFI,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -960,6 +964,7 @@ export const Raffi = () => {
                                         ]);
                                       }
                                       setEstado(row.Estado);
+                                      setIdEntidad(row.IdEntidad)
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -1012,6 +1017,7 @@ export const Raffi = () => {
                                             IdRaffi: row.IdRaffi,
                                             IdMir: row.IdMir,
                                             IdMetaAnual: row.IdMetaAnual,
+                                            IdEntidad: row.IdEntidad,
                                             RAFFI: row.RAFFI,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1035,6 +1041,7 @@ export const Raffi = () => {
                                             IdRaffi: row.IdRaffi,
                                             IdMir: row.IdMir,
                                             IdMetaAnual: row.IdMetaAnual,
+                                            IdEntidad: row.IdEntidad,
                                             RAFFI: row.RAFFI,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1193,6 +1200,7 @@ export const Raffi = () => {
               IdMA={rfEdit[0].IdMetaAnual || ""}
               IdRf={rfEdit[0].IdRaffi || ""}
               estado={estado}
+              IdEntidad={IdEntidad}
             />
           </Grid>
         )}
@@ -1207,6 +1215,7 @@ export interface IRaffi {
   IdRaffi: string;
   IdMir: string;
   IdMetaAnual: string;
+  IdEntidad: string;
   RAFFI: string;
   Estado: string;
   CreadoPor: string;

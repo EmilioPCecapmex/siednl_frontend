@@ -427,6 +427,8 @@ export const MIR = () => {
 
   const [estado, setEstado] = useState("");
 
+  const [IdEntidad, setIdEntidad] = useState("");
+
   const buscador = (estado: any, Ins: any) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
@@ -852,6 +854,7 @@ export const MIR = () => {
                       setMirEdit([
                         {
                           Id: "",
+                          IdEntidad: "",
                           AnioFiscal: "",
                           Entidad: "",
                           Programa: "",
@@ -1189,6 +1192,7 @@ export const MIR = () => {
                                       setMirEdit([
                                         {
                                           Id: row.Id,
+                                          IdEntidad: row.IdEntidad,
                                           AnioFiscal: row.AnioFiscal,
                                           Entidad: row.Entidad,
                                           Programa: row.Programa,
@@ -1206,6 +1210,9 @@ export const MIR = () => {
                                       setShowResume(false);
                                       setActionNumber(1);
                                       setEstado(row.Estado);
+                                      setIdEntidad(row.IdEntidad)
+                                      console.log(row.IdEntidad);
+                                      
                                     }}
                                   >
                                     <EditIcon
@@ -1366,6 +1373,7 @@ export const MIR = () => {
               showResume={returnMain}
               IdMir={mirEdit[0]?.Id || ""}
               estado={estado}
+              IdEntidad={IdEntidad}
             />
           </Grid>
         )}
@@ -1376,6 +1384,7 @@ export const MIR = () => {
 
 export interface IIMir {
   Id: string;
+  IdEntidad: string;
   AnioFiscal: string;
   Entidad: string;
   Programa: string;

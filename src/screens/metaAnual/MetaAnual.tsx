@@ -89,6 +89,7 @@ export const MetaAnual = () => {
 
   const [estadoma, setEstadoMA] = useState("Todos");
   const [estado, setEstado] = useState("");
+  const [IdEntidad, setIdEntidad] = useState("");
   const [institucionesb, setInstitucionesb] = useState("Todos");
 
   const getInstituciones = (setstate: Function) => {
@@ -1097,6 +1098,7 @@ export const MetaAnual = () => {
                                           {
                                             IdMa: row.IdMa,
                                             IdMir: row.IdMir,
+                                            IdEntidad: row.IdEntidad,
                                             AnioFiscal: row.AnioFiscal,
                                             Entidad: row.Entidad,
                                             Programa: row.Programa,
@@ -1114,6 +1116,7 @@ export const MetaAnual = () => {
                                           {
                                             IdMa: row.IdMa,
                                             IdMir: row.IdMir,
+                                            IdEntidad: row.IdEntidad,
                                             AnioFiscal: row.AnioFiscal,
                                             Entidad: row.Entidad,
                                             Programa: row.Programa,
@@ -1129,6 +1132,7 @@ export const MetaAnual = () => {
                                       }
 
                                       setEstado(row.Estado);
+                                      setIdEntidad(row.IdEntidad)
                                       setShowResume(false);
                                       setActionNumber(1);
                                     }}
@@ -1259,6 +1263,7 @@ export const MetaAnual = () => {
               IdMir={maEdit[0]?.IdMir || ""}
               IdMA={maEdit[0]?.IdMa || ""}
               estado={estado}
+              IdEntidad={IdEntidad}
             />
           </Grid>
         )}
@@ -1270,6 +1275,7 @@ export const MetaAnual = () => {
 export interface IIMa {
   IdMa: string;
   IdMir: string;
+  IdEntidad: string;
   AnioFiscal: string;
   Entidad: string;
   Programa: string;

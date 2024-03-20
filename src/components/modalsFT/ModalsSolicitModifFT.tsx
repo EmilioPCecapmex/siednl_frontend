@@ -30,6 +30,7 @@ export default function ModalSolicitaModif({
   IdMIR,
   showResume,
   FTEdit,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -40,6 +41,7 @@ export default function ModalSolicitaModif({
   IdMa: string;
   IdMIR: string;
   FTEdit: string;
+  IdEntidad: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
@@ -342,8 +344,8 @@ export default function ModalSolicitaModif({
           /^[\s]*$/.test(componente.unidadDeMedida) ||
           // componente.unidadDeMedida === "" ||
           // componente.unidadDeMedida === null ||
-          componente.frecuencia === undefined ||
-          /^[\s]*$/.test(JSON.parse(FT)?.claridad.frecuencia) ||
+          componente.claridad === undefined ||
+          /^[\s]*$/.test(componente.claridad) ||
           // componente.frecuencia === "" ||
           // componente.frecuencia === null ||
           componente.relevancia === undefined ||
@@ -748,7 +750,7 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad,
             IdApp: localStorage.getItem("IdApp"),
           },
           {

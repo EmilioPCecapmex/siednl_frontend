@@ -24,6 +24,7 @@ export function TabResumen({
   mDocumentos,
   mirEdit,
   setMIREDITPADRE,
+  IdEntidad,
 }: {
   MIRPADRE: IMIR;
   showResume: Function;
@@ -32,6 +33,7 @@ export function TabResumen({
   mDocumentos: IMovimientos[];
   mirEdit: IMIREdit;
   setMIREDITPADRE: Function;
+  IdEntidad: string;
 }) {
   const [MIR, setMIR] = useState<IMIR>(MIRPADRE);
   const theme = useTheme();
@@ -130,7 +132,7 @@ export function TabResumen({
           CreadoPor: localStorage.getItem("IdUsuario"),
           AnioFiscal: MIR?.encabezado.ejercicioFiscal.Label,
           IdEntidad:
-            MIR?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
+          MIR?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
           Programa: MIR?.encabezado.programa.Label,
           Eje: MIR?.encabezado.eje.Label,
           Tematica: MIR?.encabezado.tema.Label,
@@ -2561,7 +2563,9 @@ export function TabResumen({
             //   ? JSON.stringify(mirEdit)
             //   :
             JSON.stringify(mirEdit)
+          
           }
+          IdEntidad={IdEntidad}
         />
 
         <ModalEnviarMIR
@@ -2573,6 +2577,7 @@ export function TabResumen({
           estadoMIR={estadoMIR}
           RestructuraMAyFT={RestructuraMAyFT}
           mDocumentos={mDocumentos}
+          IdEntidad={IdEntidad}
         />
       </Grid>
     </Grid>

@@ -33,6 +33,7 @@ export default function ModalEnviarMA({
   IdMA,
   IdMIR,
   showResume,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -41,6 +42,7 @@ export default function ModalEnviarMA({
   IdMA: string;
   IdMIR: string;
   showResume: Function;
+  IdEntidad: string;
 }) {
   const [comment, setComment] = useState("");
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
@@ -613,6 +615,7 @@ export default function ModalEnviarMA({
       )
       .then((r) => {
         let rol: string[] = [];
+        console.log("en ma data?.data?.IdRF: ", r.data.data);
         if (localStorage.getItem("Rol") === "Verificador") {
           rol = ["Administrador"];
         }
@@ -621,32 +624,37 @@ export default function ModalEnviarMA({
           rol = ["Verificador"];
         }
 
+        
         if (localStorage.getItem("Rol") === "Administrador") {
           rol = ["Capturador", "Verificador"];
         }
 
         enviarNotificacionRol("MA", "MA enviada", IdMA, rol);
-        console.log("en ma data?.data?.IdRF: ", r.data.data.IdRF);
+        
 
         const idRF = r?.data?.data?.IdRF;
-        const idFT = r?.data?.data?.Id;
+        const idFT = r?.data?.data?.IdFt;
 
-        if (idFT && idFT.trim() !== "") {
-          // Verifica si IdRF no es nulo ni vacío antes de enviar la notificación
-          enviarNotificacionRol("RF", "RF enviada", idRF, rol);
-        }
-
-        if (idRF && idRF.trim() !== "") {
-          // Verifica si IdRF no es nulo ni vacío antes de enviar la notificación
+        if (idFT != null && typeof idFT === 'string' && idFT.trim() !== "") {
+          // Verifica si IdFt no es null, undefined ni una cadena vacía antes de enviar la notificación
+          console.log("Entre aquí y no debería");
           enviarNotificacionRol("FT", "FT enviada", idFT, rol);
-        }
+      }
+
+      if (idRF != null && typeof idRF === 'string' && idRF.trim() !== "") {
+        // Verifica si IdRF no es null, undefined ni una cadena vacía antes de enviar la notificación
+        // Verifica si IdRF no es nulo ni vacío antes de enviar la notificación
+        enviarNotificacionRol("RF", "RF enviada", idRF, rol);
+    }
+
+        
 
         if (estado === "Autorizada") {
           console.log("Entre");
 
           //CrearFichaTecnica();
         }
-        alertaExitoConfirm(r.data.data.message.toUpperCase());
+        alertaExitoConfirm((r.data.data.message.toUpperCase() ));
 
         if (comment !== "") {
           comentMA(IdMIR);
@@ -654,7 +662,9 @@ export default function ModalEnviarMA({
         showResume();
       })
       .catch((err) => {
-        alertaErrorConfirm(err.response.data.result.error.toUpperCase());
+        console.log(err);
+        
+        alertaErrorConfirm((err.response.data.result.error.toUpperCase()) || "SIN INFORMACION");
       });
   };
 
@@ -717,7 +727,7 @@ export default function ModalEnviarMA({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: localStorage.getItem("Rol"),
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad,
             IdApp: localStorage.getItem("IdApp"),
           },
           {
