@@ -45,6 +45,8 @@ const ToastConfirm = Swal.mixin({
 export function alertaErroresDocumento(errores: string[] = []) {
   return ToastErrores.fire({
     icon: "error",
+    //iconColor: "#af8c55",
+    confirmButtonColor: "#15212f",
     html: `
     <div style="height:50%;">
     <h3>Se han encontrado los siguientes errores:</h3>

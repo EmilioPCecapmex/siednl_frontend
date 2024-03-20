@@ -370,7 +370,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador"    ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={mirEdit.encabezado.ejercicioFiscal}
@@ -419,7 +419,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 value={mirEdit.encabezado?.institucion}
@@ -479,7 +479,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editEncabezado.nombre_del_programa}
@@ -535,7 +535,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editEncabezado.eje}
@@ -591,7 +591,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editEncabezado.tema}
@@ -652,7 +652,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editEncabezado.objetivo}
@@ -707,7 +707,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editEncabezado.estrategia}
@@ -762,7 +762,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editEncabezado.beneficiario}
@@ -833,7 +833,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editEncabezado.lineas_de_accion}
@@ -933,7 +933,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editFin.resumen}
@@ -986,7 +986,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editFin.indicador}
@@ -1039,7 +1039,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editFin.formula}
@@ -1092,7 +1092,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editFin.frecuencia}
@@ -1144,7 +1144,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editFin.medios}
@@ -1197,7 +1197,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editFin.supuestos}
@@ -1279,7 +1279,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editProposito.resumen}
@@ -1336,7 +1336,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editProposito.indicador}
@@ -1392,7 +1392,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editProposito.formula}
@@ -1448,7 +1448,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editProposito.frecuencia}
@@ -1505,7 +1505,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editProposito.medios}
@@ -1561,7 +1561,7 @@ export function TabResumen({
             borderColor: "#cfcfcf",
           }}
         >
-          {localStorage.getItem("Rol") !== "Administrador" ? null : (
+          {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 // value={editProposito.supuestos}
@@ -1681,7 +1681,7 @@ export function TabResumen({
                   borderColor: "#cfcfcf",
                 }}
               >
-                {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       // value={editComponentes[index]?.resumen}
@@ -1746,7 +1746,7 @@ export function TabResumen({
                   borderColor: "#cfcfcf",
                 }}
               >
-                {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       // value={editComponentes[index]?.indicador}
@@ -1800,7 +1800,7 @@ export function TabResumen({
                   borderColor: "#cfcfcf",
                 }}
               >
-                {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       // value={editComponentes[index]?.formula}
@@ -1855,7 +1855,7 @@ export function TabResumen({
                   borderColor: "#cfcfcf",
                 }}
               >
-                {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       // value={editComponentes[index]?.frecuencia}
@@ -1908,7 +1908,7 @@ export function TabResumen({
                   borderColor: "#cfcfcf",
                 }}
               >
-                {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       // value={editComponentes[index]?.medios}
@@ -1963,7 +1963,7 @@ export function TabResumen({
                   borderColor: "#cfcfcf",
                 }}
               >
-                {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
                       // value={editComponentes[index]?.supuestos}
@@ -2084,7 +2084,7 @@ export function TabResumen({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         checked={
@@ -2136,7 +2136,7 @@ export function TabResumen({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         // value={!editComponentes[index - 1]?.indicador}
@@ -2194,7 +2194,7 @@ export function TabResumen({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         // value={!editComponentes[index - 1]?.formula}
@@ -2252,7 +2252,7 @@ export function TabResumen({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         // value={!editComponentes[index - 1]?.frecuencia}
@@ -2310,7 +2310,7 @@ export function TabResumen({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         // value={!editComponentes[index - 1]?.medios}
@@ -2369,7 +2369,7 @@ export function TabResumen({
                     borderColor: "#cfcfcf",
                   }}
                 >
-                  {localStorage.getItem("Rol") !== "Administrador" ? null : (
+                  {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
                         // value={!editComponentes[index - 1]?.supuestos}
@@ -2457,7 +2457,7 @@ export function TabResumen({
             onClick={() => showResume()}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Cancelar
+              CANCELAR
             </Typography>
           </Button>
         </Grid>
@@ -2485,7 +2485,7 @@ export function TabResumen({
             onClick={() => setOpenModalSolicitarModif(true)}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Solicitar Modificación
+              SOLICITAR MODIFICACIÓN
             </Typography>
           </Button>
         </Grid>
@@ -2519,7 +2519,7 @@ export function TabResumen({
             //al menos un opcion
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Guardar borrador
+              GUARDAR BORRADOR
             </Typography>
           </Button>
         </Grid>
@@ -2543,8 +2543,8 @@ export function TabResumen({
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
               {localStorage.getItem("Rol") === "Administrador"
                 ? estadoMIR === "Autorizada"
-                  ? "Modificar mir autorizada"
-                  : "Autorizar"
+                  ? "MODIFICAR MIR AUTORIZADA"
+                  : "AUTORIZAR"
                 : "Enviar"}
             </Typography>
           </Button>
@@ -2557,7 +2557,7 @@ export function TabResumen({
           handleClose={setOpenModalSolicitarModif}
           MIR={JSON.stringify(MIR)}
           MIREdit={
-            // localStorage.getItem("Rol") !== "Administrador"
+            // localStorage.getItem("Rol") === "Capturador"
             //   ? JSON.stringify(mirEdit)
             //   :
             JSON.stringify(mirEdit)
