@@ -205,6 +205,11 @@ export default function FullModalMir({
     newMIREDIT(JSON.stringify(mir))
   );
 
+  useEffect(()=>{
+    console.log("mirEdirPadre",mirEdirPadre);
+    
+  },[mirEdirPadre])
+
   const [editMIR, setEditMIR] = useState(false);
 
   useEffect(() => {

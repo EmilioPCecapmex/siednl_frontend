@@ -38,6 +38,8 @@ export function TabEncabezado({
 }) {
   const [encabezado, setEncabezado] = useState<IEncabezadoFT>(EncabezadoValues);
 
+  useEffect(()=>{console.log('EncabezadoValues',EncabezadoValues);
+  },[])
 
 
   const [disabledMetas, setDisabledMetas] = useState(true);

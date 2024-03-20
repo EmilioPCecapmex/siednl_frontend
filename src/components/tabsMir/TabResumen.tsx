@@ -33,6 +33,9 @@ export function TabResumen({
   mirEdit: IMIREdit;
   setMIREDITPADRE: Function;
 }) {
+
+  useEffect(()=>{console.log("mirEdit resumen",mirEdit);
+  },[])
   const [MIR, setMIR] = useState<IMIR>(MIRPADRE);
   const theme = useTheme();
 
@@ -373,7 +376,7 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador"    ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={mirEdit.encabezado.ejercicioFiscal}
+                checked={mirEdit.encabezado.ejercicioFiscal}
                 onChange={(v) => {
                   let aux = mirEdit.encabezado;
                   aux = { ...aux, ejercicioFiscal: v.target.checked };
@@ -422,8 +425,10 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                value={mirEdit.encabezado?.institucion}
+                checked={mirEdit.encabezado?.institucion}
                 onChange={(v) => {
+                  console.log('v.target.checked',v.target.checked);
+                  
                   let aux = mirEdit.encabezado;
                   aux = { ...aux, institucion: v.target.checked };
                   setMIREDITPADRE({ ...mirEdit, encabezado: aux });
@@ -482,8 +487,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editEncabezado.nombre_del_programa}
-                value={mirEdit.encabezado?.nombre_del_programa}
+                // checked={editEncabezado.nombre_del_programa}
+                checked={mirEdit.encabezado?.nombre_del_programa}
                 onChange={(v) => {
                   let aux = mirEdit.encabezado;
                   aux = { ...aux, nombre_del_programa: v.target.checked };
@@ -538,8 +543,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editEncabezado.eje}
-                value={mirEdit.encabezado?.eje}
+                // checked={editEncabezado.eje}
+                checked={mirEdit.encabezado?.eje}
                 onChange={(v) => {
                   let aux = mirEdit.encabezado;
                   aux = { ...aux, eje: v.target.checked };
@@ -594,8 +599,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editEncabezado.tema}
-                value={mirEdit.encabezado?.tema}
+                // checked={editEncabezado.tema}
+                checked={mirEdit.encabezado?.tema}
                 onChange={(v) => {
                   let aux = mirEdit.encabezado;
                   aux = { ...aux, tema: v.target.checked };
@@ -655,8 +660,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editEncabezado.objetivo}
-                value={mirEdit.encabezado?.objetivo}
+                // checked={editEncabezado.objetivo}
+                checked={mirEdit.encabezado?.objetivo}
                 onChange={(v) => {
                   let aux = mirEdit.encabezado;
                   aux = { ...aux, objetivo: v.target.checked };
@@ -710,8 +715,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editEncabezado.estrategia}
-                value={mirEdit.encabezado?.estrategia}
+                // checked={editEncabezado.estrategia}
+                checked={mirEdit.encabezado?.estrategia}
                 onChange={(v) => {
                   let aux = mirEdit.encabezado;
                   aux = { ...aux, estrategia: v.target.checked };
@@ -765,8 +770,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editEncabezado.beneficiario}
-                value={mirEdit.encabezado?.beneficiario}
+                // checked={editEncabezado.beneficiario}
+                checked={mirEdit.encabezado?.beneficiario}
                 onChange={(v) => {
                   let aux = mirEdit.encabezado;
                   aux = { ...aux, beneficiario: v.target.checked };
@@ -836,8 +841,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editEncabezado.lineas_de_accion}
-                value={mirEdit.encabezado?.lineas_de_accion}
+                // checked={editEncabezado.lineas_de_accion}
+                checked={mirEdit.encabezado?.lineas_de_accion}
                 onChange={(v) => {
                   let aux = mirEdit.encabezado;
                   aux = { ...aux, lineas_de_accion: v.target.checked };
@@ -936,8 +941,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editFin.resumen}
-                value={mirEdit.fin?.resumen}
+                // checked={editFin.resumen}
+                checked={mirEdit.fin?.resumen}
                 // onChange={(v) => {
                 //   setEditFin({ ...editFin, resumen: !v.target.checked });
                 // }}
@@ -989,8 +994,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editFin.indicador}
-                value={mirEdit.fin?.indicador}
+                // checked={editFin.indicador}
+                checked={mirEdit.fin?.indicador}
                 onChange={(v) => {
                   let aux = mirEdit.fin;
                   aux = { ...aux, indicador: v.target.checked };
@@ -1042,8 +1047,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editFin.formula}
-                value={mirEdit.fin?.formula}
+                // checked={editFin.formula}
+                checked={mirEdit.fin?.formula}
                 onChange={(v) => {
                   let aux = mirEdit.fin;
                   aux = { ...aux, formula: v.target.checked };
@@ -1095,8 +1100,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editFin.frecuencia}
-                value={mirEdit.fin?.frecuencia}
+                // checked={editFin.frecuencia}
+                checked={mirEdit.fin?.frecuencia}
                 onChange={(v) => {
                   let aux = mirEdit.fin;
                   aux = { ...aux, frecuencia: v.target.checked };
@@ -1147,8 +1152,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editFin.medios}
-                value={mirEdit.fin?.medios}
+                // checked={editFin.medios}
+                checked={mirEdit.fin?.medios}
                 onChange={(v) => {
                   let aux = mirEdit.fin;
                   aux = { ...aux, medios: v.target.checked };
@@ -1200,8 +1205,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editFin.supuestos}
-                value={mirEdit.fin?.supuestos}
+                // checked={editFin.supuestos}
+                checked={mirEdit.fin?.supuestos}
                 onChange={(v) => {
                   let aux = mirEdit.fin;
                   aux = { ...aux, supuestos: v.target.checked };
@@ -1282,8 +1287,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editProposito.resumen}
-                value={mirEdit.proposito?.resumen}
+                // checked={editProposito.resumen}
+                checked={mirEdit.proposito?.resumen}
                 onChange={(v) => {
                   let aux = mirEdit.proposito;
                   aux = { ...aux, resumen: v.target.checked };
@@ -1339,8 +1344,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editProposito.indicador}
-                value={mirEdit.proposito?.indicador}
+                // checked={editProposito.indicador}
+                checked={mirEdit.proposito?.indicador}
                 onChange={(v) => {
                   let aux = mirEdit.proposito;
                   aux = { ...aux, indicador: v.target.checked };
@@ -1395,8 +1400,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editProposito.formula}
-                value={mirEdit.proposito?.formula}
+                // checked={editProposito.formula}
+                checked={mirEdit.proposito?.formula}
                 onChange={(v) => {
                   let aux = mirEdit.proposito;
                   aux = { ...aux, formula: v.target.checked };
@@ -1451,8 +1456,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editProposito.frecuencia}
-                value={mirEdit.proposito?.frecuencia}
+                // checked={editProposito.frecuencia}
+                checked={mirEdit.proposito?.frecuencia}
                 onChange={(v) => {
                   let aux = mirEdit.proposito;
                   aux = { ...aux, frecuencia: v.target.checked };
@@ -1508,8 +1513,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editProposito.medios}
-                value={mirEdit.proposito?.medios}
+                // checked={editProposito.medios}
+                checked={mirEdit.proposito?.medios}
                 onChange={(v) => {
                   let aux = mirEdit.proposito;
                   aux = { ...aux, medios: v.target.checked };
@@ -1564,8 +1569,8 @@ export function TabResumen({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={editProposito.supuestos}
-                value={mirEdit.proposito?.supuestos}
+                // checked={editProposito.supuestos}
+                checked={mirEdit.proposito?.supuestos}
                 onChange={(v) => {
                   let aux = mirEdit.proposito;
                   aux = { ...aux, supuestos: v.target.checked };
@@ -1684,15 +1689,15 @@ export function TabResumen({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={editComponentes[index]?.resumen}
+                      // checked={editComponentes[index]?.resumen}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
                       //   past[index].resumen = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
 
-                      // value={mirEdit.componentes[index]?.resumen}
-                      value={mirEdit.componentes[index]?.resumen}
+                      // checked={mirEdit.componentes[index]?.resumen}
+                      checked={mirEdit.componentes[index]?.resumen}
                       // onChange={(v) => {
                       //   let aux = mirEdit.componentes[index]
                       //   aux = {...aux, resumen: v.target.checked }
@@ -1749,8 +1754,8 @@ export function TabResumen({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={editComponentes[index]?.indicador}
-                      value={mirEdit.componentes[index]?.indicador}
+                      // checked={editComponentes[index]?.indicador}
+                      checked={mirEdit.componentes[index]?.indicador}
                       onChange={(v) => {
                         let auxC = mirEdit.componentes;
                         auxC[index].indicador = v.target.checked;
@@ -1803,8 +1808,8 @@ export function TabResumen({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={editComponentes[index]?.formula}
-                      value={mirEdit.componentes[index]?.formula}
+                      // checked={editComponentes[index]?.formula}
+                      checked={mirEdit.componentes[index]?.formula}
                       onChange={(v) => {
                         let auxC = mirEdit.componentes;
                         auxC[index].formula = v.target.checked;
@@ -1858,8 +1863,8 @@ export function TabResumen({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={editComponentes[index]?.frecuencia}
-                      value={mirEdit.componentes[index]?.frecuencia}
+                      // checked={editComponentes[index]?.frecuencia}
+                      checked={mirEdit.componentes[index]?.frecuencia}
                       onChange={(v) => {
                         let auxC = mirEdit.componentes;
                         auxC[index].frecuencia = v.target.checked;
@@ -1911,8 +1916,8 @@ export function TabResumen({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={editComponentes[index]?.medios}
-                      value={mirEdit.componentes[index]?.medios}
+                      // checked={editComponentes[index]?.medios}
+                      checked={mirEdit.componentes[index]?.medios}
                       onChange={(v) => {
                         let auxC = mirEdit.componentes;
                         auxC[index].medios = v.target.checked;
@@ -1966,8 +1971,8 @@ export function TabResumen({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={editComponentes[index]?.supuestos}
-                      value={mirEdit.componentes[index]?.supuestos}
+                      // checked={editComponentes[index]?.supuestos}
+                      checked={mirEdit.componentes[index]?.supuestos}
                       onChange={(v) => {
                         let auxC = mirEdit.componentes;
                         auxC[index].supuestos = v.target.checked;
@@ -2139,7 +2144,7 @@ export function TabResumen({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        // value={!editComponentes[index - 1]?.indicador}
+                        // checked={!editComponentes[index - 1]?.indicador}
                         checked={
                           mirEdit.componentes[index]?.actividades[index2]
                             ?.indicador
@@ -2197,7 +2202,7 @@ export function TabResumen({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        // value={!editComponentes[index - 1]?.formula}
+                        // checked={!editComponentes[index - 1]?.formula}
                         checked={
                           mirEdit.componentes[index]?.actividades[index2]
                             ?.formula
@@ -2255,7 +2260,7 @@ export function TabResumen({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        // value={!editComponentes[index - 1]?.frecuencia}
+                        // checked={!editComponentes[index - 1]?.frecuencia}
                         checked={
                           mirEdit.componentes[index]?.actividades[index2]
                             ?.frecuencia
@@ -2313,7 +2318,7 @@ export function TabResumen({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        // value={!editComponentes[index - 1]?.medios}
+                        // checked={!editComponentes[index - 1]?.medios}
                         checked={
                           mirEdit.componentes[index]?.actividades[index2]
                             ?.medios
@@ -2372,7 +2377,7 @@ export function TabResumen({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        // value={!editComponentes[index - 1]?.supuestos}
+                        // checked={!editComponentes[index - 1]?.supuestos}
                         checked={
                           mirEdit.componentes[index]?.actividades[index2]
                             ?.supuestos

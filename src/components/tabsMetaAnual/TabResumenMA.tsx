@@ -386,7 +386,7 @@ export function TabResumenMA({
                 //   aux = {...aux, frecuencia: v.target.checked }
                 //   setMIREDITPADRE({...mirEdit, fin: aux  })
                 // }}
-                value={!maPadreEdit.fin?.metaAnual}
+                checked={maPadreEdit.fin?.metaAnual}
                 onChange={(v) => {
                   let aux = maPadreEdit.fin;
                   aux = { ...aux, metaAnual: v.target.checked };
@@ -428,11 +428,11 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.lineaBase}
+                // checked={!editFin.lineaBase}
                 // onChange={(v) => {
                 //   setEditFin({ ...editFin, lineaBase: !v.target.checked });
                 // }}
-                value={!maPadreEdit.fin?.lineaBase}
+                checked={maPadreEdit.fin?.lineaBase}
                 onChange={(v) => {
                   let aux = maPadreEdit.fin;
                   aux = { ...aux, lineaBase: v.target.checked };
@@ -475,11 +475,11 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.valorNumerador}
+                // checked={!editFin.valorNumerador}
                 // onChange={(v) => {
                 //   setEditFin({ ...editFin, valorNumerador: !v.target.checked });
                 // }}
-                value={!maPadreEdit.fin?.valorNumerador}
+                checked={maPadreEdit.fin?.valorNumerador}
                 onChange={(v) => {
                   let aux = maPadreEdit.fin;
                   aux = { ...aux, valorNumerador: v.target.checked };
@@ -530,14 +530,14 @@ export function TabResumenMA({
             {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                 <Checkbox
-                  // value={!editFin.valorDenominador}
+                  // checked={!editFin.valorDenominador}
                   // onChange={(v) => {
                   //   setEditFin({
                   //     ...editFin,
                   //     valorDenominador: !v.target.checked,
                   //   });
                   // }}
-                  value={!maPadreEdit.fin?.valorDenominador}
+                  checked={maPadreEdit.fin?.valorDenominador}
                   onChange={(v) => {
                     let aux = maPadreEdit.fin;
                     aux = { ...aux, valorDenominador: v.target.checked };
@@ -581,14 +581,14 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.sentidoDelIndicador}
+                // checked={!editFin.sentidoDelIndicador}
                 // onChange={(v) => {
                 //   setEditFin({
                 //     ...editFin,
                 //     sentidoDelIndicador: !v.target.checked,
                 //   });
                 // }}
-                value={!maPadreEdit.fin?.sentidoDelIndicador}
+                checked={maPadreEdit.fin?.sentidoDelIndicador}
                 onChange={(v) => {
                   let aux = maPadreEdit.fin;
                   aux = { ...aux, sentidoDelIndicador: v.target.checked };
@@ -631,14 +631,14 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.unidadResponsable}
+                // checked={!editFin.unidadResponsable}
                 // onChange={(v) => {
                 //   setEditFin({
                 //     ...editFin,
                 //     unidadResponsable: !v.target.checked,
                 //   });
                 // }}
-                value={!maPadreEdit.fin?.unidadResponsable}
+                checked={maPadreEdit.fin?.unidadResponsable}
                 onChange={(v) => {
                   let aux = maPadreEdit.fin;
                   aux = { ...aux, unidadResponsable: v.target.checked };
@@ -681,11 +681,11 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.descIndicador}
+                // checked={!editFin.descIndicador}
                 // onChange={(v) => {
                 //   setEditFin({ ...editFin, descIndicador: !v.target.checked });
                 // }}
-                value={!maPadreEdit.fin?.descIndicador}
+                checked={maPadreEdit.fin?.descIndicador}
                 onChange={(v) => {
                   let aux = maPadreEdit.fin;
                   aux = { ...aux, descIndicador: v.target.checked };
@@ -727,11 +727,11 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.descNumerador}
+                // checked={!editFin.descNumerador}
                 // onChange={(v) => {
                 //   setEditFin({ ...editFin, descNumerador: !v.target.checked });
                 // }}
-                value={!maPadreEdit.fin?.descNumerador}
+                checked={maPadreEdit.fin?.descNumerador}
                 onChange={(v) => {
                   let aux = maPadreEdit.fin;
                   aux = { ...aux, descNumerador: v.target.checked };
@@ -773,14 +773,14 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.descDenominador}
+                // checked={!editFin.descDenominador}
                 // onChange={(v) => {
                 //   setEditFin({
                 //     ...editFin,
                 //     descDenominador: !v.target.checked,
                 //   });
                 // }}
-                value={!maPadreEdit.fin?.descDenominador}
+                checked={maPadreEdit.fin?.descDenominador}
                 onChange={(v) => {
                   let aux = maPadreEdit.fin;
                   aux = { ...aux, descDenominador: v.target.checked };
@@ -846,14 +846,14 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.metaAnual}
+                // checked={!editProposito.metaAnual}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     metaAnual: !v.target.checked,
                 //   });
                 // }}
-                value={!maPadreEdit.proposito?.metaAnual}
+                checked={maPadreEdit.proposito?.metaAnual}
                 onChange={(v) => {
                   let aux = maPadreEdit.proposito;
                   aux = { ...aux, metaAnual: v.target.checked };
@@ -896,14 +896,14 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.lineaBase}
+                // checked={!editProposito.lineaBase}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     lineaBase: !v.target.checked,
                 //   });
                 // }}
-                value={!maPadreEdit.proposito?.lineaBase}
+                checked={maPadreEdit.proposito?.lineaBase}
                 onChange={(v) => {
                   let aux = maPadreEdit.proposito;
                   aux = { ...aux, lineaBase: v.target.checked };
@@ -945,14 +945,14 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.valorNumerador}
+                // checked={!editProposito.valorNumerador}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     valorNumerador: !v.target.checked,
                 //   });
                 // }}
-                value={!maPadreEdit.proposito?.valorNumerador}
+                checked={maPadreEdit.proposito?.valorNumerador}
                 onChange={(v) => {
                   let aux = maPadreEdit.proposito;
                   aux = { ...aux, valorNumerador: v.target.checked };
@@ -1006,14 +1006,14 @@ export function TabResumenMA({
             {localStorage.getItem("Rol") === "Capturador" ? null : (
               <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                 <Checkbox
-                  // value={!editProposito.valorDenominador}
+                  // checked={!editProposito.valorDenominador}
                   // onChange={(v) => {
                   //   setEditProposito({
                   //     ...editProposito,
                   //     valorDenominador: !v.target.checked,
                   //   });
                   // }}
-                  value={!maPadreEdit.proposito?.valorDenominador}
+                  checked={maPadreEdit.proposito?.valorDenominador}
                   onChange={(v) => {
                     let aux = maPadreEdit.proposito;
                     aux = { ...aux, valorDenominador: v.target.checked };
@@ -1058,14 +1058,14 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.sentidoDelIndicador}
+                // checked={!editProposito.sentidoDelIndicador}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     sentidoDelIndicador: !v.target.checked,
                 //   });
                 // }}
-                value={!maPadreEdit.proposito?.sentidoDelIndicador}
+                checked={maPadreEdit.proposito?.sentidoDelIndicador}
                 onChange={(v) => {
                   let aux = maPadreEdit.proposito;
                   aux = { ...aux, sentidoDelIndicador: v.target.checked };
@@ -1108,14 +1108,14 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.unidadResponsable}
+                // checked={!editProposito.unidadResponsable}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     unidadResponsable: !v.target.checked,
                 //   });
                 // }}
-                value={!maPadreEdit.proposito?.unidadResponsable}
+                checked={maPadreEdit.proposito?.unidadResponsable}
                 onChange={(v) => {
                   let aux = maPadreEdit.proposito;
                   aux = { ...aux, unidadResponsable: v.target.checked };
@@ -1157,14 +1157,14 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.descIndicador}
+                // checked={!editProposito.descIndicador}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     descIndicador: !v.target.checked,
                 //   });
                 // }}
-                value={!maPadreEdit.proposito?.descIndicador}
+                checked={maPadreEdit.proposito?.descIndicador}
                 onChange={(v) => {
                   let aux = maPadreEdit.proposito;
                   aux = { ...aux, descIndicador: v.target.checked };
@@ -1207,14 +1207,14 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.descNumerador}
+                // checked={!editProposito.descNumerador}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     descNumerador: !v.target.checked,
                 //   });
                 // }}
-                value={!maPadreEdit.proposito?.descNumerador}
+                checked={maPadreEdit.proposito?.descNumerador}
                 onChange={(v) => {
                   let aux = maPadreEdit.proposito;
                   aux = { ...aux, descNumerador: v.target.checked };
@@ -1257,14 +1257,14 @@ export function TabResumenMA({
           {localStorage.getItem("Rol") === "Capturador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.descDenominador}
+                // checked={!editProposito.descDenominador}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     descDenominador: !v.target.checked,
                 //   });
                 // }}
-                value={!maPadreEdit.proposito?.descDenominador}
+                checked={maPadreEdit.proposito?.descDenominador}
                 onChange={(v) => {
                   let aux = maPadreEdit.proposito;
                   aux = { ...aux, descDenominador: v.target.checked };
@@ -1364,13 +1364,13 @@ export function TabResumenMA({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={!maPadreEdit.componentes[index]?.metaAnual}
+                      // checked={maPadreEdit.componentes[index]?.metaAnual}
                       // onChange={(v) => {
                       //   let aux = maPadreEdit.componentes[index]
                       //   aux = {...aux, metaAnual: v.target.checked }
                       //   setMAPadreEdit({...maPadreEdit, componentes: aux  })
                       // }}
-                      value={maPadreEdit.componentes[index]?.metaAnual}
+                      checked={maPadreEdit.componentes[index]?.metaAnual}
                       onChange={(v) => {
                         let auxC = maPadreEdit.componentes;
                         auxC[index].metaAnual = v.target.checked;
@@ -1413,13 +1413,13 @@ export function TabResumenMA({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={!editComponentes[index - 1]?.lineaBase}
+                      // checked={!editComponentes[index - 1]?.lineaBase}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
                       //   past[index - 1].lineaBase = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!maPadreEdit.componentes[index]?.lineaBase}
+                      checked={maPadreEdit.componentes[index]?.lineaBase}
                       // onChange={(v) => {
                       //   let aux = maPadreEdit.componentes[index]
                       //   aux = {...aux, lineaBase: v.target.checked }
@@ -1496,7 +1496,7 @@ export function TabResumenMA({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
-                          // value={
+                          // checked={
                           //   !editComponentes[index - 1]?.metasPorFrecuencia[0]
                           //     .semestre1
                           // }
@@ -1506,8 +1506,8 @@ export function TabResumenMA({
                           //     !v.target.checked;
                           //   setEditComponentes(past);
                           // }}
-                          value={
-                            !maPadreEdit.componentes[index]
+                          checked={
+                            maPadreEdit.componentes[index]
                               ?.metasPorFrecuencia[0].semestre1
                           }
                           onChange={(v) => {
@@ -1539,7 +1539,7 @@ export function TabResumenMA({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
-                          // value={
+                          // checked={
                           //   !editComponentes[index - 1]?.metasPorFrecuencia[0]
                           //     .semestre2
                           // }
@@ -1549,8 +1549,8 @@ export function TabResumenMA({
                           //     !v.target.checked;
                           //   setEditComponentes(past);
                           // }}
-                          value={
-                            !maPadreEdit.componentes[index]
+                          checked={
+                            maPadreEdit.componentes[index]
                               ?.metasPorFrecuencia[0].semestre2
                           }
                           onChange={(v) => {
@@ -1601,7 +1601,7 @@ export function TabResumenMA({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                         <Checkbox
-                          // value={
+                          // checked={
                           //   !editComponentes[index - 1]?.metasPorFrecuencia[0]
                           //     .trimestre1
                           // }
@@ -1611,8 +1611,8 @@ export function TabResumenMA({
                           //     !v.target.checked;
                           //   setEditComponentes(past);
                           // }}
-                          value={
-                            !maPadreEdit.componentes[index]
+                          checked={
+                            maPadreEdit.componentes[index]
                               ?.metasPorFrecuencia[0].trimestre1
                           }
                           onChange={(v) => {
@@ -1643,7 +1643,7 @@ export function TabResumenMA({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                         <Checkbox
-                          // value={
+                          // checked={
                           //   !editComponentes[index - 1]?.metasPorFrecuencia[0]
                           //     .trimestre2
                           // }
@@ -1653,8 +1653,8 @@ export function TabResumenMA({
                           //     !v.target.checked;
                           //   setEditComponentes(past);
                           // }}
-                          value={
-                            !maPadreEdit.componentes[index]
+                          checked={
+                            maPadreEdit.componentes[index]
                               ?.metasPorFrecuencia[0].trimestre2
                           }
                           onChange={(v) => {
@@ -1684,7 +1684,7 @@ export function TabResumenMA({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                         <Checkbox
-                          // value={
+                          // checked={
                           //   !editComponentes[index - 1]?.metasPorFrecuencia[0]
                           //     .trimestre3
                           // }
@@ -1694,8 +1694,8 @@ export function TabResumenMA({
                           //     !v.target.checked;
                           //   setEditComponentes(past);
                           // }}
-                          value={
-                            !maPadreEdit.componentes[index]
+                          checked={
+                            maPadreEdit.componentes[index]
                               ?.metasPorFrecuencia[0].trimestre3
                           }
                           onChange={(v) => {
@@ -1725,7 +1725,7 @@ export function TabResumenMA({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                         <Checkbox
-                          // value={
+                          // checked={
                           //   !editComponentes[index - 1]?.metasPorFrecuencia[0]
                           //     .trimestre4
                           // }
@@ -1735,8 +1735,8 @@ export function TabResumenMA({
                           //     !v.target.checked;
                           //   setEditComponentes(past);
                           // }}
-                          value={
-                            !maPadreEdit.componentes[index]
+                          checked={
+                            maPadreEdit.componentes[index]
                               ?.metasPorFrecuencia[0].trimestre4
                           }
                           onChange={(v) => {
@@ -1787,13 +1787,13 @@ export function TabResumenMA({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={!editComponentes[index - 1]?.valorNumerador}
+                      // checked={!editComponentes[index - 1]?.valorNumerador}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
                       //   past[index - 1].valorNumerador = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!maPadreEdit.componentes[index]?.valorNumerador}
+                      checked={maPadreEdit.componentes[index]?.valorNumerador}
                       onChange={(v) => {
                         let auxC = maPadreEdit.componentes;
                         auxC[index].valorNumerador = v.target.checked;
@@ -1848,14 +1848,14 @@ export function TabResumenMA({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        // value={!editComponentes[index - 1]?.valorDenominador}
+                        // checked={!editComponentes[index - 1]?.valorDenominador}
                         // onChange={(v) => {
                         //   let past = [...editComponentes];
                         //   past[index - 1].valorDenominador = !v.target.checked;
                         //   setEditComponentes(past);
                         // }}
-                        value={
-                          !maPadreEdit.componentes[index]?.valorDenominador
+                        checked={
+                          maPadreEdit.componentes[index]?.valorDenominador
                         }
                         onChange={(v) => {
                           let auxC = maPadreEdit.componentes;
@@ -1899,14 +1899,14 @@ export function TabResumenMA({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={!editComponentes[index - 1]?.sentidoDelIndicador}
+                      // checked={!editComponentes[index - 1]?.sentidoDelIndicador}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
                       //   past[index - 1].sentidoDelIndicador = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={
-                        !maPadreEdit.componentes[index]?.sentidoDelIndicador
+                      checked={
+                        maPadreEdit.componentes[index]?.sentidoDelIndicador
                       }
                       onChange={(v) => {
                         let auxC = maPadreEdit.componentes;
@@ -1950,13 +1950,13 @@ export function TabResumenMA({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={!editComponentes[index - 1]?.unidadResponsable}
+                      // checked={!editComponentes[index - 1]?.unidadResponsable}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
                       //   past[index - 1].unidadResponsable = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!maPadreEdit.componentes[index]?.unidadResponsable}
+                      checked={maPadreEdit.componentes[index]?.unidadResponsable}
                       onChange={(v) => {
                         let auxC = maPadreEdit.componentes;
                         auxC[index].unidadResponsable = v.target.checked;
@@ -1998,13 +1998,13 @@ export function TabResumenMA({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={!editComponentes[index - 1]?.descIndicador}
+                      // checked={!editComponentes[index - 1]?.descIndicador}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
                       //   past[index - 1].descIndicador = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!maPadreEdit.componentes[index]?.descIndicador}
+                      checked={maPadreEdit.componentes[index]?.descIndicador}
                       onChange={(v) => {
                         let auxC = maPadreEdit.componentes;
                         auxC[index].descIndicador = v.target.checked;
@@ -2046,13 +2046,13 @@ export function TabResumenMA({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={!editComponentes[index - 1]?.descNumerador}
+                      // checked={!editComponentes[index - 1]?.descNumerador}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
                       //   past[index - 1].descNumerador = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!maPadreEdit.componentes[index]?.descNumerador}
+                      checked={maPadreEdit.componentes[index]?.descNumerador}
                       onChange={(v) => {
                         let auxC = maPadreEdit.componentes;
                         auxC[index].descNumerador = v.target.checked;
@@ -2093,13 +2093,13 @@ export function TabResumenMA({
                 {localStorage.getItem("Rol") === "Capturador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={!editComponentes[index - 1]?.descDenominador}
+                      // checked={!editComponentes[index - 1]?.descDenominador}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
                       //   past[index - 1].descDenominador = !v.target.checked;
                       //   setEditComponentes(past);
                       // }}
-                      value={!maPadreEdit.componentes[index]?.descDenominador}
+                      checked={maPadreEdit.componentes[index]?.descDenominador}
                       onChange={(v) => {
                         let auxC = maPadreEdit.componentes;
                         auxC[index].descDenominador = v.target.checked;
@@ -2214,8 +2214,8 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            value={
-                              !maPadreEdit.componentes[indexComponentes]
+                            checked={
+                              maPadreEdit.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.metaAnual
                             }
                             onChange={(v) => {
@@ -2264,7 +2264,7 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
+                            // checked={
                             //   !editActividades[indexComponentes]?.lineaBase
                             // }
                             // onChange={(v) => {
@@ -2273,8 +2273,8 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !maPadreEdit.componentes[indexComponentes]
+                            checked={
+                              maPadreEdit.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.lineaBase
                             }
                             onChange={(v) => {
@@ -2349,7 +2349,7 @@ export function TabResumenMA({
                         {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                             <Checkbox
-                              // value={
+                              // checked={
                               //   !editActividades[
                               //     mapeaindice(
                               //       indexComponentes,
@@ -2368,8 +2368,8 @@ export function TabResumenMA({
                               //     !v.target.checked;
                               //   setEditActividades(past);
                               // }}
-                              value={
-                                !maPadreEdit.componentes[indexComponentes]
+                              checked={
+                                maPadreEdit.componentes[indexComponentes]
                                   ?.actividades[indexActividades]
                                   ?.metasPorFrecuencia[0].trimestre1
                               }
@@ -2403,7 +2403,7 @@ export function TabResumenMA({
                         {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                             <Checkbox
-                              // value={
+                              // checked={
                               //   !editActividades[
                               //     mapeaindice(
                               //       indexComponentes,
@@ -2422,8 +2422,8 @@ export function TabResumenMA({
                               //     !v.target.checked;
                               //   setEditActividades(past);
                               // }}
-                              value={
-                                !maPadreEdit.componentes[indexComponentes]
+                              checked={
+                                maPadreEdit.componentes[indexComponentes]
                                   ?.actividades[indexActividades]
                                   ?.metasPorFrecuencia[0].trimestre2
                               }
@@ -2457,7 +2457,7 @@ export function TabResumenMA({
                         {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                             <Checkbox
-                              // value={
+                              // checked={
                               //   !editActividades[
                               //     mapeaindice(
                               //       indexComponentes,
@@ -2476,8 +2476,8 @@ export function TabResumenMA({
                               //     !v.target.checked;
                               //   setEditActividades(past);
                               // }}
-                              value={
-                                !maPadreEdit.componentes[indexComponentes]
+                              checked={
+                                maPadreEdit.componentes[indexComponentes]
                                   ?.actividades[indexActividades]
                                   ?.metasPorFrecuencia[0].trimestre3
                               }
@@ -2511,7 +2511,7 @@ export function TabResumenMA({
                         {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                             <Checkbox
-                              // value={
+                              // checked={
                               //   !editActividades[
                               //     mapeaindice(
                               //       indexComponentes,
@@ -2530,8 +2530,8 @@ export function TabResumenMA({
                               //     !v.target.checked;
                               //   setEditActividades(past);
                               // }}
-                              value={
-                                !maPadreEdit.componentes[indexComponentes]
+                              checked={
+                                maPadreEdit.componentes[indexComponentes]
                                   ?.actividades[indexActividades]
                                   ?.metasPorFrecuencia[0].trimestre4
                               }
@@ -2586,8 +2586,8 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            value={
-                              !maPadreEdit.componentes[indexComponentes]
+                            checked={
+                              maPadreEdit.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.metaAnual
                             }
                             onChange={(v) => {
@@ -2657,7 +2657,7 @@ export function TabResumenMA({
                         {localStorage.getItem("Rol") === "Capturador" ? null : (
                           <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                             <Checkbox
-                              // value={
+                              // checked={
                               //   !editActividades[indexComponentes]
                               //     ?.valorDenominador
                               // }
@@ -2667,8 +2667,8 @@ export function TabResumenMA({
                               //     !v.target.checked;
                               //   setEditActividades(past);
                               // }}
-                              value={
-                                !maPadreEdit.componentes[indexComponentes]
+                              checked={
+                                maPadreEdit.componentes[indexComponentes]
                                   ?.actividades[indexActividades]
                                   ?.valorDenominador
                               }
@@ -2719,7 +2719,7 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
+                            // checked={
                             //   !editActividades[indexComponentes]
                             //     ?.sentidoDelIndicador
                             // }
@@ -2729,8 +2729,8 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !maPadreEdit.componentes[indexComponentes]
+                            checked={
+                              maPadreEdit.componentes[indexComponentes]
                                 ?.actividades[indexActividades]
                                 ?.sentidoDelIndicador
                             }
@@ -2780,7 +2780,7 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
+                            // checked={
                             //   !editActividades[indexComponentes]
                             //     ?.unidadResponsable
                             // }
@@ -2790,8 +2790,8 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !maPadreEdit.componentes[indexComponentes]
+                            checked={
+                              maPadreEdit.componentes[indexComponentes]
                                 ?.actividades[indexActividades]
                                 ?.unidadResponsable
                             }
@@ -2841,7 +2841,7 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
+                            // checked={
                             //   !editActividades[indexComponentes]?.descIndicador
                             // }
                             // onChange={(v) => {
@@ -2850,8 +2850,8 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !maPadreEdit.componentes[indexComponentes]
+                            checked={
+                              maPadreEdit.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.descIndicador
                             }
                             onChange={(v) => {
@@ -2900,7 +2900,7 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
+                            // checked={
                             //   !editActividades[indexComponentes]?.descNumerador
                             // }
                             // onChange={(v) => {
@@ -2909,8 +2909,8 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !maPadreEdit.componentes[indexComponentes]
+                            checked={
+                              maPadreEdit.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.descNumerador
                             }
                             onChange={(v) => {
@@ -2959,7 +2959,7 @@ export function TabResumenMA({
                       {localStorage.getItem("Rol") === "Capturador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
+                            // checked={
                             //   !editActividades[indexComponentes]
                             //     ?.descDenominador
                             // }
@@ -2969,8 +2969,8 @@ export function TabResumenMA({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !maPadreEdit.componentes[indexComponentes]
+                            checked={
+                              maPadreEdit.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.descDenominador
                             }
                             onChange={(v) => {
