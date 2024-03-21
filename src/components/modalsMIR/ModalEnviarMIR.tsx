@@ -583,7 +583,8 @@ export default function ModalEnviarMIR({
 
   const CrearMetaAnual = (mensaje: string, IdMir: string, IdMa: String) => {
     const idMirFinal = IdMir || mensaje;
-
+    console.log(IdEntidad);
+    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-ma-generic",
@@ -594,7 +595,8 @@ export default function ModalEnviarMIR({
           Estado: "En Captura",
           Id: "",
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+          localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -645,7 +647,8 @@ export default function ModalEnviarMIR({
               : //se va a modificar
                 localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+          localStorage.getItem("IdEntidad"),
           Programa: JSON.parse(MIR)?.encabezado.programa.Label,
           Eje: JSON.parse(MIR)?.encabezado.eje.Label,
           Tematica: JSON.parse(MIR)?.encabezado.tema.Label,

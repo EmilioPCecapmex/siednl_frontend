@@ -27,12 +27,16 @@ export function TabEncabezado({
   MIR,
   setMIR,
   mirEdit,
+  IdEntidad,
+  setIdEntidad,
 }: {
   edit: boolean;
   show: boolean;
   MIR: IMIR;
   setMIR: Function;
   mirEdit: IMIREdit;
+  IdEntidad: string;
+  setIdEntidad: Function;
 }) {
   // const [nombreArchivo, setNombreArchivo] = useState(
   //   "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
@@ -450,6 +454,11 @@ export function TabEncabezado({
                   Id: value?.Id || "",
                   Label: value?.Label || "",
                 });
+                if(IdEntidad === undefined || IdEntidad === "" || IdEntidad === null || /^[\s]*$/.test(IdEntidad)){
+                  setIdEntidad(value?.Id)
+                }
+                console.log("Id: value?.Id: ",value?.Id);
+                
               }}
               isOptionEqualToValue={(option, value) => option.Id === value.Id}
             />

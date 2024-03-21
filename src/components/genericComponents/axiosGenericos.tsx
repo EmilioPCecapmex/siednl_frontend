@@ -22,8 +22,8 @@ import axios from "axios";
   };
 
   export const enviarNotificacionRol = (titulo: string, coment: string, Id: string, Rol: string[]) => {
-    console.log("Id");
-    
+    console.log("Id: ",Id);
+    console.log("titulo: ",titulo);
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {

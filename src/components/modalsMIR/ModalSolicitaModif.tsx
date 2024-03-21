@@ -481,7 +481,7 @@ export default function ModalSolicitaModif({
     ) {
       estado = "En Captura";
     }
-
+    console.log("IdEntidad: ",IdEntidad);
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir-generic",
@@ -495,7 +495,7 @@ export default function ModalSolicitaModif({
                 localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
           IdEntidad:
-            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
             localStorage.getItem("IdEntidad"),
           Programa: JSON.parse(MIR)?.encabezado.programa.Label,
           Eje: JSON.parse(MIR)?.encabezado.eje.Label,

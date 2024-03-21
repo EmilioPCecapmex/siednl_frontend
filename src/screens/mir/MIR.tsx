@@ -1374,6 +1374,7 @@ export const MIR = () => {
               IdMir={mirEdit[0]?.Id || ""}
               estado={estado}
               IdEntidad={IdEntidad}
+              setIdEntidad={setIdEntidad}
             />
           </Grid>
         )}

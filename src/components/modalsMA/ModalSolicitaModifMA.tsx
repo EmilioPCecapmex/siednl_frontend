@@ -584,7 +584,8 @@ export default function ModalSolicitaModif({
 
   const createMA = (estado: string) => {
     let rolusuario = userXInst.find((user) => user.IdUsuario === userSelected);
-
+    console.log("IdEntidad: ",IdEntidad);
+    
     if (
       estado === "Autorizada" &&
       userSelected !== "0" &&
@@ -623,7 +624,8 @@ export default function ModalSolicitaModif({
           Estado: estado,
           Id: IdMA,
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+          localStorage.getItem("IdEntidad"),
         },
 
         {

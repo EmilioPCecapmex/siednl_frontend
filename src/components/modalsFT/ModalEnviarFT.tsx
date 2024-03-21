@@ -680,6 +680,8 @@ export default function ModalEnviarFT({
       ) //
       .then((r) => {
         let rol: string[] = [];
+        console.log("r.data.data: ",r.data.data);
+        console.log("Modal enviar IdFT: ",IdFT);
         if (localStorage.getItem("Rol") === "Verificador") {
           rol = ["Administrador"];
         }
@@ -692,6 +694,8 @@ export default function ModalEnviarFT({
           rol = ["Capturador", "Verificador"];
         }
 
+        
+        
         enviarNotificacionRol("FT", "FT enviada", IdFT, rol);
 
         alertaExitoConfirm(r.data.data.message.toUpperCase());

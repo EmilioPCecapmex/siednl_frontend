@@ -125,6 +125,7 @@ export function TabResumen({
   };
 
   const createMIR = (estado: string) => {
+    console.log("IdEntidad: ",IdEntidad);
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir-generic",
@@ -135,7 +136,7 @@ export function TabResumen({
           CreadoPor: localStorage.getItem("IdUsuario"),
           AnioFiscal: MIR?.encabezado.ejercicioFiscal.Label,
           IdEntidad:
-          MIR?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
+          MIR?.encabezado.entidad.Id ||IdEntidad || localStorage.getItem("IdEntidad"),
           Programa: MIR?.encabezado.programa.Label,
           Eje: MIR?.encabezado.eje.Label,
           Tematica: MIR?.encabezado.tema.Label,

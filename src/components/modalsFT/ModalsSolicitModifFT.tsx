@@ -688,7 +688,8 @@ export default function ModalSolicitaModif({
     ) {
       estado = "En Captura";
     }
-
+    console.log("IdEntidad: ",IdEntidad);
+    
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-ft-generic",
@@ -724,6 +725,7 @@ export default function ModalSolicitaModif({
         ? "Ficha Tecnica enviada a capturador para corrección"
         : "Ficha Tecnica enviada").toUpperCase())
        
+        console.log("IdFT: ",IdFT);
         
         soliModyNoty(userSelected, "Se le ha solicitado una modificación.", "FT", IdFT );
         handleClose();
