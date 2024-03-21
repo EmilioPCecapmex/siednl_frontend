@@ -658,6 +658,7 @@ export default function ModalEnviarFT({
   };
 
   const crearFichaTecnica = (estado: string) => {
+
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-ft-generic",
@@ -669,7 +670,7 @@ export default function ModalEnviarFT({
           Id: IdFT,
           Estado: estado,
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad: IdEntidad,
         },
         {
           headers: {

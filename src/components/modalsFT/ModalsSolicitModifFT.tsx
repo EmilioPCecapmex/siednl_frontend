@@ -706,6 +706,7 @@ export default function ModalSolicitaModif({
           IdMa: IdMa,
           Id: IdFT,
           Rol: localStorage.getItem("Rol"),
+          IdEntidad: IdEntidad
         },
         {
           headers: {

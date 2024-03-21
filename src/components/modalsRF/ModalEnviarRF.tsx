@@ -180,7 +180,8 @@ export default function ModalEnviarRF({
           IdMa: IdMA,
           Id: IdRF,
           Estado: estado,
-          Rol: localStorage.getItem("Rol")
+          Rol: localStorage.getItem("Rol"),
+          IdEntidad: IdEntidad
         },
         {
           headers: {
