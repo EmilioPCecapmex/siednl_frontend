@@ -2,7 +2,6 @@
 import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
 import DownloadIcon from "@mui/icons-material/Download";
 import EditIcon from "@mui/icons-material/Edit";
-import ListAltIcon from '@mui/icons-material/ListAlt';
 import {
   Button,
   FormControl,
@@ -427,6 +426,8 @@ export const MIR = () => {
   }, [findTextStr]);
 
   const [estado, setEstado] = useState("");
+
+  const [IdEntidad, setIdEntidad] = useState("");
 
   const buscador = (estado: any, Ins: any) => {
     axios
@@ -853,6 +854,7 @@ export const MIR = () => {
                       setMirEdit([
                         {
                           Id: "",
+                          IdEntidad: "",
                           AnioFiscal: "",
                           Entidad: "",
                           Programa: "",
@@ -1122,6 +1124,8 @@ export const MIR = () => {
                                 estado={row.Estado}
                                 id={row.Id}
                                 actualizado={actualizaContador}
+                                MIR={mirEdit[0]?.MIR || ""}
+                                IdEntidad={IdEntidad}
                               />
 
                               <DeleteDialogMIR
@@ -1190,6 +1194,7 @@ export const MIR = () => {
                                       setMirEdit([
                                         {
                                           Id: row.Id,
+                                          IdEntidad: row.IdEntidad,
                                           AnioFiscal: row.AnioFiscal,
                                           Entidad: row.Entidad,
                                           Programa: row.Programa,
@@ -1207,6 +1212,9 @@ export const MIR = () => {
                                       setShowResume(false);
                                       setActionNumber(1);
                                       setEstado(row.Estado);
+                                      setIdEntidad(row.IdEntidad)
+                                      console.log(row.IdEntidad);
+                                      
                                     }}
                                   >
                                     <EditIcon
@@ -1239,8 +1247,11 @@ export const MIR = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
-
-                              <Tooltip
+                                      <MostrarLista
+                                      st=""
+                                      Id={row.Id}
+                                      />
+                              {/* <Tooltip
                                 title="Lista"
                                 PopperProps={{
                                   modifiers: [
@@ -1315,7 +1326,7 @@ export const MIR = () => {
                                 </span>
                               </Tooltip>
 
-
+ */}
 
                             </Grid>
                           </TableCell>
@@ -1339,13 +1350,13 @@ export const MIR = () => {
                 />
               </Grid>
             </Grid>
-            {openVisualizador ? (
+            {/* {openVisualizador ? (
         <MostrarLista
           handleClose={() => {
             setOpenVisualizador(false);
           }}
         />
-      ) : null}
+      ) : null} */}
           </>
         ) : (
           <Grid
@@ -1364,6 +1375,8 @@ export const MIR = () => {
               showResume={returnMain}
               IdMir={mirEdit[0]?.Id || ""}
               estado={estado}
+              IdEntidad={IdEntidad}
+              setIdEntidad={setIdEntidad}
             />
           </Grid>
         )}
@@ -1374,6 +1387,7 @@ export const MIR = () => {
 
 export interface IIMir {
   Id: string;
+  IdEntidad: string;
   AnioFiscal: string;
   Entidad: string;
   Programa: string;

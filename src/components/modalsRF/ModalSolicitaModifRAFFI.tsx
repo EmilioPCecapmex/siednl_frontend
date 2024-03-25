@@ -34,6 +34,7 @@ export default function ModalSolicitaModifRF({
   IdRF,
   showResume,
   RFEdit,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -44,6 +45,7 @@ export default function ModalSolicitaModifRF({
   IdRF: string;
   showResume: Function;
   RFEdit: string;
+  IdEntidad: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
@@ -219,6 +221,9 @@ export default function ModalSolicitaModifRF({
           Id: IdRF,
           Estado: estado,
           Rol: localStorage.getItem("Rol"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -260,7 +265,7 @@ export default function ModalSolicitaModifRF({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad,
             IdApp: localStorage.getItem("IdApp"),
           },
           {

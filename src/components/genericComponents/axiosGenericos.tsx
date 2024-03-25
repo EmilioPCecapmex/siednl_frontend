@@ -21,9 +21,9 @@ import axios from "axios";
     );
   };
 
-  export const enviarNotificacionRol = (titulo: string, coment: string, Id: string, Rol: string[]) => {
-    console.log("Id");
-    
+  export const enviarNotificacionRol = (titulo: string, coment: string, Id: string, Rol: string[], IdEntidad: string) => {
+    console.log("Id: ",Id);
+    console.log("titulo: ",titulo);
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
@@ -31,7 +31,7 @@ import axios from "axios";
         Mensaje: coment,
         IdDocumento: Id,
         Rol: Rol,
-        IdEntidad: localStorage.getItem("IdEntidad"),
+        IdEntidad: IdEntidad || localStorage.getItem("IdEntidad"),
         IdApp: localStorage.getItem("IdApp"),
         CreadoPor: localStorage.getItem("IdUsuario"),
         
@@ -100,6 +100,29 @@ export const obtenerComentarios = async (id: string,  state: Function) => {
     )
     .then((r) => {
      
+    
+    })
+    .catch((err) => {
+     
+    });
+  };
+
+  export const getMovimientosTrazabilidad = (Id: string, state: Function) => {
+    axios.get(
+      process.env.REACT_APP_APPLICATION_BACK + "/api/list-trazabilidad",
+      {
+        params: {
+          Id: Id,
+        },
+        headers: {
+          Authorization: localStorage.getItem("jwtToken") || "",
+        },
+      }
+    )
+    .then((r) => {
+      //console.log("r.data.data:", r.data.data);
+      
+      state(r.data.data)
     
     })
     .catch((err) => {

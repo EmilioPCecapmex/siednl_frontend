@@ -414,8 +414,9 @@ export function TabAccion1({
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].descripcion = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.descripcion}
@@ -456,8 +457,9 @@ export function TabAccion1({
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].nombreIndicador = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.nombreIndicador}
@@ -523,8 +525,9 @@ export function TabAccion1({
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].numerador = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.numerador}
@@ -559,8 +562,9 @@ export function TabAccion1({
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].unidadMedida = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.unidadMedida}
@@ -595,8 +599,9 @@ export function TabAccion1({
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].medio_fuente = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.medio_fuente}
@@ -631,8 +636,9 @@ export function TabAccion1({
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].denomidador = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.denomidador}
@@ -667,8 +673,9 @@ export function TabAccion1({
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].unidadMedida = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.unidadMedida}
@@ -703,8 +710,9 @@ export function TabAccion1({
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].medio_fuente2 = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.medio_fuente2}

@@ -45,6 +45,7 @@ export const TabResumenRF = ({
   raffiboolean,
   setRaffiboolean,
   estadorf,
+  IdEntidad,
 }: {
   IdMir: string;
   IdRF: string;
@@ -56,6 +57,7 @@ export const TabResumenRF = ({
   setRaffiboolean: Function;
   showResume: Function;
   estadorf: string;
+  IdEntidad: string;
 }) => {
   const [openModalEnviar, setOpenModalEnviar] = useState(false);
 
@@ -123,6 +125,9 @@ export const TabResumenRF = ({
           Estado: estado,
           Id: IdRF,
           Rol: localStorage.getItem("Rol"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -2968,6 +2973,7 @@ export const TabResumenRF = ({
           IdMA={IdMA}
           IdRF={IdRF}
           RFEdit={JSON.stringify(raffiboolean)}
+          IdEntidad={IdEntidad}
         ></ModalSolicitaModifRF>
 
         <ModalEnviarRF
@@ -2979,6 +2985,7 @@ export const TabResumenRF = ({
           IdMA={IdMA}
           IdRF={IdRF}
           showResume={showResume}
+          IdEntidad={IdEntidad}
         ></ModalEnviarRF>
       </Grid>
     </Grid>

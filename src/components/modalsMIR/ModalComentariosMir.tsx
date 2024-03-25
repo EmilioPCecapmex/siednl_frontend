@@ -28,10 +28,14 @@ export const ComentDialogMir = ({
   estado,
   id,
   actualizado,
+  MIR,
+  IdEntidad,
 }: {
   estado: string;
   id: string;
   actualizado: Function;
+  MIR: string;
+  IdEntidad: string;
 }) => {
   const Toast = Swal.mixin({
     toast: true,
@@ -108,7 +112,7 @@ export const ComentDialogMir = ({
       .then((r) => {
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
-          enviarNotificacionRol("FT", "Nuevo comentario Ficha Tecnica", id, ["Verificador"])
+          enviarNotificacionRol("FT", "Nuevo comentario Ficha Tecnica", id, ["Verificador"],  (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
         }
        
         setNewComent(false);

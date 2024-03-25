@@ -27,6 +27,7 @@ export default function ModalSolicitaModif({
   IdMIR,
   showResume,
   MAEdit,
+  IdEntidad
 }: {
   open: boolean;
   handleClose: Function;
@@ -36,6 +37,7 @@ export default function ModalSolicitaModif({
   IdMA: string;
   IdMIR: string;
   MAEdit: string;
+  IdEntidad: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
@@ -65,44 +67,65 @@ export default function ModalSolicitaModif({
 
   const checkMA = (v: string) => {
     errores = [];
-    if (JSON.parse(MA)?.fin === null) {
+    if (
+      JSON.parse(MA)?.fin.metaAnual === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.metaAnual) ||
+      JSON.parse(MA)?.fin.lineaBase === null ||
+      JSON.parse(MA)?.fin.lineaBase === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.lineaBase) ||
+      JSON.parse(MA)?.fin.lineaBase === undefined ||
+      /^[\s]*$/.test(
+        JSON.parse(MA)?.fin.unidadResponsable
+      ) ||
+      JSON.parse(MA)?.fin.valorNumerador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.valorNumerador) ||
+      JSON.parse(MA)?.fin.unidadResponsable === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.unidadResponsable) ||
+      JSON.parse(MA)?.fin.descIndicador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.descIndicador) ||
+      JSON.parse(MA)?.fin.descNumerador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.descNumerador) ||
+      JSON.parse(MA)?.fin.descDenominador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.descDenominador)
+    ) {
       err = 1;
-      errores.push("Sección <strong>Fin</strong> incompleta.");
+      errores.push(
+        `SECCIÓN<strong>FIN </strong> INCOMPLET0.`
+      );
     }
     if (
       JSON.parse(MA)?.fin.metaAnual === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.metaAnual)
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Meta anual sin información");
+      errores.push("<strong>META ANUAL </strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.fin.lineaBase === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.lineaBase)
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Línea base sin información");
+      errores.push("<strong>LÍNEA BASE</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.fin.valorNumerador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.valorNumerador)
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Valor del numerador sin información");
+      errores.push(
+        "<strong>VALOR DEL NUMERADOR</strong> SIN INFORMACIÓN."
+      );
     }
-
     if (
       !JSON.parse(MIR)
         .fin.indicador.toLowerCase()
-        .includes(
-          "indice" || "índice" || "INDICE" || "ÍNDICE" || "Índice" || "Indice"
-        ) &&
+        .includes("indice" || "índice") &&
       (JSON.parse(MA)?.fin.valorDenominador === undefined ||
         /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador))
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Valor del denominador sin información"
+        "<strong>VALOR DEL DENOMINADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -111,7 +134,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Sentido del indicador no seleccionado"
+        "<strong>SENTIDO DEL INDICADOR</strong> NO SELECCIONADO"
       );
     }
     if (
@@ -120,7 +143,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Unidad responsable de reportar el indicador sin información"
+        "<strong>UNIDAD RESPONSABLE</strong>  SIN INFORMACIÓN."
       );
     }
     if (
@@ -129,7 +152,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Descripción del indicador sin información"
+        "<strong>DESCRIPCIIÓN DEL INDICADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -138,7 +161,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Descripción del numerador sin información"
+        "<strong>DESCRIPCIÓN DEL NUMERADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -147,26 +170,48 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Descripción del denominador sin información"
+        "<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN."
       );
     }
-    if (JSON.parse(MA)?.proposito === null) {
+   
+    if (
+      JSON.parse(MA)?.proposito.metaAnual === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.metaAnual) ||
+      JSON.parse(MA)?.proposito.lineaBase === null ||
+      JSON.parse(MA)?.proposito.lineaBase === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.lineaBase) ||
+      JSON.parse(MA)?.proposito.lineaBase === undefined ||
+      /^[\s]*$/.test(
+        JSON.parse(MA)?.proposito.unidadResponsable
+      ) 
+      ||
+      JSON.parse(MA)?.proposito.valorNumerador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorNumerador) ||
+      JSON.parse(MA)?.proposito.unidadResponsable === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.unidadResponsable) ||
+      JSON.parse(MA)?.proposito.descIndicador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descIndicador) ||
+      JSON.parse(MA)?.proposito.descNumerador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descNumerador) ||
+      JSON.parse(MA)?.proposito.descDenominador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descDenominador)
+    ) {
       err = 1;
-      errores.push("Sección <strong>Propósito</strong> incompleta.");
+      errores.push("SECCIÓN<strong>PROPOSITO</strong> INCOMPLETO.");
     }
     if (
       JSON.parse(MA)?.proposito.metaAnual === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.metaAnual)
     ) {
       err = 1;
-      errores.push("<strong>Proposito</strong>: Meta Anual sin información");
+      errores.push("<strong>META ANUAL</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.proposito.lineaBase === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.lineaBase)
     ) {
       err = 1;
-      errores.push("<strong>Proposito</strong>: Línea base sin información");
+      errores.push("<strong>LÍNEA BASE</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.proposito.valorNumerador === undefined ||
@@ -174,7 +219,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Valor del numerador sin información"
+        "<strong>VALOR DEL NUMERADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -186,7 +231,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Valor del denominador sin información"
+        "<strong>VALOR DEL DENOMINADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -195,7 +240,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Sentido del indicador no seleccionado"
+        "<strong>SENTIDO DEL INDICADOR</strong> NO SELECCIONADO"
       );
     }
     if (
@@ -204,7 +249,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Unidad responsable de reportar el indicador sin seleccionar"
+        "<strong>UNIDAD RESPONSABLE</strong> de SIN SELECCIONAR."
       );
     }
     if (
@@ -213,7 +258,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Descripción del indicador sin información"
+        "<strong>DESCRIPCIIÓN DEL INDICADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -222,7 +267,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Descripción del numerador sin información"
+        "<strong>DESCRIPCIÓN DEL NUMERADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -231,7 +276,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Descripción del denominador sin información"
+        "<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN."
       );
     }
 
@@ -239,30 +284,60 @@ export default function ModalSolicitaModif({
   };
   
   const checkComponentes = (v: string) => {
-    JSON.parse(MA)?.componentes.every((componente: any, index: number) => {
+    JSON.parse(MA)?.componentes.map((componente:IComponenteMA , index: number) => {
+
       if (
         componente.metaAnual === undefined ||
-        //  /^[\s]*$/.test(componente.metaAnual) ||
-        componente.metaAnual === null ||
-        componente.metaAnual === ""
+        /^[\s]*$/.test(componente.metaAnual) ||
+        componente.lineaBase === null ||
+        componente.lineaBase === undefined ||
+        /^[\s]*$/.test(componente.lineaBase) ||
+        componente.lineaBase === undefined ||
+        /^[\s]*$/.test(
+          componente.actividades[index].unidadResponsable
+        ) ||
+        componente.valorNumerador === undefined ||
+        /^[\s]*$/.test(componente.actividades[index].valorNumerador) ||
+        componente.unidadResponsable === undefined ||
+        /^[\s]*$/.test(componente.unidadResponsable) ||
+        componente.descIndicador === undefined ||
+        /^[\s]*$/.test(componente.descIndicador) ||
+        componente.descNumerador === undefined ||
+        /^[\s]*$/.test(componente.descNumerador) ||
+        componente.descDenominador === undefined ||
+        /^[\s]*$/.test(componente.descDenominador)
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Meta anual sin información.`
+          `<hr><strong> ${componente.componentes} </strong> INCOMPLETO.`
         );
       }
-
+      if (
+        componente.metaAnual === undefined ||
+        /^[\s]*$/.test(componente.metaAnual) ||
+        componente.metaAnual === null
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>META ANUAL</strong>  SIN INFORMACIÓN.`
+        );
+      }
+      if (
+        componente.metasPorFrecuencia[0].trimestre4 !== componente.metaAnual &&
+        componente.metasPorFrecuencia[0].semestre2 !== componente.metaAnual
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>EL VALOR</strong>  DE LA META ANUAL DEBE COINCIDIR CON EL VALOR DEL TRIMESTRE 4 O SEMESTRE 2 CORRESPONDIENTE.`
+        );
+      }
       if (
         componente.lineaBase === undefined ||
         /^[\s]*$/.test(componente.lineaBase)
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Línea base sin información.`
+          `<strong>LÍNEA BASE</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -281,9 +356,7 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Metas por frecuencia sin información.`
+          `<strong>METAS POR FRECUENCIA</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -292,9 +365,7 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Valor del numerador sin información.`
+          `<strong>VALOR DEL NUMERADOR</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -306,9 +377,7 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Valor del denominador sin información.`
+          `<strong>VALOR DEL DENOMINADOR</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -317,9 +386,7 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Sentido del indicador sin seleccionar.`
+          `<strong>SENTIDO DEL INDICADOR</strong> SIN SELECCIONAR.`
         );
       }
       if (
@@ -328,9 +395,7 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
+          `<strong>UNIDAD RESPONSABLE</strong> SIN SELECCIONAR.`
         );
       }
       if (
@@ -339,9 +404,7 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Descripción del indicador sin información.`
+          `<strong>DESCRIPCIIÓN DEL INDICADOR</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -350,9 +413,7 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Descripción del numerador sin información.`
+          `<strong>DESCRIPCIÓN DEL NUMERADOR </strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -361,31 +422,60 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Descripción del denominador sin información.`
+          `<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN.`
         );
       }
-
       return true;
     });
-
     checkActividades(v);
   };
 
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
-
     JSON.parse(MA)?.componentes.map(
       (componente: IComponenteMA, indexC: number) => {
         componente.actividades.map(
           (actividad: IActividadesMA, indexA: number) => {
             if (
               actividad.metaAnual === undefined ||
+              /^[\s]*$/.test(actividad.metaAnual) ||
+              actividad.lineaBase === null ||
+              actividad.lineaBase === undefined ||
+              /^[\s]*$/.test(actividad.lineaBase) ||
+              actividad.lineaBase === undefined ||
+              /^[\s]*$/.test(
+                actividad.unidadResponsable
+              ) ||
+              actividad.valorNumerador === undefined ||
+              /^[\s]*$/.test(actividad.valorNumerador) ||
+              actividad.unidadResponsable === undefined ||
+              /^[\s]*$/.test(actividad.unidadResponsable) ||
+              actividad.descIndicador === undefined ||
+              /^[\s]*$/.test(actividad.descIndicador) ||
+              actividad.descNumerador === undefined ||
+              /^[\s]*$/.test(actividad.descNumerador) ||
+              actividad.descDenominador === undefined ||
+              /^[\s]*$/.test(actividad.descDenominador)
+            ) {
+              err = 1;
+              errores.push(
+                `<hr><strong> ${actividad.actividad} </strong> INCOMPLETO.`
+              );
+            }
+            if (
+              actividad.metaAnual === undefined ||
               /^[\s]*$/.test(actividad.metaAnual)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Meta anual sin información.`
+                `<strong>META ANUAL</strong> SIN INFORMACIÓN.`
+              );
+              err = 1;
+            }
+            if (
+              actividad.metaAnual !== actividad.metasPorFrecuencia[0].trimestre4
+            ) {
+              errores.push(
+                `<strong>EL VALOR DE LA META ANUAL </strong> DEBE COINCIDIR CON EL VALOR DEL TRIMESTRE 4`
               );
               err = 1;
             }
@@ -394,7 +484,7 @@ export default function ModalSolicitaModif({
               /^[\s]*$/.test(actividad.lineaBase)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Línea base sin información.`
+                `<strong>LÍNEA BASE</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -409,7 +499,7 @@ export default function ModalSolicitaModif({
               /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Metas por frecuencia sin información.`
+                `<strong>METAS POR FRECUENCIA</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -418,19 +508,19 @@ export default function ModalSolicitaModif({
               /^[\s]*$/.test(actividad.valorNumerador)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Valor del numerador sin información.`
+                `<strong>VALOR DEL NUMERADOR</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
             if (
-              !JSON.parse(MIR)
-                .componentes[indexC].actividades[indexA].indicador.toLowerCase()
-                .includes("indice" || "índice") &&
+              JSON.parse(MIR)
+                .componentes[indexC].actividades[indexA].indicador.toUpperCase()
+                .includes("ÍNDICE" || "INDICE") &&
               (actividad.valorDenominador === undefined ||
                 /^[\s]*$/.test(actividad.valorDenominador))
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`
+                `<strong>VALOR DEL DENOMINADOR</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -439,7 +529,7 @@ export default function ModalSolicitaModif({
               actividad.sentidoDelIndicador === ""
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Sentido del indicador sin seleccionar.`
+                `<strong>SENTIDO DEL INDICADOR</strong> SIN SELECCIONAR.`
               );
               err = 1;
             }
@@ -448,7 +538,7 @@ export default function ModalSolicitaModif({
               /^[\s]*$/.test(actividad.unidadResponsable)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
+                `<strong>UNIDAD RESPONSABLE</strong> SIN SELECCIONAR.`
               );
               err = 1;
             }
@@ -457,7 +547,7 @@ export default function ModalSolicitaModif({
               /^[\s]*$/.test(actividad.descIndicador)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del indicador sin información.`
+                `<strong>DESCRIPCIIÓN DEL INDICADOR</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -465,17 +555,18 @@ export default function ModalSolicitaModif({
               actividad.descNumerador === undefined ||
               /^[\s]*$/.test(actividad.descNumerador)
             ) {
-              errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del numerador sin información.`
-              );
+             
               err = 1;
+              errores.push(
+                `<strong>DESCRIPCIÓN DEL NUMERADOR </strong> SIN INFORMACIÓN.`
+              );
             }
             if (
               actividad.descDenominador === undefined ||
               /^[\s]*$/.test(actividad.descDenominador)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del denominador sin información.`
+                `<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -483,17 +574,18 @@ export default function ModalSolicitaModif({
         );
       }
     );
-   
+
     if (err === 0) {
       createMA(v);
     } else {
-      alertaErroresDocumento(errores)
+      alertaErroresDocumento(errores);
     }
   };
 
   const createMA = (estado: string) => {
     let rolusuario = userXInst.find((user) => user.IdUsuario === userSelected);
-
+    console.log("IdEntidad: ",IdEntidad);
+    
     if (
       estado === "Autorizada" &&
       userSelected !== "0" &&
@@ -532,7 +624,8 @@ export default function ModalSolicitaModif({
           Estado: estado,
           Id: IdMA,
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+          localStorage.getItem("IdEntidad"),
         },
 
         {
@@ -579,7 +672,7 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad,
             IdApp: localStorage.getItem("IdApp"),
           },
           {

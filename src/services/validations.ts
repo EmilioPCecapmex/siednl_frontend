@@ -5,7 +5,7 @@ import { IIFT } from "../screens/fichatecnica/FichaTecnica";
 
 export const validarNumero = (dato: string, state: any) => {
  
-    if (/^[0-9]+$/.test(dato) ) {
+    if (/^[0-9.]+$/.test(dato) ) {
       
         return dato;
 
@@ -49,6 +49,14 @@ export const validarNumero = (dato: string, state: any) => {
       return(txt)
     }
     return(txt.split(",")[2])
+  }
+
+  export const quitarEspaciosFinales =(str: string) => {
+    // Eliminar las comillas dobles, las comillas simples y las nuevas líneas
+    str = str.replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "");
+  
+    // Eliminar los espacios en blanco al final de la cadena
+    return str.replace(/\s+$/g, "");
   }
 
   export const estados = [

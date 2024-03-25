@@ -38,6 +38,7 @@ import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
 import ComentDialogRF from "../../components/modalsRF/ModalComentariosRF";
+import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
 
 export const Raffi = () => {
   const [actionNumber, setActionNumber] = useState(0);
@@ -62,6 +63,8 @@ export const Raffi = () => {
 
   const [estadorf, setEstadoRF] = useState("Todos");
   const [estado, setEstado] = useState("");
+  const [IdEntidad, setIdEntidad] = useState("");
+  
   const [institucionesb, setInstitucionesb] = useState("Todos");
 
   useEffect(() => {
@@ -917,6 +920,7 @@ export const Raffi = () => {
                                             IdRaffi: row.IdRaffi,
                                             IdMir: row.IdMir,
                                             IdMetaAnual: row.IdMetaAnual,
+                                            IdEntidad: row.IdEntidad,
                                             RAFFI: row.RAFFI,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -940,6 +944,7 @@ export const Raffi = () => {
                                             IdRaffi: row.IdRaffi,
                                             IdMir: row.IdMir,
                                             IdMetaAnual: row.IdMetaAnual,
+                                            IdEntidad: row.IdEntidad,
                                             RAFFI: row.RAFFI,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -959,6 +964,7 @@ export const Raffi = () => {
                                         ]);
                                       }
                                       setEstado(row.Estado);
+                                      setIdEntidad(row.IdEntidad)
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -1011,6 +1017,7 @@ export const Raffi = () => {
                                             IdRaffi: row.IdRaffi,
                                             IdMir: row.IdMir,
                                             IdMetaAnual: row.IdMetaAnual,
+                                            IdEntidad: row.IdEntidad,
                                             RAFFI: row.RAFFI,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1034,6 +1041,7 @@ export const Raffi = () => {
                                             IdRaffi: row.IdRaffi,
                                             IdMir: row.IdMir,
                                             IdMetaAnual: row.IdMetaAnual,
+                                            IdEntidad: row.IdEntidad,
                                             RAFFI: row.RAFFI,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1159,6 +1167,10 @@ export const Raffi = () => {
                                 id={row.IdMir}
                                 //actualizado={actualizaContador}
                               />
+                              <MostrarLista
+                                      st=""
+                                      Id={row.IdRaffi}
+                                      />
                             </TableCell>
                           </TableRow>
                         );
@@ -1188,6 +1200,7 @@ export const Raffi = () => {
               IdMA={rfEdit[0].IdMetaAnual || ""}
               IdRf={rfEdit[0].IdRaffi || ""}
               estado={estado}
+              IdEntidad={IdEntidad}
             />
           </Grid>
         )}
@@ -1202,6 +1215,7 @@ export interface IRaffi {
   IdRaffi: string;
   IdMir: string;
   IdMetaAnual: string;
+  IdEntidad: string;
   RAFFI: string;
   Estado: string;
   CreadoPor: string;

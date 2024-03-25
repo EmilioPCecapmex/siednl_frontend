@@ -29,10 +29,14 @@ export const ComentDialogMA = ({
   estado,
   id,
   actualizado,
+  MIR,
+  IdEntidad,
 }: {
   estado: string;
   id: string;
   actualizado: Function;
+  MIR: string;
+  IdEntidad: string;
 }) => {
  
 
@@ -112,7 +116,7 @@ export const ComentDialogMA = ({
           rol = ["Capturador","Verificador"]
         }
 
-        enviarNotificacionRol("MA", "MA enviada", id, rol)
+        enviarNotificacionRol("MA", "MA enviada", id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
         }
 
         setNewComent(false);

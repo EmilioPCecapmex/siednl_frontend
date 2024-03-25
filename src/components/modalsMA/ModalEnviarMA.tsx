@@ -13,7 +13,14 @@ import {
 //import { sendMail } from "../../funcs/sendMailCustomMessage";
 
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
-import { alertaEliminar, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm, alertaInfo } from "../genericComponents/Alertas";
+import {
+  alertaEliminar,
+  alertaErrorConfirm,
+  alertaErroresDocumento,
+  alertaExito,
+  alertaExitoConfirm,
+  alertaInfo,
+} from "../genericComponents/Alertas";
 import { enviarNotificacionRol } from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
@@ -26,6 +33,7 @@ export default function ModalEnviarMA({
   IdMA,
   IdMIR,
   showResume,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -34,6 +42,7 @@ export default function ModalEnviarMA({
   IdMA: string;
   IdMIR: string;
   showResume: Function;
+  IdEntidad: string;
 }) {
   const [comment, setComment] = useState("");
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
@@ -68,23 +77,45 @@ export default function ModalEnviarMA({
   let err = 0;
   const checkMA = (v: string) => {
     errores = [];
-    if (JSON.parse(MA)?.fin === null) {
+    if (
+      JSON.parse(MA)?.fin.metaAnual === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.metaAnual) ||
+      JSON.parse(MA)?.fin.lineaBase === null ||
+      JSON.parse(MA)?.fin.lineaBase === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.lineaBase) ||
+      JSON.parse(MA)?.fin.lineaBase === undefined ||
+      /^[\s]*$/.test(
+        JSON.parse(MA)?.fin.unidadResponsable
+      ) ||
+      JSON.parse(MA)?.fin.valorNumerador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.valorNumerador) ||
+      JSON.parse(MA)?.fin.unidadResponsable === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.unidadResponsable) ||
+      JSON.parse(MA)?.fin.descIndicador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.descIndicador) ||
+      JSON.parse(MA)?.fin.descNumerador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.descNumerador) ||
+      JSON.parse(MA)?.fin.descDenominador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.descDenominador)
+    ) {
       err = 1;
-      errores.push("Sección <strong>Fin</strong> incompleta.");
+      errores.push(
+        `SECCIÓN<strong>FIN </strong> INCOMPLET0.`
+      );
     }
     if (
       JSON.parse(MA)?.fin.metaAnual === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.metaAnual)
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Meta anual sin información.");
+      errores.push("<strong>META ANUAL </strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.fin.lineaBase === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.lineaBase)
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Línea base sin información.");
+      errores.push("<strong>LÍNEA BASE</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.fin.valorNumerador === undefined ||
@@ -92,7 +123,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Valor del numerador sin información."
+        "<strong>VALOR DEL NUMERADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -104,7 +135,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Valor del denominador sin información."
+        "<strong>VALOR DEL DENOMINADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -113,7 +144,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Sentido del indicador no seleccionado."
+        "<strong>SENTIDO DEL INDICADOR</strong> NO SELECCIONADO"
       );
     }
     if (
@@ -122,7 +153,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Unidad responsable de reportar el indicador sin información."
+        "<strong>UNIDAD RESPONSABLE</strong>  SIN INFORMACIÓN."
       );
     }
     if (
@@ -131,7 +162,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Descripción del indicador sin información."
+        "<strong>DESCRIPCIIÓN DEL INDICADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -140,7 +171,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Descripción del numerador sin información."
+        "<strong>DESCRIPCIÓN DEL NUMERADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -149,26 +180,48 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Descripción del denominador sin información."
+        "<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN."
       );
     }
-    if (JSON.parse(MA)?.proposito === null) {
+   
+    if (
+      JSON.parse(MA)?.proposito.metaAnual === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.metaAnual) ||
+      JSON.parse(MA)?.proposito.lineaBase === null ||
+      JSON.parse(MA)?.proposito.lineaBase === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.lineaBase) ||
+      JSON.parse(MA)?.proposito.lineaBase === undefined ||
+      /^[\s]*$/.test(
+        JSON.parse(MA)?.proposito.unidadResponsable
+      ) 
+      ||
+      JSON.parse(MA)?.proposito.valorNumerador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorNumerador) ||
+      JSON.parse(MA)?.proposito.unidadResponsable === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.unidadResponsable) ||
+      JSON.parse(MA)?.proposito.descIndicador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descIndicador) ||
+      JSON.parse(MA)?.proposito.descNumerador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descNumerador) ||
+      JSON.parse(MA)?.proposito.descDenominador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descDenominador)
+    )  {
       err = 1;
-      errores.push("Sección <strong>Propósito</strong> incompleta.");
+      errores.push("SECCIÓN<strong>PROPOSITO</strong> INCOMPLETO.");
     }
     if (
       JSON.parse(MA)?.proposito.metaAnual === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.metaAnual)
     ) {
       err = 1;
-      errores.push("<strong>Proposito</strong>: Meta Anual sin información.");
+      errores.push("<strong>META ANUAL</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.proposito.lineaBase === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.lineaBase)
     ) {
       err = 1;
-      errores.push("<strong>Proposito</strong>: Línea base sin información.");
+      errores.push("<strong>LÍNEA BASE</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.proposito.valorNumerador === undefined ||
@@ -176,7 +229,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Valor del numerador sin información."
+        "<strong>VALOR DEL NUMERADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -188,7 +241,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Valor del denominador sin información."
+        "<strong>VALOR DEL DENOMINADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -197,7 +250,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Sentido del indicador no seleccionado."
+        "<strong>SENTIDO DEL INDICADOR</strong> NO SELECCIONADO"
       );
     }
     if (
@@ -206,7 +259,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Unidad responsable de reportar el indicador sin seleccionar."
+        "<strong>UNIDAD RESPONSABLE</strong> de SIN SELECCIONAR."
       );
     }
     if (
@@ -215,7 +268,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Descripción del indicador sin información."
+        "<strong>DESCRIPCIIÓN DEL INDICADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -224,7 +277,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Descripción del numerador sin información."
+        "<strong>DESCRIPCIÓN DEL NUMERADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -233,7 +286,7 @@ export default function ModalEnviarMA({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Descripción del denominador sin información."
+        "<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN."
       );
     }
 
@@ -241,7 +294,34 @@ export default function ModalEnviarMA({
   };
 
   const checkComponentes = (v: string) => {
-    JSON.parse(MA)?.componentes.map((componente: any, index: number) => {
+    JSON.parse(MA)?.componentes.map((componente:IComponenteMA , index: number) => {
+
+      if (
+        componente.metaAnual === undefined ||
+        /^[\s]*$/.test(componente.metaAnual) ||
+        componente.lineaBase === null ||
+        componente.lineaBase === undefined ||
+        /^[\s]*$/.test(componente.lineaBase) ||
+        componente.lineaBase === undefined ||
+        /^[\s]*$/.test(
+          componente.actividades[index].unidadResponsable
+        ) ||
+        componente.valorNumerador === undefined ||
+        /^[\s]*$/.test(componente.actividades[index].valorNumerador) ||
+        componente.unidadResponsable === undefined ||
+        /^[\s]*$/.test(componente.unidadResponsable) ||
+        componente.descIndicador === undefined ||
+        /^[\s]*$/.test(componente.descIndicador) ||
+        componente.descNumerador === undefined ||
+        /^[\s]*$/.test(componente.descNumerador) ||
+        componente.descDenominador === undefined ||
+        /^[\s]*$/.test(componente.descDenominador)
+      ) {
+        err = 1;
+        errores.push(
+          `<hr><strong> ${componente.componentes} </strong> INCOMPLETO.`
+        );
+      }
       if (
         componente.metaAnual === undefined ||
         /^[\s]*$/.test(componente.metaAnual) ||
@@ -249,9 +329,7 @@ export default function ModalEnviarMA({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Meta anual sin información.`
+          `<strong>META ANUAL</strong>  SIN INFORMACIÓN.`
         );
       }
       if (
@@ -260,9 +338,7 @@ export default function ModalEnviarMA({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: El valor de la meta anual debe coincidir con el valor del trimestre 4 o semestre 2 correspondiente.`
+          `<strong>EL VALOR</strong>  DE LA META ANUAL DEBE COINCIDIR CON EL VALOR DEL TRIMESTRE 4 O SEMESTRE 2 CORRESPONDIENTE.`
         );
       }
       if (
@@ -271,9 +347,7 @@ export default function ModalEnviarMA({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Línea base sin información.`
+          `<strong>LÍNEA BASE</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -292,9 +366,7 @@ export default function ModalEnviarMA({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Metas por frecuencia sin información.`
+          `<strong>METAS POR FRECUENCIA</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -303,9 +375,7 @@ export default function ModalEnviarMA({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Valor del numerador sin información.`
+          `<strong>VALOR DEL NUMERADOR</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -317,9 +387,7 @@ export default function ModalEnviarMA({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Valor del denominador sin información.`
+          `<strong>VALOR DEL DENOMINADOR</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -328,9 +396,7 @@ export default function ModalEnviarMA({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Sentido del indicador sin seleccionar.`
+          `<strong>SENTIDO DEL INDICADOR</strong> SIN SELECCIONAR.`
         );
       }
       if (
@@ -339,9 +405,7 @@ export default function ModalEnviarMA({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
+          `<strong>UNIDAD RESPONSABLE</strong> SIN SELECCIONAR.`
         );
       }
       if (
@@ -350,9 +414,7 @@ export default function ModalEnviarMA({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Descripción del indicador sin información.`
+          `<strong>DESCRIPCIIÓN DEL INDICADOR</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -361,9 +423,7 @@ export default function ModalEnviarMA({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Descripción del numerador sin información.`
+          `<strong>DESCRIPCIÓN DEL NUMERADOR </strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -372,9 +432,7 @@ export default function ModalEnviarMA({
       ) {
         err = 1;
         errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Descripción del denominador sin información.`
+          `<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN.`
         );
       }
       return true;
@@ -384,15 +442,42 @@ export default function ModalEnviarMA({
 
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
-    JSON.parse(MA)?.componentes.map((componente: IComponenteMA, indexC: number) => {
-        componente.actividades.map((actividad: IActividadesMA, indexA: number) => {
-            
+    JSON.parse(MA)?.componentes.map(
+      (componente: IComponenteMA, indexC: number) => {
+        componente.actividades.map(
+          (actividad: IActividadesMA, indexA: number) => {
+            if (
+              actividad.metaAnual === undefined ||
+              /^[\s]*$/.test(actividad.metaAnual) ||
+              actividad.lineaBase === null ||
+              actividad.lineaBase === undefined ||
+              /^[\s]*$/.test(actividad.lineaBase) ||
+              actividad.lineaBase === undefined ||
+              /^[\s]*$/.test(
+                actividad.unidadResponsable
+              ) ||
+              actividad.valorNumerador === undefined ||
+              /^[\s]*$/.test(actividad.valorNumerador) ||
+              actividad.unidadResponsable === undefined ||
+              /^[\s]*$/.test(actividad.unidadResponsable) ||
+              actividad.descIndicador === undefined ||
+              /^[\s]*$/.test(actividad.descIndicador) ||
+              actividad.descNumerador === undefined ||
+              /^[\s]*$/.test(actividad.descNumerador) ||
+              actividad.descDenominador === undefined ||
+              /^[\s]*$/.test(actividad.descDenominador)
+            ) {
+              err = 1;
+              errores.push(
+                `<hr><strong> ${actividad.actividad} </strong> INCOMPLETO.`
+              );
+            }
             if (
               actividad.metaAnual === undefined ||
               /^[\s]*$/.test(actividad.metaAnual)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Meta anual sin información.`
+                `<strong>META ANUAL</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -400,7 +485,7 @@ export default function ModalEnviarMA({
               actividad.metaAnual !== actividad.metasPorFrecuencia[0].trimestre4
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: El valor de la meta anual debe coincidir con el valor del trimestre 4.`
+                `<strong>EL VALOR DE LA META ANUAL </strong> DEBE COINCIDIR CON EL VALOR DEL TRIMESTRE 4`
               );
               err = 1;
             }
@@ -409,23 +494,22 @@ export default function ModalEnviarMA({
               /^[\s]*$/.test(actividad.lineaBase)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Línea base sin información.`
+                `<strong>LÍNEA BASE</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
             if (
-              
-              (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
-                /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
-                actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
-                /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2) ||
-                actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
-                /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3) ||
-                actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
-                /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4))
+              actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
+              /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
+              actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
+              /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2) ||
+              actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
+              /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3) ||
+              actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
+              /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Metas por frecuencia sin información.`
+                `<strong>METAS POR FRECUENCIA</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -434,18 +518,19 @@ export default function ModalEnviarMA({
               /^[\s]*$/.test(actividad.valorNumerador)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Valor del numerador sin información.`
+                `<strong>VALOR DEL NUMERADOR</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
             if (
-              JSON.parse(MIR).componentes[indexC].actividades[indexA].indicador.toUpperCase()
+              JSON.parse(MIR)
+                .componentes[indexC].actividades[indexA].indicador.toUpperCase()
                 .includes("ÍNDICE" || "INDICE") &&
               (actividad.valorDenominador === undefined ||
                 /^[\s]*$/.test(actividad.valorDenominador))
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`
+                `<strong>VALOR DEL DENOMINADOR</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -454,7 +539,7 @@ export default function ModalEnviarMA({
               actividad.sentidoDelIndicador === ""
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Sentido del indicador sin seleccionar.`
+                `<strong>SENTIDO DEL INDICADOR</strong> SIN SELECCIONAR.`
               );
               err = 1;
             }
@@ -463,7 +548,7 @@ export default function ModalEnviarMA({
               /^[\s]*$/.test(actividad.unidadResponsable)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
+                `<strong>UNIDAD RESPONSABLE</strong> SIN SELECCIONAR.`
               );
               err = 1;
             }
@@ -472,7 +557,7 @@ export default function ModalEnviarMA({
               /^[\s]*$/.test(actividad.descIndicador)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del indicador sin información.`
+                `<strong>DESCRIPCIIÓN DEL INDICADOR</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -480,33 +565,36 @@ export default function ModalEnviarMA({
               actividad.descNumerador === undefined ||
               /^[\s]*$/.test(actividad.descNumerador)
             ) {
-              errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del numerador sin información.`
-              );
+             
               err = 1;
+              errores.push(
+                `<strong>DESCRIPCIÓN DEL NUMERADOR </strong> SIN INFORMACIÓN.`
+              );
             }
             if (
               actividad.descDenominador === undefined ||
               /^[\s]*$/.test(actividad.descDenominador)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del denominador sin información.`
+                `<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
-          });
-      });
+          }
+        );
+      }
+    );
 
     if (err === 0) {
       creaMA(v);
     } else {
-      alertaErroresDocumento(errores)
+      alertaErroresDocumento(errores);
     }
   };
 
   const creaMA = (estado: string) => {
-   console.log("IdMA: ",IdMA);
-   
+    console.log("IdMA: ", IdMA);
+
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-ma-generic",
@@ -527,44 +615,46 @@ export default function ModalEnviarMA({
       )
       .then((r) => {
         let rol: string[] = [];
-        if(localStorage.getItem("Rol") === "Verificador"){
-          rol = ["Administrador"]
+        console.log("en ma data?.data?.IdRF: ", r.data.data);
+        if (localStorage.getItem("Rol") === "Verificador") {
+          rol = ["Administrador"];
         }
 
-        if(localStorage.getItem("Rol") === "Capturador"){
-          rol = ["Verificador"]
+        if (localStorage.getItem("Rol") === "Capturador") {
+          rol = ["Verificador"];
         }
-
-        if(localStorage.getItem("Rol") === "Administrador"){
-          rol = ["Capturador","Verificador"]
-        }
-
-        enviarNotificacionRol("MA", "MA enviada", IdMA, rol)
-        console.log("en ma data?.data?.IdRF: ", r.data.data.IdRF);
-        
-         const idRF = r?.data?.data?.IdRF;
-         const idFT = r?.data?.data?.Id;
-
-      if (idFT && idFT.trim() !== "") {
-        // Verifica si IdRF no es nulo ni vacío antes de enviar la notificación
-        enviarNotificacionRol("RF", "RF enviada", idRF, rol);
-      }
-
-      if (idRF && idRF.trim() !== "") {
-        // Verifica si IdRF no es nulo ni vacío antes de enviar la notificación
-        enviarNotificacionRol("FT", "FT enviada", idFT, rol);
-      }
 
         
+        if (localStorage.getItem("Rol") === "Administrador") {
+          rol = ["Capturador", "Verificador"];
+        }
+
+        enviarNotificacionRol("MA", "MA enviada", IdMA, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
+        
+
+        const idRF = r?.data?.data?.IdRF;
+        const idFT = r?.data?.data?.IdFt;
+
+        if (idFT != null && typeof idFT === 'string' && idFT.trim() !== "") {
+          // Verifica si IdFt no es null, undefined ni una cadena vacía antes de enviar la notificación
+          console.log("Entre aquí y no debería");
+          enviarNotificacionRol("FT", "FT enviada", idFT, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
+      }
+
+      if (idRF != null && typeof idRF === 'string' && idRF.trim() !== "") {
+        // Verifica si IdRF no es null, undefined ni una cadena vacía antes de enviar la notificación
+        // Verifica si IdRF no es nulo ni vacío antes de enviar la notificación
+        enviarNotificacionRol("RF", "RF enviada", idRF, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
+    }
+
+        
+
         if (estado === "Autorizada") {
           console.log("Entre");
-          
+
           //CrearFichaTecnica();
         }
-        alertaExitoConfirm((r.data.data.message).toUpperCase())
-      
-        
-        
+        alertaExitoConfirm((r.data.data.message.toUpperCase() ));
 
         if (comment !== "") {
           comentMA(IdMIR);
@@ -572,14 +662,13 @@ export default function ModalEnviarMA({
         showResume();
       })
       .catch((err) => {
-      
-        alertaErrorConfirm((err.response.data.result.error).toUpperCase())
+        console.log(err);
+        
+        alertaErrorConfirm((err.response.data.result.error.toUpperCase()) || "SIN INFORMACION");
       });
   };
 
   const CrearFichaTecnica = () => {
-    
-
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-ft-generic",
@@ -599,26 +688,28 @@ export default function ModalEnviarMA({
         }
       )
       .then((r) => {
-       
         let rol: string[] = [];
-        if(localStorage.getItem("Rol") === "Verificador"){
-          rol = ["Administrador"]
+        if (localStorage.getItem("Rol") === "Verificador") {
+          rol = ["Administrador"];
         }
 
-        if(localStorage.getItem("Rol") === "Capturador"){
-          rol = ["Verificador"]
+        if (localStorage.getItem("Rol") === "Capturador") {
+          rol = ["Verificador"];
         }
 
-        if(localStorage.getItem("Rol") === "Administrador"){
-          rol = ["Capturador","Verificador"]
+        if (localStorage.getItem("Rol") === "Administrador") {
+          rol = ["Capturador", "Verificador"];
         }
-        console.log("ModalEnviarMA: ",r.data.data);
-        
-        enviarNotificacionRol("FT", "FT enviada", r.data.data.Id, rol)
-        
-        alertaExito(()=>{},localStorage.getItem("Rol") === "Administrador"
-        ? "FT y RF enviada a capturador"
-        : "FT enviada a revisión")
+        console.log("ModalEnviarMA: ", r.data.data);
+
+        enviarNotificacionRol("FT", "FT enviada", r.data.data.Id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
+
+        alertaExito(
+          () => {},
+          localStorage.getItem("Rol") === "Administrador"
+            ? "FT y RF enviada a capturador"
+            : "FT enviada a revisión"
+        );
         showResume();
       })
       .catch((err) => {
@@ -628,17 +719,15 @@ export default function ModalEnviarMA({
   };
 
   useEffect(() => {
-    console.log("IdMA: ",IdMA);
+    console.log("IdMA: ", IdMA);
     if (open) {
-    
-
       axios
         .post(
           // eslint-disable-next-line no-useless-concat
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: localStorage.getItem("Rol"),
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad,
             IdApp: localStorage.getItem("IdApp"),
           },
           {
@@ -655,9 +744,6 @@ export default function ModalEnviarMA({
     }
   }, [MIR, open]);
 
-  
-
-  
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle
@@ -750,10 +836,10 @@ export default function ModalEnviarMA({
             </Button> */}
 
             <Button
-            className="aceptar"
+              className="aceptar"
               //sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
-                console.log("IdMA: ",IdMA);
+                console.log("IdMA: ", IdMA);
                 checkMA(
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"

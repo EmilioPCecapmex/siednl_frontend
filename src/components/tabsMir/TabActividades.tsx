@@ -518,8 +518,9 @@ export const TabActividades = ({
                   actividadSelect
                 ].resumen = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
 
                 setComponentes(prevLocal);
               }}
@@ -588,8 +589,9 @@ export const TabActividades = ({
                   actividadSelect
                 ].indicador = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 prevLocal[componenteSelect].actividades[
                   actividadSelect
                 ].formula = "";
@@ -695,8 +697,9 @@ export const TabActividades = ({
                         actividadSelect
                       ].frecuencia = c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
 
                       setComponentes(prevLocal);
                     }}
@@ -752,8 +755,9 @@ export const TabActividades = ({
                   actividadSelect
                 ].medios = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
 
                 setComponentes(prevLocal);
               }}
@@ -810,8 +814,9 @@ export const TabActividades = ({
                   actividadSelect
                 ].supuestos = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
 
                 setComponentes(prevLocal);
               }}

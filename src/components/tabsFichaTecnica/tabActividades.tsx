@@ -627,8 +627,9 @@ export const TabActividadesFT = ({
                   actividadSelect
                 ].unidadDeMedida = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setComponentesActividadValues(y);
               }}
               value={

@@ -3,6 +3,7 @@ export interface IComponenteMA {
   metaAnual: string;
   lineaBase: string;
   metasPorFrecuencia: Array<IFrecuencias>;
+  valoresPorFrecuencia: Array<valor>;
   valorNumerador: string;
   valorDenominador: string;
   sentidoDelIndicador: string;
@@ -34,6 +35,7 @@ export interface IActividadesMA {
   metaAnual: string;
   lineaBase: string;
   metasPorFrecuencia: Array<IFrecuenciasAct>;
+  valoresPorFrecuencia: Array<valor>;
   valorNumerador: string;
   valorDenominador: string;
   sentidoDelIndicador: string;
@@ -41,6 +43,17 @@ export interface IActividadesMA {
   descIndicador: string;
   descNumerador: string;
   descDenominador: string;
+}
+
+export interface valor {
+  valorA: string;
+  valorB: string;
+  valorC: string;
+  valorD: string;
+  valorE: string;
+  valorF: string;
+  valorG: string;
+  valorH: string;
 }
 
 export interface ICValorMA {

@@ -355,8 +355,9 @@ export const TabComponente = ({
                 let prevLocal = [...componentes];
                 prevLocal[componentSelect - 1].resumen = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setComponentes(prevLocal);
               }}
               value={componentes[componentSelect - 1]?.resumen}
@@ -409,8 +410,9 @@ export const TabComponente = ({
                 let prevLocal = [...componentes];
                 prevLocal[componentSelect - 1].indicador = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 prevLocal[componentSelect - 1].formula = "";
                 setComponentes(prevLocal);
               }}
@@ -501,8 +503,9 @@ export const TabComponente = ({
                       let prevLocal = [...componentes];
                       prevLocal[componentSelect - 1].frecuencia = c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                       setComponentes(prevLocal);
                     }}
                   />
@@ -524,8 +527,9 @@ export const TabComponente = ({
                       let prevLocal = [...componentes];
                       prevLocal[componentSelect - 1].frecuencia = c.target.value
                         .replaceAll('"', "")
-                        .replaceAll("'", "")
-                        .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                       setComponentes(prevLocal);
                     }}
                   />
@@ -574,8 +578,9 @@ export const TabComponente = ({
                 let prevLocal = [...componentes];
                 prevLocal[componentSelect - 1].medios = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setComponentes(prevLocal);
               }}
               value={componentes[componentSelect - 1]?.medios}
@@ -622,8 +627,9 @@ export const TabComponente = ({
                 let prevLocal = [...componentes];
                 prevLocal[componentSelect - 1].supuestos = c.target.value
                   .replaceAll('"', "")
-                  .replaceAll("'", "")
-                  .replaceAll("\n", "");
+                .replaceAll("'", "")
+                .replaceAll("\n", "")
+                .trimEnd();
                 setComponentes(prevLocal);
               }}
               value={componentes[componentSelect - 1]?.supuestos}

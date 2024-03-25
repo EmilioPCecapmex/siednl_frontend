@@ -33,6 +33,7 @@ import { queries } from "../../queries";
 import { buscador } from "../../services/servicesGlobals";
 import SearchIcon from "@mui/icons-material/Search";
 import { estados, heads } from "../../services/validations";
+import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
@@ -88,6 +89,7 @@ export const MetaAnual = () => {
 
   const [estadoma, setEstadoMA] = useState("Todos");
   const [estado, setEstado] = useState("");
+  const [IdEntidad, setIdEntidad] = useState("");
   const [institucionesb, setInstitucionesb] = useState("Todos");
 
   const getInstituciones = (setstate: Function) => {
@@ -164,14 +166,16 @@ export const MetaAnual = () => {
 
   useEffect(() => {
     const url = window.location.href;
-  
+
     // Verificar si el parámetro 'Id' está presente en la URL
-    if (url.includes('?Id=')) {
+    if (url.includes("?Id=")) {
       const id = url.split("?")[1].split("=")[1];
-  
+
       // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
       if (id) {
-        setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
+        setMaFiltered(
+          ma.filter((x) => x.IdMa.toLowerCase().includes(id || ""))
+        );
       }
     }
   }, [ma]);
@@ -1094,6 +1098,7 @@ export const MetaAnual = () => {
                                           {
                                             IdMa: row.IdMa,
                                             IdMir: row.IdMir,
+                                            IdEntidad: row.IdEntidad,
                                             AnioFiscal: row.AnioFiscal,
                                             Entidad: row.Entidad,
                                             Programa: row.Programa,
@@ -1111,6 +1116,7 @@ export const MetaAnual = () => {
                                           {
                                             IdMa: row.IdMa,
                                             IdMir: row.IdMir,
+                                            IdEntidad: row.IdEntidad,
                                             AnioFiscal: row.AnioFiscal,
                                             Entidad: row.Entidad,
                                             Programa: row.Programa,
@@ -1126,6 +1132,7 @@ export const MetaAnual = () => {
                                       }
 
                                       setEstado(row.Estado);
+                                      setIdEntidad(row.IdEntidad)
                                       setShowResume(false);
                                       setActionNumber(1);
                                     }}
@@ -1214,7 +1221,11 @@ export const MetaAnual = () => {
                                 estado={row.Estado}
                                 id={row.IdMir}
                                 actualizado={actualizaContador}
+                                MIR={maEdit[0]?.MIR || ""}
+                                IdEntidad={IdEntidad}
                               />
+
+                              <MostrarLista st="" Id={row.IdMa} />
                             </Grid>
                           </TableCell>
                         </TableRow>
@@ -1254,6 +1265,7 @@ export const MetaAnual = () => {
               IdMir={maEdit[0]?.IdMir || ""}
               IdMA={maEdit[0]?.IdMa || ""}
               estado={estado}
+              IdEntidad={IdEntidad}
             />
           </Grid>
         )}
@@ -1265,6 +1277,7 @@ export const MetaAnual = () => {
 export interface IIMa {
   IdMa: string;
   IdMir: string;
+  IdEntidad: string;
   AnioFiscal: string;
   Entidad: string;
   Programa: string;
