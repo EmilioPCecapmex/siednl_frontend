@@ -28,10 +28,14 @@ export const ComentDialogFT = ({
   estado,
   id,
   actualizado,
+  MIR,
+  IdEntidad,
 }: {
   estado: string;
   id: string;
   actualizado: Function;
+  MIR: string;
+  IdEntidad: string;
 }) => {
 
   const [coments, setComents] = React.useState([
@@ -76,7 +80,7 @@ export const ComentDialogFT = ({
           // userXInst.map((user) => {
           //   soliModyNoty(user.IdUsuario, coment, "Nuevo comentario Ficha Tecnica", id );
           // });
-          enviarNotificacionRol("FT", "Nuevo comentario Ficha Tecnica", id, ["Verificador"])
+          enviarNotificacionRol("FT", "Nuevo comentario Ficha Tecnica", id, ["Verificador"], (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
         }
 
         setNewComent(false);

@@ -670,7 +670,9 @@ export default function ModalEnviarFT({
           Id: IdFT,
           Estado: estado,
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: IdEntidad,
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -696,7 +698,7 @@ export default function ModalEnviarFT({
 
         
         
-        enviarNotificacionRol("FT", "FT enviada", IdFT, rol);
+        enviarNotificacionRol("FT", "FT enviada", IdFT, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
 
         alertaExitoConfirm(r.data.data.message.toUpperCase());
 

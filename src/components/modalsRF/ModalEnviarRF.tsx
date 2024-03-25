@@ -181,7 +181,9 @@ export default function ModalEnviarRF({
           Id: IdRF,
           Estado: estado,
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: IdEntidad
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -206,7 +208,7 @@ export default function ModalEnviarRF({
         console.log("r.data.data.Id: ",r.data.data.Id);
         console.log("IdRF: ",IdRF);
 
-        enviarNotificacionRol("RF", "RF enviada", r.data.data.Id, rol)
+        enviarNotificacionRol("RF", "RF enviada", r.data.data.Id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
         if (estado === "Autorizada") {
           // CrearFichaTecnica();  
         }

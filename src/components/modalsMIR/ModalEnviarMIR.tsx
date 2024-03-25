@@ -623,7 +623,7 @@ export default function ModalEnviarMIR({
           "MA",
           "MA enviada",
           r?.data?.data?.Id || IdMa,
-          rol
+          rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad)
         );
         showResume();
       })
@@ -681,7 +681,7 @@ export default function ModalEnviarMIR({
         }
         console.log("r.dada.data: ", r.data.data);
 
-        enviarNotificacionRol("MIR", "MIR enviada", r.data.data.Id, rol);
+        enviarNotificacionRol("MIR", "MIR enviada", r.data.data.Id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
         console.log("estado: ", estado);
 
         if (estado === "Autorizada") {

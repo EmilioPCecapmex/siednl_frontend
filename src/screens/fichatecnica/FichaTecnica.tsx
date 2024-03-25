@@ -1301,6 +1301,9 @@ export const FichaTecnica = () => {
                                 estado={row.Estado}
                                 id={row.IdMir}
                                 actualizado={actualizaContador}
+                                MIR={FTEdit[0]?.MIR || ""}
+                                IdEntidad={IdEntidad}
+
                               />
 
                               <MostrarLista st="" Id={row.IdFt} />

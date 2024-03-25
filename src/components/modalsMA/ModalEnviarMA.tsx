@@ -629,7 +629,7 @@ export default function ModalEnviarMA({
           rol = ["Capturador", "Verificador"];
         }
 
-        enviarNotificacionRol("MA", "MA enviada", IdMA, rol);
+        enviarNotificacionRol("MA", "MA enviada", IdMA, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
         
 
         const idRF = r?.data?.data?.IdRF;
@@ -638,13 +638,13 @@ export default function ModalEnviarMA({
         if (idFT != null && typeof idFT === 'string' && idFT.trim() !== "") {
           // Verifica si IdFt no es null, undefined ni una cadena vacía antes de enviar la notificación
           console.log("Entre aquí y no debería");
-          enviarNotificacionRol("FT", "FT enviada", idFT, rol);
+          enviarNotificacionRol("FT", "FT enviada", idFT, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
       }
 
       if (idRF != null && typeof idRF === 'string' && idRF.trim() !== "") {
         // Verifica si IdRF no es null, undefined ni una cadena vacía antes de enviar la notificación
         // Verifica si IdRF no es nulo ni vacío antes de enviar la notificación
-        enviarNotificacionRol("RF", "RF enviada", idRF, rol);
+        enviarNotificacionRol("RF", "RF enviada", idRF, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
     }
 
         
@@ -702,7 +702,7 @@ export default function ModalEnviarMA({
         }
         console.log("ModalEnviarMA: ", r.data.data);
 
-        enviarNotificacionRol("FT", "FT enviada", r.data.data.Id, rol);
+        enviarNotificacionRol("FT", "FT enviada", r.data.data.Id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
 
         alertaExito(
           () => {},

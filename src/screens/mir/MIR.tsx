@@ -1124,6 +1124,8 @@ export const MIR = () => {
                                 estado={row.Estado}
                                 id={row.Id}
                                 actualizado={actualizaContador}
+                                MIR={mirEdit[0]?.MIR || ""}
+                                IdEntidad={IdEntidad}
                               />
 
                               <DeleteDialogMIR

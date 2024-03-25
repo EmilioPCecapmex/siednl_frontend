@@ -221,6 +221,9 @@ export default function ModalSolicitaModifRF({
           Id: IdRF,
           Estado: estado,
           Rol: localStorage.getItem("Rol"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {

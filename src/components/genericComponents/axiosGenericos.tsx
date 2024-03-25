@@ -21,7 +21,7 @@ import axios from "axios";
     );
   };
 
-  export const enviarNotificacionRol = (titulo: string, coment: string, Id: string, Rol: string[]) => {
+  export const enviarNotificacionRol = (titulo: string, coment: string, Id: string, Rol: string[], IdEntidad: string) => {
     console.log("Id: ",Id);
     console.log("titulo: ",titulo);
     axios.post(
@@ -31,7 +31,7 @@ import axios from "axios";
         Mensaje: coment,
         IdDocumento: Id,
         Rol: Rol,
-        IdEntidad: localStorage.getItem("IdEntidad"),
+        IdEntidad: IdEntidad || localStorage.getItem("IdEntidad"),
         IdApp: localStorage.getItem("IdApp"),
         CreadoPor: localStorage.getItem("IdUsuario"),
         

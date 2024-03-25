@@ -125,6 +125,9 @@ export const TabResumenRF = ({
           Estado: estado,
           Id: IdRF,
           Rol: localStorage.getItem("Rol"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {

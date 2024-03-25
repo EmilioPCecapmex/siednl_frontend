@@ -707,7 +707,9 @@ export default function ModalSolicitaModif({
           IdMa: IdMa,
           Id: IdFT,
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: IdEntidad
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {

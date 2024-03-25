@@ -1221,6 +1221,8 @@ export const MetaAnual = () => {
                                 estado={row.Estado}
                                 id={row.IdMir}
                                 actualizado={actualizaContador}
+                                MIR={maEdit[0]?.MIR || ""}
+                                IdEntidad={IdEntidad}
                               />
 
                               <MostrarLista st="" Id={row.IdMa} />

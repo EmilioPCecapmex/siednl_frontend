@@ -83,7 +83,8 @@ export function TabResumenFT({
           Id: IdFT,
           Estado: estado,
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+          localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
