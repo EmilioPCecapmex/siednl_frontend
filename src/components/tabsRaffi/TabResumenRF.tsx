@@ -1,31 +1,22 @@
 import {
   Grid,
-  TextField,
-  ListItemButton,
+
   Typography,
-  Divider,
-  List,
-  Box,
-  Paper,
-  styled,
-  Tooltip,
+ 
   Button,
   Checkbox,
 } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import Swal from "sweetalert2";
-//import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
-import ModalsSolicitModifFT from "../modalsFT/ModalsSolicitModifFT";
+
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { queries } from "../../queries";
 import {
   IActividadesRF,
-  IAvanceFinancieroRF,
+
   IComponenteRF,
-  IFinRF,
-  IPropositoRF,
   IRF,
   IRFEdit,
 } from "./interfacesRaffi";
@@ -79,18 +70,7 @@ export const TabResumenRF = ({
   };
 
   const isCapturador = localStorage.getItem("Rol") === "Capturador";
-  const buttonStyles = {
-    ...queries.buttonContinuarSolicitudInscripcion,
-    ...(isCapturador && {
-      "&.Mui-disabled": {
-        backgroundColor: "rgba(175, 140, 85, 0.6)",
-        color: "white",
-        "&:hover": {
-          backgroundColor: "rgba(175, 140, 85, 0.6)",
-        },
-      },
-    }),
-  };
+ 
 
   const [RF, setRF] = useState<IRF>(Raffi);
 
