@@ -1,7 +1,7 @@
-import React from 'react';
+
 import './InsertarPDF.css';
 import axios from "axios";
-import { useEffect, useState, useRef, SetStateAction } from "react";
+import {  useState,   } from "react";
 
 
 
