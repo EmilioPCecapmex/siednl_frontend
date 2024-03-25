@@ -46,7 +46,7 @@ export function TabFinPropositoRF({
   const handleClickOpen = () => {
     setOpenFormulaDialog(true);
   };
-  // Función para buscar la palabra
+
   const palabra = (texto: string) => {
     const palabrasABuscar: string[] = [
       "PORCENTAJE",
@@ -132,7 +132,7 @@ export function TabFinPropositoRF({
           overflow: "auto",
         }}
       >
-        {/* {JSON.stringify(raffiboolean)} */}
+      
         <Grid
           item
           container
@@ -142,9 +142,9 @@ export function TabFinPropositoRF({
           sm={12}
           xs={12}
           sx={{
-            //width: "100%",
+         
             display: "flex",
-            // height: "7vh",
+          
             justifyContent: "flex-end",
             alignItems: "center",
           }}
@@ -208,9 +208,9 @@ export function TabFinPropositoRF({
             container
             direction={"column"}
             sx={{
-              //backgroundColor: "#f0f0f0",
+              
               display: "flex",
-              //flexDirection: "column",
+              
               alignItems: "center",
               justifyContent: "center",
               boxShadow: 2,
@@ -327,9 +327,9 @@ export function TabFinPropositoRF({
             container
             direction={"column"}
             sx={{
-              //backgroundColor: "#f0f0f0",
+             
               display: "flex",
-              //flexDirection: "column",
+            
               alignItems: "center",
               justifyContent: "center",
               boxShadow: 2,
@@ -379,7 +379,7 @@ export function TabFinPropositoRF({
               <TextField
                 fullWidth
                 size="small"
-                //label="Operacion"
+                
 
                 value={palabraABuscar2}
                 InputLabelProps={{
@@ -414,7 +414,7 @@ export function TabFinPropositoRF({
                   },
                 }}
                 InputProps={{
-                  //readOnly: true,
+                  
                   style: {
                     fontFamily: "MontserratMedium",
                   },

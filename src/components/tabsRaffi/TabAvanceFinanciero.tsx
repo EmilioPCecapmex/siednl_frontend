@@ -612,11 +612,7 @@ export function TabAvanceFinanciero({
           <Grid
             container
             item
-            // xl={11}
-            // lg={11}
-            // md={5}
-            //sm={11.9}
-            //xs={11}
+           
             direction={"row"}
             sx={{
               justifyContent: "space-around",

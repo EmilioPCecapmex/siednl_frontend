@@ -130,13 +130,12 @@ export const TabResumenRF = ({
   return (
     <Grid
       sx={{
-        //display: "flex",
+        
         width: "93vw",
         height: "82vh",
         boxShadow: 10,
         borderRadius: 5,
-        // alignItems: "center",
-        // justifyContent: "center",
+        
         flexDirection: "column",
         backgroundColor: "#fff",
         ...(!isSmallScreen && {
@@ -649,6 +648,7 @@ export const TabResumenRF = ({
                 //   aux = { ...aux, programaSER: v.target.checked };
                 //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
                 // }}
+                
               />
             </Grid>
           )}
