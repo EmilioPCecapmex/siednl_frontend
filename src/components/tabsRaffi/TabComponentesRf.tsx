@@ -406,7 +406,7 @@ export const TabComponenteRf = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              // value={componentesValues[componentSelect ]?.metaAnual || ""}
+             
               value={jsonMA?.componentes[componentSelect]?.metaAnual || ""}
             />
           </Grid>
@@ -449,7 +449,7 @@ export const TabComponenteRf = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              // value={componentesValues[componentSelect ]?.lineaBase || ""}
+              
               value={jsonMA?.componentes[componentSelect]?.lineaBase || ""}
             />
           </Grid>
@@ -458,16 +458,7 @@ export const TabComponenteRf = ({
             <Grid
               container
               direction={"row"}
-              // xl={12}
-              // lg={12}
-              // md={12}
-              // sm={12}
-              // xs={12}
-              // sx={{
-              //   alignContent: "center",
-              //   display: "flex",
-              //   justifyContent: "center",
-              // }}
+            
             >
               <Grid
                 container
@@ -531,7 +522,7 @@ export const TabComponenteRf = ({
                   xs={12}
                   direction={"column"}
                   sx={{
-                    //alignContent: "center",
+            
                     alignItems: "center",
                     display: "flex",
                     justifyContent: "space-around",
@@ -543,7 +534,7 @@ export const TabComponenteRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={true}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -568,21 +559,12 @@ export const TabComponenteRf = ({
               </Grid>
             </Grid>
           ) : (
-            // si es vacio se muestra el primero
+            
 
             <Grid
               container
               direction={"row"}
-              // xl={12}
-              // lg={12}
-              // md={12}
-              // sm={12}
-              // xs={12}
-              // sx={{
-              //   alignContent: "center",
-              //   display: "flex",
-              //   justifyContent: "center",
-              // }}
+            
             >
               <Grid
                 container
@@ -708,7 +690,7 @@ export const TabComponenteRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={true}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -740,7 +722,7 @@ export const TabComponenteRf = ({
                   xs={12}
                   direction={"column"}
                   sx={{
-                    //alignContent: "center",
+                    
                     alignItems: "center",
                     display: "flex",
                     justifyContent: "space-around",
@@ -754,7 +736,7 @@ export const TabComponenteRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={true}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -784,16 +766,7 @@ export const TabComponenteRf = ({
             <Grid
               container
               direction={"row"}
-              // xl={12}
-              // lg={12}
-              // md={12}
-              // sm={12}
-              // xs={12}
-              // sx={{
-              //   alignContent: "center",
-              //   display: "flex",
-              //   justifyContent: "center",
-              // }}
+            
             >
               <Grid
                 container
@@ -825,7 +798,7 @@ export const TabComponenteRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.semestre1}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -840,9 +813,7 @@ export const TabComponenteRf = ({
                           fontFamily: "MontserratRegular",
                         },
                       }}
-                      // label={
-                      //   "SEMESTRE 1"
-                      // }
+                     
                       onClick={() => handleClickOpen("semestre1")}
                       value={
                        
@@ -874,7 +845,7 @@ export const TabComponenteRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={edit && ! raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.semestre2}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -903,16 +874,7 @@ export const TabComponenteRf = ({
             <Grid
               container
               direction={"row"}
-              // xl={12}
-              // lg={12}
-              // md={12}
-              // sm={12}
-              // xs={12}
-              // sx={{
-              //   alignContent: "center",
-              //   display: "flex",
-              //   justifyContent: "center",
-              // }}
+              
             >
               <Grid
                 container
@@ -946,7 +908,7 @@ export const TabComponenteRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre1}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -995,7 +957,7 @@ export const TabComponenteRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre2}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -1012,8 +974,7 @@ export const TabComponenteRf = ({
                       }}
                       onClick={() => handleClickOpen("trimestre2")}
                       value={
-                        // jsonMA?.componentes[componentSelect]
-                        //   ?.metasPorFrecuencia[0]?.semestre1
+                     
                         componentesValues[componentSelect].metasPorFrecuencia[0]
                           ?.trimestre2 || ""
                       }
@@ -1044,7 +1005,7 @@ export const TabComponenteRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre3}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -1061,8 +1022,7 @@ export const TabComponenteRf = ({
                       }}
                       onClick={() => handleClickOpen("trimestre3")}
                       value={
-                        // jsonMA?.componentes[componentSelect]
-                        //   ?.metasPorFrecuencia[0]?.semestre1
+                        
                         componentesValues[componentSelect].metasPorFrecuencia[0]
                           ?.trimestre3 || ""
                       }
@@ -1093,7 +1053,7 @@ export const TabComponenteRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre4}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -1110,8 +1070,7 @@ export const TabComponenteRf = ({
                       }}
                       onClick={() => handleClickOpen("trimestre4")}
                       value={
-                        // jsonMA?.componentes[componentSelect]
-                        //   ?.metasPorFrecuencia[0]?.semestre1
+                      
                         componentesValues[componentSelect].metasPorFrecuencia[0]
                           ?.trimestre4 || ""
                       }

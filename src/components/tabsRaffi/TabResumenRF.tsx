@@ -198,7 +198,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -246,7 +246,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -313,7 +313,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -376,7 +376,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -439,7 +439,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -502,7 +502,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -565,7 +565,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -625,7 +625,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -635,19 +635,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+               
                 
               />
             </Grid>
@@ -677,7 +665,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -687,19 +675,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+               
               />
             </Grid>
           )}
@@ -728,7 +704,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -738,19 +714,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+                
               />
             </Grid>
           )}
@@ -779,7 +743,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -789,19 +753,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+             
               />
             </Grid>
           )}
@@ -830,7 +782,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -840,19 +792,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+                
               />
             </Grid>
           )}
@@ -908,7 +848,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -930,19 +870,7 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+               
               />
             </Grid>
           )}
@@ -971,7 +899,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -993,19 +921,7 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+                
               />
             </Grid>
           )}
@@ -1034,7 +950,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1056,19 +972,8 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+       
+              
               />
             </Grid>
           )}
@@ -1097,7 +1002,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1119,19 +1024,7 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+            
               />
             </Grid>
           )}
@@ -1160,7 +1053,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1179,19 +1072,7 @@ export const TabResumenRF = ({
                     v.target.checked;
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+            
               />
             </Grid>
           )}
@@ -1220,7 +1101,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1231,19 +1112,7 @@ export const TabResumenRF = ({
               <Checkbox
                 disabled={true}
 
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+              
               />
             </Grid>
           )}
@@ -1275,7 +1144,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1285,19 +1154,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+             
               />
             </Grid>
           )}
@@ -1329,7 +1186,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1339,19 +1196,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+               
               />
             </Grid>
           )}
@@ -1383,7 +1228,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1393,19 +1238,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+               
               />
             </Grid>
           )}
@@ -1437,7 +1270,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1447,19 +1280,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+                
               />
             </Grid>
           )}
@@ -1515,7 +1336,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1537,19 +1358,7 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+            
               />
             </Grid>
           )}
@@ -1578,7 +1387,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1600,19 +1409,7 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+              
               />
             </Grid>
           )}
@@ -1641,7 +1438,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1663,19 +1460,7 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+            
               />
             </Grid>
           )}
@@ -1704,7 +1489,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1726,19 +1511,7 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+              
               />
             </Grid>
           )}
@@ -1767,7 +1540,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1785,19 +1558,7 @@ export const TabResumenRF = ({
                   aux.monto.ejercidoModificado.cuentaPublica = v.target.checked;
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+            
               />
             </Grid>
           )}
@@ -1826,7 +1587,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1836,19 +1597,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+             
               />
             </Grid>
           )}
@@ -1877,7 +1626,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1887,19 +1636,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+               
               />
             </Grid>
           )}
@@ -1928,7 +1665,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1938,19 +1675,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+             
               />
             </Grid>
           )}
@@ -1979,7 +1704,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1989,19 +1714,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+            
               />
             </Grid>
           )}
@@ -2030,7 +1743,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -2040,19 +1753,7 @@ export const TabResumenRF = ({
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
                 disabled={true}
-                // value={!editEncabezado.programaSER}
-                // onChange={(v) => {
-                //   setEditEncabezado({
-                //     ...editEncabezado,
-                //     programaSER: !v.target.checked,
-                //   });
-                // }}
-                // value={!ftEditPadre.encabezado?.programaSER}
-                // onChange={(v) => {
-                //   let aux = ftEditPadre.encabezado;
-                //   aux = { ...aux, programaSER: v.target.checked };
-                //   setFTEditPadre({ ...ftEditPadre, encabezado: aux });
-                // }}
+               
               />
             </Grid>
           )}
@@ -2111,7 +1812,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -2154,7 +1855,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -2224,7 +1925,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -2267,7 +1968,7 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            //mt: 1,
+            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -2371,7 +2072,7 @@ export const TabResumenRF = ({
                     display: "flex",
                     flexDirection: "row",
 
-                    //mt: 1,
+                    
                     alignItems: "center",
                     borderBottom: 1,
                     borderColor: "#cfcfcf",
@@ -2456,7 +2157,7 @@ export const TabResumenRF = ({
                     display: "flex",
                     flexDirection: "row",
 
-                    //mt: 1,
+                    
                     alignItems: "center",
                     borderBottom: 1,
                     borderColor: "#cfcfcf",
@@ -2673,7 +2374,7 @@ export const TabResumenRF = ({
                       display: "flex",
                       flexDirection: "row",
 
-                      //mt: 1,
+                      
                       alignItems: "center",
                       borderBottom: 1,
                       borderColor: "#cfcfcf",
@@ -2836,11 +2537,11 @@ export const TabResumenRF = ({
         sx={{
           ...(isSmallScreen && {
             display: "flex",
-            // Otros estilos específicos para pantallas pequeñas
+   
           }),
-          //flexDirection: "row",
+        
 
-          //mt: 1,
+          
           alignItems: "center",
           justifyContent: "center",
 

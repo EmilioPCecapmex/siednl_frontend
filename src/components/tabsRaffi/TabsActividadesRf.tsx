@@ -353,6 +353,7 @@ export const TabActividadRf = ({
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
+                        
                       }}
                     >
                       <Divider />
@@ -365,6 +366,7 @@ export const TabActividadRf = ({
                           setActividadSelect(0);
                         }}
                         sx={{
+                          fontSize: [10, 10, 10, 13, 15, 18],
                           height: "7vh",
                           "&.Mui-selected ": {
                             backgroundColor: "#c4a57b",
