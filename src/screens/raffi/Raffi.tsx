@@ -322,14 +322,7 @@ export const Raffi = () => {
   };
 
 
-  // useEffect(() => {
-  //   const url = window.location.href;
-  //   const id = url.split("?")[1].split("=")[1];
-  //   //console.log("rfilterd", rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
-    
-  //   setRfFiltered(rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
-   
-  // }, [rf]);
+
 
   useEffect(() => {
     const url = window.location.href;
@@ -360,10 +353,7 @@ export const Raffi = () => {
       </Grid>
 
       <Grid
-        // justifyContent={"center"}
-        // display={"flex"}
-        height={"93vh"}
-        // alignItems={"center"}
+
         container
         item
         xl={12}
@@ -372,24 +362,14 @@ export const Raffi = () => {
         sm={12}
         xs={12}
         sx={{
-          //backgroundColor: "white",
+          
           justifyContent: "center",
           display: "flex",
-          //height: "93vh",
+          height: "93vh",
           alignItems: "center",
         }}
       >
-        {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
-          <Header
-            details={{
-              name1: "Inicio",
-              path1: "../home",
-              name2: "Raffi",
-              path2: "../raffi",
-              name3: "",
-            }}
-          />
-        </Grid> */}
+       
 
         {opentabs ? (
           <>
@@ -451,7 +431,6 @@ export const Raffi = () => {
                         whiteSpace: "nowrap",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
-                        //textAlign: "center",
                         fontSize: [10, 10, 15, 15, 18, 20],
                       }}
                       placeholder="Buscar"
@@ -520,7 +499,6 @@ export const Raffi = () => {
                 xl={12}
                 lg={12}
                 md={12}
-                
                 container
                 direction="row"
                 justifyContent="space-around"
@@ -532,9 +510,6 @@ export const Raffi = () => {
                       sx={{
                         display: "flex",
                         width: "100%",
-                        // alignItems: "center",
-                        // justifyContent: "center",
-                        // //border: 1,
                         borderRadius: 2,
                         borderColor: "#616161",
                       }}
@@ -560,13 +535,6 @@ export const Raffi = () => {
                           localStorage.getItem("Rol") !== "Administrador"
                         }
                         onChange={(v) => {
-                          // v.target.value === "Todos"
-                          //   ? findText(
-                          //       findTextStr,
-                          //       findSelectStr === "Todos" ? "0" : findSelectStr,
-                          //       "0"
-                          //     )
-                          //   : findText(findTextStr, findSelectStr, v.target.value);
                           setInstitucionesb(v.target.value);
                         }}
                       >
@@ -625,9 +593,6 @@ export const Raffi = () => {
                     sx={{
                       display: "flex",
                       width: "100%",
-                      // alignItems: "center",
-                      // justifyContent: "center",
-
                       borderRadius: 2,
                       borderColor: "#616161",
                     }}
@@ -645,9 +610,7 @@ export const Raffi = () => {
                         whiteSpace: "nowrap",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
-                        //textAlign: "center",
                         fontSize: [10, 10, 15, 15, 18, 20],
-                        // Tamaños de fuente para diferentes breakpoints
                       }}
                       value={
                         localStorage.getItem("Rol") === "Administrador" ||
@@ -753,7 +716,7 @@ export const Raffi = () => {
                   },
                   "&::-webkit-scrollbar-thumb": {
                     backgroundColor: "#edeaea",
-                    //outline: "1px solid slategrey",
+                
                     borderRadius: 1,
                   },
                 }}
@@ -772,8 +735,6 @@ export const Raffi = () => {
                             fontFamily: "MontserratBold",
                             borderBottom: 0,
                             fontSize: [10, 10, 10, 15, 16, 18],
-                            // fontFamily: "MontserratRegular",
-                            //   fontSize: ".7vw",
                             justifyContent: "center",
                             alignItems: "center",
                           }}
@@ -1165,7 +1126,6 @@ export const Raffi = () => {
                               <ComentDialogRF
                                 estado={row.Estado}
                                 id={row.IdMir}
-                                //actualizado={actualizaContador}
                               />
                               <MostrarLista
                                       st=""
@@ -1204,8 +1164,7 @@ export const Raffi = () => {
             />
           </Grid>
         )}
-        {/* rdEdit: 
-        {JSON.stringify(rfEdit[0]?.MIR)} */}
+     
       </Grid>
     </Grid>
   );

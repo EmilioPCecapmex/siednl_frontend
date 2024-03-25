@@ -18,7 +18,7 @@ import {
   IVPTrimestral,
   IVTrimestral,
 } from "./interfacesRaffi";
-// import validator from "validator";
+
 import { DialogMonto } from "../formulasDialog/FormulaDialogRaffiAvanceFinanciero";
 import { alertaInfo } from "../genericComponents/Alertas";
 import { validarNumero } from "../../services/validations";
@@ -406,12 +406,11 @@ export function TabAvanceFinanciero({
   return (
     <>
       <Grid
-        // visibility={show ? "visible" : "hidden"}
+      
         container
         direction={"row"}
         sx={{
-          // width: "100%",
-          // height: "100%",
+         
           width: "93vw",
           height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
           justifyContent: "center",
@@ -506,9 +505,9 @@ export function TabAvanceFinanciero({
             sm={11}
             xs={11}
             sx={{
-              //backgroundColor: "#f0f0f0",
+            
               display: "flex",
-              //flexDirection: "column",
+              
               alignItems: "center",
               justifyContent: "center",
               boxShadow: 2,
@@ -1014,7 +1013,7 @@ export function TabAvanceFinanciero({
                     }
                   }}
                   value={
-                    //   // "$" +
+                  
                     selector === "DEVENGADO/MODIFICADO"
                       ? devengadoModificado.t4.resultado
                       : selector === "EJERCIDO/MODIFICADO"
@@ -1042,7 +1041,7 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   placeholder="SIN PORCENTAJE"
-                  //label="porcentaje T1"
+    
                   disabled={
                     valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
@@ -1100,7 +1099,7 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   size="small"
-                  //label="Cuenta Publica"
+                  
                   placeholder="SIN CAPTURAR"
                   onChange={(a) => {
                     let valor: Number;
@@ -1159,7 +1158,7 @@ export function TabAvanceFinanciero({
                     }
                   }}
                   value={
-                    //   // "$" +
+                 
                     selector === "DEVENGADO/MODIFICADO"
                       ? devengadoModificado.cuentaPublica
                       : selector === "EJERCIDO/MODIFICADO"
@@ -1169,7 +1168,7 @@ export function TabAvanceFinanciero({
                       : null
                   }
                   sx={queries.medium_text}
-                  // value={"150000000"}
+                  
                   InputLabelProps={{
                     style: {
                       fontFamily: "MontserratMedium",
@@ -1189,7 +1188,7 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   placeholder="SIN PORCENTAJE"
-                  //label="porcentaje T1"
+               
                   sx={queries.medium_text}
                   value={
                     selector === "DEVENGADO/MODIFICADO"
