@@ -199,7 +199,7 @@ export const DeleteDialog = ({
 
           <TextField
             sx={{ width: "100%" }}
-            label="Agregar comentario"
+            label="AGREGAR COMENTARIO"
             variant="filled"
             multiline
             rows={3}

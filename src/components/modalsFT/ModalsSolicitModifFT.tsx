@@ -15,8 +15,18 @@ import {
 } from "@mui/material";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
-import { alertaEliminar, alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
-import { create_coment_mir, soliModyNoty } from "../genericComponents/axiosGenericos";
+import {
+  alertaEliminar,
+  alertaError,
+  alertaErrorConfirm,
+  alertaErroresDocumento,
+  alertaExito,
+  alertaExitoConfirm,
+} from "../genericComponents/Alertas";
+import {
+  create_coment_mir,
+  soliModyNoty,
+} from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -49,9 +59,6 @@ export default function ModalSolicitaModif({
   const [comentario, setComentario] = useState("");
 
   const comentFT = () => {
-
-    
-
     create_coment_mir(IdMIR, comentario, "FT")
       .then((r) => {
         setComentario("");
@@ -62,7 +69,9 @@ export default function ModalSolicitaModif({
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
-       return alertaError("Introduce usuario al que se le solicita modificación")
+      return alertaError(
+        "Introduce usuario al que se le solicita modificación"
+      );
     } else {
       checkFT(estado);
     }
@@ -126,11 +135,10 @@ export default function ModalSolicitaModif({
     }
     if (
       JSON.parse(FT)?.fin.tipoDeIndicador === undefined ||
-     // /^[\s]*$/.test(JSON.parse(FT)?.fin.tipoDeIndicador) ||
-      JSON.parse(FT)?.fin.tipoDeIndicador === "" || 
-
+      // /^[\s]*$/.test(JSON.parse(FT)?.fin.tipoDeIndicador) ||
+      JSON.parse(FT)?.fin.tipoDeIndicador === "" ||
       JSON.parse(FT)?.fin.dimension === undefined ||
-       ///^[\s]*$/.test(JSON.parse(FT)?.fin.dimension) ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.fin.dimension) ||
       JSON.parse(FT)?.fin.unidadDeMedida === undefined ||
       ///^[\s]*$/.test(JSON.parse(FT)?.fin.unidadDeMedida) ||
       JSON.parse(FT)?.fin.claridad === undefined ||
@@ -143,7 +151,7 @@ export default function ModalSolicitaModif({
       ///^[\s]*$/.test(JSON.parse(FT)?.fin.monitoreable) ||
       JSON.parse(FT)?.fin.adecuado === undefined ||
       ///^[\s]*$/.test(JSON.parse(FT)?.fin.adecuado) ||
-      JSON.parse(FT)?.fin.aporte_marginal === undefined 
+      JSON.parse(FT)?.fin.aporte_marginal === undefined
       ///^[\s]*$/.test(JSON.parse(FT)?.fin.aporte_marginal)
     ) {
       err = 1;
@@ -239,7 +247,7 @@ export default function ModalSolicitaModif({
       ///^[\s]*$/.test(JSON.parse(FT)?.proposito.monitoreable) ||
       JSON.parse(FT)?.proposito.adecuado === undefined ||
       ///^[\s]*$/.test(JSON.parse(FT)?.proposito.adecuado) ||
-      JSON.parse(FT)?.proposito.aporte_marginal === undefined 
+      JSON.parse(FT)?.proposito.aporte_marginal === undefined
       ///^[\s]*$/.test(JSON.parse(FT)?.proposito.aporte_marginal)
     ) {
       err = 1;
@@ -329,168 +337,165 @@ export default function ModalSolicitaModif({
   };
 
   const checkComponentes = (v: string) => {
-    JSON.parse(FT)?.componentes.map(
-      (componente: any, index: number) => {
-        if (
-          componente.tipoDeIndicador === undefined ||
-          /^[\s]*$/.test(componente.tipoDeIndicador) ||
-          // componente.tipoDeIndicador === "" ||
-          // componente.tipoDeIndicador === null ||
-          componente.dimension === undefined ||
-          /^[\s]*$/.test(componente.dimension) ||
-          // componente.dimension === "" ||
-          // componente.dimension === null ||
-          componente.unidadDeMedida === undefined ||
-          /^[\s]*$/.test(componente.unidadDeMedida) ||
-          // componente.unidadDeMedida === "" ||
-          // componente.unidadDeMedida === null ||
-          componente.claridad === undefined ||
-          /^[\s]*$/.test(componente.claridad) ||
-          // componente.frecuencia === "" ||
-          // componente.frecuencia === null ||
-          componente.relevancia === undefined ||
-          /^[\s]*$/.test(componente.relevancia) ||
-          // componente.relevancia === "" ||
-          // componente.relevancia === null ||
-          componente.economia === undefined ||
-          /^[\s]*$/.test(componente.economia) ||
-          // componente.economia === "" ||
-          // componente.economia === null ||
-          componente.monitoreable === undefined ||
-          /^[\s]*$/.test(componente.monitoreable) ||
-          // componente.monitoreable === "" ||
-          // componente.monitoreable === null ||
-          componente.adecuado === undefined ||
-          /^[\s]*$/.test(componente.adecuado) ||
-          // componente.adecuado === "" ||
-          // componente.adecuado === null ||
+    JSON.parse(FT)?.componentes.map((componente: any, index: number) => {
+      if (
+        componente.tipoDeIndicador === undefined ||
+        /^[\s]*$/.test(componente.tipoDeIndicador) ||
+        // componente.tipoDeIndicador === "" ||
+        // componente.tipoDeIndicador === null ||
+        componente.dimension === undefined ||
+        /^[\s]*$/.test(componente.dimension) ||
+        // componente.dimension === "" ||
+        // componente.dimension === null ||
+        componente.unidadDeMedida === undefined ||
+        /^[\s]*$/.test(componente.unidadDeMedida) ||
+        // componente.unidadDeMedida === "" ||
+        // componente.unidadDeMedida === null ||
+        componente.claridad === undefined ||
+        /^[\s]*$/.test(componente.claridad) ||
+        // componente.frecuencia === "" ||
+        // componente.frecuencia === null ||
+        componente.relevancia === undefined ||
+        /^[\s]*$/.test(componente.relevancia) ||
+        // componente.relevancia === "" ||
+        // componente.relevancia === null ||
+        componente.economia === undefined ||
+        /^[\s]*$/.test(componente.economia) ||
+        // componente.economia === "" ||
+        // componente.economia === null ||
+        componente.monitoreable === undefined ||
+        /^[\s]*$/.test(componente.monitoreable) ||
+        // componente.monitoreable === "" ||
+        // componente.monitoreable === null ||
+        componente.adecuado === undefined ||
+        /^[\s]*$/.test(componente.adecuado) ||
+        // componente.adecuado === "" ||
+        // componente.adecuado === null ||
 
-          componente.aporte_marginal === undefined ||
-          /^[\s]*$/.test(componente.aporte_marginal 
+        componente.aporte_marginal === undefined ||
+        /^[\s]*$/.test(
+          componente.aporte_marginal
           //componente.aporte_marginal === null ||
-          //componente.aporte_marginal === undefined 
-          
-            )
-        ) {
-          err = 1;
-          errores.push(
-            `SECCIÓN <strong>COMPONENTE ${index + 1} </strong> INCOMPLETA.`
-          );
-        }
-        if (
-          componente.tipoDeIndicador === "" ||
-          componente.tipoDeIndicador === undefined ||
-          /^[\s]*$/.test(componente.tipoDeIndicador)
-        ) {
-          err = 1;
-          errores.push(
-            `<strong>
+          //componente.aporte_marginal === undefined
+        )
+      ) {
+        err = 1;
+        errores.push(
+          `SECCIÓN <strong>COMPONENTE ${index + 1} </strong> INCOMPLETA.`
+        );
+      }
+      if (
+        componente.tipoDeIndicador === "" ||
+        componente.tipoDeIndicador === undefined ||
+        /^[\s]*$/.test(componente.tipoDeIndicador)
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>
               TIPO DE INDICADOR
              </strong> NO SELECCIONADO.`
-          );
-        }
-        if (
-          componente.dimension === undefined ||
-          /^[\s]*$/.test(componente.dimension) ||
-          componente.dimension === ""
-        ) {
-          err = 1;
-          errores.push(
-            `<strong>
+        );
+      }
+      if (
+        componente.dimension === undefined ||
+        /^[\s]*$/.test(componente.dimension) ||
+        componente.dimension === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>
             DIMENSIÓN
              </strong>  NO SELECCIONADO.`
-          );
-        }
-        if (
-          componente.unidadDeMedida === undefined ||
-          /^[\s]*$/.test(componente.unidadDeMedida) ||
-          componente.unidadDeMedida === ""
-        ) {
-          err = 1;
-          errores.push(
-            `<strong>
+        );
+      }
+      if (
+        componente.unidadDeMedida === undefined ||
+        /^[\s]*$/.test(componente.unidadDeMedida) ||
+        componente.unidadDeMedida === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>
             UNIDAD DE MEDIDA
              </strong> SIN INFORMACIÓN.`
-          );
-        }
-        if (
-          componente.claridad === undefined ||
-          /^[\s]*$/.test(componente.claridad) ||
-          componente.claridad === ""
-        ) {
-          err = 1;
-          errores.push(
-            `<strong>
+        );
+      }
+      if (
+        componente.claridad === undefined ||
+        /^[\s]*$/.test(componente.claridad) ||
+        componente.claridad === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>
             CLARIDAD
              </strong> NO SELECCIONADO.`
-          );
-        }
-        if (
-          componente.relevancia === undefined ||
-          /^[\s]*$/.test(componente.relevancia) ||
-          componente.relevancia === ""
-        ) {
-          err = 1;
-          errores.push(
-            `<strong>
+        );
+      }
+      if (
+        componente.relevancia === undefined ||
+        /^[\s]*$/.test(componente.relevancia) ||
+        componente.relevancia === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>
             RELEVANCIA
              </strong> NO SELECCIONADO.`
-          );
-        }
-        if (
-          componente.economia === undefined ||
-          /^[\s]*$/.test(componente.economia) ||
-          componente.economia === ""
-        ) {
-          err = 1;
-          errores.push(
-            `<strong>
+        );
+      }
+      if (
+        componente.economia === undefined ||
+        /^[\s]*$/.test(componente.economia) ||
+        componente.economia === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>
             ECONOMIA
              </strong> NO SELECCIONADO.`
-          );
-        }
-        if (
-          componente.monitoreable === undefined ||
-          /^[\s]*$/.test(componente.monitoreable) ||
-          componente.monitoreable === ""
-        ) {
-          err = 1;
-          errores.push(
-            `<strong>
+        );
+      }
+      if (
+        componente.monitoreable === undefined ||
+        /^[\s]*$/.test(componente.monitoreable) ||
+        componente.monitoreable === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>
             MONITOREABLE
              </strong> NO SELECCIONADO.`
-          );
-        }
-        if (
-          componente.adecuado === undefined ||
-          /^[\s]*$/.test(componente.adecuado) ||
-          componente.adecuado === ""
-        ) {
-          err = 1;
-          errores.push(
-            `<strong>
+        );
+      }
+      if (
+        componente.adecuado === undefined ||
+        /^[\s]*$/.test(componente.adecuado) ||
+        componente.adecuado === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>
             ADECUADO
              </strong> NO SELECCIONADO.`
-          );
-        }
-        if (
-          componente.aporte_marginal === undefined ||
-          /^[\s]*$/.test(componente.aporte_marginal) ||
-          componente.aporte_marginal === ""
-        ) {
-          err = 1;
-          errores.push(
-            `<strong>
+        );
+      }
+      if (
+        componente.aporte_marginal === undefined ||
+        /^[\s]*$/.test(componente.aporte_marginal) ||
+        componente.aporte_marginal === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>
             APORTE MARGINAL
              </strong>:  NO SELECCIONADO.`
-          );
-        }
-        return true;
+        );
       }
-    );
+      return true;
+    });
     checkActividades(v);
   };
-
 
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
@@ -498,161 +503,156 @@ export default function ModalSolicitaModif({
       (componente: IComponentesFT, indexC: number) => {
         componente.actividades.map(
           (actividad: IActividadesFT, indexA: number) => {
-            
-              if (
-                actividad.tipoDeIndicador === undefined ||
-                /^[\s]*$/.test(actividad.tipoDeIndicador) ||
-                // actividad.tipoDeIndicador === "" ||
-                // actividad.tipoDeIndicador === null ||
-                actividad.dimension === undefined ||
-                /^[\s]*$/.test(actividad.dimension) ||
-                // actividad.dimension === "" ||
-                // actividad.dimension === null ||
-                actividad.unidadDeMedida === undefined ||
-                /^[\s]*$/.test(actividad.unidadDeMedida) ||
-                // actividad.unidadDeMedida === "" ||
-                // actividad.unidadDeMedida === null ||
-                actividad.claridad === undefined ||
-                /^[\s]*$/.test(actividad.claridad) ||
-                // actividad.claridad === "" ||
-                // actividad.claridad === null ||
-                actividad.relevancia === undefined ||
-                /^[\s]*$/.test(actividad.relevancia) ||
-                // actividad.relevancia === "" ||
-                // actividad.relevancia === null ||
-                actividad.economia === undefined ||
-                /^[\s]*$/.test(actividad.economia) ||
-                // actividad.economia === "" ||
-                // actividad.economia === null ||
-                actividad.monitoreable === undefined ||
-                /^[\s]*$/.test(actividad.monitoreable) ||
-                // actividad.monitoreable === "" ||
-                // actividad.monitoreable === null ||
-                actividad.adecuado === undefined ||
-                /^[\s]*$/.test(actividad.adecuado) ||
-                // actividad.adecuado === "" ||
-                // actividad.adecuado === null ||
-      
-                actividad.aporte_marginal === undefined ||
-                /^[\s]*$/.test(actividad.aporte_marginal 
+            if (
+              actividad.tipoDeIndicador === undefined ||
+              /^[\s]*$/.test(actividad.tipoDeIndicador) ||
+              // actividad.tipoDeIndicador === "" ||
+              // actividad.tipoDeIndicador === null ||
+              actividad.dimension === undefined ||
+              /^[\s]*$/.test(actividad.dimension) ||
+              // actividad.dimension === "" ||
+              // actividad.dimension === null ||
+              actividad.unidadDeMedida === undefined ||
+              /^[\s]*$/.test(actividad.unidadDeMedida) ||
+              // actividad.unidadDeMedida === "" ||
+              // actividad.unidadDeMedida === null ||
+              actividad.claridad === undefined ||
+              /^[\s]*$/.test(actividad.claridad) ||
+              // actividad.claridad === "" ||
+              // actividad.claridad === null ||
+              actividad.relevancia === undefined ||
+              /^[\s]*$/.test(actividad.relevancia) ||
+              // actividad.relevancia === "" ||
+              // actividad.relevancia === null ||
+              actividad.economia === undefined ||
+              /^[\s]*$/.test(actividad.economia) ||
+              // actividad.economia === "" ||
+              // actividad.economia === null ||
+              actividad.monitoreable === undefined ||
+              /^[\s]*$/.test(actividad.monitoreable) ||
+              // actividad.monitoreable === "" ||
+              // actividad.monitoreable === null ||
+              actividad.adecuado === undefined ||
+              /^[\s]*$/.test(actividad.adecuado) ||
+              // actividad.adecuado === "" ||
+              // actividad.adecuado === null ||
+
+              actividad.aporte_marginal === undefined ||
+              /^[\s]*$/.test(
+                actividad.aporte_marginal
                 //actividad.aporte_marginal === null ||
-                //actividad.aporte_marginal === undefined 
-                
-                  )
-              ) {
-                console.log(actividad.actividades );
-                
-                err = 1;
-                errores.push(
-                  `SECCIÓN <strong>ACTIVIDAD ${actividad.actividades } </strong> INCOMPLETA.`
-                );
-              }
-              if (
-          
-                actividad.tipoDeIndicador === undefined ||
-                /^[\s]*$/.test(actividad.tipoDeIndicador)
-              ) {
-                err = 1;
-                errores.push(
-                  `<strong>
+                //actividad.aporte_marginal === undefined
+              )
+            ) {
+              console.log(actividad.actividades);
+
+              err = 1;
+              errores.push(
+                `SECCIÓN <strong>ACTIVIDAD ${actividad.actividades} </strong> INCOMPLETA.`
+              );
+            }
+            if (
+              actividad.tipoDeIndicador === undefined ||
+              /^[\s]*$/.test(actividad.tipoDeIndicador)
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>
                     TIPO DE INDICADOR
                    </strong> NO SELECCIONADO.`
-                );
-              }
-              if (
-                actividad.dimension === undefined ||
-                /^[\s]*$/.test(actividad.dimension) 
-    
-              ) {
-                err = 1;
-                errores.push(
-                  `<strong>
+              );
+            }
+            if (
+              actividad.dimension === undefined ||
+              /^[\s]*$/.test(actividad.dimension)
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>
                   DIMENSIÓN
                    </strong>  NO SELECCIONADO.`
-                );
-              }
-              if (
-                actividad.unidadDeMedida === undefined ||
-                /^[\s]*$/.test(actividad.unidadDeMedida) 
- 
-              ) {
-                console.log(actividad.actividades );
-                err = 1;
-                errores.push(
-                  `<strong>
+              );
+            }
+            if (
+              actividad.unidadDeMedida === undefined ||
+              /^[\s]*$/.test(actividad.unidadDeMedida)
+            ) {
+              console.log(actividad.actividades);
+              err = 1;
+              errores.push(
+                `<strong>
                   UNIDAD DE MEDIDA
                    </strong> SIN INFORMACIÓN.`
-                );
-              }
-              if (
-                actividad.claridad === undefined ||
-                /^[\s]*$/.test(actividad.claridad) 
-              ) {
-                err = 1;
-                errores.push(
-                  `<strong>
+              );
+            }
+            if (
+              actividad.claridad === undefined ||
+              /^[\s]*$/.test(actividad.claridad)
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>
                   CLARIDAD
                    </strong> NO SELECCIONADO.`
-                );
-              }
-              if (
-                actividad.relevancia === undefined ||
-                /^[\s]*$/.test(actividad.relevancia) 
-              ) {
-                err = 1;
-                errores.push(
-                  `<strong>
+              );
+            }
+            if (
+              actividad.relevancia === undefined ||
+              /^[\s]*$/.test(actividad.relevancia)
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>
                   RELEVANCIA
                    </strong> NO SELECCIONADO.`
-                );
-              }
-              if (
-                actividad.economia === undefined ||
-                /^[\s]*$/.test(actividad.economia) 
-              ) {
-                err = 1;
-                errores.push(
-                  `<strong>
+              );
+            }
+            if (
+              actividad.economia === undefined ||
+              /^[\s]*$/.test(actividad.economia)
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>
                   ECONOMIA
                    </strong> NO SELECCIONADO.`
-                );
-              }
-              if (
-                actividad.monitoreable === undefined ||
-                /^[\s]*$/.test(actividad.monitoreable) 
-              ) {
-                err = 1;
-                errores.push(
-                  `<strong>
+              );
+            }
+            if (
+              actividad.monitoreable === undefined ||
+              /^[\s]*$/.test(actividad.monitoreable)
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>
                   MONITOREABLE
                    </strong> NO SELECCIONADO.`
-                );
-              }
-              if (
-                actividad.adecuado === undefined ||
-                /^[\s]*$/.test(actividad.adecuado) 
-              ) {
-                err = 1;
-                errores.push(
-                  `<strong>
+              );
+            }
+            if (
+              actividad.adecuado === undefined ||
+              /^[\s]*$/.test(actividad.adecuado)
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>
                   ADECUADO
                    </strong> NO SELECCIONADO.`
-                );
-              }
-              if (
-                actividad.aporte_marginal === undefined ||
-                /^[\s]*$/.test(actividad.aporte_marginal) 
-              ) {
-                err = 1;
-                errores.push(
-                  `<strong>
+              );
+            }
+            if (
+              actividad.aporte_marginal === undefined ||
+              /^[\s]*$/.test(actividad.aporte_marginal)
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>
                   APORTE MARGINAL
                    </strong>:  NO SELECCIONADO.`
-                );
-              }
-              return true;
+              );
             }
-          
+            return true;
+          }
         );
       }
     );
@@ -660,7 +660,7 @@ export default function ModalSolicitaModif({
     if (err === 0) {
       createFT(v);
     } else {
-      alertaErroresDocumento(errores)
+      alertaErroresDocumento(errores);
     }
   };
 
@@ -688,8 +688,8 @@ export default function ModalSolicitaModif({
     ) {
       estado = "En Captura";
     }
-    console.log("IdEntidad: ",IdEntidad);
-    
+    console.log("IdEntidad: ", IdEntidad);
+
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-ft-generic",
@@ -708,7 +708,8 @@ export default function ModalSolicitaModif({
           Id: IdFT,
           Rol: localStorage.getItem("Rol"),
           IdEntidad:
-            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
             localStorage.getItem("IdEntidad"),
         },
         {
@@ -721,21 +722,26 @@ export default function ModalSolicitaModif({
         if (comentario !== "") {
           comentFT();
         }
-       
 
-        alertaExitoConfirm((localStorage.getItem("Rol") === "Verificador"
-        ? "Ficha Tecnica enviada a capturador para corrección"
-        : "Ficha Tecnica enviada").toUpperCase())
-       
-        console.log("IdFT: ",IdFT);
-        
-        soliModyNoty(userSelected, "Se le ha solicitado una modificación.", "FT", IdFT );
+        alertaExitoConfirm(
+          localStorage.getItem("Rol") === "VERIFICADOR"
+            ? "FICHA TECNICA ENVIADA A CAPTURADOR PARA CORRECCIÓN"
+            : "FICHA TECNICA ENVIADA"
+        );
+
+        console.log("IdFT: ", IdFT);
+
+        soliModyNoty(
+          userSelected,
+          "SE LE HA SOLICITADO UNA MODIFICACIÓN.",
+          "FT",
+          IdFT
+        );
         handleClose();
         showResume();
       })
       .catch((err) => {
-       
-        alertaErrorConfirm((err.response.data.result.error).toUpperCase())
+        alertaErrorConfirm(err.response.data.result.error.toUpperCase());
       });
   };
 
@@ -766,15 +772,13 @@ export default function ModalSolicitaModif({
         )
         .then((r) => {
           if (r.status === 200) {
-            console.log("r.data.data: ",r.data.data[1].Rol);
-            
+            console.log("r.data.data: ", r.data.data[1].Rol);
+
             setUserXInst(r.data.data);
           }
         });
     }
   }, [MIR, open]);
-
-
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
@@ -810,7 +814,7 @@ export default function ModalSolicitaModif({
           }}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Selecciona usuario para solicitar modificación
+            SELECCIONA USUARIO PARA SOLICITAR MODIFICACIÓN
           </Typography>
           <FormControl
             sx={{
@@ -834,13 +838,19 @@ export default function ModalSolicitaModif({
               disableUnderline
             >
               <MenuItem value={"0"} disabled>
-                Selecciona
+                SELECCIONA
               </MenuItem>
 
               {userXInst.map((item) => {
                 return (
                   <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-                    {item.Rol + ": " + item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno}
+                    {item.Rol +
+                      ": " +
+                      item.Nombre +
+                      " " +
+                      item.ApellidoPaterno +
+                      " " +
+                      item.ApellidoMaterno}
                   </MenuItem>
                 );
               })}
@@ -852,7 +862,7 @@ export default function ModalSolicitaModif({
           <TextField
             multiline
             rows={2}
-            label={"Agregar Comentario"}
+            label={"AGREAR COMENTARIO"}
             sx={{ width: "100%" }}
             onChange={(v) => setComentario(v.target.value)}
           ></TextField>
@@ -883,7 +893,7 @@ export default function ModalSolicitaModif({
               }}
               onClick={() => handleClose()}
             >
-              <Typography>Cancelar</Typography>
+              <Typography>CANCELAR</Typography>
             </Button>
 
             <Button
@@ -905,7 +915,7 @@ export default function ModalSolicitaModif({
               }}
             >
               <Typography>
-                {comentario === "" ? "Enviar sin comentarios" : "Confirmar"}
+                {(comentario === "" ? "Enviar sin comentarios" : "Confirmar").toUpperCase()}
               </Typography>
             </Button>
           </Box>

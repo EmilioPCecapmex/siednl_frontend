@@ -266,8 +266,8 @@ export default function ModalEnviarRF({
         }}
       >
         {localStorage.getItem("Rol") === "Administrador"
-          ? "Confirmar Autorización"
-          : "Confirmar Envío"}
+          ? "CONFIRMAR AUTORIZACIÓN"
+          : "CONFIRMAR ENVÍO"}
       </DialogTitle>
 
       <DialogContent
@@ -302,7 +302,7 @@ export default function ModalEnviarRF({
             <TextField
               multiline
               rows={3}
-              label={"Agregar Comentario"}
+              label={"AGREGAR COMENTARIO"}
               sx={{ width: "30vw" }}
               onChange={(v) => setComment(v.target.value)}
             ></TextField>

@@ -112,18 +112,18 @@ export const ComentDialogMir = ({
       .then((r) => {
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
-          enviarNotificacionRol("FT", "Nuevo comentario Ficha Tecnica", id, ["Verificador"],  (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
+          enviarNotificacionRol("FT", "NUEVO COMENTARIO FICHA TÉCNICA", id, ["Verificador"],  (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
         }
        
         setNewComent(false);
         setComent("");
         handleClose();
         actualizado();
-        alertaExito(()=>{}, "Comentario añadido")
+        alertaExito(()=>{}, "COMENTARIO AÑADIDO")
        
       })
       .catch((err) => {
-        alertaError("Se produjo un error")
+        alertaError("SE PRODUJO UN ERROR")
        
       });
   };
@@ -223,19 +223,19 @@ export const ComentDialogMir = ({
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Usuario
+                      USUARIO
                     </TableCell>
                     <TableCell
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Comentario
+                      COMENTARIO
                     </TableCell>
                     <TableCell
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Fecha de envío
+                      FECHA DE ENVÍO
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -287,7 +287,7 @@ export const ComentDialogMir = ({
                         }}
                         align="center"
                       >
-                        Sin Comentarios
+                        SIN COMENTARIOS 
                       </TableCell>
                       <TableCell></TableCell>
                     </TableRow>
@@ -337,7 +337,7 @@ export const ComentDialogMir = ({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium",  }}
                 >
-                  Cancelar
+                  CANCELAR
                 </Typography>{" "}
               </Button>
               <Button
@@ -355,7 +355,7 @@ export const ComentDialogMir = ({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium",  }}
                 >
-                  {"Agregar"}
+                  {"AGREGAR"}
                 </Typography>
               </Button>
             </Box>

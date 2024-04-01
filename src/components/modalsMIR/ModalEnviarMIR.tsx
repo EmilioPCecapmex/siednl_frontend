@@ -621,7 +621,7 @@ export default function ModalEnviarMIR({
 
         enviarNotificacionRol(
           "MA",
-          "MA enviada",
+          "MA ENVIADA",
           r?.data?.data?.Id || IdMa,
           rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad)
         );
@@ -681,20 +681,18 @@ export default function ModalEnviarMIR({
         }
         console.log("r.dada.data: ", r.data.data);
 
-        enviarNotificacionRol("MIR", "MIR enviada", r.data.data.Id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
+        enviarNotificacionRol("MIR", "MIR ENVIADA", r.data.data.Id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
         console.log("estado: ", estado);
 
         if (estado === "Autorizada") {
-          console.log("r.data.data.Id: ", r.data.data.Id);
-          console.log("IdMir: ", IdMir);
-          console.log("r.data.data.IdMa: ", r.data.data.IdMa);
+      
           CrearMetaAnual(r.data.data.Id, IdMir, r.data.data.IdMa);
         }
 
         alertaExitoConfirm(
           (localStorage.getItem("Rol") === "Administrador"
-            ? "¡MIR autorizada con éxito!, Meta Anual disponible para captura"
-            : "¡MIR enviada con éxito!"
+            ? "¡MIR AUTORIZADA CON ÉXITO!, META ANUAL DISPONIBLE PARA CAPTURA"
+            : "¡MIR ENVIADA CON ÉXITO!"
           ).toUpperCase()
         );
 
@@ -817,8 +815,8 @@ export default function ModalEnviarMIR({
         }}
       >
         {localStorage.getItem("Rol") === "Administrador"
-          ? "Confirmar Autorización"
-          : "Confirmar Envío"}
+          ? "CONFIRMAR AUTORIZACIÓN"
+          : "CONFIRMAR ENVÍO"}
       </DialogTitle>
 
       <DialogContent
@@ -855,7 +853,7 @@ export default function ModalEnviarMIR({
             <TextField
               multiline
               rows={3}
-              label={"Agregar Comentario"}
+              label={"AGREGAR COMENTARIO"}
               sx={{ width: "30vw" }}
               onChange={(v) => setComment(v.target.value)}
             />

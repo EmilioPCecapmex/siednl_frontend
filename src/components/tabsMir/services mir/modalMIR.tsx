@@ -13,7 +13,7 @@ import {
   Grid,
   IconButton,
   Tooltip,
-  Typography
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { TrazabilidadI } from "../../genericComponents/InterfacesGenerci";
@@ -63,49 +63,59 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
             lg={10}
             xl={10}
             key={index}
-            sx={{ display: "flex", justifyContent:['space-between','space-evenly','space-evenly','space-evenly','space-evenly',], mb: "5vh",alignItems:'center',border:'solid 1px'}}
-           
+            sx={{
+              display: "flex",
+              justifyContent: [
+                "space-between",
+                "space-evenly",
+                "space-evenly",
+                "space-evenly",
+                "space-evenly",
+              ],
+              mb: "5vh",
+              alignItems: "center",
+              border: "solid 1px",
+            }}
           >
             <Grid
               sx={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-               
               }}
             >
               <IconSwitch Estado={step.Estatus} />
             </Grid>
-            <Grid sx={{ justifyContent: ["","center","center","center","center",], alignItems: "center", ml:["2","","","2vw","",] }}>
-            <Typography>
-                {`Documento:`}
-
-                {` ${step.Documentos}`}
+            <Grid
+              sx={{
+                justifyContent: ["", "center", "center", "center", "center"],
+                alignItems: "center",
+                ml: ["2", "", "", "2vw", ""],
+              }}
+            >
+              <Typography>
+                {`DOCUMENTO:`}
+                {` ${step.Documentos.toUpperCase()}`}
               </Typography>
               <Typography>
-                {`Movimiento:`}
-
-                {` ${step.Estatus}`}
+                {`MOVIMIENTO:`}
+                {` ${step.Estatus.toUpperCase()}`}
               </Typography>
               <Typography>
-                {`Modificado por: `}
-
-                {`${step.Nombre}`}
+                {`MODIFICADO POR: `}
+                {`${step.Nombre.toUpperCase()}`}
               </Typography>
               <Typography>
-                {`Usuario: `}
-
-                {`${step.NombreUsuario}`}
+                {`USUARIO: `}
+                {`${step.NombreUsuario.toUpperCase()}`}
               </Typography>
               <Typography>
-                {`Fecha de Modificación: `}
-
-                {`${step.FechaModificacion}`}
+                {`FECHA DE MODIFICACIÓN: `}
+                {`${step.FechaModificacion.toUpperCase()}`}
               </Typography>
               <Typography>
-                {`Hora de Modificación: `}
-
-                {`${step.Hora}`}
+                {`HORA DE MODIFICACIÓN: `}
+                {`${step.Hora.toUpperCase()}`}
               </Typography>
               {/* Agrega más detalles según tus necesidades */}
             </Grid>
@@ -119,7 +129,7 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
     <Grid>
       <Tooltip title="LISTA">
         <span>
-          <IconButton  onClick={handleClickOpen}>
+          <IconButton onClick={handleClickOpen}>
             <ListAltIcon
               sx={{
                 fontSize: "24px", // Tamaño predeterminado del icono
@@ -150,7 +160,7 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
       </Tooltip>
 
       <Dialog open={open} onClose={handleClose} fullScreen>
-        <DialogTitle>Historial de movimientos del documento</DialogTitle>
+        <DialogTitle>HISTORIAL DE MOVIMIENTOS DEL DOCUMENTO</DialogTitle>
         <DialogContent
           sx={{
             display: "flex",
@@ -209,7 +219,7 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
                 onClick={handleClose}
               >
                 <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                  Cerrar
+                  CERRAR
                 </Typography>{" "}
               </Button>
             </Grid>

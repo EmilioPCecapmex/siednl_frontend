@@ -62,7 +62,7 @@ export default function ModalSolicitaModif({
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
-      alertaError("Introduce usuario al que se le solicita modificación");
+      alertaError("INTRODUCE USUARIO AL QUE SE LE SOLICITA MODIFICACIÓN");
     } else {
       checkMir(estado);
     }
@@ -524,7 +524,7 @@ export default function ModalSolicitaModif({
 
         soliModyNoty(
           userSelected,
-          "Se le ha solicitado una modificación.",
+          "SE LE HA SOLICITADO UNA MODIFICACIÓN.",
           "MIR",
           IdMir
         );
@@ -573,7 +573,7 @@ export default function ModalSolicitaModif({
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
-        Solicitud de modificación
+        SOLICITUD DE MODIFICACIÓN
       </DialogTitle>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -661,7 +661,7 @@ export default function ModalSolicitaModif({
           <TextField
             multiline
             rows={2}
-            label={"Agregar Comentario"}
+            label={"AGREGAR COMENTARIO"}
             sx={{ width: "100%" }}
             onChange={(v) => setComment(v.target.value)}
           ></TextField>
@@ -718,7 +718,7 @@ export default function ModalSolicitaModif({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                {coment === "" ? "Enviar sin comentarios" : "Confirmar"}
+                {coment === "" ? "ENVIAR SIN COMENTARIOS" : "Confirmar"}
               </Typography>
             </Button>
           </Box>

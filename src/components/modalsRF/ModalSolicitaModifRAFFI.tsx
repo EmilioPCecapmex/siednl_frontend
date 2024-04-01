@@ -72,7 +72,7 @@ export default function ModalSolicitaModifRF({
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
-      return alertaError( "Introduce usuario al que se le solicita modificación")
+      return alertaError( "INTRODUCE USUARIO AL QUE SE LE SOLICITA MODIFICACIÓN")
     } else {
       checkMA(estado);
     }
@@ -236,11 +236,11 @@ export default function ModalSolicitaModifRF({
           comentMA(IdRF);
         }
         alertaExitoConfirm((localStorage.getItem("Rol") === "Verificador"
-        ? "RAFFI enviada a capturador para corrección"
-        : "RAFFI enviada").toUpperCase())
+        ? "RAFFI ENVÍADA A CAPTURADOR PARA CORRECCIPON corrección"
+        : "RAFFI ENVÍADA").toUpperCase())
 
       
-        soliModyNoty(userSelected, "Se le ha solicitado una modificación.", "RF", IdRF );
+        soliModyNoty(userSelected, "SE LE HA SOLICITADO UNA MODIFICACIÓN.", "RF", IdRF );
         handleClose();
         showResume();
       })
@@ -289,7 +289,7 @@ export default function ModalSolicitaModifRF({
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
-        Solicitud de modificación
+        SOLICITUD DE MODIFICACIÓN
       </DialogTitle>
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -320,7 +320,7 @@ export default function ModalSolicitaModifRF({
           }}
         >
           <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Selecciona usuario para solicitar modificación
+            SELECCIONA USUARIO PARA SPLICITAR MODIFICACIÓN
           </Typography>
           <FormControl
             sx={{
@@ -344,7 +344,7 @@ export default function ModalSolicitaModifRF({
               disableUnderline
             >
               <MenuItem value={"0"} disabled>
-                Selecciona
+                SELECCIONA
               </MenuItem>
 
               {userXInst.map((item) => {
@@ -362,7 +362,7 @@ export default function ModalSolicitaModifRF({
           <TextField
             multiline
             rows={2}
-            label={"Agregar Comentario"}
+            label={"AGREGAR COMENTARIO"}
             sx={{ width: "100%" }}
             onChange={(v) => setComment(v.target.value)}
           ></TextField>
@@ -394,7 +394,7 @@ export default function ModalSolicitaModifRF({
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
@@ -416,7 +416,7 @@ export default function ModalSolicitaModifRF({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                {coment === "" ? "Enviar sin comentarios" : "Confirmar"}
+                {coment === "" ? "ENVIAR SIN COMENTARIOS" : "Confirmar"}
               </Typography>
             </Button>
           </Box>
