@@ -205,10 +205,9 @@ export default function ModalEnviarRF({
         if(localStorage.getItem("Rol") === "Administrador"){
           rol = ["Capturador","Verificador"]
         }
-        console.log("r.data.data.Id: ",r.data.data.Id);
-        console.log("IdRF: ",IdRF);
+      
 
-        enviarNotificacionRol("RF", "RF enviada", r.data.data.Id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
+        enviarNotificacionRol("RF", "RF ENVIADA", r.data.data.Id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
         if (estado === "Autorizada") {
           // CrearFichaTecnica();  
         }
@@ -290,10 +289,10 @@ export default function ModalEnviarRF({
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
             {localStorage.getItem("Rol") === "Administrador"
-              ? "Al confirmar, la Raffi se autorizará"
+              ? "AL CONFIRMAR, LA RAFFI SE AUTORIZARÁ"
               : localStorage.getItem("Rol") === "Verificador"
-              ? "Al confirmar, la Raffi se enviará a los usuarios correspondientes para autorización"
-              : "Al confirmar, la Raffi se enviará a los usuarios correspondientes para revisión"}
+              ? "AL CONFIRMAR, LA RAFFI SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA AUTORIZACIÓN"
+              : "AL CONFIRMAR, LA RAFFI SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA REVISIÓN"}
           </Typography>
         </Box>
 
@@ -331,7 +330,7 @@ export default function ModalEnviarRF({
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
@@ -363,7 +362,7 @@ export default function ModalEnviarRF({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
-                Confirmar
+                CONFIRMAR
               </Typography>
             </Button>
           </Box>

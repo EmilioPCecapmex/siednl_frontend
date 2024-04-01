@@ -276,7 +276,7 @@ export const TabPAE = ({
                   handleClickOpen();
                 }}
               >
-                Cargar Archivo
+                CARGAR ARCHIVO
               </Button>
               {open ? (
                 <DialogCargaArchivo

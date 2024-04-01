@@ -2637,9 +2637,9 @@ export const TabResumenRF = ({
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
               {localStorage.getItem("Rol") === "Administrador"
                 ? estadorf === "Autorizada"
-                  ? "Modificar RF Autorizada"
-                  : "Autorizar"
-                : "Enviar"}
+                  ? "MODIFICAR RF AUTORIZADA"
+                  : "AUTORIZAR"
+                  : "ENVIAR"}
             </Typography>
           </Button>
         </Grid>

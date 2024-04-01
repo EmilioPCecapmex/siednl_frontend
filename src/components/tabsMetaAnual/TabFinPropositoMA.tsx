@@ -606,7 +606,7 @@ export function TabFinPropositoMA({
                     parseFloat(valueFin?.lineaBase) < 0 ||
                     (isNaN(parseFloat(valueFin?.lineaBase)) &&
                       valueFin?.lineaBase !== "")
-                      ? "Introducir valor mayor que 0"
+                      ? "INTRODUCIR VALOR MAYOR QUE 0"
                       : null
                   }
                   InputLabelProps={{

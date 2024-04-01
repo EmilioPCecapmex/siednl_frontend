@@ -125,7 +125,7 @@ export function TabResumen({
   };
 
   const createMIR = (estado: string) => {
-    console.log("IdEntidad: ",IdEntidad);
+   
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir-generic",
@@ -355,7 +355,7 @@ export function TabResumen({
               textTransform: "uppercase",
             }}
           >
-            Datos Generales
+            DATOS GENERALES
           </Typography>
         </Grid>
 
@@ -397,7 +397,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Ejercicio Fiscal:
+              EJERCICIO FISCAL:
             </Typography>
           </Grid>
 
@@ -430,7 +430,7 @@ export function TabResumen({
               <Checkbox
                 checked={mirEdit.encabezado?.institucion}
                 onChange={(v) => {
-                  console.log('v.target.checked',v.target.checked);
+                  
                   
                   let aux = mirEdit.encabezado;
                   aux = { ...aux, institucion: v.target.checked };
@@ -453,7 +453,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Entidad:
+              ENTIDAD:
             </Typography>
           </Grid>
 
@@ -514,7 +514,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Programa:
+              PROGRAMA:
             </Typography>
           </Grid>
 
@@ -570,7 +570,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Eje:
+              EJE:
             </Typography>
           </Grid>
 
@@ -626,7 +626,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Temática:
+              TEMÁTICA:
             </Typography>
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
@@ -687,7 +687,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Objetivo:
+              OBJETIVO:
             </Typography>
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
@@ -742,7 +742,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Estrategia:
+              ESTRATEGIA:
             </Typography>
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
@@ -797,7 +797,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Beneficiario:
+              BENEFICIARIO:
             </Typography>
           </Grid>
 
@@ -868,7 +868,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Lineas de Acción:
+              LINEAS DE ACCIÓN:
             </Typography>
           </Grid>
 
@@ -919,7 +919,7 @@ export function TabResumen({
               textTransform: "uppercase",
             }}
           >
-            Fin
+            FIN
           </Typography>
         </Grid>
 
@@ -965,7 +965,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Resumen Narrativo:
+              RESUMEN NARRATIVO:
             </Typography>
           </Grid>
 
@@ -1018,7 +1018,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Indicador:
+              INDICADOR:
             </Typography>
           </Grid>
 
@@ -1071,7 +1071,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Fórmula:
+              FÓRMULA:
             </Typography>
           </Grid>
 
@@ -1124,7 +1124,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Frecuencia:
+              FÓRMULA:
             </Typography>
           </Grid>
 
@@ -1176,7 +1176,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Medios de Verificación:
+              MEDIOS DE VERIFICACIÓN:
             </Typography>
           </Grid>
 
@@ -1230,7 +1230,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Supuestos:
+              SUPUESTOS:
             </Typography>
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
@@ -1315,7 +1315,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Resumen Narrativo:
+              RESUMEN NARRATIVO:
             </Typography>
           </Grid>
 
@@ -1371,7 +1371,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Indicador:
+              INDICADOR:
             </Typography>
           </Grid>
 
@@ -1427,7 +1427,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Fórmula:
+              FÓRMULA:
             </Typography>
           </Grid>
 
@@ -1484,7 +1484,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Frecuencia:
+              FÓRMULA:
             </Typography>
           </Grid>
 
@@ -1540,7 +1540,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Medios de Verificación:
+              MEDIOS DE VERIFICACIÓN:
             </Typography>
           </Grid>
 
@@ -1597,7 +1597,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              Supuestos:
+              SUPUESTOS:
             </Typography>
           </Grid>
 
@@ -1727,7 +1727,7 @@ export function TabResumen({
                       textTransform: "uppercase",
                     }}
                   >
-                    Resumen Narrativo:
+                    RESUMEN NARRATIVO:
                   </Typography>
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
@@ -1780,7 +1780,7 @@ export function TabResumen({
                       textTransform: "uppercase",
                     }}
                   >
-                    Indicador:
+                    INDICADOR:
                   </Typography>
                 </Grid>
 
@@ -1835,7 +1835,7 @@ export function TabResumen({
                       textTransform: "uppercase",
                     }}
                   >
-                    Fórmula:
+                    FÓRMULA:
                   </Typography>
                 </Grid>
 
@@ -1889,7 +1889,7 @@ export function TabResumen({
                       textTransform: "uppercase",
                     }}
                   >
-                    Frecuencia:
+                    FÓRMULA:
                   </Typography>
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
@@ -1943,7 +1943,7 @@ export function TabResumen({
                       textTransform: "uppercase",
                     }}
                   >
-                    Medios de Verificación:
+                    MEDIOS DE VERIFICACIÓN:
                   </Typography>
                 </Grid>
 
@@ -1997,7 +1997,7 @@ export function TabResumen({
                       textTransform: "uppercase",
                     }}
                   >
-                    Supuestos:
+                    SUPUESTOS:
                   </Typography>
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
@@ -2035,7 +2035,7 @@ export function TabResumen({
               textTransform: "uppercase",
             }}
           >
-            Actividades
+            ACTIVIDADES
           </Typography>
         </Grid>
         {valoresComponenteActividad.map((comps, index) => {
@@ -2070,7 +2070,7 @@ export function TabResumen({
                       textTransform: "uppercase",
                     }}
                   >
-                    Actividad {index2 + 1} Componente {index + 1}
+                    ACTIVIDAD {index2 + 1} COMPONENTE {index + 1}
                   </Typography>
                 </Grid>
 
@@ -2117,7 +2117,7 @@ export function TabResumen({
                         textTransform: "uppercase",
                       }}
                     >
-                      Resumen Narrativo:
+                      RESUMEN NARRATIVO:
                     </Typography>
                   </Grid>
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
@@ -2174,7 +2174,7 @@ export function TabResumen({
                         textTransform: "uppercase",
                       }}
                     >
-                      Indicador:
+                      INDICADOR:
                     </Typography>
                   </Grid>
 
@@ -2232,7 +2232,7 @@ export function TabResumen({
                         textTransform: "uppercase",
                       }}
                     >
-                      Fórmula:
+                      FÓRMULA:
                     </Typography>
                   </Grid>
 
@@ -2290,7 +2290,7 @@ export function TabResumen({
                         textTransform: "uppercase",
                       }}
                     >
-                      Frecuencia:
+                      FÓRMULA:
                     </Typography>
                   </Grid>
 
@@ -2349,7 +2349,7 @@ export function TabResumen({
                         textTransform: "uppercase",
                       }}
                     >
-                      Medios de Verificación:
+                      MEDIOS DE VERIFICACIÓN:
                     </Typography>
                   </Grid>
 
@@ -2408,7 +2408,7 @@ export function TabResumen({
                         textTransform: "uppercase",
                       }}
                     >
-                      Supuestos:
+                      SUPUESTOS:
                     </Typography>
                   </Grid>
 

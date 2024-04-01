@@ -99,7 +99,7 @@ export default function ModalSolicitaModif({
       JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label)
     ) {
-      console.log("ejercicioFiscal");
+     
 
       err = 1;
       errores.push("<strong> EJERCICIO FISCAL</strong> NO SELECCIONADO.");
@@ -169,7 +169,7 @@ export default function ModalSolicitaModif({
       JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
     ) {
-      console.log("JSON.parse(MIR)?.encabezado: ", JSON.parse(MIR)?.encabezado);
+      
 
       err = 1;
       errores.push("<strong> BENEFICIARIO</strong> NO SELECCIONADO.");
@@ -481,7 +481,7 @@ export default function ModalSolicitaModif({
     ) {
       estado = "En Captura";
     }
-    console.log("IdEntidad: ",IdEntidad);
+  
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir-generic",
@@ -517,10 +517,10 @@ export default function ModalSolicitaModif({
         alertaExito(
           () => {},
           localStorage.getItem("Rol") === "Verificador"
-            ? "MIR enviada a capturador"
-            : "MIR enviada a revisión"
+            ? "MIR ENVIADA A CAPTURADOR"
+            : "MIR ENVIADA A REVISIÓN"
         );
-        console.log(IdMir, "IdMirS");
+   
 
         soliModyNoty(
           userSelected,
@@ -607,12 +607,12 @@ export default function ModalSolicitaModif({
             sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
           >
             {MIR === undefined
-              ? "Selecciona una institución en el encabezado para asignar un usuario"
+              ? "SELECCIONA UNA INSTITUCIÓN EN EL ENCABEZADO PARA ASIGNAR UN USUARIO"
               : JSON.parse(MIR)?.encabezado?.institucion !== ""
-              ? `Selecciona un usuario de ${
+              ? `SELECCIONA UN USUARIO DE ${
                   JSON.parse(MIR)?.encabezado?.institucion
-                } para solicitar la modificación`
-              : "Selecciona una institución en el encabezado para asignar un usuario"}
+                } PARA SOLICITAR LA MODIFICACIÓN`
+              : "SELECCIONA UNA INSTITUCIÓN EN EL ENCABEZADO PARA ASIGNAR UN USUARIO"}
           </Typography>
           <FormControl
             sx={{
@@ -636,7 +636,7 @@ export default function ModalSolicitaModif({
               disableUnderline
             >
               <MenuItem value={"0"} disabled>
-                Selecciona
+                SELECCIONA
               </MenuItem>
 
               {userXInst.map((item) => {
@@ -694,7 +694,7 @@ export default function ModalSolicitaModif({
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 

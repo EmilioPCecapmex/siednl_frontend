@@ -58,7 +58,7 @@ export const FichaTecnica = () => {
       })
       .then((r) => {
         //setft(r.data.data)
-        console.log(": ", r.data.data);
+       
 
         setstate(r.data.data);
         //setFtFiltered(r.data.data);

@@ -103,7 +103,7 @@ export const ComentDialogRF = ({
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
           userXInst.map((user) => {
-            soliModyNoty(user.IdUsuario, coment,  "Nuevo comentario RF", id  );
+            soliModyNoty(user.IdUsuario, coment,  "NUEVO COMENTARIO RF", id  );
           });
         }
 
@@ -111,12 +111,12 @@ export const ComentDialogRF = ({
         setComent("");
         handleClose();
        // actualizado();
-        alertaExito(()=>{},"Comentario añadido")
+        alertaExito(()=>{},"COMENTARIO AÑADIDO")
         
       })
       .catch((err) => {
 
-       alertaError("Se produjo un error")
+       alertaError("SE PRODUJO UN ERROR")
       });
   };
 
@@ -213,19 +213,19 @@ export const ComentDialogRF = ({
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Usuario
+                      USUARIO
                     </TableCell>
                     <TableCell
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Comentario
+                      COMENTARIO
                     </TableCell>
                     <TableCell
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Fecha de envío
+                      FECHA DE ENVÍO
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -279,7 +279,7 @@ export const ComentDialogRF = ({
                         }}
                         align="center"
                       >
-                        Sin Comentarios
+                        SIN COMENTARIO
                       </TableCell>
                       <TableCell></TableCell>
                     </TableRow>
@@ -299,7 +299,7 @@ export const ComentDialogRF = ({
                 },
               }}
               sx={{ width: "30vw" }}
-              placeholder="Añada un comentario para poder Agregar"
+              placeholder="AÑADE UN COMENTARIO PARA PODER AGREGAR"
               onChange={(v) => {
                 setComent(v.target.value);
               }}
@@ -332,7 +332,7 @@ export const ComentDialogRF = ({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium",  }}
                 >
-                  Cancelar
+                  CANCELAR
                 </Typography>{" "}
               </Button>
 
@@ -350,7 +350,7 @@ export const ComentDialogRF = ({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium",  }}
                 >
-                  {"Agregar"}
+                  {"AGREGAR"}
                 </Typography>
               </Button>
             </Box>

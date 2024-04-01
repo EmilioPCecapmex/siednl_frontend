@@ -176,7 +176,7 @@ export const TabComponenteMA = ({
   };
 
   const changeFormula2 = (txt: string,txtValores:string) => {
-    console.log("frec",frecuencia," tipo",tipoFormula);
+    
     if (frecuencia === "trimestral" && (tipoFormula.toLowerCase()==="índice" || tipoFormula.toLowerCase()==="indice")) {
       componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
         txt.split(",")[0];

@@ -74,7 +74,7 @@ export default function NotificationsPanel() {
         }}
       >
         <Typography sx={{ fontFamily: "MontserratMedium" }}>
-          Tus Notificaciones
+          TUS NOTIFICACIONES
         </Typography>
       </Box>
 
@@ -213,7 +213,7 @@ export default function NotificationsPanel() {
             mt: "1vh",
           }}
         >
-          Sin Notificaciones
+        SIN NOTIFICACIONES
         </Typography>
       )}
 

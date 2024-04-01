@@ -580,7 +580,7 @@ export const TabActividades = ({
               helperText={
                 errorIndicadorComponente === componenteSelect &&
                 errorIndicadorActividad === actividadSelect
-                  ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                  ? "INCLUIR TIPO DE INDICADOR: PORCENTAJE, TASA, ÍNDICE Ó PROMEDIO."
                   : null
               }
               onChange={(c) => {

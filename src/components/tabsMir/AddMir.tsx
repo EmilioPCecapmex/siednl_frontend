@@ -210,7 +210,7 @@ export default function FullModalMir({
   );
 
   useEffect(()=>{
-    console.log("mirEdirPadre",mirEdirPadre);
+  
     
   },[mirEdirPadre])
 

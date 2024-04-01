@@ -93,17 +93,17 @@ export const DialogComentarios = ({
               <TableRow sx={{ width: "100%", backgroundColor: "#d6d6d6" }}>
                 <TableCell align="center" sx={{ width: "33%" }}>
                   <Typography sx={{ fontFamily: "MontserratBold" }}>
-                    Usuario
+                    USUARIO
                   </Typography>
                 </TableCell>
                 <TableCell align="center" sx={{ width: "34s%" }}>
                   <Typography sx={{ fontFamily: "MontserratBold" }}>
-                    Comentario
+                    COMENTARIO
                   </Typography>
                 </TableCell>
                 <TableCell align="center" sx={{ width: "33%" }}>
                   <Typography sx={{ fontFamily: "MontserratBold" }}>
-                    Fecha
+                   FECHA
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -147,7 +147,7 @@ export const DialogComentarios = ({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratRegular" }}>
-              Sin Comentarios
+              SIN COMENTARIO
             </Typography>
           </Box>
         ) : null}

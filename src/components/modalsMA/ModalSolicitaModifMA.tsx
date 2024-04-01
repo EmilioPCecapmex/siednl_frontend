@@ -554,7 +554,7 @@ export default function ModalSolicitaModif({
 
   const createMA = (estado: string) => {
     let rolusuario = userXInst.find((user) => user.IdUsuario === userSelected);
-    console.log("IdEntidad: ", IdEntidad);
+    
 
     if (
       estado === "Autorizada" &&

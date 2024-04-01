@@ -544,7 +544,7 @@ export default function ModalSolicitaModif({
                 //actividad.aporte_marginal === undefined
               )
             ) {
-              console.log(actividad.actividades);
+              
 
               err = 1;
               errores.push(
@@ -577,7 +577,7 @@ export default function ModalSolicitaModif({
               actividad.unidadDeMedida === undefined ||
               /^[\s]*$/.test(actividad.unidadDeMedida)
             ) {
-              console.log(actividad.actividades);
+             
               err = 1;
               errores.push(
                 `<strong>
@@ -688,7 +688,7 @@ export default function ModalSolicitaModif({
     ) {
       estado = "En Captura";
     }
-    console.log("IdEntidad: ", IdEntidad);
+    
 
     axios
       .post(
@@ -729,7 +729,7 @@ export default function ModalSolicitaModif({
             : "FICHA TECNICA ENVIADA"
         );
 
-        console.log("IdFT: ", IdFT);
+  
 
         soliModyNoty(
           userSelected,
@@ -772,7 +772,7 @@ export default function ModalSolicitaModif({
         )
         .then((r) => {
           if (r.status === 200) {
-            console.log("r.data.data: ", r.data.data[1].Rol);
+       
 
             setUserXInst(r.data.data);
           }

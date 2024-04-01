@@ -248,7 +248,7 @@ export default function AddMetaAnual({
     });
   };
   const setMAcomponentesPadre = (componentesValues: IComponenteMA[]) => {
-    console.log("componentesValues: ",componentesValues);
+   
     
     setMAPadre({
       ...maPadre,

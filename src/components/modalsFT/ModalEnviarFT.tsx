@@ -529,7 +529,7 @@ export default function ModalEnviarFT({
                 //actividad.aporte_marginal === undefined
               )
             ) {
-              console.log(actividad.actividades);
+       
 
               err = 1;
               errores.push(
@@ -562,7 +562,7 @@ export default function ModalEnviarFT({
               actividad.unidadDeMedida === undefined ||
               /^[\s]*$/.test(actividad.unidadDeMedida)
             ) {
-              console.log(actividad.actividades);
+             
               err = 1;
               errores.push(
                 `<strong>

@@ -953,7 +953,7 @@ export function TabFinProposito({
                   error={errorIndicadorProposito === "proposito" ? true : false}
                   helperText={
                     errorIndicadorProposito
-                      ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                      ?"INCLUIR TIPO DE INDICADOR: PORCENTAJE, TASA, ÍNDICE Ó PROMEDIO."
                       : null
                   }
                   onChange={(c) => {

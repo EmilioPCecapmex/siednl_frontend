@@ -873,8 +873,8 @@ export const MIR = () => {
                     }}
                   >
                     {!validaFecha
-                      ? "Fecha de captura terminada"
-                      : "Añadir registro"}
+                      ? "FECHA DE CAPTURA TERMINADA"
+                      : "AÑADIR REGISTRO"}
                   </Button>
                 </Grid>
               </Grid>
@@ -1213,7 +1213,7 @@ export const MIR = () => {
                                       setActionNumber(1);
                                       setEstado(row.Estado);
                                       setIdEntidad(row.IdEntidad)
-                                      console.log(row.IdEntidad);
+                                   
                                       
                                     }}
                                   >

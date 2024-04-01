@@ -553,7 +553,7 @@ export default function ModalEnviarMA({
   };
 
   const creaMA = (estado: string) => {
-    console.log("IdMA: ", IdMA);
+  
 
     axios
       .post(
@@ -575,7 +575,7 @@ export default function ModalEnviarMA({
       )
       .then((r) => {
         let rol: string[] = [];
-        console.log("en ma data?.data?.IdRF: ", r.data.data);
+        
         if (localStorage.getItem("Rol") === "Verificador") {
           rol = ["Administrador"];
         }
@@ -624,7 +624,7 @@ export default function ModalEnviarMA({
         }
 
         if (estado === "Autorizada") {
-          console.log("Entre");
+          
 
           //CrearFichaTecnica();
         }
@@ -636,7 +636,7 @@ export default function ModalEnviarMA({
         showResume();
       })
       .catch((err) => {
-        console.log(err);
+        
 
         alertaErrorConfirm(
           err.response.data.result.error.toUpperCase() || "SIN INFORMACION"
@@ -676,7 +676,7 @@ export default function ModalEnviarMA({
         if (localStorage.getItem("Rol") === "Administrador") {
           rol = ["Capturador", "Verificador"];
         }
-        console.log("ModalEnviarMA: ", r.data.data);
+        
 
         enviarNotificacionRol(
           "FT",
@@ -701,7 +701,7 @@ export default function ModalEnviarMA({
   };
 
   useEffect(() => {
-    console.log("IdMA: ", IdMA);
+
     if (open) {
       axios
         .post(
@@ -821,7 +821,7 @@ export default function ModalEnviarMA({
               className="aceptar"
               //sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
-                console.log("IdMA: ", IdMA);
+                
                 checkMA(
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"

@@ -457,7 +457,7 @@ export function TabEncabezado({
                 if(IdEntidad === undefined || IdEntidad === "" || IdEntidad === null || /^[\s]*$/.test(IdEntidad)){
                   setIdEntidad(value?.Id)
                 }
-                console.log("Id: value?.Id: ",value?.Id);
+          
                 
               }}
               isOptionEqualToValue={(option, value) => option.Id === value.Id}
@@ -1002,7 +1002,7 @@ export function TabEncabezado({
                         <React.Fragment>
                           {beneficiario?.length > 2 && (
                             <Typography color="error" variant="caption">
-                              Máximo 2 beneficiarios
+                              MÁXIMO 2 BENEFIICARIOS
                             </Typography>
                           )}
                         </React.Fragment>
@@ -1024,7 +1024,7 @@ export function TabEncabezado({
                   //setBeneficiario(value || objetoVacio);
                   if (value.length <= 2) {
                     setBeneficiario(value);
-                  } else alertaInfo("Maximo 2 beneficiarios");
+                  } else alertaInfo("MÁXIMO 2 BENEFIICARIOS");
                 }}
                 isOptionEqualToValue={(
                   option: {

@@ -69,7 +69,7 @@ export default function ModalEnviarMIR({
     if (estadoMIR === "Autorizada") {
       getMAyFT(IdMir, setMA, setFT, setRF, setIdMA, setIdFT, setIdRF);
     }
-    console.log("Idma: ", Idma);
+    
   }, [Idma]);
 
   ///////////////////////////////////////////////////////////////////////////////////////////
@@ -207,9 +207,10 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.encabezado.estrategia === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.estrategia) ||
       JSON.parse(MIR)?.encabezado.lineas_de_accion === undefined ||
-      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.lineas_de_accion ||
-      JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
-      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
+      /^[\s]*$/.test(
+        JSON.parse(MIR)?.encabezado.lineas_de_accion ||
+          JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
+          /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
       )
     ) {
       err = 1;
@@ -220,7 +221,7 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label)
     ) {
-      console.log("ejercicioFiscal");
+    
 
       err = 1;
       errores.push("<strong> EJERCICIO FISCAL</strong> NO SELECCIONADO.");
@@ -290,7 +291,7 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
     ) {
-      console.log("JSON.parse(MIR)?.encabezado: ", JSON.parse(MIR)?.encabezado);
+     
 
       err = 1;
       errores.push("<strong> BENEFICIARIO</strong> NO SELECCIONADO.");
@@ -583,8 +584,8 @@ export default function ModalEnviarMIR({
 
   const CrearMetaAnual = (mensaje: string, IdMir: string, IdMa: String) => {
     const idMirFinal = IdMir || mensaje;
-    console.log(IdEntidad);
-    
+   
+
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-ma-generic",
@@ -595,8 +596,10 @@ export default function ModalEnviarMIR({
           Estado: "En Captura",
           Id: "",
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
-          localStorage.getItem("IdEntidad"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -617,13 +620,14 @@ export default function ModalEnviarMIR({
         if (localStorage.getItem("Rol") === "Administrador") {
           rol = ["Capturador", "Verificador"];
         }
-        console.log("MA-r.data.data.Id: ", r.data.data);
+       
 
         enviarNotificacionRol(
           "MA",
           "MA ENVIADA",
           r?.data?.data?.Id || IdMa,
-          rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad)
+          rol,
+          JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad
         );
         showResume();
       })
@@ -647,8 +651,10 @@ export default function ModalEnviarMIR({
               : //se va a modificar
                 localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
-          IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
-          localStorage.getItem("IdEntidad"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
+            localStorage.getItem("IdEntidad"),
           Programa: JSON.parse(MIR)?.encabezado.programa.Label,
           Eje: JSON.parse(MIR)?.encabezado.eje.Label,
           Tematica: JSON.parse(MIR)?.encabezado.tema.Label,
@@ -679,13 +685,18 @@ export default function ModalEnviarMIR({
         if (localStorage.getItem("Rol") === "Administrador") {
           rol = ["Capturador", "Verificador"];
         }
-        console.log("r.dada.data: ", r.data.data);
 
-        enviarNotificacionRol("MIR", "MIR ENVIADA", r.data.data.Id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad));
-        console.log("estado: ", estado);
+
+        enviarNotificacionRol(
+          "MIR",
+          "MIR ENVIADA",
+          r.data.data.Id,
+          rol,
+          JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad
+        );
+       
 
         if (estado === "Autorizada") {
-      
           CrearMetaAnual(r.data.data.Id, IdMir, r.data.data.IdMa);
         }
 
@@ -840,11 +851,11 @@ export default function ModalEnviarMIR({
           >
             {localStorage.getItem("Rol") === "Administrador"
               ? estadoMIR === "Autorizada"
-                ? "Al confirmar, la MIR se autorizará y el apartado de la Meta Anual será habilitado. Al confirmar los cambios se modificará la MIR y afectará la información de la Meta Anual y Ficha Técnica."
-                : "Al confirmar, la MIR se autorizará y el apartado de la Meta Anual será habilitado."
+                ? "AL CONFIRMAR, LA MIR SE AUTORIZARÁ Y EL APARTADO DE LA META ANUAL SERÁ HABILITADO. AL CONFIRMAR LOS CAMBIOS SE MODIFICARÁ LA MIR Y AFECTARÁ LA INFORMACIÓN DE LA META ANUAL Y FICHA TÉCNICA."
+                : "AL CONFIRMAR, LA MIR SE AUTORIZARÁ Y EL APARTADO DE LA META ANUAL SERÁ HABILITADO."
               : localStorage.getItem("Rol") === "Verificador"
-              ? "Al confirmar, la MIR se enviará a los usuarios correspondientes para autorización."
-              : "Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión."}
+              ? "AL CONFIRMAR, LA MIR SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA AUTORIZACIÓN."
+              : "AL CONFIRMAR, LA MIR SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA REVISIÓN."}
           </Typography>
         </Box>
 
@@ -883,7 +894,7 @@ export default function ModalEnviarMIR({
               onClick={() => handleClose(false)}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
@@ -907,7 +918,7 @@ export default function ModalEnviarMIR({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
-                Confirmar
+                CONFIRMAR
               </Typography>
             </Button>
           </Box>

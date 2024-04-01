@@ -380,7 +380,7 @@ export const MetaAnual = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
-    // console.log("Entra");
+    
     let Arrayfiltro: IIMa[];
     Arrayfiltro = [];
 

@@ -615,7 +615,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     className="aceptar"
                     value="check"
                     onClick={() => {
-                      console.log("objetoProgamaPresupuestario: ",objetoProgamaPresupuestario);
+                  
                       
                       DescargarExcel(() => {}, opcionCatalogo.toUpperCase() === "BENEFICIARIOS"
                       ? objetoBeneficiario

@@ -76,7 +76,7 @@ export const TabActividadesMA = ({
   const [elementoFormulaActividad, setElementoFormulaActividad] = useState("");
   // revisado
   const handleClickOpen = () => {
-    console.log("componentesActividadValues: ",componentesActividadValues);
+    
     setTipoFormula(
       JSON.parse(MIR)
         .componentes[componenteSelect].actividades[
@@ -175,7 +175,7 @@ export const TabActividadesMA = ({
       ].metaAnual = txt.split(",")[2];
     }
     setComponentesActividadValues([...componentesActividadValues]);
-    console.log("componentesActividadValues: ",componentesActividadValues);
+ 
   };
 
   const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);

@@ -87,13 +87,13 @@ export const DeleteDialog = ({
 
           Toast.fire({
             icon: "success",
-            title: "Solicitud Creada!",
+            title: "SOLICITUD CREADA!",
           });
         }
         else{
           Toast.fire({
             icon: "error",
-            title: "Error al crear Solicitud!",
+            title: "ERROR AL CREAR SOLICITUD!",
           });
         }
       })
@@ -122,7 +122,7 @@ export const DeleteDialog = ({
         if (r.status === 201) {
           Toast.fire({
             icon: "success",
-            title: "Solicitud Creada!",
+            title: "SOLICITUD CREADA!",
           });
 
           handleClose();
@@ -154,7 +154,7 @@ export const DeleteDialog = ({
           if (r.status === 201) {
             Toast.fire({
               icon: "success",
-              title: "Solicitud Creada!",
+              title: "SOLICITUD CREADA!",
             });
 
             handleClose();
@@ -190,11 +190,11 @@ export const DeleteDialog = ({
         </span>
       </Tooltip>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{`¿Desea eliminar este ${deleteText}?`}</DialogTitle>
+        <DialogTitle>{`¿DESEA ELIMINAR ESTE ${deleteText}?`}</DialogTitle>
 
         <DialogContent>
           <DialogContentText>
-            Al confirmar, se creara una solicitud de baja de este {deleteText}.
+          AL CONFIRMAR, SE CREARÁ UNA SOLICITUD DE BAJA DE ESTE  {deleteText}.
           </DialogContentText>
 
           <TextField
@@ -213,14 +213,14 @@ export const DeleteDialog = ({
         </DialogContent>
 
         <DialogActions onClick={handleClose}>
-          <Button>Cancelar</Button>
+          <Button>CANCELAR</Button>
 
           <Button
             onClick={deleteUsuario}
             autoFocus
             disabled={comentario.length >= 10 ? false : true}
           >
-            De Acuerdo
+           DE ACUERDO
           </Button>
         </DialogActions>
       </Dialog>

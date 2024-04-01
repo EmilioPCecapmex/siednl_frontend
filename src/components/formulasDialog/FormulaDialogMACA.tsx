@@ -274,7 +274,7 @@ export const FormulaDialogMACA = ({
         }
       }
     } else {
-      console.log("tipo ",tipo)
+     
       if (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice")
         if (/^[\s]*$/.test(ValorA) || /^[\s]*$/.test(ValorB)) {
           setEmptyTxt(true);
@@ -1137,7 +1137,7 @@ export const FormulaDialogMACA = ({
         <Button
           className="aceptar"
           onClick={() => {
-            // console.log("componentesMA: ", componentesMA);
+            
             checkValues();
           }}
         >
