@@ -12,6 +12,7 @@ import {
   Typography,
   IconButton,
   ToggleButton,
+  Grid,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import axios from "axios";
@@ -46,7 +47,7 @@ export default function NotificationsPanel() {
   const list = () => (
     <Box
       sx={{
-        width: "15vw",
+        width: { xs: "100vw", sm: "30vw", md: "20vw", lg: "20vw", xl: "20vw" },
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
@@ -62,24 +63,10 @@ export default function NotificationsPanel() {
         },
       }}
     >
-      <Box
-        sx={{
-          width: "15vw",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-evenly",
-          mt: "2vh",
-          borderBottom: 1,
-          borderColor: "#fff",
-        }}
-      >
-        <Typography sx={{ fontFamily: "MontserratMedium" }}>
-          TUS NOTIFICACIONES
-        </Typography>
-      </Box>
+      
 
       {sinNotificaciones ? (
-        <List sx={{ width: "15vw", height: "auto" }}>
+        <List sx={{ width: { xs: "100vw", sm: "30vw", md: "20vw", lg: "20vw", xl: "20vw" }, height: "auto" }}>
           {notificaciones?.map((index) => (
             
             
@@ -104,7 +91,7 @@ export default function NotificationsPanel() {
                   <Typography
                     sx={{
                       fontFamily: "MontserratSemiBold",
-                      fontSize: ".7vw",
+                   
                       color: "#af8c55",
                     }}
                   >
@@ -137,7 +124,7 @@ export default function NotificationsPanel() {
                     <Typography
                       sx={{
                         fontFamily: "MontserratSemiBold",
-                        fontSize: ".5vw",
+                        
                         color: "blue",
                       }}
                     >
@@ -170,7 +157,7 @@ export default function NotificationsPanel() {
                   <Typography
                     sx={{
                       fontFamily: "MontserratLight",
-                      fontSize: ".7vw",
+                   
                       ml: "1vw",
                       mt: "1vh",
                     }}
@@ -193,7 +180,7 @@ export default function NotificationsPanel() {
 
                 <Box
                   sx={{
-                    width: "15vw",
+                    width: "100vw",
                     height: ".1vh",
                     backgroundColor: "#ccc",
                     mt: "1vh",
@@ -213,21 +200,13 @@ export default function NotificationsPanel() {
             mt: "1vh",
           }}
         >
-        SIN NOTIFICACIONES
+          Sin Notificaciones
         </Typography>
       )}
 
       <Divider />
 
-      <Button
-        sx={{
-          ...queries.buttonCancelarSolicitudInscripcion,
-        }}
-        onClick={() => handleCloseNotifPanel()}
-        color="error"
-      >
-        Cerrar
-      </Button>
+      
     </Box>
   );
 
@@ -267,8 +246,97 @@ export default function NotificationsPanel() {
         anchor={"right"}
         open={openNotifPanel}
         onClose={() => handleCloseNotifPanel()}
+        sx={{
+          display: "flex",
+          maxHeight: "90vh",
+       //   overflow: "auto",
+          alignItems: "flex-end",
+
+          // ...(isXsScreen
+          //   ? {
+          //       "& .MuiDrawer-paper": {
+          //         width: "100vw",
+          //         height: "100vh",
+          //       },
+          //     }
+          //   : {}),
+        }}
       >
-        {list()}
+        <Grid
+          item
+          display={"flex"}
+          justifyContent={"space-evenly"}
+          //alignItems={"center"}
+          // sx={{
+          //   width: "15vw",
+          //   display: "flex",
+          //   alignItems: "center",
+          //   justifyContent: "space-evenly",
+          //   mt: "2vh",
+          //   borderBottom: 1,
+          //   borderColor: "#fff",
+          // }}
+        >
+          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            TUS NOTIFICACIONES
+          </Typography>
+        </Grid>
+        <Divider />
+        <Grid
+          xs={12}
+          sm={12}
+          md={12}
+          lg={12}
+          xl={12}
+          container
+          item
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            overflow: "auto",
+          }}
+          
+        >
+          <Grid
+            xl={12}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
+            container
+            item
+            sx={{
+              // height: "90%",
+              overflow: "auto",
+              //justifyContent: "center",
+              // display: "flex",
+            }}
+          >
+            {list()}
+          </Grid>
+
+          <Divider />
+          
+        </Grid>
+        <Grid
+            sx={{
+              justifyContent: "center",
+              alignItems: "flex-end",
+              display: "flex",
+              //height: "10%",
+            }}
+            
+          
+          >
+            <Button
+            
+              className="cancelar"
+              onClick={() => handleCloseNotifPanel()}
+              color="error"
+            >
+              CERRAR
+            </Button>
+          </Grid>
       </Drawer>
     </React.Fragment>
   );

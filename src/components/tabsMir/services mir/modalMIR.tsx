@@ -86,6 +86,7 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
             >
               <IconSwitch Estado={step.Estatus} />
             </Grid>
+
             <Grid
               sx={{
                 justifyContent: ["", "center", "center", "center", "center"],
@@ -223,6 +224,7 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
                 </Typography>{" "}
               </Button>
             </Grid>
+            
           </Grid>
         </DialogContent>
       </Dialog>
