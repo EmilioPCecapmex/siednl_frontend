@@ -225,10 +225,9 @@ export function TabFinProposito({
         display: "flex",
         width: "93vw",
         height: ["82vh", "82vh", "82vh", "82vh", "82vh", "82vh"],
-        boxShadow: 10,
-        borderRadius: 5,
         flexDirection: "column",
         backgroundColor: "#fff",
+        ...(!isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
         overflow: "auto",
       }}
     >
@@ -811,7 +810,8 @@ export function TabFinProposito({
                     }}
                   >
                     <Typography
-                      sx={{ fontSize: "6vw", fontFamily: "MontserratMedium" }}
+                    
+                      sx={{  fontFamily: "MontserratMedium",fontSize: [10, 10, 10, 13, 15, 18], }}
                     >
                       FIN
                     </Typography>
@@ -844,7 +844,7 @@ export function TabFinProposito({
                     >
                       <Typography
                         sx={{
-                          fontSize: "6vw",
+                          fontSize: [10, 10, 10, 13, 15, 18],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -953,7 +953,7 @@ export function TabFinProposito({
                   error={errorIndicadorProposito === "proposito" ? true : false}
                   helperText={
                     errorIndicadorProposito
-                      ?"INCLUIR TIPO DE INDICADOR: PORCENTAJE, TASA, ÍNDICE Ó PROMEDIO."
+                      ? "INCLUIR TIPO DE INDICADOR: PORCENTAJE, TASA, ÍNDICE Ó PROMEDIO."
                       : null
                   }
                   onChange={(c) => {

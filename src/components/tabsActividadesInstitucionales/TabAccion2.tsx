@@ -10,12 +10,10 @@ import {
   FormControl,
 } from "@mui/material";
 
-export function TabAccion2({ }: {  }) {
+export function TabAccion2({}: {}) {
   const [componentSelect, setComponentSelect] = useState(1);
   return (
     <Grid
-     
-      
       sx={{
         width: "93vw",
         height: "82vh",
@@ -272,10 +270,10 @@ export function TabAccion2({ }: {  }) {
               >
                 <FormControl sx={{ gridRow: "1", width: "18%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -314,10 +312,10 @@ export function TabAccion2({ }: {  }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "18%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -356,10 +354,10 @@ export function TabAccion2({ }: {  }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "18%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -398,10 +396,10 @@ export function TabAccion2({ }: {  }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "20%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {
@@ -440,10 +438,10 @@ export function TabAccion2({ }: {  }) {
                 </FormControl>
                 <FormControl sx={{ gridRow: "1", width: "18%" }}>
                   <Autocomplete
-            clearText="Borrar"
-            noOptionsText="Sin opciones"
-            closeText="Cerrar"
-            openText="Abrir"
+                    clearText="Borrar"
+                    noOptionsText="Sin opciones"
+                    closeText="Cerrar"
+                    openText="Abrir"
                     options={top100Films()}
                     size="small"
                     renderOption={(props, option) => {

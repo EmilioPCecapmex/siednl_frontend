@@ -1,5 +1,5 @@
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { Grid, TextField, Tooltip, Typography } from "@mui/material";
+import { Grid, TextField, Tooltip, Typography, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { queries } from "../../queries";
 import { validarNumero } from "../../services/validations";
@@ -116,7 +116,7 @@ export function TabFinPropositoRF({
         break;
     }
   };
-
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
   return (
     <>
       <Grid
@@ -127,8 +127,12 @@ export function TabFinPropositoRF({
           justifyContent: "space-around",
           alignItems: "flex-start",
           backgroundColor: "#fff",
-          boxShadow: 10,
-          borderRadius: 5,
+          ...(!isSmallScreen
+            ? {boxShadow: 10,
+              borderRadius: 5,}
+            : {
+                
+              }),
           overflow: "auto",
         }}
       >

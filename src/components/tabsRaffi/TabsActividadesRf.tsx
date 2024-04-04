@@ -173,8 +173,12 @@ export const TabActividadRf = ({
           display: "flex",
           width: "93vw",
           height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
-          boxShadow: 10,
-          borderRadius: 5,
+          ...(!isSmallScreen
+            ? {boxShadow: 10,
+              borderRadius: 5,}
+            : {
+                
+              }),
           flexDirection: "column",
           backgroundColor: "#fff",
           overflow: "auto"

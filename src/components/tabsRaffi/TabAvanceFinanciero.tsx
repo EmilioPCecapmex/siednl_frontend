@@ -8,6 +8,7 @@ import {
   Radio,
   TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { queries } from "../../queries";
@@ -403,6 +404,8 @@ export function TabAvanceFinanciero({
   function getTrimestre3() {}
   function getTrimestre4() {}
 
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
   return (
     <>
       <Grid
@@ -416,8 +419,12 @@ export function TabAvanceFinanciero({
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "#fff",
-          boxShadow: 10,
-          borderRadius: 5,
+          ...(!isSmallScreen
+            ? {boxShadow: 10,
+              borderRadius: 5,}
+            : {
+                
+              }),
           overflow: "auto",
         }}
       >

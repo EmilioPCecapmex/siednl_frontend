@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
-  Box,
+  Grid,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -13,6 +13,7 @@ import {
   MenuItem,
   Button,
   Typography,
+  Autocomplete,
 } from "@mui/material";
 
 import { IActividad, IComponente } from "../tabsMir/interfaces mir/IMIR";
@@ -46,8 +47,23 @@ export default function ModalSolicitaModif({
   IdMir: string;
   IdEntidad: string;
 }) {
+  // const [catalogoUser, setCatalogoUser] = useState<IIUserXInst[]>(
+  //   []
+  // );
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
+  const newUser = {
+    IdUsuario: "",
+    IdUsuarioTiCentral: "",
+    Rol: "",
+    NombreInstitucion: "",
+    Nombre: "",
+    ApellidoPaterno: "",
+    ApellidoMaterno: "",
+    NombreUsuario: "",
+  };
+
+  const [user, setUser] = useState<IIUserXInst>(newUser);
   let err = 0;
 
   const [coment, setComment] = useState("");
@@ -59,6 +75,13 @@ export default function ModalSolicitaModif({
       })
       .catch((err) => {});
   };
+
+  useEffect(() => {
+    let findUser = userXInst.find(
+      (item) => item.NombreUsuario === userSelected
+    );
+    setUser(findUser || newUser);
+  }, [userXInst]);
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
@@ -86,9 +109,10 @@ export default function ModalSolicitaModif({
       JSON.parse(MIR)?.encabezado.estrategia === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.estrategia) ||
       JSON.parse(MIR)?.encabezado.lineas_de_accion === undefined ||
-      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.lineas_de_accion ||
-      JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
-      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
+      /^[\s]*$/.test(
+        JSON.parse(MIR)?.encabezado.lineas_de_accion ||
+          JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
+          /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
       )
     ) {
       err = 1;
@@ -99,8 +123,6 @@ export default function ModalSolicitaModif({
       JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label)
     ) {
-     
-
       err = 1;
       errores.push("<strong> EJERCICIO FISCAL</strong> NO SELECCIONADO.");
     }
@@ -169,8 +191,6 @@ export default function ModalSolicitaModif({
       JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
     ) {
-      
-
       err = 1;
       errores.push("<strong> BENEFICIARIO</strong> NO SELECCIONADO.");
     }
@@ -481,7 +501,7 @@ export default function ModalSolicitaModif({
     ) {
       estado = "En Captura";
     }
-  
+
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-mir-generic",
@@ -495,7 +515,8 @@ export default function ModalSolicitaModif({
                 localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
           IdEntidad:
-            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
             localStorage.getItem("IdEntidad"),
           Programa: JSON.parse(MIR)?.encabezado.programa.Label,
           Eje: JSON.parse(MIR)?.encabezado.eje.Label,
@@ -520,7 +541,6 @@ export default function ModalSolicitaModif({
             ? "MIR ENVIADA A CAPTURADOR"
             : "MIR ENVIADA A REVISIÓN"
         );
-   
 
         soliModyNoty(
           userSelected,
@@ -572,39 +592,39 @@ export default function ModalSolicitaModif({
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
-      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
+      <DialogTitle
+        sx={{
+          fontFamily: "MontserratBold",
+          borderBottom: 1,
+          fontSize: [18, 20, 15, 20, 15],
+          height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
+        }}
+      >
         SOLICITUD DE MODIFICACIÓN
       </DialogTitle>
-
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Box
-          sx={{
-            backgroundColor: "#BBBABA",
-            width: "60vw",
-            height: "0.1vh",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        />
-      </Box>
 
       <DialogContent
         sx={{
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Box
+        <Grid
           sx={{
             width: "100%",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
             justifyContent: "space-evenly",
+            mb: 2,
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
+            sx={{
+              fontSize: [15, 15, 15, 15, 15],
+              fontFamily: "MontserratMedium",
+              textAlign: "center",
+            }}
           >
             {MIR === undefined
               ? "SELECCIONA UNA INSTITUCIÓN EN EL ENCABEZADO PARA ASIGNAR UN USUARIO"
@@ -614,26 +634,104 @@ export default function ModalSolicitaModif({
                 } PARA SOLICITAR LA MODIFICACIÓN`
               : "SELECCIONA UNA INSTITUCIÓN EN EL ENCABEZADO PARA ASIGNAR UN USUARIO"}
           </Typography>
+
           <FormControl
-            sx={{
-              display: "flex",
-              width: "70%",
-              alignItems: "center",
-              justifyContent: "center",
-              border: 1,
-              borderRadius: 1,
-              borderColor: "#616161",
-              mb: 2,
-            }}
+            // sx={{
+            //   display: "flex",
+            //   alignItems: "center",
+            //   justifyContent: "center",
+            //   border: 1,
+            //   borderRadius: 1,
+            //   borderColor: "#616161",
+            //   mb: 2,
+            //   mt: "2vh",
+            // }}
             variant="standard"
           >
-            <Select
+            <Autocomplete
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              options={userXInst}
+              getOptionLabel={(option) => option.NombreUsuario}
+              value={user}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.IdUsuario}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                      }}
+                    >
+                      {option.Rol +
+                        ": " +
+                        option.Nombre +
+                        " " +
+                        option.ApellidoPaterno +
+                        " " +
+                        option.ApellidoMaterno +
+                        " - " +
+                        option.NombreUsuario}
+                    </p>
+                  </li>
+                );
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={"USUARIO"}
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                ></TextField>
+              )}
+              onChange={(event, value) => {
+                setUser(value || newUser);
+              }}
+              isOptionEqualToValue={(option, value) =>
+                option.IdUsuario === value.IdUsuario
+              }
+            />
+
+            {/* <Select
               size="small"
               sx={{ fontFamily: "MontserratRegular" }}
               fullWidth
               value={userSelected}
               onChange={(v) => setUserSelected(v.target.value)}
               disableUnderline
+              renderValue={(selected) => {
+                const selectedItem = userXInst.find(
+                  (item) => item.IdUsuario === selected
+                );
+                if (selectedItem) {
+                  const text =
+                    selectedItem.Rol +
+                    ": " +
+                    selectedItem.Nombre +
+                    " " +
+                    selectedItem.ApellidoPaterno +
+                    " " +
+                    selectedItem.ApellidoMaterno +
+                    " - " +
+                    selectedItem.NombreUsuario;
+                  if (text.length > 40) {
+                    // Ajusta el número según el espacio disponible
+                    return text.slice(0, 40) + "..."; // Truncar el texto con puntos suspensivos
+                  }
+                  return text;
+                }
+                return "SELECCIONA";
+              }}
             >
               <MenuItem value={"0"} disabled>
                 SELECCIONA
@@ -653,21 +751,21 @@ export default function ModalSolicitaModif({
                   </MenuItem>
                 );
               })}
-            </Select>
-          </FormControl>{" "}
-        </Box>
+            </Select> */}
+          </FormControl>
+        </Grid>
 
-        <Box sx={{ width: "100%", mb: 2 }}>
+        <Grid sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}>
           <TextField
             multiline
             rows={2}
             label={"AGREGAR COMENTARIO"}
-            sx={{ width: "100%" }}
+            sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}
             onChange={(v) => setComment(v.target.value)}
           ></TextField>
-        </Box>
+        </Grid>
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -675,22 +773,18 @@ export default function ModalSolicitaModif({
             paddingBlockEnd: "1vh",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "space-evenly",
-              width: "100vw",
+              alignItems: "center",
+              justifyContent: "space-between",
+              //width: "20vw",
+              mt: "4vh",
             }}
           >
             <Button
               className="cancelar"
-              sx={{
-                //...queries.buttonCancelarSolicitudInscripcion,
-                display: "flex",
-                width: "15vw",
-              }}
-              variant="contained"
+              sx={{ marginRight: "1rem" }}
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -700,12 +794,6 @@ export default function ModalSolicitaModif({
 
             <Button
               className="aceptar"
-              sx={{
-                //...queries.buttonContinuarSolicitudInscripcion,
-                display: "flex",
-                width: "15vw",
-              }}
-              variant="contained"
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
@@ -718,11 +806,11 @@ export default function ModalSolicitaModif({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                {coment === "" ? "ENVIAR SIN COMENTARIOS" : "Confirmar"}
+                {coment === "" ? "ENVIAR SIN COMENTARIOS" : "CONFIRMAR"}
               </Typography>
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );

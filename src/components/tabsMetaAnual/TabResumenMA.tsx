@@ -297,14 +297,18 @@ export function TabResumenMA({
         //display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         // alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",
         backgroundColor: "#fff",
         ...(!isSmallScreen && {
-          height: "85%",
+          height: "100%",
           overflow: "auto",
           // Otros estilos específicos para pantallas pequeñas
         }),
@@ -3034,7 +3038,7 @@ export function TabResumenMA({
         }}
       >
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+          sx={{ justifyContent: "center", display: "flex",  margin: isSmallScreen ? "2px" : "5px", }}
           item
           xl={3}
           lg={3}

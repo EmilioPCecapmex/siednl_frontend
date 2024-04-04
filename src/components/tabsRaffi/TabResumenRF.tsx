@@ -133,13 +133,17 @@ export const TabResumenRF = ({
         
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         
         flexDirection: "column",
         backgroundColor: "#fff",
         ...(!isSmallScreen && {
-          height: "85%",
+          height: "100%",
           overflow: "auto",
           // Otros estilos específicos para pantallas pequeñas
         }),
@@ -2564,7 +2568,7 @@ export const TabResumenRF = ({
         >
           <Button className="cancelar" onClick={() => showResume()}>
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Cancelar
+              CANCELAR
             </Typography>
           </Button>
         </Grid>
@@ -2584,7 +2588,7 @@ export const TabResumenRF = ({
             onClick={() => setOpenModalSolicitarModif(true)}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Solicitar Modificación
+              SOLCIITAR MODIFICACIÓN 
             </Typography>
           </Button>
         </Grid>
@@ -2615,7 +2619,7 @@ export const TabResumenRF = ({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Guardar Borrador
+             GUARDAR BORRADOR
             </Typography>
           </Button>
         </Grid>

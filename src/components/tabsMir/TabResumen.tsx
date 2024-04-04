@@ -301,8 +301,7 @@ export function TabResumen({
         // display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
         // alignItems: "center",
         // justifyItems: "center",
         flexDirection: "column",
@@ -2499,7 +2498,7 @@ export function TabResumen({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", }}
+          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
           item
           xl={3}
           lg={3}
@@ -2533,7 +2532,7 @@ export function TabResumen({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
           item
           xl={3}
           lg={3}

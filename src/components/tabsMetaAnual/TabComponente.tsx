@@ -302,8 +302,12 @@ export const TabComponenteMA = ({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(!isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",

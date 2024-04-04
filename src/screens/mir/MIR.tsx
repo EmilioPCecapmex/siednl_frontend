@@ -848,7 +848,7 @@ export const MIR = () => {
                       height: ["40px", "40px", "40px", "40px", "50px"],
                       //color: "black",
                       fontFamily: "MontserratMedium",
-                      fontSize: [5, 7, 10, 12, 16, 20],
+                      //fontSize: [3, 6, 10, 12, 16, 20],
                     }}
                     onClick={() => {
                       setMirEdit([

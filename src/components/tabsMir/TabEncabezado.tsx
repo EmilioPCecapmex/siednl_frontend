@@ -284,8 +284,12 @@ export function TabEncabezado({
         // alignItems: "center",
         // justifyItems: "center",
         backgroundColor: "#fff",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         ...(!isSmallScreen && {
           height: "85%",
           overflow: "auto",

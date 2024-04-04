@@ -117,8 +117,12 @@ export function TabResumenFT({
         //display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         // alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",

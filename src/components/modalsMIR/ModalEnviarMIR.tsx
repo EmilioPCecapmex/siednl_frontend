@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
-  Box,
+  Grid,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -69,7 +69,6 @@ export default function ModalEnviarMIR({
     if (estadoMIR === "Autorizada") {
       getMAyFT(IdMir, setMA, setFT, setRF, setIdMA, setIdFT, setIdRF);
     }
-    
   }, [Idma]);
 
   ///////////////////////////////////////////////////////////////////////////////////////////
@@ -221,8 +220,6 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label)
     ) {
-    
-
       err = 1;
       errores.push("<strong> EJERCICIO FISCAL</strong> NO SELECCIONADO.");
     }
@@ -291,8 +288,6 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
     ) {
-     
-
       err = 1;
       errores.push("<strong> BENEFICIARIO</strong> NO SELECCIONADO.");
     }
@@ -584,7 +579,6 @@ export default function ModalEnviarMIR({
 
   const CrearMetaAnual = (mensaje: string, IdMir: string, IdMa: String) => {
     const idMirFinal = IdMir || mensaje;
-   
 
     axios
       .post(
@@ -620,7 +614,6 @@ export default function ModalEnviarMIR({
         if (localStorage.getItem("Rol") === "Administrador") {
           rol = ["Capturador", "Verificador"];
         }
-       
 
         enviarNotificacionRol(
           "MA",
@@ -686,7 +679,6 @@ export default function ModalEnviarMIR({
           rol = ["Capturador", "Verificador"];
         }
 
-
         enviarNotificacionRol(
           "MIR",
           "MIR ENVIADA",
@@ -694,7 +686,6 @@ export default function ModalEnviarMIR({
           rol,
           JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad
         );
-       
 
         if (estado === "Autorizada") {
           CrearMetaAnual(r.data.data.Id, IdMir, r.data.data.IdMa);
@@ -821,7 +812,8 @@ export default function ModalEnviarMIR({
         sx={{
           fontFamily: "MontserratBold",
           borderBottom: 1,
-          height: "6vh",
+          fontSize: [18, 20, 15, 20, 15],
+          height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
           mb: 2,
         }}
       >
@@ -837,9 +829,9 @@ export default function ModalEnviarMIR({
           alignItems: "center",
         }}
       >
-        <Box
+        <Grid
           sx={{
-            width: "30vw",
+            width: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-evenly",
@@ -847,7 +839,11 @@ export default function ModalEnviarMIR({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
+            sx={{
+              fontSize: [15, 15, 15, 15, 15],
+              fontFamily: "MontserratMedium",
+              textAlign: "center",
+            }}
           >
             {localStorage.getItem("Rol") === "Administrador"
               ? estadoMIR === "Autorizada"
@@ -857,21 +853,22 @@ export default function ModalEnviarMIR({
               ? "AL CONFIRMAR, LA MIR SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA AUTORIZACIÓN."
               : "AL CONFIRMAR, LA MIR SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA REVISIÓN."}
           </Typography>
-        </Box>
+        </Grid>
 
         {estadoMIR !== "Autorizada" && (
-          <Box sx={{ width: "30vw" }}>
+          <Grid sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}>
             <TextField
               multiline
               rows={3}
               label={"AGREGAR COMENTARIO"}
-              sx={{ width: "30vw" }}
+              
+              sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"], }}
               onChange={(v) => setComment(v.target.value)}
             />
-          </Box>
+          </Grid>
         )}
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -879,18 +876,18 @@ export default function ModalEnviarMIR({
             paddingBlockEnd: "1vh",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
-              alignItems: "flex-ce",
+              alignItems: "center",
               justifyContent: "space-between",
-              width: "20vw",
+              //width: "20vw",
               mt: "4vh",
             }}
           >
             <Button
               className="cancelar"
-              //sx={queries.buttonCancelarSolicitudInscripcion}
+              sx={{ marginRight: "1rem" }} // Agregar un margen a la derecha del botón
               onClick={() => handleClose(false)}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -900,7 +897,7 @@ export default function ModalEnviarMIR({
 
             <Button
               className="aceptar"
-              //sx={queries.buttonContinuarSolicitudInscripcion}
+             
               onClick={() => {
                 checkMir(
                   localStorage.getItem("Rol") === "Capturador"
@@ -921,8 +918,8 @@ export default function ModalEnviarMIR({
                 CONFIRMAR
               </Typography>
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );
@@ -930,11 +927,11 @@ export default function ModalEnviarMIR({
 
 export interface IIUserXInst {
   IdUsuario: string;
+  IdUsuarioTiCentral: string;
   Rol: string;
-  Entidad: string;
+  NombreInstitucion: string;
   Nombre: string;
   ApellidoPaterno: string;
   ApellidoMaterno: string;
-  NomvreUsuario: string;
-  CorreoElectronico: string;
+  NombreUsuario: string;
 }

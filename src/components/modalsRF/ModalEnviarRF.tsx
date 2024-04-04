@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
-  Box,
+  Grid,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -260,7 +260,8 @@ export default function ModalEnviarRF({
         sx={{
           fontFamily: "MontserratBold",
           borderBottom: 1,
-          height: "6vh",
+          fontSize: [18, 20, 15, 20, 15],
+          height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
           mb: 2,
         }}
       >
@@ -276,9 +277,9 @@ export default function ModalEnviarRF({
           alignItems: "center",
         }}
       >
-        <Box
+        <Grid
           sx={{
-            width: "30vw",
+            width: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-evenly",
@@ -286,7 +287,11 @@ export default function ModalEnviarRF({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
+            sx={{
+              fontSize: [15, 15, 15, 15, 15],
+              fontFamily: "MontserratMedium",
+              textAlign: "center",
+            }}
           >
             {localStorage.getItem("Rol") === "Administrador"
               ? "AL CONFIRMAR, LA RAFFI SE AUTORIZARÁ"
@@ -294,20 +299,20 @@ export default function ModalEnviarRF({
               ? "AL CONFIRMAR, LA RAFFI SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA AUTORIZACIÓN"
               : "AL CONFIRMAR, LA RAFFI SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA REVISIÓN"}
           </Typography>
-        </Box>
+        </Grid>
 
        
-          <Box sx={{ width: "30vw" }}>
+        <Grid sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}>
             <TextField
               multiline
               rows={3}
               label={"AGREGAR COMENTARIO"}
-              sx={{ width: "30vw" }}
+              sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"], }}
               onChange={(v) => setComment(v.target.value)}
             ></TextField>
-          </Box>
+          </Grid>
         
-        <Box
+        <Grid
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -315,18 +320,18 @@ export default function ModalEnviarRF({
             paddingBlockEnd: "1vh",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
-              alignItems: "flex-end",
+              alignItems: "center",
               justifyContent: "space-between",
-              width: "20vw",
+            
               mt: "4vh",
             }}
           >
             <Button
               className="cancelar"
-              
+              sx={{ marginRight: "1rem" }}
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -365,8 +370,8 @@ export default function ModalEnviarRF({
                 CONFIRMAR
               </Typography>
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
-  Box,
+  Grid,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -86,6 +86,8 @@ export default function ModalEnviarMA({
       JSON.parse(MA)?.fin.valorNumerador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.valorNumerador) ||
       JSON.parse(MA)?.fin.unidadResponsable === undefined ||
+
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.sentidoDelIndicador) ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.unidadResponsable) ||
       JSON.parse(MA)?.fin.descIndicador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.descIndicador) ||
@@ -169,7 +171,7 @@ export default function ModalEnviarMA({
         "<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN."
       );
     }
-
+    
     if (
       JSON.parse(MA)?.proposito.metaAnual === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.metaAnual) ||
@@ -179,6 +181,9 @@ export default function ModalEnviarMA({
       JSON.parse(MA)?.proposito.lineaBase === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.unidadResponsable) ||
       JSON.parse(MA)?.proposito.valorNumerador === undefined ||
+
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.sentidoDelIndicador) ||
+
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorNumerador) ||
       JSON.parse(MA)?.proposito.unidadResponsable === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.unidadResponsable) ||
@@ -288,7 +293,9 @@ export default function ModalEnviarMA({
           componente.descNumerador === undefined ||
           /^[\s]*$/.test(componente.descNumerador) ||
           componente.descDenominador === undefined ||
-          /^[\s]*$/.test(componente.descDenominador)
+          /^[\s]*$/.test(componente.descDenominador) ||
+          
+              /^[\s]*$/.test(componente.sentidoDelIndicador) 
         ) {
           err = 1;
           errores.push(
@@ -430,7 +437,8 @@ export default function ModalEnviarMA({
               actividad.descNumerador === undefined ||
               /^[\s]*$/.test(actividad.descNumerador) ||
               actividad.descDenominador === undefined ||
-              /^[\s]*$/.test(actividad.descDenominador)
+              /^[\s]*$/.test(actividad.descDenominador) ||
+              /^[\s]*$/.test(actividad.sentidoDelIndicador) 
             ) {
               err = 1;
               errores.push(
@@ -732,7 +740,8 @@ export default function ModalEnviarMA({
         sx={{
           fontFamily: "MontserratBold",
           borderBottom: 1,
-          height: "6vh",
+          fontSize: [18, 20, 15, 20, 15],
+          height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
           mb: 2,
         }}
       >
@@ -748,9 +757,9 @@ export default function ModalEnviarMA({
           alignItems: "center",
         }}
       >
-        <Box
+        <Grid
           sx={{
-            width: "30vw",
+            width: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-evenly",
@@ -758,27 +767,31 @@ export default function ModalEnviarMA({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
+            sx={{
+              fontSize: [15, 15, 15, 15, 15],
+              fontFamily: "MontserratMedium",
+              textAlign: "center",
+            }} 
           >
-            {localStorage.getItem("Rol") === "ADMINISTRADOR"
+            {localStorage.getItem("Rol") === "Administrador"
               ? "AL CONFIRMAR, LA META ANUAL SE AUTORIZARÁ Y EL APARTADO DE LA FICHA TÉCNICA Y RAFFI SERÁ HABILITADO"
-              : localStorage.getItem("Rol") === "VERIFICADOR"
+              : localStorage.getItem("Rol") === "Verificador"
               ? "AL CONFIRMAR, LA META ANUAL SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA AUTORIZACIÓN"
               : "AL CONFIRMAR, LA META ANUAL SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA REVISIÓN"}
           </Typography>
-        </Box>
+        </Grid>
 
-        <Box sx={{ width: "30vw" }}>
+        <Grid sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}>
           <TextField
             multiline
             rows={3}
             label={"AGREGAR COMENTARIO"}
-            sx={{ width: "30vw" }}
+            sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"], }}
             onChange={(v) => setComment(v.target.value)}
           ></TextField>
-        </Box>
+        </Grid>
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -786,18 +799,19 @@ export default function ModalEnviarMA({
             paddingBlockEnd: "1vh",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
-              alignItems: "flex-end",
+              alignItems: "center",
               justifyContent: "space-between",
-              width: "20vw",
+              //width: "20vw",
               mt: "4vh",
             }}
           >
             <Button
               className="cancelar"
               //sx={queries.buttonCancelarSolicitudInscripcion}
+              sx={{ marginRight: "1rem" }}
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -837,8 +851,8 @@ export default function ModalEnviarMA({
                 CONFIRMAR
               </Typography>
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );
