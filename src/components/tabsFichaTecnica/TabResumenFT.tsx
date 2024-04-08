@@ -2408,7 +2408,7 @@ export function TabResumenFT({
             onClick={() => showResume()}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Cancelar
+              CANCELAR
             </Typography>
           </Button>
         </Grid>
@@ -2431,7 +2431,7 @@ export function TabResumenFT({
             onClick={() => setOpenModalSolicitarModif(true)}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Solicitar Modificación
+              SOLICITAR MODIFICACIÓN
             </Typography>
           </Button>
         </Grid>
@@ -2465,7 +2465,7 @@ export function TabResumenFT({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              Guardar Borrador
+              GUARDAR BORRADOR
             </Typography>
           </Button>
         </Grid>
@@ -2488,9 +2488,9 @@ export function TabResumenFT({
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
               {localStorage.getItem("Rol") === "Administrador"
                 ? estadoft === "Autorizada"
-                  ? "Modificar FT Autorizada"
-                  : "Autorizar"
-                : "Enviar"}
+                  ? "MODIFICAR FT AUTORIZADA"
+                  : "AUTORIZAR"
+                : "ENVIAR"}
             </Typography>
           </Button>
         </Grid>
