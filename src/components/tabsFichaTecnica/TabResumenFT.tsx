@@ -2394,7 +2394,12 @@ export function TabResumenFT({
         }}
       >
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+           sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -2404,7 +2409,7 @@ export function TabResumenFT({
         >
           <Button
           className="cancelar"
-           
+          sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => showResume()}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -2414,7 +2419,12 @@ export function TabResumenFT({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -2426,7 +2436,7 @@ export function TabResumenFT({
             disabled={
               localStorage.getItem("Rol") === "Capturador" ? true : false
             }
-            
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             className="aceptar"
             onClick={() => setOpenModalSolicitarModif(true)}
           >
@@ -2438,7 +2448,12 @@ export function TabResumenFT({
 
         <Grid
         
-        sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+        sx={{
+          justifyContent: "center",
+          display: "flex",
+          margin: isSmallScreen ? "2px" : "5px",
+          width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+        }}
           item
           xl={3}
           lg={3}
@@ -2448,7 +2463,7 @@ export function TabResumenFT({
         >
           <Button
           className="aceptar"
-            
+          sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => {
               let estado = "";
               if (localStorage.getItem("Rol") === "Capturador") {
@@ -2471,7 +2486,12 @@ export function TabResumenFT({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -2481,7 +2501,7 @@ export function TabResumenFT({
         >
           <Button
           className="aceptar"
-           
+          sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() =>{ console.log(estadoft)
             setOpenModalEnviar(true)}}
           >

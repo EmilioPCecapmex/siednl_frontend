@@ -2558,7 +2558,12 @@ export const TabResumenRF = ({
         }}
       >
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+           sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -2566,7 +2571,9 @@ export const TabResumenRF = ({
           sm={12}
           xs={12}
         >
-          <Button className="cancelar" onClick={() => showResume()}>
+          <Button
+           sx={{ width: !isSmallScreen ? "100%" : "auto" }}
+          className="cancelar" onClick={() => showResume()}>
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
               CANCELAR
             </Typography>
@@ -2574,7 +2581,12 @@ export const TabResumenRF = ({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -2584,6 +2596,7 @@ export const TabResumenRF = ({
         >
           <Button
             disabled={isCapturador ? true : false}
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             className="aceptar"
             onClick={() => setOpenModalSolicitarModif(true)}
           >
@@ -2594,8 +2607,13 @@ export const TabResumenRF = ({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
-          item
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
+            item
           xl={3}
           lg={3}
           md={3}
@@ -2604,6 +2622,7 @@ export const TabResumenRF = ({
         >
           <Button
             className="aceptar"
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => {
               let estado = "";
               if (localStorage.getItem("Rol") === "Capturador") {
@@ -2625,7 +2644,12 @@ export const TabResumenRF = ({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -2635,6 +2659,7 @@ export const TabResumenRF = ({
         >
           <Button
             //sx={queries.buttonContinuarSolicitudInscripcion}
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => setOpenModalEnviar(true)}
             className="aceptar"
           >

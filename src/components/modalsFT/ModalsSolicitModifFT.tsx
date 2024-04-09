@@ -29,7 +29,8 @@ import {
   create_coment_mir,
   soliModyNoty,
 } from "../genericComponents/axiosGenericos";
-
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -566,8 +567,6 @@ export default function ModalSolicitaModif({
                 //actividad.aporte_marginal === undefined
               )
             ) {
-              
-
               err = 1;
               errores.push(
                 `SECCIÓN <strong>ACTIVIDAD ${actividad.actividades} </strong> INCOMPLETA.`
@@ -599,7 +598,6 @@ export default function ModalSolicitaModif({
               actividad.unidadDeMedida === undefined ||
               /^[\s]*$/.test(actividad.unidadDeMedida)
             ) {
-             
               err = 1;
               errores.push(
                 `<strong>
@@ -710,7 +708,6 @@ export default function ModalSolicitaModif({
     ) {
       estado = "En Captura";
     }
-    
 
     axios
       .post(
@@ -750,8 +747,6 @@ export default function ModalSolicitaModif({
             ? "FICHA TECNICA ENVIADA A CAPTURADOR PARA CORRECCIÓN"
             : "FICHA TECNICA ENVIADA"
         );
-
-  
 
         soliModyNoty(
           userSelected,
@@ -794,13 +789,14 @@ export default function ModalSolicitaModif({
         )
         .then((r) => {
           if (r.status === 200) {
-       
-
             setUserXInst(r.data.data);
           }
         });
     }
   }, [MIR, open]);
+
+  const theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
@@ -838,7 +834,7 @@ export default function ModalSolicitaModif({
               textAlign: "center",
             }}
           >
-          SELECCIONA USUARIO PARA SOLICITAR MODIFICACIÓN
+            SELECCIONA USUARIO PARA SOLICITAR MODIFICACIÓN
           </Typography>
 
           <FormControl
@@ -984,13 +980,13 @@ export default function ModalSolicitaModif({
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              //width: "20vw",
+              flexDirection: isSmScreen ? "column" : "row", // Cambia el flexDirection según el tamaño de la pantalla
               mt: "4vh",
             }}
           >
             <Button
               className="cancelar"
-              sx={{ marginRight: "1rem" }}
+              sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>

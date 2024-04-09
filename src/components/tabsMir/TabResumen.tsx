@@ -2461,6 +2461,7 @@ export function TabResumen({
           <Button
             //sx={queries.buttonCancelarSolicitudInscripcion}
             className="cancelar"
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => showResume()}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -2470,8 +2471,13 @@ export function TabResumen({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
-          item
+         sx={{
+          justifyContent: "center",
+          display: "flex",
+          margin: isSmallScreen ? "2px" : "5px",
+          width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+        }}
+        item
           xl={3}
           lg={3}
           md={3}
@@ -2488,6 +2494,7 @@ export function TabResumen({
               localStorage.getItem("Rol") === "Capturador"
             }
             className="aceptar"
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             //sx={buttonStyles}
             onClick={() => setOpenModalSolicitarModif(true)}
           >
@@ -2498,8 +2505,13 @@ export function TabResumen({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
-          item
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
+            item
           xl={3}
           lg={3}
           md={3}
@@ -2508,6 +2520,7 @@ export function TabResumen({
         >
           <Button
             className="aceptar"
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             //sx={queries.buttonContinuarSolicitudInscripcion}
             onClick={() => {
               let estado = "";
@@ -2532,7 +2545,12 @@ export function TabResumen({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+           sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -2542,6 +2560,7 @@ export function TabResumen({
         >
           <Button
             //sx={queries.buttonContinuarSolicitudInscripcion}
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             className="aceptar"
             onClick={() => {
               setOpenModalEnviar(true);

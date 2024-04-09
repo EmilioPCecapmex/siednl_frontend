@@ -27,7 +27,8 @@ import {
   create_coment_mir,
   soliModyNoty,
 } from "../genericComponents/axiosGenericos";
-
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -590,6 +591,9 @@ export default function ModalSolicitaModif({
     }
   }, [MIR, open]);
 
+  const theme = useTheme();
+const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle
@@ -778,13 +782,13 @@ export default function ModalSolicitaModif({
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              //width: "20vw",
+              flexDirection: isSmScreen ? "column" : "row", // Cambia el flexDirection según el tamaño de la pantalla
               mt: "4vh",
             }}
           >
             <Button
               className="cancelar"
-              sx={{ marginRight: "1rem" }}
+              sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>

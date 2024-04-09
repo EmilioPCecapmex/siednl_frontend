@@ -3049,6 +3049,7 @@ export function TabResumenMA({
           <Button
             className="cancelar"
             onClick={() => showResume()}
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
               CANCELAR
@@ -3057,7 +3058,12 @@ export function TabResumenMA({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -3068,6 +3074,7 @@ export function TabResumenMA({
           <Button
             disabled={isCapturador ? true : false}
             className="aceptar"
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => setOpenModalSolicitarModif(true)}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -3077,8 +3084,13 @@ export function TabResumenMA({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
-          item
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
+            item
           xl={3}
           lg={3}
           md={3}
@@ -3087,6 +3099,7 @@ export function TabResumenMA({
         >
           <Button
             className="aceptar"
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => {
               let estado = "";
               if (localStorage.getItem("Rol") === "Capturador") {
@@ -3109,7 +3122,12 @@ export function TabResumenMA({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -3119,6 +3137,7 @@ export function TabResumenMA({
         >
           <Button
             className="aceptar"
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => {
               setOpenModalEnviar(true);
             }}

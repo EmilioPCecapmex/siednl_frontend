@@ -9,7 +9,7 @@ import IconButton from "@mui/material/IconButton";
 
 import axios from "axios";
 
-import { DialogTitle, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import { DialogTitle, Grid, InputLabel, MenuItem, Select, Autocomplete } from "@mui/material";
 import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
 import { Typography, FormControl } from "@mui/material";
@@ -306,7 +306,7 @@ export const AddDialogCatalogo = ({
       <Dialog fullWidth open={open} onClose={cerrardialog} keepMounted>
         <DialogTitle>
           <Typography sx={queries.medium_text}>
-            Añadir Rango de Fecha de Captura
+             AÑADIR RANDO DE FECHA DE CAPTURA
           </Typography>
         </DialogTitle>
         <DialogContent>
@@ -327,7 +327,7 @@ export const AddDialogCatalogo = ({
             
             <Grid item lg={4}>
             <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-                Modulo
+                MODULO
               </InputLabel>
               <FormControl variant="outlined" fullWidth size="small">
                 <Select
@@ -348,7 +348,7 @@ export const AddDialogCatalogo = ({
 
             <Grid item lg={4}>
                <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-               Inicio
+               INICIO
               </InputLabel> 
               <FormControl variant="outlined" fullWidth size="small">
                 
@@ -382,7 +382,7 @@ export const AddDialogCatalogo = ({
 
             <Grid item lg={4}>
                <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-                Fin
+                FIN
               </InputLabel> 
 
               <FormControl variant="outlined" fullWidth size="small">
@@ -426,7 +426,7 @@ export const AddDialogCatalogo = ({
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
             >
-              Cancelar
+              CANCELAR
             </Typography>
           </Button>
 
@@ -438,7 +438,7 @@ export const AddDialogCatalogo = ({
             <Typography
               sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
             >
-              De Acuerdo
+              DE ACUERDO
             </Typography>
           </Button>
         </DialogActions>
@@ -481,7 +481,7 @@ export const AddDialogCatalogo = ({
                 textAlign: "center",
               }}
             >
-              Vincular Programa - Institucion
+VINCULAR PROGRAMA - INSTITUCION
             </Typography>
           </Grid>
           <DialogContent
@@ -499,11 +499,11 @@ export const AddDialogCatalogo = ({
               }}
             >
               <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-                Programas institucionales
+                PROGRAMAS INSTITUCIONALES
               </InputLabel>
               <Select
                 value={programa}
-                label="Institución institucionales"
+                label="INSTITUCIÓN institucionales"
                 onChange={(x) => {
                   setPrograma(x.target.value);
                 }}
@@ -519,7 +519,7 @@ export const AddDialogCatalogo = ({
                     fontFamily: "MontserratRegular",
                   }}
                 >
-                  Selecciona
+                  SELECCIONA
                 </MenuItem>
                 {catalogoProgramas.map((item) => {
                   return (
@@ -542,11 +542,11 @@ export const AddDialogCatalogo = ({
               }}
             >
               <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-                Institución
+                INSTITUCIÓN
               </InputLabel>
               <Select
                 value={institution}
-                label="Institución"
+                label="INSTITUCIÓN"
                 onChange={(x) => setInstitution(x.target.value)}
                 sx={{
                   fontFamily: "MontserratRegular",
@@ -560,7 +560,7 @@ export const AddDialogCatalogo = ({
                     fontFamily: "MontserratRegular",
                   }}
                 >
-                  Selecciona
+                  SELECCIONA
                 </MenuItem>
                 {catalogoEntidades.map((item) => {
                   return (
@@ -596,7 +596,7 @@ export const AddDialogCatalogo = ({
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
@@ -611,7 +611,7 @@ export const AddDialogCatalogo = ({
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
-                De Acuerdo
+                DE ACUERDI
               </Typography>
             </Button>
           </DialogActions>
@@ -652,7 +652,8 @@ export const AddDialogCatalogo = ({
                 textAlign: "center",
               }}
             >
-              Vincular Institucion - Unidad Administrativa
+              
+              VINCULAR INSTITUCION - UNIDAD ADMINISTRATIVA
             </Typography>
           </Grid>
           <DialogContent
@@ -670,7 +671,7 @@ export const AddDialogCatalogo = ({
               }}
             >
               <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-                Unidades Administrativas
+              UNIDADES ADMINISTRATIVAS
               </InputLabel>
               <Select
                 value={unidad}
@@ -690,7 +691,7 @@ export const AddDialogCatalogo = ({
                     fontFamily: "MontserratRegular",
                   }}
                 >
-                  Selecciona
+                  SELECCIONA
                 </MenuItem>
                 {catalogoUnidades.map((item) => {
                   return (
@@ -713,11 +714,11 @@ export const AddDialogCatalogo = ({
               }}
             >
               <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
-                Institución
+                INSTITUCIÓN
               </InputLabel>
               <Select
                 value={institution}
-                label="Institución"
+                label="INSTITUCIÓN"
                 onChange={(x) => setInstitution(x.target.value)}
                 sx={{
                   fontFamily: "MontserratRegular",
@@ -731,7 +732,7 @@ export const AddDialogCatalogo = ({
                     fontFamily: "MontserratRegular",
                   }}
                 >
-                  Selecciona
+                  SELECCIONA
                 </MenuItem>
                 {catalogoEntidades.map((item) => {
                   return (
@@ -762,7 +763,7 @@ export const AddDialogCatalogo = ({
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
@@ -777,7 +778,7 @@ export const AddDialogCatalogo = ({
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
-                De Acuerdo
+                DE ACUERDO
               </Typography>
             </Button>
           </DialogActions>
@@ -850,7 +851,8 @@ export const AddDialogCatalogo = ({
                 textAlign: "center",
               }}
             >
-              Añadir Programa Presupuestario
+              
+              AÑADIR PROGRAMA PRESUPUESTARIO
             </Typography>
           </Grid>
           <DialogContent
@@ -942,12 +944,12 @@ export const AddDialogCatalogo = ({
                 id="labelInst"
                 sx={{ fontFamily: "MontserratRegular" }}
               >
-                Institución
+                INSTITUCIÓN
               </InputLabel>
               <Select
                 labelId="labelInst"
                 value={institution}
-                label="Institución"
+                label="INSTITUCIÓN"
                 onChange={(x) => setInstitution(x.target.value)}
                 style={{
                   marginTop: 1,
@@ -962,7 +964,7 @@ export const AddDialogCatalogo = ({
                   disabled
                   sx={{ fontFamily: "MontserratLight" }}
                 >
-                  Selecciona Institución
+                  SELECCIONA INSTITUCIÓN
                 </MenuItem>
                 {catalogoEntidades.map((item) => {
                   return (
@@ -993,7 +995,7 @@ export const AddDialogCatalogo = ({
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
@@ -1016,7 +1018,7 @@ export const AddDialogCatalogo = ({
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
-                De Acuerdo
+                DE ACUERDO
               </Typography>
             </Button>
           </DialogActions>
@@ -1058,7 +1060,7 @@ export const AddDialogCatalogo = ({
                 textAlign: "center",
               }}
             >
-              Añadir Elemento
+              AÑADIR ELEMENTO
             </Typography>
           </Grid>
 
@@ -1211,7 +1213,7 @@ export const AddDialogCatalogo = ({
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
@@ -1222,7 +1224,7 @@ export const AddDialogCatalogo = ({
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
-                De Acuerdo
+                DE ACUERDO
               </Typography>
             </Button>
           </DialogActions>
