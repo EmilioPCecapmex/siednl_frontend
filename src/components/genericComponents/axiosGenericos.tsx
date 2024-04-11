@@ -2,7 +2,7 @@ import axios from "axios";
 
 
  export const soliModyNoty = (v: string, coment: string, titulo: string, Id: string) => {
-  console.log("Id: ", Id);
+ 
   
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/soli-notif",
@@ -21,9 +21,8 @@ import axios from "axios";
     );
   };
 
-  export const enviarNotificacionRol = (titulo: string, coment: string, Id: string, Rol: string[]) => {
-    console.log("Id");
-    
+  export const enviarNotificacionRol = (titulo: string, coment: string, Id: string, Rol: string[], IdEntidad: string) => {
+   
     axios.post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
       {
@@ -31,7 +30,7 @@ import axios from "axios";
         Mensaje: coment,
         IdDocumento: Id,
         Rol: Rol,
-        IdEntidad: localStorage.getItem("IdEntidad"),
+        IdEntidad: IdEntidad || localStorage.getItem("IdEntidad"),
         IdApp: localStorage.getItem("IdApp"),
         CreadoPor: localStorage.getItem("IdUsuario"),
         
@@ -120,7 +119,9 @@ export const obtenerComentarios = async (id: string,  state: Function) => {
       }
     )
     .then((r) => {
-      state(r)
+      
+      
+      state(r.data.data)
     
     })
     .catch((err) => {
@@ -173,8 +174,7 @@ export const obtenerComentarios = async (id: string,  state: Function) => {
       .then((r) => {
         if (r.status === 200) {
           if (r.data.data.length >= 1) {
-            console.log("axiosGenericos Noti - r.status: ",r.status);
-            console.log("r.data.data: ",r.data.data);
+         
             state1(r.data.data);
           } else {
             state2(false);

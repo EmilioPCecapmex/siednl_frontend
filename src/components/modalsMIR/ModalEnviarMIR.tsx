@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
-  Box,
+  Grid,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -22,9 +22,17 @@ import { getMAyFT } from "../../services/mir_services/MIR_services";
 import { IMA } from "../tabsMetaAnual/IMA";
 import { IComponentesFT, IFT } from "../tabsFichaTecnica/Interfaces";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
-import { alertaEliminar, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
+import {
+  alertaEliminar,
+  alertaErroresDocumento,
+  alertaExito,
+  alertaExitoConfirm,
+} from "../genericComponents/Alertas";
 import { IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
-import { create_coment_mir, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
+import {
+  create_coment_mir,
+  enviarNotificacionRol,
+} from "../genericComponents/axiosGenericos";
 
 export let errores: string[] = [];
 
@@ -37,6 +45,7 @@ export default function ModalEnviarMIR({
   estadoMIR,
   RestructuraMAyFT,
   mDocumentos,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -46,6 +55,7 @@ export default function ModalEnviarMIR({
   estadoMIR: string;
   RestructuraMAyFT: Function;
   mDocumentos: IMovimientos[];
+  IdEntidad: string;
 }) {
   const [ma, setMA] = useState<IMA>();
   const [ft, setFT] = useState<IFT>();
@@ -59,8 +69,6 @@ export default function ModalEnviarMIR({
     if (estadoMIR === "Autorizada") {
       getMAyFT(IdMir, setMA, setFT, setRF, setIdMA, setIdFT, setIdRF);
     }
-    console.log("Idma: ",Idma);
-    
   }, [Idma]);
 
   ///////////////////////////////////////////////////////////////////////////////////////////
@@ -172,7 +180,7 @@ export default function ModalEnviarMIR({
   const enviarMensaje = "Se ha creado una nueva";
 
   const comentMir = (id: string) => {
-      create_coment_mir(id, coment, "MIR")
+    create_coment_mir(id, coment, "MIR")
       .then((r) => {
         setNewComent(false);
         setComment("");
@@ -183,69 +191,103 @@ export default function ModalEnviarMIR({
   const checkMir = (v: string) => {
     errores = [];
     if (
-      JSON.parse(MIR)?.encabezado.ejercicioFiscal === "" ||
-      JSON.parse(MIR)?.encabezado.entidad === "" ||
-      JSON.parse(MIR)?.encabezado.programa === "" ||
-      JSON.parse(MIR)?.encabezado.eje === "" ||
-      JSON.parse(MIR)?.encabezado.tema === "" ||
-      JSON.parse(MIR)?.encabezado.objetivo === "" ||
-      JSON.parse(MIR)?.encabezado.estrategia === "" ||
-      JSON.parse(MIR)?.encabezado.lineas_de_accion === "" ||
-      JSON.parse(MIR)?.encabezado.beneficiario === ""
+      JSON.parse(MIR)?.encabezado.ejercicioFiscal === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.ejercicioFiscal) ||
+      JSON.parse(MIR)?.encabezado.entidad === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.entidad) ||
+      JSON.parse(MIR)?.encabezado.programa === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.programa) ||
+      JSON.parse(MIR)?.encabezado.eje === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.eje) ||
+      JSON.parse(MIR)?.encabezado.tema === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.tema) ||
+      JSON.parse(MIR)?.encabezado.objetivo === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.objetivo) ||
+      JSON.parse(MIR)?.encabezado.estrategia === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.estrategia) ||
+      JSON.parse(MIR)?.encabezado.lineas_de_accion === undefined ||
+      /^[\s]*$/.test(
+        JSON.parse(MIR)?.encabezado.lineas_de_accion ||
+          JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
+          /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
+      )
     ) {
       err = 1;
       errores.push("SECCIÓN <strong>ENCABEZADO </strong> INCOMPLETA.");
     }
-    if (JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label === "" || JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label === undefined ||
-    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label )) {
-      console.log("ejercicioFiscal");
-      
+    if (
+      JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label === "" ||
+      JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label)
+    ) {
       err = 1;
       errores.push("<strong> EJERCICIO FISCAL</strong> NO SELECCIONADO.");
     }
-    if (JSON.parse(MIR)?.encabezado.entidad.Label === "" || JSON.parse(MIR)?.encabezado.entidad.Label === undefined ||
-    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.entidad.Label )) {
+    if (
+      JSON.parse(MIR)?.encabezado.entidad.Label === "" ||
+      JSON.parse(MIR)?.encabezado.entidad.Label === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.entidad.Label)
+    ) {
       err = 1;
       errores.push("<strong> INSTITUCIÓN</strong> NO SELECCIONADA.");
     }
-    if (JSON.parse(MIR)?.encabezado.programa.Label === "" || JSON.parse(MIR)?.encabezado.programa.Label === undefined ||
-    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.programa.Label )) {
+    if (
+      JSON.parse(MIR)?.encabezado.programa.Label === "" ||
+      JSON.parse(MIR)?.encabezado.programa.Label === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.programa.Label)
+    ) {
       err = 1;
       errores.push(
         "<strong> PROGRAMA PRESUPUESTARIO</strong> NO SELECCIONADO."
       );
     }
-    if (JSON.parse(MIR)?.encabezado.eje.Label === "" || JSON.parse(MIR)?.encabezado.eje.Label === undefined ||
-    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.eje.Label ) ) {
+    if (
+      JSON.parse(MIR)?.encabezado.eje.Label === "" ||
+      JSON.parse(MIR)?.encabezado.eje.Label === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.eje.Label)
+    ) {
       err = 1;
       errores.push("<strong> EJE</strong> NO SELECCIONADO.");
     }
-    if (JSON.parse(MIR)?.encabezado.tema.Label === "" || JSON.parse(MIR)?.encabezado.tema.Label === undefined ||
-    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.tema.Label ) ) {
+    if (
+      JSON.parse(MIR)?.encabezado.tema.Label === "" ||
+      JSON.parse(MIR)?.encabezado.tema.Label === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.tema.Label)
+    ) {
       err = 1;
       errores.push("<strong> TÉMATICA</strong> NO SELECCIONADA.");
     }
-    if (JSON.parse(MIR)?.encabezado.objetivo.Label === "" || JSON.parse(MIR)?.encabezado.objetivo.Label === undefined ||
-    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.objetivo.Label ) ) {
+    if (
+      JSON.parse(MIR)?.encabezado.objetivo.Label === "" ||
+      JSON.parse(MIR)?.encabezado.objetivo.Label === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.objetivo.Label)
+    ) {
       err = 1;
       errores.push("<strong> OBJETIVO</strong> NO SELECCIONADO.");
     }
-    if (JSON.parse(MIR)?.encabezado.estrategia.Label === "" || JSON.parse(MIR)?.encabezado.estrategia.Label === undefined ||
-    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.estrategia.Label )) {
+    if (
+      JSON.parse(MIR)?.encabezado.estrategia.Label === "" ||
+      JSON.parse(MIR)?.encabezado.estrategia.Label === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.estrategia.Label)
+    ) {
       err = 1;
       errores.push("<strong> ESTRATEGIA</strong> NO SELECCIONADA.");
     }
-    if (JSON.parse(MIR)?.encabezado.lineas_de_accion === "" || JSON.parse(MIR)?.encabezado.lineas_de_accion === undefined ||
-    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.lineas_de_accion)) {
+    if (
+      JSON.parse(MIR)?.encabezado.lineas_de_accion === "" ||
+      JSON.parse(MIR)?.encabezado.lineas_de_accion === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.lineas_de_accion)
+    ) {
       err = 1;
       errores.push(
         "<strong> LÍNEA DE ACCIÓN</strong> SELECCIONA AL MENOS 1 OPCIÓN."
       );
     }
-    if (JSON.parse(MIR)?.encabezado.beneficiario === "" || JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
-    /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario) ) {
-      console.log("JSON.parse(MIR)?.encabezado: ",JSON.parse(MIR)?.encabezado);
-      
+    if (
+      JSON.parse(MIR)?.encabezado.beneficiario === "" ||
+      JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
+      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
+    ) {
       err = 1;
       errores.push("<strong> BENEFICIARIO</strong> NO SELECCIONADO.");
     }
@@ -469,9 +511,7 @@ export default function ModalEnviarMIR({
           ) {
             err = 1;
             errores.push(
-              `<hr><strong>ACTIVIDAD ${
-                (actividad.actividad, indexA + 1)
-              } </strong> INCOMPLETA.`
+              `<hr><strong> ${actividad.actividad} </strong> INCOMPLETA.`
             );
           }
           if (
@@ -525,6 +565,7 @@ export default function ModalEnviarMIR({
         });
       }
     );
+
     if (err === 0) {
       if (estadoMIR === "Autorizada" && IdMir && IdMir !== "") {
         mirFuncionAutorizada();
@@ -532,12 +573,11 @@ export default function ModalEnviarMIR({
         createMIR(v);
       }
     } else {
-      alertaErroresDocumento(errores)
+      alertaErroresDocumento(errores);
     }
   };
 
   const CrearMetaAnual = (mensaje: string, IdMir: string, IdMa: String) => {
-    
     const idMirFinal = IdMir || mensaje;
 
     axios
@@ -550,7 +590,10 @@ export default function ModalEnviarMIR({
           Estado: "En Captura",
           Id: "",
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -560,20 +603,25 @@ export default function ModalEnviarMIR({
       )
       .then((r) => {
         let rol: string[] = [];
-        if(localStorage.getItem("Rol") === "Verificador"){
-          rol = ["Administrador"]
+        if (localStorage.getItem("Rol") === "Verificador") {
+          rol = ["Administrador"];
         }
 
-        if(localStorage.getItem("Rol") === "Capturador"){
-          rol = ["Verificador"]
+        if (localStorage.getItem("Rol") === "Capturador") {
+          rol = ["Verificador"];
         }
 
-        if(localStorage.getItem("Rol") === "Administrador"){
-          rol = ["Capturador","Verificador"]
+        if (localStorage.getItem("Rol") === "Administrador") {
+          rol = ["Capturador", "Verificador"];
         }
-        console.log("MA-r.data.data.Id: ",r.data.data);
-        
-        enviarNotificacionRol("MA", "MA enviada", r?.data?.data?.Id || IdMa, rol);
+
+        enviarNotificacionRol(
+          "MA",
+          "MA ENVIADA",
+          r?.data?.data?.Id || IdMa,
+          rol,
+          JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad
+        );
         showResume();
       })
       .catch((err) => {
@@ -596,12 +644,15 @@ export default function ModalEnviarMIR({
               : //se va a modificar
                 localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
+            localStorage.getItem("IdEntidad"),
           Programa: JSON.parse(MIR)?.encabezado.programa.Label,
           Eje: JSON.parse(MIR)?.encabezado.eje.Label,
           Tematica: JSON.parse(MIR)?.encabezado.tema.Label,
           IdMir: IdMir,
-          
+
           Rol: localStorage.getItem("Rol"),
         },
         {
@@ -612,37 +663,40 @@ export default function ModalEnviarMIR({
       )
       .then((r) => {
         // userXInst.map((user) => {
-          
+
         //  soliModyNoty(user.IdUsuario, r.data.data.ID, "MIR");
         // });
         let rol: string[] = [];
-        if(localStorage.getItem("Rol") === "Verificador"){
-          rol = ["Administrador"]
+        if (localStorage.getItem("Rol") === "Verificador") {
+          rol = ["Administrador"];
         }
 
-        if(localStorage.getItem("Rol") === "Capturador"){
-          rol = ["Verificador"]
+        if (localStorage.getItem("Rol") === "Capturador") {
+          rol = ["Verificador"];
         }
 
-        if(localStorage.getItem("Rol") === "Administrador"){
-          rol = ["Capturador","Verificador"]
+        if (localStorage.getItem("Rol") === "Administrador") {
+          rol = ["Capturador", "Verificador"];
         }
-        console.log("r.dada.data: ",r.data.data);
-        
-        enviarNotificacionRol("MIR", "MIR enviada", r.data.data.Id, rol)
-        console.log("estado: ",estado);
-        
+
+        enviarNotificacionRol(
+          "MIR",
+          "MIR ENVIADA",
+          r.data.data.Id,
+          rol,
+          JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad
+        );
+
         if (estado === "Autorizada") {
-          console.log("r.data.data.Id: ",r.data.data.Id);
-          console.log("IdMir: ",IdMir);
-          console.log("r.data.data.IdMa: ",r.data.data.IdMa)
           CrearMetaAnual(r.data.data.Id, IdMir, r.data.data.IdMa);
         }
 
-        
-        alertaExitoConfirm((localStorage.getItem("Rol") === "Administrador"
-        ? "¡MIR autorizada con éxito!, Meta Anual disponible para captura"
-        : "¡MIR enviada con éxito!").toUpperCase())
+        alertaExitoConfirm(
+          (localStorage.getItem("Rol") === "Administrador"
+            ? "¡MIR AUTORIZADA CON ÉXITO!, META ANUAL DISPONIBLE PARA CAPTURA"
+            : "¡MIR ENVIADA CON ÉXITO!"
+          ).toUpperCase()
+        );
 
         if (coment !== "") {
           comentMir(r.data.data.Id);
@@ -652,22 +706,20 @@ export default function ModalEnviarMIR({
       .catch((err) => {
         errores.push(err.response.data.result.error);
         err = 1;
-     alertaErroresDocumento(errores)
+        alertaErroresDocumento(errores);
       });
   };
 
   useEffect(() => {
     if (open) {
-      
       axios
 
-    
         .post(
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
 
           {
             TipoUsuario: localStorage.getItem("Rol"),
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad,
             IdApp: localStorage.getItem("IdApp"),
           },
 
@@ -684,8 +736,6 @@ export default function ModalEnviarMIR({
         });
     }
   }, [MIR, open]);
-
- 
 
   const mirFuncionAutorizada = () => {
     let auxMA: string;
@@ -748,7 +798,6 @@ export default function ModalEnviarMIR({
       )
       .then(() => {
         alertaExito(showResume);
-        
       });
   };
 
@@ -763,13 +812,14 @@ export default function ModalEnviarMIR({
         sx={{
           fontFamily: "MontserratBold",
           borderBottom: 1,
-          height: "6vh",
+          fontSize: [18, 20, 15, 20, 15],
+          height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
           mb: 2,
         }}
       >
         {localStorage.getItem("Rol") === "Administrador"
-          ? "Confirmar Autorización"
-          : "Confirmar Envío"}
+          ? "CONFIRMAR AUTORIZACIÓN"
+          : "CONFIRMAR ENVÍO"}
       </DialogTitle>
 
       <DialogContent
@@ -779,9 +829,9 @@ export default function ModalEnviarMIR({
           alignItems: "center",
         }}
       >
-        <Box
+        <Grid
           sx={{
-            width: "30vw",
+            width: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-evenly",
@@ -789,31 +839,36 @@ export default function ModalEnviarMIR({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
+            sx={{
+              fontSize: [15, 15, 15, 15, 15],
+              fontFamily: "MontserratMedium",
+              textAlign: "center",
+            }}
           >
             {localStorage.getItem("Rol") === "Administrador"
               ? estadoMIR === "Autorizada"
-                ? "Al confirmar, la MIR se autorizará y el apartado de la Meta Anual será habilitado. Al confirmar los cambios se modificará la MIR y afectará la información de la Meta Anual y Ficha Técnica."
-                : "Al confirmar, la MIR se autorizará y el apartado de la Meta Anual será habilitado."
+                ? "AL CONFIRMAR, LA MIR SE AUTORIZARÁ Y EL APARTADO DE LA META ANUAL SERÁ HABILITADO. AL CONFIRMAR LOS CAMBIOS SE MODIFICARÁ LA MIR Y AFECTARÁ LA INFORMACIÓN DE LA META ANUAL Y FICHA TÉCNICA."
+                : "AL CONFIRMAR, LA MIR SE AUTORIZARÁ Y EL APARTADO DE LA META ANUAL SERÁ HABILITADO."
               : localStorage.getItem("Rol") === "Verificador"
-              ? "Al confirmar, la MIR se enviará a los usuarios correspondientes para autorización."
-              : "Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión."}
+              ? "AL CONFIRMAR, LA MIR SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA AUTORIZACIÓN."
+              : "AL CONFIRMAR, LA MIR SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA REVISIÓN."}
           </Typography>
-        </Box>
+        </Grid>
 
         {estadoMIR !== "Autorizada" && (
-          <Box sx={{ width: "30vw" }}>
+          <Grid sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}>
             <TextField
               multiline
               rows={3}
-              label={"Agregar Comentario"}
-              sx={{ width: "30vw" }}
+              label={"AGREGAR COMENTARIO"}
+              
+              sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"], }}
               onChange={(v) => setComment(v.target.value)}
             />
-          </Box>
+          </Grid>
         )}
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -821,28 +876,28 @@ export default function ModalEnviarMIR({
             paddingBlockEnd: "1vh",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
-              alignItems: "flex-ce",
+              alignItems: "center",
               justifyContent: "space-between",
-              width: "20vw",
+              //width: "20vw",
               mt: "4vh",
             }}
           >
             <Button
-            className="cancelar"
-              //sx={queries.buttonCancelarSolicitudInscripcion}
+              className="cancelar"
+              sx={{ marginRight: "1rem" }} // Agregar un margen a la derecha del botón
               onClick={() => handleClose(false)}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
             <Button
-            className="aceptar"
-              //sx={queries.buttonContinuarSolicitudInscripcion}
+              className="aceptar"
+             
               onClick={() => {
                 checkMir(
                   localStorage.getItem("Rol") === "Capturador"
@@ -860,11 +915,11 @@ export default function ModalEnviarMIR({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
-                Confirmar
+                CONFIRMAR
               </Typography>
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );
@@ -872,11 +927,11 @@ export default function ModalEnviarMIR({
 
 export interface IIUserXInst {
   IdUsuario: string;
+  IdUsuarioTiCentral: string;
   Rol: string;
-  Entidad: string;
+  NombreInstitucion: string;
   Nombre: string;
   ApellidoPaterno: string;
   ApellidoMaterno: string;
-  NomvreUsuario: string;
-  CorreoElectronico: string;
+  NombreUsuario: string;
 }

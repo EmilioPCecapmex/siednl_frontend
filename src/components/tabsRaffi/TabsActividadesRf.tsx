@@ -173,8 +173,12 @@ export const TabActividadRf = ({
           display: "flex",
           width: "93vw",
           height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
-          boxShadow: 10,
-          borderRadius: 5,
+          ...(!isSmallScreen
+            ? {boxShadow: 10,
+              borderRadius: 5,}
+            : {
+                
+              }),
           flexDirection: "column",
           backgroundColor: "#fff",
           overflow: "auto"
@@ -353,6 +357,7 @@ export const TabActividadRf = ({
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
+                        
                       }}
                     >
                       <Divider />
@@ -365,6 +370,7 @@ export const TabActividadRf = ({
                           setActividadSelect(0);
                         }}
                         sx={{
+                          fontSize: [10, 10, 10, 13, 15, 18],
                           height: "7vh",
                           "&.Mui-selected ": {
                             backgroundColor: "#c4a57b",
@@ -519,16 +525,7 @@ export const TabActividadRf = ({
             <Grid
               container
               direction={"row"}
-              // xl={12}
-              // lg={12}
-              // md={12}
-              // sm={12}
-              // xs={12}
-              // sx={{
-              //   alignContent: "center",
-              //   display: "flex",
-              //   justifyContent: "center",
-              // }}
+             
             >
               <Grid
                 container
@@ -562,7 +559,7 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={true}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -761,7 +758,7 @@ export const TabActividadRf = ({
                   <Grid item>
                    
                     <TextField
-                      //fullWidth
+                      
                       disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -809,7 +806,7 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -858,7 +855,7 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -905,7 +902,7 @@ export const TabActividadRf = ({
                   </Grid>
                   <Grid item>
                     <TextField
-                      //fullWidth
+                      
                       disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4}
                       size="small"
                       sx={{ boxShadow: 2 }}

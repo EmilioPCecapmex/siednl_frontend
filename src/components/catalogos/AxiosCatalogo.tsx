@@ -221,7 +221,7 @@ export const CreatePorCatalogo = (descripcion: string, tabla: string, state: Fun
 
 export const DescargarExcel = (state: Function, objeto: any, nombre: string) => {
 
-  console.log(nombre);
+ 
   
   axios.post(
     process.env.REACT_APP_APPLICATION_BACK + "/api/crearExcel",

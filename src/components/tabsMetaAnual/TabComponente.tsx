@@ -175,9 +175,9 @@ export const TabComponenteMA = ({
     setComponentesValues([...componentesValues]);
   };
 
-  const changeFormula2 = (txt: string) => {
+  const changeFormula2 = (txt: string,txtValores:string) => {
     
-    if (frecuencia === "trimestral") {
+    if (frecuencia === "trimestral" && (tipoFormula.toLowerCase()==="índice" || tipoFormula.toLowerCase()==="indice")) {
       componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
         txt.split(",")[0];
       componentesValues[componentSelect].metasPorFrecuencia[0].trimestre2 =
@@ -187,12 +187,45 @@ export const TabComponenteMA = ({
       componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
         txt.split(",")[3];
         
-    } else {
+    } else if(frecuencia === "trimestral")
+    {
+      componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
+        txt.split(",")[0];
+      componentesValues[componentSelect].metasPorFrecuencia[0].trimestre2 =
+        txt.split(",")[1];
+      componentesValues[componentSelect].metasPorFrecuencia[0].trimestre3 =
+        txt.split(",")[2];
+      componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
+        txt.split(",")[3];
+        
+      componentesValues[componentSelect].valoresPorFrecuencia[0].valorA = txtValores.split(",")[0];
+      componentesValues[componentSelect].valoresPorFrecuencia[0].valorB = txtValores.split(",")[1];
+      componentesValues[componentSelect].valoresPorFrecuencia[0].valorC = txtValores.split(",")[2];
+      componentesValues[componentSelect].valoresPorFrecuencia[0].valorD = txtValores.split(",")[3];
+      componentesValues[componentSelect].valoresPorFrecuencia[0].valorE = txtValores.split(",")[4];
+      componentesValues[componentSelect].valoresPorFrecuencia[0].valorF = txtValores.split(",")[5];
+      componentesValues[componentSelect].valoresPorFrecuencia[0].valorG = txtValores.split(",")[6];
+      componentesValues[componentSelect].valoresPorFrecuencia[0].valorH = txtValores.split(",")[7];
+
+    } else if (frecuencia ==="semestral" && (tipoFormula.toLowerCase()==="índice" || tipoFormula.toLowerCase()==="indice"))
+    {
       componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
         txt.split(",")[0];
       componentesValues[componentSelect].metasPorFrecuencia[0].semestre2 =
         txt.split(",")[1];
+    } else
+    {
+      componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
+        txt.split(",")[0];
+      componentesValues[componentSelect].metasPorFrecuencia[0].semestre2 =
+        txt.split(",")[1];
+
+      componentesValues[componentSelect].valoresPorFrecuencia[0].valorA = txtValores.split(",")[0];
+      componentesValues[componentSelect].valoresPorFrecuencia[0].valorB = txtValores.split(",")[1];
+      componentesValues[componentSelect].valoresPorFrecuencia[0].valorC = txtValores.split(",")[2];
+      componentesValues[componentSelect].valoresPorFrecuencia[0].valorD = txtValores.split(",")[3];
     }
+
 
     setComponentesValues([...componentesValues]);
   };
@@ -269,8 +302,12 @@ export const TabComponenteMA = ({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(!isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -295,10 +332,7 @@ export const TabComponenteMA = ({
         elementoA={""}
         MIR={MIR}
         frecuencia={frecuencia}
-        componentesMA={componentesValues}
-        componentesMAFunction={setComponentesValues}
-        componentSelect={componentSelect}
-        actividadSelect={0}
+        valores={JSON.stringify(componentesValues[componentSelect])}
       />
 
       <Grid
@@ -906,7 +940,6 @@ export const TabComponenteMA = ({
               />
             </FormControl>
           </Grid>
-
           {JSON.parse(MIR).componentes[
             componentSelect
           ].frecuencia?.toLowerCase() === "trimestral" ? (
@@ -1172,6 +1205,7 @@ export const TabComponenteMA = ({
               </Grid>
             </Grid>
           ) : (
+          
             <Grid
               item
               xl={12}
@@ -1185,6 +1219,7 @@ export const TabComponenteMA = ({
                 justifyContent: "center",
               }}
             >
+              
               <Grid
                 item
                 xl={12}

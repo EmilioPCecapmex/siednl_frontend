@@ -29,10 +29,14 @@ export const ComentDialogMA = ({
   estado,
   id,
   actualizado,
+  MIR,
+  IdEntidad,
 }: {
   estado: string;
   id: string;
   actualizado: Function;
+  MIR: string;
+  IdEntidad: string;
 }) => {
  
 
@@ -112,7 +116,7 @@ export const ComentDialogMA = ({
           rol = ["Capturador","Verificador"]
         }
 
-        enviarNotificacionRol("MA", "MA enviada", id, rol)
+        enviarNotificacionRol("MA", "MA ENVIADA", id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
         }
 
         setNewComent(false);
@@ -120,11 +124,11 @@ export const ComentDialogMA = ({
         handleClose();
         actualizado();
         
-        alertaExito(() => {}, "Comentario añadido");
+        alertaExito(() => {}, "COMENTARIO AÑADIDO");
       })
       .catch((err) => {
        
-        alertaError("Se produjo un error");
+        alertaError("SE PRODUJO UN ERROR ");
       });
   };
 
@@ -221,19 +225,19 @@ export const ComentDialogMA = ({
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Usuario
+                      USUARIO
                     </TableCell>
                     <TableCell
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Comentario
+                      COMENTARIO
                     </TableCell>
                     <TableCell
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Fecha de envío
+                      FECHA DE ENVÍO 
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -285,7 +289,7 @@ export const ComentDialogMA = ({
                         }}
                         align="center"
                       >
-                        Sin Comentarios
+                        SIN COMENTARIO
                       </TableCell>
                       <TableCell></TableCell>
                     </TableRow>
@@ -305,7 +309,7 @@ export const ComentDialogMA = ({
                 },
               }}
               sx={{ width: "30vw" }}
-              placeholder="Añada un comentario para poder Agregar"
+              placeholder="AÑADA UN COMENTARIO PARA PODER ARGEGAR"
               onChange={(v) => {
                 setComent(v.target.value);
               }}
@@ -337,7 +341,7 @@ export const ComentDialogMA = ({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
                 >
-                  Cancelar
+                  CANCELAR
                 </Typography>{" "}
               </Button>
 
@@ -355,7 +359,7 @@ export const ComentDialogMA = ({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
                 >
-                  {"Agregar"}
+                  {"AGREGAR"}
                 </Typography>
               </Button>
             </Box>

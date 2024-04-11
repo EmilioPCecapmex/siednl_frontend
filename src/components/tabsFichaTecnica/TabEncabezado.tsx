@@ -38,6 +38,8 @@ export function TabEncabezado({
 }) {
   const [encabezado, setEncabezado] = useState<IEncabezadoFT>(EncabezadoValues);
 
+  useEffect(()=>{console.log('EncabezadoValues',EncabezadoValues);
+  },[])
 
 
   const [disabledMetas, setDisabledMetas] = useState(true);
@@ -144,18 +146,24 @@ export function TabEncabezado({
 
   return (
     <Grid
+    position="absolute"
       sx={{
-      
+        
         width: "93vw",
-        height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
-        boxShadow: 10,
-        borderRadius: 5,
+        //height: ["90vh", "82vh", "82vh", "82vh",  "82vh"],
+        height: "82vh",
+       ...(isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         ...(!isSmallScreen && {
-          height: "85%",
+          //height: "85%",
           overflow: "auto",
           // Otros estilos específicos para pantallas pequeñas
         }),
-      
+        overflow: "auto",
         backgroundColor: "#fff",
       }}
     >
@@ -417,8 +425,10 @@ export function TabEncabezado({
               />
             </FormControl>
           </Grid>
+
         </Grid>
       </Grid>
+
     </Grid>
   );
 }

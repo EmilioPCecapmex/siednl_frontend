@@ -2,22 +2,34 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
-  Box,
+ 
   Dialog,
   DialogTitle,
   DialogContent,
   TextField,
   FormControl,
-  Select,
-  MenuItem,
+  
   Button,
   Typography,
+  Autocomplete,
+  Grid,
 } from "@mui/material";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { IActividadesFT, IComponentesFT } from "../tabsFichaTecnica/Interfaces";
-import { alertaEliminar, alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
-import { create_coment_mir, soliModyNoty } from "../genericComponents/axiosGenericos";
-
+import {
+  alertaEliminar,
+  alertaError,
+  alertaErrorConfirm,
+  alertaErroresDocumento,
+  alertaExito,
+  alertaExitoConfirm,
+} from "../genericComponents/Alertas";
+import {
+  create_coment_mir,
+  soliModyNoty,
+} from "../genericComponents/axiosGenericos";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -30,6 +42,7 @@ export default function ModalSolicitaModif({
   IdMIR,
   showResume,
   FTEdit,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -40,19 +53,37 @@ export default function ModalSolicitaModif({
   IdMa: string;
   IdMIR: string;
   FTEdit: string;
+  IdEntidad: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
 
-  const [comentario, setComentario] = useState("");
+  const newUser = {
+    IdUsuario: "",
+    IdUsuarioTiCentral: "",
+    Rol: "",
+    NombreInstitucion: "",
+    Nombre: "",
+    ApellidoPaterno: "",
+    ApellidoMaterno: "",
+    NombreUsuario: "",
+  };
+
+  const [user, setUser] = useState<IIUserXInst>(newUser);
+
+  useEffect(() => {
+    let findUser = userXInst.find(
+      (item) => item.NombreUsuario === userSelected
+    );
+    setUser(findUser || newUser);
+  }, [userXInst]);
+
+  const [coment, setComment] = useState("");
 
   const comentFT = () => {
-
-    
-
-    create_coment_mir(IdMIR, comentario, "FT")
+    create_coment_mir(IdMIR, coment, "FT")
       .then((r) => {
-        setComentario("");
+        setComment("");
         handleClose();
       })
       .catch((err) => {});
@@ -60,7 +91,9 @@ export default function ModalSolicitaModif({
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
-       return alertaError("Introduce usuario al que se le solicita modificación")
+      return alertaError(
+        "Introduce usuario al que se le solicita modificación"
+      );
     } else {
       checkFT(estado);
     }
@@ -72,15 +105,18 @@ export default function ModalSolicitaModif({
     errores = [];
 
     if (
-      JSON.parse(FT)?.encabezado === null ||
-      JSON.parse(FT)?.encabezado === undefined
-      //|| /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER)
+      JSON.parse(FT)?.encabezado.programaSER === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.programaSER) ||
+      JSON.parse(FT)?.encabezado.objetivoSER === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.objetivoSER) ||
+      JSON.parse(FT)?.encabezado.objetivoODS === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.objetivoODS) ||
+      JSON.parse(FT)?.encabezado.metaODS === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.metaODS)
     ) {
       err = 1;
-      errores.push(
-        "Sección <strong>Encabezado</strong> incompleta."
-        //"Sección <strong>Encabezado</strong> Programa sectorial, especial o regional incompleta."
-      );
+      errores.push("SECCIÓN <strong>ENCABEZADO</strong> INCOMPLETA.");
+      //Se me ocurre hacer una variable que aumente por if que enttre y que con solo ser mayor a 1 ya muestre el header
     }
     if (
       JSON.parse(FT)?.encabezado.programaSER === undefined ||
@@ -90,271 +126,392 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Encabezado</strong>: Programa sectorial, especial o regional sin información."
+        "<strong> PROGRAMA SECTORIAL, ESPECIAL O REGIONAL</strong> SIN INFORMACIÓN."
       );
     }
-
     if (
-      JSON.parse(FT)?.encabezado.objetivoSER === null ||
       JSON.parse(FT)?.encabezado.objetivoSER === undefined ||
+      JSON.parse(FT)?.encabezado.objetivoSER === "" ||
       /^[\s]*$/.test(JSON.parse(FT)?.encabezado.objetivoSER)
     ) {
       err = 1;
       errores.push(
-        "Sección <strong>Encabezado</strong> Objetivo, especial o regional incompleta."
+        "<strong>OBJETIVO SECTORIAL, ESPECIAL O REGIONAL</strong> SIN INFORMACIÓN."
       );
     }
     if (
       JSON.parse(FT)?.encabezado.objetivoODS === undefined ||
-      JSON.parse(FT)?.encabezado.objetivoODS === ""
+      JSON.parse(FT)?.encabezado.objetivoODS === "" ||
+      /^[\s]*$/.test(JSON.parse(FT)?.encabezado.objetivoODS)
     ) {
       err = 1;
-      errores.push(
-        "<strong>Encabezado</strong>: Objetivo ODS no seleccionado."
-      );
+      errores.push("<strong>OBJETIVO ODS</strong>  NO SELECCIONADO.");
     }
-
     if (
-      JSON.parse(FT)?.encabezado.metaODS === null ||
       JSON.parse(FT)?.encabezado.metaODS === undefined ||
+      JSON.parse(FT)?.encabezado.metaODS === "" ||
       /^[\s]*$/.test(JSON.parse(FT)?.encabezado.metaODS)
     ) {
       err = 1;
-      errores.push(
-        "Sección <strong>Encabezado</strong>:  Meta ODS no seleccionado.."
-      );
-    }
-
-    if (
-      JSON.parse(FT)?.fin.unidadDeMedida === undefined ||
-      JSON.parse(FT)?.fin.unidadDeMedida === "" ||
-      /^[\s]*$/.test(JSON.parse(FT)?.proposito.unidadDeMedida)
-    ) {
-      err = 1;
-      errores.push("<strong>Fin</strong>: Unidad de medida sin información.");
-    }
-    if (JSON.parse(FT)?.fin === null) {
-      err = 1;
-      errores.push("Sección <strong>Fin</strong> incompleta.");
+      errores.push("<strong>META ODS</strong> NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.fin.tipoDeIndicador === undefined ||
+      // /^[\s]*$/.test(JSON.parse(FT)?.fin.tipoDeIndicador) ||
+      JSON.parse(FT)?.fin.tipoDeIndicador === "" ||
+      JSON.parse(FT)?.fin.dimension === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.fin.dimension) ||
+      JSON.parse(FT)?.fin.unidadDeMedida === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.fin.unidadDeMedida) ||
+      JSON.parse(FT)?.fin.claridad === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.claridad.frecuencia) ||
+      JSON.parse(FT)?.fin.relevancia === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.fin.relevancia) ||
+      JSON.parse(FT)?.fin.economia === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.fin.economia) ||
+      JSON.parse(FT)?.fin.monitoreable === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.fin.monitoreable) ||
+      JSON.parse(FT)?.fin.adecuado === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.fin.adecuado) ||
+      JSON.parse(FT)?.fin.aporte_marginal === undefined
+      ///^[\s]*$/.test(JSON.parse(FT)?.fin.aporte_marginal)
+    ) {
+      err = 1;
+      errores.push("SECCIÓN <strong> FIN</strong> INCOMPLETA.");
+    }
+    if (
+      JSON.parse(FT)?.fin.tipoDeIndicador === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.fin.tipoDeIndicador) ||
       JSON.parse(FT)?.fin.tipoDeIndicador === ""
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Tipo de indicador sin información");
+      errores.push("<strong>FIN</strong>: TIPO DE INDICADOR NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.fin.dimension === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.fin.dimension) ||
       JSON.parse(FT)?.fin.dimension === ""
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Diemension información");
+      errores.push("<strong>FIN</strong>: DIMENSIÓN NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.fin.unidadDeMedida === undefined ||
+      JSON.parse(FT)?.fin.unidadDeMedida === "" ||
       /^[\s]*$/.test(JSON.parse(FT)?.fin.unidadDeMedida)
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Unidad de medida sin información");
+      errores.push("<strong>FIN</strong>: UNIDAD DE MEDIDA SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(FT)?.fin.claridad === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.fin.claridad) ||
       JSON.parse(FT)?.fin.claridad === ""
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Claridad sin información");
+      errores.push("<strong>FIN</strong>: CLARIDAD NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.fin.relevancia === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.fin.relevancia) ||
       JSON.parse(FT)?.fin.relevancia === ""
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Relevancia sin información");
+      errores.push("<strong>FIN</strong>: RELEVANCIA NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.fin.economia === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.fin.economia) ||
       JSON.parse(FT)?.fin.economia === ""
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Economía sin información");
+      errores.push("<strong>FIN</strong>: ECONOMIA NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.fin.monitoreable === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.fin.monitoreable) ||
       JSON.parse(FT)?.fin.monitoreable === ""
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Monitoreable sin información");
+      errores.push("<strong>FIN</strong>: MONITOREABLE NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.fin.adecuado === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.fin.adecuado) ||
       JSON.parse(FT)?.fin.adecuado === ""
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Adecuado sin información");
+      errores.push("<strong>FIN</strong>: ADECUADO NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.fin.aporte_marginal === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.fin.aporte_marginal) ||
       JSON.parse(FT)?.fin.aporte_marginal === ""
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Aporte marginal sin información");
+      errores.push("<strong>FIN</strong>: Aporte Marginal NO SELECCIONADO.");
     }
-
-    if (JSON.parse(FT)?.proposito === null) {
+    //////////////////////////////////////////////////////////////
+    if (
+      JSON.parse(FT)?.proposito.tipoDeIndicador === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.proposito.tipoDeIndicador) ||
+      JSON.parse(FT)?.proposito.dimension === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.proposito.dimension) ||
+      JSON.parse(FT)?.proposito.unidadDeMedida === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.proposito.unidadDeMedida) ||
+      JSON.parse(FT)?.proposito.claridad === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.claridad.frecuencia) ||
+      JSON.parse(FT)?.proposito.relevancia === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.proposito.relevancia) ||
+      JSON.parse(FT)?.proposito.economia === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.proposito.economia) ||
+      JSON.parse(FT)?.proposito.monitoreable === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.proposito.monitoreable) ||
+      JSON.parse(FT)?.proposito.adecuado === undefined ||
+      ///^[\s]*$/.test(JSON.parse(FT)?.proposito.adecuado) ||
+      JSON.parse(FT)?.proposito.aporte_marginal === undefined
+      ///^[\s]*$/.test(JSON.parse(FT)?.proposito.aporte_marginal)
+    ) {
       err = 1;
-      errores.push("Sección <strong>proposito</strong> incompleta.");
+      errores.push("SECCIÓN <strong>PROPOSITO</strong> INCOMPLETA.");
     }
     if (
       JSON.parse(FT)?.proposito.tipoDeIndicador === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.proposito.tipoDeIndicador) ||
       JSON.parse(FT)?.proposito.tipoDeIndicador === ""
     ) {
       err = 1;
       errores.push(
-        "<strong>proposito</strong>: Tipo de indicador sin información"
+        "<strong>PROPOSITO</strong>: TIPO DE INDICADOR NO SELECCIONADO."
       );
     }
     if (
       JSON.parse(FT)?.proposito.dimension === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.proposito.dimension) ||
       JSON.parse(FT)?.proposito.dimension === ""
     ) {
       err = 1;
-      errores.push("<strong>proposito</strong>: Diemension información");
+      errores.push("<strong>PROPOSITO</strong>: DIMENSIÓN NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.proposito.unidadDeMedida === undefined ||
+      JSON.parse(FT)?.proposito.unidadDeMedida === "" ||
       /^[\s]*$/.test(JSON.parse(FT)?.proposito.unidadDeMedida)
     ) {
       err = 1;
       errores.push(
-        "<strong>proposito</strong>: Unidad de medida sin información"
+        "<strong>PROPOSITO</strong>: UNIDAD DE MEDIDA SIN INFORMACIÓN."
       );
     }
     if (
       JSON.parse(FT)?.proposito.claridad === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.proposito.claridad) ||
       JSON.parse(FT)?.proposito.claridad === ""
     ) {
       err = 1;
-      errores.push("<strong>proposito</strong>: Claridad sin información");
+      errores.push("<strong>PROPOSITO</strong>: CLARIDAD NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.proposito.relevancia === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.proposito.relevancia) ||
       JSON.parse(FT)?.proposito.relevancia === ""
     ) {
       err = 1;
-      errores.push("<strong>proposito</strong>: Relevancia sin información");
+      errores.push("<strong>PROPOSITO</strong>: RELEVANCIA NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.proposito.economia === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.proposito.economia) ||
       JSON.parse(FT)?.proposito.economia === ""
     ) {
       err = 1;
-      errores.push("<strong>proposito</strong>: Economía sin información");
+      errores.push("<strong>PROPOSITO</strong>: ECONOMIA NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.proposito.monitoreable === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.proposito.monitoreable) ||
       JSON.parse(FT)?.proposito.monitoreable === ""
     ) {
       err = 1;
-      errores.push("<strong>proposito</strong>: Monitoreable sin información");
+      errores.push("<strong>PROPOSITO</strong>: MONITOREABLE NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.proposito.adecuado === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.proposito.adecuado) ||
       JSON.parse(FT)?.proposito.adecuado === ""
     ) {
       err = 1;
-      errores.push("<strong>proposito</strong>: Adecuado sin información");
+      errores.push("<strong>PROPOSITO</strong>: ADECUADO NO SELECCIONADO.");
     }
     if (
       JSON.parse(FT)?.proposito.aporte_marginal === undefined ||
+      /^[\s]*$/.test(JSON.parse(FT)?.proposito.aporte_marginal) ||
       JSON.parse(FT)?.proposito.aporte_marginal === ""
     ) {
       err = 1;
       errores.push(
-        "<strong>proposito</strong>: Aporte marginal sin información"
+        "<strong>PROPOSITO</strong>: Aporte Marginal NO SELECCIONADO."
       );
     }
-    checkcomponentes(v);
+
+    /////////////////////////////////////////////////////////////////////7
+    checkComponentes(v);
   };
 
-  const checkcomponentes = (v: string) => {
+  const checkComponentes = (v: string) => {
     JSON.parse(FT)?.componentes.map((componente: any, index: number) => {
       if (
         componente.tipoDeIndicador === undefined ||
-        componente.tipoDeIndicador === null ||
-        componente.tipoDeIndicador === ""
+        /^[\s]*$/.test(componente.tipoDeIndicador) ||
+        // componente.tipoDeIndicador === "" ||
+        // componente.tipoDeIndicador === null ||
+        componente.dimension === undefined ||
+        /^[\s]*$/.test(componente.dimension) ||
+        // componente.dimension === "" ||
+        // componente.dimension === null ||
+        componente.unidadDeMedida === undefined ||
+        /^[\s]*$/.test(componente.unidadDeMedida) ||
+        // componente.unidadDeMedida === "" ||
+        // componente.unidadDeMedida === null ||
+        componente.claridad === undefined ||
+        /^[\s]*$/.test(componente.claridad) ||
+        // componente.frecuencia === "" ||
+        // componente.frecuencia === null ||
+        componente.relevancia === undefined ||
+        /^[\s]*$/.test(componente.relevancia) ||
+        // componente.relevancia === "" ||
+        // componente.relevancia === null ||
+        componente.economia === undefined ||
+        /^[\s]*$/.test(componente.economia) ||
+        // componente.economia === "" ||
+        // componente.economia === null ||
+        componente.monitoreable === undefined ||
+        /^[\s]*$/.test(componente.monitoreable) ||
+        // componente.monitoreable === "" ||
+        // componente.monitoreable === null ||
+        componente.adecuado === undefined ||
+        /^[\s]*$/.test(componente.adecuado) ||
+        // componente.adecuado === "" ||
+        // componente.adecuado === null ||
+
+        componente.aporte_marginal === undefined ||
+        /^[\s]*$/.test(
+          componente.aporte_marginal
+          //componente.aporte_marginal === null ||
+          //componente.aporte_marginal === undefined
+        )
       ) {
         err = 1;
         errores.push(
-          `<strong>componente ${
-            index + 1
-          }  </strong>: Tipo de indicador sin información`
+          `SECCIÓN <strong>COMPONENTE ${index + 1} </strong> INCOMPLETA.`
         );
       }
-      if (componente.dimension === undefined || componente.dimension === "") {
+      if (
+        componente.tipoDeIndicador === "" ||
+        componente.tipoDeIndicador === undefined ||
+        /^[\s]*$/.test(componente.tipoDeIndicador)
+      ) {
         err = 1;
         errores.push(
-          `<strong>componente ${index + 1} </strong>: Diemension información`
+          `<strong>
+              TIPO DE INDICADOR
+             </strong> NO SELECCIONADO.`
+        );
+      }
+      if (
+        componente.dimension === undefined ||
+        /^[\s]*$/.test(componente.dimension) ||
+        componente.dimension === ""
+      ) {
+        err = 1;
+        errores.push(
+          `<strong>
+            DIMENSIÓN
+             </strong>  NO SELECCIONADO.`
         );
       }
       if (
         componente.unidadDeMedida === undefined ||
         /^[\s]*$/.test(componente.unidadDeMedida) ||
-        componente.unidadDeMedida === null
+        componente.unidadDeMedida === ""
       ) {
         err = 1;
         errores.push(
-          `<strong>componente ${
-            index + 1
-          } </strong>: Unidad de medida sin información`
+          `<strong>
+            UNIDAD DE MEDIDA
+             </strong> SIN INFORMACIÓN.`
         );
       }
-      if (componente.claridad === undefined || componente.claridad === "") {
+      if (
+        componente.claridad === undefined ||
+        /^[\s]*$/.test(componente.claridad) ||
+        componente.claridad === ""
+      ) {
         err = 1;
         errores.push(
-          `<strong>componentes ${index + 1} </strong>: Claridad sin información`
+          `<strong>
+            CLARIDAD
+             </strong> NO SELECCIONADO.`
         );
       }
-      if (componente.relevancia === undefined || componente.relevancia === "") {
+      if (
+        componente.relevancia === undefined ||
+        /^[\s]*$/.test(componente.relevancia) ||
+        componente.relevancia === ""
+      ) {
         err = 1;
         errores.push(
-          `<strong>componentes ${
-            index + 1
-          } </strong>: Relevancia sin información`
+          `<strong>
+            RELEVANCIA
+             </strong> NO SELECCIONADO.`
         );
       }
-      if (componente.economia === undefined || componente.economia === "") {
+      if (
+        componente.economia === undefined ||
+        /^[\s]*$/.test(componente.economia) ||
+        componente.economia === ""
+      ) {
         err = 1;
         errores.push(
-          `<strong>componentes ${index + 1} </strong>: Economía sin información`
+          `<strong>
+            ECONOMIA
+             </strong> NO SELECCIONADO.`
         );
       }
       if (
         componente.monitoreable === undefined ||
+        /^[\s]*$/.test(componente.monitoreable) ||
         componente.monitoreable === ""
       ) {
         err = 1;
         errores.push(
-          `<strong>componentes ${
-            index + 1
-          } </strong>: Monitoreable sin información`
+          `<strong>
+            MONITOREABLE
+             </strong> NO SELECCIONADO.`
         );
       }
-      if (componente.adecuado === undefined || componente.adecuado === "") {
+      if (
+        componente.adecuado === undefined ||
+        /^[\s]*$/.test(componente.adecuado) ||
+        componente.adecuado === ""
+      ) {
         err = 1;
         errores.push(
-          `<strong>componente ${index + 1} </strong>: Adecuado sin información`
+          `<strong>
+            ADECUADO
+             </strong> NO SELECCIONADO.`
         );
       }
       if (
         componente.aporte_marginal === undefined ||
+        /^[\s]*$/.test(componente.aporte_marginal) ||
         componente.aporte_marginal === ""
       ) {
         err = 1;
         errores.push(
-          `<strong>componente ${
-            index + 1
-          } </strong>: Aporte marginal sin información`
+          `<strong>
+            APORTE MARGINAL
+             </strong>:  NO SELECCIONADO.`
         );
       }
       return true;
@@ -370,77 +527,150 @@ export default function ModalSolicitaModif({
           (actividad: IActividadesFT, indexA: number) => {
             if (
               actividad.tipoDeIndicador === undefined ||
-              actividad.tipoDeIndicador === null ||
-              actividad.tipoDeIndicador === ""
+              /^[\s]*$/.test(actividad.tipoDeIndicador) ||
+              // actividad.tipoDeIndicador === "" ||
+              // actividad.tipoDeIndicador === null ||
+              actividad.dimension === undefined ||
+              /^[\s]*$/.test(actividad.dimension) ||
+              // actividad.dimension === "" ||
+              // actividad.dimension === null ||
+              actividad.unidadDeMedida === undefined ||
+              /^[\s]*$/.test(actividad.unidadDeMedida) ||
+              // actividad.unidadDeMedida === "" ||
+              // actividad.unidadDeMedida === null ||
+              actividad.claridad === undefined ||
+              /^[\s]*$/.test(actividad.claridad) ||
+              // actividad.claridad === "" ||
+              // actividad.claridad === null ||
+              actividad.relevancia === undefined ||
+              /^[\s]*$/.test(actividad.relevancia) ||
+              // actividad.relevancia === "" ||
+              // actividad.relevancia === null ||
+              actividad.economia === undefined ||
+              /^[\s]*$/.test(actividad.economia) ||
+              // actividad.economia === "" ||
+              // actividad.economia === null ||
+              actividad.monitoreable === undefined ||
+              /^[\s]*$/.test(actividad.monitoreable) ||
+              // actividad.monitoreable === "" ||
+              // actividad.monitoreable === null ||
+              actividad.adecuado === undefined ||
+              /^[\s]*$/.test(actividad.adecuado) ||
+              // actividad.adecuado === "" ||
+              // actividad.adecuado === null ||
+
+              actividad.aporte_marginal === undefined ||
+              /^[\s]*$/.test(
+                actividad.aporte_marginal
+                //actividad.aporte_marginal === null ||
+                //actividad.aporte_marginal === undefined
+              )
             ) {
               err = 1;
               errores.push(
-                `<strong>actividad ${actividad.actividades}  </strong>: Tipo de indicador sin información`
+                `SECCIÓN <strong>ACTIVIDAD ${actividad.actividades} </strong> INCOMPLETA.`
+              );
+            }
+            if (
+              actividad.tipoDeIndicador === undefined ||
+              /^[\s]*$/.test(actividad.tipoDeIndicador)
+            ) {
+              err = 1;
+              errores.push(
+                `<strong>
+                    TIPO DE INDICADOR
+                   </strong> NO SELECCIONADO.`
               );
             }
             if (
               actividad.dimension === undefined ||
-              actividad.dimension === ""
+              /^[\s]*$/.test(actividad.dimension)
             ) {
               err = 1;
               errores.push(
-                `<strong>actividad ${actividad.actividades}  </strong>: Tipo de Dimensíon sin información`
+                `<strong>
+                  DIMENSIÓN
+                   </strong>  NO SELECCIONADO.`
               );
             }
             if (
               actividad.unidadDeMedida === undefined ||
-              actividad.unidadDeMedida === ""
+              /^[\s]*$/.test(actividad.unidadDeMedida)
             ) {
               err = 1;
               errores.push(
-                `<strong>actividad ${actividad.actividades}  </strong>: Tipo de Unidad de medida sin información`
+                `<strong>
+                  UNIDAD DE MEDIDA
+                   </strong> SIN INFORMACIÓN.`
               );
             }
-            if (actividad.claridad === undefined || actividad.claridad === "") {
+            if (
+              actividad.claridad === undefined ||
+              /^[\s]*$/.test(actividad.claridad)
+            ) {
               err = 1;
               errores.push(
-                `<strong>actividad ${actividad.actividades}  </strong>: Claridad sin información`
+                `<strong>
+                  CLARIDAD
+                   </strong> NO SELECCIONADO.`
               );
             }
             if (
               actividad.relevancia === undefined ||
-              actividad.relevancia === ""
+              /^[\s]*$/.test(actividad.relevancia)
             ) {
               err = 1;
               errores.push(
-                `<strong>actividad ${actividad.actividades}  </strong>: Relevancia sin información`
+                `<strong>
+                  RELEVANCIA
+                   </strong> NO SELECCIONADO.`
               );
             }
-            if (actividad.economia === undefined || actividad.economia === "") {
+            if (
+              actividad.economia === undefined ||
+              /^[\s]*$/.test(actividad.economia)
+            ) {
               err = 1;
               errores.push(
-                `<strong>actividad ${actividad.actividades}  </strong>: Economía sin información`
+                `<strong>
+                  ECONOMIA
+                   </strong> NO SELECCIONADO.`
               );
             }
             if (
               actividad.monitoreable === undefined ||
-              actividad.monitoreable === ""
+              /^[\s]*$/.test(actividad.monitoreable)
             ) {
               err = 1;
               errores.push(
-                `<strong>actividad ${actividad.actividades}  </strong>: Monitoreable sin información`
+                `<strong>
+                  MONITOREABLE
+                   </strong> NO SELECCIONADO.`
               );
             }
-            if (actividad.adecuado === undefined || actividad.adecuado === "") {
+            if (
+              actividad.adecuado === undefined ||
+              /^[\s]*$/.test(actividad.adecuado)
+            ) {
               err = 1;
               errores.push(
-                `<strong>actividad ${actividad.actividades}  </strong>: Adecuado sin información`
+                `<strong>
+                  ADECUADO
+                   </strong> NO SELECCIONADO.`
               );
             }
             if (
               actividad.aporte_marginal === undefined ||
-              actividad.aporte_marginal === ""
+              /^[\s]*$/.test(actividad.aporte_marginal)
             ) {
               err = 1;
               errores.push(
-                `<strong>actividad ${actividad.actividades}  </strong>: Adecuado sin información`
+                `<strong>
+                  APORTE MARGINAL
+                   </strong>:  NO SELECCIONADO.`
               );
             }
+            return true;
           }
         );
       }
@@ -449,7 +679,7 @@ export default function ModalSolicitaModif({
     if (err === 0) {
       createFT(v);
     } else {
-      alertaErroresDocumento(errores)
+      alertaErroresDocumento(errores);
     }
   };
 
@@ -495,6 +725,10 @@ export default function ModalSolicitaModif({
           IdMa: IdMa,
           Id: IdFT,
           Rol: localStorage.getItem("Rol"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -503,23 +737,27 @@ export default function ModalSolicitaModif({
         }
       )
       .then((r) => {
-        if (comentario !== "") {
+        if (coment !== "") {
           comentFT();
         }
-       
 
-        alertaExitoConfirm((localStorage.getItem("Rol") === "Verificador"
-        ? "Ficha Tecnica enviada a capturador para corrección"
-        : "Ficha Tecnica enviada").toUpperCase())
-       
-        
-        soliModyNoty(userSelected, "Se le ha solicitado una modificación.", "FT", IdFT );
+        alertaExitoConfirm(
+          localStorage.getItem("Rol") === "VERIFICADOR"
+            ? "FICHA TECNICA ENVIADA A CAPTURADOR PARA CORRECCIÓN"
+            : "FICHA TECNICA ENVIADA"
+        );
+
+        soliModyNoty(
+          userSelected,
+          "SE LE HA SOLICITADO UNA MODIFICACIÓN.",
+          "FT",
+          IdFT
+        );
         handleClose();
         showResume();
       })
       .catch((err) => {
-       
-        alertaErrorConfirm((err.response.data.result.error).toUpperCase())
+        alertaErrorConfirm(err.response.data.result.error.toUpperCase());
       });
   };
 
@@ -539,7 +777,7 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad,
             IdApp: localStorage.getItem("IdApp"),
           },
           {
@@ -550,99 +788,136 @@ export default function ModalSolicitaModif({
         )
         .then((r) => {
           if (r.status === 200) {
-            console.log("r.data.data: ",r.data.data[1].Rol);
-            
             setUserXInst(r.data.data);
           }
         });
     }
   }, [MIR, open]);
 
-
+  const theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
-      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
-        Solicitud de modificación
+      <DialogTitle
+        sx={{
+          fontFamily: "MontserratBold",
+          borderBottom: 1,
+          fontSize: [18, 20, 15, 20, 15],
+          height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
+        }}
+      >
+        SOLICITUD DE MODIFICACIÓN
       </DialogTitle>
-
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Box
-          sx={{
-            backgroundColor: "#BBBABA",
-            width: "60vw",
-            height: "0.1vh",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        />
-      </Box>
 
       <DialogContent
         sx={{
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Box
+        <Grid
           sx={{
             width: "100%",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
             justifyContent: "space-evenly",
+            mb: 2,
           }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Selecciona usuario para solicitar modificación
-          </Typography>
-          <FormControl
+          <Typography
             sx={{
-              display: "flex",
-              width: "70%",
-              alignItems: "center",
-              justifyContent: "center",
-              border: 1,
-              borderRadius: 1,
-              borderColor: "#616161",
-              mb: 2,
+              fontSize: [15, 15, 15, 15, 15],
+              fontFamily: "MontserratMedium",
+              textAlign: "center",
             }}
+          >
+            SELECCIONA USUARIO PARA SOLICITAR MODIFICACIÓN
+          </Typography>
+
+          <FormControl
+            // sx={{
+            //   display: "flex",
+            //   alignItems: "center",
+            //   justifyContent: "center",
+            //   border: 1,
+            //   borderRadius: 1,
+            //   borderColor: "#616161",
+            //   mb: 2,
+            //   mt: "2vh",
+            // }}
             variant="standard"
           >
-            <Select
-              size="small"
-              sx={{ fontFamily: "MontserratRegular" }}
-              fullWidth
-              value={userSelected}
-              onChange={(v) => setUserSelected(v.target.value)}
-              disableUnderline
-            >
-              <MenuItem value={"0"} disabled>
-                Selecciona
-              </MenuItem>
-
-              {userXInst.map((item) => {
+            <Autocomplete
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              options={userXInst}
+              getOptionLabel={(option) => option.NombreUsuario}
+              value={user}
+              renderOption={(props, option) => {
                 return (
-                  <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-                    {item.Rol + ": " + item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno}
-                  </MenuItem>
+                  <li {...props} key={option.IdUsuario}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                      }}
+                    >
+                      {option.Rol +
+                        ": " +
+                        option.Nombre +
+                        " " +
+                        option.ApellidoPaterno +
+                        " " +
+                        option.ApellidoMaterno +
+                        " - " +
+                        option.NombreUsuario}
+                    </p>
+                  </li>
                 );
-              })}
-            </Select>
-          </FormControl>{" "}
-        </Box>
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={"USUARIO"}
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                ></TextField>
+              )}
+              onChange={(event, value) => {
+                setUser(value || newUser);
+              }}
+              isOptionEqualToValue={(option, value) =>
+                option.IdUsuario === value.IdUsuario
+              }
+            />
 
-        <Box sx={{ width: "100%", mb: 2 }}>
+           
+          </FormControl>
+        </Grid>
+
+        <Grid sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}>
           <TextField
             multiline
             rows={2}
-            label={"Agregar Comentario"}
-            sx={{ width: "100%" }}
-            onChange={(v) => setComentario(v.target.value)}
+            label={"AGREGAR COMENTARIO"}
+            sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}
+            onChange={(v) => setComment(v.target.value)}
           ></TextField>
-        </Box>
+        </Grid>
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -650,33 +925,27 @@ export default function ModalSolicitaModif({
             paddingBlockEnd: "1vh",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "space-evenly",
-              width: "100vw",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexDirection: isSmScreen ? "column" : "row", // Cambia el flexDirection según el tamaño de la pantalla
+              mt: "4vh",
             }}
           >
             <Button
               className="cancelar"
-              sx={{
-                //...queries.buttonCancelarSolicitudInscripcion,
-                display: "flex",
-                width: "15vw",
-              }}
+              sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
               onClick={() => handleClose()}
             >
-              <Typography>Cancelar</Typography>
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                CANCELAR
+              </Typography>
             </Button>
 
             <Button
               className="aceptar"
-              sx={{
-                // ...queries.buttonContinuarSolicitudInscripcion,
-                display: "flex",
-                width: "15vw",
-              }}
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
@@ -688,12 +957,12 @@ export default function ModalSolicitaModif({
                 handleClose();
               }}
             >
-              <Typography>
-                {comentario === "" ? "Enviar sin comentarios" : "Confirmar"}
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                {coment === "" ? "ENVIAR SIN COMENTARIOS" : "CONFIRMAR"}
               </Typography>
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );

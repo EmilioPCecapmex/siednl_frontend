@@ -20,6 +20,8 @@ import {
   Button,
   InputBase,
   TableSortLabel,
+  Autocomplete,
+  TextField,
 } from "@mui/material";
 import axios from "axios";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -35,25 +37,22 @@ import { queries } from "../../queries";
 import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
-
+import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
 
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
 };
 
-
-
 export const FichaTecnica = () => {
-
-  const getFT = (setstate: Function,estado: any, ) => {
+  const getFT = (setstate: Function, estado: any) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fichaTecnica", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdEntidad: localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
-          Estado: estado || "",
+          Estado: estado || "TODOS",
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -61,8 +60,8 @@ export const FichaTecnica = () => {
       })
       .then((r) => {
         //setft(r.data.data)
-        console.log(": ",r.data.data);
-        
+       
+
         setstate(r.data.data);
         //setFtFiltered(r.data.data);
       })
@@ -71,7 +70,6 @@ export const FichaTecnica = () => {
 
   useEffect(() => {
     setShowResume(true);
-   
   }, []);
 
   const returnMain = () => {
@@ -106,8 +104,8 @@ export const FichaTecnica = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("Todos");
-  const [findSelectStr, setFindSelectStr] = useState("Todos");
+  const [findInstStr, setFindInstStr] = useState("TODOS");
+  const [findSelectStr, setFindSelectStr] = useState("TODOS");
 
   const [ft, setft] = useState<Array<IIFT>>([]);
   const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
@@ -115,12 +113,32 @@ export const FichaTecnica = () => {
   const [ftxFiltered, setFtxFiltered] = useState<Array<IIFT>>([]);
   const [ftFiltered, setFtFiltered] = useState<Array<IIFT>>([]);
 
-  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
+  const objetiInstitucion: IEntidad = {
+    //ClaveSiregob: null,
+    //ControlInterno: "",
+    Id: "0",
+    Nombre: "TODOS",
+    NombreTipoEntidad: "",
+    EntidadPerteneceA: "",
+    Direccion: "",
+    Telefono: "",
+    IdEntidadPerteneceA: "",
+    IdTipoEntidad: "",
+    FechaCreacion: "",
+    CreadoPor: "",
+    UltimaActualizacion: "",
+    ModificadoPor: "",
+    Titular: "",
+  };
 
-  const [estadoft, setEstadoFT] = useState("Todos");
- 
+  const [instituciones, setInstituciones] = useState<IEntidad>();
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
+    Array<IEntidad>
+  >([]);
 
-  const [institucionesb, setInstitucionesb] = useState("Todos");
+  const [estadoft, setEstadoFT] = useState("TODOS");
+  const [IdEntidad, setIdEntidad] = useState("TODOS");
+  const [institucionesb, setInstitucionesb] = useState("TODOS");
 
   const getInstituciones = (setstate: Function) => {
     axios
@@ -143,7 +161,7 @@ export const FichaTecnica = () => {
             Direccion: "",
             EntidadPerteneceA: "",
             FechaCreacion: "",
-            Id: "",
+            Id: "0",
             IdEntidadPerteneceA: "",
             IdTipoEntidad: "",
             IdTitular: null,
@@ -164,10 +182,9 @@ export const FichaTecnica = () => {
     validaFechaCaptura();
   }, [showResume]);
 
-  
   useEffect(() => {
     setFtFiltered(ft);
-  }, [ft,]);
+  }, [ft]);
 
   useEffect(() => {
     setFtxFiltered(ftFiltered);
@@ -238,7 +255,7 @@ export const FichaTecnica = () => {
 
   ///////////////////////////////////////////////////
   useEffect(() => {
-    getInstituciones(setInstituciones);
+    getInstituciones(setCatalogoInstituciones);
   }, []);
   ///////////
   // Filtrado por caracter
@@ -246,9 +263,9 @@ export const FichaTecnica = () => {
     if (
       v !== "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setFtFiltered(
         ft.filter(
@@ -264,7 +281,7 @@ export const FichaTecnica = () => {
       );
     } else if (
       v !== "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setFtFiltered(
         ft.filter(
@@ -280,8 +297,8 @@ export const FichaTecnica = () => {
       );
     } else if (
       v !== "" &&
-      (est === "0" || est === "Todos") &&
-      (inst === "0" || inst === "Todos")
+      (est === "0" || est === "TODOS") &&
+      (inst === "0" || inst === "TODOS")
     ) {
       setFtFiltered(
         ft.filter(
@@ -296,9 +313,9 @@ export const FichaTecnica = () => {
     } else if (
       v === "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setFtFiltered(
         ft.filter(
@@ -309,7 +326,7 @@ export const FichaTecnica = () => {
       );
     } else if (
       v === "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setFtFiltered(
         ft.filter(
@@ -327,9 +344,6 @@ export const FichaTecnica = () => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
 
- 
-
-  
   const [title_texto, setTitle] = useState("");
 
   const validaFechaCaptura = () => {
@@ -364,14 +378,13 @@ export const FichaTecnica = () => {
 
   useEffect(() => {
     const url = window.location.href;
-  
+
     // Verificar si el parámetro 'Id' está presente en la URL
-    if (url.includes('?Id=')) {
+    if (url.includes("?Id=")) {
       const id = url.split("?")[1].split("=")[1];
-  
+
       // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
       if (id) {
-        
         setFtFiltered(ft.filter((x) => x.IdFt.includes(id || "")));
       }
     }
@@ -380,8 +393,6 @@ export const FichaTecnica = () => {
   useEffect(() => {
     getFT(setft, estadoft);
   }, [actualizacion]);
-
- 
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
@@ -433,8 +444,6 @@ export const FichaTecnica = () => {
     findTextStr.length !== 0 ? setFtFiltered(ftFiltered) : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [findTextStr]);
-
-
 
   const [estado, setEstado] = useState("");
 
@@ -540,85 +549,84 @@ export const FichaTecnica = () => {
                   direction: "row",
                 }}
               >
-                 {
-  localStorage.getItem("Rol") === "Administrador" ? (
-                <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
-                  <Tooltip
-                    title={findInstStr}
-                    PopperProps={{
-                      modifiers: [
-                        {
-                          name: "offset",
-                          options: {
-                            offset: [0, -13],
+                {localStorage.getItem("Rol") === "Administrador" ? (
+                  <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                    <Tooltip
+                      title={findInstStr}
+                      PopperProps={{
+                        modifiers: [
+                          {
+                            name: "offset",
+                            options: {
+                              offset: [0, -13],
+                            },
                           },
-                        },
-                      ],
-                    }}
-                  >
-                    <FormControl fullWidth>
-                      <InputLabel sx={queries.text}>
-                        <Tooltip
-                          PopperProps={{
-                            modifiers: [
-                              {
-                                name: "offset",
-                                options: {
-                                  offset: [0, -13],
-                                },
-                              },
-                            ],
+                        ],
+                      }}
+                    >
+                      <FormControl required fullWidth>
+                        <Autocomplete
+                          //  disabled={edit && !mirEdit?.encabezado.ejercicioFiscal}
+                          clearText="Borrar"
+                          noOptionsText="Sin opciones"
+                          closeText="Cerrar"
+                          openText="Abrir"
+                          disablePortal
+                          size="small"
+                          options={catalogoInstituciones}
+                          getOptionLabel={(option) => option.Nombre || ""}
+                          value={instituciones || objetiInstitucion}
+                          getOptionDisabled={(option) => {
+                            if (option.Id === "") {
+                              return true;
+                            }
+                            return false;
                           }}
-                          title={"FILTRO POR INSTITUCION"}
-                        >
-                          <span>FILTRO POR INSTITUCION</span>
-                        </Tooltip>
-                      </InputLabel>
-                      <Select
-                        size="small"
-                        variant="outlined"
-                        fullWidth
-                        disabled={
-                          localStorage.getItem("Rol") !== "Administrador"
-                        }
-                        label="FILTRO POR INSTITUCION"
-                        sx={{
-                          fontFamily: "MontserratRegular",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          //textAlign: "center",
-                          fontSize: [10, 10, 15, 15, 18, 20],
-                        }}
-                        value={institucionesb}
-                        // sx={{ fontFamily: "MontserratRegular" }}
+                          renderOption={(props, option) => {
+                            return (
+                              <li {...props} key={option.Id}>
+                                <p
+                                  style={{
+                                    fontFamily: "MontserratRegular",
+                                  }}
+                                >
+                                  {option.Nombre}
+                                </p>
+                              </li>
+                            );
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="FILTRO POR INSTITUCIÓN"
+                              variant="standard"
+                              InputLabelProps={{
+                                style: {
+                                  fontFamily: "MontserratSemiBold",
+                                },
+                              }}
+                              sx={{
+                                "& .MuiAutocomplete-input": {
+                                  fontFamily: "MontserratRegular",
+                                },
+                              }}
+                            ></TextField>
+                          )}
+                          onChange={(event, value) =>
+                            setInstituciones(value || objetiInstitucion)
+                          }
+                          isOptionEqualToValue={(option, value) =>
+                            option.Id === value.Id
+                          }
+                        />
+                      </FormControl>
+                    </Tooltip>
+                  </Grid>
+                ) : null}
 
-                        onChange={(v) => {
-                          setInstitucionesb(v.target.value);
-                        }}
-                      >
-                        <MenuItem
-                          value={institucionesb}
-                          sx={{ fontFamily: "MontserratRegular" }}
-                        >
-                          TODOS
-                        </MenuItem>
-
-                        {instituciones?.map((item) => {
-                          return (
-                            <MenuItem value={item.Nombre} key={item.Id}>
-                              {item.Nombre}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Tooltip>
-                </Grid>
-                 ) : null
-                }
-
-                <Grid item xl={
+                <Grid
+                  item
+                  xl={
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
                       ? 5
@@ -647,76 +655,126 @@ export const FichaTecnica = () => {
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
                       ? 5
                       : 10
-                  }>
+                  }
+                >
                   <FormControl fullWidth>
-                    <InputLabel sx={queries.text}>
-                      <Tooltip
-                        PopperProps={{
-                          modifiers: [
-                            {
-                              name: "offset",
-                              options: {
-                                offset: [0, -13],
+                      {/* <InputLabel sx={queries.text}>
+                        <Tooltip
+                          PopperProps={{
+                            modifiers: [
+                              {
+                                name: "offset",
+                                options: {
+                                  offset: [0, -13],
+                                },
                               },
-                            },
-                          ],
-                        }}
-                        title={"FILTRO POR ESTADO DE LA FT"}
-                      >
-                        <span>FILTRO POR ESTADO DE LA FT</span>
-                      </Tooltip>
-                    </InputLabel>
-                    <Select
-                      size="small"
-                      fullWidth
-                      variant="outlined"
-                      label="FILTRO POR ESTADO DE LA MA"
-                      sx={{
-                        fontFamily: "MontserratRegular",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        //textAlign: "center",
-                        fontSize: [10, 10, 15, 15, 18, 20],
-                        // Tamaños de fuente para diferentes breakpoints
-                      }}
-                      value={
-                        localStorage.getItem("Rol") === "Administrador" ||
-                        localStorage.getItem("Rol") === "ADMINISTRADOR"
-                          ? estadoft
-                          : findSelectStr
-                      }
-                      onChange={(v) => {
-                        // v.target.value === "Todos"
-                        //   ? findText(
-                        //       findTextStr,
-                        //       "0",
-                        //       findInstStr === "Todos" ? "0" : findInstStr
-                        //     )
-                        //   : findText(findTextStr, v.target.value, findInstStr);
-                        if (
+                            ],
+                          }}
+                          title={"FILTRO POR ESTADO DE LA MIR"}
+                        >
+                          <span>FILTRO POR ESTADO DE LA MIR</span>
+                        </Tooltip>
+                      </InputLabel>
+
+                      <Select
+                        size="small"
+                        variant="outlined"
+                        value={
                           localStorage.getItem("Rol") === "Administrador" ||
                           localStorage.getItem("Rol") === "ADMINISTRADOR"
-                        ) {
-                          setEstadoFT(v.target.value);
-                        } else {
-                          setFindSelectStr(v.target.value);
+                            ? estadomir
+                            : findSelectStr
                         }
-                      }}
-                    >
-                      {estados.map((estado) => (
-                        <MenuItem key={estado} value={estado}>
-                          {estado.toUpperCase()}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
+                        label="FILTRO POR ESTADO DE LA MIR"
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          // textAlign: "center",
+                          fontSize: [10, 10, 15, 15, 18, 20], // Tamaños de fuente para diferentes breakpoints
+                          // color: "#AF8C55"
+                        }}
+                        fullWidth
+                        onChange={(v) => {
+                          // v.target.value === "TODOS"
+                          //   ? findText(
+                          //       findTextStr,
+                          //       "0",
+                          //       findInstStr === "TODOS" ? "0" : findInstStr
+                          //     )
+                          //   : findText(findTextStr, v.target.value, findInstStr);
+                          if (
+                            localStorage.getItem("Rol") === "Administrador" ||
+                            localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          ) {
+                            setEstadoMIR(v.target.value);
+                          } else {
+                            setFindSelectStr(v.target.value);
+                          }
+
+                          //
+                        }}
+                      >
+                        {estados.map((estado) => (
+                          <MenuItem key={estado} value={estado}>
+                            {estado.toUpperCase()}
+                          </MenuItem>
+                        ))}
+                      </Select> */}
+                      <Autocomplete
+                        clearText="Borrar"
+                        noOptionsText="Sin opciones"
+                        closeText="Cerrar"
+                        openText="Abrir"
+                        disablePortal
+                        fullWidth
+                        size="small"
+                        value={
+                          (localStorage.getItem("Rol") === "Administrador" ||
+                          localStorage.getItem("Rol") === "ADMINISTRADOR"
+                            ? estadoft.toUpperCase()
+                            : findSelectStr.toUpperCase()) || estados[0]
+                        }
+                        options={estados}
+                        onChange={(event, newValue) => {
+                          // Access the value using newValue
+                         
+
+                          if (
+                            localStorage.getItem("Rol") === "Administrador" ||
+                            localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          ) {
+                            setEstadoFT(newValue || "");
+                          } else {
+                            setFindSelectStr(newValue || "");
+                          }
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label={"FILTRO POR ESTADO DE LA FT"}
+                            variant="standard"
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratSemiBold",
+                              },
+                            }}
+                            sx={{
+                              "& .MuiAutocomplete-input": {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                          ></TextField>
+                        )}
+                      />
+                    </FormControl>
                 </Grid>
 
                 {localStorage.getItem("Rol") === "Administrador" && (
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
-                      // disabled ={estadoma === "Todos" && institucionesb === "Todos" }
+                      // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
                         buscador(
                           estadoft,
@@ -771,106 +829,107 @@ export const FichaTecnica = () => {
                 <Grid
                   sx={{ fontFamily: "MontserratRegular" }}
                   item
-                  xl={validaFecha?11:7}
-                  lg={validaFecha?11:6}
-                  md={validaFecha?11:6}
-                  sm={validaFecha?11:11}
-                  xs={validaFecha?11:11}
+                  xl={validaFecha ? 11 : 7}
+                  lg={validaFecha ? 11 : 6}
+                  md={validaFecha ? 11 : 6}
+                  sm={validaFecha ? 11 : 11}
+                  xs={validaFecha ? 11 : 11}
                 >
-                <Paper
-                  component="form"
-                  sx={{
-                    display: "flex",
-                    width: "100%",
-                  }}
-                >
-                  <InputBase
+                  <Paper
+                    component="form"
                     sx={{
-                      ml: 1,
-                      flex: 1,
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      textAlign: "center",
-                      fontSize: [10, 10, 15, 15, 18, 20],
+                      display: "flex",
+                      width: "100%",
                     }}
-                    placeholder="Buscar"
-                    value={findTextStr}
-                    // onChange={(e) => {
-                    //   handleChange(e.target.value);
-                    // }}
-                    onKeyPress={(ev) => {
-                      if (ev.key === "Enter") {
-                        filtrarDatos();
-                        ev.preventDefault();
-                        return false;
-                      }
-                    }}
-                  />
-                  <IconButton
-                    type="button"
-                    sx={{ p: "10px" }}
-                    aria-label="search"
-                    onClick={() => filtrarDatos()}
                   >
-                    <SearchIcon
+                    <InputBase
                       sx={{
-                        fontSize: "24px", // Tamaño predeterminado del icono
-
-                        "@media (max-width: 600px)": {
-                          fontSize: 25, // Pantalla extra pequeña (xs y sm)
-                        },
-
-                        "@media (min-width: 601px) and (max-width: 960px)": {
-                          fontSize: 25, // Pantalla pequeña (md)
-                        },
-
-                        "@media (min-width: 961px) and (max-width: 1280px)": {
-                          fontSize: 30, // Pantalla mediana (lg)
-                        },
-
-                        "@media (min-width: 1281px)": {
-                          fontSize: 30, // Pantalla grande (xl)
-                        },
-
-                        "@media (min-width: 2200px)": {
-                          fontSize: 30, // Pantalla grande (xl)
-                        },
+                        ml: 1,
+                        flex: 1,
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        textAlign: "center",
+                        fontSize: [10, 10, 15, 15, 18, 20],
+                      }}
+                      placeholder="Buscar"
+                      value={findTextStr}
+                      // onChange={(e) => {
+                      //   handleChange(e.target.value);
+                      // }}
+                      onKeyPress={(ev) => {
+                        if (ev.key === "Enter") {
+                          filtrarDatos();
+                          ev.preventDefault();
+                          return false;
+                        }
                       }}
                     />
-                  </IconButton>
-                </Paper>
+                    <IconButton
+                      type="button"
+                      sx={{ p: "10px" }}
+                      aria-label="search"
+                      onClick={() => filtrarDatos()}
+                    >
+                      <SearchIcon
+                        sx={{
+                          fontSize: "24px", // Tamaño predeterminado del icono
+
+                          "@media (max-width: 600px)": {
+                            fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                          },
+
+                          "@media (min-width: 601px) and (max-width: 960px)": {
+                            fontSize: 25, // Pantalla pequeña (md)
+                          },
+
+                          "@media (min-width: 961px) and (max-width: 1280px)": {
+                            fontSize: 30, // Pantalla mediana (lg)
+                          },
+
+                          "@media (min-width: 1281px)": {
+                            fontSize: 30, // Pantalla grande (xl)
+                          },
+
+                          "@media (min-width: 2200px)": {
+                            fontSize: 30, // Pantalla grande (xl)
+                          },
+                        }}
+                      />
+                    </IconButton>
+                  </Paper>
                 </Grid>
-                {validaFecha?"":
-                <Grid
-                sx={{ fontFamily: "MontserratRegular" }}
-                item
-                xl={4}
-                lg={3}
-                md={3}
-                sm={4}
-              >
-                <Button
-                    disabled={true}
-                    className="aceptar"
-                    sx={{
-                      //backgroundColor: "#c2a37b",
-                      // width: "10vw",
-                      // height: "3.3vh",
-                      width: ["80px", "120px", "160px", "180px", "250px"],
-                      height: ["30px", "20px", "30px", "40px", "50px"],
-                      //color: "black",
-                      fontFamily: "MontserratMedium",
-                      fontSize: [5, 7, 10, 12, 16, 20],
-                    }}
-                    
+                {validaFecha ? (
+                  ""
+                ) : (
+                  <Grid
+                    sx={{ fontFamily: "MontserratRegular" }}
+                    item
+                    xl={4}
+                    lg={3}
+                    md={3}
+                    sm={4}
                   >
-                    {!validaFecha
-                      ? "Fecha de captura terminada"
-                      : "Añadir registro"}
-                  </Button>
+                    <Button
+                      disabled={true}
+                      className="aceptar"
+                      sx={{
+                        //backgroundColor: "#c2a37b",
+                        // width: "10vw",
+                        // height: "3.3vh",
+                        width: ["80px", "120px", "160px", "180px", "250px"],
+                        height: ["30px", "20px", "30px", "40px", "50px"],
+                        //color: "black",
+                        fontFamily: "MontserratMedium",
+                        fontSize: [5, 7, 10, 12, 16, 20],
+                      }}
+                    >
+                      {!validaFecha
+                        ? "Fecha de captura terminada"
+                        : "Añadir registro"}
+                    </Button>
                   </Grid>
-                  }
+                )}
               </Grid>
             </Grid>
 
@@ -1087,14 +1146,14 @@ export const FichaTecnica = () => {
                                       let auxArrayMIR2 = JSON.stringify(
                                         auxArrayMIR[0]
                                       );
-                                    
+
                                       if (auxArrayMIR[1]) {
-                                        
                                         setFTEdit([
                                           {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
                                             IdMa: row.IdMa,
+                                            IdEntidad: row.IdEntidad,
                                             FichaT: row.FichaT,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1110,12 +1169,12 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       } else {
-                                        
                                         setFTEdit([
                                           {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
                                             IdMa: row.IdMa,
+                                            IdEntidad: row.IdEntidad,
                                             FichaT: row.FichaT,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1133,7 +1192,8 @@ export const FichaTecnica = () => {
                                       }
                                       setShowResume(false);
                                       setActionNumber(1);
-                                      setEstado(row.Estado)
+                                      setEstado(row.Estado);
+                                      setIdEntidad(row.IdEntidad);
                                     }}
                                   >
                                     <AddCircleOutlineIcon
@@ -1236,6 +1296,7 @@ export const FichaTecnica = () => {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
                                             IdMa: row.IdMa,
+                                            IdEntidad: row.IdEntidad,
                                             FichaT: row.FichaT,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1256,6 +1317,7 @@ export const FichaTecnica = () => {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
                                             IdMa: row.IdMa,
+                                            IdEntidad: row.IdEntidad,
                                             FichaT: row.FichaT,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1272,6 +1334,7 @@ export const FichaTecnica = () => {
                                         ]);
                                       }
                                       setOpenModalVerResumenFT(true);
+                                      
                                     }}
                                   >
                                     <VisibilityIcon
@@ -1309,11 +1372,13 @@ export const FichaTecnica = () => {
                                 estado={row.Estado}
                                 id={row.IdMir}
                                 actualizado={actualizaContador}
+                                MIR={FTEdit[0]?.MIR || ""}
+                                IdEntidad={IdEntidad}
+
                               />
+
+                              <MostrarLista st="" Id={row.IdFt} />
                             </Grid>
-
-
-                            
                           </TableCell>
                         </TableRow>
                       ))}
@@ -1373,6 +1438,7 @@ export const FichaTecnica = () => {
               IdMA={FTEdit[0]?.IdMa || ""}
               IdFT={FTEdit[0]?.IdFt || ""}
               estado={estado}
+              IdEntidad={IdEntidad}
             />
             {/* {FTEdit[0].FichaT} */}
           </Grid>
@@ -1386,6 +1452,7 @@ export interface IIFT {
   IdFt: string;
   IdMir: string;
   IdMa: string;
+  IdEntidad: string;
   FichaT: string;
   Estado: string;
   CreadoPor: string;

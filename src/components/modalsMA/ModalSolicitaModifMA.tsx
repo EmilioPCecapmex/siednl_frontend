@@ -8,14 +8,26 @@ import {
   DialogContent,
   TextField,
   FormControl,
-  Select,
+  
   MenuItem,
   Button,
   Typography,
+  Autocomplete,
 } from "@mui/material";
 import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
-import { alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExito, alertaExitoConfirm } from "../genericComponents/Alertas";
-import { create_coment_mir, soliModyNoty } from "../genericComponents/axiosGenericos";
+import {
+  alertaError,
+  alertaErrorConfirm,
+  alertaErroresDocumento,
+  alertaExito,
+  alertaExitoConfirm,
+} from "../genericComponents/Alertas";
+import {
+  create_coment_mir,
+  soliModyNoty,
+} from "../genericComponents/axiosGenericos";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -27,6 +39,7 @@ export default function ModalSolicitaModif({
   IdMIR,
   showResume,
   MAEdit,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -36,14 +49,35 @@ export default function ModalSolicitaModif({
   IdMA: string;
   IdMIR: string;
   MAEdit: string;
+  IdEntidad: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
+  
+  const newUser = {
+    IdUsuario: "",
+    IdUsuarioTiCentral: "",
+    Rol: "",
+    NombreInstitucion: "",
+    Nombre: "",
+    ApellidoPaterno: "",
+    ApellidoMaterno: "",
+    NombreUsuario: "",
+  };
 
+  const [user, setUser] = useState<IIUserXInst>(newUser);
+
+  useEffect(() => {
+    let findUser = userXInst.find(
+      (item) => item.NombreUsuario === userSelected
+    );
+    setUser(findUser || newUser);
+  }, [userXInst]);
+
+  
   const [coment, setComment] = useState("");
   const comentMA = (id: string) => {
-    
-      create_coment_mir(id, coment, "MA")
+    create_coment_mir(id, coment, "MA")
       .then((r) => {
         setComment("");
         handleClose();
@@ -51,11 +85,11 @@ export default function ModalSolicitaModif({
       .catch((err) => {});
   };
 
-
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
-      return alertaError("Introduce usuario al que se le solicita modificación")
-     
+      return alertaError(
+        "INTRODUCE USUARIO AL QUE SE LE SOLICITA MODIFICACIÓN"
+      );
     } else {
       checkMA(estado);
     }
@@ -65,63 +99,72 @@ export default function ModalSolicitaModif({
 
   const checkMA = (v: string) => {
     errores = [];
-    if (JSON.parse(MA)?.fin === null) {
+    if (
+      JSON.parse(MA)?.fin.metaAnual === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.metaAnual) ||
+      JSON.parse(MA)?.fin.lineaBase === null ||
+      JSON.parse(MA)?.fin.lineaBase === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.lineaBase) ||
+      JSON.parse(MA)?.fin.lineaBase === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.unidadResponsable) ||
+      JSON.parse(MA)?.fin.valorNumerador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.valorNumerador) ||
+      JSON.parse(MA)?.fin.unidadResponsable === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.unidadResponsable) ||
+      JSON.parse(MA)?.fin.descIndicador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.descIndicador) ||
+      JSON.parse(MA)?.fin.descNumerador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.descNumerador) ||
+      JSON.parse(MA)?.fin.descDenominador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.fin.descDenominador)
+    ) {
       err = 1;
-      errores.push("Sección <strong>Fin</strong> incompleta.");
+      errores.push(`SECCIÓN<strong>FIN </strong> INCOMPLET0.`);
     }
     if (
       JSON.parse(MA)?.fin.metaAnual === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.metaAnual)
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Meta anual sin información");
+      errores.push("<strong>META ANUAL </strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.fin.lineaBase === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.lineaBase)
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Línea base sin información");
+      errores.push("<strong>LÍNEA BASE</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.fin.valorNumerador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.valorNumerador)
     ) {
       err = 1;
-      errores.push("<strong>Fin</strong>: Valor del numerador sin información");
+      errores.push("<strong>VALOR DEL NUMERADOR</strong> SIN INFORMACIÓN.");
     }
-
     if (
       !JSON.parse(MIR)
         .fin.indicador.toLowerCase()
-        .includes(
-          "indice" || "índice" || "INDICE" || "ÍNDICE" || "Índice" || "Indice"
-        ) &&
+        .includes("indice" || "índice") &&
       (JSON.parse(MA)?.fin.valorDenominador === undefined ||
         /^[\s]*$/.test(JSON.parse(MA)?.fin.valorDenominador))
     ) {
       err = 1;
-      errores.push(
-        "<strong>Fin</strong>: Valor del denominador sin información"
-      );
+      errores.push("<strong>VALOR DEL DENOMINADOR</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.fin.sentidoDelIndicador === undefined ||
       JSON.parse(MA)?.fin.sentidoDelIndicador === ""
     ) {
       err = 1;
-      errores.push(
-        "<strong>Fin</strong>: Sentido del indicador no seleccionado"
-      );
+      errores.push("<strong>SENTIDO DEL INDICADOR</strong> NO SELECCIONADO");
     }
     if (
       JSON.parse(MA)?.fin.unidadResponsable === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.fin.unidadResponsable)
     ) {
       err = 1;
-      errores.push(
-        "<strong>Fin</strong>: Unidad responsable de reportar el indicador sin información"
-      );
+      errores.push("<strong>UNIDAD RESPONSABLE</strong>  SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.fin.descIndicador === undefined ||
@@ -129,7 +172,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Descripción del indicador sin información"
+        "<strong>DESCRIPCIIÓN DEL INDICADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -138,7 +181,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Descripción del numerador sin información"
+        "<strong>DESCRIPCIÓN DEL NUMERADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -147,35 +190,52 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Fin</strong>: Descripción del denominador sin información"
+        "<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN."
       );
     }
-    if (JSON.parse(MA)?.proposito === null) {
+
+    if (
+      JSON.parse(MA)?.proposito.metaAnual === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.metaAnual) ||
+      JSON.parse(MA)?.proposito.lineaBase === null ||
+      JSON.parse(MA)?.proposito.lineaBase === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.lineaBase) ||
+      JSON.parse(MA)?.proposito.lineaBase === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.unidadResponsable) ||
+      JSON.parse(MA)?.proposito.valorNumerador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorNumerador) ||
+      JSON.parse(MA)?.proposito.unidadResponsable === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.unidadResponsable) ||
+      JSON.parse(MA)?.proposito.descIndicador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descIndicador) ||
+      JSON.parse(MA)?.proposito.descNumerador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descNumerador) ||
+      JSON.parse(MA)?.proposito.descDenominador === undefined ||
+      /^[\s]*$/.test(JSON.parse(MA)?.proposito.descDenominador)
+    ) {
       err = 1;
-      errores.push("Sección <strong>Propósito</strong> incompleta.");
+      errores.push("SECCIÓN<strong>PROPOSITO</strong> INCOMPLETO.");
     }
     if (
       JSON.parse(MA)?.proposito.metaAnual === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.metaAnual)
     ) {
       err = 1;
-      errores.push("<strong>Proposito</strong>: Meta Anual sin información");
+      errores.push("<strong>META ANUAL</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.proposito.lineaBase === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.lineaBase)
     ) {
       err = 1;
-      errores.push("<strong>Proposito</strong>: Línea base sin información");
+      errores.push("<strong>LÍNEA BASE</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.proposito.valorNumerador === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorNumerador)
     ) {
       err = 1;
-      errores.push(
-        "<strong>Proposito</strong>: Valor del numerador sin información"
-      );
+      errores.push("<strong>VALOR DEL NUMERADOR</strong> SIN INFORMACIÓN.");
     }
     if (
       !JSON.parse(MIR)
@@ -185,27 +245,21 @@ export default function ModalSolicitaModif({
         /^[\s]*$/.test(JSON.parse(MA)?.proposito.valorDenominador))
     ) {
       err = 1;
-      errores.push(
-        "<strong>Proposito</strong>: Valor del denominador sin información"
-      );
+      errores.push("<strong>VALOR DEL DENOMINADOR</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MA)?.proposito.sentidoDelIndicador === undefined ||
       JSON.parse(MA)?.proposito.sentidoDelIndicador === ""
     ) {
       err = 1;
-      errores.push(
-        "<strong>Proposito</strong>: Sentido del indicador no seleccionado"
-      );
+      errores.push("<strong>SENTIDO DEL INDICADOR</strong> NO SELECCIONADO");
     }
     if (
       JSON.parse(MA)?.proposito.unidadResponsable === undefined ||
       /^[\s]*$/.test(JSON.parse(MA)?.proposito.unidadResponsable)
     ) {
       err = 1;
-      errores.push(
-        "<strong>Proposito</strong>: Unidad responsable de reportar el indicador sin seleccionar"
-      );
+      errores.push("<strong>UNIDAD RESPONSABLE</strong> de SIN SELECCIONAR.");
     }
     if (
       JSON.parse(MA)?.proposito.descIndicador === undefined ||
@@ -213,7 +267,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Descripción del indicador sin información"
+        "<strong>DESCRIPCIIÓN DEL INDICADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -222,7 +276,7 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Descripción del numerador sin información"
+        "<strong>DESCRIPCIÓN DEL NUMERADOR</strong> SIN INFORMACIÓN."
       );
     }
     if (
@@ -231,161 +285,194 @@ export default function ModalSolicitaModif({
     ) {
       err = 1;
       errores.push(
-        "<strong>Proposito</strong>: Descripción del denominador sin información"
+        "<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN."
       );
     }
 
     checkComponentes(v);
   };
-  
+
   const checkComponentes = (v: string) => {
-    JSON.parse(MA)?.componentes.every((componente: any, index: number) => {
-      if (
-        componente.metaAnual === undefined ||
-        //  /^[\s]*$/.test(componente.metaAnual) ||
-        componente.metaAnual === null ||
-        componente.metaAnual === ""
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Meta anual sin información.`
-        );
+    JSON.parse(MA)?.componentes.map(
+      (componente: IComponenteMA, index: number) => {
+        if (
+          componente.metaAnual === undefined ||
+          /^[\s]*$/.test(componente.metaAnual) ||
+          componente.lineaBase === null ||
+          componente.lineaBase === undefined ||
+          /^[\s]*$/.test(componente.lineaBase) ||
+          componente.lineaBase === undefined ||
+          /^[\s]*$/.test(componente.actividades[index].unidadResponsable) ||
+          componente.valorNumerador === undefined ||
+          /^[\s]*$/.test(componente.actividades[index].valorNumerador) ||
+          componente.unidadResponsable === undefined ||
+          /^[\s]*$/.test(componente.unidadResponsable) ||
+          componente.descIndicador === undefined ||
+          /^[\s]*$/.test(componente.descIndicador) ||
+          componente.descNumerador === undefined ||
+          /^[\s]*$/.test(componente.descNumerador) ||
+          componente.descDenominador === undefined ||
+          /^[\s]*$/.test(componente.descDenominador)
+        ) {
+          err = 1;
+          errores.push(
+            `<hr><strong> ${componente.componentes} </strong> INCOMPLETO.`
+          );
+        }
+        if (
+          componente.metaAnual === undefined ||
+          /^[\s]*$/.test(componente.metaAnual) ||
+          componente.metaAnual === null
+        ) {
+          err = 1;
+          errores.push(`<strong>META ANUAL</strong>  SIN INFORMACIÓN.`);
+        }
+        if (
+          componente.metasPorFrecuencia[0].trimestre4 !==
+            componente.metaAnual &&
+          componente.metasPorFrecuencia[0].semestre2 !== componente.metaAnual
+        ) {
+          err = 1;
+          errores.push(
+            `<strong>EL VALOR</strong>  DE LA META ANUAL DEBE COINCIDIR CON EL VALOR DEL TRIMESTRE 4 O SEMESTRE 2 CORRESPONDIENTE.`
+          );
+        }
+        if (
+          componente.lineaBase === undefined ||
+          /^[\s]*$/.test(componente.lineaBase)
+        ) {
+          err = 1;
+          errores.push(`<strong>LÍNEA BASE</strong> SIN INFORMACIÓN.`);
+        }
+        if (
+          (componente.metasPorFrecuencia[0].semestre1 === undefined ||
+            /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1) ||
+            componente.metasPorFrecuencia[0].semestre2 === undefined ||
+            /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre2)) &&
+          (componente.metasPorFrecuencia[0].trimestre1 === undefined ||
+            /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre1) ||
+            componente.metasPorFrecuencia[0].trimestre2 === undefined ||
+            /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre2) ||
+            componente.metasPorFrecuencia[0].trimestre3 === undefined ||
+            /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre3) ||
+            componente.metasPorFrecuencia[0].trimestre4 === undefined ||
+            /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre4))
+        ) {
+          err = 1;
+          errores.push(
+            `<strong>METAS POR FRECUENCIA</strong> SIN INFORMACIÓN.`
+          );
+        }
+        if (
+          componente.valorNumerador === undefined ||
+          /^[\s]*$/.test(componente.valorNumerador)
+        ) {
+          err = 1;
+          errores.push(`<strong>VALOR DEL NUMERADOR</strong> SIN INFORMACIÓN.`);
+        }
+        if (
+          JSON.parse(MIR)
+            .componentes[index].indicador.toLowerCase()
+            .includes("índice" || "indice") &&
+          (componente.valorDenominador === undefined ||
+            /^[\s]*$/.test(componente.valorDenominador))
+        ) {
+          err = 1;
+          errores.push(
+            `<strong>VALOR DEL DENOMINADOR</strong> SIN INFORMACIÓN.`
+          );
+        }
+        if (
+          componente.sentidoDelIndicador === undefined ||
+          componente.sentidoDelIndicador === ""
+        ) {
+          err = 1;
+          errores.push(
+            `<strong>SENTIDO DEL INDICADOR</strong> SIN SELECCIONAR.`
+          );
+        }
+        if (
+          componente.unidadResponsable === undefined ||
+          /^[\s]*$/.test(componente.unidadResponsable)
+        ) {
+          err = 1;
+          errores.push(`<strong>UNIDAD RESPONSABLE</strong> SIN SELECCIONAR.`);
+        }
+        if (
+          componente.descIndicador === undefined ||
+          /^[\s]*$/.test(componente.descIndicador)
+        ) {
+          err = 1;
+          errores.push(
+            `<strong>DESCRIPCIIÓN DEL INDICADOR</strong> SIN INFORMACIÓN.`
+          );
+        }
+        if (
+          componente.descNumerador === undefined ||
+          /^[\s]*$/.test(componente.descNumerador)
+        ) {
+          err = 1;
+          errores.push(
+            `<strong>DESCRIPCIÓN DEL NUMERADOR </strong> SIN INFORMACIÓN.`
+          );
+        }
+        if (
+          componente.descDenominador === undefined ||
+          /^[\s]*$/.test(componente.descDenominador)
+        ) {
+          err = 1;
+          errores.push(
+            `<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN.`
+          );
+        }
+        return true;
       }
-
-      if (
-        componente.lineaBase === undefined ||
-        /^[\s]*$/.test(componente.lineaBase)
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Línea base sin información.`
-        );
-      }
-      if (
-        (componente.metasPorFrecuencia[0].semestre1 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1) ||
-          componente.metasPorFrecuencia[0].semestre2 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre2)) &&
-        (componente.metasPorFrecuencia[0].trimestre1 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre1) ||
-          componente.metasPorFrecuencia[0].trimestre2 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre2) ||
-          componente.metasPorFrecuencia[0].trimestre3 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre3) ||
-          componente.metasPorFrecuencia[0].trimestre4 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre4))
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Metas por frecuencia sin información.`
-        );
-      }
-      if (
-        componente.valorNumerador === undefined ||
-        /^[\s]*$/.test(componente.valorNumerador)
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Valor del numerador sin información.`
-        );
-      }
-      if (
-        JSON.parse(MIR)
-          .componentes[index].indicador.toLowerCase()
-          .includes("índice" || "indice") &&
-        (componente.valorDenominador === undefined ||
-          /^[\s]*$/.test(componente.valorDenominador))
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Valor del denominador sin información.`
-        );
-      }
-      if (
-        componente.sentidoDelIndicador === undefined ||
-        componente.sentidoDelIndicador === ""
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Sentido del indicador sin seleccionar.`
-        );
-      }
-      if (
-        componente.unidadResponsable === undefined ||
-        /^[\s]*$/.test(componente.unidadResponsable)
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
-        );
-      }
-      if (
-        componente.descIndicador === undefined ||
-        /^[\s]*$/.test(componente.descIndicador)
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Descripción del indicador sin información.`
-        );
-      }
-      if (
-        componente.descNumerador === undefined ||
-        /^[\s]*$/.test(componente.descNumerador)
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Descripción del numerador sin información.`
-        );
-      }
-      if (
-        componente.descDenominador === undefined ||
-        /^[\s]*$/.test(componente.descDenominador)
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Descripción del denominador sin información.`
-        );
-      }
-
-      return true;
-    });
-
+    );
     checkActividades(v);
   };
 
   const checkActividades = (v: string) => {
     // eslint-disable-next-line array-callback-return
-
     JSON.parse(MA)?.componentes.map(
       (componente: IComponenteMA, indexC: number) => {
         componente.actividades.map(
           (actividad: IActividadesMA, indexA: number) => {
             if (
               actividad.metaAnual === undefined ||
+              /^[\s]*$/.test(actividad.metaAnual) ||
+              actividad.lineaBase === null ||
+              actividad.lineaBase === undefined ||
+              /^[\s]*$/.test(actividad.lineaBase) ||
+              actividad.lineaBase === undefined ||
+              /^[\s]*$/.test(actividad.unidadResponsable) ||
+              actividad.valorNumerador === undefined ||
+              /^[\s]*$/.test(actividad.valorNumerador) ||
+              actividad.unidadResponsable === undefined ||
+              /^[\s]*$/.test(actividad.unidadResponsable) ||
+              actividad.descIndicador === undefined ||
+              /^[\s]*$/.test(actividad.descIndicador) ||
+              actividad.descNumerador === undefined ||
+              /^[\s]*$/.test(actividad.descNumerador) ||
+              actividad.descDenominador === undefined ||
+              /^[\s]*$/.test(actividad.descDenominador)
+            ) {
+              err = 1;
+              errores.push(
+                `<hr><strong> ${actividad.actividad} </strong> INCOMPLETO.`
+              );
+            }
+            if (
+              actividad.metaAnual === undefined ||
               /^[\s]*$/.test(actividad.metaAnual)
             ) {
+              errores.push(`<strong>META ANUAL</strong> SIN INFORMACIÓN.`);
+              err = 1;
+            }
+            if (
+              actividad.metaAnual !== actividad.metasPorFrecuencia[0].trimestre4
+            ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Meta anual sin información.`
+                `<strong>EL VALOR DE LA META ANUAL </strong> DEBE COINCIDIR CON EL VALOR DEL TRIMESTRE 4`
               );
               err = 1;
             }
@@ -393,9 +480,7 @@ export default function ModalSolicitaModif({
               actividad.lineaBase === undefined ||
               /^[\s]*$/.test(actividad.lineaBase)
             ) {
-              errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Línea base sin información.`
-              );
+              errores.push(`<strong>LÍNEA BASE</strong> SIN INFORMACIÓN.`);
               err = 1;
             }
             if (
@@ -409,7 +494,7 @@ export default function ModalSolicitaModif({
               /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Metas por frecuencia sin información.`
+                `<strong>METAS POR FRECUENCIA</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -418,19 +503,19 @@ export default function ModalSolicitaModif({
               /^[\s]*$/.test(actividad.valorNumerador)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Valor del numerador sin información.`
+                `<strong>VALOR DEL NUMERADOR</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
             if (
-              !JSON.parse(MIR)
-                .componentes[indexC].actividades[indexA].indicador.toLowerCase()
-                .includes("indice" || "índice") &&
+              JSON.parse(MIR)
+                .componentes[indexC].actividades[indexA].indicador.toUpperCase()
+                .includes("ÍNDICE" || "INDICE") &&
               (actividad.valorDenominador === undefined ||
                 /^[\s]*$/.test(actividad.valorDenominador))
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Valor del denominador sin información.`
+                `<strong>VALOR DEL DENOMINADOR</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -439,7 +524,7 @@ export default function ModalSolicitaModif({
               actividad.sentidoDelIndicador === ""
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Sentido del indicador sin seleccionar.`
+                `<strong>SENTIDO DEL INDICADOR</strong> SIN SELECCIONAR.`
               );
               err = 1;
             }
@@ -448,7 +533,7 @@ export default function ModalSolicitaModif({
               /^[\s]*$/.test(actividad.unidadResponsable)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Unidad responsable de reportar el indicador sin seleccionar.`
+                `<strong>UNIDAD RESPONSABLE</strong> SIN SELECCIONAR.`
               );
               err = 1;
             }
@@ -457,7 +542,7 @@ export default function ModalSolicitaModif({
               /^[\s]*$/.test(actividad.descIndicador)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del indicador sin información.`
+                `<strong>DESCRIPCIIÓN DEL INDICADOR</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -465,17 +550,17 @@ export default function ModalSolicitaModif({
               actividad.descNumerador === undefined ||
               /^[\s]*$/.test(actividad.descNumerador)
             ) {
-              errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del numerador sin información.`
-              );
               err = 1;
+              errores.push(
+                `<strong>DESCRIPCIÓN DEL NUMERADOR </strong> SIN INFORMACIÓN.`
+              );
             }
             if (
               actividad.descDenominador === undefined ||
               /^[\s]*$/.test(actividad.descDenominador)
             ) {
               errores.push(
-                `<strong> Actividad ${actividad.actividad} </strong>: Descripción del denominador sin información.`
+                `<strong>DESCRIPCIIÓN DEL DENOMINADOR</strong> SIN INFORMACIÓN.`
               );
               err = 1;
             }
@@ -483,16 +568,17 @@ export default function ModalSolicitaModif({
         );
       }
     );
-   
+
     if (err === 0) {
       createMA(v);
     } else {
-      alertaErroresDocumento(errores)
+      alertaErroresDocumento(errores);
     }
   };
 
   const createMA = (estado: string) => {
     let rolusuario = userXInst.find((user) => user.IdUsuario === userSelected);
+    
 
     if (
       estado === "Autorizada" &&
@@ -532,7 +618,10 @@ export default function ModalSolicitaModif({
           Estado: estado,
           Id: IdMA,
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
 
         {
@@ -542,23 +631,27 @@ export default function ModalSolicitaModif({
         }
       )
       .then((r) => {
-        
-
         if (coment !== "") {
           comentMA(IdMIR);
         }
-   
-        alertaExitoConfirm( (localStorage.getItem("Rol") === "Verificador"
-               ? "Meta anual enviada a capturador para corrección"
-               : "Meta anual enviada ").toUpperCase());
 
-        
-        soliModyNoty(userSelected, "Se le ha solicitado una modificación.", "MA",IdMA );
+        alertaExitoConfirm(
+          (localStorage.getItem("Rol") === "Verificador"
+            ? "META ANUAL ENVIADA A CAPTURADOR PARA CORRECCIÓN"
+            : "META ANUAL ENVIADA"
+          ).toUpperCase()
+        );
+
+        soliModyNoty(
+          userSelected,
+          "SE LE HA SOLICITADO UNA MODIFICACIÓN.",
+          "MA",
+          IdMA
+        );
         handleClose();
         showResume();
       })
       .catch((err) => {
-  
         alertaErrorConfirm(err.response.data.result.error);
       });
   };
@@ -579,7 +672,7 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad,
             IdApp: localStorage.getItem("IdApp"),
           },
           {
@@ -595,33 +688,28 @@ export default function ModalSolicitaModif({
         });
     }
   }, [MA, open]);
-  
-  
-  
-  
- 
+
+  const theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
-      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
-        Solicitud de modificación
+      <DialogTitle
+        sx={{
+          fontFamily: "MontserratBold",
+          borderBottom: 1,
+          fontSize: [18, 20, 15, 20, 15],
+          height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
+        }}
+      >
+        SOLICITUD DE MODIFICACIÓN
       </DialogTitle>
-
-      <Grid sx={{ display: "flex", justifyContent: "center" }}>
-        <Grid
-          sx={{
-            backgroundColor: "#BBBABA",
-            width: "60vw",
-            height: "0.1vh",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        />
-      </Grid>
 
       <DialogContent
         sx={{
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Grid
@@ -629,55 +717,97 @@ export default function ModalSolicitaModif({
             width: "100%",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
             justifyContent: "space-evenly",
+            mb: 2,
           }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Selecciona usuario para solicitar modificación
-          </Typography>
-          <FormControl
+          <Typography
             sx={{
-              display: "flex",
-              width: "70%",
-              alignItems: "center",
-              justifyContent: "center",
-              border: 1,
-              borderRadius: 1,
-              borderColor: "#616161",
-              mb: 2,
+              fontSize: [15, 15, 15, 15, 15],
+              fontFamily: "MontserratMedium",
+              textAlign: "center",
             }}
+          >
+          SELECCIONA USUARIO PARA SOLICITAR MODIFICACIÓN
+          </Typography>
+
+          <FormControl
+            // sx={{
+            //   display: "flex",
+            //   alignItems: "center",
+            //   justifyContent: "center",
+            //   border: 1,
+            //   borderRadius: 1,
+            //   borderColor: "#616161",
+            //   mb: 2,
+            //   mt: "2vh",
+            // }}
             variant="standard"
           >
-            <Select
-              size="small"
-              sx={{ fontFamily: "MontserratRegular" }}
-              fullWidth
-              value={userSelected}
-              onChange={(v) => setUserSelected(v.target.value)}
-              disableUnderline
-            >
-              <MenuItem value={"0"} disabled>
-                Selecciona
-              </MenuItem>
-
-              {userXInst.map((item) => {
+            <Autocomplete
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              options={userXInst}
+              getOptionLabel={(option) => option.NombreUsuario}
+              value={user}
+              renderOption={(props, option) => {
                 return (
-                  <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-                      {item.Rol + ": " + item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno}
-                  </MenuItem>
+                  <li {...props} key={option.IdUsuario}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                      }}
+                    >
+                      {option.Rol +
+                        ": " +
+                        option.Nombre +
+                        " " +
+                        option.ApellidoPaterno +
+                        " " +
+                        option.ApellidoMaterno +
+                        " - " +
+                        option.NombreUsuario}
+                    </p>
+                  </li>
                 );
-              })}
-            </Select>
-          </FormControl>{" "}
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={"USUARIO"}
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                ></TextField>
+              )}
+              onChange={(event, value) => {
+                setUser(value || newUser);
+              }}
+              isOptionEqualToValue={(option, value) =>
+                option.IdUsuario === value.IdUsuario
+              }
+            />
+
+            
+          </FormControl>
         </Grid>
 
-        <Grid sx={{ width: "100%", mb: 2 }}>
+        <Grid sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}>
           <TextField
             multiline
             rows={2}
-            label={"Agregar Comentario"}
-            sx={{ width: "100%" }}
+            label={"AGREGAR COMENTARIO"}
+            sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}
             onChange={(v) => setComment(v.target.value)}
           ></TextField>
         </Grid>
@@ -691,35 +821,34 @@ export default function ModalSolicitaModif({
           }}
         >
           <Grid
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBlockEnd: "1vh",
+            paddingBlockEnd: "1vh",
+          }}
+        >
+          <Grid
             sx={{
               display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "space-evenly",
-              width: "100vw",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexDirection: isSmScreen ? "column" : "row", // Cambia el flexDirection según el tamaño de la pantalla
+              mt: "4vh",
             }}
           >
             <Button
-            className="cancelar"
-              sx={{
-               
-                display: "flex",
-                width: "15vw",
-              }}
-              variant="contained"
+              className="cancelar"
+              sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
               onClick={() => handleClose()}
             >
-              <Typography>Cancelar</Typography>
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                CANCELAR
+              </Typography>
             </Button>
 
             <Button
-            className="aceptar"
-              sx={{
-             
-                display: "flex",
-                width: "15vw",
-              }}
-              
-
+              className="aceptar"
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
@@ -731,13 +860,13 @@ export default function ModalSolicitaModif({
                 handleClose();
               }}
             >
-              <Typography
-           
-              >
-                {coment === "" ? "Enviar sin comentarios" : "Confirmar"}
+              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                {coment === "" ? "ENVIAR SIN COMENTARIOS" : "CONFIRMAR"}
               </Typography>
             </Button>
           </Grid>
+        </Grid>
+
         </Grid>
       </DialogContent>
     </Dialog>
@@ -751,5 +880,6 @@ export interface IIUserXInst {
   NombreInstitucion: string;
   Nombre: string;
   ApellidoPaterno: string;
-  ApellidoMaterno: String;
+  ApellidoMaterno: string;
+  NombreUsuario: string;
 }

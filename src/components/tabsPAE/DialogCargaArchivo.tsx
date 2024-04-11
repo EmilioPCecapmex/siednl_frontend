@@ -255,7 +255,7 @@ export function DialogCargaArchivo({
               autoFocus
               onClick={() => setOpen(false)}
             >
-              Cancelar
+              CANCELAR
             </Button>
 
             <Button
@@ -264,7 +264,7 @@ export function DialogCargaArchivo({
               onClick={() =>fechaEdit? handleClickAddPDF(): alertaInfo("SELECCIONE UNA FECHA")}
               autoFocus
             >
-              Cargar
+              CARGAR
             </Button>
 
           </DialogActions>

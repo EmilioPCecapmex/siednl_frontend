@@ -157,8 +157,7 @@ export const TabActividades = ({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(!isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -580,7 +579,7 @@ export const TabActividades = ({
               helperText={
                 errorIndicadorComponente === componenteSelect &&
                 errorIndicadorActividad === actividadSelect
-                  ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                  ? "INCLUIR TIPO DE INDICADOR: PORCENTAJE, TASA, ÍNDICE Ó PROMEDIO."
                   : null
               }
               onChange={(c) => {

@@ -13,6 +13,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+//import { IAI } from "../../screens/InterfacesActividadesInstitucionales";
 import { IAI } from "../../screens/actividadesInstitucionales/InterfacesActividadesInstitucionales";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";

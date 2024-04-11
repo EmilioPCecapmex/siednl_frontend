@@ -29,7 +29,7 @@ export const DeleteDialogMIR = ({
 
   const handleClickOpen = () => {
    
-    alertaEliminar(() => {deleteMIR()},() => {},"Deseas eliminar la MIR y los documentos ligados?");
+    alertaEliminar(() => {deleteMIR()},() => {},"DESEAS ELIMINAR LA MIR Y LOS DOCUMENTOS LIGADOS?");
   };
 
 
@@ -49,7 +49,7 @@ export const DeleteDialogMIR = ({
       .then((r) => {
         actualizado();
 
-        alertaExito(() => {}, "Eliminado con éxito");
+        alertaExito(() => {}, "ELIMINA CON ÉXITO");
       })
 
       .catch((err) => alertaError());

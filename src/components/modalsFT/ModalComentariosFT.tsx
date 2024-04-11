@@ -21,19 +21,31 @@ import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { queries } from "../../queries";
-import { alertaEliminar, alertaError, alertaExito } from "../genericComponents/Alertas";
-import { create_coment_mir, soliModyNoty, obtenerComentarios, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
+import {
+  alertaEliminar,
+  alertaError,
+  alertaExito,
+} from "../genericComponents/Alertas";
+import {
+  create_coment_mir,
+  soliModyNoty,
+  obtenerComentarios,
+  enviarNotificacionRol,
+} from "../genericComponents/axiosGenericos";
 
 export const ComentDialogFT = ({
   estado,
   id,
   actualizado,
+  MIR,
+  IdEntidad,
 }: {
   estado: string;
   id: string;
   actualizado: Function;
+  MIR: string;
+  IdEntidad: string;
 }) => {
-
   const [coments, setComents] = React.useState([
     {
       Comentario: "",
@@ -60,15 +72,10 @@ export const ComentDialogFT = ({
 
   const [userXInst, setUserXInst] = React.useState<Array<IIUserXInst>>([]);
 
-  
-
   const [coment, setComent] = React.useState("");
 
- 
-
   const comentFt = () => {
-    
-      create_coment_mir(id, coment, "FT")
+    create_coment_mir(id, coment, "FT")
       .then((r) => {
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
@@ -76,19 +83,22 @@ export const ComentDialogFT = ({
           // userXInst.map((user) => {
           //   soliModyNoty(user.IdUsuario, coment, "Nuevo comentario Ficha Tecnica", id );
           // });
-          enviarNotificacionRol("FT", "Nuevo comentario Ficha Tecnica", id, ["Verificador"])
+          enviarNotificacionRol(
+            "FT",
+            "NUEVO COMENTARIO FICHA TECNICA",
+            id,
+            ["Verificador"],
+            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad
+          );
         }
-
         setNewComent(false);
         setComent("");
         handleClose();
         actualizado();
-        alertaExito(()=>{},"Comentario añadido")
-       
+        alertaExito(() => {}, "COMENTARIO AÑADIDO");
       })
       .catch((err) => {
-        alertaError("Se produjo un error")
-       
+        alertaError("SE PRODUJO UN ERROR");
       });
   };
 
@@ -108,7 +118,7 @@ export const ComentDialogFT = ({
   // }, [actualizado, id]);
 
   React.useEffect(() => {
-    obtenerComentarios(id,  setComents);
+    obtenerComentarios(id, setComents);
   }, [actualizado, id]);
 
   const isComentEmpty = () => {
@@ -184,19 +194,19 @@ export const ComentDialogFT = ({
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Usuario
+                      USUARIO
                     </TableCell>
                     <TableCell
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Comentario
+                      COMENTARIO
                     </TableCell>
                     <TableCell
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Fecha de envío
+                      FECHA DE ENVÍO
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -248,7 +258,7 @@ export const ComentDialogFT = ({
                         }}
                         align="center"
                       >
-                        Sin Comentarios
+                        SIN COMENTARIOS
                       </TableCell>
                       <TableCell></TableCell>
                     </TableRow>
@@ -302,7 +312,7 @@ export const ComentDialogFT = ({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
                 >
-                  Cancelar
+                  CANCELAR
                 </Typography>{" "}
               </Button>
               <Button
@@ -320,7 +330,7 @@ export const ComentDialogFT = ({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
                 >
-                  {"Agregar"}
+                  {"AGREGAR"}
                 </Typography>
               </Button>
             </Box>

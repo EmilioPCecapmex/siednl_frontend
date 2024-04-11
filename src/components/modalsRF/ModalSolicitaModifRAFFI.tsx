@@ -8,10 +8,12 @@ import {
   DialogContent,
   TextField,
   FormControl,
-  Select,
+  
   MenuItem,
   Button,
   Typography,
+  Grid,
+  Autocomplete,
 } from "@mui/material";
 import { validaCadena } from "../../services/validations";
 import { queries } from "../../queries";
@@ -22,6 +24,8 @@ import {
 } from "../tabsRaffi/interfacesRaffi";
 import { alertaError, alertaErrorConfirm, alertaErroresDocumento, alertaExitoConfirm } from "../genericComponents/Alertas";
 import { create_coment_mir, soliModyNoty } from "../genericComponents/axiosGenericos";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 export let errores: string[] = [];
 
 export default function ModalSolicitaModifRF({
@@ -34,6 +38,7 @@ export default function ModalSolicitaModifRF({
   IdRF,
   showResume,
   RFEdit,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -44,9 +49,30 @@ export default function ModalSolicitaModifRF({
   IdRF: string;
   showResume: Function;
   RFEdit: string;
+  IdEntidad: string;
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
+
+  const newUser = {
+    IdUsuario: "",
+    IdUsuarioTiCentral: "",
+    Rol: "",
+    NombreInstitucion: "",
+    Nombre: "",
+    ApellidoPaterno: "",
+    ApellidoMaterno: "",
+    NombreUsuario: "",
+  };
+
+  const [user, setUser] = useState<IIUserXInst>(newUser);
+
+  useEffect(() => {
+    let findUser = userXInst.find(
+      (item) => item.NombreUsuario === userSelected
+    );
+    setUser(findUser || newUser);
+  }, [userXInst]);
 
   let jsonRF: IRF =
     RF === ""
@@ -70,7 +96,7 @@ export default function ModalSolicitaModifRF({
 
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
-      return alertaError( "Introduce usuario al que se le solicita modificación")
+      return alertaError( "INTRODUCE USUARIO AL QUE SE LE SOLICITA MODIFICACIÓN")
     } else {
       checkMA(estado);
     }
@@ -219,6 +245,9 @@ export default function ModalSolicitaModifRF({
           Id: IdRF,
           Estado: estado,
           Rol: localStorage.getItem("Rol"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -231,11 +260,11 @@ export default function ModalSolicitaModifRF({
           comentMA(IdRF);
         }
         alertaExitoConfirm((localStorage.getItem("Rol") === "Verificador"
-        ? "RAFFI enviada a capturador para corrección"
-        : "RAFFI enviada").toUpperCase())
+        ? "RAFFI ENVÍADA A CAPTURADOR PARA CORRECCIPON corrección"
+        : "RAFFI ENVÍADA").toUpperCase())
 
       
-        soliModyNoty(userSelected, "Se le ha solicitado una modificación.", "RF", IdRF );
+        soliModyNoty(userSelected, "SE LE HA SOLICITADO UNA MODIFICACIÓN.", "RF", IdRF );
         handleClose();
         showResume();
       })
@@ -260,7 +289,7 @@ export default function ModalSolicitaModifRF({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad,
             IdApp: localStorage.getItem("IdApp"),
           },
           {
@@ -279,91 +308,130 @@ export default function ModalSolicitaModifRF({
   
 
 
-
+  const theme = useTheme();
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
-      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
-        Solicitud de modificación
+      <DialogTitle
+        sx={{
+          fontFamily: "MontserratBold",
+          borderBottom: 1,
+          fontSize: [18, 20, 15, 20, 15],
+          height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
+        }}
+      >
+        SOLICITUD DE MODIFICACIÓN
       </DialogTitle>
-
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Box
-          sx={{
-            backgroundColor: "#BBBABA",
-            width: "60vw",
-            height: "0.1vh",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        />
-      </Box>
 
       <DialogContent
         sx={{
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Box
+        <Grid
           sx={{
             width: "100%",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
             justifyContent: "space-evenly",
+            mb: 2,
           }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            Selecciona usuario para solicitar modificación
-          </Typography>
-          <FormControl
+          <Typography
             sx={{
-              display: "flex",
-              width: "70%",
-              alignItems: "center",
-              justifyContent: "center",
-              border: 1,
-              borderRadius: 1,
-              borderColor: "#616161",
-              mb: 2,
+              fontSize: [15, 15, 15, 15, 15],
+              fontFamily: "MontserratMedium",
+              textAlign: "center",
             }}
+          >
+          SELECCIONA USUARIO PARA SOLICITAR MODIFICACIÓN
+          </Typography>
+
+          <FormControl
+            // sx={{
+            //   display: "flex",
+            //   alignItems: "center",
+            //   justifyContent: "center",
+            //   border: 1,
+            //   borderRadius: 1,
+            //   borderColor: "#616161",
+            //   mb: 2,
+            //   mt: "2vh",
+            // }}
             variant="standard"
           >
-            <Select
-              size="small"
-              sx={{ fontFamily: "MontserratRegular" }}
-              fullWidth
-              value={userSelected}
-              onChange={(v) => setUserSelected(v.target.value)}
-              disableUnderline
-            >
-              <MenuItem value={"0"} disabled>
-                Selecciona
-              </MenuItem>
-
-              {userXInst.map((item) => {
+            <Autocomplete
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              options={userXInst}
+              getOptionLabel={(option) => option.NombreUsuario}
+              value={user}
+              renderOption={(props, option) => {
                 return (
-                  <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-                    {item.Rol + ": " + item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno}
-                  </MenuItem>
+                  <li {...props} key={option.IdUsuario}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                      }}
+                    >
+                      {option.Rol +
+                        ": " +
+                        option.Nombre +
+                        " " +
+                        option.ApellidoPaterno +
+                        " " +
+                        option.ApellidoMaterno +
+                        " - " +
+                        option.NombreUsuario}
+                    </p>
+                  </li>
                 );
-              })}
-            </Select>
-          </FormControl>{" "}
-        </Box>
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={"USUARIO"}
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                ></TextField>
+              )}
+              onChange={(event, value) => {
+                setUser(value || newUser);
+              }}
+              isOptionEqualToValue={(option, value) =>
+                option.IdUsuario === value.IdUsuario
+              }
+            />
 
-        <Box sx={{ width: "100%", mb: 2 }}>
+            
+          </FormControl>
+        </Grid>
+
+        <Grid sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}>
           <TextField
             multiline
             rows={2}
-            label={"Agregar Comentario"}
-            sx={{ width: "100%" }}
+            label={"AGREGAR COMENTARIO"}
+            sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}
             onChange={(v) => setComment(v.target.value)}
           ></TextField>
-        </Box>
+        </Grid>
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -371,34 +439,35 @@ export default function ModalSolicitaModifRF({
             paddingBlockEnd: "1vh",
           }}
         >
-          <Box
+          <Grid
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBlockEnd: "1vh",
+            paddingBlockEnd: "1vh",
+          }}
+        >
+          <Grid
             sx={{
               display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "space-evenly",
-              width: "100vw",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexDirection: isSmScreen ? "column" : "row", // Cambia el flexDirection según el tamaño de la pantalla
+              mt: "4vh",
             }}
           >
             <Button
-              sx={{
-                ...queries.buttonCancelarSolicitudInscripcion,
-                display: "flex",
-                width: "15vw",
-              }}
-              variant="contained"
+              className="cancelar"
+              sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
             <Button
-              sx={{
-                ...queries.buttonContinuarSolicitudInscripcion,
-                display: "flex",
-                width: "15vw",
-              }}
+              className="aceptar"
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
@@ -411,11 +480,12 @@ export default function ModalSolicitaModifRF({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                {coment === "" ? "Enviar sin comentarios" : "Confirmar"}
+                {coment === "" ? "ENVIAR SIN COMENTARIOS" : "CONFIRMAR"}
               </Typography>
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );
@@ -429,4 +499,5 @@ export interface IIUserXInst {
   Nombre: string;
   ApellidoPaterno: string;
   ApellidoMaterno: string;
+  NombreUsuario: string;
 }
