@@ -184,7 +184,7 @@ export const ModifyDialogCatalogos = ({
                 textAlign: "center",
               }}
             >
-              Editar Elemento
+              EDITAR ELEMENTO
             </Typography>
           </Grid>
           <DialogContent
@@ -215,17 +215,17 @@ export const ModifyDialogCatalogos = ({
               }}
             />
 
-            <InputLabel>Institución</InputLabel>
+            <InputLabel>INSTITUCIÓN</InputLabel>
             <Select
               sx={
                 descripcion.length < 200 ? { width: "60%" } : { width: "80%" }
               }
               value={institution}
-              label="Institución"
+              label="INSTITUCIÓN"
               onChange={(x) => setInstitution(x.target.value)}
             >
               <MenuItem value={"0"} key={0} disabled>
-                Selecciona
+                SELECCIONA
               </MenuItem>
               {catalogoInstituciones.map((item) => {
                 return (
@@ -246,7 +246,7 @@ export const ModifyDialogCatalogos = ({
           >
             <Button className="cacelar" onClick={cerrardialog}>
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
@@ -256,7 +256,7 @@ export const ModifyDialogCatalogos = ({
               autoFocus
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                De Acuerdo
+                DE ACUERDO
               </Typography>
             </Button>
           </DialogActions>
@@ -279,10 +279,10 @@ export const ModifyDialogCatalogos = ({
           </DialogContent>
 
           <DialogActions onClick={cerrardialog}>
-            <Button className="cancelar">Cancelar</Button>
+            <Button className="cancelar">CANCELAR</Button>
 
             <Button className="aceptar" onClick={opendialog} autoFocus>
-              De Acuerdo
+              DE ACUERDO
             </Button>
           </DialogActions>
         </Dialog>
@@ -315,7 +315,7 @@ export const ModifyDialogCatalogos = ({
                 textAlign: "center",
               }}
             >
-              Editar Elemento
+              EDITAR ELEMENTO
             </Typography>
           </Grid>
 
@@ -370,7 +370,7 @@ export const ModifyDialogCatalogos = ({
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
@@ -386,7 +386,7 @@ export const ModifyDialogCatalogos = ({
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
-                De Acuerdo
+                DE ACUERDO
               </Typography>
             </Button>
           </DialogActions>

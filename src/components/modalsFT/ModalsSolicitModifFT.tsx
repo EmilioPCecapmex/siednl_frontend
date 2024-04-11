@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
-  Box,
+ 
   Dialog,
   DialogTitle,
   DialogContent,
   TextField,
   FormControl,
-  Select,
-  MenuItem,
+  
   Button,
   Typography,
   Autocomplete,
@@ -904,56 +903,7 @@ export default function ModalSolicitaModif({
               }
             />
 
-            {/* <Select
-              size="small"
-              sx={{ fontFamily: "MontserratRegular" }}
-              fullWidth
-              value={userSelected}
-              onChange={(v) => setUserSelected(v.target.value)}
-              disableUnderline
-              renderValue={(selected) => {
-                const selectedItem = userXInst.find(
-                  (item) => item.IdUsuario === selected
-                );
-                if (selectedItem) {
-                  const text =
-                    selectedItem.Rol +
-                    ": " +
-                    selectedItem.Nombre +
-                    " " +
-                    selectedItem.ApellidoPaterno +
-                    " " +
-                    selectedItem.ApellidoMaterno +
-                    " - " +
-                    selectedItem.NombreUsuario;
-                  if (text.length > 40) {
-                    // Ajusta el número según el espacio disponible
-                    return text.slice(0, 40) + "..."; // Truncar el texto con puntos suspensivos
-                  }
-                  return text;
-                }
-                return "SELECCIONA";
-              }}
-            >
-              <MenuItem value={"0"} disabled>
-                SELECCIONA
-              </MenuItem>
-
-              {userXInst.map((item) => {
-                return (
-                  <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-                    {item.Rol +
-                      ": " +
-                      item.Nombre +
-                      " " +
-                      item.ApellidoPaterno +
-                      " " +
-                      item.ApellidoMaterno}
-                    - {item.NombreUsuario}
-                  </MenuItem>
-                );
-              })}
-            </Select> */}
+           
           </FormControl>
         </Grid>
 

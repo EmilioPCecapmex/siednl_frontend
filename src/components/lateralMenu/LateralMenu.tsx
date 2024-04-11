@@ -444,15 +444,6 @@ export const LateralMenu = ({
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   /////////////ayuda
 
-  interface BreadcrumbsDetails {
-    name1: string;
-    path1: string;
-    name2: string;
-    path2: string;
-    name3?: string; // Optional third breadcrumb item
-    path3?: string; // Optional path for the third item
-  }
-
   interface MenuObject {
     Id: string;
     FechaDeCreacion: string;

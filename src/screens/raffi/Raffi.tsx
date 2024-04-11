@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   FormControl,
   Grid,
   InputBase,
@@ -13,6 +14,7 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
+  TextField,
   Tooltip,
 } from "@mui/material";
 //import { useNavigate } from "react-router-dom";
@@ -49,23 +51,46 @@ export const Raffi = () => {
   const [rfFiltered, setRfFiltered] = useState<Array<IRaffi>>([]);
   const [rfxFiltered, setRfxFiltered] = useState<Array<IRaffi>>([]);
   const [rfEdit, setRfEdit] = useState<Array<IRaffi>>([]);
-  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
+
   const [validaFecha, setValidaFecha] = useState(true);
 
   const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("Todos");
-  const [findSelectStr, setFindSelectStr] = useState("Todos");
+  const [findInstStr, setFindInstStr] = useState("TODOS");
+  const [findSelectStr, setFindSelectStr] = useState("TODOS");
   const renglonesPagina = 7;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [page, setPage] = useState(0);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
-  const [estadorf, setEstadoRF] = useState("Todos");
+  const [estadorf, setEstadoRF] = useState("TODOS");
   const [estado, setEstado] = useState("");
   const [IdEntidad, setIdEntidad] = useState("");
   
-  const [institucionesb, setInstitucionesb] = useState("Todos");
+  const [institucionesb, setInstitucionesb] = useState("TODOS");
+
+  const objetiInstitucion: IEntidad = {
+    //ClaveSiregob: null,
+    //ControlInterno: "",
+    Id: "0",
+    Nombre: "TODOS",
+    NombreTipoEntidad: "",
+    EntidadPerteneceA: "",
+    Direccion: "",
+    Telefono: "",
+    IdEntidadPerteneceA: "",
+    IdTipoEntidad: "",
+    FechaCreacion: "",
+    CreadoPor: "",
+    UltimaActualizacion: "",
+    ModificadoPor: "",
+    Titular: "",
+  };
+
+  const [instituciones, setInstituciones] = useState<IEntidad>();
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
+    Array<IEntidad>
+  >([]);
 
   useEffect(() => {
     if (opentabs) {
@@ -92,9 +117,9 @@ export const Raffi = () => {
     if (
       v !== "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setRfFiltered(
         rf.filter(
@@ -111,7 +136,7 @@ export const Raffi = () => {
       );
     } else if (
       v !== "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setRfFiltered(
         rf.filter(
@@ -127,8 +152,8 @@ export const Raffi = () => {
       );
     } else if (
       v !== "" &&
-      (est === "0" || est === "Todos") &&
-      (inst === "0" || inst === "Todos")
+      (est === "0" || est === "TODOS") &&
+      (inst === "0" || inst === "TODOS")
     ) {
       setRfFiltered(
         rf.filter(
@@ -143,9 +168,9 @@ export const Raffi = () => {
     } else if (
       v === "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setRfFiltered(
         rf.filter(
@@ -156,7 +181,7 @@ export const Raffi = () => {
       );
     } else if (
       v === "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setRfFiltered(
         rf.filter(
@@ -202,7 +227,7 @@ export const Raffi = () => {
 
   useEffect(() => {
     validaFechaCaptura();
-    getInstituciones(setInstituciones);
+    getInstituciones(setCatalogoInstituciones);
   }, []);
 
   const handleChange = (dato: string) => {
@@ -506,54 +531,62 @@ export const Raffi = () => {
               >
                 {localStorage.getItem("Rol") === "Administrador" ? (
                    <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
-                    <FormControl
-                      sx={{
-                        display: "flex",
-                        width: "100%",
-                        borderRadius: 2,
-                        borderColor: "#616161",
-                      }}
-                    >
-                      <InputLabel sx={queries.text}>
-                        FILTRO POR INSTITUCION
-                      </InputLabel>
-                      <Select
-                        size="small"
-                        fullWidth
-                        variant="outlined"
-                        label="FILTRO POR INSTITUCION"
-                        sx={{
-                          fontFamily: "MontserratRegular",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          //textAlign: "center",
-                          fontSize: [10, 10, 15, 15, 18, 20],
-                        }}
-                        value={institucionesb}
-                        disabled={
-                          localStorage.getItem("Rol") !== "Administrador"
-                        }
-                        onChange={(v) => {
-                          setInstitucionesb(v.target.value);
-                        }}
-                      >
-                        <MenuItem
-                          value={institucionesb}
-                          sx={{ fontFamily: "MontserratRegular" }}
-                        >
-                          Todos
-                        </MenuItem>
-
-                        {instituciones?.map((item) => {
-                          return (
-                            <MenuItem value={item.Nombre} key={item.Id}>
-                              {item.Nombre.toUpperCase()}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
+                    <FormControl required fullWidth>
+                        <Autocomplete
+                          //  disabled={edit && !mirEdit?.encabezado.ejercicioFiscal}
+                          clearText="Borrar"
+                          noOptionsText="Sin opciones"
+                          closeText="Cerrar"
+                          openText="Abrir"
+                          disablePortal
+                          size="small"
+                          options={catalogoInstituciones}
+                          getOptionLabel={(option) => option.Nombre || ""}
+                          value={instituciones || objetiInstitucion}
+                          getOptionDisabled={(option) => {
+                            if (option.Id === "") {
+                              return true;
+                            }
+                            return false;
+                          }}
+                          renderOption={(props, option) => {
+                            return (
+                              <li {...props} key={option.Id}>
+                                <p
+                                  style={{
+                                    fontFamily: "MontserratRegular",
+                                  }}
+                                >
+                                  {option.Nombre}
+                                </p>
+                              </li>
+                            );
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="FILTRO POR INSTITUCIÓN"
+                              variant="standard"
+                              InputLabelProps={{
+                                style: {
+                                  fontFamily: "MontserratSemiBold",
+                                },
+                              }}
+                              sx={{
+                                "& .MuiAutocomplete-input": {
+                                  fontFamily: "MontserratRegular",
+                                },
+                              }}
+                            ></TextField>
+                          )}
+                          onChange={(event, value) =>
+                            setInstituciones(value || objetiInstitucion)
+                          }
+                          isOptionEqualToValue={(option, value) =>
+                            option.Id === value.Id
+                          }
+                        />
+                      </FormControl>
                   </Grid>
                 ) : null}
                 <Grid
@@ -589,66 +622,124 @@ export const Raffi = () => {
                       : 11
                   }
                 >
-                  <FormControl
-                    sx={{
-                      display: "flex",
-                      width: "100%",
-                      borderRadius: 2,
-                      borderColor: "#616161",
-                    }}
-                  >
-                    <InputLabel sx={queries.text}>
-                      FILTRO POR ESTADO DE LA RAFFI
-                    </InputLabel>
-                    <Select
-                      size="small"
-                      fullWidth
-                      variant="outlined"
-                      label="FILTRO POR ESTADO DE LA Raffi"
-                      sx={{
-                        fontFamily: "MontserratRegular",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        fontSize: [10, 10, 15, 15, 18, 20],
-                      }}
-                      value={
-                        localStorage.getItem("Rol") === "Administrador" ||
-                        localStorage.getItem("Rol") === "ADMINISTRADOR"
-                          ? estadorf
-                          : findSelectStr
-                      }
-                      onChange={(v) => {
-                        // v.target.value === "Todos"
-                        //   ? findText(
-                        //       findTextStr,
-                        //       "0",
-                        //       findInstStr === "Todos" ? "0" : findInstStr
-                        //     )
-                        //   : findText(findTextStr, v.target.value, findInstStr);
-                        if (
+                  <FormControl fullWidth>
+                      {/* <InputLabel sx={queries.text}>
+                        <Tooltip
+                          PopperProps={{
+                            modifiers: [
+                              {
+                                name: "offset",
+                                options: {
+                                  offset: [0, -13],
+                                },
+                              },
+                            ],
+                          }}
+                          title={"FILTRO POR ESTADO DE LA MIR"}
+                        >
+                          <span>FILTRO POR ESTADO DE LA MIR</span>
+                        </Tooltip>
+                      </InputLabel>
+
+                      <Select
+                        size="small"
+                        variant="outlined"
+                        value={
                           localStorage.getItem("Rol") === "Administrador" ||
                           localStorage.getItem("Rol") === "ADMINISTRADOR"
-                        ) {
-                          setEstadoRF(v.target.value);
-                        } else {
-                          setFindSelectStr(v.target.value);
+                            ? estadomir
+                            : findSelectStr
                         }
-                      }}
-                    >
-                      {estados.map((estado) => (
-                        <MenuItem key={estado} value={estado}>
-                          {estado}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
+                        label="FILTRO POR ESTADO DE LA MIR"
+                        sx={{
+                          fontFamily: "MontserratRegular",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          // textAlign: "center",
+                          fontSize: [10, 10, 15, 15, 18, 20], // Tamaños de fuente para diferentes breakpoints
+                          // color: "#AF8C55"
+                        }}
+                        fullWidth
+                        onChange={(v) => {
+                          // v.target.value === "TODOS"
+                          //   ? findText(
+                          //       findTextStr,
+                          //       "0",
+                          //       findInstStr === "TODOS" ? "0" : findInstStr
+                          //     )
+                          //   : findText(findTextStr, v.target.value, findInstStr);
+                          if (
+                            localStorage.getItem("Rol") === "Administrador" ||
+                            localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          ) {
+                            setEstadoMIR(v.target.value);
+                          } else {
+                            setFindSelectStr(v.target.value);
+                          }
+
+                          //
+                        }}
+                      >
+                        {estados.map((estado) => (
+                          <MenuItem key={estado} value={estado}>
+                            {estado.toUpperCase()}
+                          </MenuItem>
+                        ))}
+                      </Select> */}
+                      <Autocomplete
+                        clearText="Borrar"
+                        noOptionsText="Sin opciones"
+                        closeText="Cerrar"
+                        openText="Abrir"
+                        disablePortal
+                        fullWidth
+                        size="small"
+                        value={
+                          (localStorage.getItem("Rol") === "Administrador" ||
+                          localStorage.getItem("Rol") === "ADMINISTRADOR"
+                            ? estadorf.toUpperCase()
+                            : findSelectStr.toUpperCase()) || estados[0]
+                        }
+                        options={estados}
+                        onChange={(event, newValue) => {
+                          // Access the value using newValue
+                         
+
+                          if (
+                            localStorage.getItem("Rol") === "Administrador" ||
+                            localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          ) {
+                            setEstadoRF(newValue || "");
+                          } else {
+                            setFindSelectStr(newValue || "");
+                          }
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label={"FILTRO POR ESTADO DE LA RF"}
+                            variant="standard"
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratSemiBold",
+                              },
+                            }}
+                            sx={{
+                              "& .MuiAutocomplete-input": {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                          ></TextField>
+                        )}
+                      />
+                    </FormControl>
                 </Grid>
 
                 {localStorage.getItem("Rol") === "Administrador" && (
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
-                      // disabled ={estadoma === "Todos" && institucionesb === "Todos" }
+                      // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
                         buscador(
                           estadorf,

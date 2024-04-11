@@ -20,6 +20,8 @@ import {
   InputBase,
   Button,
   TableSortLabel,
+  Autocomplete,
+  TextField,
 } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
@@ -75,8 +77,8 @@ export const MetaAnual = () => {
   };
 
   const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("Todos");
-  const [findSelectStr, setFindSelectStr] = useState("Todos");
+  const [findInstStr, setFindInstStr] = useState("TODOS");
+  const [findSelectStr, setFindSelectStr] = useState("TODOS");
   const [title_texto, setTitle] = useState("");
 
   const [validaFecha, setValidaFecha] = useState(true);
@@ -85,12 +87,34 @@ export const MetaAnual = () => {
   const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
   const [maxFiltered, setMaxFiltered] = useState<Array<IIMa>>([]);
 
-  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
+  
 
-  const [estadoma, setEstadoMA] = useState("Todos");
+  const [estadoma, setEstadoMA] = useState("TODOS");
   const [estado, setEstado] = useState("");
   const [IdEntidad, setIdEntidad] = useState("");
-  const [institucionesb, setInstitucionesb] = useState("Todos");
+  const [institucionesb, setInstitucionesb] = useState("TODOS");
+
+  const objetiInstitucion: IEntidad = {
+    //ClaveSiregob: null,
+    //ControlInterno: "",
+    Id: "0",
+    Nombre: "TODOS",
+    NombreTipoEntidad: "",
+    EntidadPerteneceA: "",
+    Direccion: "",
+    Telefono: "",
+    IdEntidadPerteneceA: "",
+    IdTipoEntidad: "",
+    FechaCreacion: "",
+    CreadoPor: "",
+    UltimaActualizacion: "",
+    ModificadoPor: "",
+    Titular: "",
+  };
+  const [instituciones, setInstituciones] = useState<IEntidad>();
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
+    Array<IEntidad>
+  >([]);
 
   const getInstituciones = (setstate: Function) => {
     axios
@@ -113,7 +137,7 @@ export const MetaAnual = () => {
             Direccion: "",
             EntidadPerteneceA: "",
             FechaCreacion: "",
-            Id: "",
+            Id: "0",
             IdEntidadPerteneceA: "",
             IdTipoEntidad: "",
             IdTitular: null,
@@ -153,16 +177,6 @@ export const MetaAnual = () => {
     },
   });
 
-  // useEffect(() => {
-  //   const url = window.location.href;
-
-  //   const urlSearchParams = new URLSearchParams(url);
-
-  //   const id = url.split("?")[1].split("=")[1];
-
-  //   //let id = urlParams.get("Id");
-  //   setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
-  // }, [ma]);
 
   useEffect(() => {
     const url = window.location.href;
@@ -256,7 +270,7 @@ export const MetaAnual = () => {
 
   useEffect(() => {
     validaFechaCaptura();
-    getInstituciones(setInstituciones);
+    getInstituciones(setCatalogoInstituciones);
   }, []);
 
   // Filtrado por caracter
@@ -264,9 +278,9 @@ export const MetaAnual = () => {
     if (
       v !== "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setMaFiltered(
         ma.filter(
@@ -282,7 +296,7 @@ export const MetaAnual = () => {
       );
     } else if (
       v !== "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setMaFiltered(
         ma.filter(
@@ -298,8 +312,8 @@ export const MetaAnual = () => {
       );
     } else if (
       v !== "" &&
-      (est === "0" || est === "Todos") &&
-      (inst === "0" || inst === "Todos")
+      (est === "0" || est === "TODOS") &&
+      (inst === "0" || inst === "TODOS")
     ) {
       setMaFiltered(
         ma.filter(
@@ -314,9 +328,9 @@ export const MetaAnual = () => {
     } else if (
       v === "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setMaFiltered(
         ma.filter(
@@ -327,7 +341,7 @@ export const MetaAnual = () => {
       );
     } else if (
       v === "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setMaFiltered(
         ma.filter(
@@ -352,7 +366,7 @@ export const MetaAnual = () => {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdEntidad: localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
-          Estado: estadoma || "",
+          Estado: estadoma || "TODOS",
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -380,7 +394,7 @@ export const MetaAnual = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
-    
+    // console.log("Entra");
     let Arrayfiltro: IIMa[];
     Arrayfiltro = [];
 
@@ -540,63 +554,61 @@ export const MetaAnual = () => {
                         ],
                       }}
                     >
-                      <FormControl fullWidth>
-                        <InputLabel sx={queries.text}>
-                          <Tooltip
-                            PopperProps={{
-                              modifiers: [
-                                {
-                                  name: "offset",
-                                  options: {
-                                    offset: [0, -13],
-                                  },
-                                },
-                              ],
-                            }}
-                            title={"FILTRO POR INSTITUCION"}
-                          >
-                            <span>FILTRO POR INSTITUCION</span>
-                          </Tooltip>
-                        </InputLabel>
-
-                        <Select
+                      <FormControl required fullWidth>
+                        <Autocomplete
+                          //  disabled={edit && !mirEdit?.encabezado.ejercicioFiscal}
+                          clearText="Borrar"
+                          noOptionsText="Sin opciones"
+                          closeText="Cerrar"
+                          openText="Abrir"
+                          disablePortal
                           size="small"
-                          variant="outlined"
-                          fullWidth
-                          label="FILTRO POR INSTITUCION"
-                          disabled={
-                            localStorage.getItem("Rol") !== "Administrador"
-                          }
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            //textAlign: "center",
-                            fontSize: [10, 10, 15, 15, 18, 20],
+                          options={catalogoInstituciones}
+                          getOptionLabel={(option) => option.Nombre || ""}
+                          value={instituciones || objetiInstitucion}
+                          getOptionDisabled={(option) => {
+                            if (option.Id === "") {
+                              return true;
+                            }
+                            return false;
                           }}
-                          value={institucionesb}
-                          // sx={{ fontFamily: "MontserratRegular" }}
-
-                          onChange={(v) => {
-                            setInstitucionesb(v.target.value);
-                          }}
-                        >
-                          <MenuItem
-                            value={institucionesb}
-                            sx={{ fontFamily: "MontserratRegular" }}
-                          >
-                            TODOS
-                          </MenuItem>
-
-                          {instituciones?.map((item) => {
+                          renderOption={(props, option) => {
                             return (
-                              <MenuItem value={item.Nombre} key={item.Id}>
-                                {item.Nombre.toUpperCase()}
-                              </MenuItem>
+                              <li {...props} key={option.Id}>
+                                <p
+                                  style={{
+                                    fontFamily: "MontserratRegular",
+                                  }}
+                                >
+                                  {option.Nombre}
+                                </p>
+                              </li>
                             );
-                          })}
-                        </Select>
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="FILTRO POR INSTITUCIÓN"
+                              variant="standard"
+                              InputLabelProps={{
+                                style: {
+                                  fontFamily: "MontserratSemiBold",
+                                },
+                              }}
+                              sx={{
+                                "& .MuiAutocomplete-input": {
+                                  fontFamily: "MontserratRegular",
+                                },
+                              }}
+                            ></TextField>
+                          )}
+                          onChange={(event, value) =>
+                            setInstituciones(value || objetiInstitucion)
+                          }
+                          isOptionEqualToValue={(option, value) =>
+                            option.Id === value.Id
+                          }
+                        />
                       </FormControl>
                     </Tooltip>
                   </Grid>
@@ -636,74 +648,63 @@ export const MetaAnual = () => {
                   }
                 >
                   <FormControl fullWidth>
-                    <InputLabel sx={queries.text}>
-                      <Tooltip
-                        PopperProps={{
-                          modifiers: [
-                            {
-                              name: "offset",
-                              options: {
-                                offset: [0, -13],
-                              },
-                            },
-                          ],
-                        }}
-                        title={"FILTRO POR ESTADO DE LA MA"}
-                      >
-                        <span>FILTRO POR ESTADO DE LA MA</span>
-                      </Tooltip>
-                    </InputLabel>
-                    <Select
-                      size="small"
-                      fullWidth
-                      variant="outlined"
-                      label="FILTRO POR ESTADO DE LA MA"
-                      sx={{
-                        fontFamily: "MontserratRegular",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        //textAlign: "center",
-                        fontSize: [10, 10, 15, 15, 18, 20],
-                        // Tamaños de fuente para diferentes breakpoints
-                      }}
-                      value={
-                        localStorage.getItem("Rol") === "Administrador" ||
-                        localStorage.getItem("Rol") === "ADMINISTRADOR"
-                          ? estadoma
-                          : findSelectStr
-                      }
-                      onChange={(v) => {
-                        // v.target.value === "Todos"
-                        //   ? findText(
-                        //       findTextStr,
-                        //       "0",
-                        //       findInstStr === "Todos" ? "0" : findInstStr
-                        //     )
-                        //   : findText(findTextStr, v.target.value, findInstStr);
-                        if (
-                          localStorage.getItem("Rol") === "Administrador" ||
+                  <Autocomplete
+                        clearText="Borrar"
+                        noOptionsText="Sin opciones"
+                        closeText="Cerrar"
+                        openText="Abrir"
+                        disablePortal
+                        fullWidth
+                        size="small"
+                        value={
+                          (localStorage.getItem("Rol") === "Administrador" ||
                           localStorage.getItem("Rol") === "ADMINISTRADOR"
-                        ) {
-                          setEstadoMA(v.target.value);
-                        } else {
-                          setFindSelectStr(v.target.value);
+                            ? estadoma.toUpperCase()
+                            : findSelectStr.toUpperCase()) || estados[0]
                         }
-                      }}
-                    >
-                      {estados.map((estado) => (
-                        <MenuItem key={estado} value={estado}>
-                          {estado.toUpperCase()}
-                        </MenuItem>
-                      ))}
-                    </Select>
+                        options={estados}
+                        onChange={(event, newValue) => {
+                          // v.target.value === "TODOS"
+                          //   ? findText(
+                          //       findTextStr,
+                          //       "0",
+                          //       findInstStr === "TODOS" ? "0" : findInstStr
+                          //     )
+                          //   : findText(findTextStr, v.target.value, findInstStr);
+                          if (
+                            localStorage.getItem("Rol") === "Administrador" ||
+                            localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          ) {
+                            setEstadoMA(newValue || "");
+                          } else {
+                            setFindSelectStr(newValue || "");
+                          }
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label={"FILTRO POR ESTADO DE LA MA"}
+                            variant="standard"
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratSemiBold",
+                              },
+                            }}
+                            sx={{
+                              "& .MuiAutocomplete-input": {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                          ></TextField>
+                        )}
+                      />
                   </FormControl>
                 </Grid>
 
                 {localStorage.getItem("Rol") === "Administrador" && (
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
-                      // disabled ={estadoma === "Todos" && institucionesb === "Todos" }
+                      // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
                         buscador(
                           estadoma,

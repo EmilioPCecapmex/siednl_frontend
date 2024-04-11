@@ -7,7 +7,7 @@ export const listaRaffi = (setState: Function, estadorf: string) => {
         IdUsuario: localStorage.getItem("IdUsuario"),
         IdEntidad: localStorage.getItem("IdEntidad"),
         Rol: localStorage.getItem("Rol"),
-        Estado: estadorf || "", 
+        Estado: estadorf || "TODOS", 
       },
       headers: {
         Authorization: localStorage.getItem("jwtToken") || "",

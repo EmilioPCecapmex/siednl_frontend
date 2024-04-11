@@ -60,13 +60,13 @@ export const validarNumero = (dato: string, state: any) => {
   }
 
   export const estados = [
-    "Todos",
-    "En Captura",
-    "En Revisión",
-    "En Autorización",
-    "Autorizada",
-    "Borrador Autorizador",
-    "Borrador Verificador",
+    "TODOS",
+    "EN CAPTURA",
+    "EN REVISIÓN",
+    "EN AUTORIZACIÓN",
+    "AUTORIZADA",
+    "BORRADOR AUTORIZADOR",
+    "BORRADOR VERIFICADOR"
     //"Borrador Capturador"
   ];
   
