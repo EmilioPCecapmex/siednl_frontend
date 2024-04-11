@@ -545,6 +545,7 @@ export const MetaAnual = () => {
                         {
                           IdMa: v.row.IdMa,
                           IdMir: v.row.IdMir,
+                          IdEntidad: v.row.IdEntidad,
                           AnioFiscal: v.row.AnioFiscal,
                           Entidad: v.row.Entidad,
                           Programa: v.row.Programa,
@@ -562,6 +563,7 @@ export const MetaAnual = () => {
                         {
                           IdMa: v.row.IdMa,
                           IdMir: v.row.IdMir,
+                          IdEntidad: v.row.IdEntidad,
                           AnioFiscal: v.row.AnioFiscal,
                           Entidad: v.row.Entidad,
                           Programa: v.row.Programa,
@@ -614,6 +616,8 @@ export const MetaAnual = () => {
               estado={v.row.Estado}
               id={v.row.Id}
               actualizado={actualizaContador}
+              MIR={maEdit[0]?.MIR || ""}
+              IdEntidad={v.row.IdEntidad}
             />
           </Grid>
         );
