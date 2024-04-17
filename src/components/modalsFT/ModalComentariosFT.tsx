@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import {
   TextField,
-  Box,
+  Grid,
   TableContainer,
   Table,
   TableHead,
@@ -32,6 +32,8 @@ import {
   obtenerComentarios,
   enviarNotificacionRol,
 } from "../genericComponents/axiosGenericos";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export const ComentDialogFT = ({
   estado,
@@ -125,8 +127,11 @@ export const ComentDialogFT = ({
     return !/^\s*$/.test(coment);
   };
 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
-    <Box>
+    <Grid>
       <Tooltip title="COMENTARIOS">
         <span>
           <IconButton onClick={handleClickOpen}>
@@ -166,7 +171,7 @@ export const ComentDialogFT = ({
             flexDirection: "column",
           }}
         >
-          <Box
+          <Grid
             sx={{
               width: "100%",
               display: "flex",
@@ -177,9 +182,9 @@ export const ComentDialogFT = ({
             <TableContainer
               sx={{
                 borderRadius: 1,
-                "&::-webkit-scrollbar": {
-                  width: ".1vw",
-                },
+                // "&::-webkit-scrollbar": {
+                //   width: ".1vw",
+                // },
                 "&::-webkit-scrollbar-thumb": {
                   backgroundColor: "rgba(0,0,0,.5)",
                   outline: "1px solid slategrey",
@@ -219,7 +224,7 @@ export const ComentDialogFT = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                           //   fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -228,7 +233,7 @@ export const ComentDialogFT = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                             // fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -237,7 +242,7 @@ export const ComentDialogFT = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                             // fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -254,7 +259,7 @@ export const ComentDialogFT = ({
                       <TableCell
                         sx={{
                           fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
+                         // fontSize: ".7vw",
                         }}
                         align="center"
                       >
@@ -266,9 +271,9 @@ export const ComentDialogFT = ({
                 </TableBody>
               </Table>
             </TableContainer>
-          </Box>
+          </Grid>
 
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <Grid sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
             <TextField
               multiline
               rows={3}
@@ -277,67 +282,102 @@ export const ComentDialogFT = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              sx={{ width: "30vw" }}
-              placeholder="Añada un comentario para poder Agregar"
+              sx={{ width: ["100vw", "100vw", "100vw", "100vw", "100vw" ] }}
+              placeholder="AÑADA UN COMENTARIO PARA PODER ARGEGAR"
               onChange={(v) => {
                 setComent(v.target.value);
               }}
             ></TextField>
-          </Box>
+          </Grid>
 
-          <Box
+          <Grid
+            item
+            xl={12}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBlockEnd: "1vh",
-              paddingBlockEnd: "1vh",
+              ...(isSmallScreen && {
+                display: "flex",
+                // Otros estilos específicos para pantallas pequeñas
+              }),
+              //flexDirection: "row",
+    
+              //mt: 1,
+              alignItems: "center",
+              justifyContent: "center",
+    
+              borderBottom: 1,
+              borderColor: "#cfcfcf",
+    
+              ...(isSmallScreen && {
+                height: "15%",
+              }),
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "space-evenly",
-                width: "100vw",
-                mt: "4vh",
-              }}
+            <Grid
+              sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+              item
+              xl={3}
+              lg={3}
+              md={3}
+              sm={12}
+              xs={12}
             >
               <Button
                 className="cancelar"
-                // sx={queries.buttonCancelarSolicitudInscripcion}
                 variant="contained"
-                //color="error"
+                sx={{ width: "100%"  }}
                 onClick={handleClose}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+                  sx={{ fontFamily: "MontserratMedium",  }}
                 >
                   CANCELAR
                 </Typography>{" "}
               </Button>
+
+              
+            </Grid>
+
+            <Grid
+              sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+              item
+              xl={3}
+              lg={3}
+              md={3}
+              sm={12}
+              xs={12}
+            >
+              
+
               <Button
-                className="aceptar"
-                // sx={queries.buttonContinuarSolicitudInscripcion}
+               // sx={queries.buttonContinuarSolicitudInscripcion}
+               sx={{ width:  "100%"  }}
+               className="aceptar"
                 variant="contained"
-                //disabled={estado === "Autorizada" && isComentEmpty()}
+                disabled={estado === "Autorizada" && isComentEmpty()}
                 color="info"
                 onClick={() => {
                   if (isComentEmpty()) {
-                    comentFt();
+                     comentFt();
                   }
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+                  sx={{ fontFamily: "MontserratMedium",  }}
                 >
                   {"AGREGAR"}
                 </Typography>
               </Button>
-            </Box>
-          </Box>
+            </Grid>
+
+
+          </Grid>
         </DialogContent>
       </Dialog>
-    </Box>
+    </Grid>
   );
 };
 

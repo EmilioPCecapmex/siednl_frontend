@@ -23,6 +23,7 @@ import {
   TableSortLabel,
   TextField,
   Autocomplete,
+  useMediaQuery,
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -184,7 +185,6 @@ export const MIR = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
   const [actionNumber, setActionNumber] = useState(0);
 
- 
   const onChangeActionNumberValue = () => {
     setActionNumber(1);
   };
@@ -485,10 +485,17 @@ export const MIR = () => {
       headerName: "Acciones",
       description: "Acciones",
       sortable: false,
-      flex: 2,
+      width: 230,
+
       renderCell: (v: any) => {
         return (
-          <Grid sx={{ display: "flex" }}>
+          <Grid
+            container
+            sx={{
+              display: "flex",
+              //, flexDirection: "column"
+            }}
+          >
             {/* <Tooltip title="Eliminar Mir">
               <IconButton onClick={() => {}}>
                 <DeleteIcon />
@@ -516,20 +523,44 @@ export const MIR = () => {
             />
 
             <Tooltip title="Descargar Mir">
-              <IconButton
-                onClick={() => {
-                  console.log("v: ", v.row.MIR);
+              <span>
+                <IconButton
+                  onClick={() => {
+                    downloadMIR(
+                      v.row.AnioFiscal,
+                      v.row.Entidad,
+                      v.row.Programa,
+                      v.row.MIR
+                    );
+                  }}
+                >
+                  <DownloadIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
 
-                  downloadMIR(
-                    v.row.AnioFiscal,
-                    v.row.Entidad,
-                    v.row.Programa,
-                    v.row.MIR
-                  );
-                }}
-              >
-                <DownloadIcon />
-              </IconButton>
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                </IconButton>
+              </span>
             </Tooltip>
 
             <Tooltip
@@ -628,6 +659,8 @@ export const MIR = () => {
               MIR={mirEdit[0]?.MIR || ""}
               IdEntidad={v.row.IdEntidad}
             />
+
+            <MostrarLista st="" Id={v.row.Id} />
           </Grid>
         );
       },
@@ -636,39 +669,41 @@ export const MIR = () => {
       field: "AnioFiscal",
       headerName: "Año Fiscal",
       description: "Año Fiscal",
-      flex: 1,
+      width: 100,
     },
     {
       field: "Entidad",
       headerName: "Entidad",
       description: "Entidad",
-      flex: 2,
+      width: 200,
     },
     {
       field: "Programa",
       headerName: "Programa",
       description: "Programa",
-      flex: 2,
+      width: 200,
     },
     {
       field: "Estado",
       headerName: "Estado",
       description: "Estado",
-      flex: 2,
+      width: 100,
     },
     {
       field: "FechaCreacion",
       headerName: "Fehca de creacion",
       description: "Fecha de creacion",
-      flex: 2,
+      width: 200,
     },
     {
       field: "CreadoPor",
       headerName: "Creado por",
       description: "Creado por",
-      flex: 2,
+      width: 200,
     },
   ];
+
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
@@ -688,11 +723,6 @@ export const MIR = () => {
       {/* //boxShadow: 10, */}
 
       <Grid
-        // justifyContent={"center"}
-        // display={"flex"}
-        height={"93vh"}
-        // alignItems={"center"}
-
         container
         item
         xl={12}
@@ -701,10 +731,10 @@ export const MIR = () => {
         sm={12}
         xs={12}
         sx={{
-          //backgroundColor:"blue",
+          backgroundColor: "white",
           justifyContent: "center",
           display: "flex",
-          // height: "90vh",
+          height: "93vh",
           alignItems: "center",
         }}
       >
@@ -717,13 +747,15 @@ export const MIR = () => {
               xl={8}
               lg={8}
               md={8}
-              sm={8}
+              sm={10}
+              xs={11}
               // height="15vh"
               // direction="row"
               sx={{
-                boxShadow: 5,
-                backgroundColor: "#FFFF",
-                borderRadius: 5,
+                ...(!isSmallScreen
+                  ? { boxShadow: 5, backgroundColor: "#FFFF", borderRadius: 5 }
+                  : { marginBottom: "30px" }),
+
                 justifyContent: "space-evenly",
                 alignItems: "center",
                 height: "15vh",
@@ -745,10 +777,21 @@ export const MIR = () => {
                   justifyContent: "space-around",
                   alignItems: "center",
                   direction: "row",
+                  ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
                 }}
               >
                 {localStorage.getItem("Rol") === "Administrador" ? (
-                  <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                  <Grid
+                    item
+                    xl={5}
+                    lg={5}
+                    md={5}
+                    sm={5}
+                    xs={12}
+                    sx={{
+                      ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
+                    }}
+                  >
                     <Tooltip
                       PopperProps={{
                         modifiers: [
@@ -762,59 +805,6 @@ export const MIR = () => {
                       }}
                       title={findInstStr}
                     >
-                      {/* <FormControl fullWidth>
-                        <InputLabel sx={queries.text}>
-                          <Tooltip
-                            PopperProps={{
-                              modifiers: [
-                                {
-                                  name: "offset",
-                                  options: {
-                                    offset: [0, -13],
-                                  },
-                                },
-                              ],
-                            }}
-                            title={"FILTRO POR INSTITUCION"}
-                          >
-                            <span>FILTRO POR INSTITUCION</span>
-                          </Tooltip>
-                        </InputLabel>
-                        <Select
-                          size="small"
-                          variant="outlined"
-                          label="FILTRO POR INSTITUCION"
-                          value={institucionesb}
-                          disabled={
-                            localStorage.getItem("Rol") !== "Administrador"
-                          }
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            fontSize: [10, 10, 15, 15, 18, 20],
-                          }}
-                          fullWidth
-                          onChange={(v) => {
-                            setInstitucionesb(v.target.value);
-                          }}
-                        >
-                          <MenuItem
-                            value={institucionesb}
-                            sx={{ fontFamily: "MontserratRegular" }}
-                          >
-                            TODOS
-                          </MenuItem>
-
-                          {instituciones?.map((item) => (
-                            <MenuItem value={item.Nombre} key={item.Id}>
-                              {item.Nombre}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl> */}
-
                       <FormControl required fullWidth>
                         <Autocomplete
                           //  disabled={edit && !mirEdit?.encabezado.ejercicioFiscal}
@@ -905,7 +895,7 @@ export const MIR = () => {
                   xs={
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
+                      ? 11
                       : 11
                   }
                 >
@@ -923,70 +913,6 @@ export const MIR = () => {
                     title={findSelectStr}
                   >
                     <FormControl fullWidth>
-                      {/* <InputLabel sx={queries.text}>
-                        <Tooltip
-                          PopperProps={{
-                            modifiers: [
-                              {
-                                name: "offset",
-                                options: {
-                                  offset: [0, -13],
-                                },
-                              },
-                            ],
-                          }}
-                          title={"FILTRO POR ESTADO DE LA MIR"}
-                        >
-                          <span>FILTRO POR ESTADO DE LA MIR</span>
-                        </Tooltip>
-                      </InputLabel>
-
-                      <Select
-                        size="small"
-                        variant="outlined"
-                        value={
-                          localStorage.getItem("Rol") === "Administrador" ||
-                          localStorage.getItem("Rol") === "ADMINISTRADOR"
-                            ? estadomir
-                            : findSelectStr
-                        }
-                        label="FILTRO POR ESTADO DE LA MIR"
-                        sx={{
-                          fontFamily: "MontserratRegular",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          // textAlign: "center",
-                          fontSize: [10, 10, 15, 15, 18, 20], // Tamaños de fuente para diferentes breakpoints
-                          // color: "#AF8C55"
-                        }}
-                        fullWidth
-                        onChange={(v) => {
-                          // v.target.value === "TODOS"
-                          //   ? findText(
-                          //       findTextStr,
-                          //       "0",
-                          //       findInstStr === "TODOS" ? "0" : findInstStr
-                          //     )
-                          //   : findText(findTextStr, v.target.value, findInstStr);
-                          if (
-                            localStorage.getItem("Rol") === "Administrador" ||
-                            localStorage.getItem("Rol") === "ADMINISTRADOR"
-                          ) {
-                            setEstadoMIR(v.target.value);
-                          } else {
-                            setFindSelectStr(v.target.value);
-                          }
-
-                          //
-                        }}
-                      >
-                        {estados.map((estado) => (
-                          <MenuItem key={estado} value={estado}>
-                            {estado.toUpperCase()}
-                          </MenuItem>
-                        ))}
-                      </Select> */}
                       <Autocomplete
                         clearText="Borrar"
                         noOptionsText="Sin opciones"
@@ -1004,7 +930,6 @@ export const MIR = () => {
                         options={estados}
                         onChange={(event, newValue) => {
                           // Access the value using newValue
-                         
 
                           if (
                             localStorage.getItem("Rol") === "Administrador" ||
@@ -1126,7 +1051,7 @@ export const MIR = () => {
                     />
                     <IconButton
                       type="button"
-                      sx={{ p: "10px" }}
+                      //sx={{ p: "10px" }}
                       aria-label="Buscar"
                       onClick={() => filtrarDatos()}
                     >
@@ -1204,11 +1129,6 @@ export const MIR = () => {
             </Grid>
 
             {/* TABLA */}
-
-          
-                    
-                 
-          
 
             <Grid
               item

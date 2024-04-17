@@ -8,7 +8,7 @@ import { Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import {
   TextField,
-  Box,
+  Grid,
   TableContainer,
   Table,
   TableHead,
@@ -23,16 +23,22 @@ import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
-import { create_coment_mir, soliModyNoty, obtenerComentarios } from "../genericComponents/axiosGenericos";
+import { create_coment_mir, soliModyNoty, obtenerComentarios, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export const ComentDialogRF = ({
   estado,
   id,
   //actualizado,
+  MIR,
+  IdEntidad,
 }: {
   estado: string;
   id: string;
   //actualizado: Function;
+  MIR: string;
+  IdEntidad: string;
 }) => {
   
 
@@ -102,9 +108,20 @@ export const ComentDialogRF = ({
       .then((r) => {
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
-          userXInst.map((user) => {
-            soliModyNoty(user.IdUsuario, coment,  "NUEVO COMENTARIO RF", id  );
-          });
+          let rol: string[] = [];
+        if(localStorage.getItem("Rol") === "Verificador"){
+          rol = ["Administrador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Capturador"){
+          rol = ["Verificador"]
+        }
+
+        if(localStorage.getItem("Rol") === "Administrador"){
+          rol = ["Capturador","Verificador"]
+        }
+
+        enviarNotificacionRol("RF", "COMENTARIO NUEVO DE RF", id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
         }
 
         setNewComent(false);
@@ -143,8 +160,11 @@ export const ComentDialogRF = ({
     return !/^\s*$/.test(coment);
   };
 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
-    <Box>
+    <Grid>
       <Tooltip title="COMENTARIOS">
         <span>
           <IconButton onClick={handleClickOpen}>
@@ -185,7 +205,7 @@ export const ComentDialogRF = ({
             flexDirection: "column",
           }}
         >
-          <Box
+          <Grid
             sx={{
               width: "100%",
               display: "flex",
@@ -196,9 +216,9 @@ export const ComentDialogRF = ({
             <TableContainer
               sx={{
                 borderRadius: 1,
-                "&::-webkit-scrollbar": {
-                  width: ".1vw",
-                },
+                // "&::-webkit-scrollbar": {
+                //   width: ".1vw",
+                // },
                 "&::-webkit-scrollbar-thumb": {
                   backgroundColor: "rgba(0,0,0,.5)",
                   outline: "1px solid slategrey",
@@ -238,7 +258,7 @@ export const ComentDialogRF = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              
                             }}
                             align="center"
                           >
@@ -247,7 +267,7 @@ export const ComentDialogRF = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              
                             }}
                             align="center"
                           >
@@ -256,7 +276,7 @@ export const ComentDialogRF = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                              
                             }}
                             align="center"
                           >
@@ -275,7 +295,7 @@ export const ComentDialogRF = ({
                       <TableCell
                         sx={{
                           fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
+                          
                         }}
                         align="center"
                       >
@@ -287,9 +307,9 @@ export const ComentDialogRF = ({
                 </TableBody>
               </Table>
             </TableContainer>
-          </Box>
+          </Grid>
 
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <Grid sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
             <TextField
               multiline
               rows={3}
@@ -298,35 +318,53 @@ export const ComentDialogRF = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              sx={{ width: "30vw" }}
-              placeholder="AÑADE UN COMENTARIO PARA PODER AGREGAR"
+              sx={{ width: ["100vw", "100vw", "100vw", "100vw", "100vw" ] }}
+              placeholder="AÑADA UN COMENTARIO PARA PODER ARGEGAR"
               onChange={(v) => {
                 setComent(v.target.value);
               }}
             ></TextField>
-          </Box>
+          </Grid>
 
-          <Box
+          <Grid
+            item
+            xl={12}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBlockEnd: "1vh",
-              paddingBlockEnd: "1vh",
+              ...(isSmallScreen && {
+                display: "flex",
+                // Otros estilos específicos para pantallas pequeñas
+              }),
+              //flexDirection: "row",
+    
+              //mt: 1,
+              alignItems: "center",
+              justifyContent: "center",
+    
+              borderBottom: 1,
+              borderColor: "#cfcfcf",
+    
+              ...(isSmallScreen && {
+                height: "15%",
+              }),
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "space-evenly",
-                width: "100vw",
-                mt: "4vh",
-              }}
+            <Grid
+              sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+              item
+              xl={3}
+              lg={3}
+              md={3}
+              sm={12}
+              xs={12}
             >
               <Button
                 className="cancelar"
                 variant="contained"
-               
+                sx={{ width: "100%"  }}
                 onClick={handleClose}
               >
                 <Typography
@@ -336,14 +374,30 @@ export const ComentDialogRF = ({
                 </Typography>{" "}
               </Button>
 
+              
+            </Grid>
+
+            <Grid
+              sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+              item
+              xl={3}
+              lg={3}
+              md={3}
+              sm={12}
+              xs={12}
+            >
+              
+
               <Button
-                className="aceptar"
+               // sx={queries.buttonContinuarSolicitudInscripcion}
+               sx={{ width:  "100%"  }}
+               className="aceptar"
                 variant="contained"
                 disabled={estado === "Autorizada" && isComentEmpty()}
-                //color="info"
+                color="info"
                 onClick={() => {
                   if (isComentEmpty()) {
-                    comentRF();
+                     comentRF();
                   }
                 }}
               >
@@ -353,11 +407,13 @@ export const ComentDialogRF = ({
                   {"AGREGAR"}
                 </Typography>
               </Button>
-            </Box>
-          </Box>
+            </Grid>
+
+
+          </Grid>
         </DialogContent>
       </Dialog>
-    </Box>
+    </Grid>
   );
 };
 

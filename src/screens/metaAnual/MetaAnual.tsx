@@ -22,6 +22,7 @@ import {
   TableSortLabel,
   Autocomplete,
   TextField,
+  useMediaQuery,
 } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
@@ -88,8 +89,6 @@ export const MetaAnual = () => {
   const [maEdit, setMaEdit] = useState<Array<IIMa>>([]);
   const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
   const [maxFiltered, setMaxFiltered] = useState<Array<IIMa>>([]);
-
-  
 
   const [estadoma, setEstadoMA] = useState("TODOS");
   const [estado, setEstado] = useState("");
@@ -178,7 +177,6 @@ export const MetaAnual = () => {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
-
 
   useEffect(() => {
     const url = window.location.href;
@@ -446,7 +444,7 @@ export const MetaAnual = () => {
       headerName: "Acciones",
       description: "Acciones",
       sortable: false,
-      flex: 1,
+      width: 230,
       renderCell: (v: any) => {
         return (
           <Grid sx={{ display: "flex" }}>
@@ -456,49 +454,49 @@ export const MetaAnual = () => {
               </IconButton>
             </Tooltip> */}
 
-           
-
             <Tooltip title="Descargar Ma">
-              <IconButton
-                onClick={() => {
-                  getMetaAnualDownload(
-                    v.row.MIR,
-                    v.row.MetaAnual,
-                    v.row.Programa,
-                    v.row.FechaCreacion,
-                    v.row.Entidad
-                  );
-                }}
-                disabled={
-                  v.row.Estado === "Autorizada" && validaFecha ? false : true
-                }
-              >
-                <DownloadIcon
-                  sx={{
-                    fontSize: "24px", // Tamaño predeterminado del icono
-
-                    "@media (max-width: 600px)": {
-                      fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                    },
-
-                    "@media (min-width: 601px) and (max-width: 960px)": {
-                      fontSize: 20, // Pantalla pequeña (md)
-                    },
-
-                    "@media (min-width: 961px) and (max-width: 1280px)": {
-                      fontSize: 20, // Pantalla mediana (lg)
-                    },
-
-                    "@media (min-width: 1281px)": {
-                      fontSize: 25, // Pantalla grande (xl)
-                    },
-
-                    "@media (min-width: 2200px)": {
-                      ffontSize: 25, // Pantalla grande (xl)
-                    },
+              <span>
+                <IconButton
+                  onClick={() => {
+                    getMetaAnualDownload(
+                      v.row.MIR,
+                      v.row.MetaAnual,
+                      v.row.Programa,
+                      v.row.FechaCreacion,
+                      v.row.Entidad
+                    );
                   }}
-                />
-              </IconButton>
+                  disabled={
+                    v.row.Estado === "Autorizada" && validaFecha ? false : true
+                  }
+                >
+                  <DownloadIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                </IconButton>
+              </span>
             </Tooltip>
 
             <Tooltip
@@ -619,6 +617,8 @@ export const MetaAnual = () => {
               MIR={maEdit[0]?.MIR || ""}
               IdEntidad={v.row.IdEntidad}
             />
+
+            <MostrarLista st="" Id={v.row.Id} />
           </Grid>
         );
       },
@@ -627,39 +627,41 @@ export const MetaAnual = () => {
       field: "AnioFiscal",
       headerName: "Año Fiscal",
       description: "Año Fiscal",
-      flex: 1,
+      width: 100,
     },
     {
       field: "Entidad",
       headerName: "Entidad",
       description: "Entidad",
-      flex: 2,
+      width: 200,
     },
     {
       field: "Programa",
       headerName: "Programa",
       description: "Programa",
-      flex: 2,
+      width: 200,
     },
     {
       field: "Estado",
       headerName: "Estado",
       description: "Estado",
-      flex: 2,
+      width: 100,
     },
     {
       field: "FechaCreacion",
       headerName: "Fehca de creacion",
       description: "Fecha de creacion",
-      flex: 2,
+      width: 200,
     },
     {
       field: "CreadoPor",
       headerName: "Creado por",
       description: "Creado por",
-      flex: 2,
+      width: 200,
     },
   ];
+
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   return (
     <Grid container justifyContent={"space-between"}>
@@ -699,7 +701,7 @@ export const MetaAnual = () => {
           //backgroundColor:"blue",
           justifyContent: "center",
           display: "flex",
-          height: "90vh",
+          height: "93vh",
           alignItems: "center",
           backgroundColor: "white",
         }}
@@ -714,13 +716,14 @@ export const MetaAnual = () => {
               xl={8}
               lg={8}
               md={8}
-              sm={8}
+              sm={10}
+              xs={11}
               // height="15vh"
               // direction="row"
               sx={{
-                boxShadow: 5,
-                backgroundColor: "#FFFF",
-                borderRadius: 5,
+                ...(!isSmallScreen
+                  ? { boxShadow: 5, backgroundColor: "#FFFF", borderRadius: 5 }
+                  : { marginBottom: "30px" }),
                 justifyContent: "space-evenly",
                 alignItems: "center",
                 height: "15vh",
@@ -748,23 +751,25 @@ export const MetaAnual = () => {
                 md={12}
                 sm={12}
                 xs={12}
-                // sx={{
-                //
-                //   //gridTemplateColumns: "repeat(2, 1fr)",
-                //   //alignItems:"center",
-                //   justifyItems: "space-evenly",
-                //   gap: 2,
-                //  // width: "90%",
-                // }}
                 sx={{
                   justifyContent: "space-around",
                   alignItems: "center",
-                  //display: "flex",
                   direction: "row",
+                  ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
                 }}
               >
                 {localStorage.getItem("Rol") === "Administrador" ? (
-                  <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                  <Grid
+                    item
+                    xl={5}
+                    lg={5}
+                    md={5}
+                    sm={5}
+                    xs={12}
+                    sx={{
+                      ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
+                    }}
+                  >
                     <Tooltip
                       title={findInstStr}
                       PopperProps={{
@@ -867,61 +872,61 @@ export const MetaAnual = () => {
                   xs={
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
+                      ? 11
                       : 11
                   }
                 >
                   <FormControl fullWidth>
-                  <Autocomplete
-                        clearText="Borrar"
-                        noOptionsText="Sin opciones"
-                        closeText="Cerrar"
-                        openText="Abrir"
-                        disablePortal
-                        fullWidth
-                        size="small"
-                        value={
-                          (localStorage.getItem("Rol") === "Administrador" ||
+                    <Autocomplete
+                      clearText="Borrar"
+                      noOptionsText="Sin opciones"
+                      closeText="Cerrar"
+                      openText="Abrir"
+                      disablePortal
+                      fullWidth
+                      size="small"
+                      value={
+                        (localStorage.getItem("Rol") === "Administrador" ||
+                        localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          ? estadoma.toUpperCase()
+                          : findSelectStr.toUpperCase()) || estados[0]
+                      }
+                      options={estados}
+                      onChange={(event, newValue) => {
+                        // v.target.value === "TODOS"
+                        //   ? findText(
+                        //       findTextStr,
+                        //       "0",
+                        //       findInstStr === "TODOS" ? "0" : findInstStr
+                        //     )
+                        //   : findText(findTextStr, v.target.value, findInstStr);
+                        if (
+                          localStorage.getItem("Rol") === "Administrador" ||
                           localStorage.getItem("Rol") === "ADMINISTRADOR"
-                            ? estadoma.toUpperCase()
-                            : findSelectStr.toUpperCase()) || estados[0]
+                        ) {
+                          setEstadoMA(newValue || "");
+                        } else {
+                          setFindSelectStr(newValue || "");
                         }
-                        options={estados}
-                        onChange={(event, newValue) => {
-                          // v.target.value === "TODOS"
-                          //   ? findText(
-                          //       findTextStr,
-                          //       "0",
-                          //       findInstStr === "TODOS" ? "0" : findInstStr
-                          //     )
-                          //   : findText(findTextStr, v.target.value, findInstStr);
-                          if (
-                            localStorage.getItem("Rol") === "Administrador" ||
-                            localStorage.getItem("Rol") === "ADMINISTRADOR"
-                          ) {
-                            setEstadoMA(newValue || "");
-                          } else {
-                            setFindSelectStr(newValue || "");
-                          }
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            label={"FILTRO POR ESTADO DE LA MA"}
-                            variant="standard"
-                            InputLabelProps={{
-                              style: {
-                                fontFamily: "MontserratSemiBold",
-                              },
-                            }}
-                            sx={{
-                              "& .MuiAutocomplete-input": {
-                                fontFamily: "MontserratRegular",
-                              },
-                            }}
-                          ></TextField>
-                        )}
-                      />
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={"FILTRO POR ESTADO DE LA MA"}
+                          variant="standard"
+                          InputLabelProps={{
+                            style: {
+                              fontFamily: "MontserratSemiBold",
+                            },
+                          }}
+                          sx={{
+                            "& .MuiAutocomplete-input": {
+                              fontFamily: "MontserratRegular",
+                            },
+                          }}
+                        ></TextField>
+                      )}
+                    />
                   </FormControl>
                 </Grid>
 
@@ -973,7 +978,7 @@ export const MetaAnual = () => {
                 lg={12}
                 md={12}
                 sm={11}
-                xs={11}
+                xs={12}
                 sx={{
                   direction: "row",
                   justifyContent: "space-around",
@@ -1028,25 +1033,20 @@ export const MetaAnual = () => {
                       <SearchIcon
                         sx={{
                           fontSize: "24px", // Tamaño predeterminado del icono
-
                           "@media (max-width: 600px)": {
-                            fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                            fontSize: 20, // Pantalla extra pequeña (xs y sm)
                           },
-
                           "@media (min-width: 601px) and (max-width: 960px)": {
-                            fontSize: 25, // Pantalla pequeña (md)
+                            fontSize: 20, // Pantalla pequeña (md)
                           },
-
                           "@media (min-width: 961px) and (max-width: 1280px)": {
-                            fontSize: 30, // Pantalla mediana (lg)
+                            fontSize: 20, // Pantalla mediana (lg)
                           },
-
                           "@media (min-width: 1281px)": {
-                            fontSize: 30, // Pantalla grande (xl)
+                            fontSize: 25, // Pantalla grande (xl)
                           },
-
                           "@media (min-width: 2200px)": {
-                            fontSize: 30, // Pantalla grande (xl)
+                            fontSize: 25, // Pantalla grande (xl)
                           },
                         }}
                       />
@@ -1087,392 +1087,9 @@ export const MetaAnual = () => {
               </Grid>
             </Grid>
 
-            {/* TABLA */}
-            {/* <Grid
-              item
-              xl={10}
-              lg={10}
-              md={10}
-              sm={10}
-              xs={10}
-              sx={{
-                backgroundColor: "#FFFF",
-                borderRadius: 5,
-                boxShadow: 5,
-                height: "65vh",
-                direction: "row",
-              }}
-            >
-              <TableContainer
-                sx={{
-                  borderRadius: 5,
-                  height: "90%",
-                  overflow: "auto",
-                  "&::-webkit-scrollbar": {
-                    width: ".5vw",
-                    //mt: 1,
-                  },
-                  "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "#edeaea",
-                    //outline: "1px solid slategrey",
-                    borderRadius: 1,
-                  },
-                }}
-              >
-                <Table stickyHeader aria-label="sticky table">
-                  <TableHead>
-                    <TableRow
-                      sx={{
-                        gridTemplateColumns: "repeat(7,1fr)",
-                      }}
-                    >
-                      {heads.map((head, index) => (
-                        <TableCell
-                          sx={{
-                            backgroundColor: "#edeaea",
-                            fontFamily: "MontserratBold",
-                            borderBottom: 0,
-                            fontSize: [10, 10, 10, 15, 16, 18],
-                            // fontFamily: "MontserratRegular",
-                            //   fontSize: ".7vw",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                          align="center"
-                          key={index}
-                        >
-                          <TableSortLabel>{head.label}</TableSortLabel>
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
+           {/* TABLA */}
 
-                  <TableBody>
-                    {maFiltered
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((row, index) => (
-                        <TableRow>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            {row.AnioFiscal}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            {row.Entidad?.toUpperCase()}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            {row.Programa.toUpperCase()}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            {(row.Estado === "En Captura" &&
-                            localStorage.getItem("Rol") === "Capturador"
-                              ? "Borrador Capturador"
-                              : row.Estado === "En Revisión" &&
-                                localStorage.getItem("Rol") === "Verificador"
-                              ? "Esperando revisión"
-                              : row.Estado === "En Autorización" &&
-                                localStorage.getItem("Rol") === "Administrador"
-                              ? "Esperando autorización"
-                              : row.Estado
-                            ).toUpperCase()}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            {moment(row.FechaCreacion, moment.ISO_8601)
-                              .format("DD/MM/YYYY HH:mm:SS")
-                              .toString()}
-                          </TableCell>
-
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            {row.Estado === "En Captura"
-                              ? "SIN ASIGNAR"
-                              : row.CreadoPor.toUpperCase()}
-                          </TableCell>
-
-                          <TableCell
-                            sx={{
-                              flexDirection: "row",
-                              //display: "grid",
-                              //padding: "2px 20px 2px 10",
-                              gridTemplateColumns: "repeat(4,1fr)",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            <Grid sx={{ display: "flex" }}>
-                              <Tooltip
-                                title={title_texto}
-                                // {!(row.Estado === "En Captura" &&
-                                //         localStorage.getItem("Rol") ===
-                                //           "Capturador"
-                                //           ? false
-                                //           : row.Estado === "En Revisión" &&
-
-                                //             localStorage.getItem("Rol") ===
-                                //               "Verificador"
-                                //           ? false
-                                //           : row.Estado === "En Autorización" &&
-
-                                //             localStorage.getItem("Rol") ===
-                                //               "Administrador"
-                                //           ? false
-                                //           : true)?"REGISTRAR META ANUAL":(validaFecha?"FECHA CAPTURA TERMINADA":"REGISTRAR META ANUAL")
-                                //       }
-                              >
-                                <span>
-                                  <IconButton
-                                    disabled={
-                                      (row.Estado === "En Captura" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Capturador") ||
-                                      (row.Estado === "En Revisión" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Verificador") ||
-                                      (row.Estado === "Borrador Verificador" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Verificador") ||
-                                      ((row.Estado === "En Autorización" ||
-                                        row.Estado === "Autorizada") &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Administrador") ||
-                                      (row.Estado === "Borrador Autorizador" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Administrador")
-                                        ? false
-                                        : true
-                                    }
-                                    sx={{
-                                      fontSize: "24px", // Tamaño predeterminado del icono
-
-                                      "@media (max-width: 600px)": {
-                                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                      },
-
-                                      "@media (min-width: 601px) and (max-width: 960px)":
-                                        {
-                                          fontSize: 20, // Pantalla pequeña (md)
-                                        },
-
-                                      "@media (min-width: 961px) and (max-width: 1280px)":
-                                        {
-                                          fontSize: 20, // Pantalla mediana (lg)
-                                        },
-
-                                      "@media (min-width: 1281px)": {
-                                        fontSize: 25, // Pantalla grande (xl)
-                                      },
-
-                                      "@media (min-width: 2200px)": {
-                                        ffontSize: 25, // Pantalla grande (xl)
-                                      },
-                                    }}
-                                    onClick={() => {
-                                      let auxArrayMIR = JSON.parse(row.MIR);
-                                      let auxArrayMIR2 = JSON.stringify(
-                                        auxArrayMIR[0]
-                                      );
-                                      if (auxArrayMIR[1]) {
-                                        setMaEdit([
-                                          {
-                                            IdMa: row.IdMa,
-                                            IdMir: row.IdMir,
-                                            IdEntidad: row.IdEntidad,
-                                            AnioFiscal: row.AnioFiscal,
-                                            Entidad: row.Entidad,
-                                            Programa: row.Programa,
-                                            MIR: auxArrayMIR2,
-                                            //meta anual completa
-                                            MetaAnual: row.MetaAnual,
-                                            Estado: row.Estado,
-                                            CreadoPor: row.CreadoPor,
-                                            FechaCreacion: row.FechaCreacion,
-                                            Opciones: row.Opciones,
-                                          },
-                                        ]);
-                                      } else {
-                                        setMaEdit([
-                                          {
-                                            IdMa: row.IdMa,
-                                            IdMir: row.IdMir,
-                                            IdEntidad: row.IdEntidad,
-                                            AnioFiscal: row.AnioFiscal,
-                                            Entidad: row.Entidad,
-                                            Programa: row.Programa,
-                                            MIR: row.MIR,
-                                            //meta anual completa
-                                            MetaAnual: row.MetaAnual,
-                                            Estado: row.Estado,
-                                            CreadoPor: row.CreadoPor,
-                                            FechaCreacion: row.FechaCreacion,
-                                            Opciones: row.Opciones,
-                                          },
-                                        ]);
-                                      }
-
-                                      setEstado(row.Estado);
-                                      setIdEntidad(row.IdEntidad)
-                                      setShowResume(false);
-                                      setActionNumber(1);
-                                    }}
-                                  >
-                                    <AddCircleOutlineIcon
-                                      sx={{
-                                        fontSize: "24px", // Tamaño predeterminado del icono
-
-                                        "@media (max-width: 600px)": {
-                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                        },
-
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
-
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
-
-                                        "@media (min-width: 1281px)": {
-                                          fontSize: 25, // Pantalla grande (xl)
-                                        },
-
-                                        "@media (min-width: 2200px)": {
-                                          ffontSize: 25, // Pantalla grande (xl)
-                                        },
-                                      }}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-
-                              <Tooltip title="DESCARGAR">
-                                <span>
-                                  <IconButton
-                                    onClick={() => {
-                                      getMetaAnualDownload(
-                                        row.MIR,
-                                        row.MetaAnual,
-                                        row.Programa,
-                                        row.FechaCreacion,
-                                        row.Entidad
-                                      );
-                                    }}
-                                    disabled={
-                                      row.Estado === "Autorizada" && validaFecha
-                                        ? false
-                                        : true
-                                    }
-                                  >
-                                    <DownloadIcon
-                                      sx={{
-                                        fontSize: "24px", // Tamaño predeterminado del icono
-
-                                        "@media (max-width: 600px)": {
-                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                        },
-
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
-
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
-
-                                        "@media (min-width: 1281px)": {
-                                          fontSize: 25, // Pantalla grande (xl)
-                                        },
-
-                                        "@media (min-width: 2200px)": {
-                                          ffontSize: 25, // Pantalla grande (xl)
-                                        },
-                                      }}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-
-                              <ComentDialogMA
-                                estado={row.Estado}
-                                id={row.IdMir}
-                                actualizado={actualizaContador}
-                                MIR={maEdit[0]?.MIR || ""}
-                                IdEntidad={IdEntidad}
-                              />
-
-                              <MostrarLista st="" Id={row.IdMa} />
-                            </Grid>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-
-              <Grid sx={{ width: "100%", fontSize: [10, 10, 10, 15, 18] }}>
-                <TablePagination
-                  rowsPerPageOptions={[renglonesPagina]}
-                  component="div"
-                  count={ma.length}
-                  rowsPerPage={renglonesPagina}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-              </Grid>
-            </Grid> */}
-
-<Grid
+            <Grid
               item
               xl={11}
               lg={11}

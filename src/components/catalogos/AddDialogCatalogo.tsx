@@ -417,7 +417,7 @@ export const AddDialogCatalogo = ({
               onClick={handleCloseFc}
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+                sx={{ fontFamily: "MontserratMedium",  }}
               >
                 CANCELAR
               </Typography>
@@ -431,7 +431,7 @@ export const AddDialogCatalogo = ({
               //autoFocus
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+                sx={{ fontFamily: "MontserratMedium",  }}
               >
                 DE ACUERDO
               </Typography>

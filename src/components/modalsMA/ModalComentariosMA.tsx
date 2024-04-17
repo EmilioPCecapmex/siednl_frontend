@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 
 import {
   TextField,
-  Box,
+  Grid,
   TableContainer,
   Table,
   TableHead,
@@ -20,7 +20,8 @@ import {
 import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import "../../../src/Globals.css"
 import {alertaExito, alertaError, alertaInfo} from "../genericComponents/Alertas";
 import { create_coment_mir, soliModyNoty, obtenerComentarios, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
@@ -116,7 +117,7 @@ export const ComentDialogMA = ({
           rol = ["Capturador","Verificador"]
         }
 
-        enviarNotificacionRol("MA", "MA ENVIADA", id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
+        enviarNotificacionRol("MA", "COMENTARIO NUEVO DE MA", id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
         }
 
         setNewComent(false);
@@ -155,8 +156,11 @@ export const ComentDialogMA = ({
     return !/^\s*$/.test(coment);
   };
 
-  return (
-    <Box>
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
+
+  return ( 
+    <Grid>
       <Tooltip title="COMENTARIOS">
         <span>
           <IconButton onClick={handleClickOpen}>
@@ -197,7 +201,7 @@ export const ComentDialogMA = ({
             flexDirection: "column",
           }}
         >
-          <Box
+          <Grid
             sx={{
               width: "100%",
               display: "flex",
@@ -208,9 +212,9 @@ export const ComentDialogMA = ({
             <TableContainer
               sx={{
                 borderRadius: 1,
-                "&::-webkit-scrollbar": {
-                  width: ".1vw",
-                },
+                // "&::-webkit-scrollbar": {
+                //   width: ".1vw",
+                // },
                 "&::-webkit-scrollbar-thumb": {
                   backgroundColor: "rgba(0,0,0,.5)",
                   outline: "1px solid slategrey",
@@ -250,7 +254,7 @@ export const ComentDialogMA = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                         //     fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -259,7 +263,7 @@ export const ComentDialogMA = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                            //  fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -268,7 +272,7 @@ export const ComentDialogMA = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                          //    fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -285,7 +289,7 @@ export const ComentDialogMA = ({
                       <TableCell
                         sx={{
                           fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
+                       //   fontSize: ".7vw",
                         }}
                         align="center"
                       >
@@ -297,9 +301,9 @@ export const ComentDialogMA = ({
                 </TableBody>
               </Table>
             </TableContainer>
-          </Box>
+          </Grid>
 
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <Grid sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
             <TextField
               multiline
               rows={3}
@@ -308,65 +312,102 @@ export const ComentDialogMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              sx={{ width: "30vw" }}
+              sx={{ width: ["100vw", "100vw", "100vw", "100vw", "100vw" ] }}
               placeholder="AÑADA UN COMENTARIO PARA PODER ARGEGAR"
               onChange={(v) => {
                 setComent(v.target.value);
               }}
             ></TextField>
-          </Box>
+          </Grid>
 
-          <Box
+          <Grid
+            item
+            xl={12}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBlockEnd: "1vh",
-              paddingBlockEnd: "1vh",
+              ...(isSmallScreen && {
+                display: "flex",
+                // Otros estilos específicos para pantallas pequeñas
+              }),
+              //flexDirection: "row",
+    
+              //mt: 1,
+              alignItems: "center",
+              justifyContent: "center",
+    
+              borderBottom: 1,
+              borderColor: "#cfcfcf",
+    
+              ...(isSmallScreen && {
+                height: "15%",
+              }),
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "space-evenly",
-                width: "100vw",
-                mt: "4vh",
-              }}
+            <Grid
+              sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+              item
+              xl={3}
+              lg={3}
+              md={3}
+              sm={12}
+              xs={12}
             >
               <Button
                 className="cancelar"
                 variant="contained"
+                sx={{ width: "100%"  }}
                 onClick={handleClose}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+                  sx={{ fontFamily: "MontserratMedium",  }}
                 >
                   CANCELAR
                 </Typography>{" "}
               </Button>
 
+              
+            </Grid>
+
+            <Grid
+              sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+              item
+              xl={3}
+              lg={3}
+              md={3}
+              sm={12}
+              xs={12}
+            >
+              
+
               <Button
-                className="aceptar"
+               // sx={queries.buttonContinuarSolicitudInscripcion}
+               sx={{ width:  "100%"  }}
+               className="aceptar"
                 variant="contained"
                 disabled={estado === "Autorizada" && isComentEmpty()}
-                //color="info"
+                color="info"
                 onClick={() => {
                   if (isComentEmpty()) {
-                    comentMa();
+                     comentMa();
                   }
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+                  sx={{ fontFamily: "MontserratMedium",  }}
                 >
                   {"AGREGAR"}
                 </Typography>
               </Button>
-            </Box>
-          </Box>
+            </Grid>
+
+
+          </Grid>
         </DialogContent>
       </Dialog>
-    </Box>
+    </Grid>
   );
 };
 
