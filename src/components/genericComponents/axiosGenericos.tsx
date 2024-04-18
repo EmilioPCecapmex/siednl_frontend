@@ -146,6 +146,7 @@ export const obtenerComentarios = async (id: string,  state: Function) => {
     )
     .then((r) => {
       if (r.status === 200) {
+        if(r.data.data !== "" || r.data.data !== undefined ){}
         obtenerNotificaciones(state1, state2);
         state1([]);
       }
@@ -174,7 +175,6 @@ export const obtenerComentarios = async (id: string,  state: Function) => {
       .then((r) => {
         if (r.status === 200) {
           if (r.data.data.length >= 1) {
-         
             state1(r.data.data);
           } else {
             state2(false);

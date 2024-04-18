@@ -41,6 +41,7 @@ import { estados, heads } from "../../services/validations";
 import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
 import { GridColDef } from "@mui/x-data-grid";
 import DataGridTable from "../../components/genericComponents/DataGridTable";
+import { alertaError } from "../../components/genericComponents/Alertas";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -62,8 +63,14 @@ export const FichaTecnica = () => {
       })
       .then((r) => {
         //setft(r.data.data)
-
-        setstate(r.data.data);
+        if (r.data.data.length === 0) {
+          alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
+          
+        }else{
+          
+          setstate(r.data.data);
+        }
+        
         //setFtFiltered(r.data.data);
       })
       .catch((err) => {});
@@ -1634,7 +1641,7 @@ export const FichaTecnica = () => {
                 />
               </Grid> */}
             <DataGridTable
-                id={(row: any) => row.Id || Math.random}
+                id={(row: any) => row.IdFt || Math.random}
                 columns={columsFt}
                 rows={ftFiltered}
                 camposCsv={[]}

@@ -359,6 +359,7 @@ export const Raffi = () => {
           rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || ""))
         );
       }
+      
     }
   }, [rf]);
 
@@ -652,7 +653,7 @@ export const Raffi = () => {
               IdEntidad={v.row.IdEntidad}
             />
 
-            <MostrarLista st="" Id={v.row.Id} />
+            <MostrarLista st="" Id={v.row.IdRaffi} />
           </Grid>
         );
       },
@@ -667,14 +668,15 @@ export const Raffi = () => {
       field: "Entidad",
       headerName: "Entidad",
       description: "Entidad",
-      width: 200,
+      width: isSmallScreen ? 200 : 285, // Ancho de 200px si la pantalla es pequeña, 300px si es grande
     },
     {
       field: "Programa",
       headerName: "Programa",
       description: "Programa",
-      width: 200,
+      width: isSmallScreen ? 200 : 285, // Ancho de 200px si la pantalla es pequeña, 300px si es grande
     },
+  
     {
       field: "Estado",
       headerName: "Estado",
@@ -1037,13 +1039,12 @@ export const Raffi = () => {
             <Grid
               container
               item
-              xl={10}
-              lg={10}
-              md={10}
-              sm={10}
-              xs={10}
-              height="65vh"
-              direction="row"
+              xl={11}
+              lg={11}
+              md={11}
+              sm={11}
+              xs={11}
+              
               sx={{
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
@@ -1484,7 +1485,7 @@ export const Raffi = () => {
               </TableContainer> */}
 
               <DataGridTable
-                id={(row: any) => row.Id || Math.random}
+                id={(row: any) => row.IdRaffi || Math.random}
                 columns={columsRf}
                 rows={rfxFiltered}
                 camposCsv={[]}

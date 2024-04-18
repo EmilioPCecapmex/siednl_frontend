@@ -97,7 +97,7 @@ export const ModifyDialogCatalogos = ({
     setFechaCaptura(year + "-" + monthS + "-" + dateS);
   }, []);
 
-  const [nuevaDescripcion, setnuevaDescripcion] = React.useState("");
+  const [nuevaDescripcion, setnuevaDescripcion] = React.useState(descripcion || "");
   const [fechaCaptura, setFechaCaptura] = React.useState(
     year + "-" + monthS + "-" + dateS
   );
@@ -184,7 +184,7 @@ export const ModifyDialogCatalogos = ({
                 textAlign: "center",
               }}
             >
-              EDITAR ELEMENTO
+              EDITAR ELEMENTO1
             </Typography>
           </Grid>
           <DialogContent
@@ -207,11 +207,17 @@ export const ModifyDialogCatalogos = ({
               }}
               rows={3}
               id="outlined-basic"
-              value={nuevaDescripcion || descripcion}
+              // value={nuevaDescripcion || descripcion}
+              // variant="outlined"
+              value={nuevaDescripcion }
               variant="outlined"
               onChange={(v) => {
                 let valor = v.target.value;
-                setnuevaDescripcion(valor);
+                if (valor === "") {
+                  setnuevaDescripcion(""); // Establece la nueva descripción como una cadena vacía si el valor se borra
+                } else {
+                  setnuevaDescripcion(valor); // Establece la nueva descripción solo si el valor no es una cadena vacía
+                }
               }}
             />
 
@@ -337,18 +343,18 @@ export const ModifyDialogCatalogos = ({
                 },
               }}
               rows={5}
-              id="outlined-basic"
-              value={nuevaDescripcion || descripcion}
+              id="outlined-basic" 
+              value={nuevaDescripcion }
               variant="outlined"
               onChange={(v) => {
                 let valor = v.target.value;
-                setnuevaDescripcion(valor);
-                // if (!v.target.value || !nuevaDescripcion || !descripcion) {
-                //   // Valores vacíos o nulos, muestra un mensaje de error o realiza la acción necesaria
-                //   console.error('Por favor, ingresa una descripción válida.');
-                //   return;
-                // }
+                if (valor === "") {
+                  setnuevaDescripcion(""); // Establece la nueva descripción como una cadena vacía si el valor se borra
+                } else {
+                  setnuevaDescripcion(valor); // Establece la nueva descripción solo si el valor no es una cadena vacía
+                }
               }}
+            
             />
           </DialogContent>
 

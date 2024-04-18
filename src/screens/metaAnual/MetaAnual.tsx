@@ -39,6 +39,7 @@ import { estados, heads } from "../../services/validations";
 import { GridColDef } from "@mui/x-data-grid";
 import DataGridTable from "../../components/genericComponents/DataGridTable";
 import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
+import { alertaError } from "../../components/genericComponents/Alertas";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
@@ -373,7 +374,12 @@ export const MetaAnual = () => {
         },
       })
       .then((r) => {
-        setstate(r.data.data);
+        if (r.data.data.length === 0) {
+          alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
+        }else{
+          
+          setstate(r.data.data);
+        }
         //setMaFiltered(r.data.data);
       });
   };
@@ -1108,7 +1114,7 @@ export const MetaAnual = () => {
               }}
             >
               <DataGridTable
-                id={(row: any) => row.Id || Math.random}
+                id={(row: any) => row.IdMa || Math.random}
                 columns={columsMa}
                 rows={maFiltered}
                 camposCsv={[]}

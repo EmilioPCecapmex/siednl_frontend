@@ -472,11 +472,18 @@ export const MIR = () => {
       })
       .then((r) => {
         //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-
-        setMirs(r.data.data);
+        if (r.data.data.length === 0) {
+          alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
+        }else{
+          
+          setMirs(r.data.data);
+        }
+       
         //setInstitucionesb("TODOS")
       });
   };
+
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   const columsMir: GridColDef[] = [
     {
@@ -675,13 +682,13 @@ export const MIR = () => {
       field: "Entidad",
       headerName: "Entidad",
       description: "Entidad",
-      width: 200,
+      width: isSmallScreen ? 200 : 285, // Ancho de 200px si la pantalla es pequeña, 300px si es grande
     },
     {
       field: "Programa",
       headerName: "Programa",
       description: "Programa",
-      width: 200,
+      width: isSmallScreen ? 200 : 285, // Ancho de 200px si la pantalla es pequeña, 300px si es grande
     },
     {
       field: "Estado",
@@ -703,7 +710,7 @@ export const MIR = () => {
     },
   ];
 
-  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
 
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
