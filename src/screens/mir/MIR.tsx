@@ -101,7 +101,7 @@ export const MIR = () => {
     Titular: "",
   };
 
-  const [instituciones, setInstituciones] = useState<IEntidad>();
+  const [instituciones, setInstituciones] = useState<IEntidad>(objetiInstitucion || "");
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<
     Array<IEntidad>
   >([]);
@@ -221,6 +221,7 @@ export const MIR = () => {
   useEffect(() => {
     validaFechaCaptura();
     getMIRs(setMirs);
+    setEstadoMIR("TODOS")
   }, [showResume]);
 
   useEffect(() => {
@@ -461,8 +462,7 @@ export const MIR = () => {
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdEntidad: Ins || "",
-          //IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad: Ins || "" || localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
           Estado: estado || "TODOS",
         },
@@ -474,9 +474,10 @@ export const MIR = () => {
         //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
         if (r.data.data.length === 0) {
           alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
-        }else{
-          
           setMirs(r.data.data);
+        }else{
+          setMirs(r.data.data);
+          
         }
        
         //setInstitucionesb("TODOS")
@@ -823,7 +824,14 @@ export const MIR = () => {
                           size="small"
                           options={catalogoInstituciones}
                           getOptionLabel={(option) => option.Nombre || ""}
-                          value={instituciones || objetiInstitucion}
+                          value={instituciones || "" || objetiInstitucion}
+
+                          // value={
+                          //   (localStorage.getItem("Rol") === "Administrador" ||
+                          //   localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          //     ? estadomir.toUpperCase()
+                          //     : findSelectStr.toUpperCase()) || estados[0]
+                          // }
                           getOptionDisabled={(option) => {
                             if (option.Id === "") {
                               return true;
