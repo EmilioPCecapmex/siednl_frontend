@@ -77,6 +77,8 @@ export const MIR = () => {
         },
       })
       .then((r) => {
+        console.log("r.data.data2: ", r.data.data);
+        
         setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
 
         setState(r.data.data);
@@ -464,7 +466,7 @@ export const MIR = () => {
           IdEntidad: Ins || "",
           //IdEntidad: localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
-          Estado: estado || "TODOS",
+          Estado: estado.toLowerCase() || "TODOS",
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -472,11 +474,14 @@ export const MIR = () => {
       })
       .then((r) => {
         //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
+        console.log("r.data.data1: ", r.data.data);
+        
         if (r.data.data.length === 0) {
           alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
-        }else{
-          
           setMirs(r.data.data);
+        }else{
+          setMirs(r.data.data);
+         
         }
        
         //setInstitucionesb("TODOS")
