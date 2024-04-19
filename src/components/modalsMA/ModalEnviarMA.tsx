@@ -283,11 +283,13 @@ export default function ModalEnviarMA({
           componente.lineaBase === undefined ||
           /^[\s]*$/.test(componente.lineaBase) ||
           componente.lineaBase === undefined ||
-          /^[\s]*$/.test(componente.actividades[index].unidadResponsable) ||
+
           componente.valorNumerador === undefined ||
-          /^[\s]*$/.test(componente.actividades[index].valorNumerador) ||
+          /^[\s]*$/.test(componente.valorNumerador) ||
+
           componente.unidadResponsable === undefined ||
           /^[\s]*$/.test(componente.unidadResponsable) ||
+          
           componente.descIndicador === undefined ||
           /^[\s]*$/.test(componente.descIndicador) ||
           componente.descNumerador === undefined ||
