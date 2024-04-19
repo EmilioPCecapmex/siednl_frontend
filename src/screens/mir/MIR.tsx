@@ -58,6 +58,13 @@ export const MIR = () => {
     },
   });
 
+  interface IEntidadLabel {
+    Id: string;
+    Label: string;
+    
+    
+  }
+
   const getMIRs = (setState: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
@@ -78,42 +85,18 @@ export const MIR = () => {
       });
   };
 
-  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
+  const [instituciones, setInstituciones] = useState<Array<IEntidadLabel>>();
   // cambiado
   const getInstituciones = (setstate: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let aux = r.data.data;
-
-          aux.unshift({
-            ClaveSiregob: null,
-            ControlInterno: "",
-            Direccion: "",
-            EntidadPerteneceA: "",
-            FechaCreacion: "",
-            Id: "",
-            IdEntidadPerteneceA: "",
-            IdTipoEntidad: "",
-            IdTitular: null,
-            Nombre: "TODOS",
-            NombreTipoEntidad: "",
-            Telefono: "",
-            Titular: "",
-            UltimaActualizacion: "",
-          });
-          setstate(aux);
-        }
-      });
+    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas", {
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
+    .then((r) => {
+      setstate(r.data.data);
+    });
   };
 
   useEffect(() => {
@@ -587,8 +570,8 @@ export const MIR = () => {
                           </MenuItem>
 
                           {instituciones?.map((item) => (
-                            <MenuItem value={item.Nombre} key={item.Id}>
-                              {item.Nombre}
+                            <MenuItem value={item.Label} key={item.Id}>
+                              {item.Label.toUpperCase()}
                             </MenuItem>
                           ))}
                         </Select>
