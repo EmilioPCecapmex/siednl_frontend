@@ -17,8 +17,7 @@ export const buscador = (estado: any, Ins: any, setsate: Function, list: string)
       })
       .then((r) => {
         //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-        console.log("r.data.data2: ",r.data.data);
-        setsate(r.data.data);
+ 
         if (r.data.data.length === 0) {
           alertaError(
             "El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR"
