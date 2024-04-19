@@ -343,7 +343,7 @@ export default function ModalEnviarMIR({
       /^[\s]*$/.test(JSON.parse(MIR)?.fin.medios)
     ) {
       err = 1;
-      errores.push("<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.");
+      errores.push("<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MIR)?.fin.supuestos === undefined ||
@@ -406,7 +406,7 @@ export default function ModalEnviarMIR({
       /^[\s]*$/.test(JSON.parse(MIR)?.proposito.medios_verificacion)
     ) {
       err = 1;
-      errores.push("<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.");
+      errores.push("<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MIR)?.proposito.supuestos === undefined ||
@@ -474,7 +474,7 @@ export default function ModalEnviarMIR({
       ) {
         err = 1;
         errores.push(
-          `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
+          `<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -551,7 +551,7 @@ export default function ModalEnviarMIR({
             /^[\s]*$/.test(componente.actividades[indexA].medios)
           ) {
             errores.push(
-              `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
+              `<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.`
             );
             err = 1;
           }

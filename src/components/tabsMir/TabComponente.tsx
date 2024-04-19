@@ -562,7 +562,7 @@ export const TabComponente = ({
                 width: ["none", "30vh", "40vh", "50vh", "50vh"],
                 //top: ["-4vh", "none", "none", "none", "none", "none"]
               }}
-              label={"MEDIOS DE VERIFICACIÓN"}
+              label={"MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION"}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",

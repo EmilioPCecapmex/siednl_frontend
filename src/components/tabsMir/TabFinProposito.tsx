@@ -705,7 +705,7 @@ export function TabFinProposito({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  label={"MEDIOS DE VERIFICACIÓN"}
+                  label={"MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION"}
                   onChange={(c) => {
                     setFin({
                       ...fin,
@@ -1097,7 +1097,7 @@ export function TabFinProposito({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  label={"MEDIOS DE VERIFICACIÓN"}
+                  label={"MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION"}
                   onChange={(c) => {
                     setProposito({
                       ...proposito,

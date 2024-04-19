@@ -1175,7 +1175,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              MEDIOS DE VERIFICACIÓN:
+              MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION:
             </Typography>
           </Grid>
 
@@ -1539,7 +1539,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              MEDIOS DE VERIFICACIÓN:
+              MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION:
             </Typography>
           </Grid>
 
@@ -1942,7 +1942,7 @@ export function TabResumen({
                       textTransform: "uppercase",
                     }}
                   >
-                    MEDIOS DE VERIFICACIÓN:
+                    MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION:
                   </Typography>
                 </Grid>
 
@@ -2348,7 +2348,7 @@ export function TabResumen({
                         textTransform: "uppercase",
                       }}
                     >
-                      MEDIOS DE VERIFICACIÓN:
+                      MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION:
                     </Typography>
                   </Grid>
 
