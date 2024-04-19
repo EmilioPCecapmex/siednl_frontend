@@ -157,6 +157,7 @@ export const MetaAnual = () => {
 
   useEffect(() => {
     getMA(setMa);
+    setEstadoMA("TODOS")
   }, [showResume]);
 
   useEffect(() => {
@@ -374,13 +375,19 @@ export const MetaAnual = () => {
         },
       })
       .then((r) => {
+        console.log("r.data.data1: ",r.data.data);
+        
         if (r.data.data.length === 0) {
           alertaError(
             "El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR"
+            
           );
+          setstate(r.data.data);
         } else {
           setstate(r.data.data);
         }
+
+        
         //setMaFiltered(r.data.data);
       });
   };
@@ -401,7 +408,7 @@ export const MetaAnual = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
-    // console.log("Entra");
+    ;
     let Arrayfiltro: IIMa[];
     Arrayfiltro = [];
 

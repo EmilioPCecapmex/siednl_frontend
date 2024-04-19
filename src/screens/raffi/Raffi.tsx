@@ -105,6 +105,7 @@ export const Raffi = () => {
 
   useEffect(() => {
     setRfFiltered(rf);
+    setEstadoRF("TODOS")
   }, [rf]);
 
   useEffect(() => {

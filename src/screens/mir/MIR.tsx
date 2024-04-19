@@ -77,7 +77,7 @@ export const MIR = () => {
         },
       })
       .then((r) => {
-        console.log("r.data.data2: ", r.data.data);
+        
         
         setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
 
@@ -123,7 +123,7 @@ export const MIR = () => {
       .then((r) => {
         if (r.status === 200) {
           let aux = r.data.data;
-          console.log("Institucion: ", aux);
+          
 
           aux.unshift({
             ClaveSiregob: null,
@@ -223,6 +223,7 @@ export const MIR = () => {
   useEffect(() => {
     validaFechaCaptura();
     getMIRs(setMirs);
+    setEstadoMIR("TODOS")
   }, [showResume]);
 
   useEffect(() => {
@@ -458,15 +459,16 @@ export const MIR = () => {
 
   const [IdEntidad, setIdEntidad] = useState("");
 
+ 
+
   const buscador = (estado: any, Ins: any) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdEntidad: Ins || "",
-          //IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad: Ins || "Todos" || localStorage.getItem("IdEntidad") ,
           Rol: localStorage.getItem("Rol"),
-          Estado: estado.toLowerCase() || "TODOS",
+          Estado: estado || "TODOS",
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -474,14 +476,14 @@ export const MIR = () => {
       })
       .then((r) => {
         //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-        console.log("r.data.data1: ", r.data.data);
-        
+     
+
         if (r.data.data.length === 0) {
           alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
           setMirs(r.data.data);
         }else{
           setMirs(r.data.data);
-         
+          
         }
        
         //setInstitucionesb("TODOS")
@@ -1267,11 +1269,9 @@ export const MIR = () => {
                             {((row.Estado === "En Captura" || row.Estado === "Borrador Capturador") &&
                             localStorage.getItem("Rol") === "Capturador"
                               ? "Borrador Capturador"
-                              : row.Estado === "En Revisión" &&
-                                localStorage.getItem("Rol") === "Verificador"
+                              : row.Estado === "En Revisión" && localStorage.getItem("Rol") === "Verificador"
                               ? "Esperando revisión"
-                              : row.Estado === "En Autorización" &&
-                                localStorage.getItem("Rol") === "Administrador"
+                              : row.Estado === "En Autorización" && localStorage.getItem("Rol") === "Administrador"
                               ? "En Autorización"
                               : row.Estado
                             ).toUpperCase()}

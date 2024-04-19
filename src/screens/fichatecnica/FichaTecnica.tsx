@@ -187,6 +187,7 @@ export const FichaTecnica = () => {
 
   useEffect(() => {
     getFT(setft, estadoft);
+    setEstadoFT("TODOS")
     validaFechaCaptura();
   }, [showResume]);
 

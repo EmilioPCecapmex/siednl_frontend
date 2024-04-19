@@ -614,7 +614,7 @@ export default function ModalEnviarMIR({
         if (localStorage.getItem("Rol") === "Administrador") {
           rol = ["Capturador", "Verificador"];
         }
-          console.log("CMA r?.data?.data?: ",r.data.data, IdMa);
+          
           
         enviarNotificacionRol(
           "MA",
@@ -679,7 +679,7 @@ export default function ModalEnviarMIR({
         if (localStorage.getItem("Rol") === "Administrador") {
           rol = ["Capturador", "Verificador"];
         }
-        console.log("CMIR r?.data?.data?: ",r.data.data, r.data.data.IdMa);
+       
         enviarNotificacionRol(
           "MIR",
           "MIR ENVIADA",
