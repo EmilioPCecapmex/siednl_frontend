@@ -63,6 +63,13 @@ export const MIR = () => {
     },
   });
 
+  interface IEntidadLabel {
+    Id: string;
+    Label: string;
+    
+    
+  }
+
   const getMIRs = (setState: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
@@ -85,65 +92,30 @@ export const MIR = () => {
       });
   };
 
-  const objetiInstitucion: IEntidad = {
+  const objetiInstitucion: IEntidadLabel = {
     //ClaveSiregob: null,
     //ControlInterno: "",
     Id: "0",
-    Nombre: "TODOS",
-    NombreTipoEntidad: "",
-    EntidadPerteneceA: "",
-    Direccion: "",
-    Telefono: "",
-    IdEntidadPerteneceA: "",
-    IdTipoEntidad: "",
-    FechaCreacion: "",
-    CreadoPor: "",
-    UltimaActualizacion: "",
-    ModificadoPor: "",
-    Titular: "",
+    Label: "TODOS",
+
   };
 
-  const [instituciones, setInstituciones] = useState<IEntidad>();
+  const [instituciones, setInstituciones] = useState<IEntidadLabel>();
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<
-    Array<IEntidad>
+    Array<IEntidadLabel>
   >([]);
 
   // cambiado
-  const getInstituciones = (setstate: Function) => {
+const getInstituciones = (setstate: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        if (r.status === 200) {
-          let aux = r.data.data;
-          
-
-          aux.unshift({
-            ClaveSiregob: null,
-            ControlInterno: "",
-            Direccion: "",
-            EntidadPerteneceA: "",
-            FechaCreacion: "",
-            Id: "0",
-            IdEntidadPerteneceA: "",
-            IdTipoEntidad: "",
-            IdTitular: null,
-            Nombre: "TODOS",
-            NombreTipoEntidad: "",
-            Telefono: "",
-            Titular: "",
-            UltimaActualizacion: "",
-          });
-          setstate(aux);
-        }
-      });
+    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas", {
+      headers: {
+        Authorization: localStorage.getItem("jwtToken") || "",
+      },
+    })
+    .then((r) => {
+      setstate(r.data.data);
+    });
   };
 
   useEffect(() => {
@@ -829,7 +801,7 @@ export const MIR = () => {
                           disablePortal
                           size="small"
                           options={catalogoInstituciones}
-                          getOptionLabel={(option) => option.Nombre || ""}
+                          getOptionLabel={(option) => option.Label || ""}
                           value={instituciones || objetiInstitucion}
                           getOptionDisabled={(option) => {
                             if (option.Id === "") {
@@ -845,7 +817,7 @@ export const MIR = () => {
                                     fontFamily: "MontserratRegular",
                                   }}
                                 >
-                                  {option.Nombre}
+                                  {option.Label}
                                 </p>
                               </li>
                             );
@@ -981,7 +953,7 @@ export const MIR = () => {
                     <IconButton
                       // disabled ={estadomir === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
-                        buscador(estadomir, instituciones?.Nombre);
+                        buscador(estadomir, instituciones?.Label);
                       }}
                     >
                       <SearchIcon
