@@ -1195,7 +1195,7 @@ export const FichaTecnica = () => {
                 direction: "row",
               }}
             >
-              {/* <TableContainer
+              <TableContainer
                 sx={{
                   borderRadius: 5,
                   height: "90%",
@@ -1439,7 +1439,6 @@ export const FichaTecnica = () => {
                                       setShowResume(false);
                                       setActionNumber(1);
                                       setEstado(row.Estado);
-                                      setIdEntidad(row.IdEntidad);
                                     }}
                                   >
                                     <AddCircleOutlineIcon
@@ -1614,11 +1613,11 @@ export const FichaTecnica = () => {
                               </Tooltip>
 
                               <ComentDialogFT
-                                estado={row.Estado}
-                                id={row.IdMir}
-                                actualizado={actualizaContador}
-                                MIR={FTEdit[0]?.MIR || ""}
-                                IdEntidad={IdEntidad}
+                                  estado={row.Estado}
+                                  id={row.IdMir}
+                                  actualizado={actualizaContador}
+                                  MIR={FTEdit[0]?.MIR || ""}
+                                  IdEntidad={IdEntidad}
                               />
 
                               <MostrarLista st="" Id={row.IdFt} />
@@ -1639,16 +1638,7 @@ export const FichaTecnica = () => {
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-              </Grid> */}
-            <DataGridTable
-                id={(row: any) => row.IdFt || Math.random}
-                columns={columsFt}
-                rows={ftFiltered}
-                camposCsv={[]}
-                exportTitle={"Columnas"}
-              />
-
-
+              </Grid>
             </Grid>
 
             <ModalVerResumenFT
