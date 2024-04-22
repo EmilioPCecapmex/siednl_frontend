@@ -126,7 +126,7 @@ export function TabEncabezado({
 
   useEffect(() => {
     getLista("AniosFiscales", "", setCatalogoAniosFiscales);
-
+    setIdEntidad(MIR.encabezado?.entidad.Id)
     getListasLoginProgramas(setCatalogoInstituciones);
     getListPedColumns({ Col: "Ejes", Id: "" }, setCatalogoEjes, () => {});
     getLista("Beneficiario", "", setCatalogoBeneficiarios);
@@ -459,6 +459,8 @@ export function TabEncabezado({
                   Label: value?.Label || "",
                 });
                 if(IdEntidad === undefined || IdEntidad === "" || IdEntidad === null || /^[\s]*$/.test(IdEntidad)){
+                  console.log("setIdEntidad(value?.Id: ", value?.Id);
+                  
                   setIdEntidad(value?.Id)
                 }
           
