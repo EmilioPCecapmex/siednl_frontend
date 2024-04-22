@@ -66,8 +66,6 @@ export const MIR = () => {
   interface IEntidadLabel {
     Id: string;
     Label: string;
-    
-    
   }
 
   const getMIRs = (setState: Function) => {
@@ -84,8 +82,6 @@ export const MIR = () => {
         },
       })
       .then((r) => {
-        
-        
         setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
 
         setState(r.data.data);
@@ -97,7 +93,6 @@ export const MIR = () => {
     //ControlInterno: "",
     Id: "0",
     Label: "TODOS",
-
   };
 
   const [instituciones, setInstituciones] = useState<IEntidadLabel>();
@@ -106,16 +101,26 @@ export const MIR = () => {
   >([]);
 
   // cambiado
-const getInstituciones = (setstate: Function) => {
+  const getInstituciones = (setstate: Function) => {
     axios
-    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas", {
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      },
-    })
-    .then((r) => {
-      setstate(r.data.data);
-    });
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 200) {
+          let aux = r.data.data;
+          aux.unshift({
+            Id: "0",
+            Label: "TODOS",
+          });
+          setstate(r.data.data);
+        }
+      });
   };
 
   useEffect(() => {
@@ -195,7 +200,7 @@ const getInstituciones = (setstate: Function) => {
   useEffect(() => {
     validaFechaCaptura();
     getMIRs(setMirs);
-    setEstadoMIR("TODOS")
+    setEstadoMIR("TODOS");
   }, [showResume]);
 
   useEffect(() => {
@@ -431,14 +436,12 @@ const getInstituciones = (setstate: Function) => {
 
   const [IdEntidad, setIdEntidad] = useState("");
 
- 
-
   const buscador = (estado: any, Ins: any) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdEntidad: Ins || "Todos" || localStorage.getItem("IdEntidad") ,
+          IdEntidad: Ins || "Todos" || localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
           Estado: estado || "TODOS",
         },
@@ -448,16 +451,16 @@ const getInstituciones = (setstate: Function) => {
       })
       .then((r) => {
         //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-     
 
         if (r.data.data.length === 0) {
-          alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
+          alertaError(
+            "El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR"
+          );
           setMirs(r.data.data);
-        }else{
+        } else {
           setMirs(r.data.data);
-          
         }
-       
+
         //setInstitucionesb("TODOS")
       });
   };
@@ -688,8 +691,6 @@ const getInstituciones = (setstate: Function) => {
       width: 200,
     },
   ];
-
-
 
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
@@ -1238,12 +1239,15 @@ const getInstituciones = (setstate: Function) => {
                             component="th"
                             scope="row"
                           >
-                            {((row.Estado === "En Captura" || row.Estado === "Borrador Capturador") &&
+                            {((row.Estado === "En Captura" ||
+                              row.Estado === "Borrador Capturador") &&
                             localStorage.getItem("Rol") === "Capturador"
                               ? "Borrador Capturador"
-                              : row.Estado === "En Revisión" && localStorage.getItem("Rol") === "Verificador"
+                              : row.Estado === "En Revisión" &&
+                                localStorage.getItem("Rol") === "Verificador"
                               ? "Esperando revisión"
-                              : row.Estado === "En Autorización" && localStorage.getItem("Rol") === "Administrador"
+                              : row.Estado === "En Autorización" &&
+                                localStorage.getItem("Rol") === "Administrador"
                               ? "En Autorización"
                               : row.Estado
                             ).toUpperCase()}
@@ -1362,9 +1366,8 @@ const getInstituciones = (setstate: Function) => {
 
                               <DeleteDialogMIR
                                 disab={
-                                  (row.Estado === "En Captura" 
-                                 // || row.Estado === "Borrador Capturador"
-                                  ) &&
+                                  row.Estado === "En Captura" &&
+                                  // || row.Estado === "Borrador Capturador"
                                   validaFecha &&
                                   localStorage.getItem("Rol") === "Capturador"
                                     ? false
@@ -1398,7 +1401,8 @@ const getInstituciones = (setstate: Function) => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      ((row.Estado === "En Captura" || row.Estado === "Borrador Capturador") &&
+                                      ((row.Estado === "En Captura" ||
+                                        row.Estado === "Borrador Capturador") &&
                                         validaFecha &&
                                         localStorage.getItem("Rol") ===
                                           "Capturador") ||
@@ -1476,10 +1480,7 @@ const getInstituciones = (setstate: Function) => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
-                                      <MostrarLista
-                                      st=""
-                                      Id={row.Id}
-                                      />
+                              <MostrarLista st="" Id={row.Id} />
                               {/* <Tooltip
                                 title="Lista"
                                 PopperProps={{
@@ -1556,7 +1557,6 @@ const getInstituciones = (setstate: Function) => {
                               </Tooltip>
 
  */}
-
                             </Grid>
                           </TableCell>
                         </TableRow>
