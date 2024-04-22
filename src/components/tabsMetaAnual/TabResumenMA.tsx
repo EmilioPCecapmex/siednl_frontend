@@ -3078,7 +3078,7 @@ export function TabResumenMA({
             onClick={() => setOpenModalSolicitarModif(true)}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              SOLICIAR MODIFACACIÓN 
+            SOLICITAR MODIFICACIÓN
             </Typography>
           </Button>
         </Grid>
@@ -3145,7 +3145,7 @@ export function TabResumenMA({
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
             {localStorage.getItem("Rol") === "Administrador"
                 ? estadoma === "Autorizada"
-                  ? "MODIFCAR MA AUTORIZADA"
+                  ? "MODIFICAR MA AUTORIZADA"
                   : "AUTORIZAR"
                 : "ENVIAR"}
             </Typography>
