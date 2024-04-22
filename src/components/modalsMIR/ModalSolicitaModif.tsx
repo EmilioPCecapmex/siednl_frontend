@@ -630,7 +630,11 @@ export default function ModalSolicitaModif({
               sx={{ fontFamily: "MontserratRegular" }}
               fullWidth
               value={userSelected}
-              onChange={(v) => setUserSelected(v.target.value)}
+              onChange={(v) => {
+                setUserSelected(v.target.value);
+                console.log("userselect:", v.target.value);
+
+              }}
               disableUnderline
             >
               <MenuItem value={"0"} disabled>
