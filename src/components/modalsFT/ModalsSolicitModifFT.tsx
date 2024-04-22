@@ -897,6 +897,8 @@ export default function ModalSolicitaModif({
               )}
               onChange={(event, value) => {
                 setUser(value || newUser);
+                setUserSelected(value?.Nombre || newUser.Nombre)
+
               }}
               isOptionEqualToValue={(option, value) =>
                 option.IdUsuario === value.IdUsuario
