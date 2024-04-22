@@ -289,7 +289,7 @@ export default function ModalEnviarMA({
 
           componente.unidadResponsable === undefined ||
           /^[\s]*$/.test(componente.unidadResponsable) ||
-          
+
           componente.descIndicador === undefined ||
           /^[\s]*$/.test(componente.descIndicador) ||
           componente.descNumerador === undefined ||
@@ -301,7 +301,7 @@ export default function ModalEnviarMA({
         ) {
           err = 1;
           errores.push(
-            `<hr><strong> ${componente.componentes} </strong> INCOMPLETO.`
+            `<hr><strong> ${componente.componentes} </strong>.`
           );
         }
         if (
