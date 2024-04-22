@@ -633,9 +633,7 @@ const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
             {MIR === undefined
               ? "SELECCIONA UNA INSTITUCIÓN EN EL ENCABEZADO PARA ASIGNAR UN USUARIO"
               : JSON.parse(MIR)?.encabezado?.institucion !== ""
-              ? `SELECCIONA UN USUARIO DE ${
-                  JSON.parse(MIR)?.encabezado?.institucion
-                } PARA SOLICITAR LA MODIFICACIÓN`
+              ? `SELECCIONA UN USUARIO PARA SOLICITAR LA MODIFICACIÓN`
               : "SELECCIONA UNA INSTITUCIÓN EN EL ENCABEZADO PARA ASIGNAR UN USUARIO"}
           </Typography>
 
