@@ -719,7 +719,7 @@ export default function ModalEnviarMIR({
 
           {
             TipoUsuario: localStorage.getItem("Rol"),
-            IdEntidad: IdEntidad,
+            IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad || localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
 
