@@ -1245,6 +1245,7 @@ export const Raffi = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setRfEdit([
                                           {
@@ -1269,6 +1270,7 @@ export const Raffi = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        
                                       }
                                       setEstado(row.Estado);
                                       setIdEntidad(row.IdEntidad);
@@ -1342,6 +1344,7 @@ export const Raffi = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setRfEdit([
                                           {
@@ -1367,6 +1370,7 @@ export const Raffi = () => {
                                           },
                                         ]);
                                       }
+                                      setIdEntidad(row.IdEntidad)
                                       setEstado(row.Estado);
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad

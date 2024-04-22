@@ -1415,6 +1415,7 @@ export const FichaTecnica = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setFTEdit([
                                           {
@@ -1437,6 +1438,7 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       }
+                                      setIdEntidad(row.IdEntidad)
                                       setShowResume(false);
                                       setActionNumber(1);
                                       setEstado(row.Estado);
@@ -1557,6 +1559,7 @@ export const FichaTecnica = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setFTShow([
                                           {
@@ -1579,6 +1582,7 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       }
+                                      setIdEntidad(row.IdEntidad)
                                       setOpenModalVerResumenFT(true);
                                     }}
                                   >

@@ -672,7 +672,7 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: IdEntidad,
+            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
           {

@@ -1351,6 +1351,7 @@ export const MetaAnual = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setMaEdit([
                                           {
@@ -1370,7 +1371,7 @@ export const MetaAnual = () => {
                                           },
                                         ]);
                                       }
-
+                                      setIdEntidad(row.IdEntidad)
                                       setEstado(row.Estado);
                                       setShowResume(false);
                                       setActionNumber(1);

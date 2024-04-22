@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
- 
   Dialog,
   DialogTitle,
   DialogContent,
   TextField,
   FormControl,
-  
   Button,
   Typography,
   Autocomplete,
@@ -777,7 +775,7 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: IdEntidad,
+            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
           {
@@ -902,8 +900,6 @@ export default function ModalSolicitaModif({
                 option.IdUsuario === value.IdUsuario
               }
             />
-
-           
           </FormControl>
         </Grid>
 
