@@ -96,61 +96,58 @@ export const MetaAnual = () => {
   const [IdEntidad, setIdEntidad] = useState("");
   const [institucionesb, setInstitucionesb] = useState("TODOS");
 
-  const objetiInstitucion: IEntidad = {
+  interface IEntidadLabel {
+    Id: string;
+    Label: string;
+  }
+  // const objetiInstitucion: IEntidad = {
+  //   //ClaveSiregob: null,
+  //   //ControlInterno: "",
+  //   Id: "0",
+  //   Nombre: "TODOS",
+  //   NombreTipoEntidad: "",
+  //   EntidadPerteneceA: "",
+  //   Direccion: "",
+  //   Telefono: "",
+  //   IdEntidadPerteneceA: "",
+  //   IdTipoEntidad: "",
+  //   FechaCreacion: "",
+  //   CreadoPor: "",
+  //   UltimaActualizacion: "",
+  //   ModificadoPor: "",
+  //   Titular: "",
+  // };
+
+  const objetiInstitucion: IEntidadLabel = {
     //ClaveSiregob: null,
     //ControlInterno: "",
     Id: "0",
-    Nombre: "TODOS",
-    NombreTipoEntidad: "",
-    EntidadPerteneceA: "",
-    Direccion: "",
-    Telefono: "",
-    IdEntidadPerteneceA: "",
-    IdTipoEntidad: "",
-    FechaCreacion: "",
-    CreadoPor: "",
-    UltimaActualizacion: "",
-    ModificadoPor: "",
-    Titular: "",
+    Label: "TODOS",
   };
-  const [instituciones, setInstituciones] = useState<IEntidad>();
+
+  const [instituciones, setInstituciones] = useState<IEntidadLabel>();
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<
-    Array<IEntidad>
+    Array<IEntidadLabel>
   >([]);
 
   const getInstituciones = (setstate: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let aux = r.data.data;
-
           aux.unshift({
-            ClaveSiregob: null,
-            ControlInterno: "",
-            Direccion: "",
-            EntidadPerteneceA: "",
-            FechaCreacion: "",
             Id: "0",
-            IdEntidadPerteneceA: "",
-            IdTipoEntidad: "",
-            IdTitular: null,
-            Nombre: "TODOS",
-            NombreTipoEntidad: "",
-            Telefono: "",
-            Titular: "",
-            UltimaActualizacion: "",
+            Label: "TODOS",
           });
-
-          setstate(aux);
+          setstate(r.data.data);
         }
       });
   };
@@ -807,7 +804,7 @@ export const MetaAnual = () => {
                           disablePortal
                           size="small"
                           options={catalogoInstituciones}
-                          getOptionLabel={(option) => option.Nombre || ""}
+                          getOptionLabel={(option) => option.Label || ""}
                           value={instituciones || objetiInstitucion}
                           getOptionDisabled={(option) => {
                             if (option.Id === "") {
@@ -823,7 +820,7 @@ export const MetaAnual = () => {
                                     fontFamily: "MontserratRegular",
                                   }}
                                 >
-                                  {option.Nombre}
+                                  {option.Label}
                                 </p>
                               </li>
                             );
