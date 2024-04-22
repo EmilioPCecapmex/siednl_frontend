@@ -740,9 +740,10 @@ export default function ModalSolicitaModif({
         }
 
         alertaExitoConfirm(
-          localStorage.getItem("Rol") === "VERIFICADOR"
-            ? "FICHA TECNICA ENVIADA A CAPTURADOR PARA CORRECCIÓN"
-            : "FICHA TECNICA ENVIADA"
+          // localStorage.getItem("Rol") === "VERIFICADOR"
+          //   ? "FICHA TECNICA ENVIADA A CAPTURADOR PARA CORRECCIÓN"
+          //   : "FICHA TECNICA ENVIADA"
+          "FICHA TECNICA ENVIADA A CORRECION"
         );
 
         soliModyNoty(
@@ -895,6 +896,7 @@ export default function ModalSolicitaModif({
               )}
               onChange={(event, value) => {
                 setUser(value || newUser);
+                setUserSelected(value?.IdUsuario || newUser.IdUsuario || value?.IdUsuarioTiCentral || newUser.IdUsuarioTiCentral)
               }}
               isOptionEqualToValue={(option, value) =>
                 option.IdUsuario === value.IdUsuario

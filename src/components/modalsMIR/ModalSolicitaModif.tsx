@@ -538,9 +538,10 @@ export default function ModalSolicitaModif({
 
         alertaExito(
           () => {},
-          localStorage.getItem("Rol") === "Verificador"
-            ? "MIR ENVIADA A CAPTURADOR"
-            : "MIR ENVIADA A REVISIÓN"
+          // localStorage.getItem("Rol") !== "Verificador"
+          //   ? "MIR ENVIADA A REVISIÓN"
+          //   : "MIR ENVIADA A CAPTURADOR"
+          "MIR ENVIADA A CORRECION"
         );
 
         soliModyNoty(
@@ -698,6 +699,7 @@ const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
               )}
               onChange={(event, value) => {
                 setUser(value || newUser);
+               setUserSelected(value?.IdUsuario || newUser.IdUsuario || value?.IdUsuarioTiCentral || newUser.IdUsuarioTiCentral)
               }}
               isOptionEqualToValue={(option, value) =>
                 option.IdUsuario === value.IdUsuario

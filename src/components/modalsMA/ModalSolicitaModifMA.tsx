@@ -636,10 +636,11 @@ export default function ModalSolicitaModif({
         }
 
         alertaExitoConfirm(
-          (localStorage.getItem("Rol") === "Verificador"
-            ? "META ANUAL ENVIADA A CAPTURADOR PARA CORRECCIÓN"
-            : "META ANUAL ENVIADA"
-          ).toUpperCase()
+          // (localStorage.getItem("Rol") === "Verificador"
+          //   ? "META ANUAL ENVIADA A CAPTURADOR PARA CORRECCIÓN"
+          //   : "META ANUAL ENVIADA"
+          // ).toUpperCase()
+          "META ANUAL ENVIADA A CORRECION" 
         );
 
         soliModyNoty(
@@ -792,6 +793,7 @@ export default function ModalSolicitaModif({
               )}
               onChange={(event, value) => {
                 setUser(value || newUser);
+                setUserSelected(value?.IdUsuario || newUser.IdUsuario || value?.IdUsuarioTiCentral || newUser.IdUsuarioTiCentral)
               }}
               isOptionEqualToValue={(option, value) =>
                 option.IdUsuario === value.IdUsuario
