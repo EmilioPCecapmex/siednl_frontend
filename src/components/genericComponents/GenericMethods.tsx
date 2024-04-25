@@ -3,5 +3,6 @@ export function clearInfo(info: string) {
     .replaceAll('"', "")
     .replaceAll("'", "")
     .replaceAll("\n", "")
-    .trimEnd().toUpperCase();
+    //.trimEnd()
+    .toUpperCase();
 }
