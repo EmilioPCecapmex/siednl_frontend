@@ -22,6 +22,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import DeleteCompActMir from "../modalsMIR/ModalEliminarCompActMir";
 import { IComponente } from "./interfaces mir/IMIR";
+import { clearInfo } from "../genericComponents/GenericMethods";
+
 export const TabActividades = ({
   edit,
   addActividad,
@@ -515,11 +517,7 @@ export const TabActividades = ({
                 let prevLocal = [...componentes];
                 prevLocal[componenteSelect].actividades[
                   actividadSelect
-                ].resumen = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                ].resumen = clearInfo(c.target.value);
 
                 setComponentes(prevLocal);
               }}
@@ -586,11 +584,7 @@ export const TabActividades = ({
                 let prevLocal = [...componentes];
                 prevLocal[componenteSelect].actividades[
                   actividadSelect
-                ].indicador = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                ].indicador = clearInfo(c.target.value);
                 prevLocal[componenteSelect].actividades[
                   actividadSelect
                 ].formula = "";
@@ -694,11 +688,7 @@ export const TabActividades = ({
                       let prevLocal = [...componentes];
                       prevLocal[componenteSelect].actividades[
                         actividadSelect
-                      ].frecuencia = c.target.value
-                        .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                      ].frecuencia = clearInfo(c.target.value);
 
                       setComponentes(prevLocal);
                     }}
@@ -752,11 +742,7 @@ export const TabActividades = ({
                 let prevLocal = [...componentes];
                 prevLocal[componenteSelect].actividades[
                   actividadSelect
-                ].medios = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                ].medios = clearInfo(c.target.value);
 
                 setComponentes(prevLocal);
               }}
@@ -811,11 +797,7 @@ export const TabActividades = ({
                 let prevLocal = [...componentes];
                 prevLocal[componenteSelect].actividades[
                   actividadSelect
-                ].supuestos = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                ].supuestos = clearInfo(c.target.value);
 
                 setComponentes(prevLocal);
               }}

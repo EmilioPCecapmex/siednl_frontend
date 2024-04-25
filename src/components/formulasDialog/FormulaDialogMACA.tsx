@@ -11,6 +11,7 @@ import {
 import { useLayoutEffect, useState, useEffect } from "react";
 import { queries } from "../../queries";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
+import { clearInfo } from "../genericComponents/GenericMethods";
 
 export const FormulaDialogMACA = ({
   open,
@@ -476,10 +477,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorA(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -513,10 +511,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorB(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -550,10 +545,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorC(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -587,10 +579,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorD(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -637,10 +626,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorA(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -665,10 +651,7 @@ export const FormulaDialogMACA = ({
                 value={ValorB}
                 onChange={(c) =>
                   setValorB(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -697,10 +680,7 @@ export const FormulaDialogMACA = ({
                 value={ValorC}
                 onChange={(c) =>
                   setValorC(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -727,10 +707,7 @@ export const FormulaDialogMACA = ({
                 value={ValorD}
                 onChange={(c) =>
                   setValorD(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -758,10 +735,7 @@ export const FormulaDialogMACA = ({
                 value={ValorE}
                 onChange={(c) =>
                   setValorE(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -788,10 +762,7 @@ export const FormulaDialogMACA = ({
                 value={ValorF}
                 onChange={(c) =>
                   setValorF(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -819,10 +790,7 @@ export const FormulaDialogMACA = ({
                 value={ValorG}
                 onChange={(c) =>
                   setValorG(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -849,10 +817,7 @@ export const FormulaDialogMACA = ({
                 value={ValorH}
                 onChange={(c) =>
                   setValorH(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -914,10 +879,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorA(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -951,10 +913,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorB(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -1006,10 +965,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorA(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -1036,10 +992,7 @@ export const FormulaDialogMACA = ({
                 value={ValorB}
                 onChange={(c) =>
                   setValorB(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -1067,10 +1020,7 @@ export const FormulaDialogMACA = ({
                 value={ValorC}
                 onChange={(c) =>
                   setValorC(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -1097,10 +1047,7 @@ export const FormulaDialogMACA = ({
                 value={ValorD}
                 onChange={(c) =>
                   setValorD(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{

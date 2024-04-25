@@ -22,7 +22,7 @@ import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import axios from "axios";
 import { IComponenteMA } from "./Interfaces";
-
+import { clearInfo } from "../genericComponents/GenericMethods";
 
 //funcion main
 export const TabActividadesMA = ({
@@ -861,10 +861,7 @@ export const TabActividadesMA = ({
               onChange={(c) => {
                 let y = [...componentesActividadValues];
                 y[componenteSelect].actividades[actividadSelect].lineaBase =
-                  c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "");
+                clearInfo(c.target.value);
 
                 setComponentesActividadValues(y);
               }}
@@ -1666,11 +1663,7 @@ export const TabActividadesMA = ({
                 let y = [...componentesActividadValues];
                 componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
-                ].descIndicador = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                ].descIndicador = clearInfo(c.target.value);
                 setComponentesActividadValues(y);
               }}
               InputLabelProps={{
@@ -1739,11 +1732,7 @@ export const TabActividadesMA = ({
                 let y = [...componentesActividadValues];
                 componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
-                ].descNumerador = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                ].descNumerador = clearInfo(c.target.value);
                 setComponentesActividadValues(y);
               }}
               InputLabelProps={{
@@ -1812,11 +1801,7 @@ export const TabActividadesMA = ({
                 let y = [...componentesActividadValues];
                 componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
-                ].descDenominador = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                ].descDenominador = clearInfo(c.target.value);
                 setComponentesActividadValues(y);
               }}
               InputLabelProps={{
