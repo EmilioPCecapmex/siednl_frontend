@@ -495,7 +495,7 @@ export function TabFinProposito({
                       resumen: clearInfo(c.target.value),
                     });
                   }}
-                  value={fin.resumen}
+                  value={fin.resumen.trimEnd()}
                 />
               </Grid>
 
