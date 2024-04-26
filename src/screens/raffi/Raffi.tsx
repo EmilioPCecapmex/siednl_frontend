@@ -799,10 +799,7 @@ export const Raffi = () => {
                         renderOption={(props, option) => {
                           return (
                             <li {...props} key={option.Id}>
-                              <p
-                                style={{
-                                  fontFamily: "MontserratRegular",
-                                }}
+                              <p style={{ fontFamily: "MontserratRegular", }}
                               >
                                 {option.Nombre}
                               </p>
@@ -823,15 +820,11 @@ export const Raffi = () => {
                               "& .MuiAutocomplete-input": {
                                 fontFamily: "MontserratRegular",
                               },
-                            }}
-                          ></TextField>
+                            }}/>
                         )}
                         onChange={(event, value) =>
-                          setInstituciones(value || objetiInstitucion)
-                        }
-                        isOptionEqualToValue={(option, value) =>
-                          option.Id === value.Id
-                        }
+                          setInstituciones(value || objetiInstitucion)}
+                        isOptionEqualToValue={(option, value) =>option.Id === value.Id }
                       />
                     </FormControl>
                   </Grid>
