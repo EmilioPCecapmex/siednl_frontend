@@ -105,6 +105,7 @@ export const Raffi = () => {
 
   useEffect(() => {
     setRfFiltered(rf);
+    setEstadoRF("TODOS")
   }, [rf]);
 
   useEffect(() => {
@@ -359,7 +360,6 @@ export const Raffi = () => {
           rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || ""))
         );
       }
-      
     }
   }, [rf]);
 
@@ -648,7 +648,6 @@ export const Raffi = () => {
             <ComentDialogRF
               estado={v.row.Estado}
               id={v.row.IdMir}
-              
               MIR={rfEdit[0]?.MIR || ""}
               IdEntidad={v.row.IdEntidad}
             />
@@ -676,7 +675,7 @@ export const Raffi = () => {
       description: "Programa",
       width: isSmallScreen ? 200 : 285, // Ancho de 200px si la pantalla es pequeña, 300px si es grande
     },
-  
+
     {
       field: "Estado",
       headerName: "Estado",
@@ -1037,7 +1036,6 @@ export const Raffi = () => {
               md={11}
               sm={11}
               xs={11}
-              
               sx={{
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
@@ -1046,7 +1044,7 @@ export const Raffi = () => {
                 direction: "row",
               }}
             >
-              {/* <TableContainer
+              <TableContainer
                 sx={{
                   borderRadius: 5,
                   height: 450,
@@ -1240,6 +1238,7 @@ export const Raffi = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setRfEdit([
                                           {
@@ -1264,6 +1263,7 @@ export const Raffi = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        
                                       }
                                       setEstado(row.Estado);
                                       setIdEntidad(row.IdEntidad);
@@ -1337,6 +1337,7 @@ export const Raffi = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setRfEdit([
                                           {
@@ -1362,6 +1363,7 @@ export const Raffi = () => {
                                           },
                                         ]);
                                       }
+                                      setIdEntidad(row.IdEntidad)
                                       setEstado(row.Estado);
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
@@ -1467,6 +1469,8 @@ export const Raffi = () => {
                               <ComentDialogRF
                                 estado={row.Estado}
                                 id={row.IdMir}
+                                MIR={rfEdit[0]?.MIR || ""}
+                                IdEntidad={row.IdEntidad}
                               />
                               <MostrarLista st="" Id={row.IdRaffi} />
                             </TableCell>
@@ -1475,15 +1479,15 @@ export const Raffi = () => {
                       })}
                   </TableBody>
                 </Table>
-              </TableContainer> */}
+              </TableContainer>
 
-              <DataGridTable
+              {/* <DataGridTable
                 id={(row: any) => row.IdRaffi || Math.random}
                 columns={columsRf}
                 rows={rfxFiltered}
                 camposCsv={[]}
                 exportTitle={"Columnas"}
-              />
+              /> */}
             </Grid>
           </>
         ) : (

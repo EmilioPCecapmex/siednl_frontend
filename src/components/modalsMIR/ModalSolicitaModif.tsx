@@ -247,7 +247,7 @@ export default function ModalSolicitaModif({
       /^[\s]*$/.test(JSON.parse(MIR)?.fin.medios)
     ) {
       err = 1;
-      errores.push("<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.");
+      errores.push("<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MIR)?.fin.supuestos === undefined ||
@@ -310,7 +310,7 @@ export default function ModalSolicitaModif({
       /^[\s]*$/.test(JSON.parse(MIR)?.proposito.medios_verificacion)
     ) {
       err = 1;
-      errores.push("<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.");
+      errores.push("<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MIR)?.proposito.supuestos === undefined ||
@@ -378,7 +378,7 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
+          `<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -455,7 +455,7 @@ export default function ModalSolicitaModif({
             /^[\s]*$/.test(componente.actividades[indexA].medios)
           ) {
             errores.push(
-              `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
+              `<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.`
             );
             err = 1;
           }
@@ -538,9 +538,10 @@ export default function ModalSolicitaModif({
 
         alertaExito(
           () => {},
-          localStorage.getItem("Rol") === "Verificador"
-            ? "MIR ENVIADA A CAPTURADOR"
-            : "MIR ENVIADA A REVISIÓN"
+          // localStorage.getItem("Rol") !== "Verificador"
+          //   ? "MIR ENVIADA A REVISIÓN"
+          //   : "MIR ENVIADA A CAPTURADOR"
+          "MIR ENVIADA A CORRECION"
         );
 
         soliModyNoty(
@@ -574,7 +575,7 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: IdEntidad,
+            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
           {
@@ -698,6 +699,7 @@ const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
               )}
               onChange={(event, value) => {
                 setUser(value || newUser);
+               setUserSelected(value?.IdUsuario || newUser.IdUsuario || value?.IdUsuarioTiCentral || newUser.IdUsuarioTiCentral)
               }}
               isOptionEqualToValue={(option, value) =>
                 option.IdUsuario === value.IdUsuario

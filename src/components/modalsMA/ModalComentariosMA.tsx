@@ -73,7 +73,7 @@ export const ComentDialogMA = ({
         process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
         {
           TipoUsuario: localStorage.getItem("Rol"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
           IdApp: localStorage.getItem("dApp"),
         },
         {

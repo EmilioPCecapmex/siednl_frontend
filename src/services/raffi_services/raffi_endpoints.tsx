@@ -16,7 +16,7 @@ export const listaRaffi = (setState: Function, estadorf: string) => {
     })
     .then((r) => {
       if (r.status === 200) {
-        console.log("raffi: ", r.data.data);
+        
 
         if (r.data.data.length === 0) {
           alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR");

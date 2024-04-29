@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useLayoutEffect, useState } from "react";
 import { queries } from "../../queries";
+import { clearInfo } from "../genericComponents/GenericMethods";
 export const FormulaDialogMA = ({
   open,
   close,
@@ -218,10 +219,7 @@ export const FormulaDialogMA = ({
               }}
               onChange={(c) =>
                 setDescA(
-                  c.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "")
+                  clearInfo(c.target.value)
                 )
               }
               InputProps={{
@@ -265,10 +263,7 @@ export const FormulaDialogMA = ({
                 value={descA}
                 onChange={(c) =>
                   setDescA(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{
@@ -308,10 +303,7 @@ export const FormulaDialogMA = ({
                 }
                 onChange={(c) =>
                   setDescB(
-                    c.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(c.target.value)
                   )
                 }
                 InputProps={{

@@ -283,11 +283,13 @@ export default function ModalEnviarMA({
           componente.lineaBase === undefined ||
           /^[\s]*$/.test(componente.lineaBase) ||
           componente.lineaBase === undefined ||
-          /^[\s]*$/.test(componente.actividades[index].unidadResponsable) ||
+
           componente.valorNumerador === undefined ||
-          /^[\s]*$/.test(componente.actividades[index].valorNumerador) ||
+          /^[\s]*$/.test(componente.valorNumerador) ||
+
           componente.unidadResponsable === undefined ||
           /^[\s]*$/.test(componente.unidadResponsable) ||
+
           componente.descIndicador === undefined ||
           /^[\s]*$/.test(componente.descIndicador) ||
           componente.descNumerador === undefined ||
@@ -299,7 +301,7 @@ export default function ModalEnviarMA({
         ) {
           err = 1;
           errores.push(
-            `<hr><strong> ${componente.componentes} </strong> INCOMPLETO.`
+            `<hr><strong> ${componente.componentes} </strong>.`
           );
         }
         if (
@@ -717,7 +719,7 @@ export default function ModalEnviarMA({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: localStorage.getItem("Rol"),
-            IdEntidad: IdEntidad,
+            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
           {

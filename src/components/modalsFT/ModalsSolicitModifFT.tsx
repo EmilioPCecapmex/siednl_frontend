@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
- 
   Dialog,
   DialogTitle,
   DialogContent,
   TextField,
   FormControl,
-  
   Button,
   Typography,
   Autocomplete,
@@ -742,9 +740,10 @@ export default function ModalSolicitaModif({
         }
 
         alertaExitoConfirm(
-          localStorage.getItem("Rol") === "VERIFICADOR"
-            ? "FICHA TECNICA ENVIADA A CAPTURADOR PARA CORRECCIÓN"
-            : "FICHA TECNICA ENVIADA"
+          // localStorage.getItem("Rol") === "VERIFICADOR"
+          //   ? "FICHA TECNICA ENVIADA A CAPTURADOR PARA CORRECCIÓN"
+          //   : "FICHA TECNICA ENVIADA"
+          "FICHA TECNICA ENVIADA A CORRECION"
         );
 
         soliModyNoty(
@@ -777,7 +776,7 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: IdEntidad,
+            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
           {
@@ -897,15 +896,14 @@ export default function ModalSolicitaModif({
               )}
               onChange={(event, value) => {
                 setUser(value || newUser);
-                setUserSelected(value?.Nombre || newUser.Nombre)
+                //setUserSelected(value?.Nombre || newUser.Nombre)
 
+                setUserSelected(value?.IdUsuario || newUser.IdUsuario || value?.IdUsuarioTiCentral || newUser.IdUsuarioTiCentral)
               }}
               isOptionEqualToValue={(option, value) =>
                 option.IdUsuario === value.IdUsuario
               }
             />
-
-           
           </FormControl>
         </Grid>
 

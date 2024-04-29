@@ -17,6 +17,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 import { IComponentesFT, IFTEdit } from "./Interfaces";
+import { clearInfo } from "../genericComponents/GenericMethods";
 
 export const TabActividadesFT = ({
   edit,
@@ -344,7 +345,7 @@ export const TabActividadesFT = ({
               </FormLabel>
               <Grid sx={{ display: "flex", flexDirection: "column" }}>
                 <FormControlLabel
-                  value={"SELECCIÓN ESTRATEGICO"}
+                  value={"SELECCIÓN ESTRATÉGICO"}
                   label={
                     <Typography
                       sx={{
@@ -352,7 +353,7 @@ export const TabActividadesFT = ({
                         fontFamily: "MontserratMedium",
                       }}
                     >
-                      SELECCIÓN ESTRATEGICO
+                      SELECCIÓN ESTRATÉGICO
                     </Typography>
                   }
                   sx={{
@@ -363,7 +364,7 @@ export const TabActividadesFT = ({
                       checked={
                         componentesActividadValues[componenteSelect]
                           .actividades[actividadSelect]?.tipoDeIndicador ===
-                        "SELECCIÓN ESTRATEGICO"
+                        "SELECCIÓN ESTRATÉGICO"
                       }
                       onChange={(c) => {
                         let y = [...componentesActividadValues];
@@ -629,11 +630,7 @@ export const TabActividadesFT = ({
                 let y = [...componentesActividadValues];
                 y[componenteSelect].actividades[
                   actividadSelect
-                ].unidadDeMedida = c.target.value
-                  .replaceAll('"', "")
-                .replaceAll("'", "")
-                .replaceAll("\n", "")
-                .trimEnd();
+                ].unidadDeMedida = clearInfo(c.target.value)
                 setComponentesActividadValues(y);
               }}
               value={

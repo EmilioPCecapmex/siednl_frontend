@@ -121,27 +121,21 @@ export const FichaTecnica = () => {
   const [ftxFiltered, setFtxFiltered] = useState<Array<IIFT>>([]);
   const [ftFiltered, setFtFiltered] = useState<Array<IIFT>>([]);
 
-  const objetiInstitucion: IEntidad = {
+  const objetiInstitucion: IEntidadLabel = {
     //ClaveSiregob: null,
     //ControlInterno: "",
     Id: "0",
-    Nombre: "TODOS",
-    NombreTipoEntidad: "",
-    EntidadPerteneceA: "",
-    Direccion: "",
-    Telefono: "",
-    IdEntidadPerteneceA: "",
-    IdTipoEntidad: "",
-    FechaCreacion: "",
-    CreadoPor: "",
-    UltimaActualizacion: "",
-    ModificadoPor: "",
-    Titular: "",
+    Label: "TODOS",
   };
 
-  const [instituciones, setInstituciones] = useState<IEntidad>();
+  interface IEntidadLabel {
+    Id: string;
+    Label: string;
+  }
+
+  const [instituciones, setInstituciones] = useState<IEntidadLabel>();
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<
-    Array<IEntidad>
+    Array<IEntidadLabel>
   >([]);
 
   const [estadoft, setEstadoFT] = useState("TODOS");
@@ -150,43 +144,29 @@ export const FichaTecnica = () => {
 
   const getInstituciones = (setstate: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let aux = r.data.data;
-
           aux.unshift({
-            ClaveSiregob: null,
-            ControlInterno: "",
-            Direccion: "",
-            EntidadPerteneceA: "",
-            FechaCreacion: "",
             Id: "0",
-            IdEntidadPerteneceA: "",
-            IdTipoEntidad: "",
-            IdTitular: null,
-            Nombre: "TODOS",
-            NombreTipoEntidad: "",
-            Telefono: "",
-            Titular: "",
-            UltimaActualizacion: "",
+            Label: "TODOS",
           });
-
-          setstate(aux);
+          setstate(r.data.data);
         }
       });
   };
 
   useEffect(() => {
     getFT(setft, estadoft);
+    setEstadoFT("TODOS")
     validaFechaCaptura();
   }, [showResume]);
 
@@ -890,7 +870,7 @@ export const FichaTecnica = () => {
                           disablePortal
                           size="small"
                           options={catalogoInstituciones}
-                          getOptionLabel={(option) => option.Nombre || ""}
+                          getOptionLabel={(option) => option.Label || ""}
                           value={instituciones || objetiInstitucion}
                           getOptionDisabled={(option) => {
                             if (option.Id === "") {
@@ -906,7 +886,7 @@ export const FichaTecnica = () => {
                                     fontFamily: "MontserratRegular",
                                   }}
                                 >
-                                  {option.Nombre}
+                                  {option.Label}
                                 </p>
                               </li>
                             );
@@ -1195,7 +1175,7 @@ export const FichaTecnica = () => {
                 direction: "row",
               }}
             >
-              {/* <TableContainer
+              <TableContainer
                 sx={{
                   borderRadius: 5,
                   height: "90%",
@@ -1414,6 +1394,7 @@ export const FichaTecnica = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setFTEdit([
                                           {
@@ -1436,10 +1417,10 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       }
+                                      setIdEntidad(row.IdEntidad)
                                       setShowResume(false);
                                       setActionNumber(1);
                                       setEstado(row.Estado);
-                                      setIdEntidad(row.IdEntidad);
                                     }}
                                   >
                                     <AddCircleOutlineIcon
@@ -1557,6 +1538,7 @@ export const FichaTecnica = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setFTShow([
                                           {
@@ -1579,6 +1561,7 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       }
+                                      setIdEntidad(row.IdEntidad)
                                       setOpenModalVerResumenFT(true);
                                     }}
                                   >
@@ -1614,11 +1597,11 @@ export const FichaTecnica = () => {
                               </Tooltip>
 
                               <ComentDialogFT
-                                estado={row.Estado}
-                                id={row.IdMir}
-                                actualizado={actualizaContador}
-                                MIR={FTEdit[0]?.MIR || ""}
-                                IdEntidad={IdEntidad}
+                                  estado={row.Estado}
+                                  id={row.IdMir}
+                                  actualizado={actualizaContador}
+                                  MIR={FTEdit[0]?.MIR || ""}
+                                  IdEntidad={IdEntidad}
                               />
 
                               <MostrarLista st="" Id={row.IdFt} />
@@ -1639,16 +1622,7 @@ export const FichaTecnica = () => {
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-              </Grid> */}
-            <DataGridTable
-                id={(row: any) => row.IdFt || Math.random}
-                columns={columsFt}
-                rows={ftFiltered}
-                camposCsv={[]}
-                exportTitle={"Columnas"}
-              />
-
-
+              </Grid>
             </Grid>
 
             <ModalVerResumenFT

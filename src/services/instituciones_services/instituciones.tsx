@@ -15,7 +15,7 @@ export const getInstituciones = (setstate: Function) => {
       .then((r) => {
         if (r.status === 200) {
           let aux = r.data.data;
-          console.log("Institucion: ", aux);
+        
 
           aux.unshift({
             ClaveSiregob: null,

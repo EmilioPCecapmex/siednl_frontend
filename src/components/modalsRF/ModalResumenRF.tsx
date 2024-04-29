@@ -496,7 +496,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    MEDIOS DE VERIFICACIÓN
+                    MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -636,7 +636,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    MEDIOS DE VERIFICACIÓN
+                    MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -790,7 +790,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                         >
-                          MEDIOS DE VERIFICACIÓN
+                          MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION
                         </Typography>
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -968,7 +968,7 @@ export function TabResumenMIR({
                     //           width: "20%",
                     //         }}
                     //       >
-                    //         MEDIOS DE VERIFICACIÓN
+                    //         MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION
                     //       </Typography>
                     //       <Typography
                     //         sx={{ fontFamily: "MontserratLight", width: "80%" }}

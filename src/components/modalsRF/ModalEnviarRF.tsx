@@ -234,7 +234,7 @@ export default function ModalEnviarRF({
         {
           params: {
             TipoUsuario: localStorage.getItem("Rol"),
-            IdEntidad: IdEntidad,
+            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("dApp"),
           },
           headers: {

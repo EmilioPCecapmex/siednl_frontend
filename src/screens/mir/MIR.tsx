@@ -63,6 +63,11 @@ export const MIR = () => {
     },
   });
 
+  interface IEntidadLabel {
+    Id: string;
+    Label: string;
+  }
+
   const getMIRs = (setState: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
@@ -83,63 +88,38 @@ export const MIR = () => {
       });
   };
 
-  const objetiInstitucion: IEntidad = {
+  const objetiInstitucion: IEntidadLabel = {
     //ClaveSiregob: null,
     //ControlInterno: "",
     Id: "0",
-    Nombre: "TODOS",
-    NombreTipoEntidad: "",
-    EntidadPerteneceA: "",
-    Direccion: "",
-    Telefono: "",
-    IdEntidadPerteneceA: "",
-    IdTipoEntidad: "",
-    FechaCreacion: "",
-    CreadoPor: "",
-    UltimaActualizacion: "",
-    ModificadoPor: "",
-    Titular: "",
+    Label: "TODOS",
   };
 
-  const [instituciones, setInstituciones] = useState<IEntidad>(objetiInstitucion || "");
+ // const [instituciones, setInstituciones] = useState<IEntidad>(objetiInstitucion || "");
+  const [instituciones, setInstituciones] = useState<IEntidadLabel>();
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<
-    Array<IEntidad>
+    Array<IEntidadLabel>
   >([]);
 
   // cambiado
   const getInstituciones = (setstate: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let aux = r.data.data;
-          console.log("Institucion: ", aux);
-
           aux.unshift({
-            ClaveSiregob: null,
-            ControlInterno: "",
-            Direccion: "",
-            EntidadPerteneceA: "",
-            FechaCreacion: "",
             Id: "0",
-            IdEntidadPerteneceA: "",
-            IdTipoEntidad: "",
-            IdTitular: null,
-            Nombre: "TODOS",
-            NombreTipoEntidad: "",
-            Telefono: "",
-            Titular: "",
-            UltimaActualizacion: "",
+            Label: "TODOS",
           });
-          setstate(aux);
+          setstate(r.data.data);
         }
       });
   };
@@ -221,7 +201,7 @@ export const MIR = () => {
   useEffect(() => {
     validaFechaCaptura();
     getMIRs(setMirs);
-    setEstadoMIR("TODOS")
+    setEstadoMIR("TODOS");
   }, [showResume]);
 
   useEffect(() => {
@@ -462,7 +442,7 @@ export const MIR = () => {
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdEntidad: Ins || "" || localStorage.getItem("IdEntidad"),
+          IdEntidad: Ins || "Todos" || localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
           Estado: estado || "TODOS",
         },
@@ -472,6 +452,7 @@ export const MIR = () => {
       })
       .then((r) => {
         //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
+
         if (r.data.data.length === 0) {
           alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
           setMirs(r.data.data);
@@ -479,7 +460,7 @@ export const MIR = () => {
           setMirs(r.data.data);
           
         }
-       
+
         //setInstitucionesb("TODOS")
       });
   };
@@ -711,8 +692,6 @@ export const MIR = () => {
     },
   ];
 
-
-
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
       <Grid
@@ -823,7 +802,7 @@ export const MIR = () => {
                           disablePortal
                           size="small"
                           options={catalogoInstituciones}
-                          getOptionLabel={(option) => option.Nombre || ""}
+                          getOptionLabel={(option) => option.Label|| ""}
                           value={instituciones || "" || objetiInstitucion}
 
                           // value={
@@ -832,6 +811,8 @@ export const MIR = () => {
                           //     ? estadomir.toUpperCase()
                           //     : findSelectStr.toUpperCase()) || estados[0]
                           // }
+                          // getOptionLabel={(option) => option.Label || ""}
+                          // value={instituciones || objetiInstitucion}
                           getOptionDisabled={(option) => {
                             if (option.Id === "") {
                               return true;
@@ -846,7 +827,7 @@ export const MIR = () => {
                                     fontFamily: "MontserratRegular",
                                   }}
                                 >
-                                  {option.Nombre}
+                                  {option.Label}
                                 </p>
                               </li>
                             );
@@ -982,7 +963,7 @@ export const MIR = () => {
                     <IconButton
                       // disabled ={estadomir === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
-                        buscador(estadomir, instituciones?.Nombre);
+                        buscador(estadomir, instituciones?.Label);
                       }}
                     >
                       <SearchIcon
@@ -1147,11 +1128,11 @@ export const MIR = () => {
 
             <Grid
               item
-              xl={11}
-              lg={11}
-              md={11}
-              sm={11}
-              xs={11}
+              xl={10}
+              lg={10}
+              md={10}
+              sm={10}
+              xs={10}
               //width={"80%"}
               // height="65vh"
               // direction="row"
@@ -1163,13 +1144,449 @@ export const MIR = () => {
                 direction: "row",
               }}
             >
-              <DataGridTable
-                id={(row: any) => row.Id || Math.random}
-                columns={columsMir}
-                rows={mirsFiltered}
-                camposCsv={[]}
-                exportTitle={"Columnas"}
-              />
+              <TableContainer
+                sx={{
+                  borderRadius: 5,
+                  height: "90%",
+                  overflow: "auto",
+                  "&::-webkit-scrollbar": {
+                    width: ".5vw",
+                    //mt: 1,
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "#edeaea",
+                    //outline: "1px solid slategrey",
+                    borderRadius: 1,
+                  },
+                }}
+              >
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow
+                      sx={{
+                        gridTemplateColumns: "repeat(7,1fr)",
+                      }}
+                    >
+                      {heads.map((head, index) => (
+                        <TableCell
+                          sx={{
+                            backgroundColor: "#edeaea",
+                            fontFamily: "MontserratBold",
+                            borderBottom: 0,
+                            fontSize: [10, 10, 10, 15, 16, 18],
+                            textAlign: "center",
+                            // fontFamily: "MontserratRegular",
+                            //   fontSize: ".7vw",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                          align="center"
+                          key={index}
+                        >
+                          <TableSortLabel>{head.label}</TableSortLabel>
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+
+                  <TableBody>
+                    {mirsFiltered
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row, index) => (
+                        <TableRow>
+                          <TableCell
+                            sx={{
+                              padding: "1px 15px 1px 0",
+                              fontFamily: "MontserratRegular",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
+                            }}
+                            align="center"
+                            component="th"
+                            scope="row"
+                          >
+                            {row.AnioFiscal}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              padding: "1px 15px 1px 0",
+                              fontFamily: "MontserratRegular",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
+                            }}
+                            align="center"
+                            component="th"
+                            scope="row"
+                          >
+                            {row.Entidad.toUpperCase()}
+                          </TableCell>
+                          <TableCell
+                            sx={{
+                              padding: "1px 15px 1px 0",
+                              fontFamily: "MontserratRegular",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
+                            }}
+                            align="center"
+                            component="th"
+                            scope="row"
+                          >
+                            {row.Programa.toUpperCase()}
+                          </TableCell>
+
+                          <TableCell
+                            sx={{
+                              padding: "1px 15px 1px 0",
+                              fontFamily: "MontserratRegular",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
+                            }}
+                            align="center"
+                            component="th"
+                            scope="row"
+                          >
+                            {((row.Estado === "En Captura" ||
+                              row.Estado === "Borrador Capturador") &&
+                            localStorage.getItem("Rol") === "Capturador"
+                              ? "Borrador Capturador"
+                              : row.Estado === "En Revisión" &&
+                                localStorage.getItem("Rol") === "Verificador"
+                              ? "Esperando revisión"
+                              : row.Estado === "En Autorización" &&
+                                localStorage.getItem("Rol") === "Administrador"
+                              ? "En Autorización"
+                              : row.Estado
+                            ).toUpperCase()}
+                          </TableCell>
+
+                          <TableCell
+                            sx={{
+                              padding: "1px 15px 1px 0",
+                              fontFamily: "MontserratRegular",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
+                            }}
+                            align="center"
+                            component="th"
+                            scope="row"
+                          >
+                            {moment(row.FechaCreacion, moment.ISO_8601)
+                              .format("DD/MM/YYYY HH:mm:SS")
+                              .toString()}
+                          </TableCell>
+
+                          <TableCell
+                            sx={{
+                              padding: "1px 15px 1px 0",
+                              fontFamily: "MontserratRegular",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
+                            }}
+                            align="center"
+                            component="th"
+                            scope="row"
+                          >
+                            {row.CreadoPor.toUpperCase()}
+                          </TableCell>
+
+                          <TableCell
+                            sx={{
+                              flexDirection: "row",
+                              //display: "grid",
+                              gridTemplateColumns: "repeat(2,2fr)",
+                              fontSize: [10, 10, 10, 15, 15, 18],
+                              textAlign: "center",
+                            }}
+                            align="center"
+                            component="th"
+                            scope="row"
+                          >
+                            <Grid sx={{ display: "flex" }}>
+                              <Tooltip
+                                PopperProps={{
+                                  modifiers: [
+                                    {
+                                      name: "offset",
+                                      options: {
+                                        offset: [0, -13],
+                                      },
+                                    },
+                                  ],
+                                }}
+                                title="DESCARGAR MIR"
+                              >
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      row.Estado === "Autorizada" && validaFecha
+                                        ? false
+                                        : true
+                                    }
+                                    onClick={() =>
+                                      downloadMIR(
+                                        row.AnioFiscal,
+                                        row.Entidad,
+                                        row.Programa,
+                                        row.MIR
+                                      )
+                                    }
+                                  >
+                                    <DownloadIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
+
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
+
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
+
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
+
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
+
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+
+                              <ComentDialogMir
+                                estado={row.Estado}
+                                id={row.Id}
+                                actualizado={actualizaContador}
+                                MIR={mirEdit[0]?.MIR || ""}
+                                IdEntidad={row.IdEntidad}
+                              />
+
+                              <DeleteDialogMIR
+                                disab={
+                                  row.Estado === "En Captura" &&
+                                  // || row.Estado === "Borrador Capturador"
+                                  validaFecha &&
+                                  localStorage.getItem("Rol") === "Capturador"
+                                    ? false
+                                    : row.Estado === "En Revisión" &&
+                                      localStorage.getItem("Rol") ===
+                                        "Verificador"
+                                    ? false
+                                    : (row.Estado === "En Autorización" ||
+                                        row.Estado === "Autorizada") &&
+                                      localStorage.getItem("Rol") ===
+                                        "Administrador"
+                                    ? false
+                                    : true
+                                }
+                                id={row.Id}
+                                actualizado={actualizaContador}
+                              />
+                              <Tooltip
+                                title={title_texto}
+                                PopperProps={{
+                                  modifiers: [
+                                    {
+                                      name: "offset",
+                                      options: {
+                                        offset: [0, -13],
+                                      },
+                                    },
+                                  ],
+                                }}
+                              >
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      ((row.Estado === "En Captura" ||
+                                        row.Estado === "Borrador Capturador") &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Capturador") ||
+                                      (row.Estado === "En Revisión" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      (row.Estado === "Borrador Verificador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      ((row.Estado === "En Autorización" ||
+                                        row.Estado === "Autorizada") &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador") ||
+                                      (row.Estado === "Borrador Autorizador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador")
+                                        ? false
+                                        : true
+                                    }
+                                    onClick={() => {
+                                      setMirEdit([
+                                        {
+                                          Id: row.Id,
+                                          AnioFiscal: row.AnioFiscal,
+                                          IdEntidad: row.IdEntidad,
+                                          Entidad: row.Entidad,
+                                          Programa: row.Programa,
+                                          Eje: row.Eje,
+                                          Tematica: row.Tematica,
+                                          MIR: row.MIR,
+                                          Estado: row.Estado,
+                                          FechaCreacion: row.FechaCreacion,
+                                          CreadoPor: row.CreadoPor,
+                                          Conac: row.Conac,
+                                          Consecutivo: row.Consecutivo,
+                                          Opciones: row.Opciones,
+                                        },
+                                      ]);
+                                      setShowResume(false);
+                                      setActionNumber(1);
+                                      setEstado(row.Estado);
+                                    }}
+                                  >
+                                    <EditIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
+
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
+
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
+
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
+
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
+
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+                              <MostrarLista st="" Id={row.Id} />
+                              {/* <Tooltip
+                                title="Lista"
+                                PopperProps={{
+                                  modifiers: [
+                                    {
+                                      name: "offset",
+                                      options: {
+                                        offset: [0, -13],
+                                      },
+                                    },
+                                  ],
+                                }}
+                              >
+                                <span>
+                                  <IconButton
+                                    disabled={
+                                      ((row.Estado === "En Captura" || row.Estado === "Borrador Capturador") &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Capturador") ||
+                                      (row.Estado === "En Revisión" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      (row.Estado === "Borrador Verificador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Verificador") ||
+                                      ((row.Estado === "En Autorización" ||
+                                        row.Estado === "Autorizada") &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador") ||
+                                      (row.Estado === "Borrador Autorizador" &&
+                                        validaFecha &&
+                                        localStorage.getItem("Rol") ===
+                                          "Administrador")
+                                        ? false
+                                        : true
+                                    }
+                                    onClick={() => {
+                                      setOpenVisualizador(true)
+                                    }}
+                                  >
+                                    <ListAltIcon
+                                      sx={{
+                                        fontSize: "24px", // Tamaño predeterminado del icono
+
+                                        "@media (max-width: 600px)": {
+                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                                        },
+
+                                        "@media (min-width: 601px) and (max-width: 960px)":
+                                          {
+                                            fontSize: 20, // Pantalla pequeña (md)
+                                          },
+
+                                        "@media (min-width: 961px) and (max-width: 1280px)":
+                                          {
+                                            fontSize: 20, // Pantalla mediana (lg)
+                                          },
+
+                                        "@media (min-width: 1281px)": {
+                                          fontSize: 25, // Pantalla grande (xl)
+                                        },
+
+                                        "@media (min-width: 2200px)": {
+                                          ffontSize: 25, // Pantalla grande (xl)
+                                        },
+                                      }}
+                                    />
+                                  </IconButton>
+                                </span>
+                              </Tooltip>
+
+ */}
+                            </Grid>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+
+                    {/* ))} */}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+
+              <Grid sx={{ width: "100%" }}>
+                <TablePagination
+                  rowsPerPageOptions={[renglonesPagina]}
+                  component="div"
+                  count={mirs.length}
+                  rowsPerPage={renglonesPagina}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+              </Grid>
             </Grid>
             {/* {openVisualizador ? (
               <MostrarLista

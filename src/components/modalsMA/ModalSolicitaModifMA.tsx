@@ -636,10 +636,11 @@ export default function ModalSolicitaModif({
         }
 
         alertaExitoConfirm(
-          (localStorage.getItem("Rol") === "Verificador"
-            ? "META ANUAL ENVIADA A CAPTURADOR PARA CORRECCIÓN"
-            : "META ANUAL ENVIADA"
-          ).toUpperCase()
+          // (localStorage.getItem("Rol") === "Verificador"
+          //   ? "META ANUAL ENVIADA A CAPTURADOR PARA CORRECCIÓN"
+          //   : "META ANUAL ENVIADA"
+          // ).toUpperCase()
+          "META ANUAL ENVIADA A CORRECION" 
         );
 
         soliModyNoty(
@@ -672,7 +673,7 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: IdEntidad,
+            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
           {
@@ -792,6 +793,7 @@ export default function ModalSolicitaModif({
               )}
               onChange={(event, value) => {
                 setUser(value || newUser);
+                setUserSelected(value?.IdUsuario || newUser.IdUsuario || value?.IdUsuarioTiCentral || newUser.IdUsuarioTiCentral)
               }}
               isOptionEqualToValue={(option, value) =>
                 option.IdUsuario === value.IdUsuario

@@ -259,9 +259,12 @@ export default function ModalSolicitaModifRF({
         if (coment !== "") {
           comentMA(IdRF);
         }
-        alertaExitoConfirm((localStorage.getItem("Rol") === "Verificador"
-        ? "RAFFI ENVÍADA A CAPTURADOR PARA CORRECCIPON corrección"
-        : "RAFFI ENVÍADA").toUpperCase())
+        alertaExitoConfirm(
+        //   (localStorage.getItem("Rol") === "Verificador"
+        // ? "RAFFI ENVÍADA A CAPTURADOR PARA CORRECCIPON corrección"
+        // : "RAFFI ENVÍADA").toUpperCase()
+        "RAFFI ENVÍADA A CORRECION"
+        )
 
       
         soliModyNoty(userSelected, "SE LE HA SOLICITADO UNA MODIFICACIÓN.", "RF", IdRF );
@@ -289,7 +292,7 @@ export default function ModalSolicitaModifRF({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: IdEntidad,
+            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
           {
@@ -411,6 +414,7 @@ export default function ModalSolicitaModifRF({
               )}
               onChange={(event, value) => {
                 setUser(value || newUser);
+                setUserSelected(value?.IdUsuario || newUser.IdUsuario || value?.IdUsuarioTiCentral || newUser.IdUsuarioTiCentral)
               }}
               isOptionEqualToValue={(option, value) =>
                 option.IdUsuario === value.IdUsuario
