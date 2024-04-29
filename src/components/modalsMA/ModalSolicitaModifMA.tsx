@@ -841,7 +841,8 @@ export default function ModalSolicitaModif({
           >
             <Button
               className="cancelar"
-              sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
+              //sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
+              sx={{ marginRight: "1rem" }}
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>

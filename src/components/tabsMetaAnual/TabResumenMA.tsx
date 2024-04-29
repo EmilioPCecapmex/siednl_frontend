@@ -3072,7 +3072,9 @@ export function TabResumenMA({
           xs={12}
         >
           <Button
-            disabled={isCapturador ? true : false}
+            disabled={
+              localStorage.getItem("Rol") === "Capturador" ? true : false
+            }
             className="aceptar"
             sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => setOpenModalSolicitarModif(true)}

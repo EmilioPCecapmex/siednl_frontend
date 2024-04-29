@@ -2601,7 +2601,7 @@ export const TabResumenRF = ({
             onClick={() => setOpenModalSolicitarModif(true)}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-              SOLCIITAR MODIFICACIÓN 
+            SOLICITAR MODIFICACIÓN
             </Typography>
           </Button>
         </Grid>
