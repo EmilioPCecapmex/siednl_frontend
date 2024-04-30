@@ -21,16 +21,16 @@ import { getMovimientosTrazabilidad } from "../../genericComponents/axiosGeneric
 
 function IconSwitch({ Estado }: { Estado: string }) {
   if (Estado.toUpperCase().includes("BORRADOR"))
-    return <BorderColorOutlinedIcon style={{ fontSize: "5em" }} />;
+    return <BorderColorOutlinedIcon style={{ fontSize: "5em",  }} />;
   if (Estado.toUpperCase().includes("CAPTURA"))
-    return <DriveFileRenameOutlineOutlinedIcon style={{ fontSize: "5em" }} />;
+    return <DriveFileRenameOutlineOutlinedIcon style={{ fontSize: "5em",  }} />;
   else if (Estado.toUpperCase().includes("REVISIÓN"))
-    return <ManageSearchOutlinedIcon style={{ fontSize: "5em" }} />;
+    return <ManageSearchOutlinedIcon style={{ fontSize: "5em",  }} />;
   else if (Estado.toUpperCase().includes("AUTORIZACIÓN"))
-    return <SafetyCheckOutlinedIcon style={{ fontSize: "5em" }} />;
+    return <SafetyCheckOutlinedIcon style={{ fontSize: "5em",  }} />;
   else if (Estado.toUpperCase().includes("AUTORIZADA"))
-    return <VerifiedUserOutlinedIcon style={{ fontSize: "5em" }} />;
-  else return <HelpOutlineOutlinedIcon style={{ fontSize: "5em" }} />;
+    return <VerifiedUserOutlinedIcon style={{ fontSize: "5em",  }} />;
+  else return <HelpOutlineOutlinedIcon style={{ fontSize: "5em",  }} />;
 }
 
 export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
@@ -92,6 +92,8 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
                 justifyContent: ["", "center", "center", "center", "center"],
                 alignItems: "center",
                 ml: ["2", "", "", "2vw", ""],
+               // backgroundColor: "blue",
+                minWidth:"40%"
               }}
             >
               <Typography>

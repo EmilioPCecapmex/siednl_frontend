@@ -31,21 +31,21 @@ export function TabFinProposito({
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   const [fin, setFin] = useState<IFin>({
-    resumen: MIR.fin?.resumen || "",
-    indicador: MIR.fin?.indicador || "",
-    formula: MIR.fin?.formula || "",
-    frecuencia: MIR.fin?.frecuencia || "",
-    medios: MIR.fin?.medios || "",
-    supuestos: MIR.fin?.supuestos || "",
+    resumen: MIR.fin?.resumen.trimEnd() || "",
+    indicador: MIR.fin?.indicador.trimEnd() || "",
+    formula: MIR.fin?.formula.trimEnd() || "",
+    frecuencia: MIR.fin?.frecuencia.trimEnd() || "",
+    medios: MIR.fin?.medios.trimEnd() || "",
+    supuestos: MIR.fin?.supuestos.trimEnd() || "",
   });
 
   const [proposito, setProposito] = useState<IProposito>({
-    resumen: MIR.proposito?.resumen || "",
-    indicador: MIR.proposito?.indicador || "",
-    formula: MIR.proposito?.formula || "",
+    resumen: MIR.proposito?.resumen.trimEnd() || "",
+    indicador: MIR.proposito?.indicador.trimEnd() || "",
+    formula: MIR.proposito?.formula.trimEnd() || "",
     frecuencia: "ANUAL",
-    medios_verificacion: MIR.proposito?.medios_verificacion || "",
-    supuestos: MIR.proposito?.supuestos || "",
+    medios_verificacion: MIR.proposito?.medios_verificacion.trimEnd() || "",
+    supuestos: MIR.proposito?.supuestos.trimEnd() || "",
   });
 
   const [showFin, setShowFin] = useState(true);

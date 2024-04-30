@@ -763,6 +763,10 @@ export const FichaTecnica = () => {
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
+  const handleChange = (dato: string) => {
+    setFindTextStr(dato);
+  };
+
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid
@@ -1085,9 +1089,9 @@ export const FichaTecnica = () => {
                       }}
                       placeholder="Buscar"
                       value={findTextStr}
-                      // onChange={(e) => {
-                      //   handleChange(e.target.value);
-                      // }}
+                      onChange={(e) => {
+                        handleChange(e.target.value);
+                      }}
                       onKeyPress={(ev) => {
                         if (ev.key === "Enter") {
                           filtrarDatos();

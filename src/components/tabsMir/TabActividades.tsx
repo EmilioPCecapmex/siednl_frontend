@@ -16,7 +16,7 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
-import { IMIR, IMIREdit } from "./interfaces mir/IMIR";
+import { IActividad, IMIR, IMIREdit } from "./interfaces mir/IMIR";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
@@ -131,14 +131,47 @@ export const TabActividades = ({
     }
   };
 
+  const clearComponentes = (componentes: IComponente[]) => {
+    let auxCompo: IComponente[] = [];
+    componentes.map((item) => {
+        let actividadesAux: IActividad[] = [];
+        item.actividades.map((actividad, i) => {
+            let objActividad: IActividad = {
+                actividad: actividad.actividad.trimEnd() || "",
+                resumen: actividad.resumen.trimEnd() || "",
+                indicador: actividad.indicador.trimEnd() || "",
+                formula: actividad.formula.trimEnd() || "",
+                frecuencia: actividad.frecuencia.trimEnd() || "",
+                medios: actividad.medios.trimEnd() || "",
+                supuestos: actividad.supuestos.trimEnd() || ""
+            };
+            actividadesAux.push(objActividad);
+        });
+        let obj: IComponente = {
+            componente: item.componente.trimEnd() || "",
+            resumen: item.resumen.trimEnd() || "",
+            indicador: item.indicador.trimEnd() || "",
+            formula: item.formula.trimEnd() || "",
+            frecuencia: item.frecuencia.trimEnd() || "",
+            medios: item.medios.trimEnd() || "",
+            supuestos: item.supuestos.trimEnd() || "",
+            actividades: actividadesAux // Reemplazamos las actividades originales con las actividadesAux modificadas
+        };
+        auxCompo.push(obj);
+    });
+    return auxCompo;
+};
+
   const [componentes, setComponentes] = useState<Array<IComponente>>(
-    MIR.componentes
+    clearComponentes(MIR.componentes)
   );
 
-  useEffect(() => {
-    setComponentes(MIR.componentes);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [MIR]);
+  
+
+  // useEffect(() => {
+  //   setComponentes(MIR.componentes);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [MIR]);
 
   useEffect(() => {
     setMIR((MIR: IMIR) => ({
