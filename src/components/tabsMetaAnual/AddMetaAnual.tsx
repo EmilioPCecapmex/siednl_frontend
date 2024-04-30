@@ -403,6 +403,7 @@ export default function AddMetaAnual({
                 setMAPropositoPadre={setMAPropositoPadre}
                 showMirFnc={showMirFnc}
                 maPadreEdit={maPadreEdit}
+                setMAPadre={setMAPadre}
               />
             ) : null}
             {value === 1 ? (

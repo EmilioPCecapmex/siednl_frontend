@@ -19,7 +19,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import axios from "axios";
-import { IMAEdit } from "./IMA";
+import { IMA, IMAEdit } from "./IMA";
 import { clearInfo } from "../genericComponents/GenericMethods";
 
 export function TabFinPropositoMA({
@@ -33,6 +33,7 @@ export function TabFinPropositoMA({
   MA,
   MIR,
   maPadreEdit,
+  setMAPadre,
 }: {
   edit: boolean;
   setMAFinPadre: Function;
@@ -44,26 +45,27 @@ export function TabFinPropositoMA({
   MA: string;
   MIR: string;
   maPadreEdit: IMAEdit;
+  setMAPadre: Function;
 }) {
   let MAEdit =
     MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";
 
   const [valueFin, setValueFin] = useState<IFinMA>({
-    metaAnual: finPadre.metaAnual.trimEnd() || "",
-    lineaBase: finPadre.metaAnual.trimEnd() || "",
-    valorNumerador: finPadre.valorNumerador.trimEnd() || "",
-    valorDenominador: finPadre.valorDenominador.trimEnd() || "",
-    sentidoDelIndicador: finPadre.sentidoDelIndicador.trimEnd() || "",
-    unidadResponsable: finPadre.unidadResponsable.trimEnd() || "",
-    descIndicador: finPadre.descIndicador.trimEnd() || "",
-    descNumerador: finPadre.valorNumerador.trimEnd() || "",
-    descDenominador: finPadre.descDenominador.trimEnd() || "",
-  } || finPadre);
+    metaAnual: finPadre.metaAnual.trimEnd() || "pitiod",
+    lineaBase: finPadre.lineaBase.trimEnd() || "pitiod",
+    valorNumerador: finPadre.valorNumerador.trimEnd() || "pitiod",
+    valorDenominador: finPadre.valorDenominador.trimEnd() || "pitiod",
+    sentidoDelIndicador: finPadre.sentidoDelIndicador,
+    unidadResponsable: finPadre.unidadResponsable.trimEnd() || "pitiod",
+    descIndicador: finPadre.descIndicador.trimEnd() || "pitiod",
+    descNumerador: finPadre.valorNumerador.trimEnd() || "pitiod",
+    descDenominador: finPadre.descDenominador.trimEnd() || "pitiod",
+  });
 
   //values
   const [valueProposito, setValueProposito] = useState<IPropositoMA>({
     metaAnual: propositoPadre.metaAnual.trimEnd() || "",
-    lineaBase: propositoPadre.metaAnual.trimEnd() || "",
+    lineaBase: propositoPadre.lineaBase.trimEnd() || "",
     valorNumerador: propositoPadre.valorNumerador.trimEnd() || "",
     valorDenominador: propositoPadre.valorDenominador.trimEnd() || "",
     sentidoDelIndicador: propositoPadre.sentidoDelIndicador.trimEnd() || "",
@@ -71,7 +73,7 @@ export function TabFinPropositoMA({
     descIndicador: propositoPadre.descIndicador.trimEnd() || "",
     descNumerador: propositoPadre.valorNumerador.trimEnd() || "",
     descDenominador: propositoPadre.descDenominador.trimEnd() || "",
-  } || propositoPadre );
+  });
 
   const [showFin, setShowFin] = useState(true);
 
@@ -212,13 +214,26 @@ export function TabFinPropositoMA({
       });
   };
 
-  useEffect(() => {
-    setValueFin(finPadre);
-  }, [finPadre]);
+  // useEffect(() => {
+  //   setValueFin(finPadre);
+  // }, [finPadre]);
+
+  // useEffect(() => {
+  //   setValueProposito(propositoPadre);
+  // }, [propositoPadre]);
 
   useEffect(() => {
-    setValueProposito(propositoPadre);
-  }, [propositoPadre]);
+    // IMA
+    setMAPadre((MA: IMA) => ({
+      ...MA,
+      ...{
+        fin: valueFin,
+      },
+      ...{
+        proposito: valueProposito,
+      },
+    }));
+  }, [valueFin, valueProposito]);
 
   useEffect(() => {
     // getUnidades();
@@ -566,7 +581,7 @@ export function TabFinPropositoMA({
                       ? ""
                       : handleClickOpen()
                   }
-                  value={valueFin?.metaAnual || ""}
+                  value={valueFin?.metaAnual }
                   error={parseFloat(valueFin?.metaAnual) < 0 ? true : false}
                   helperText={
                     parseFloat(valueFin?.metaAnual) < 0
