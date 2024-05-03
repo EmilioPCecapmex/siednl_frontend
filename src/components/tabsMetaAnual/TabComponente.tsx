@@ -25,8 +25,8 @@ export const TabComponenteMA = ({
   edit,
  
   setMAcomponentesPadre,
-  showMirFnc,
-  setTxtShowFnc,
+  
+  // setTxtShowFnc,
   MA,
   MIR,
   ComponentesMA,
@@ -35,8 +35,7 @@ export const TabComponenteMA = ({
   edit: boolean;
 
   setMAcomponentesPadre: Function;
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
+  // setTxtShowFnc: Function;
   MA: string;
   MIR: string;
   ComponentesMA: IComponenteMA[];
@@ -348,8 +347,7 @@ export const TabComponenteMA = ({
         <Tooltip title="RESUMEN COMPONENTE">
           <InfoOutlinedIcon
             onClick={() => {
-              showMirFnc(true);
-              setTxtShowFnc("Componentes");
+              // setTxtShowFnc("Componentes");
             }}
             fontSize="large"
             sx={{ cursor: "pointer" }}

@@ -21,13 +21,13 @@ import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import axios from "axios";
 import { IMA, IMAEdit } from "./IMA";
 import { clearInfo } from "../genericComponents/GenericMethods";
+import { newFinPropositoMA } from "./AddMetaAnual";
 
 export function TabFinPropositoMA({
   edit,
   setMAFinPadre,
   setMAPropositoPadre,
-  showMirFnc,
-  setTxtShowFnc,
+  // setTxtShowFnc,
   finPadre,
   propositoPadre,
   MA,
@@ -38,8 +38,7 @@ export function TabFinPropositoMA({
   edit: boolean;
   setMAFinPadre: Function;
   setMAPropositoPadre: Function;
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
+  // setTxtShowFnc: Function;
   finPadre: IFinMA;
   propositoPadre: IPropositoMA;
   MA: string;
@@ -47,33 +46,65 @@ export function TabFinPropositoMA({
   maPadreEdit: IMAEdit;
   setMAPadre: Function;
 }) {
+
+  useEffect(()=>{},[])
   let MAEdit =
     MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";
 
-  const [valueFin, setValueFin] = useState<IFinMA>({
-    metaAnual: finPadre.metaAnual.trimEnd() || "pitiod",
-    lineaBase: finPadre.lineaBase.trimEnd() || "pitiod",
-    valorNumerador: finPadre.valorNumerador.trimEnd() || "pitiod",
-    valorDenominador: finPadre.valorDenominador.trimEnd() || "pitiod",
-    sentidoDelIndicador: finPadre.sentidoDelIndicador,
-    unidadResponsable: finPadre.unidadResponsable.trimEnd() || "pitiod",
-    descIndicador: finPadre.descIndicador.trimEnd() || "pitiod",
-    descNumerador: finPadre.valorNumerador.trimEnd() || "pitiod",
-    descDenominador: finPadre.descDenominador.trimEnd() || "pitiod",
-  });
+  const [valueFin, setValueFin] = useState<IFinMA>(newFinPropositoMA);
 
   //values
-  const [valueProposito, setValueProposito] = useState<IPropositoMA>({
-    metaAnual: propositoPadre.metaAnual.trimEnd() || "",
-    lineaBase: propositoPadre.lineaBase.trimEnd() || "",
-    valorNumerador: propositoPadre.valorNumerador.trimEnd() || "",
-    valorDenominador: propositoPadre.valorDenominador.trimEnd() || "",
-    sentidoDelIndicador: propositoPadre.sentidoDelIndicador.trimEnd() || "",
-    unidadResponsable: propositoPadre.unidadResponsable.trimEnd() || "",
-    descIndicador: propositoPadre.descIndicador.trimEnd() || "",
-    descNumerador: propositoPadre.valorNumerador.trimEnd() || "",
-    descDenominador: propositoPadre.descDenominador.trimEnd() || "",
-  });
+  const [valueProposito, setValueProposito] = useState<IPropositoMA>(newFinPropositoMA);
+
+  useEffect(()=>{
+    console.log(
+      "MA",MA,
+      "MA",propositoPadre.metaAnual.trimEnd() ,
+      "MA",propositoPadre.lineaBase.trimEnd() ,
+      "MA",propositoPadre.valorNumerador.trimEnd() ,
+      "MA",propositoPadre.valorDenominador.trimEnd() ,
+      "MA",propositoPadre.sentidoDelIndicador.trimEnd() ,
+      "MA",propositoPadre.unidadResponsable.trimEnd() ,
+      "MA", propositoPadre.descIndicador.trimEnd() ,
+      "MA",propositoPadre.valorNumerador.trimEnd() ,
+      "MA", propositoPadre.descDenominador.trimEnd() ,
+      
+        finPadre.metaAnual.trimEnd() ,
+       finPadre.lineaBase.trimEnd() ,
+        finPadre.valorNumerador.trimEnd() ,
+        finPadre.valorDenominador.trimEnd() ,
+         finPadre.sentidoDelIndicador,
+         finPadre.unidadResponsable.trimEnd() ,
+         finPadre.descIndicador.trimEnd() ,
+         finPadre.valorNumerador.trimEnd() ,
+         finPadre.descDenominador.trimEnd() ,
+      
+    );
+    
+    setValueFin({
+      metaAnual: finPadre.metaAnual.trimEnd() || "",
+      lineaBase: finPadre.lineaBase.trimEnd() || "",
+      valorNumerador: finPadre.valorNumerador.trimEnd() || "",
+      valorDenominador: finPadre.valorDenominador.trimEnd() || "",
+      sentidoDelIndicador: finPadre.sentidoDelIndicador,
+      unidadResponsable: finPadre.unidadResponsable.trimEnd() || "",
+      descIndicador: finPadre.descIndicador.trimEnd() || "",
+      descNumerador: finPadre.valorNumerador.trimEnd() || "",
+      descDenominador: finPadre.descDenominador.trimEnd() || "",
+    })
+    setValueProposito({
+      metaAnual: propositoPadre.metaAnual.trimEnd() || "",
+      lineaBase: propositoPadre.lineaBase.trimEnd() || "",
+      valorNumerador: propositoPadre.valorNumerador.trimEnd() || "",
+      valorDenominador: propositoPadre.valorDenominador.trimEnd() || "",
+      sentidoDelIndicador: propositoPadre.sentidoDelIndicador.trimEnd() || "",
+      unidadResponsable: propositoPadre.unidadResponsable.trimEnd() || "",
+      descIndicador: propositoPadre.descIndicador.trimEnd() || "",
+      descNumerador: propositoPadre.valorNumerador.trimEnd() || "",
+      descDenominador: propositoPadre.descDenominador.trimEnd() || "",
+    })
+    
+  },[])
 
   const [showFin, setShowFin] = useState(true);
 
@@ -214,31 +245,33 @@ export function TabFinPropositoMA({
       });
   };
 
-  // useEffect(() => {
-  //   setValueFin(finPadre);
-  // }, [finPadre]);
-
-  // useEffect(() => {
-  //   setValueProposito(propositoPadre);
-  // }, [propositoPadre]);
+  useEffect(() => {
+    setValueFin(finPadre);
+  }, [finPadre]);
 
   useEffect(() => {
-    // IMA
-    setMAPadre((MA: IMA) => ({
-      ...MA,
-      ...{
-        fin: valueFin,
-      },
-      ...{
-        proposito: valueProposito,
-      },
-    }));
-  }, [valueFin, valueProposito]);
+    setValueProposito(propositoPadre);
+  }, [propositoPadre]);
+
+  // useEffect(() => {
+  //   // IMA
+  //   setMAPadre((MA: IMA) => ({
+  //     ...MA,
+  //     ...{
+  //       fin: valueFin,
+  //     },
+  //     ...{
+  //       proposito: valueProposito,
+  //     },
+  //   }));
+  // }, [valueFin, valueProposito]);
 
   useEffect(() => {
     // getUnidades();
-
-    setMAFinPadre(valueFin);
+    if (valueFin?.lineaBase !== "") {
+      setMAFinPadre(valueFin);
+    }
+    
 
     getListasLogin(
       {
@@ -324,8 +357,7 @@ export function TabFinPropositoMA({
           <Tooltip title="RESUMEN FIN Y PROPOSITO">
             <InfoOutlinedIcon
               onClick={() => {
-                showMirFnc(true);
-                showFin ? setTxtShowFnc("Fin") : setTxtShowFnc("Proposito");
+                // showFin ? setTxtShowFnc("Fin") : setTxtShowFnc("Proposito");
               }}
               fontSize="large"
               sx={{ cursor: "pointer" }}
