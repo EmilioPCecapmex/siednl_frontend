@@ -686,7 +686,7 @@ export const MetaAnual = () => {
         sx={{ height: "7vh", whitespace: "nowrap" }}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
-        <LateralMenu selection={"META ANUAL"} actionNumber={actionNumber} />
+        <LateralMenu selection={"META ANUAL"} actionNumber={actionNumber} restore={setShowResume}/>
       </Grid>
 
       {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>

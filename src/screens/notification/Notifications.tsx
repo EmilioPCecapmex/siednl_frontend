@@ -259,7 +259,7 @@ export const Notification = () => {
     container justifyContent={"space-between"}
     >
       <Grid item xl={12 } height={"7vh"}>
-        <LateralMenu selection={"Notificaciones"} actionNumber={0} />
+        <LateralMenu selection={"Notificaciones"} actionNumber={0} restore={() =>{}} />
         {/* <TutorialGrid initialState={13} endState={17} /> */}
       </Grid>
 

@@ -50,6 +50,7 @@ import { VisualizadorAyudas } from "../../screens/Ayuda/VisualizadorAyudas";
 import HelpIcon from "@mui/icons-material/Help";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
+import { log } from "console";
 
 interface MenuObject {
   Id: string;
@@ -110,10 +111,12 @@ export const LateralMenu = ({
   selection,
   actionNumber,
   settingsCard,
+  restore,
 }: {
   selection: string;
   actionNumber: number;
   settingsCard?: Function;
+  restore: Function;
 }) => {
   const menus: MenuObject[] =
     localStorage.getItem("Menus") !== undefined &&
@@ -146,36 +149,104 @@ export const LateralMenu = ({
     setOpenProgramas(!openProgramas);
     setOpenDocs(false);
   };
+  // let vacia = "";
+
+  // useEffect(() => {
+  //   selection = "";
+  // }, [selection]);
+
+  const back = () => {};
 
   const exitAlert = (urlNavigate: string) => {
+    let url = urlNavigate.toLowerCase().replace(/s+/g, "").replace("/", "");
+
+    let select = selection.toLowerCase().replace(/s+/g, "");
+
+    let vacia =""
+    if (selection === "MIR") {
+      vacia = "/mir";
+    } else if (selection === "META ANUAL") {
+      vacia = "/metaAnual";
+    } else if (selection === "FICHA TECNICA") {
+      vacia = "/fichaTecnica";
+    } else if (selection === "AI") {
+      vacia = "/Institutionalactivities";
+    } else if (selection === "RAFFI") {
+      vacia = "/Raffi";
+    }
+
     if (
       selection === "MIR" ||
-      selection === "Meta Anual" ||
-      selection === "Ficha Técnica" ||
-      selection === "Actividades Institucionales" ||
+      selection === "META ANUAL" ||
+      selection === "FICHA TECNICA" ||
+      selection === "RAFFI" ||
+      selection === "AI" ||
       selection === "Programas Presupuestarios"
     ) {
       if (actionNumber === 1) {
-        Swal.fire({
-          title: "Pregunta",
-          text: `¿Estas seguro de que quieres salir perderás tú progreso actual?`,
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonColor: "#000E4E",
-          cancelButtonColor: "#A40000",
-          confirmButtonText: "Si",
-          cancelButtonText: "No",
-          allowOutsideClick: false,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate(urlNavigate);
-          } else {
-          }
-        });
+        //restore(false)
+
+        if (urlNavigate === vacia) {
+          Swal.fire({
+            title: "PREGUNTA",
+            text: `¿ESTAS SEGURO DE QUE QIIERES SALOR PERDERÁS TÚ PROGRESO ACTUAL?`,
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#000E4E",
+            cancelButtonColor: "#A40000",
+            confirmButtonText: "SI",
+            cancelButtonText: "NO",
+            allowOutsideClick: false,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              restore(true);
+              navigate(urlNavigate);
+            } else {
+            }
+          });
+        } else {
+          Swal.fire({
+            title: "PREGUNTA",
+            text: `¿ESTAS SEGURO DE QUE QIIERES SALOR PERDERÁS TÚ PROGRESO ACTUAL?`,
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#000E4E",
+            cancelButtonColor: "#A40000",
+            confirmButtonText: "SI",
+            cancelButtonText: "No",
+            allowOutsideClick: false,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate(urlNavigate);
+            } else {
+            }
+          });
+        }
+
+        // Swal.fire({
+        //   title: "Pregunta",
+        //   text: `¿Estas seguro de que quieres salir perderás tú progreso actual?`,
+        //   icon: "question",
+        //   showCancelButton: true,
+        //   confirmButtonColor: "#000E4E",
+        //   cancelButtonColor: "#A40000",
+        //   confirmButtonText: "Si",
+        //   cancelButtonText: "No",
+        //   allowOutsideClick: false,
+        // }).then((result) => {
+        //   if (result.isConfirmed) {
+        //     navigate(urlNavigate);
+        //   } else {
+        //   }
+        // });
       } else {
         navigate(urlNavigate);
+        console.log(urlNavigate);
       }
     } else {
+      console.log("urlNavigate: ", urlNavigate);
+      console.log("vacia: ", vacia);
+
       navigate(urlNavigate);
     }
   };
@@ -350,7 +421,6 @@ export const LateralMenu = ({
               justifyContent: "center",
               flexDirection: "column",
               marginBottom: "1rem",
-              
             }}
           >
             <TextField
@@ -408,7 +478,6 @@ export const LateralMenu = ({
               </Button>
             </Grid>
           </Grid>
-          
         </Grid>
       </Dialog>
     );

@@ -327,7 +327,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
         sx={{ height: "7vh", whitespace: "nowrap" }}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
-        <LateralMenu selection={"AI"} actionNumber={actionNumber} />
+        <LateralMenu selection={"AI"} actionNumber={actionNumber} restore={setShowResume} />
       </Grid>
 
       <Grid

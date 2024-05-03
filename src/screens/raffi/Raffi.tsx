@@ -707,7 +707,7 @@ export const Raffi = () => {
         xs={12}
         sx={{ height: "7vh", whitespace: "nowrap" }}
       >
-        <LateralMenu selection={"RAFFI"} actionNumber={actionNumber} />
+        <LateralMenu selection={"RAFFI"} actionNumber={actionNumber} restore={setOpenTabs}/>
       </Grid>
 
       <Grid

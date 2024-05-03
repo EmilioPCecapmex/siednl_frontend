@@ -29,6 +29,8 @@ export const ProgramaAnualEvaluacion = () => {
         <LateralMenu
           selection={"PAE"}
           actionNumber={actionNumber}
+          restore={() =>{}}
+          
         />
       </Grid>
 

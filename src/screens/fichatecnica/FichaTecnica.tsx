@@ -778,7 +778,7 @@ export const FichaTecnica = () => {
         xs={12}
         sx={{ height: "7vh", whitespace: "nowrap" }}
       >
-        <LateralMenu selection={"FICHA TECNICA"} actionNumber={actionNumber} />
+        <LateralMenu selection={"FICHA TECNICA"} actionNumber={actionNumber} restore={setShowResume}/>
       </Grid>
 
       <Grid

@@ -261,6 +261,7 @@ const Ayuda = () => {
         <LateralMenu
           selection={"ADMINISTRACIÓN DE AYUDAS"}
           actionNumber={0}
+          restore={ ()=>{} }
         />
 
       </Grid>

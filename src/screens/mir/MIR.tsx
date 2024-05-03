@@ -705,7 +705,7 @@ export const MIR = () => {
         sx={{ height: "7vh", whitespace: "nowrap" }}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
-        <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
+        <LateralMenu selection={"MIR"}  actionNumber={actionNumber} restore={setShowResume} />
       </Grid>
       {/* //boxShadow: 10, */}
 

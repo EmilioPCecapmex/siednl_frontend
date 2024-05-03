@@ -266,7 +266,7 @@ export const PanelUsuarios = () => {
         height={"7vh"}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
-        <LateralMenu selection={bandera==""?"USUARIOS":bandera=="1"?"AGREGAR USUARIO":"MODIFICAR USUARIO"} actionNumber={actionNumber} />
+        <LateralMenu selection={bandera==""?"USUARIOS":bandera=="1"?"AGREGAR USUARIO":"MODIFICAR USUARIO"} actionNumber={actionNumber} restore={setShowResume}/>
       </Grid>
       {/* //boxShadow: 10, */}
 

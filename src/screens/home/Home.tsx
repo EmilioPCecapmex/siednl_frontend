@@ -31,7 +31,7 @@ export const Home = () => {
       //overflow="auto"
     >
       <Grid sx={{height: "7vh",}} >
-        <LateralMenu selection={""} actionNumber={0} />
+        <LateralMenu selection={""} actionNumber={0} restore={() =>{}}/>
       </Grid>
 
       <Grid
