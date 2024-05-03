@@ -295,6 +295,8 @@ export default function ModalSolicitaModif({
   const checkComponentes = (v: string) => {
     JSON.parse(MA)?.componentes.map(
       (componente: IComponenteMA, index: number) => {
+        console.log("componente.actividades[index].unidadResponsable: ",componente.actividades[index].unidadResponsable);
+        
         if (
           componente.metaAnual === undefined ||
           /^[\s]*$/.test(componente.metaAnual) ||
@@ -302,9 +304,11 @@ export default function ModalSolicitaModif({
           componente.lineaBase === undefined ||
           /^[\s]*$/.test(componente.lineaBase) ||
           componente.lineaBase === undefined ||
-          /^[\s]*$/.test(componente.actividades[index].unidadResponsable) ||
+
+          /^[\s]*$/.test(componente.unidadResponsable) ||
+          componente.unidadResponsable === undefined ||
           componente.valorNumerador === undefined ||
-          /^[\s]*$/.test(componente.actividades[index].valorNumerador) ||
+          /^[\s]*$/.test(componente.valorNumerador) ||
           componente.unidadResponsable === undefined ||
           /^[\s]*$/.test(componente.unidadResponsable) ||
           componente.descIndicador === undefined ||
