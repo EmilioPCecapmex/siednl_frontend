@@ -43,8 +43,8 @@ export function TabFinProposito({
     resumen: MIR.proposito?.resumen.trimEnd() || "",
     indicador: MIR.proposito?.indicador.trimEnd() || "",
     formula: MIR.proposito?.formula.trimEnd() || "",
-    frecuencia: "ANUAL",
-    medios_verificacion: MIR.proposito?.medios_verificacion.trimEnd() || "",
+    frecuencia: "ANUAL" || "",
+    medios_verificacion: MIR.proposito?.medios_verificacion?.trimEnd() || "",
     supuestos: MIR.proposito?.supuestos.trimEnd() || "",
   });
 
