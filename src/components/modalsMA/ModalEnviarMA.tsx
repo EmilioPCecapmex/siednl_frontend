@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
 import {
-  Grid,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField,
   Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  TextField,
   Typography,
 } from "@mui/material";
-//import { sendMail } from "../../funcs/sendMailCustomMessage";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import {
-  alertaEliminar,
   alertaErrorConfirm,
   alertaErroresDocumento,
   alertaExito,
-  alertaExitoConfirm,
-  alertaInfo,
+  alertaExitoConfirm
 } from "../genericComponents/Alertas";
 import { enviarNotificacionRol } from "../genericComponents/axiosGenericos";
+import { IActividadesMA, IComponenteMA } from "../tabsMetaAnual/Interfaces";
 
 export let errores: string[] = [];
 

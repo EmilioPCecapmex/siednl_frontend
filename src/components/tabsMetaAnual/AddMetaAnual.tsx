@@ -13,6 +13,7 @@ import { TabActividadesMA } from "./TabActividades";
 import { TabComponenteMA } from "./TabComponente";
 import { TabFinPropositoMA } from "./TabFinPropositoMA";
 import TabResumenMA, { IComponenteEditMA } from "./TabResumenMA";
+import SliderProgress from "../genericComponents/SliderProgress";
 
 const tabs = ["Fin / Propósito", "Componentes", "Actividades", "Resumen"];
 
@@ -218,21 +219,21 @@ export default function AddMetaAnual({
     newMetaAnualboolean(MIR)
   );
 
- 
+  const [objActualizado,setObjActualizado]=useState(false)
 
   const [value, setValue] = React.useState(0);
 
-  const [showMir, setShowMir] = React.useState(false);
+  // const [showMir, setShowMir] = React.useState(false);
 
-  const [showSt, setShowSt] = React.useState("");
+  // const [showSt, setShowSt] = React.useState("");
 
-  const showMirFnc = (state: boolean) => {
-    setShowMir(state);
-  };
+  // const showMirFnc = (state: boolean) => {
+  //   setShowMir(state);
+  // };
 
-  const showFnc = (st: string) => {
-    setShowSt(st);
-  };
+  // const showFnc = (st: string) => {
+  //   setShowSt(st);
+  // };
 
 
   const setMAFinPadre = (FinValues: IFinMA) => {
@@ -273,6 +274,8 @@ export default function AddMetaAnual({
     
     if (MA !== "") {
       let auxArrayMA = JSON.parse(MA);
+      // console.log('auxArrayMA',auxArrayMA);
+      
       if (auxArrayMA[1]) {
         let auxDBMA: IMA = auxArrayMA[0];
         let auxMIR: IMIR = JSON.parse(MIR);
@@ -307,7 +310,10 @@ export default function AddMetaAnual({
         let auxMIR: IMIR = JSON.parse(MIR);
         let auxMA: IMA = newMetaAnual(MIR);
 
-
+        // console.log('auxDBMA',auxDBMA);
+        // console.log('auxMIR',auxMIR);
+        // console.log('auxMA',auxMA);
+        
 
         let auxComponentes = auxMA.componentes.map((itemComponente, indexC) => {
           if (auxDBMA.componentes[indexC]) {
@@ -329,17 +335,24 @@ export default function AddMetaAnual({
             return newComponenteMA(auxMIR.componentes[indexC]);
           }
         });
-
+        // console.log('Objeto creado:',{ ...auxDBMA, componentes: auxComponentes });
+        
         setMAPadre({ ...auxDBMA, componentes: auxComponentes });
       }
     }
   }, []);
 
-  const query = {
-    isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
+   useEffect(()=>{
+    // console.log('maPadre actualizado',maPadre);
+   setObjActualizado(true)},[maPadre])
 
-    isMobile: useMediaQuery("(min-width: 0px) and (max-width: 600px)"),
-  };
+
+
+  // const query = {
+  //   isScrollable: useMediaQuery("(min-width: 0px) and (max-width: 500px)"),
+
+  //   isMobile: useMediaQuery("(min-width: 0px) and (max-width: 600px)"),
+  // };
 
   return (
     <Grid
@@ -350,6 +363,7 @@ export default function AddMetaAnual({
         height: "100%",
       }}
     >
+      <SliderProgress open={!objActualizado} texto=""></SliderProgress>
       <Grid
         container
         item
@@ -390,18 +404,18 @@ export default function AddMetaAnual({
               alignItems: "center",
             }}
           >
-            {value === 0 ? (
+            {value === 0 && objActualizado ? (
               <TabFinPropositoMA
                 edit={editMA}
                 MA={MA}
                 MIR={MIR}
-                setTxtShowFnc={showFnc}
+                // setTxtShowFnc={showFnc}
                 finPadre={maPadre.fin}
                 propositoPadre={maPadre.proposito}
                 //show={value === 0 ? true : false}
                 setMAFinPadre={setMAFinPadre}
                 setMAPropositoPadre={setMAPropositoPadre}
-                showMirFnc={showMirFnc}
+                // showMirFnc={showMirFnc}
                 maPadreEdit={maPadreEdit}
                 setMAPadre={setMAPadre}
               />
@@ -409,8 +423,8 @@ export default function AddMetaAnual({
             {value === 1 ? (
               <TabComponenteMA
                 edit={editMA}
-                setTxtShowFnc={showFnc}
-                showMirFnc={showMirFnc}
+                // setTxtShowFnc={showFnc}
+                // showMirFnc={showMirFnc}
                 //show={value === 1 ? true : false}
                 setMAcomponentesPadre={setMAcomponentesPadre}
                
@@ -424,8 +438,8 @@ export default function AddMetaAnual({
             {value === 2 ? (
               <TabActividadesMA
                 edit={editMA}
-                setTxtShowFnc={showFnc}
-                showMirFnc={showMirFnc}
+                // setTxtShowFnc={showFnc}
+                // showMirFnc={showMirFnc}
                
                 // show={value === 2 ? true : false}
                 setMAActividadesPadre={setMAActividadesPadre}

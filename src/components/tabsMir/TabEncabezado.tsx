@@ -93,6 +93,7 @@ export function TabEncabezado({
 
   const [catalogoTematicas, setCatalogoTematicas] = useState<Array<ILista>>([]);
   const [tematica, setTematica] = useState<ILista>(
+    
     MIR.encabezado?.tema || objetoVacio
   );
 

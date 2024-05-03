@@ -29,8 +29,8 @@ export const TabActividadesMA = ({
   edit,
   setMAActividadesPadre,
   ComponentesActividadMA,
-  showMirFnc,
-  setTxtShowFnc,
+  // showMirFnc,
+  // setTxtShowFnc,
   MA,
   MIR,
   
@@ -38,8 +38,8 @@ export const TabActividadesMA = ({
   edit: boolean;
   setMAActividadesPadre: Function;
   ComponentesActividadMA: IComponenteMA[];
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
+  // showMirFnc: Function;
+  // setTxtShowFnc: Function;
   MA: string;
   MIR: string;
 
@@ -432,8 +432,8 @@ export const TabActividadesMA = ({
         <Tooltip title="RESUMEN ACTIVIDADES">
           <InfoOutlinedIcon
             onClick={() => {
-              showMirFnc(true);
-              setTxtShowFnc("Actividades");
+              // showMirFnc(true);
+              // setTxtShowFnc("Actividades");
             }}
             fontSize="large"
             sx={{ cursor: "pointer" }}
