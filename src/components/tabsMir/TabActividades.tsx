@@ -649,7 +649,7 @@ export const TabActividades = ({
                 edit &&
                 !mirEdit?.componentes[componenteSelect].actividades[
                   actividadSelect
-                ]?.formula
+                ]?.indicador
               }
               rows={8}
               multiline

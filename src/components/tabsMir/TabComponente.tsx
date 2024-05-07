@@ -452,7 +452,7 @@ export const TabComponente = ({
           >
             <TextField
               disabled={
-                edit && !mirEdit?.componentes[componentSelect - 1]?.formula
+                edit && !mirEdit?.componentes[componentSelect - 1]?.indicador
               }
               rows={8}
               multiline

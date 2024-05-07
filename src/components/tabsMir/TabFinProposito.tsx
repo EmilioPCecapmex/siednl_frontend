@@ -569,7 +569,10 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  disabled={edit && !mirEdit?.fin.formula && fin.formula !== ""}
+                 // disabled={edit && !mirEdit?.fin.formula && fin.formula !== ""}
+                 disabled={
+                  edit && !mirEdit?.fin.indicador && fin.indicador !== ""
+                }
                   rows={8}
                   multiline
                   variant="filled"
@@ -960,8 +963,8 @@ export function TabFinProposito({
                 <TextField
                   disabled={
                     edit &&
-                    !mirEdit?.proposito.formula &&
-                    proposito.formula !== ""
+                    !mirEdit?.proposito.indicador &&
+                    proposito.indicador !== ""
                   }
                   rows={8}
                   multiline
