@@ -84,13 +84,13 @@ export const TabComponenteMA = ({
         ? "Tasa"
         : JSON.parse(MIR)
             .componentes[componentSelect].indicador.toUpperCase()
-            .includes("INDICE" || "ÍNDICE") ||
+            .includes("INDICE" || "ÍNDICE" || "indice" || "Índice") ||
           JSON.parse(MIR)
             .componentes[componentSelect].indicador.toUpperCase()
-            .includes("INDICE") ||
+            .includes("INDICE" || "indice") ||
           JSON.parse(MIR)
             .componentes[componentSelect].indicador.toUpperCase()
-            .includes("ÍNDICE")
+            .includes("ÍNDICE" || "indice" || "Índice")
         ? "Índice"
         : JSON.parse(MIR)
             .componentes[componentSelect].indicador.toUpperCase()
@@ -130,7 +130,7 @@ export const TabComponenteMA = ({
         ? "Tasa"
         : JSON.parse(MIR)
             .componentes[componentSelect].indicador.toUpperCase()
-            .includes("INDICE" || "ÍNDICE") ||
+            .includes("ÍNDICE" || "indice" || "Índice") ||
           JSON.parse(MIR)
             .componentes[componentSelect].indicador.toLowerCase()
             .includes("indice") ||
@@ -159,10 +159,10 @@ export const TabComponenteMA = ({
     if (
       JSON.parse(MIR)
         .componentes[componentSelect].indicador.toLowerCase()
-        .includes("indice") ||
+        .includes("indice" || "ÍNDICE" || "indice" || "Índice") ||
       JSON.parse(MIR)
         .componentes[componentSelect].indicador.toLowerCase()
-        .includes("índice")
+        .includes("ÍNDICE" || "indice" || "Índice")
     ) {
       componentesValues[componentSelect].valorNumerador = txt;
       componentesValues[componentSelect].metaAnual = txt;
