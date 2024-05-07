@@ -311,8 +311,11 @@ export const MIR = () => {
     onChangeActionNumberValue();
   };
 
+  const[url, setUrl]=useState(window.location.href)
+
+
   useEffect(() => {
-    const url = window.location.href;
+    
 
     // Verificar si el parámetro 'Id' está presente en la URL
     if (url.includes("?Id=")) {
@@ -323,8 +326,13 @@ export const MIR = () => {
         setMirsFiltered(
           mirs.filter((x) => x.Id.toLowerCase().includes(id || ""))
         );
+        //setUrl("")
       }
     }
+    
+    console.log("url: ",url);
+   // getMIRs(setMirs);
+    
   }, [mirs]);
 
   const [actualizacion, setActualizacion] = useState(0);
@@ -456,8 +464,10 @@ export const MIR = () => {
         if (r.data.data.length === 0) {
           alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
           setMirs(r.data.data);
+          setUrl("")
         }else{
           setMirs(r.data.data);
+          setUrl("")
           
         }
 
@@ -964,6 +974,7 @@ export const MIR = () => {
                       // disabled ={estadomir === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
                         buscador(estadomir, instituciones?.Label);
+                        //getMIRs(setMirs);
                       }}
                     >
                       <SearchIcon

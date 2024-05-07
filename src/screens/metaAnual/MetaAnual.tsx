@@ -177,8 +177,10 @@ export const MetaAnual = () => {
     },
   });
 
+  const[url, setUrl]=useState(window.location.href)
+
   useEffect(() => {
-    const url = window.location.href;
+    //const url = window.location.href;
 
     // Verificar si el parámetro 'Id' está presente en la URL
     if (url.includes("?Id=")) {
@@ -380,8 +382,11 @@ export const MetaAnual = () => {
             "El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR"
             
           );
+          setUrl("")
           
-        } 
+        }else{
+          setUrl("")
+        }
 
         
         //setMaFiltered(r.data.data);

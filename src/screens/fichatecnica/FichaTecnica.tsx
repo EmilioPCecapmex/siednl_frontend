@@ -65,9 +65,9 @@ export const FichaTecnica = () => {
         //setft(r.data.data)
         if (r.data.data.length === 0) {
           alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
-          
+          setUrl("")
         }else{
-          
+          setUrl("")
           setstate(r.data.data);
         }
         
@@ -363,9 +363,10 @@ export const FichaTecnica = () => {
 
   const [validaFecha, setValidaFecha] = useState(true);
   const [actualizacion, setActualizacion] = useState(0);
+  const[url, setUrl]=useState(window.location.href)
 
   useEffect(() => {
-    const url = window.location.href;
+    
 
     // Verificar si el parámetro 'Id' está presente en la URL
     if (url.includes("?Id=")) {

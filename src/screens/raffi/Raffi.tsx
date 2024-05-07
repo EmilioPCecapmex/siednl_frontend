@@ -97,7 +97,7 @@ export const Raffi = () => {
 
   useEffect(() => {
     if (opentabs) {
-      listaRaffi(setRf, estadorf);
+      listaRaffi(setRf, estadorf, setUrl);
       validaFechaCaptura();
       setOpenTabs(true);
     }
@@ -347,8 +347,10 @@ export const Raffi = () => {
       });
   };
 
+  const[url, setUrl]=useState(window.location.href)
+
   useEffect(() => {
-    const url = window.location.href;
+    
 
     // Verificar si el parámetro 'Id' está presente en la URL
     if (url.includes("?Id=")) {
