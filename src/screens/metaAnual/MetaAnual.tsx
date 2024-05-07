@@ -38,7 +38,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { estados, heads } from "../../services/validations";
 import { GridColDef } from "@mui/x-data-grid";
 import DataGridTable from "../../components/genericComponents/DataGridTable";
-import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
+import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
 import { alertaError } from "../../components/genericComponents/Alertas";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {

@@ -41,7 +41,7 @@ import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
 import ComentDialogRF from "../../components/modalsRF/ModalComentariosRF";
-import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
+import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
 import { GridColDef } from "@mui/x-data-grid";
 import DataGridTable from "../../components/genericComponents/DataGridTable";
 
