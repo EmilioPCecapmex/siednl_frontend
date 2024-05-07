@@ -714,16 +714,7 @@ export const TabActividadesMA = ({
                 },
               }}
               onClick={() =>
-                (MAEdit !== ""
-                  ? MAEdit?.actividades[
-                      mapeaindice(componenteSelect, actividadSelect)
-                    ]?.metaAnual
-                  : false) &&
-                componentesActividadValues[componenteSelect].actividades[
-                  actividadSelect
-                ]?.metaAnual !== ""
-                  ? ""
-                  : handleClickOpen()
+                 handleClickOpen()
               }
               value={
                 componentesActividadValues[componenteSelect].actividades[
@@ -931,16 +922,7 @@ export const TabActividadesMA = ({
                   },
                 }}
                 onClick={() =>
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.valorNumerador
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.valorNumerador !== ""
-                    ? ""
-                    : handleClickOpen()
+                   handleClickOpen()
                 }
                 value={
                   componentesActividadValues[componenteSelect].actividades[
@@ -1061,16 +1043,7 @@ export const TabActividadesMA = ({
                   },
                 }}
                 onClick={() =>
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.valorDenominador
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.valorDenominador !== ""
-                    ? ""
-                    : handleClickOpen()
+                   handleClickOpen()
                 }
                 value={
                   componentesActividadValues[componenteSelect].actividades[
@@ -1266,16 +1239,7 @@ export const TabActividadesMA = ({
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() =>
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.metasPorFrecuencia[0].trimestre1
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.metasPorFrecuencia[0].trimestre1 !== ""
-                    ? ""
-                    : handleClickOpen2()
+                   handleClickOpen2()
                 }
                 label={
                   <Typography
@@ -1338,16 +1302,7 @@ export const TabActividadesMA = ({
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() =>
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.metasPorFrecuencia[0].trimestre2
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.metasPorFrecuencia[0].trimestre2 !== ""
-                    ? ""
-                    : handleClickOpen2()
+                 handleClickOpen2()
                 }
                 label={
                   <Typography
@@ -1410,16 +1365,7 @@ export const TabActividadesMA = ({
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() =>
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.metasPorFrecuencia[0].trimestre3
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.metasPorFrecuencia[0].trimestre3 !== ""
-                    ? ""
-                    : handleClickOpen2()
+                   handleClickOpen2()
                 }
                 label={
                   <Typography
@@ -1482,16 +1428,7 @@ export const TabActividadesMA = ({
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
                 onClick={() =>
-                  (MAEdit !== ""
-                    ? MAEdit?.actividades[
-                        mapeaindice(componenteSelect, actividadSelect)
-                      ]?.metasPorFrecuencia[0].trimestre4
-                    : false) &&
-                  componentesActividadValues[componenteSelect].actividades[
-                    actividadSelect
-                  ]?.metasPorFrecuencia[0].trimestre4 !== ""
-                    ? ""
-                    : handleClickOpen2()
+                   handleClickOpen2()
                 }
                 label={
                   <Typography
