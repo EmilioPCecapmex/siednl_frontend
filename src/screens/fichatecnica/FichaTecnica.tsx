@@ -65,9 +65,9 @@ export const FichaTecnica = () => {
         //setft(r.data.data)
         if (r.data.data.length === 0) {
           alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
-          setUrl("")
+         // setUrl("")
         }else{
-          setUrl("")
+         // setUrl("")
           setstate(r.data.data);
         }
         
@@ -1016,7 +1016,8 @@ export const FichaTecnica = () => {
                           estadoft,
                           institucionesb,
                           setft,
-                          "list-fichaTecnica"
+                          "list-fichaTecnica",
+                          setUrl
                         );
                       }}
                     >

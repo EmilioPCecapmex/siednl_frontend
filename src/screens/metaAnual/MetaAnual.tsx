@@ -51,13 +51,13 @@ export const MetaAnual = () => {
 
   useEffect(() => {
     setShowResume(true);
-    //getMA();
+   
   }, [ResumeDefaultMA]);
 
   const returnMain = () => {
     setShowResume(true);
     setActionNumber(1);
-    //getMA();
+    
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -375,17 +375,18 @@ export const MetaAnual = () => {
       })
       .then((r) => {
         console.log("r.data.data1: ",r.data.data);
-        setstate(r.data.data);
+        
         if (r.data.data.length === 0) {
-          
+          setstate(r.data.data);
           alertaError(
             "El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR"
             
           );
-          setUrl("")
+          //setUrl("")
           
         }else{
-          setUrl("")
+          setstate(r.data.data);
+          //setUrl("")
         }
 
         
@@ -393,15 +394,11 @@ export const MetaAnual = () => {
       });
   };
 
-  // useEffect(() => {
-  //   getMA();
-  // }, []);
+  
 
   const [actualizacion, setActualizacion] = useState(0);
 
-  // useEffect(() => {
-  //   getMA();
-  // }, [actualizacion]);
+ 
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
@@ -954,7 +951,9 @@ export const MetaAnual = () => {
                           estadoma,
                           institucionesb,
                           setMa,
-                          "list-metaAnual"
+                          "list-metaAnual",
+                          setUrl
+
                         );
                       }}
                     >
