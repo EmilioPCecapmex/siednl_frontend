@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
+import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
 import DownloadIcon from "@mui/icons-material/Download";
 import EditIcon from "@mui/icons-material/Edit";
 import {
