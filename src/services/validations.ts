@@ -1,6 +1,4 @@
-import Swal from "sweetalert2";
 import { alertaError } from "../components/genericComponents/Alertas";
-import axios from "axios";
 import { IIFT } from "../screens/fichatecnica/FichaTecnica";
 
 export const validarNumero = (dato: string, state: any) => {

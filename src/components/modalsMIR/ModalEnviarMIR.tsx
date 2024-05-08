@@ -18,7 +18,7 @@ import {
   IComponente,
   IMovimientos,
 } from "../tabsMir/interfaces mir/IMIR";
-import { getMAyFT } from "../../services/mir_services/MIR_services";
+import { getMAyFT } from "../../services/mir_services/servicesMIR";
 import { IMA } from "../tabsMetaAnual/IMA";
 import { IComponentesFT, IFT } from "../tabsFichaTecnica/Interfaces";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";

@@ -9,24 +9,16 @@ import {
 
 export interface IMIR {
   encabezado: IEncabezado;
-
   fin: IFin;
-
   proposito: IProposito;
-
   componentes: IComponente[];
 }
 
 export interface IMIREdit {
   encabezado: IEncabezadoEdit;
-
   fin: IFinEdit;
-
   proposito: IPropositoEdit;
-
   componentes: Array<IComponenteMirEdit>;
-
-  // actividades: Array<IActividadesMirEdit>;
 }
 
 export interface IComponente {
@@ -55,20 +47,6 @@ export interface IMovimientos {
   indice: string;
 }
 
-// export interface ICValor {
-//   [x: string]: any;
-//   componentes: {
-//     actividades: {
-//       actividad: string;
-//       resumen: string;
-//       indicador: string;
-//       formula: string;
-//       frecuencia: string;
-//       medios: string;
-//       supuestos: string;
-//     }[];
-//   }[];
-// }
 
 export interface ILista {
   Id: string;

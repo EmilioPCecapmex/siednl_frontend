@@ -1,13 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
 import DownloadIcon from "@mui/icons-material/Download";
 import EditIcon from "@mui/icons-material/Edit";
+import SearchIcon from "@mui/icons-material/Search";
 import {
+  Autocomplete,
   Button,
   FormControl,
+  Grid,
   IconButton,
-  MenuItem,
-  Select,
+  InputBase,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -15,31 +16,23 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Tooltip,
-  InputLabel,
-  InputBase,
-  Paper,
-  Grid,
   TableSortLabel,
   TextField,
-  Autocomplete,
+  Tooltip,
   useMediaQuery,
 } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import { queries } from "../../queries";
+import { GridColDef } from "@mui/x-data-grid";
 import moment from "moment";
-import Swal from "sweetalert2";
-import { IEntidad } from "../../components/appsDialog/AppsDialog";
+import React, { useEffect, useState } from "react";
+import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
+import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import FullModalMir from "../../components/tabsMir/AddMir";
-import SearchIcon from "@mui/icons-material/Search";
-import { alertaError } from "../../components/genericComponents/Alertas";
+import { ILista } from "../../components/tabsMir/interfaces mir/IMIR";
+import { getInstituciones, getMIRs } from "../../services/mir_services/servicesMIR";
+import { buscador, downloadMIR, validaFechaCaptura } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
-import DataGridTable from "../../components/genericComponents/DataGridTable";
-import { GridColDef } from "@mui/x-data-grid";
 
 export let resumeDefaultMIR = true;
 
@@ -48,115 +41,10 @@ export let setResumeDefaultMIR = () => {
 };
 
 export const MIR = () => {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
+  const objetiInstitucion: ILista = {Id: "0",Label: "TODOS",};
 
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
-
-  interface IEntidadLabel {
-    Id: string;
-    Label: string;
-  }
-
-  const getMIRs = (setState: Function) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
-          Rol: localStorage.getItem("Rol"),
-          Estado: estadomir || "TODOS",
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-
-        setState(r.data.data);
-      });
-  };
-
-  const objetiInstitucion: IEntidadLabel = {
-    //ClaveSiregob: null,
-    //ControlInterno: "",
-    Id: "0",
-    Label: "TODOS",
-  };
-
- // const [instituciones, setInstituciones] = useState<IEntidad>(objetiInstitucion || "");
-  const [instituciones, setInstituciones] = useState<IEntidadLabel>();
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
-    Array<IEntidadLabel>
-  >([]);
-
-  // cambiado
-  const getInstituciones = (setstate: Function) => {
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas",
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          let aux = r.data.data;
-          aux.unshift({
-            Id: "0",
-            Label: "TODOS",
-          });
-          setstate(r.data.data);
-        }
-      });
-  };
-
-  useEffect(() => {
-    setShowResume(true);
-  }, []);
-
-  const returnMain = () => {
-    setShowResume(true);
-  };
-  const validaFechaCaptura = () => {
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-          params: {
-            Rol: localStorage.getItem("Rol"),
-            Modulo: "Mir",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.data.data.valida === "true") {
-          setValidaFecha(true);
-          setTitle("EDITAR");
-        } else {
-          setValidaFecha(false);
-          setTitle("FECHA CAPTURA FINALIZADA");
-        }
-      })
-      .catch((err) => {});
-  };
+  const [instituciones, setInstituciones] = useState<ILista>();
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<ILista[]>([]);
 
   const [showResume, setShowResume] = useState(true);
   const [validaFecha, setValidaFecha] = useState(true);
@@ -165,6 +53,12 @@ export const MIR = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
   const [actionNumber, setActionNumber] = useState(0);
 
+ 
+
+  const returnMain = () => {
+    setShowResume(true);
+  };
+   
   const onChangeActionNumberValue = () => {
     setActionNumber(1);
   };
@@ -173,6 +67,7 @@ export const MIR = () => {
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
+
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -187,8 +82,6 @@ export const MIR = () => {
   const [findInstStr, setFindInstStr] = useState("TODOS");
   const [findSelectStr, setFindSelectStr] = useState("TODOS");
 
-  const [institucionesb, setInstitucionesb] = useState("TODOS");
-
   const [estadomir, setEstadoMIR] = useState("TODOS");
 
   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
@@ -197,20 +90,6 @@ export const MIR = () => {
   const [mirsFiltered, setMirsFiltered] = useState<Array<IIMir>>([]);
   const [mirxFiltered, setMirxFiltered] = useState<Array<IIMir>>([]);
   // Filtrado por caracter
-
-  useEffect(() => {
-    validaFechaCaptura();
-    getMIRs(setMirs);
-    setEstadoMIR("TODOS");
-  }, [showResume]);
-
-  useEffect(() => {
-    setMirsFiltered(mirs);
-  }, [mirs]);
-
-  useEffect(() => {
-    setMirxFiltered(mirsFiltered);
-  }, [mirsFiltered]);
 
   const findText = (v: string, est: string, inst: string) => {
     if (
@@ -293,106 +172,21 @@ export const MIR = () => {
     }
   };
 
-  useEffect(() => {
-    findText(findTextStr, findSelectStr, findInstStr);
-  }, [findTextStr, findInstStr, findSelectStr]);
-
   const handleChange = (dato: string) => {
     setFindTextStr(dato);
   };
-
-  useEffect(() => {
-    //getInstituciones(setInstituciones);
-    getInstituciones(setCatalogoInstituciones);
-  }, []);
 
   const handleClickOpen = () => {
     setShowResume(false);
     onChangeActionNumberValue();
   };
 
-  const[url, setUrl]=useState(window.location.href)
-
-
-  useEffect(() => {
-    
-
-    // Verificar si el parámetro 'Id' está presente en la URL
-    if (url.includes("?Id=")) {
-      const id = url.split("?")[1].split("=")[1];
-
-      // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
-      if (id) {
-        setMirsFiltered(
-          mirs.filter((x) => x.Id.toLowerCase().includes(id || ""))
-        );
-        //setUrl("")
-      }
-    }
-    
-    console.log("url: ",url);
-   // getMIRs(setMirs);
-    
-  }, [mirs]);
-
+  const [url, setUrl] = useState(window.location.href);
   const [actualizacion, setActualizacion] = useState(0);
-
-  useEffect(() => {
-    getMIRs(setMirs);
-  }, [actualizacion]);
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
   };
-  ///////////////////////////////////////////////////
-  const downloadMIR = (
-    anio: string,
-    inst: string,
-    prog: string,
-    mir: string
-  ) => {
-    axios
-
-      .post(
-        process.env.REACT_APP_APPLICATION_FILL + "/api/fill_mir",
-        JSON.parse(mir),
-        {
-          responseType: "blob",
-          // headers: {
-          //   Authorization: localStorage.getItem("jwtToken") || "",
-          // },
-        }
-      )
-      .then((r) => {
-        Toast.fire({
-          icon: "success",
-          title: "La descarga comenzara en un momento.",
-        });
-        const href = URL.createObjectURL(r.data);
-
-        // create "a" HTML element with href to file & click
-        const link = document.createElement("a");
-        link.href = href;
-        link.setAttribute(
-          "download",
-          "MIR_" + anio + "_" + inst + "_" + prog + ".xlsx"
-        ); //or any other extension
-        document.body.appendChild(link);
-        link.click();
-
-        // clean up "a" element & remove ObjectURL
-        document.body.removeChild(link);
-        URL.revokeObjectURL(href);
-      })
-      .catch((err) => {
-        alertaError("Error al intentar descargar el documento.");
-        // Toast.fire({
-        //   icon: "error",
-        //   title: "Error al intentar descargar el documento.",
-        // });
-      });
-  };
-  ///////////////////////////////////////
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
@@ -435,45 +229,11 @@ export const MIR = () => {
     setMirsFiltered(ResultadoBusqueda);
   };
 
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    findTextStr.length !== 0 ? setMirsFiltered(mirsFiltered) : null;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [findTextStr]);
-
   const [estado, setEstado] = useState("");
 
   const [IdEntidad, setIdEntidad] = useState("");
 
-  const buscador = (estado: any, Ins: any) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdEntidad: Ins || "Todos" || localStorage.getItem("IdEntidad"),
-          Rol: localStorage.getItem("Rol"),
-          Estado: estado || "TODOS",
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-
-        if (r.data.data.length === 0) {
-          alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
-          setMirs(r.data.data);
-          setUrl("")
-        }else{
-          setMirs(r.data.data);
-          setUrl("")
-          
-        }
-
-        //setInstitucionesb("TODOS")
-      });
-  };
+  
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
@@ -702,6 +462,60 @@ export const MIR = () => {
     },
   ];
 
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    findTextStr.length !== 0 ? setMirsFiltered(mirsFiltered) : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [findTextStr]);
+  useEffect(() => {
+    // Verificar si el parámetro 'Id' está presente en la URL
+    if (url.includes("?Id=")) {
+      const id = url.split("?")[1].split("=")[1];
+
+      // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
+      if (id) {
+        setMirsFiltered(
+          mirs.filter((x) => x.Id.toLowerCase().includes(id || ""))
+        );
+        //setUrl("")
+      }
+    }
+  }, [mirs]);
+
+  useEffect(() => {
+    getMIRs(setMirs, setAnioFiscalEdit, estadomir);
+  }, [actualizacion]);
+
+  useEffect(() => {
+    getInstituciones(setCatalogoInstituciones);
+  }, []);
+  useEffect(() => {
+    findText(findTextStr, findSelectStr, findInstStr);
+  }, [findTextStr, findInstStr, findSelectStr]);
+  useEffect(() => {
+    validaFechaCaptura(setValidaFecha,setTitle,"Mir");
+    getMIRs(setMirs, setAnioFiscalEdit, estadomir);
+    setEstadoMIR("TODOS");
+  }, [showResume]);
+
+  useEffect(() => {
+    setMirsFiltered(mirs);
+  }, [mirs]);
+
+  useEffect(() => {
+    setMirxFiltered(mirsFiltered);
+  }, [mirsFiltered]);
+
+  useEffect(() => {
+    setShowResume(true);
+  }, []);
+
+  const widthCondition=()=>{
+    return ( 
+    localStorage.getItem("Rol") === "Administrador" ||
+    localStorage.getItem("Rol") === "ADMINISTRADOR")
+  }
+
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
       <Grid
@@ -711,13 +525,14 @@ export const MIR = () => {
         md={12}
         sm={12}
         xs={12}
-        // height={"7vh"}
         sx={{ height: "7vh", whitespace: "nowrap" }}
-        // sx={{ mr: showResume ? 8 : 0 }}
       >
-        <LateralMenu selection={"MIR"}  actionNumber={actionNumber} restore={setShowResume} />
+        <LateralMenu
+          selection={"MIR"}
+          actionNumber={actionNumber}
+          restore={setShowResume}
+        />
       </Grid>
-      {/* //boxShadow: 10, */}
 
       <Grid
         container
@@ -746,8 +561,6 @@ export const MIR = () => {
               md={8}
               sm={10}
               xs={11}
-              // height="15vh"
-              // direction="row"
               sx={{
                 ...(!isSmallScreen
                   ? { boxShadow: 5, backgroundColor: "#FFFF", borderRadius: 5 }
@@ -767,9 +580,6 @@ export const MIR = () => {
                 xs={12}
                 container
                 item
-                // direction="row"
-                // justifyContent="space-around"
-                // alignItems="center"
                 sx={{
                   justifyContent: "space-around",
                   alignItems: "center",
@@ -804,7 +614,6 @@ export const MIR = () => {
                     >
                       <FormControl required fullWidth>
                         <Autocomplete
-                          //  disabled={edit && !mirEdit?.encabezado.ejercicioFiscal}
                           clearText="Borrar"
                           noOptionsText="Sin opciones"
                           closeText="Cerrar"
@@ -812,17 +621,8 @@ export const MIR = () => {
                           disablePortal
                           size="small"
                           options={catalogoInstituciones}
-                          getOptionLabel={(option) => option.Label|| ""}
+                          getOptionLabel={(option) => option.Label || ""}
                           value={instituciones || "" || objetiInstitucion}
-
-                          // value={
-                          //   (localStorage.getItem("Rol") === "Administrador" ||
-                          //   localStorage.getItem("Rol") === "ADMINISTRADOR"
-                          //     ? estadomir.toUpperCase()
-                          //     : findSelectStr.toUpperCase()) || estados[0]
-                          // }
-                          // getOptionLabel={(option) => option.Label || ""}
-                          // value={instituciones || objetiInstitucion}
                           getOptionDisabled={(option) => {
                             if (option.Id === "") {
                               return true;
@@ -872,35 +672,29 @@ export const MIR = () => {
                 ) : null}
 
                 <Grid
-                  // sx={{ fontFamily: "MontserratRegular" }}
                   item
                   xl={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                    widthCondition()
                       ? 5
                       : 11
                   }
                   lg={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                    widthCondition()
                       ? 5
                       : 11
                   }
                   md={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                    widthCondition()
                       ? 5
                       : 11
                   }
                   sm={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                    widthCondition()
                       ? 5
                       : 11
                   }
                   xs={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
+                    widthCondition()
                       ? 11
                       : 11
                   }
@@ -935,11 +729,8 @@ export const MIR = () => {
                         }
                         options={estados}
                         onChange={(event, newValue) => {
-                          // Access the value using newValue
-
                           if (
-                            localStorage.getItem("Rol") === "Administrador" ||
-                            localStorage.getItem("Rol") === "ADMINISTRADOR"
+                            widthCondition()
                           ) {
                             setEstadoMIR(newValue || "");
                           } else {
@@ -971,33 +762,13 @@ export const MIR = () => {
                 {localStorage.getItem("Rol") === "Administrador" && (
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
-                      // disabled ={estadomir === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
-                        buscador(estadomir, instituciones?.Label);
-                        //getMIRs(setMirs);
+                        buscador(estadomir, instituciones?.Label,setMirs,'list-mir',setUrl);
                       }}
                     >
                       <SearchIcon
-                        sx={{
-                          fontSize: "24px", // Tamaño predeterminado del icono
-                          "@media (max-width: 600px)": {
-                            fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                          },
-                          "@media (min-width: 601px) and (max-width: 960px)": {
-                            fontSize: 20, // Pantalla pequeña (md)
-                          },
-                          "@media (min-width: 961px) and (max-width: 1280px)": {
-                            fontSize: 20, // Pantalla mediana (lg)
-                          },
-                          "@media (min-width: 1281px)": {
-                            fontSize: 25, // Pantalla grande (xl)
-                          },
-                          "@media (min-width: 2200px)": {
-                            fontSize: 25, // Pantalla grande (xl)
-                          },
-                        }}
+                        sx={{fontSize:[20,20,20,25,25] }}
                         onClick={() => {
-                          // Acciones adicionales al hacer clic en el ícono de búsqueda
                         }}
                       ></SearchIcon>
                     </IconButton>
@@ -1012,9 +783,6 @@ export const MIR = () => {
                 sm={12}
                 xs={12}
                 container
-                // direction="row"
-                // justifyContent="space-around"
-                // alignItems="center"
                 sx={{
                   direction: "row",
                   justifyContent: "space-around",
@@ -1058,34 +826,11 @@ export const MIR = () => {
                     />
                     <IconButton
                       type="button"
-                      //sx={{ p: "10px" }}
                       aria-label="Buscar"
                       onClick={() => filtrarDatos()}
                     >
                       <SearchIcon
-                        sx={{
-                          fontSize: "24px", // Tamaño predeterminado del icono
-
-                          "@media (max-width: 600px)": {
-                            fontSize: 25, // Pantalla extra pequeña (xs y sm)
-                          },
-
-                          "@media (min-width: 601px) and (max-width: 960px)": {
-                            fontSize: 25, // Pantalla pequeña (md)
-                          },
-
-                          "@media (min-width: 961px) and (max-width: 1280px)": {
-                            fontSize: 30, // Pantalla mediana (lg)
-                          },
-
-                          "@media (min-width: 1281px)": {
-                            fontSize: 30, // Pantalla grande (xl)
-                          },
-
-                          "@media (min-width: 2200px)": {
-                            fontSize: 30, // Pantalla grande (xl)
-                          },
-                        }}
+                        sx={{fontSize: [25,25,30,30,30]}}
                       />
                     </IconButton>
                   </Paper>
@@ -1096,14 +841,9 @@ export const MIR = () => {
                     disabled={!validaFecha}
                     className="aceptar"
                     sx={{
-                      //backgroundColor: "#c2a37b",
-                      // width: "10vw",
-                      // height: "3.3vh",
                       width: ["100px", "120px", "160px", "180px", "250px"],
                       height: ["40px", "40px", "40px", "40px", "50px"],
-                      //color: "black",
                       fontFamily: "MontserratMedium",
-                      //fontSize: [3, 6, 10, 12, 16, 20],
                     }}
                     onClick={() => {
                       setMirEdit([
@@ -1144,9 +884,6 @@ export const MIR = () => {
               md={10}
               sm={10}
               xs={10}
-              //width={"80%"}
-              // height="65vh"
-              // direction="row"
               sx={{
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
@@ -1186,8 +923,6 @@ export const MIR = () => {
                             borderBottom: 0,
                             fontSize: [10, 10, 10, 15, 16, 18],
                             textAlign: "center",
-                            // fontFamily: "MontserratRegular",
-                            //   fontSize: ".7vw",
                             justifyContent: "center",
                             alignItems: "center",
                           }}
@@ -1353,15 +1088,13 @@ export const MIR = () => {
                                           fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
 
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
+                                        "@media (min-width: 601px) and (max-width: 960px)": {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
 
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
@@ -1478,15 +1211,13 @@ export const MIR = () => {
                                           fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
 
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
+                                        "@media (min-width: 601px) and (max-width: 960px)": {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
 
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
@@ -1501,82 +1232,6 @@ export const MIR = () => {
                                 </span>
                               </Tooltip>
                               <MostrarLista st="" Id={row.Id} />
-                              {/* <Tooltip
-                                title="Lista"
-                                PopperProps={{
-                                  modifiers: [
-                                    {
-                                      name: "offset",
-                                      options: {
-                                        offset: [0, -13],
-                                      },
-                                    },
-                                  ],
-                                }}
-                              >
-                                <span>
-                                  <IconButton
-                                    disabled={
-                                      ((row.Estado === "En Captura" || row.Estado === "Borrador Capturador") &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Capturador") ||
-                                      (row.Estado === "En Revisión" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Verificador") ||
-                                      (row.Estado === "Borrador Verificador" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Verificador") ||
-                                      ((row.Estado === "En Autorización" ||
-                                        row.Estado === "Autorizada") &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Administrador") ||
-                                      (row.Estado === "Borrador Autorizador" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
-                                          "Administrador")
-                                        ? false
-                                        : true
-                                    }
-                                    onClick={() => {
-                                      setOpenVisualizador(true)
-                                    }}
-                                  >
-                                    <ListAltIcon
-                                      sx={{
-                                        fontSize: "24px", // Tamaño predeterminado del icono
-
-                                        "@media (max-width: 600px)": {
-                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                        },
-
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
-
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
-
-                                        "@media (min-width: 1281px)": {
-                                          fontSize: 25, // Pantalla grande (xl)
-                                        },
-
-                                        "@media (min-width: 2200px)": {
-                                          ffontSize: 25, // Pantalla grande (xl)
-                                        },
-                                      }}
-                                    />
-                                  </IconButton>
-                                </span>
-                              </Tooltip>
-
- */}
                             </Grid>
                           </TableCell>
                         </TableRow>
@@ -1599,20 +1254,6 @@ export const MIR = () => {
                 />
               </Grid>
             </Grid>
-            {/* {openVisualizador ? (
-              <MostrarLista
-                handleClose={() => {
-                  setOpenVisualizador(false);
-                }}
-              />
-            ) : null} */}
-            {/* {openVisualizador ? (
-        <MostrarLista
-          handleClose={() => {
-            setOpenVisualizador(false);
-          }}
-        />
-      ) : null} */}
           </>
         ) : (
           <Grid

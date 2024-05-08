@@ -17,7 +17,7 @@ import {
   getLista,
   getListasLogin,
   getListasLoginProgramas,
-} from "./services mir/servicesMIR";
+} from "../../services/mir_services/servicesMIR";
 import { alertaInfo } from "../genericComponents/Alertas";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
