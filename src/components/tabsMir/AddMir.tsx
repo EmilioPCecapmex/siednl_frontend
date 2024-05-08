@@ -15,7 +15,7 @@ import TabFinProposito from "./TabFinProposito";
 import TabResumen, { IComponenteMirEdit } from "./TabResumen";
 import { alertaError } from "../genericComponents/Alertas";
 import GenericTabs from "../genericComponents/genericTabs";
-import { getMAyFT } from "../../services/mir_services/MIR_services";
+import { getMAyFT } from "../../services/mir_services/servicesMIR";
 
 const tabs = [
   "Encabezado",
