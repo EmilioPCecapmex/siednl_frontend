@@ -147,7 +147,11 @@ export const getAyuda = (
 ) => {
   axios
     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/ayuda", {
-      params: { IdMenu: IdMenu==="0"?"0":localStorage.getItem("IdMenuActual"), Opcion: Opcion, IdRol: IdRol==="0"?"0":localStorage.getItem("IdRol") },
+      params: { IdMenu: 
+        IdMenu==="0"?"0":localStorage.getItem("IdMenuActual"), 
+        Opcion: Opcion, 
+        IdRol: IdRol==="0"?"0":localStorage.getItem("IdRol") 
+      },
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("jwtToken") || "",
@@ -161,7 +165,10 @@ export const getAyuda = (
 export const createAyuda = (data: any, handleClose: Function) => {
   axios
     .post(process.env.REACT_APP_APPLICATION_BACK + "/api/ayuda", data, {
-      params: { Tabla: "Menus", ValorCondicion: localStorage.getItem("IdApp") },
+      params: { 
+        Tabla: "Menus", 
+        ValorCondicion: localStorage.getItem("IdApp") 
+      },
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("jwtToken") || "",
@@ -176,7 +183,10 @@ export const createAyuda = (data: any, handleClose: Function) => {
 export const getMenus = (setState: Function) => {
   axios
     .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/listas", {
-      params: { Tabla: "Menus", ValorCondicion: localStorage.getItem("IdApp") },
+      params: { 
+        Tabla: "Menus", 
+        ValorCondicion: localStorage.getItem("IdApp") 
+      },
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("jwtToken") || "",
