@@ -19,42 +19,92 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import axios from "axios";
-import { IMAEdit } from "./IMA";
+import { IMA, IMAEdit } from "./IMA";
 import { clearInfo } from "../genericComponents/GenericMethods";
+import { newFinPropositoMA } from "./AddMetaAnual";
 
 export function TabFinPropositoMA({
   edit,
   setMAFinPadre,
   setMAPropositoPadre,
-  showMirFnc,
-  setTxtShowFnc,
+  // setTxtShowFnc,
   finPadre,
   propositoPadre,
   MA,
   MIR,
   maPadreEdit,
+  setMAPadre,
 }: {
   edit: boolean;
   setMAFinPadre: Function;
   setMAPropositoPadre: Function;
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
+  // setTxtShowFnc: Function;
   finPadre: IFinMA;
   propositoPadre: IPropositoMA;
   MA: string;
   MIR: string;
   maPadreEdit: IMAEdit;
+  setMAPadre: Function;
 }) {
 
-
+  useEffect(()=>{},[])
   let MAEdit =
     MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";
 
-  const [valueFin, setValueFin] = useState<IFinMA>(finPadre);
+  const [valueFin, setValueFin] = useState<IFinMA>(newFinPropositoMA);
 
   //values
-  const [valueProposito, setValueProposito] =
-    useState<IPropositoMA>(propositoPadre);
+  const [valueProposito, setValueProposito] = useState<IPropositoMA>(newFinPropositoMA);
+
+  useEffect(()=>{
+    console.log(
+      "MA",MA,
+      "MA",propositoPadre.metaAnual.trimEnd() ,
+      "MA",propositoPadre.lineaBase.trimEnd() ,
+      "MA",propositoPadre.valorNumerador.trimEnd() ,
+      "MA",propositoPadre.valorDenominador.trimEnd() ,
+      "MA",propositoPadre.sentidoDelIndicador.trimEnd() ,
+      "MA",propositoPadre.unidadResponsable.trimEnd() ,
+      "MA", propositoPadre.descIndicador.trimEnd() ,
+      "MA",propositoPadre.valorNumerador.trimEnd() ,
+      "MA", propositoPadre.descDenominador.trimEnd() ,
+      
+        finPadre.metaAnual.trimEnd() ,
+       finPadre.lineaBase.trimEnd() ,
+        finPadre.valorNumerador.trimEnd() ,
+        finPadre.valorDenominador.trimEnd() ,
+         finPadre.sentidoDelIndicador,
+         finPadre.unidadResponsable.trimEnd() ,
+         finPadre.descIndicador.trimEnd() ,
+         finPadre.valorNumerador.trimEnd() ,
+         finPadre.descDenominador.trimEnd() ,
+      
+    );
+    
+    setValueFin({
+      metaAnual: finPadre.metaAnual.trimEnd() || "",
+      lineaBase: finPadre.lineaBase.trimEnd() || "",
+      valorNumerador: finPadre.valorNumerador.trimEnd() || "",
+      valorDenominador: finPadre.valorDenominador.trimEnd() || "",
+      sentidoDelIndicador: finPadre.sentidoDelIndicador,
+      unidadResponsable: finPadre.unidadResponsable.trimEnd() || "",
+      descIndicador: finPadre.descIndicador.trimEnd() || "",
+      descNumerador: finPadre.valorNumerador.trimEnd() || "",
+      descDenominador: finPadre.descDenominador.trimEnd() || "",
+    })
+    setValueProposito({
+      metaAnual: propositoPadre.metaAnual.trimEnd() || "",
+      lineaBase: propositoPadre.lineaBase.trimEnd() || "",
+      valorNumerador: propositoPadre.valorNumerador.trimEnd() || "",
+      valorDenominador: propositoPadre.valorDenominador.trimEnd() || "",
+      sentidoDelIndicador: propositoPadre.sentidoDelIndicador.trimEnd() || "",
+      unidadResponsable: propositoPadre.unidadResponsable.trimEnd() || "",
+      descIndicador: propositoPadre.descIndicador.trimEnd() || "",
+      descNumerador: propositoPadre.valorNumerador.trimEnd() || "",
+      descDenominador: propositoPadre.descDenominador.trimEnd() || "",
+    })
+    
+  },[])
 
   const [showFin, setShowFin] = useState(true);
 
@@ -66,8 +116,6 @@ export function TabFinPropositoMA({
   ]);
 
   const [showProposito, setShowProposito] = useState(false);
-
-
 
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");
@@ -205,10 +253,25 @@ export function TabFinPropositoMA({
     setValueProposito(propositoPadre);
   }, [propositoPadre]);
 
+  // useEffect(() => {
+  //   // IMA
+  //   setMAPadre((MA: IMA) => ({
+  //     ...MA,
+  //     ...{
+  //       fin: valueFin,
+  //     },
+  //     ...{
+  //       proposito: valueProposito,
+  //     },
+  //   }));
+  // }, [valueFin, valueProposito]);
+
   useEffect(() => {
     // getUnidades();
-
-    setMAFinPadre(valueFin);
+    if (valueFin?.lineaBase !== "") {
+      setMAFinPadre(valueFin);
+    }
+    
 
     getListasLogin(
       {
@@ -265,8 +328,7 @@ export function TabFinPropositoMA({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(!isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -295,8 +357,7 @@ export function TabFinPropositoMA({
           <Tooltip title="RESUMEN FIN Y PROPOSITO">
             <InfoOutlinedIcon
               onClick={() => {
-                showMirFnc(true);
-                showFin ? setTxtShowFnc("Fin") : setTxtShowFnc("Proposito");
+                // showFin ? setTxtShowFnc("Fin") : setTxtShowFnc("Proposito");
               }}
               fontSize="large"
               sx={{ cursor: "pointer" }}
@@ -552,7 +613,7 @@ export function TabFinPropositoMA({
                       ? ""
                       : handleClickOpen()
                   }
-                  value={valueFin?.metaAnual || ""}
+                  value={valueFin?.metaAnual }
                   error={parseFloat(valueFin?.metaAnual) < 0 ? true : false}
                   helperText={
                     parseFloat(valueFin?.metaAnual) < 0
@@ -607,7 +668,7 @@ export function TabFinPropositoMA({
                     parseFloat(valueFin?.lineaBase) < 0 ||
                     (isNaN(parseFloat(valueFin?.lineaBase)) &&
                       valueFin?.lineaBase !== "")
-                      ? "Introducir valor mayor que 0"
+                      ? "INTRODUCIR VALOR MAYOR QUE 0"
                       : null
                   }
                   InputLabelProps={{
@@ -720,7 +781,7 @@ export function TabFinPropositoMA({
                           fontFamily: "MontserratMedium",
                         }}
                       >
-                         NUMERADOR
+                        NUMERADOR
                       </Typography>
                     }
                     InputLabelProps={{
@@ -760,7 +821,7 @@ export function TabFinPropositoMA({
                           fontFamily: "MontserratMedium",
                         }}
                       >
-                         DENOMINADOR
+                        DENOMINADOR
                       </Typography>
                     }
                     InputLabelProps={{

@@ -13,7 +13,7 @@ import axios from "axios";
 //     })
 //     .then((r) => {
 //       state(r.data.data);
-//       console.log(r.data.data);
+//       
 //     })
 //     .catch((error) => {
 //       console.error("Error fetching data:", error);

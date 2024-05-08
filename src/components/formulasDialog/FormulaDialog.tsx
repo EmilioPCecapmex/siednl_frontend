@@ -11,6 +11,7 @@ import {
 import { useEffect, useLayoutEffect, useState } from "react";
 import { queries } from "../../queries";
 import { clearInfo } from "../genericComponents/GenericMethods";
+
 export const FormulaDialog = ({
   open,
   close,

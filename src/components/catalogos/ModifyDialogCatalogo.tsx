@@ -97,7 +97,7 @@ export const ModifyDialogCatalogos = ({
     setFechaCaptura(year + "-" + monthS + "-" + dateS);
   }, []);
 
-  const [nuevaDescripcion, setnuevaDescripcion] = React.useState("");
+  const [nuevaDescripcion, setnuevaDescripcion] = React.useState(descripcion || "");
   const [fechaCaptura, setFechaCaptura] = React.useState(
     year + "-" + monthS + "-" + dateS
   );
@@ -184,7 +184,7 @@ export const ModifyDialogCatalogos = ({
                 textAlign: "center",
               }}
             >
-              Editar Elemento
+              EDITAR ELEMENTO1
             </Typography>
           </Grid>
           <DialogContent
@@ -207,25 +207,31 @@ export const ModifyDialogCatalogos = ({
               }}
               rows={3}
               id="outlined-basic"
-              value={nuevaDescripcion || descripcion}
+              // value={nuevaDescripcion || descripcion}
+              // variant="outlined"
+              value={nuevaDescripcion }
               variant="outlined"
               onChange={(v) => {
                 let valor = v.target.value;
-                setnuevaDescripcion(valor);
+                if (valor === "") {
+                  setnuevaDescripcion(""); // Establece la nueva descripción como una cadena vacía si el valor se borra
+                } else {
+                  setnuevaDescripcion(valor); // Establece la nueva descripción solo si el valor no es una cadena vacía
+                }
               }}
             />
 
-            <InputLabel>Institución</InputLabel>
+            <InputLabel>INSTITUCIÓN</InputLabel>
             <Select
               sx={
                 descripcion.length < 200 ? { width: "60%" } : { width: "80%" }
               }
               value={institution}
-              label="Institución"
+              label="INSTITUCIÓN"
               onChange={(x) => setInstitution(x.target.value)}
             >
               <MenuItem value={"0"} key={0} disabled>
-                Selecciona
+                SELECCIONA
               </MenuItem>
               {catalogoInstituciones.map((item) => {
                 return (
@@ -246,7 +252,7 @@ export const ModifyDialogCatalogos = ({
           >
             <Button className="cacelar" onClick={cerrardialog}>
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
@@ -256,7 +262,7 @@ export const ModifyDialogCatalogos = ({
               autoFocus
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                De Acuerdo
+                DE ACUERDO
               </Typography>
             </Button>
           </DialogActions>
@@ -279,10 +285,10 @@ export const ModifyDialogCatalogos = ({
           </DialogContent>
 
           <DialogActions onClick={cerrardialog}>
-            <Button className="cancelar">Cancelar</Button>
+            <Button className="cancelar">CANCELAR</Button>
 
             <Button className="aceptar" onClick={opendialog} autoFocus>
-              De Acuerdo
+              DE ACUERDO
             </Button>
           </DialogActions>
         </Dialog>
@@ -315,7 +321,7 @@ export const ModifyDialogCatalogos = ({
                 textAlign: "center",
               }}
             >
-              Editar Elemento
+              EDITAR ELEMENTO
             </Typography>
           </Grid>
 
@@ -337,18 +343,18 @@ export const ModifyDialogCatalogos = ({
                 },
               }}
               rows={5}
-              id="outlined-basic"
-              value={nuevaDescripcion || descripcion}
+              id="outlined-basic" 
+              value={nuevaDescripcion }
               variant="outlined"
               onChange={(v) => {
                 let valor = v.target.value;
-                setnuevaDescripcion(valor);
-                // if (!v.target.value || !nuevaDescripcion || !descripcion) {
-                //   // Valores vacíos o nulos, muestra un mensaje de error o realiza la acción necesaria
-                //   console.error('Por favor, ingresa una descripción válida.');
-                //   return;
-                // }
+                if (valor === "") {
+                  setnuevaDescripcion(""); // Establece la nueva descripción como una cadena vacía si el valor se borra
+                } else {
+                  setnuevaDescripcion(valor); // Establece la nueva descripción solo si el valor no es una cadena vacía
+                }
               }}
+            
             />
           </DialogContent>
 
@@ -370,7 +376,7 @@ export const ModifyDialogCatalogos = ({
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
@@ -386,7 +392,7 @@ export const ModifyDialogCatalogos = ({
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
-                De Acuerdo
+                DE ACUERDO
               </Typography>
             </Button>
           </DialogActions>

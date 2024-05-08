@@ -1,7 +1,8 @@
 export function clearInfo(info: string) {
-    return info
-      .replaceAll('"', "")
-      .replaceAll("'", "")
-      .replaceAll("\n", "")
-      .trimEnd().toUpperCase();
-  }
+  return info
+    .replaceAll('"', "")
+    .replaceAll("'", "")
+    .replaceAll("\n", "")
+    //.trimEnd()
+    .toUpperCase();
+}

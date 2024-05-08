@@ -25,8 +25,8 @@ export const TabComponenteMA = ({
   edit,
  
   setMAcomponentesPadre,
-  showMirFnc,
-  setTxtShowFnc,
+  
+  // setTxtShowFnc,
   MA,
   MIR,
   ComponentesMA,
@@ -35,8 +35,7 @@ export const TabComponenteMA = ({
   edit: boolean;
 
   setMAcomponentesPadre: Function;
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
+  // setTxtShowFnc: Function;
   MA: string;
   MIR: string;
   ComponentesMA: IComponenteMA[];
@@ -85,13 +84,13 @@ export const TabComponenteMA = ({
         ? "Tasa"
         : JSON.parse(MIR)
             .componentes[componentSelect].indicador.toUpperCase()
-            .includes("INDICE" || "ÍNDICE") ||
+            .includes("INDICE" || "ÍNDICE" || "indice" || "Índice") ||
           JSON.parse(MIR)
             .componentes[componentSelect].indicador.toUpperCase()
-            .includes("INDICE") ||
+            .includes("INDICE" || "indice") ||
           JSON.parse(MIR)
             .componentes[componentSelect].indicador.toUpperCase()
-            .includes("ÍNDICE")
+            .includes("ÍNDICE" || "indice" || "Índice")
         ? "Índice"
         : JSON.parse(MIR)
             .componentes[componentSelect].indicador.toUpperCase()
@@ -131,7 +130,7 @@ export const TabComponenteMA = ({
         ? "Tasa"
         : JSON.parse(MIR)
             .componentes[componentSelect].indicador.toUpperCase()
-            .includes("INDICE" || "ÍNDICE") ||
+            .includes("ÍNDICE" || "indice" || "Índice") ||
           JSON.parse(MIR)
             .componentes[componentSelect].indicador.toLowerCase()
             .includes("indice") ||
@@ -160,10 +159,10 @@ export const TabComponenteMA = ({
     if (
       JSON.parse(MIR)
         .componentes[componentSelect].indicador.toLowerCase()
-        .includes("indice") ||
+        .includes("indice" || "ÍNDICE" || "indice" || "Índice") ||
       JSON.parse(MIR)
         .componentes[componentSelect].indicador.toLowerCase()
-        .includes("índice")
+        .includes("ÍNDICE" || "indice" || "Índice")
     ) {
       componentesValues[componentSelect].valorNumerador = txt;
       componentesValues[componentSelect].metaAnual = txt;
@@ -177,7 +176,7 @@ export const TabComponenteMA = ({
   };
 
   const changeFormula2 = (txt: string,txtValores:string) => {
-    console.log("frec",frecuencia," tipo",tipoFormula);
+    
     if (frecuencia === "trimestral" && (tipoFormula.toLowerCase()==="índice" || tipoFormula.toLowerCase()==="indice")) {
       componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
         txt.split(",")[0];
@@ -303,8 +302,12 @@ export const TabComponenteMA = ({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(!isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -344,8 +347,7 @@ export const TabComponenteMA = ({
         <Tooltip title="RESUMEN COMPONENTE">
           <InfoOutlinedIcon
             onClick={() => {
-              showMirFnc(true);
-              setTxtShowFnc("Componentes");
+              // setTxtShowFnc("Componentes");
             }}
             fontSize="large"
             sx={{ cursor: "pointer" }}

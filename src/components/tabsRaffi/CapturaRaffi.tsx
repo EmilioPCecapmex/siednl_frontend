@@ -215,6 +215,7 @@ export default function CapturaRaffi({
   IdMA,
   IdRf,
   estado,
+  IdEntidad,
 }: {
   MIR: string;
   MA: string;
@@ -224,6 +225,7 @@ export default function CapturaRaffi({
   IdMA: string;
   IdRf: string;
   estado: string;
+  IdEntidad: string;
 }) {
   const [value, setValue] = useState(0);
 
@@ -440,6 +442,7 @@ export default function CapturaRaffi({
                 raffiboolean={raffiboolean}
                 setRaffiboolean={setRaffiboolean}
                 estadorf={estado}
+                IdEntidad={IdEntidad}
               />
             )}
           </Grid>

@@ -20,6 +20,9 @@ import {
   Button,
   InputBase,
   TableSortLabel,
+  Autocomplete,
+  TextField,
+  useMediaQuery,
 } from "@mui/material";
 import axios from "axios";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -35,8 +38,10 @@ import { queries } from "../../queries";
 import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
-import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
-
+import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
+import { GridColDef } from "@mui/x-data-grid";
+import DataGridTable from "../../components/genericComponents/DataGridTable";
+import { alertaError } from "../../components/genericComponents/Alertas";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -50,7 +55,7 @@ export const FichaTecnica = () => {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdEntidad: localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
-          Estado: estado || "",
+          Estado: estado || "TODOS",
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -58,9 +63,14 @@ export const FichaTecnica = () => {
       })
       .then((r) => {
         //setft(r.data.data)
-        console.log(": ", r.data.data);
-
-        setstate(r.data.data);
+        if (r.data.data.length === 0) {
+          alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
+         // setUrl("")
+        }else{
+         // setUrl("")
+          setstate(r.data.data);
+        }
+        
         //setFtFiltered(r.data.data);
       })
       .catch((err) => {});
@@ -102,8 +112,8 @@ export const FichaTecnica = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("Todos");
-  const [findSelectStr, setFindSelectStr] = useState("Todos");
+  const [findInstStr, setFindInstStr] = useState("TODOS");
+  const [findSelectStr, setFindSelectStr] = useState("TODOS");
 
   const [ft, setft] = useState<Array<IIFT>>([]);
   const [FTEdit, setFTEdit] = useState<Array<IIFT>>([]);
@@ -111,51 +121,52 @@ export const FichaTecnica = () => {
   const [ftxFiltered, setFtxFiltered] = useState<Array<IIFT>>([]);
   const [ftFiltered, setFtFiltered] = useState<Array<IIFT>>([]);
 
-  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
+  const objetiInstitucion: IEntidadLabel = {
+    //ClaveSiregob: null,
+    //ControlInterno: "",
+    Id: "0",
+    Label: "TODOS",
+  };
 
-  const [estadoft, setEstadoFT] = useState("Todos");
+  interface IEntidadLabel {
+    Id: string;
+    Label: string;
+  }
 
-  const [institucionesb, setInstitucionesb] = useState("Todos");
+  const [instituciones, setInstituciones] = useState<IEntidadLabel>();
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
+    Array<IEntidadLabel>
+  >([]);
+
+  const [estadoft, setEstadoFT] = useState("TODOS");
+  const [IdEntidad, setIdEntidad] = useState("TODOS");
+  const [institucionesb, setInstitucionesb] = useState("TODOS");
 
   const getInstituciones = (setstate: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let aux = r.data.data;
-
           aux.unshift({
-            ClaveSiregob: null,
-            ControlInterno: "",
-            Direccion: "",
-            EntidadPerteneceA: "",
-            FechaCreacion: "",
-            Id: "",
-            IdEntidadPerteneceA: "",
-            IdTipoEntidad: "",
-            IdTitular: null,
-            Nombre: "TODOS",
-            NombreTipoEntidad: "",
-            Telefono: "",
-            Titular: "",
-            UltimaActualizacion: "",
+            Id: "0",
+            Label: "TODOS",
           });
-
-          setstate(aux);
+          setstate(r.data.data);
         }
       });
   };
 
   useEffect(() => {
     getFT(setft, estadoft);
+    setEstadoFT("TODOS")
     validaFechaCaptura();
   }, [showResume]);
 
@@ -232,7 +243,7 @@ export const FichaTecnica = () => {
 
   ///////////////////////////////////////////////////
   useEffect(() => {
-    getInstituciones(setInstituciones);
+    getInstituciones(setCatalogoInstituciones);
   }, []);
   ///////////
   // Filtrado por caracter
@@ -240,9 +251,9 @@ export const FichaTecnica = () => {
     if (
       v !== "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setFtFiltered(
         ft.filter(
@@ -258,7 +269,7 @@ export const FichaTecnica = () => {
       );
     } else if (
       v !== "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setFtFiltered(
         ft.filter(
@@ -274,8 +285,8 @@ export const FichaTecnica = () => {
       );
     } else if (
       v !== "" &&
-      (est === "0" || est === "Todos") &&
-      (inst === "0" || inst === "Todos")
+      (est === "0" || est === "TODOS") &&
+      (inst === "0" || inst === "TODOS")
     ) {
       setFtFiltered(
         ft.filter(
@@ -290,9 +301,9 @@ export const FichaTecnica = () => {
     } else if (
       v === "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setFtFiltered(
         ft.filter(
@@ -303,7 +314,7 @@ export const FichaTecnica = () => {
       );
     } else if (
       v === "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setFtFiltered(
         ft.filter(
@@ -352,9 +363,10 @@ export const FichaTecnica = () => {
 
   const [validaFecha, setValidaFecha] = useState(true);
   const [actualizacion, setActualizacion] = useState(0);
+  const[url, setUrl]=useState(window.location.href)
 
   useEffect(() => {
-    const url = window.location.href;
+    
 
     // Verificar si el parámetro 'Id' está presente en la URL
     if (url.includes("?Id=")) {
@@ -424,6 +436,338 @@ export const FichaTecnica = () => {
 
   const [estado, setEstado] = useState("");
 
+  const columsFt: GridColDef[] = [
+    {
+      field: "Acciones",
+      disableExport: true,
+      headerName: "Acciones",
+      description: "Acciones",
+      sortable: false,
+      width: 230,
+      renderCell: (v: any) => {
+        return (
+          <Grid sx={{ display: "flex" }}>
+            {/* <Tooltip title="Eliminar Mir">
+              <IconButton onClick={() => {}}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip> */}
+
+            <Tooltip title="Descargar FT">
+              <span>
+                <IconButton
+                  onClick={() => {
+                    getFichaTecnicaDownload(
+                      v.row.MIR,
+                      v.row.MetaAnual,
+                      v.row.FichaT,
+                      v.row.Programa,
+                      v.row.FechaCreacion,
+                      v.row.Entidad
+                    );
+                  }}
+                  disabled={
+                    v.row.Estado === "Autorizada" && validaFecha ? false : true
+                  }
+                >
+                  <DownloadIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                </IconButton>
+              </span>
+            </Tooltip>
+
+            <Tooltip title="REGISTRAR FICHA TÉCNICA">
+              <span>
+                <IconButton
+                  disabled={
+                    (v.row.Estado === "En Captura" &&
+                      //validaFecha &&
+                      localStorage.getItem("Rol") === "Capturador") ||
+                    (v.row.Estado === "En Revisión" &&
+                      //validaFecha &&
+                      localStorage.getItem("Rol") === "Verificador") ||
+                    (v.row.Estado === "Borrador Verificador" &&
+                      //validaFecha &&
+                      localStorage.getItem("Rol") === "Verificador") ||
+                    ((v.row.Estado === "En Autorización" ||
+                      v.row.Estado === "Autorizada") &&
+                      // validaFecha &&
+                      localStorage.getItem("Rol") === "Administrador") ||
+                    (v.row.Estado === "Borrador Autorizador" &&
+                      // validaFecha &&
+                      localStorage.getItem("Rol") === "Administrador")
+                      ? false
+                      : true
+                  }
+                  sx={{
+                    fontSize: "24px", // Tamaño predeterminado del icono
+
+                    "@media (max-width: 600px)": {
+                      fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                    },
+
+                    "@media (min-width: 601px) and (max-width: 960px)": {
+                      fontSize: 20, // Pantalla pequeña (md)
+                    },
+
+                    "@media (min-width: 961px) and (max-width: 1280px)": {
+                      fontSize: 20, // Pantalla mediana (lg)
+                    },
+
+                    "@media (min-width: 1281px)": {
+                      fontSize: 25, // Pantalla grande (xl)
+                    },
+
+                    "@media (min-width: 2200px)": {
+                      ffontSize: 25, // Pantalla grande (xl)
+                    },
+                  }}
+                  onClick={() => {
+                    let auxArrayMIR = JSON.parse(v.row.MIR);
+                    let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0]);
+
+                    if (auxArrayMIR[1]) {
+                      setFTEdit([
+                        {
+                          IdFt: v.row.IdFt,
+                          IdMir: v.row.IdMir,
+                          IdMa: v.row.IdMa,
+                          IdEntidad: v.row.IdEntidad,
+                          FichaT: v.row.FichaT,
+                          Estado: v.row.Estado,
+                          CreadoPor: v.row.CreadoPor,
+                          FechaCreacion: v.row.FechaCreacion,
+                          AnioFiscal: v.row.AnioFiscal,
+                          Entidad: v.row.Entidad,
+                          Programa: v.row.Programa,
+                          MIR: auxArrayMIR2,
+                          MetaAnual: v.row.MetaAnual,
+                          Conac: v.row.Conac,
+                          Consecutivo: v.row.Consecutivo,
+                          Opciones: v.row.Opciones,
+                        },
+                      ]);
+                    } else {
+                      setFTEdit([
+                        {
+                          IdFt: v.row.IdFt,
+                          IdMir: v.row.IdMir,
+                          IdMa: v.row.IdMa,
+                          IdEntidad: v.row.IdEntidad,
+                          FichaT: v.row.FichaT,
+                          Estado: v.row.Estado,
+                          CreadoPor: v.row.CreadoPor,
+                          FechaCreacion: v.row.FechaCreacion,
+                          AnioFiscal: v.row.AnioFiscal,
+                          Entidad: v.row.Entidad,
+                          Programa: v.row.Programa,
+                          MIR: v.row.MIR,
+                          MetaAnual: v.row.MetaAnual,
+                          Conac: v.row.Conac,
+                          Consecutivo: v.row.Consecutivo,
+                          Opciones: v.row.Opciones,
+                        },
+                      ]);
+                    }
+                    setShowResume(false);
+                    setActionNumber(1);
+                    setEstado(v.row.Estado);
+                    setIdEntidad(v.row.IdEntidad);
+                  }}
+                >
+                  <AddCircleOutlineIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                </IconButton>
+              </span>
+            </Tooltip>
+
+            <Tooltip title={title_texto}>
+              <span>
+                <IconButton
+                  disabled={
+                    v.row.Estado === "Autorizada" && validaFecha ? false : true
+                  }
+                  onClick={() => {
+                    let auxArrayMIR = JSON.parse(v.row.MIR);
+                    let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0]);
+                    if (auxArrayMIR[1]) {
+                      setFTShow([
+                        {
+                          IdFt: v.row.IdFt,
+                          IdMir: v.row.IdMir,
+                          IdMa: v.row.IdMa,
+                          IdEntidad: v.row.IdEntidad,
+                          FichaT: v.row.FichaT,
+                          Estado: v.row.Estado,
+                          CreadoPor: v.row.CreadoPor,
+                          FechaCreacion: v.row.FechaCreacion,
+                          AnioFiscal: v.row.AnioFiscal,
+                          Entidad: v.row.Entidad,
+                          Programa: v.row.Programa,
+                          MIR: auxArrayMIR2,
+                          MetaAnual: v.row.MetaAnual,
+                          Conac: v.row.Conac,
+                          Consecutivo: v.row.Consecutivo,
+                          Opciones: v.row.Opciones,
+                        },
+                      ]);
+                    } else {
+                      setFTShow([
+                        {
+                          IdFt: v.row.IdFt,
+                          IdMir: v.row.IdMir,
+                          IdMa: v.row.IdMa,
+                          IdEntidad: v.row.IdEntidad,
+                          FichaT: v.row.FichaT,
+                          Estado: v.row.Estado,
+                          CreadoPor: v.row.CreadoPor,
+                          FechaCreacion: v.row.FechaCreacion,
+                          AnioFiscal: v.row.AnioFiscal,
+                          Entidad: v.row.Entidad,
+                          Programa: v.row.Programa,
+                          MIR: auxArrayMIR2,
+                          MetaAnual: v.row.MetaAnual,
+                          Conac: v.row.Conac,
+                          Consecutivo: v.row.Consecutivo,
+                          Opciones: v.row.Opciones,
+                        },
+                      ]);
+                    }
+                    setOpenModalVerResumenFT(true);
+                  }}
+                >
+                  <VisibilityIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                </IconButton>
+              </span>
+            </Tooltip>
+
+            <ComentDialogFT
+              estado={v.row.Estado}
+              id={v.row.IdMir}
+              actualizado={actualizaContador}
+              MIR={FTEdit[0]?.MIR || ""}
+              IdEntidad={IdEntidad}
+            />
+
+            <MostrarLista st="" Id={v.row.Id} />
+          </Grid>
+        );
+      },
+    },
+    {
+      field: "AnioFiscal",
+      headerName: "Año Fiscal",
+      description: "Año Fiscal",
+      width: 100,
+    },
+    {
+      field: "Entidad",
+      headerName: "Entidad",
+      description: "Entidad",
+      width: 200,
+    },
+    {
+      field: "Programa",
+      headerName: "Programa",
+      description: "Programa",
+      width: 200,
+    },
+    {
+      field: "Estado",
+      headerName: "Estado",
+      description: "Estado",
+      width: 100,
+    },
+    {
+      field: "FechaCreacion",
+      headerName: "Fehca de creacion",
+      description: "Fecha de creacion",
+      width: 200,
+    },
+    {
+      field: "CreadoPor",
+      headerName: "Creado por",
+      description: "Creado por",
+      width: 200,
+    },
+  ];
+
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
+  const handleChange = (dato: string) => {
+    setFindTextStr(dato);
+  };
+
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid
@@ -435,20 +779,8 @@ export const FichaTecnica = () => {
         xs={12}
         sx={{ height: "7vh", whitespace: "nowrap" }}
       >
-        <LateralMenu selection={"FICHA TECNICA"} actionNumber={actionNumber} />
+        <LateralMenu selection={"FICHA TECNICA"} actionNumber={actionNumber} restore={setShowResume}/>
       </Grid>
-
-      {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
-        <Header
-          details={{
-            name1: "Inicio",
-            path1: "../home",
-            name2: "Ficha Técnica",
-            path2: "../fichatecnica",
-            name3: "",
-          }}
-        />
-      </Grid> */}
 
       <Grid
         container
@@ -462,7 +794,7 @@ export const FichaTecnica = () => {
           //backgroundColor:"blue",
           justifyContent: "center",
           display: "flex",
-          height: "90vh",
+          height: "93vh",
           alignItems: "center",
           backgroundColor: "white",
         }}
@@ -477,32 +809,21 @@ export const FichaTecnica = () => {
               xl={8}
               lg={8}
               md={8}
-              sm={8}
+              sm={10}
+              xs={11}
               // height="15vh"
               // direction="row"
               sx={{
-                boxShadow: 5,
-                backgroundColor: "#FFFF",
-                borderRadius: 5,
+                ...(!isSmallScreen
+                  ? { boxShadow: 5, backgroundColor: "#FFFF", borderRadius: 5 }
+                  : { marginBottom: "30px" }),
+
                 justifyContent: "space-evenly",
                 alignItems: "center",
                 height: "15vh",
                 direction: "row",
               }}
             >
-              {/* <TutorialGrid initialState={35} endState={39} /> */}
-
-              {/* <TextField
-                size="small"
-                value={findTextStr}
-                label="Busqueda"
-                sx={{ width: "100%", fontFamily: "MontserratRegular" }}
-                variant="outlined"
-                onChange={(v) => {
-                  setFindTextStr(v.target.value);
-                }}
-              /> */}
-
               <Grid
                 item
                 container
@@ -511,23 +832,26 @@ export const FichaTecnica = () => {
                 md={12}
                 sm={12}
                 xs={12}
-                // sx={{
-                //
-                //   //gridTemplateColumns: "repeat(2, 1fr)",
-                //   //alignItems:"center",
-                //   justifyItems: "space-evenly",
-                //   gap: 2,
-                //  // width: "90%",
-                // }}
                 sx={{
                   justifyContent: "space-around",
                   alignItems: "center",
                   //display: "flex",
                   direction: "row",
+                  ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
                 }}
               >
                 {localStorage.getItem("Rol") === "Administrador" ? (
-                  <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                  <Grid
+                    item
+                    xl={5}
+                    lg={5}
+                    md={5}
+                    sm={5}
+                    xs={12}
+                    sx={{
+                      ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
+                    }}
+                  >
                     <Tooltip
                       title={findInstStr}
                       PopperProps={{
@@ -541,62 +865,61 @@ export const FichaTecnica = () => {
                         ],
                       }}
                     >
-                      <FormControl fullWidth>
-                        <InputLabel sx={queries.text}>
-                          <Tooltip
-                            PopperProps={{
-                              modifiers: [
-                                {
-                                  name: "offset",
-                                  options: {
-                                    offset: [0, -13],
-                                  },
-                                },
-                              ],
-                            }}
-                            title={"FILTRO POR INSTITUCION"}
-                          >
-                            <span>FILTRO POR INSTITUCION</span>
-                          </Tooltip>
-                        </InputLabel>
-                        <Select
+                      <FormControl required fullWidth>
+                        <Autocomplete
+                          //  disabled={edit && !mirEdit?.encabezado.ejercicioFiscal}
+                          clearText="Borrar"
+                          noOptionsText="Sin opciones"
+                          closeText="Cerrar"
+                          openText="Abrir"
+                          disablePortal
                           size="small"
-                          variant="outlined"
-                          fullWidth
-                          disabled={
-                            localStorage.getItem("Rol") !== "Administrador"
-                          }
-                          label="FILTRO POR INSTITUCION"
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            //textAlign: "center",
-                            fontSize: [10, 10, 15, 15, 18, 20],
+                          options={catalogoInstituciones}
+                          getOptionLabel={(option) => option.Label || ""}
+                          value={instituciones || objetiInstitucion}
+                          getOptionDisabled={(option) => {
+                            if (option.Id === "") {
+                              return true;
+                            }
+                            return false;
                           }}
-                          value={institucionesb}
-                          // sx={{ fontFamily: "MontserratRegular" }}
-
-                          onChange={(v) => {
-                            setInstitucionesb(v.target.value);
-                          }}
-                        >
-                          <MenuItem
-                            value={institucionesb}
-                            sx={{ fontFamily: "MontserratRegular" }}
-                          >
-                            TODOS
-                          </MenuItem>
-
-                          {instituciones?.map((item) => {
+                          renderOption={(props, option) => {
                             return (
-                              <MenuItem value={item.Nombre} key={item.Id}>
-                                {item.Nombre}
-                              </MenuItem>
+                              <li {...props} key={option.Id}>
+                                <p
+                                  style={{
+                                    fontFamily: "MontserratRegular",
+                                  }}
+                                >
+                                  {option.Label}
+                                </p>
+                              </li>
                             );
-                          })}
-                        </Select>
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="FILTRO POR INSTITUCIÓN"
+                              variant="standard"
+                              InputLabelProps={{
+                                style: {
+                                  fontFamily: "MontserratSemiBold",
+                                },
+                              }}
+                              sx={{
+                                "& .MuiAutocomplete-input": {
+                                  fontFamily: "MontserratRegular",
+                                },
+                              }}
+                            ></TextField>
+                          )}
+                          onChange={(event, value) =>
+                            setInstituciones(value || objetiInstitucion)
+                          }
+                          isOptionEqualToValue={(option, value) =>
+                            option.Id === value.Id
+                          }
+                        />
                       </FormControl>
                     </Tooltip>
                   </Grid>
@@ -608,108 +931,93 @@ export const FichaTecnica = () => {
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
                       ? 5
-                      : 10
+                      : 11
                   }
                   lg={
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
                       ? 5
-                      : 10
+                      : 11
                   }
                   md={
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
                       ? 5
-                      : 10
+                      : 11
                   }
                   sm={
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
                       ? 5
-                      : 1
+                      : 11
                   }
                   xs={
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
-                      : 10
+                      ? 11
+                      : 11
                   }
                 >
                   <FormControl fullWidth>
-                    <InputLabel sx={queries.text}>
-                      <Tooltip
-                        PopperProps={{
-                          modifiers: [
-                            {
-                              name: "offset",
-                              options: {
-                                offset: [0, -13],
-                              },
-                            },
-                          ],
-                        }}
-                        title={"FILTRO POR ESTADO DE LA FT"}
-                      >
-                        <span>FILTRO POR ESTADO DE LA FT</span>
-                      </Tooltip>
-                    </InputLabel>
-                    <Select
-                      size="small"
+                    <Autocomplete
+                      clearText="Borrar"
+                      noOptionsText="Sin opciones"
+                      closeText="Cerrar"
+                      openText="Abrir"
+                      disablePortal
                       fullWidth
-                      variant="outlined"
-                      label="FILTRO POR ESTADO DE LA MA"
-                      sx={{
-                        fontFamily: "MontserratRegular",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        //textAlign: "center",
-                        fontSize: [10, 10, 15, 15, 18, 20],
-                        // Tamaños de fuente para diferentes breakpoints
-                      }}
+                      size="small"
                       value={
-                        localStorage.getItem("Rol") === "Administrador" ||
+                        (localStorage.getItem("Rol") === "Administrador" ||
                         localStorage.getItem("Rol") === "ADMINISTRADOR"
-                          ? estadoft
-                          : findSelectStr
+                          ? estadoft.toUpperCase()
+                          : findSelectStr.toUpperCase()) || estados[0]
                       }
-                      onChange={(v) => {
-                        // v.target.value === "Todos"
-                        //   ? findText(
-                        //       findTextStr,
-                        //       "0",
-                        //       findInstStr === "Todos" ? "0" : findInstStr
-                        //     )
-                        //   : findText(findTextStr, v.target.value, findInstStr);
+                      options={estados}
+                      onChange={(event, newValue) => {
+                        // Access the value using newValue
+
                         if (
                           localStorage.getItem("Rol") === "Administrador" ||
                           localStorage.getItem("Rol") === "ADMINISTRADOR"
                         ) {
-                          setEstadoFT(v.target.value);
+                          setEstadoFT(newValue || "");
                         } else {
-                          setFindSelectStr(v.target.value);
+                          setFindSelectStr(newValue || "");
                         }
                       }}
-                    >
-                      {estados.map((estado) => (
-                        <MenuItem key={estado} value={estado}>
-                          {estado.toUpperCase()}
-                        </MenuItem>
-                      ))}
-                    </Select>
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={"FILTRO POR ESTADO DE LA FT"}
+                          variant="standard"
+                          InputLabelProps={{
+                            style: {
+                              fontFamily: "MontserratSemiBold",
+                            },
+                          }}
+                          sx={{
+                            "& .MuiAutocomplete-input": {
+                              fontFamily: "MontserratRegular",
+                            },
+                          }}
+                        ></TextField>
+                      )}
+                    />
                   </FormControl>
                 </Grid>
 
                 {localStorage.getItem("Rol") === "Administrador" && (
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
-                      // disabled ={estadoma === "Todos" && institucionesb === "Todos" }
+                      // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
                         buscador(
                           estadoft,
                           institucionesb,
                           setft,
-                          "list-fichaTecnica"
+                          "list-fichaTecnica",
+                          setUrl
                         );
                       }}
                     >
@@ -744,11 +1052,11 @@ export const FichaTecnica = () => {
               <Grid
                 // item
                 container
-                xl={11}
-                lg={11}
-                md={11}
-                sm={11}
-                xs={11}
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
                 sx={{
                   direction: "row",
                   justifyContent: "space-around",
@@ -783,9 +1091,9 @@ export const FichaTecnica = () => {
                       }}
                       placeholder="Buscar"
                       value={findTextStr}
-                      // onChange={(e) => {
-                      //   handleChange(e.target.value);
-                      // }}
+                      onChange={(e) => {
+                        handleChange(e.target.value);
+                      }}
                       onKeyPress={(ev) => {
                         if (ev.key === "Enter") {
                           filtrarDatos();
@@ -803,25 +1111,20 @@ export const FichaTecnica = () => {
                       <SearchIcon
                         sx={{
                           fontSize: "24px", // Tamaño predeterminado del icono
-
                           "@media (max-width: 600px)": {
-                            fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                            fontSize: 20, // Pantalla extra pequeña (xs y sm)
                           },
-
                           "@media (min-width: 601px) and (max-width: 960px)": {
-                            fontSize: 25, // Pantalla pequeña (md)
+                            fontSize: 20, // Pantalla pequeña (md)
                           },
-
                           "@media (min-width: 961px) and (max-width: 1280px)": {
-                            fontSize: 30, // Pantalla mediana (lg)
+                            fontSize: 20, // Pantalla mediana (lg)
                           },
-
                           "@media (min-width: 1281px)": {
-                            fontSize: 30, // Pantalla grande (xl)
+                            fontSize: 25, // Pantalla grande (xl)
                           },
-
                           "@media (min-width: 2200px)": {
-                            fontSize: 30, // Pantalla grande (xl)
+                            fontSize: 25, // Pantalla grande (xl)
                           },
                         }}
                       />
@@ -1082,6 +1385,7 @@ export const FichaTecnica = () => {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
                                             IdMa: row.IdMa,
+                                            IdEntidad: row.IdEntidad,
                                             FichaT: row.FichaT,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1096,12 +1400,14 @@ export const FichaTecnica = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setFTEdit([
                                           {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
                                             IdMa: row.IdMa,
+                                            IdEntidad: row.IdEntidad,
                                             FichaT: row.FichaT,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1117,6 +1423,7 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       }
+                                      setIdEntidad(row.IdEntidad)
                                       setShowResume(false);
                                       setActionNumber(1);
                                       setEstado(row.Estado);
@@ -1222,6 +1529,7 @@ export const FichaTecnica = () => {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
                                             IdMa: row.IdMa,
+                                            IdEntidad: row.IdEntidad,
                                             FichaT: row.FichaT,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1236,12 +1544,14 @@ export const FichaTecnica = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setFTShow([
                                           {
                                             IdFt: row.IdFt,
                                             IdMir: row.IdMir,
                                             IdMa: row.IdMa,
+                                            IdEntidad: row.IdEntidad,
                                             FichaT: row.FichaT,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1257,6 +1567,7 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       }
+                                      setIdEntidad(row.IdEntidad)
                                       setOpenModalVerResumenFT(true);
                                     }}
                                   >
@@ -1292,9 +1603,11 @@ export const FichaTecnica = () => {
                               </Tooltip>
 
                               <ComentDialogFT
-                                estado={row.Estado}
-                                id={row.IdMir}
-                                actualizado={actualizaContador}
+                                  estado={row.Estado}
+                                  id={row.IdMir}
+                                  actualizado={actualizaContador}
+                                  MIR={FTEdit[0]?.MIR || ""}
+                                  IdEntidad={IdEntidad}
                               />
 
                               <MostrarLista st="" Id={row.IdFt} />
@@ -1327,16 +1640,6 @@ export const FichaTecnica = () => {
               Conac={FTShow[0]?.Conac}
               Consecutivo={FTShow[0]?.Consecutivo}
             />
-
-            {/* <ModalVerResumenFT
-              open={openModalVerResumenFT}
-              handleClose={handleCloseVerResumenFT}
-              MIR={FTShow[0]?.MIR || ""}
-              MA={FTShow[0]?.MetaAnual || ""}
-              FT={FTShow[0]?.FichaT || ""}
-              Conac={FTShow[0]?.Conac}
-              Consecutivo={FTShow[0]?.Consecutivo}
-            /> */}
           </>
         ) : (
           <Grid
@@ -1358,6 +1661,7 @@ export const FichaTecnica = () => {
               IdMA={FTEdit[0]?.IdMa || ""}
               IdFT={FTEdit[0]?.IdFt || ""}
               estado={estado}
+              IdEntidad={IdEntidad}
             />
             {/* {FTEdit[0].FichaT} */}
           </Grid>
@@ -1371,6 +1675,7 @@ export interface IIFT {
   IdFt: string;
   IdMir: string;
   IdMa: string;
+  IdEntidad: string;
   FichaT: string;
   Estado: string;
   CreadoPor: string;

@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   FormControl,
   Grid,
   InputBase,
@@ -13,7 +14,9 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
+  TextField,
   Tooltip,
+  useMediaQuery,
 } from "@mui/material";
 //import { useNavigate } from "react-router-dom";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -38,7 +41,9 @@ import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
 import ComentDialogRF from "../../components/modalsRF/ModalComentariosRF";
-import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
+import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
+import { GridColDef } from "@mui/x-data-grid";
+import DataGridTable from "../../components/genericComponents/DataGridTable";
 
 export const Raffi = () => {
   const [actionNumber, setActionNumber] = useState(0);
@@ -49,25 +54,50 @@ export const Raffi = () => {
   const [rfFiltered, setRfFiltered] = useState<Array<IRaffi>>([]);
   const [rfxFiltered, setRfxFiltered] = useState<Array<IRaffi>>([]);
   const [rfEdit, setRfEdit] = useState<Array<IRaffi>>([]);
-  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
+
   const [validaFecha, setValidaFecha] = useState(true);
 
   const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("Todos");
-  const [findSelectStr, setFindSelectStr] = useState("Todos");
+  const [findInstStr, setFindInstStr] = useState("TODOS");
+  const [findSelectStr, setFindSelectStr] = useState("TODOS");
   const renglonesPagina = 7;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [page, setPage] = useState(0);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
-  const [estadorf, setEstadoRF] = useState("Todos");
+  const [estadorf, setEstadoRF] = useState("TODOS");
   const [estado, setEstado] = useState("");
-  const [institucionesb, setInstitucionesb] = useState("Todos");
+  const [IdEntidad, setIdEntidad] = useState("");
+
+  const [institucionesb, setInstitucionesb] = useState("TODOS");
+
+  const objetiInstitucion: IEntidad = {
+    //ClaveSiregob: null,
+    //ControlInterno: "",
+    Id: "0",
+    Nombre: "TODOS",
+    NombreTipoEntidad: "",
+    EntidadPerteneceA: "",
+    Direccion: "",
+    Telefono: "",
+    IdEntidadPerteneceA: "",
+    IdTipoEntidad: "",
+    FechaCreacion: "",
+    CreadoPor: "",
+    UltimaActualizacion: "",
+    ModificadoPor: "",
+    Titular: "",
+  };
+
+  const [instituciones, setInstituciones] = useState<IEntidad>();
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
+    Array<IEntidad>
+  >([]);
 
   useEffect(() => {
     if (opentabs) {
-      listaRaffi(setRf, estadorf);
+      listaRaffi(setRf, estadorf, setUrl);
       validaFechaCaptura();
       setOpenTabs(true);
     }
@@ -75,6 +105,7 @@ export const Raffi = () => {
 
   useEffect(() => {
     setRfFiltered(rf);
+    setEstadoRF("TODOS")
   }, [rf]);
 
   useEffect(() => {
@@ -90,9 +121,9 @@ export const Raffi = () => {
     if (
       v !== "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setRfFiltered(
         rf.filter(
@@ -104,12 +135,11 @@ export const Raffi = () => {
               x.CreadoPor.toLowerCase().includes(v.toLowerCase())) &&
             x.Estado.toLowerCase().includes(est.toLowerCase()) &&
             x.Entidad.toLowerCase().includes(inst.toLowerCase())
-            
         )
       );
     } else if (
       v !== "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setRfFiltered(
         rf.filter(
@@ -125,8 +155,8 @@ export const Raffi = () => {
       );
     } else if (
       v !== "" &&
-      (est === "0" || est === "Todos") &&
-      (inst === "0" || inst === "Todos")
+      (est === "0" || est === "TODOS") &&
+      (inst === "0" || inst === "TODOS")
     ) {
       setRfFiltered(
         rf.filter(
@@ -141,9 +171,9 @@ export const Raffi = () => {
     } else if (
       v === "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setRfFiltered(
         rf.filter(
@@ -154,7 +184,7 @@ export const Raffi = () => {
       );
     } else if (
       v === "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setRfFiltered(
         rf.filter(
@@ -166,8 +196,6 @@ export const Raffi = () => {
     } else {
       setRfFiltered(rf);
     }
-    
-    
   };
 
   const validaFechaCaptura = () => {
@@ -200,7 +228,7 @@ export const Raffi = () => {
 
   useEffect(() => {
     validaFechaCaptura();
-    getInstituciones(setInstituciones);
+    getInstituciones(setCatalogoInstituciones);
   }, []);
 
   const handleChange = (dato: string) => {
@@ -279,7 +307,7 @@ export const Raffi = () => {
     axios
       .post(
         // process.env.REACT_APP_APPLICATION_FILL + "/api/fill_rf",
-        "http://192.168.137.254:7001/api/fill_raffi",
+        process.env.REACT_APP_APPLICATION_FILL + "/api/fill_raffi",
         fullRF,
         {
           responseType: "blob",
@@ -319,29 +347,356 @@ export const Raffi = () => {
       });
   };
 
-
-  // useEffect(() => {
-  //   const url = window.location.href;
-  //   const id = url.split("?")[1].split("=")[1];
-  //   //console.log("rfilterd", rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
-    
-  //   setRfFiltered(rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
-   
-  // }, [rf]);
+  const[url, setUrl]=useState(window.location.href)
 
   useEffect(() => {
-    const url = window.location.href;
-  
+    
+
     // Verificar si el parámetro 'Id' está presente en la URL
-    if (url.includes('?Id=')) {
+    if (url.includes("?Id=")) {
       const id = url.split("?")[1].split("=")[1];
-  
+
       // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
       if (id) {
-        setRfFiltered(rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || "")));
+        setRfFiltered(
+          rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || ""))
+        );
       }
     }
   }, [rf]);
+
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
+  const columsRf: GridColDef[] = [
+    {
+      field: "Acciones",
+      disableExport: true,
+      headerName: "Acciones",
+      description: "Acciones",
+      sortable: false,
+      width: 230,
+      renderCell: (v: any) => {
+        return (
+          <Grid sx={{ display: "flex" }}>
+            {/* <Tooltip title="Eliminar Mir">
+              <IconButton onClick={() => {}}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip> */}
+
+            {v.row.Estado !== ("Sin Asignar" || "SIN ASIGNAR") && (
+              <Tooltip title="EDITAR">
+                <IconButton
+                  disabled={
+                    (v.row.Estado === "En Captura" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Capturador") ||
+                    (v.row.Estado === "En Revisión" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Verificador") ||
+                    (v.row.Estado === "Borrador Verificador" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Verificador") ||
+                    ((v.row.Estado === "En Autorización" ||
+                      v.row.Estado === "Autorizada") &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Administrador") ||
+                    (v.row.Estado === "Borrador Autorizador" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Administrador")
+                      ? false
+                      : true || !validaFecha
+                  }
+                  type="button"
+                  onClick={() => {
+                    let auxArrayMIR = JSON.parse(v.row.MIR);
+                    let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0]);
+
+                    if (auxArrayMIR[1]) {
+                      setRfEdit([
+                        {
+                          IdRaffi: v.row.IdRaffi,
+                          IdMir: v.row.IdMir,
+                          IdMetaAnual: v.row.IdMetaAnual,
+                          IdEntidad: v.row.IdEntidad,
+                          RAFFI: v.row.RAFFI,
+                          Estado: v.row.Estado,
+                          CreadoPor: v.row.CreadoPor,
+                          FechaCreacion: v.row.FechaCreacion,
+                          ModificadoPor: v.row.ModificadoPor,
+                          AnioFiscal: v.row.AnioFiscal,
+                          Entidad: v.row.Entidad,
+                          Programa: v.row.Programa,
+                          MIR: auxArrayMIR2,
+                          //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+
+                          MetaAnual: v.row.MetaAnual,
+                          Conac: v.row.Conac,
+                          Consecutivo: v.row.Consecutivo,
+                          Opciones: v.row.Opciones,
+                        },
+                      ]);
+                    } else {
+                      setRfEdit([
+                        {
+                          IdRaffi: v.row.IdRaffi,
+                          IdMir: v.row.IdMir,
+                          IdMetaAnual: v.row.IdMetaAnual,
+                          IdEntidad: v.row.IdEntidad,
+                          RAFFI: v.row.RAFFI,
+                          Estado: v.row.Estado,
+                          CreadoPor: v.row.CreadoPor,
+                          FechaCreacion: v.row.FechaCreacion,
+                          ModificadoPor: v.row.ModificadoPor,
+                          AnioFiscal: v.row.AnioFiscal,
+                          Entidad: v.row.Entidad,
+                          Programa: v.row.Programa,
+                          MIR:
+                            //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+                            v.row.MIR,
+                          MetaAnual: v.row.MetaAnual,
+                          Conac: v.row.Conac,
+                          Consecutivo: v.row.Consecutivo,
+                          Opciones: v.row.Opciones,
+                        },
+                      ]);
+                    }
+                    setEstado(v.row.Estado);
+                    setIdEntidad(v.row.IdEntidad);
+                    setOpenTabs(false);
+                    setActionNumber(1); //Revisar esta funcionalidad
+                  }}
+                >
+                  <EditIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                  {v.row.Opciones}
+                </IconButton>
+              </Tooltip>
+            )}
+
+            {v.row.Estado === ("Sin Asignar" || "SIN ASIGNAR") && (
+              <Tooltip title="REGISTRAR RAFFI">
+                <IconButton
+                  type="button"
+                  onClick={() => {
+                    let auxArrayMIR = JSON.parse(v.row.MIR);
+                    let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0]);
+                    if (auxArrayMIR[1]) {
+                      setRfEdit([
+                        {
+                          IdRaffi: v.row.IdRaffi,
+                          IdMir: v.row.IdMir,
+                          IdMetaAnual: v.row.IdMetaAnual,
+                          IdEntidad: v.row.IdEntidad,
+                          RAFFI: v.row.RAFFI,
+                          Estado: v.row.Estado,
+                          CreadoPor: v.row.CreadoPor,
+                          FechaCreacion: v.row.FechaCreacion,
+                          ModificadoPor: v.row.ModificadoPor,
+                          AnioFiscal: v.row.AnioFiscal,
+                          Entidad: v.row.Entidad,
+                          Programa: v.row.Programa,
+                          MIR: auxArrayMIR2,
+                          //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+
+                          MetaAnual: v.row.MetaAnual,
+                          Conac: v.row.Conac,
+                          Consecutivo: v.row.Consecutivo,
+                          Opciones: v.row.Opciones,
+                        },
+                      ]);
+                    } else {
+                      setRfEdit([
+                        {
+                          IdRaffi: v.row.IdRaffi,
+                          IdMir: v.row.IdMir,
+                          IdMetaAnual: v.row.IdMetaAnual,
+                          IdEntidad: v.row.IdEntidad,
+                          RAFFI: v.row.RAFFI,
+                          Estado: v.row.Estado,
+                          CreadoPor: v.row.CreadoPor,
+                          FechaCreacion: v.row.FechaCreacion,
+                          ModificadoPor: v.row.ModificadoPor,
+                          AnioFiscal: v.row.AnioFiscal,
+                          Entidad: v.row.Entidad,
+                          Programa: v.row.Programa,
+                          MIR:
+                            //Array.isArray(row.MIR) ? row.MIR[0] : row.MIR,
+                            v.row.MIR,
+                          MetaAnual: v.row.MetaAnual,
+                          Conac: v.row.Conac,
+                          Consecutivo: v.row.Consecutivo,
+                          Opciones: v.row.Opciones,
+                        },
+                      ]);
+                    }
+                    setEstado(v.row.Estado);
+                    setOpenTabs(false);
+                    setActionNumber(1); //Revisar esta funcionalidad
+                  }}
+                >
+                  <AddCircleOutlineIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                  {v.row.Opciones}
+                </IconButton>
+              </Tooltip>
+            )}
+
+            <Tooltip title="DESCARGAR">
+              <span>
+                <IconButton
+                  onClick={() => {
+                    let auxArrayMIR = JSON.parse(v.row.MIR);
+                    let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0]);
+                    if (auxArrayMIR[1]) {
+                      getFichaRaffiDownload(
+                        auxArrayMIR2,
+                        v.row.MetaAnual,
+                        v.row.RAFFI,
+                        v.row.Programa,
+                        v.row.FechaCreacion,
+                        v.row.Entidad
+                      );
+                    } else {
+                      getFichaRaffiDownload(
+                        v.row.MIR,
+                        v.row.MetaAnual,
+                        v.row.RAFFI,
+                        v.row.Programa,
+                        v.row.FechaCreacion,
+                        v.row.Entidad
+                      );
+                    }
+                  }}
+                  disabled={
+                    v.row.Estado === "Autorizada" && validaFecha ? false : true
+                  }
+                >
+                  <DownloadIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                </IconButton>
+              </span>
+            </Tooltip>
+
+            <ComentDialogRF
+              estado={v.row.Estado}
+              id={v.row.IdMir}
+              MIR={rfEdit[0]?.MIR || ""}
+              IdEntidad={v.row.IdEntidad}
+            />
+
+            <MostrarLista st="" Id={v.row.IdRaffi} />
+          </Grid>
+        );
+      },
+    },
+    {
+      field: "AnioFiscal",
+      headerName: "Año Fiscal",
+      description: "Año Fiscal",
+      width: 100,
+    },
+    {
+      field: "Entidad",
+      headerName: "Entidad",
+      description: "Entidad",
+      width: isSmallScreen ? 200 : 285, // Ancho de 200px si la pantalla es pequeña, 300px si es grande
+    },
+    {
+      field: "Programa",
+      headerName: "Programa",
+      description: "Programa",
+      width: isSmallScreen ? 200 : 285, // Ancho de 200px si la pantalla es pequeña, 300px si es grande
+    },
+
+    {
+      field: "Estado",
+      headerName: "Estado",
+      description: "Estado",
+      width: 100,
+    },
+    {
+      field: "FechaCreacion",
+      headerName: "Fehca de creacion",
+      description: "Fecha de creacion",
+      width: 200,
+    },
+    {
+      field: "CreadoPor",
+      headerName: "Creado por",
+      description: "Creado por",
+      width: 200,
+    },
+  ];
 
   return (
     <Grid container justifyContent={"space-between"}>
@@ -354,14 +709,10 @@ export const Raffi = () => {
         xs={12}
         sx={{ height: "7vh", whitespace: "nowrap" }}
       >
-        <LateralMenu selection={"RAFFI"} actionNumber={actionNumber} />
+        <LateralMenu selection={"RAFFI"} actionNumber={actionNumber} restore={setOpenTabs}/>
       </Grid>
 
       <Grid
-        // justifyContent={"center"}
-        // display={"flex"}
-        height={"93vh"}
-        // alignItems={"center"}
         container
         item
         xl={12}
@@ -370,25 +721,13 @@ export const Raffi = () => {
         sm={12}
         xs={12}
         sx={{
-          //backgroundColor: "white",
           justifyContent: "center",
           display: "flex",
-          //height: "93vh",
+          height: "93vh",
           alignItems: "center",
+          backgroundColor: "white",
         }}
       >
-        {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
-          <Header
-            details={{
-              name1: "Inicio",
-              path1: "../home",
-              name2: "Raffi",
-              path2: "../raffi",
-              name3: "",
-            }}
-          />
-        </Grid> */}
-
         {opentabs ? (
           <>
             {/* FILTROS */}
@@ -398,11 +737,15 @@ export const Raffi = () => {
               xl={8}
               lg={8}
               md={8}
-              sm={8}
+              sm={10}
+              xs={11}
+              // height="15vh"
+              // direction="row"
               sx={{
-                boxShadow: 5,
-                backgroundColor: "#FFFF",
-                borderRadius: 5,
+                ...(!isSmallScreen
+                  ? { boxShadow: 5, backgroundColor: "#FFFF", borderRadius: 5 }
+                  : { marginBottom: "30px" }),
+
                 justifyContent: "space-evenly",
                 alignItems: "center",
                 height: "15vh",
@@ -410,179 +753,80 @@ export const Raffi = () => {
               }}
             >
               <Grid
+                item
+                container
                 xl={12}
                 lg={12}
                 md={12}
                 sm={12}
                 xs={12}
-                item
-                container
                 sx={{
                   justifyContent: "space-around",
                   alignItems: "center",
                   direction: "row",
+                  ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
                 }}
               >
-                <Grid
-                  sx={{ fontFamily: "MontserratRegular" }}
-                  item
-                  xl={11}
-                  lg={10}
-                  md={8}
-                  sm={11}
-                  xs={11}
-                >
-                  <Paper
-                    component="form"
-                    sx={{
-                      display: "flex",
-                      width: "100%",
-                      alignItems: "center",
-                      justifyItems: "center",
-                      height: "6vh",
-                    }}
-                  >
-                    <InputBase
-                      sx={{
-                        ml: 1,
-                        flex: 1,
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        //textAlign: "center",
-                        fontSize: [10, 10, 15, 15, 18, 20],
-                      }}
-                      placeholder="Buscar"
-                      value={findTextStr}
-                      onChange={(e) => {
-                        handleChange(e.target.value);
-                      }}
-                      onKeyPress={(ev) => {
-                        if (ev.key === "Enter") {
-                          filtrarDatos();
-                          ev.preventDefault();
-                          return false;
-                        }
-                      }}
-                    />
-                    <IconButton
-                      type="button"
-                      sx={{ p: "10px" }}
-                      aria-label="Buscar"
-                      onClick={() => filtrarDatos()}
-                    >
-                      <SearchIcon
-                        sx={{
-                          fontSize: "24px", // Tamaño predeterminado del icono
-
-                          "@media (max-width: 600px)": {
-                            fontSize: 25, // Pantalla extra pequeña (xs y sm)
-                          },
-
-                          "@media (min-width: 601px) and (max-width: 960px)": {
-                            fontSize: 25, // Pantalla pequeña (md)
-                          },
-
-                          "@media (min-width: 961px) and (max-width: 1280px)": {
-                            fontSize: 30, // Pantalla mediana (lg)
-                          },
-
-                          "@media (min-width: 1281px)": {
-                            fontSize: 30, // Pantalla grande (xl)
-                          },
-
-                          "@media (min-width: 2200px)": {
-                            fontSize: 30, // Pantalla grande (xl)
-                          },
-                        }}
-                      />
-                    </IconButton>
-                  </Paper>
-                </Grid>
-
-                {/* <Grid item xl={5} lg={4} md={3}>
-                  <Button
-                    fullWidth
-                    sx={queries.buttonContinuarSolicitudInscripcion}
-                    onClick={() => {
-                      setOpenTabs(false);
-                    }}
-                  >
-                    Buscar
-                  </Button>
-                </Grid> */}
-              </Grid>
-
-              <Grid
-                item
-                xl={12}
-                lg={12}
-                md={12}
-                
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
                 {localStorage.getItem("Rol") === "Administrador" ? (
-                   <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
-                    <FormControl
-                      sx={{
-                        display: "flex",
-                        width: "100%",
-                        // alignItems: "center",
-                        // justifyContent: "center",
-                        // //border: 1,
-                        borderRadius: 2,
-                        borderColor: "#616161",
-                      }}
-                    >
-                      <InputLabel sx={queries.text}>
-                        FILTRO POR INSTITUCION
-                      </InputLabel>
-                      <Select
+                  <Grid
+                    item
+                    xl={5}
+                    lg={5}
+                    md={5}
+                    sm={5}
+                    xs={12}
+                    sx={{
+                      ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
+                    }}
+                  >
+                    <FormControl required fullWidth>
+                      <Autocomplete
+                        //  disabled={edit && !mirEdit?.encabezado.ejercicioFiscal}
+                        clearText="Borrar"
+                        noOptionsText="Sin opciones"
+                        closeText="Cerrar"
+                        openText="Abrir"
+                        disablePortal
                         size="small"
-                        fullWidth
-                        variant="outlined"
-                        label="FILTRO POR INSTITUCION"
-                        sx={{
-                          fontFamily: "MontserratRegular",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          //textAlign: "center",
-                          fontSize: [10, 10, 15, 15, 18, 20],
+                        options={catalogoInstituciones}
+                        getOptionLabel={(option) => option.Nombre || ""}
+                        value={instituciones || objetiInstitucion}
+                        getOptionDisabled={(option) => {
+                          if (option.Id === "") {
+                            return true;
+                          }
+                          return false;
                         }}
-                        value={institucionesb}
-                        disabled={
-                          localStorage.getItem("Rol") !== "Administrador"
-                        }
-                        onChange={(v) => {
-                          // v.target.value === "Todos"
-                          //   ? findText(
-                          //       findTextStr,
-                          //       findSelectStr === "Todos" ? "0" : findSelectStr,
-                          //       "0"
-                          //     )
-                          //   : findText(findTextStr, findSelectStr, v.target.value);
-                          setInstitucionesb(v.target.value);
-                        }}
-                      >
-                        <MenuItem
-                          value={institucionesb}
-                          sx={{ fontFamily: "MontserratRegular" }}
-                        >
-                          Todos
-                        </MenuItem>
-
-                        {instituciones?.map((item) => {
+                        renderOption={(props, option) => {
                           return (
-                            <MenuItem value={item.Nombre} key={item.Id}>
-                              {item.Nombre.toUpperCase()}
-                            </MenuItem>
+                            <li {...props} key={option.Id}>
+                              <p style={{ fontFamily: "MontserratRegular", }}
+                              >
+                                {option.Nombre}
+                              </p>
+                            </li>
                           );
-                        })}
-                      </Select>
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="FILTRO POR INSTITUCIÓN"
+                            variant="standard"
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratSemiBold",
+                              },
+                            }}
+                            sx={{
+                              "& .MuiAutocomplete-input": {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}/>
+                        )}
+                        onChange={(event, value) =>
+                          setInstituciones(value || objetiInstitucion)}
+                        isOptionEqualToValue={(option, value) =>option.Id === value.Id }
+                      />
                     </FormControl>
                   </Grid>
                 ) : null}
@@ -615,81 +859,70 @@ export const Raffi = () => {
                   xs={
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
+                      ? 11
                       : 11
                   }
                 >
-                  <FormControl
-                    sx={{
-                      display: "flex",
-                      width: "100%",
-                      // alignItems: "center",
-                      // justifyContent: "center",
-
-                      borderRadius: 2,
-                      borderColor: "#616161",
-                    }}
-                  >
-                    <InputLabel sx={queries.text}>
-                      FILTRO POR ESTADO DE LA RAFFI
-                    </InputLabel>
-                    <Select
-                      size="small"
+                  <FormControl fullWidth>
+                    <Autocomplete
+                      clearText="Borrar"
+                      noOptionsText="Sin opciones"
+                      closeText="Cerrar"
+                      openText="Abrir"
+                      disablePortal
                       fullWidth
-                      variant="outlined"
-                      label="FILTRO POR ESTADO DE LA Raffi"
-                      sx={{
-                        fontFamily: "MontserratRegular",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        //textAlign: "center",
-                        fontSize: [10, 10, 15, 15, 18, 20],
-                        // Tamaños de fuente para diferentes breakpoints
-                      }}
+                      size="small"
                       value={
-                        localStorage.getItem("Rol") === "Administrador" ||
+                        (localStorage.getItem("Rol") === "Administrador" ||
                         localStorage.getItem("Rol") === "ADMINISTRADOR"
-                          ? estadorf
-                          : findSelectStr
+                          ? estadorf.toUpperCase()
+                          : findSelectStr.toUpperCase()) || estados[0]
                       }
-                      onChange={(v) => {
-                        // v.target.value === "Todos"
-                        //   ? findText(
-                        //       findTextStr,
-                        //       "0",
-                        //       findInstStr === "Todos" ? "0" : findInstStr
-                        //     )
-                        //   : findText(findTextStr, v.target.value, findInstStr);
+                      options={estados}
+                      onChange={(event, newValue) => {
+                        // Access the value using newValue
+
                         if (
                           localStorage.getItem("Rol") === "Administrador" ||
                           localStorage.getItem("Rol") === "ADMINISTRADOR"
                         ) {
-                          setEstadoRF(v.target.value);
+                          setEstadoRF(newValue || "");
                         } else {
-                          setFindSelectStr(v.target.value);
+                          setFindSelectStr(newValue || "");
                         }
                       }}
-                    >
-                      {estados.map((estado) => (
-                        <MenuItem key={estado} value={estado}>
-                          {estado}
-                        </MenuItem>
-                      ))}
-                    </Select>
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={"FILTRO POR ESTADO DE LA RF"}
+                          variant="standard"
+                          InputLabelProps={{
+                            style: {
+                              fontFamily: "MontserratSemiBold",
+                            },
+                          }}
+                          sx={{
+                            "& .MuiAutocomplete-input": {
+                              fontFamily: "MontserratRegular",
+                            },
+                          }}
+                        ></TextField>
+                      )}
+                    />
                   </FormControl>
                 </Grid>
 
                 {localStorage.getItem("Rol") === "Administrador" && (
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
-                      // disabled ={estadoma === "Todos" && institucionesb === "Todos" }
+                      // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
                         buscador(
                           estadorf,
                           institucionesb,
                           setRf,
-                          "list-raffis"
+                          "list-raffis",
+                          setUrl
                         );
                       }}
                     >
@@ -720,18 +953,92 @@ export const Raffi = () => {
                   </Grid>
                 )}
               </Grid>
+
+              <Grid
+                sx={{ fontFamily: "MontserratRegular" }}
+                item
+                xl={11}
+                lg={10}
+                md={8}
+                sm={11}
+                xs={11}
+              >
+                <Paper
+                  component="form"
+                  sx={{
+                    display: "flex",
+                    width: "100%",
+                    alignItems: "center",
+                    justifyItems: "center",
+                    height: "6vh",
+                  }}
+                >
+                  <InputBase
+                    sx={{
+                      ml: 1,
+                      flex: 1,
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      fontSize: [10, 10, 15, 15, 18, 20],
+                    }}
+                    placeholder="Buscar"
+                    value={findTextStr}
+                    onChange={(e) => {
+                      handleChange(e.target.value);
+                    }}
+                    onKeyPress={(ev) => {
+                      if (ev.key === "Enter") {
+                        filtrarDatos();
+                        ev.preventDefault();
+                        return false;
+                      }
+                    }}
+                  />
+                  <IconButton
+                    type="button"
+                    sx={{ p: "10px" }}
+                    aria-label="Buscar"
+                    onClick={() => filtrarDatos()}
+                  >
+                    <SearchIcon
+                      sx={{
+                        fontSize: "24px", // Tamaño predeterminado del icono
+
+                        "@media (max-width: 600px)": {
+                          fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                        },
+
+                        "@media (min-width: 601px) and (max-width: 960px)": {
+                          fontSize: 25, // Pantalla pequeña (md)
+                        },
+
+                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                          fontSize: 30, // Pantalla mediana (lg)
+                        },
+
+                        "@media (min-width: 1281px)": {
+                          fontSize: 30, // Pantalla grande (xl)
+                        },
+
+                        "@media (min-width: 2200px)": {
+                          fontSize: 30, // Pantalla grande (xl)
+                        },
+                      }}
+                    />
+                  </IconButton>
+                </Paper>
+              </Grid>
             </Grid>
             {/* TABLA */}
             <Grid
               container
               item
-              xl={10}
-              lg={10}
-              md={10}
-              sm={10}
-              xs={10}
-              height="65vh"
-              direction="row"
+              xl={11}
+              lg={11}
+              md={11}
+              sm={11}
+              xs={11}
               sx={{
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
@@ -751,7 +1058,7 @@ export const Raffi = () => {
                   },
                   "&::-webkit-scrollbar-thumb": {
                     backgroundColor: "#edeaea",
-                    //outline: "1px solid slategrey",
+
                     borderRadius: 1,
                   },
                 }}
@@ -770,8 +1077,6 @@ export const Raffi = () => {
                             fontFamily: "MontserratBold",
                             borderBottom: 0,
                             fontSize: [10, 10, 10, 15, 16, 18],
-                            // fontFamily: "MontserratRegular",
-                            //   fontSize: ".7vw",
                             justifyContent: "center",
                             alignItems: "center",
                           }}
@@ -918,6 +1223,7 @@ export const Raffi = () => {
                                             IdRaffi: row.IdRaffi,
                                             IdMir: row.IdMir,
                                             IdMetaAnual: row.IdMetaAnual,
+                                            IdEntidad: row.IdEntidad,
                                             RAFFI: row.RAFFI,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -935,12 +1241,14 @@ export const Raffi = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setRfEdit([
                                           {
                                             IdRaffi: row.IdRaffi,
                                             IdMir: row.IdMir,
                                             IdMetaAnual: row.IdMetaAnual,
+                                            IdEntidad: row.IdEntidad,
                                             RAFFI: row.RAFFI,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -958,8 +1266,10 @@ export const Raffi = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        
                                       }
                                       setEstado(row.Estado);
+                                      setIdEntidad(row.IdEntidad);
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -1012,6 +1322,7 @@ export const Raffi = () => {
                                             IdRaffi: row.IdRaffi,
                                             IdMir: row.IdMir,
                                             IdMetaAnual: row.IdMetaAnual,
+                                            IdEntidad: row.IdEntidad,
                                             RAFFI: row.RAFFI,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1029,12 +1340,14 @@ export const Raffi = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setRfEdit([
                                           {
                                             IdRaffi: row.IdRaffi,
                                             IdMir: row.IdMir,
                                             IdMetaAnual: row.IdMetaAnual,
+                                            IdEntidad: row.IdEntidad,
                                             RAFFI: row.RAFFI,
                                             Estado: row.Estado,
                                             CreadoPor: row.CreadoPor,
@@ -1053,6 +1366,7 @@ export const Raffi = () => {
                                           },
                                         ]);
                                       }
+                                      setIdEntidad(row.IdEntidad)
                                       setEstado(row.Estado);
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
@@ -1158,12 +1472,10 @@ export const Raffi = () => {
                               <ComentDialogRF
                                 estado={row.Estado}
                                 id={row.IdMir}
-                                //actualizado={actualizaContador}
+                                MIR={rfEdit[0]?.MIR || ""}
+                                IdEntidad={row.IdEntidad}
                               />
-                              <MostrarLista
-                                      st=""
-                                      Id={row.IdRaffi}
-                                      />
+                              <MostrarLista st="" Id={row.IdRaffi} />
                             </TableCell>
                           </TableRow>
                         );
@@ -1171,6 +1483,14 @@ export const Raffi = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
+
+              {/* <DataGridTable
+                id={(row: any) => row.IdRaffi || Math.random}
+                columns={columsRf}
+                rows={rfxFiltered}
+                camposCsv={[]}
+                exportTitle={"Columnas"}
+              /> */}
             </Grid>
           </>
         ) : (
@@ -1193,11 +1513,10 @@ export const Raffi = () => {
               IdMA={rfEdit[0].IdMetaAnual || ""}
               IdRf={rfEdit[0].IdRaffi || ""}
               estado={estado}
+              IdEntidad={IdEntidad}
             />
           </Grid>
         )}
-        {/* rdEdit: 
-        {JSON.stringify(rfEdit[0]?.MIR)} */}
       </Grid>
     </Grid>
   );
@@ -1207,6 +1526,7 @@ export interface IRaffi {
   IdRaffi: string;
   IdMir: string;
   IdMetaAnual: string;
+  IdEntidad: string;
   RAFFI: string;
   Estado: string;
   CreadoPor: string;

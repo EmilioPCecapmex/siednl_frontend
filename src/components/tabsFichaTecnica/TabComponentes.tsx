@@ -14,7 +14,6 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { IComponentesFT, IFTEdit } from "../tabsFichaTecnica/Interfaces";
 import { clearInfo } from "../genericComponents/GenericMethods";
-
 export const TabComponenteFT = ({
   edit,
   show,
@@ -52,8 +51,12 @@ export const TabComponenteFT = ({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(!isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -246,7 +249,7 @@ export const TabComponenteFT = ({
               </FormLabel>
               <Grid sx={{ display: "flex", flexDirection: "column" }}>
                 <FormControlLabel
-                  value={"SELECCIÓN ESTRATEGICO"}
+                  value={"SELECCIÓN ESTRATÉGICO"}
                   label={
                     <Typography
                       sx={{
@@ -254,7 +257,7 @@ export const TabComponenteFT = ({
                         fontFamily: "MontserratMedium",
                       }}
                     >
-                      SELECCIÓN ESTRATEGICO
+                      SELECCIÓN ESTRATÉGICO
                     </Typography>
                   }
                   sx={{
@@ -264,7 +267,7 @@ export const TabComponenteFT = ({
                     <Radio
                       checked={
                         componentesValues[componentSelect]?.tipoDeIndicador ===
-                        "SELECCIÓN ESTRATEGICO"
+                        "SELECCIÓN ESTRATÉGICO"
                       }
                       onChange={(c) => {
                         componentesValues[componentSelect].tipoDeIndicador =
@@ -509,7 +512,7 @@ export const TabComponenteFT = ({
               value={componentesValues[componentSelect]?.unidadDeMedida || ""}
               onChange={(c) => {
                 componentesValues[componentSelect].unidadDeMedida =
-                clearInfo(c.target.value);
+                clearInfo(c.target.value)
                 setComponentesValues([...componentesValues]);
               }}
             />

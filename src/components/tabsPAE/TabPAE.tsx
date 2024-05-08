@@ -60,12 +60,10 @@ export const TabPAE = ({
     setRegistrosFiltrados(registros);
 
     if (TabSelect !== "Todos los Documentos") {
-      
-      
       let aux = registros.filter((registro) => {
         return registro.PerteneceA === tabsShow;
       });
-     
+
       setRegistrosFiltrados(aux);
     }
     setProgressBar(false);
@@ -272,26 +270,27 @@ export const TabPAE = ({
                 justifyContent: "flex-end",
               }}
             >
-              <Button variant="outlined" onClick={()=>{handleClickOpen()}}
-                >
-                Cargar Archivo
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  handleClickOpen();
+                }}
+              >
+                CARGAR ARCHIVO
               </Button>
-              {open ?
+              {open ? (
                 <DialogCargaArchivo
                   Tabs={Tabs.filter((tab) => tab !== "Todos los Documentos")}
                   Tab={
                     TabSelect === "Todos los Documentos" ? Tabs[1] : tabsShow
                   }
-                  updateData={() => {actuaizarDatos()
-                  
-                  }
-                    
-                  }
+                  updateData={() => {
+                    actuaizarDatos();
+                  }}
                   open={open}
                   setOpen={setOpen}
-                />: null
-              } 
-
+                />
+              ) : null}
             </Grid>
           ) : (
             ""

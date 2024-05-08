@@ -13,6 +13,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+//import { IAI } from "../../screens/InterfacesActividadesInstitucionales";
 import { IAI } from "../../screens/actividadesInstitucionales/InterfacesActividadesInstitucionales";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
@@ -412,7 +413,7 @@ export function TabAccion1({
               label={"Descripción de la accion"}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].descripcion = clearInfo(c.target.value);
+                prevLocal[componentSelect - 1].descripcion = clearInfo(c.target.value)
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.descripcion}
@@ -451,7 +452,7 @@ export function TabAccion1({
               }
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].nombreIndicador = clearInfo(c.target.value);
+                prevLocal[componentSelect - 1].nombreIndicador = clearInfo(c.target.value)
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.nombreIndicador}
@@ -515,7 +516,7 @@ export function TabAccion1({
               label={"Numerador"}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].numerador = clearInfo(c.target.value);
+                prevLocal[componentSelect - 1].numerador = clearInfo(c.target.value)
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.numerador}
@@ -548,7 +549,7 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value);
+                prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value)
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.unidadMedida}
@@ -581,7 +582,7 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].medio_fuente = clearInfo(c.target.value);
+                prevLocal[componentSelect - 1].medio_fuente = clearInfo(c.target.value)
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.medio_fuente}
@@ -614,7 +615,7 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].denomidador = clearInfo(c.target.value);
+                prevLocal[componentSelect - 1].denomidador = clearInfo(c.target.value)
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.denomidador}
@@ -647,7 +648,7 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value);
+                prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value)
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.unidadMedida}
@@ -680,7 +681,7 @@ export function TabAccion1({
               label={"Medio de Verificación / Fuente de Información"}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].medio_fuente2 = clearInfo(c.target.value);
+                prevLocal[componentSelect - 1].medio_fuente2 = clearInfo(c.target.value)
                 setAcciones(prevLocal);
               }}
               value={acciones[componentSelect - 1]?.medio_fuente2}

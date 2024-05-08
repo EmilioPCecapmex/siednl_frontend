@@ -94,16 +94,37 @@ export const TabComponente = ({
       }
     }
   };
+  const clearComponentes = (componentes: IComponente[]) => {
+    let auxCompo: IComponente[] = [];
+    componentes.map((item, i) => {
+      let obj: IComponente = {
+        //item.actividades[x]
+        componente: item.componente.trimEnd() || "",
+        resumen: item.resumen.trimEnd() || "",
+        indicador: item.indicador.trimEnd() || "",
+        formula: item.formula.trimEnd() || "",
+        frecuencia: item.frecuencia.trimEnd() || "",
+        medios: item.medios.trimEnd() || "",
+        supuestos: item.supuestos.trimEnd() || "",
+        actividades: item.actividades,
+      };
+      auxCompo.push(obj);
+    });
+
+    return auxCompo;
+  };
+
+  
 
   const [componentes, setComponentes] = useState<Array<IComponente>>(
-    MIR.componentes
+    clearComponentes(MIR.componentes)
   );
 
-  useEffect(() => {
-    setComponentes(MIR.componentes);
+  // useEffect(() => {
+  //   setComponentes(MIR.componentes);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [MIR]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [MIR]);
 
   useEffect(() => {
     setMIR((MIR: IMIR) => ({
@@ -135,8 +156,7 @@ export const TabComponente = ({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(!isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -214,7 +234,7 @@ export const TabComponente = ({
               "&::-webkit-scrollbar": {
                 width: ".3vw",
               },
-              
+
               "&::-webkit-scrollbar-thumb": {
                 backgroundColor: "rgba(0,0,0,.5)",
                 outline: "1px solid slategrey",
@@ -354,7 +374,9 @@ export const TabComponente = ({
               }}
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect - 1].resumen = clearInfo(c.target.value);
+                prevLocal[componentSelect - 1].resumen = clearInfo(
+                  c.target.value
+                );
                 setComponentes(prevLocal);
               }}
               value={componentes[componentSelect - 1]?.resumen}
@@ -405,7 +427,9 @@ export const TabComponente = ({
               }
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect - 1].indicador = clearInfo(c.target.value);
+                prevLocal[componentSelect - 1].indicador = clearInfo(
+                  c.target.value
+                );
                 prevLocal[componentSelect - 1].formula = "";
                 setComponentes(prevLocal);
               }}
@@ -428,7 +452,7 @@ export const TabComponente = ({
           >
             <TextField
               disabled={
-                edit && !mirEdit?.componentes[componentSelect - 1]?.formula
+                edit && !mirEdit?.componentes[componentSelect - 1]?.indicador
               }
               rows={8}
               multiline
@@ -494,7 +518,9 @@ export const TabComponente = ({
                     }
                     onChange={(c) => {
                       let prevLocal = [...componentes];
-                      prevLocal[componentSelect - 1].frecuencia = clearInfo(c.target.value);
+                      prevLocal[componentSelect - 1].frecuencia = clearInfo(
+                        c.target.value
+                      );
                       setComponentes(prevLocal);
                     }}
                   />
@@ -514,7 +540,9 @@ export const TabComponente = ({
                     }
                     onChange={(c) => {
                       let prevLocal = [...componentes];
-                      prevLocal[componentSelect - 1].frecuencia = clearInfo(c.target.value);
+                      prevLocal[componentSelect - 1].frecuencia = clearInfo(
+                        c.target.value
+                      );
                       setComponentes(prevLocal);
                     }}
                   />
@@ -548,7 +576,7 @@ export const TabComponente = ({
                 width: ["none", "30vh", "40vh", "50vh", "50vh"],
                 //top: ["-4vh", "none", "none", "none", "none", "none"]
               }}
-              label={"MEDIOS DE VERIFICACIÓN"}
+              label={"MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION"}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -561,7 +589,9 @@ export const TabComponente = ({
               }}
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect - 1].medios = clearInfo(c.target.value);
+                prevLocal[componentSelect - 1].medios = clearInfo(
+                  c.target.value
+                );
                 setComponentes(prevLocal);
               }}
               value={componentes[componentSelect - 1]?.medios}
@@ -606,7 +636,9 @@ export const TabComponente = ({
               }}
               onChange={(c) => {
                 let prevLocal = [...componentes];
-                prevLocal[componentSelect - 1].supuestos = clearInfo(c.target.value);
+                prevLocal[componentSelect - 1].supuestos = clearInfo(
+                  c.target.value
+                );
                 setComponentes(prevLocal);
               }}
               value={componentes[componentSelect - 1]?.supuestos}

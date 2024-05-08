@@ -28,12 +28,16 @@ export function TabEncabezado({
   MIR,
   setMIR,
   mirEdit,
+  IdEntidad,
+  setIdEntidad,
 }: {
   edit: boolean;
   show: boolean;
   MIR: IMIR;
   setMIR: Function;
   mirEdit: IMIREdit;
+  IdEntidad: string;
+  setIdEntidad: Function;
 }) {
   // const [nombreArchivo, setNombreArchivo] = useState(
   //   "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
@@ -90,6 +94,7 @@ export function TabEncabezado({
 
   const [catalogoTematicas, setCatalogoTematicas] = useState<Array<ILista>>([]);
   const [tematica, setTematica] = useState<ILista>(
+    
     MIR.encabezado?.tema || objetoVacio
   );
 
@@ -123,7 +128,7 @@ export function TabEncabezado({
 
   useEffect(() => {
     getLista("AniosFiscales", "", setCatalogoAniosFiscales);
-
+    setIdEntidad(MIR.encabezado?.entidad.Id)
     getListasLoginProgramas(setCatalogoInstituciones);
     getListPedColumns({ Col: "Ejes", Id: "" }, setCatalogoEjes, () => {});
     getLista("Beneficiario", "", setCatalogoBeneficiarios);
@@ -281,8 +286,12 @@ export function TabEncabezado({
         // alignItems: "center",
         // justifyItems: "center",
         backgroundColor: "#fff",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         ...(!isSmallScreen && {
           height: "85%",
           overflow: "auto",
@@ -451,6 +460,11 @@ export function TabEncabezado({
                   Id: value?.Id || "",
                   Label: value?.Label || "",
                 });
+                if(IdEntidad === undefined || IdEntidad === "" || IdEntidad === null || /^[\s]*$/.test(IdEntidad)){
+                  setIdEntidad(value?.Id)
+                }
+          
+                
               }}
               isOptionEqualToValue={(option, value) => option.Id === value.Id}
             />
@@ -994,7 +1008,7 @@ export function TabEncabezado({
                         <React.Fragment>
                           {beneficiario?.length > 2 && (
                             <Typography color="error" variant="caption">
-                              Máximo 2 beneficiarios
+                              MÁXIMO 2 BENEFIICARIOS
                             </Typography>
                           )}
                         </React.Fragment>
@@ -1016,7 +1030,7 @@ export function TabEncabezado({
                   //setBeneficiario(value || objetoVacio);
                   if (value.length <= 2) {
                     setBeneficiario(value);
-                  } else alertaInfo("Maximo 2 beneficiarios");
+                  } else alertaInfo("MÁXIMO 2 BENEFIICARIOS");
                 }}
                 isOptionEqualToValue={(
                   option: {

@@ -67,8 +67,12 @@ export const TabActividadesFT = ({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(!isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -341,7 +345,7 @@ export const TabActividadesFT = ({
               </FormLabel>
               <Grid sx={{ display: "flex", flexDirection: "column" }}>
                 <FormControlLabel
-                  value={"SELECCIÓN ESTRATEGICO"}
+                  value={"SELECCIÓN ESTRATÉGICO"}
                   label={
                     <Typography
                       sx={{
@@ -349,7 +353,7 @@ export const TabActividadesFT = ({
                         fontFamily: "MontserratMedium",
                       }}
                     >
-                      SELECCIÓN ESTRATEGICO
+                      SELECCIÓN ESTRATÉGICO
                     </Typography>
                   }
                   sx={{
@@ -360,7 +364,7 @@ export const TabActividadesFT = ({
                       checked={
                         componentesActividadValues[componenteSelect]
                           .actividades[actividadSelect]?.tipoDeIndicador ===
-                        "SELECCIÓN ESTRATEGICO"
+                        "SELECCIÓN ESTRATÉGICO"
                       }
                       onChange={(c) => {
                         let y = [...componentesActividadValues];
@@ -626,7 +630,7 @@ export const TabActividadesFT = ({
                 let y = [...componentesActividadValues];
                 y[componenteSelect].actividades[
                   actividadSelect
-                ].unidadDeMedida = clearInfo(c.target.value);
+                ].unidadDeMedida = clearInfo(c.target.value)
                 setComponentesActividadValues(y);
               }}
               value={

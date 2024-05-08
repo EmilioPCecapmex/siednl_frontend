@@ -237,7 +237,7 @@ export default function DataGridTable(props: any) {
       <GridToolbarContainer
         sx={{ display: "flex", justifyContent: "space-between" }}
       >
-        <Button
+        {/* <Button
           aria-controls={open ? "fade-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
@@ -245,7 +245,7 @@ export default function DataGridTable(props: any) {
           className="aceptar"
         >
           Exportar
-        </Button>
+        </Button> */}
         <Menu
           MenuListProps={{ "aria-labelledby": "fade-button" }}
           anchorEl={anchorEl}

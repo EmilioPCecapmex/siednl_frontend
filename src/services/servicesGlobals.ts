@@ -1,6 +1,7 @@
 import axios from "axios";
+import { alertaError } from "../components/genericComponents/Alertas";
 
-export const buscador = (estado: any, Ins: any, setsate: Function, list: string) => {
+export const buscador = (estado: any, Ins: any, setsate: Function, list: string, setsate2: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/" + list, {
         params: {
@@ -16,8 +17,18 @@ export const buscador = (estado: any, Ins: any, setsate: Function, list: string)
       })
       .then((r) => {
         //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-
-        setsate(r.data.data);
+ 
+        if (r.data.data.length === 0) {
+          alertaError(
+            "El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR"
+            
+          );
+          setsate(r.data.data);
+          setsate2("")
+        } else {
+          setsate(r.data.data);
+          setsate2("")
+        }
         //setInstitucionesb("Todos")
       });
   };

@@ -112,7 +112,7 @@ export function TabResumenMIR({
           mb: 2,
         }}
       >
-        Resumen RF
+        RESUMEN RF
       </DialogTitle>
 
       <DialogContent
@@ -144,7 +144,7 @@ export function TabResumenMIR({
         >
           <Box sx={{ p: 5, display: "flex", flexDirection: "column" }}>
             <Typography sx={{ fontFamily: "MontserratBold", borderBottom: 1 }}>
-              Datos Generales
+              DATOS GENERALES
             </Typography>
 
             <Box sx={{ display: "flex" }}>
@@ -162,7 +162,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                 >
-                  Ejercicio Fiscal:
+                  EJERCICIO FISCAL:
                 </Typography>
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -187,7 +187,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                 >
-                  Institución:
+                  INSTITUCIÓN:
                 </Typography>
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -213,7 +213,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                 >
-                  Programa:
+                  PROGRAMA:
                 </Typography>
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -238,7 +238,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                 >
-                  Eje:
+                  EJE:
                 </Typography>
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -263,7 +263,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                 >
-                  Temática:
+                  TEMÁTICA:
                 </Typography>
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -286,7 +286,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                 >
-                  Objetivo:
+                  OBJETIVO:
                 </Typography>
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -313,7 +313,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                 >
-                  Estrategia:
+                  ESTRATEGIA:
                 </Typography>
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -338,7 +338,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                 >
-                  Beneficiario:
+                  BENEFICIARIO:
                 </Typography>
                 <Typography
                   sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -362,7 +362,7 @@ export function TabResumenMIR({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
-                Lineas de Acción:
+                LINEAS DE ACCIÓN
               </Typography>
               <Box>
                 {encabezado?.lineas_de_accion.map(
@@ -392,7 +392,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
                 >
-                  Fin
+                  FIN
                 </Typography>
                 <Box
                   sx={{
@@ -408,7 +408,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Resumen Narrativo:
+                    RESUMEN NARRATIVO:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -430,7 +430,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Indicador:
+                    INDICADOR:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -452,7 +452,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Fórmula:
+                    FÓRMULA:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -474,7 +474,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Frecuencia:
+                    FRECUENCIA:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -496,7 +496,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Medios de Verificación:
+                    MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -518,7 +518,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Supuestos:
+                    SUPUESTOS:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -532,7 +532,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
                 >
-                  Propósito
+                  PROPÓSITO
                 </Typography>
                 <Box
                   sx={{
@@ -548,7 +548,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Resumen Narrativo:
+                    RESUMEN NARRATIVO:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -570,7 +570,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Indicador:
+                    INDICADOR:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -592,7 +592,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Fórmula:
+                    FÓRMULA:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -614,7 +614,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Frecuencia:
+                    FRECUENCIA:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -636,7 +636,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Medios de Verificación:
+                    MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -658,7 +658,7 @@ export function TabResumenMIR({
                   <Typography
                     sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                   >
-                    Supuestos:
+                    SUPUESTOS:
                   </Typography>
                   <Typography
                     sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -672,7 +672,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
                 >
-                  Componentes
+                  COMPONENTES
                 </Typography>
 
                 {noComponentes.map((index) => {
@@ -686,7 +686,7 @@ export function TabResumenMIR({
                           textAlign: "center",
                         }}
                       >
-                        Componente {index}
+                        COMPONENTE {index}
                       </Typography>
                       <Box
                         sx={{
@@ -702,7 +702,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                         >
-                          Resumen Narrativo:
+                          RESUMEN NARRATIVO:
                         </Typography>
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -724,7 +724,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                         >
-                          Indicador:
+                          INDICADOR:
                         </Typography>
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -746,7 +746,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                         >
-                          Fórmula:
+                          FÓRMULA:
                         </Typography>
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -768,7 +768,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                         >
-                          Frecuencia:
+                          FRECUENCIA:
                         </Typography>
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -790,7 +790,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                         >
-                          Medios de Verificación:
+                          MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION
                         </Typography>
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -812,7 +812,7 @@ export function TabResumenMIR({
                         <Typography
                           sx={{ fontFamily: "MontserratMedium", width: "20%" }}
                         >
-                          Supuestos:
+                          SUPUESTOS:
                         </Typography>
                         <Typography
                           sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -829,7 +829,7 @@ export function TabResumenMIR({
                 <Typography
                   sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
                 >
-                  Actividades
+                  ACTIVIDADES
                 </Typography>
 
                 {/* {cValor[0]?.componentes.map((item, indexComponentes) => {
@@ -864,7 +864,7 @@ export function TabResumenMIR({
                     //           width: "20%",
                     //         }}
                     //       >
-                    //         Resumen Narrativo:
+                    //         RESUMEN NARRATIVO:
                     //       </Typography>
                     //       <Typography
                     //         sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -893,7 +893,7 @@ export function TabResumenMIR({
                     //           width: "20%",
                     //         }}
                     //       >
-                    //         Indicador:
+                    //         INDICADOR:
                     //       </Typography>
                     //       <Typography
                     //         sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -918,7 +918,7 @@ export function TabResumenMIR({
                     //           width: "20%",
                     //         }}
                     //       >
-                    //         Fórmula:
+                    //         FÓRMULA:
                     //       </Typography>
                     //       <Typography
                     //         sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -943,7 +943,7 @@ export function TabResumenMIR({
                     //           width: "20%",
                     //         }}
                     //       >
-                    //         Frecuencia:
+                    //         FRECUENCIA:
                     //       </Typography>
                     //       <Typography
                     //         sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -968,7 +968,7 @@ export function TabResumenMIR({
                     //           width: "20%",
                     //         }}
                     //       >
-                    //         Medios de Verificación:
+                    //         MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION
                     //       </Typography>
                     //       <Typography
                     //         sx={{ fontFamily: "MontserratLight", width: "80%" }}
@@ -993,7 +993,7 @@ export function TabResumenMIR({
                     //           width: "20%",
                     //         }}
                     //       >
-                    //         Supuestos:
+                    //         SUPUESTOS:
                     //       </Typography>
                     //       <Typography
                     //         sx={{ fontFamily: "MontserratLight", width: "80%" }}

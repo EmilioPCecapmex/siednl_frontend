@@ -1,5 +1,5 @@
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { Grid, TextField, Tooltip, Typography } from "@mui/material";
+import { Grid, TextField, Tooltip, Typography, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { queries } from "../../queries";
 import { validarNumero } from "../../services/validations";
@@ -47,7 +47,7 @@ export function TabFinPropositoRF({
   const handleClickOpen = () => {
     setOpenFormulaDialog(true);
   };
-  // Función para buscar la palabra
+
   const palabra = (texto: string) => {
     const palabrasABuscar: string[] = [
       "PORCENTAJE",
@@ -117,7 +117,7 @@ export function TabFinPropositoRF({
         break;
     }
   };
-
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
   return (
     <>
       <Grid
@@ -128,12 +128,16 @@ export function TabFinPropositoRF({
           justifyContent: "space-around",
           alignItems: "flex-start",
           backgroundColor: "#fff",
-          boxShadow: 10,
-          borderRadius: 5,
+          ...(!isSmallScreen
+            ? {boxShadow: 10,
+              borderRadius: 5,}
+            : {
+                
+              }),
           overflow: "auto",
         }}
       >
-        {/* {JSON.stringify(raffiboolean)} */}
+      
         <Grid
           item
           container
@@ -143,9 +147,9 @@ export function TabFinPropositoRF({
           sm={12}
           xs={12}
           sx={{
-            //width: "100%",
+         
             display: "flex",
-            // height: "7vh",
+          
             justifyContent: "flex-end",
             alignItems: "center",
           }}
@@ -209,9 +213,9 @@ export function TabFinPropositoRF({
             container
             direction={"column"}
             sx={{
-              //backgroundColor: "#f0f0f0",
+              
               display: "flex",
-              //flexDirection: "column",
+              
               alignItems: "center",
               justifyContent: "center",
               boxShadow: 2,
@@ -324,9 +328,9 @@ export function TabFinPropositoRF({
             container
             direction={"column"}
             sx={{
-              //backgroundColor: "#f0f0f0",
+             
               display: "flex",
-              //flexDirection: "column",
+            
               alignItems: "center",
               justifyContent: "center",
               boxShadow: 2,
@@ -372,7 +376,7 @@ export function TabFinPropositoRF({
               <TextField
                 fullWidth
                 size="small"
-                //label="Operacion"
+                
 
                 value={palabraABuscar2}
                 InputLabelProps={{
@@ -407,7 +411,7 @@ export function TabFinPropositoRF({
                   },
                 }}
                 InputProps={{
-                  //readOnly: true,
+                  
                   style: {
                     fontFamily: "MontserratMedium",
                   },

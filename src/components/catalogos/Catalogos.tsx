@@ -1,7 +1,9 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {
+  Button,
   Grid,
+  Hidden,
   IconButton,
   List,
   ListItemButton,
@@ -17,6 +19,8 @@ import AddDialogCatalogo from "./AddDialogCatalogo";
 import { DescargarExcel, listaGenericaCatalogos } from "./AxiosCatalogo";
 import DeleteDialogCatalogos from "./DeleteDialogCatalogos";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import CloseIcon from "@mui/icons-material/Close";
+
 import {
   configOptions,
   newBeneficiario,
@@ -35,6 +39,8 @@ import {
   IObjetoProgramasPresupuestarios,
 } from "./InterfacesCatalogos";
 import ModifyDialogCatalogos from "./ModifyDialogCatalogo";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export const Catalogos = ({ defSelected }: { defSelected: string }) => {
   const [opcionCatalogo, setOpcionCatalogo] = useState(defSelected);
@@ -424,6 +430,10 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
 
   const [openMody, setOpenMody] = useState(false);
   const [openDel, setOpenDel] = useState(false);
+
+  const [openSM, setOpenSM] = useState(false);
+  const [openSM2, setOpenSM2] = useState(false);
+
   const [actualizacion, setActualizacion] = useState(0);
   const [updata, setUpdata] = useState("");
 
@@ -460,6 +470,12 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     UpdateInfo();
   }, [updata]);
 
+  // useEffect(() => {
+  //   if(!isSmallScreen){
+  //     setOpenSM(false)
+  //   }
+  // }, [openSM]);
+
   const UpdateInfo = () => {
     listaGenericaCatalogos(
       updata,
@@ -477,80 +493,80 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
     );
   };
 
-  return (
-    //Grid Padre con tamaño de la pantalla a usar
-    <Grid
-      justifyContent={"center"}
-      display={"flex"}
-      container
-      height={"93vh"}
-      alignItems={"center"}
-      item
-      xl={12}
-      lg={12}
-      md={12}
-      sm={12}
-      xs={12}
-      sx={{ backgroundColor: "white" }}
-    >
-      {/* Grid de la lista de configuracion */}
-      <Grid
-        item
-        xl={2}
-        lg={2}
-        md={2}
-        sm={12}
-        xs={12}
-        sx={{ display: "flex", overflow: "auto", height: "100%" }}
-      >
-        <List sx={{}}>
-          {configOptions.map((item) => {
-            return (
-              <ListItemButton
-                //className="aceptar"
-                sx={{
-                  "&.Mui-selected": {
-                    backgroundColor: "#af8c55",
-                    color: item.Desc === opcionCatalogo ? "white" : "inherit",
-                  },
-                  "&.Mui-selected:hover": {
-                    backgroundColor: "#af8c55",
-                    color: item.Desc === opcionCatalogo ? "white" : "inherit",
-                  },
-                }}
-                onClick={() => {
-                  setObjetoPed([]);
-                  setObjetoProgramasInstitucionales([]);
-                  setObjetoCatalogo([]);
-                  setObjetoFechaDeCaptura([]);
-                  setObjetoBeneficiario([]);
-                  setObjetoProgamaPresupuestario([]);
-                  setCatalogoSelected(newCatalogo);
-                  setProgramasISelected(newProgramas);
-                  setPedSelected(newPed);
-                  setFechaDeCapturaSelected(newFecha);
-                  setBeneficiarioSelected(newBeneficiario);
-                  setProgramasPresupuestariosISelected(
-                    newProgramasPresupuestario
-                  );
-                  setOpcionCatalogo(item.Desc);
-                  setUpdata(item.Desc);
-                }}
-                selected={item.Desc === opcionCatalogo}
-              >
-                {item.Desc.toUpperCase()}
-              </ListItemButton>
-            );
-          })}
-        </List>
-      </Grid>
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.up("md"));
+  const isSmallScreen2 = useMediaQuery('(max-width:768px)');
 
+  const opcionesCatalogo = () => {
+    return (
+      <>
+        <Grid
+          item
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{ display: "flex", overflow: "auto", height: "93vh" }}
+        >
+          <List sx={{}}>
+            {configOptions.map((item) => {
+              return (
+                <ListItemButton
+                  //className="aceptar"
+                  sx={{
+                    "&.Mui-selected": {
+                      backgroundColor: "#af8c55",
+                      color: item.Desc === opcionCatalogo ? "white" : "inherit",
+                    },
+                    "&.Mui-selected:hover": {
+                      backgroundColor: "#af8c55",
+                      color: item.Desc === opcionCatalogo ? "white" : "inherit",
+                    },
+                  }}
+                  onClick={() => {
+                    if (!isSmallScreen) {
+                      setOpenSM(true);
+                      setOpenSM2(false);
+                    }
+                    setObjetoPed([]);
+                    setObjetoProgramasInstitucionales([]);
+                    setObjetoCatalogo([]);
+                    setObjetoFechaDeCaptura([]);
+                    setObjetoBeneficiario([]);
+                    setObjetoProgamaPresupuestario([]);
+                    setCatalogoSelected(newCatalogo);
+                    setProgramasISelected(newProgramas);
+                    setPedSelected(newPed);
+                    setFechaDeCapturaSelected(newFecha);
+                    setBeneficiarioSelected(newBeneficiario);
+                    setProgramasPresupuestariosISelected(
+                      newProgramasPresupuestario
+                    );
+                    setOpcionCatalogo(item.Desc);
+                    setUpdata(item.Desc);
+                  }}
+                  selected={item.Desc === opcionCatalogo}
+                >
+                  {item.Desc.toUpperCase()}
+                </ListItemButton>
+              );
+            })}
+          </List>
+        </Grid>
+      </>
+    );
+  };
+
+  const listasCatalogs = () => {
+    return (
+<>
       <Grid
         item
         container
-        xl={10}
-        lg={10}
-        md={10}
+        xl={12}
+        lg={12}
+        md={12}
         sm={12}
         xs={12}
         sx={{ display: "flex", height: "93vh" }}
@@ -566,17 +582,21 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           sx={{
             display: "flex",
             justifyContent: "flex-end",
-            height: "13vh",
+            height: "10vh",
             alignItems: "center",
+            // ...(isSmallScreen && {
+            //   overflow: "auto",
+            // Otros estilos específicos para pantallas pequeñas
+            // }),
           }}
         >
           <Grid
             item
             xl={8}
             lg={8}
-            md={8}
-            sm={8}
-            xs={8}
+            md={12}
+            sm={12}
+            xs={12}
             sx={{ display: "flex", justifyContent: "center" }}
           >
             <Tooltip title={opcionCatalogo}>
@@ -600,14 +620,11 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             item
             xl={2}
             lg={2}
-            md={2}
-            sm={2}
-            xs={2}
+            md={12}
+            sm={12}
+            xs={12}
             sx={{ display: "flex", justifyContent: "center" }}
           >
-            <Grid item sx={{ marginRight: 1 }}>
-              <ButtonAdd agregar={true} handleOpen={() => setOpenAdd(true)} />
-            </Grid>
             <Grid item sx={{ marginLeft: 1 }}>
               <Grid>
                 <Tooltip title={"Descargar"}>
@@ -615,19 +632,22 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                     className="aceptar"
                     value="check"
                     onClick={() => {
-                      console.log("objetoProgamaPresupuestario: ",objetoProgamaPresupuestario);
-                      
-                      DescargarExcel(() => {}, opcionCatalogo.toUpperCase() === "BENEFICIARIOS"
-                      ? objetoBeneficiario
-                      : opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"
-                      ? objetoFechaDeCaptura
-                      : opcionCatalogo.toUpperCase() === "PED"
-                      ? objetoPed
-                      : opcionCatalogo.toUpperCase() === "PROGRAMAS - INSTITUCIONES"
-                      ? objetoProgramasInstitucionales
-                      : opcionCatalogo.toUpperCase() === "PROGRAMAS PRESUPUESTARIOS"
-                      ? objetoProgamaPresupuestario
-                      : objetoCatalogo, opcionCatalogo
+                      DescargarExcel(
+                        () => {},
+                        opcionCatalogo.toUpperCase() === "BENEFICIARIOS"
+                          ? objetoBeneficiario
+                          : opcionCatalogo.toUpperCase() === "FECHAS DE CAPTURA"
+                          ? objetoFechaDeCaptura
+                          : opcionCatalogo.toUpperCase() === "PED"
+                          ? objetoPed
+                          : opcionCatalogo.toUpperCase() ===
+                            "PROGRAMAS - INSTITUCIONES"
+                          ? objetoProgramasInstitucionales
+                          : opcionCatalogo.toUpperCase() ===
+                            "PROGRAMAS PRESUPUESTARIOS"
+                          ? objetoProgamaPresupuestario
+                          : objetoCatalogo,
+                        opcionCatalogo
                       );
                     }}
                   >
@@ -636,6 +656,29 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 </Tooltip>
               </Grid>
             </Grid>
+
+            <Grid item sx={{ marginLeft: 1 }}>
+              <ButtonAdd agregar={true} handleOpen={() => setOpenAdd(true)} />
+            </Grid>
+
+            {!isSmallScreen && (
+              <Grid item sx={{ marginLeft: 1 }}>
+                <Grid>
+                  <Tooltip title={"CERRAR"}>
+                    <ToggleButton
+                      value="check"
+                      className="cancelar"
+                      onClick={() => {
+                        setOpenSM2(true);
+                        setOpenSM(false);
+                      }}
+                    >
+                      <CloseIcon />
+                    </ToggleButton>
+                  </Tooltip>
+                </Grid>
+              </Grid>
+            )}
           </Grid>
         </Grid>
 
@@ -647,7 +690,8 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           md={12}
           sm={12}
           xs={12}
-          sx={{ display: "flex", height: "80vh" }}
+          // esto no tiene necesidad de modificarse 
+          sx={{ display: "flex", height: ["70vh", "70vh", "70vh", "80vh","80vh"] }}
         >
           <DataGridTable
             id={(row: any) => row.Id || Math.random}
@@ -680,6 +724,71 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
             camposCsv={[]}
             exportTitle={"Columnas"}
           />
+        </Grid>
+      </Grid>
+      </>
+    );
+  };
+
+  return (
+    //Grid Padre con tamaño de la pantalla a usar
+    <Grid
+      justifyContent={"center"}
+      display={"flex"}
+      container
+      height={"93vh"}
+      alignItems={"center"}
+      item
+      xl={12}
+      lg={12}
+      md={12}
+      sm={12}
+      xs={12}
+      
+    >
+      {/* Grid de la lista de configuracion */}
+      <Grid
+        container
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        justifyContent="center"
+        alignItems={"center"}
+        sx={{ display: "flex" }}
+        // bgcolor={"red"}
+      >
+        <Grid
+          item
+          //  bgcolor={"blue"}
+          xl={2}
+          lg={2}
+          md={2}
+          sm={12}
+          xs={12}
+        >
+          <Hidden mdDown implementation="css">
+            {opcionesCatalogo()}
+          </Hidden>
+
+          <Hidden mdUp implementation="css">
+            {openSM === false ? opcionesCatalogo() : listasCatalogs()}
+          </Hidden>
+        </Grid>
+
+        <Grid
+          item
+          //   bgcolor={"red"}
+          xl={10}
+          lg={10}
+          md={10}
+          sm={12}
+          xs={12}
+        >
+          <Hidden mdDown implementation="css">
+            {listasCatalogs()}
+          </Hidden>
         </Grid>
       </Grid>
 

@@ -1,13 +1,14 @@
 import axios from "axios";
+import { alertaError } from "../../components/genericComponents/Alertas";
 
-export const listaRaffi = (setState: Function, estadorf: string) => {
+export const listaRaffi = (setState: Function, estadorf: string, setState2: Function) => {
   axios
     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-raffis", {
       params: {
         IdUsuario: localStorage.getItem("IdUsuario"),
         IdEntidad: localStorage.getItem("IdEntidad"),
         Rol: localStorage.getItem("Rol"),
-        Estado: estadorf || "", 
+        Estado: estadorf || "TODOS",
       },
       headers: {
         Authorization: localStorage.getItem("jwtToken") || "",
@@ -15,12 +16,17 @@ export const listaRaffi = (setState: Function, estadorf: string) => {
     })
     .then((r) => {
       if (r.status === 200) {
-        console.log(r.data.data);
         
-        setState(r.data.data);
+
+        if (r.data.data.length === 0) {
+          alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR");
+          setState2("")
+        } else {
+          setState(r.data.data);
+          setState2("")
+        }
         //setStateFiltered(r.data.data)
       }
     })
-    .catch((err) => {
-    });
+    .catch((err) => {});
 };

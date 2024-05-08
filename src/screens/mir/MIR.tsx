@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
+import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
 import DownloadIcon from "@mui/icons-material/Download";
 import EditIcon from "@mui/icons-material/Edit";
 import {
@@ -21,6 +21,9 @@ import {
   Paper,
   Grid,
   TableSortLabel,
+  TextField,
+  Autocomplete,
+  useMediaQuery,
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -35,6 +38,8 @@ import FullModalMir from "../../components/tabsMir/AddMir";
 import SearchIcon from "@mui/icons-material/Search";
 import { alertaError } from "../../components/genericComponents/Alertas";
 import { estados, heads } from "../../services/validations";
+import DataGridTable from "../../components/genericComponents/DataGridTable";
+import { GridColDef } from "@mui/x-data-grid";
 
 export let resumeDefaultMIR = true;
 
@@ -61,8 +66,6 @@ export const MIR = () => {
   interface IEntidadLabel {
     Id: string;
     Label: string;
-    
-    
   }
 
   const getMIRs = (setState: Function) => {
@@ -72,7 +75,7 @@ export const MIR = () => {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdEntidad: localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
-          Estado: estadomir || "",
+          Estado: estadomir || "TODOS",
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -85,18 +88,40 @@ export const MIR = () => {
       });
   };
 
-  const [instituciones, setInstituciones] = useState<Array<IEntidadLabel>>();
+  const objetiInstitucion: IEntidadLabel = {
+    //ClaveSiregob: null,
+    //ControlInterno: "",
+    Id: "0",
+    Label: "TODOS",
+  };
+
+ // const [instituciones, setInstituciones] = useState<IEntidad>(objetiInstitucion || "");
+  const [instituciones, setInstituciones] = useState<IEntidadLabel>();
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
+    Array<IEntidadLabel>
+  >([]);
+
   // cambiado
   const getInstituciones = (setstate: Function) => {
     axios
-    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas", {
-      headers: {
-        Authorization: localStorage.getItem("jwtToken") || "",
-      },
-    })
-    .then((r) => {
-      setstate(r.data.data);
-    });
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.status === 200) {
+          let aux = r.data.data;
+          aux.unshift({
+            Id: "0",
+            Label: "TODOS",
+          });
+          setstate(r.data.data);
+        }
+      });
   };
 
   useEffect(() => {
@@ -140,7 +165,6 @@ export const MIR = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
   const [actionNumber, setActionNumber] = useState(0);
 
-  const [openVisualizador, setOpenVisualizador] = useState(false);
   const onChangeActionNumberValue = () => {
     setActionNumber(1);
   };
@@ -160,12 +184,12 @@ export const MIR = () => {
   const [title_texto, setTitle] = useState("");
 
   const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("Todos");
-  const [findSelectStr, setFindSelectStr] = useState("Todos");
+  const [findInstStr, setFindInstStr] = useState("TODOS");
+  const [findSelectStr, setFindSelectStr] = useState("TODOS");
 
-  const [institucionesb, setInstitucionesb] = useState("Todos");
+  const [institucionesb, setInstitucionesb] = useState("TODOS");
 
-  const [estadomir, setEstadoMIR] = useState("Todos");
+  const [estadomir, setEstadoMIR] = useState("TODOS");
 
   const [mirEdit, setMirEdit] = useState<Array<IIMir>>([]);
 
@@ -177,6 +201,7 @@ export const MIR = () => {
   useEffect(() => {
     validaFechaCaptura();
     getMIRs(setMirs);
+    setEstadoMIR("TODOS");
   }, [showResume]);
 
   useEffect(() => {
@@ -191,9 +216,9 @@ export const MIR = () => {
     if (
       v !== "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setMirsFiltered(
         mirs.filter(
@@ -209,7 +234,7 @@ export const MIR = () => {
       );
     } else if (
       v !== "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setMirsFiltered(
         mirs.filter(
@@ -225,8 +250,8 @@ export const MIR = () => {
       );
     } else if (
       v !== "" &&
-      (est === "0" || est === "Todos") &&
-      (inst === "0" || inst === "Todos")
+      (est === "0" || est === "TODOS") &&
+      (inst === "0" || inst === "TODOS")
     ) {
       setMirsFiltered(
         mirs.filter(
@@ -241,9 +266,9 @@ export const MIR = () => {
     } else if (
       v === "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setMirsFiltered(
         mirs.filter(
@@ -254,7 +279,7 @@ export const MIR = () => {
       );
     } else if (
       v === "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setMirsFiltered(
         mirs.filter(
@@ -277,7 +302,8 @@ export const MIR = () => {
   };
 
   useEffect(() => {
-    getInstituciones(setInstituciones);
+    //getInstituciones(setInstituciones);
+    getInstituciones(setCatalogoInstituciones);
   }, []);
 
   const handleClickOpen = () => {
@@ -285,22 +311,29 @@ export const MIR = () => {
     onChangeActionNumberValue();
   };
 
+  const[url, setUrl]=useState(window.location.href)
+
+
   useEffect(() => {
-    const url = window.location.href;
-  
+    
+
     // Verificar si el parámetro 'Id' está presente en la URL
-    if (url.includes('?Id=')) {
+    if (url.includes("?Id=")) {
       const id = url.split("?")[1].split("=")[1];
-  
+
       // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
       if (id) {
-        setMirsFiltered(mirs.filter((x) => x.Id.toLowerCase().includes(id || "")));
+        setMirsFiltered(
+          mirs.filter((x) => x.Id.toLowerCase().includes(id || ""))
+        );
+        //setUrl("")
       }
     }
+    
+    console.log("url: ",url);
+   // getMIRs(setMirs);
+    
   }, [mirs]);
-  
-
-  
 
   const [actualizacion, setActualizacion] = useState(0);
 
@@ -410,15 +443,16 @@ export const MIR = () => {
 
   const [estado, setEstado] = useState("");
 
+  const [IdEntidad, setIdEntidad] = useState("");
+
   const buscador = (estado: any, Ins: any) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),
-          IdEntidad: Ins || "",
-          //IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad: Ins || "Todos" || localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
-          Estado: estado || "",
+          Estado: estado || "TODOS",
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
@@ -427,10 +461,246 @@ export const MIR = () => {
       .then((r) => {
         //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
 
-        setMirs(r.data.data);
-        //setInstitucionesb("Todos")
+        if (r.data.data.length === 0) {
+          alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
+          setMirs(r.data.data);
+          setUrl("")
+        }else{
+          setMirs(r.data.data);
+          setUrl("")
+          
+        }
+
+        //setInstitucionesb("TODOS")
       });
   };
+
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
+  const columsMir: GridColDef[] = [
+    {
+      field: "Acciones",
+      disableExport: true,
+      headerName: "Acciones",
+      description: "Acciones",
+      sortable: false,
+      width: 230,
+
+      renderCell: (v: any) => {
+        return (
+          <Grid
+            container
+            sx={{
+              display: "flex",
+              //, flexDirection: "column"
+            }}
+          >
+            {/* <Tooltip title="Eliminar Mir">
+              <IconButton onClick={() => {}}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip> */}
+
+            <DeleteDialogMIR
+              disab={
+                v.row.Estado === "En Captura" &&
+                // || row.Estado === "Borrador Capturador"
+                validaFecha &&
+                localStorage.getItem("Rol") === "Capturador"
+                  ? false
+                  : v.row.Estado === "En Revisión" &&
+                    localStorage.getItem("Rol") === "Verificador"
+                  ? false
+                  : (v.row.Estado === "En Autorización" ||
+                      v.row.Estado === "Autorizada") &&
+                    localStorage.getItem("Rol") === "Administrador"
+                  ? false
+                  : true
+              }
+              id={v.row.Id}
+              actualizado={actualizaContador}
+            />
+
+            <Tooltip title="Descargar Mir">
+              <span>
+                <IconButton
+                  onClick={() => {
+                    downloadMIR(
+                      v.row.AnioFiscal,
+                      v.row.Entidad,
+                      v.row.Programa,
+                      v.row.MIR
+                    );
+                  }}
+                >
+                  <DownloadIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                </IconButton>
+              </span>
+            </Tooltip>
+
+            <Tooltip
+              title={title_texto}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -13],
+                    },
+                  },
+                ],
+              }}
+            >
+              <span>
+                <IconButton
+                  disabled={
+                    ((v.row.Estado === "En Captura" ||
+                      v.row.Estado === "Borrador Capturador") &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Capturador") ||
+                    (v.row.Estado === "En Revisión" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Verificador") ||
+                    (v.row.Estado === "Borrador Verificador" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Verificador") ||
+                    ((v.row.Estado === "En Autorización" ||
+                      v.row.Estado === "Autorizada") &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Administrador") ||
+                    (v.row.Estado === "Borrador Autorizador" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Administrador")
+                      ? false
+                      : true
+                  }
+                  onClick={() => {
+                    setMirEdit([
+                      {
+                        Id: v.row.Id,
+                        AnioFiscal: v.row.AnioFiscal,
+                        Entidad: v.row.Entidad,
+                        IdEntidad: v.row.IdEntidad,
+                        Programa: v.row.Programa,
+                        Eje: v.row.Eje,
+                        Tematica: v.row.Tematica,
+                        MIR: v.row.MIR,
+                        Estado: v.row.Estado,
+                        FechaCreacion: v.row.FechaCreacion,
+                        CreadoPor: v.row.CreadoPor,
+                        Conac: v.row.Conac,
+                        Consecutivo: v.row.Consecutivo,
+                        Opciones: v.row.Opciones,
+                      },
+                    ]);
+                    setShowResume(false);
+                    setActionNumber(1);
+                    setEstado(v.row.Estado);
+                  }}
+                >
+                  <EditIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                </IconButton>
+              </span>
+            </Tooltip>
+
+            <ComentDialogMir
+              estado={v.row.Estado}
+              id={v.row.Id}
+              actualizado={actualizaContador}
+              MIR={mirEdit[0]?.MIR || ""}
+              IdEntidad={v.row.IdEntidad}
+            />
+
+            <MostrarLista st="" Id={v.row.Id} />
+          </Grid>
+        );
+      },
+    },
+    {
+      field: "AnioFiscal",
+      headerName: "Año Fiscal",
+      description: "Año Fiscal",
+      width: 100,
+    },
+    {
+      field: "Entidad",
+      headerName: "Entidad",
+      description: "Entidad",
+      width: isSmallScreen ? 200 : 285, // Ancho de 200px si la pantalla es pequeña, 300px si es grande
+    },
+    {
+      field: "Programa",
+      headerName: "Programa",
+      description: "Programa",
+      width: isSmallScreen ? 200 : 285, // Ancho de 200px si la pantalla es pequeña, 300px si es grande
+    },
+    {
+      field: "Estado",
+      headerName: "Estado",
+      description: "Estado",
+      width: 100,
+    },
+    {
+      field: "FechaCreacion",
+      headerName: "Fehca de creacion",
+      description: "Fecha de creacion",
+      width: 200,
+    },
+    {
+      field: "CreadoPor",
+      headerName: "Creado por",
+      description: "Creado por",
+      width: 200,
+    },
+  ];
 
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
@@ -445,16 +715,11 @@ export const MIR = () => {
         sx={{ height: "7vh", whitespace: "nowrap" }}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
-        <LateralMenu selection={"MIR"} actionNumber={actionNumber} />
+        <LateralMenu selection={"MIR"}  actionNumber={actionNumber} restore={setShowResume} />
       </Grid>
       {/* //boxShadow: 10, */}
 
       <Grid
-        // justifyContent={"center"}
-        // display={"flex"}
-        height={"93vh"}
-        // alignItems={"center"}
-
         container
         item
         xl={12}
@@ -463,10 +728,10 @@ export const MIR = () => {
         sm={12}
         xs={12}
         sx={{
-          //backgroundColor:"blue",
+          backgroundColor: "white",
           justifyContent: "center",
           display: "flex",
-          // height: "90vh",
+          height: "93vh",
           alignItems: "center",
         }}
       >
@@ -479,13 +744,15 @@ export const MIR = () => {
               xl={8}
               lg={8}
               md={8}
-              sm={8}
+              sm={10}
+              xs={11}
               // height="15vh"
               // direction="row"
               sx={{
-                boxShadow: 5,
-                backgroundColor: "#FFFF",
-                borderRadius: 5,
+                ...(!isSmallScreen
+                  ? { boxShadow: 5, backgroundColor: "#FFFF", borderRadius: 5 }
+                  : { marginBottom: "30px" }),
+
                 justifyContent: "space-evenly",
                 alignItems: "center",
                 height: "15vh",
@@ -507,10 +774,21 @@ export const MIR = () => {
                   justifyContent: "space-around",
                   alignItems: "center",
                   direction: "row",
+                  ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
                 }}
               >
                 {localStorage.getItem("Rol") === "Administrador" ? (
-                  <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                  <Grid
+                    item
+                    xl={5}
+                    lg={5}
+                    md={5}
+                    sm={5}
+                    xs={12}
+                    sx={{
+                      ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
+                    }}
+                  >
                     <Tooltip
                       PopperProps={{
                         modifiers: [
@@ -524,57 +802,70 @@ export const MIR = () => {
                       }}
                       title={findInstStr}
                     >
-                      <FormControl fullWidth>
-                        <InputLabel sx={queries.text}>
-                          <Tooltip
-                            PopperProps={{
-                              modifiers: [
-                                {
-                                  name: "offset",
-                                  options: {
-                                    offset: [0, -13],
-                                  },
-                                },
-                              ],
-                            }}
-                            title={"FILTRO POR INSTITUCION"}
-                          >
-                            <span>FILTRO POR INSTITUCION</span>
-                          </Tooltip>
-                        </InputLabel>
-                        <Select
+                      <FormControl required fullWidth>
+                        <Autocomplete
+                          //  disabled={edit && !mirEdit?.encabezado.ejercicioFiscal}
+                          clearText="Borrar"
+                          noOptionsText="Sin opciones"
+                          closeText="Cerrar"
+                          openText="Abrir"
+                          disablePortal
                           size="small"
-                          variant="outlined"
-                          label="FILTRO POR INSTITUCION"
-                          value={institucionesb}
-                          disabled={
-                            localStorage.getItem("Rol") !== "Administrador"
-                          }
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            fontSize: [10, 10, 15, 15, 18, 20],
-                          }}
-                          fullWidth
-                          onChange={(v) => {
-                            setInstitucionesb(v.target.value);
-                          }}
-                        >
-                          <MenuItem
-                            value={institucionesb}
-                            sx={{ fontFamily: "MontserratRegular" }}
-                          >
-                            TODOS
-                          </MenuItem>
+                          options={catalogoInstituciones}
+                          getOptionLabel={(option) => option.Label|| ""}
+                          value={instituciones || "" || objetiInstitucion}
 
-                          {instituciones?.map((item) => (
-                            <MenuItem value={item.Label} key={item.Id}>
-                              {item.Label.toUpperCase()}
-                            </MenuItem>
-                          ))}
-                        </Select>
+                          // value={
+                          //   (localStorage.getItem("Rol") === "Administrador" ||
+                          //   localStorage.getItem("Rol") === "ADMINISTRADOR"
+                          //     ? estadomir.toUpperCase()
+                          //     : findSelectStr.toUpperCase()) || estados[0]
+                          // }
+                          // getOptionLabel={(option) => option.Label || ""}
+                          // value={instituciones || objetiInstitucion}
+                          getOptionDisabled={(option) => {
+                            if (option.Id === "") {
+                              return true;
+                            }
+                            return false;
+                          }}
+                          renderOption={(props, option) => {
+                            return (
+                              <li {...props} key={option.Id}>
+                                <p
+                                  style={{
+                                    fontFamily: "MontserratRegular",
+                                  }}
+                                >
+                                  {option.Label}
+                                </p>
+                              </li>
+                            );
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="FILTRO POR INSTITUCIÓN"
+                              variant="standard"
+                              InputLabelProps={{
+                                style: {
+                                  fontFamily: "MontserratSemiBold",
+                                },
+                              }}
+                              sx={{
+                                "& .MuiAutocomplete-input": {
+                                  fontFamily: "MontserratRegular",
+                                },
+                              }}
+                            ></TextField>
+                          )}
+                          onChange={(event, value) =>
+                            setInstituciones(value || objetiInstitucion)
+                          }
+                          isOptionEqualToValue={(option, value) =>
+                            option.Id === value.Id
+                          }
+                        />
                       </FormControl>
                     </Tooltip>
                   </Grid>
@@ -610,7 +901,7 @@ export const MIR = () => {
                   xs={
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
+                      ? 11
                       : 11
                   }
                 >
@@ -628,69 +919,51 @@ export const MIR = () => {
                     title={findSelectStr}
                   >
                     <FormControl fullWidth>
-                      <InputLabel sx={queries.text}>
-                        <Tooltip
-                          PopperProps={{
-                            modifiers: [
-                              {
-                                name: "offset",
-                                options: {
-                                  offset: [0, -13],
-                                },
-                              },
-                            ],
-                          }}
-                          title={"FILTRO POR ESTADO DE LA MIR"}
-                        >
-                          <span>FILTRO POR ESTADO DE LA MIR</span>
-                        </Tooltip>
-                      </InputLabel>
-                      <Select
-                        size="small"
-                        variant="outlined"
-                        value={
-                          localStorage.getItem("Rol") === "Administrador" ||
-                          localStorage.getItem("Rol") === "ADMINISTRADOR"
-                            ? estadomir
-                            : findSelectStr
-                        }
-                        label="FILTRO POR ESTADO DE LA MIR"
-                        sx={{
-                          fontFamily: "MontserratRegular",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          // textAlign: "center",
-                          fontSize: [10, 10, 15, 15, 18, 20], // Tamaños de fuente para diferentes breakpoints
-                          // color: "#AF8C55"
-                        }}
+                      <Autocomplete
+                        clearText="Borrar"
+                        noOptionsText="Sin opciones"
+                        closeText="Cerrar"
+                        openText="Abrir"
+                        disablePortal
                         fullWidth
-                        onChange={(v) => {
-                          // v.target.value === "Todos"
-                          //   ? findText(
-                          //       findTextStr,
-                          //       "0",
-                          //       findInstStr === "Todos" ? "0" : findInstStr
-                          //     )
-                          //   : findText(findTextStr, v.target.value, findInstStr);
+                        size="small"
+                        value={
+                          (localStorage.getItem("Rol") === "Administrador" ||
+                          localStorage.getItem("Rol") === "ADMINISTRADOR"
+                            ? estadomir.toUpperCase()
+                            : findSelectStr.toUpperCase()) || estados[0]
+                        }
+                        options={estados}
+                        onChange={(event, newValue) => {
+                          // Access the value using newValue
+
                           if (
                             localStorage.getItem("Rol") === "Administrador" ||
                             localStorage.getItem("Rol") === "ADMINISTRADOR"
                           ) {
-                            setEstadoMIR(v.target.value);
+                            setEstadoMIR(newValue || "");
                           } else {
-                            setFindSelectStr(v.target.value);
+                            setFindSelectStr(newValue || "");
                           }
-
-                          //
                         }}
-                      >
-                        {estados.map((estado) => (
-                          <MenuItem key={estado} value={estado}>
-                            {estado.toUpperCase()}
-                          </MenuItem>
-                        ))}
-                      </Select>
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label={"FILTRO POR ESTADO DE LA MIR"}
+                            variant="standard"
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratSemiBold",
+                              },
+                            }}
+                            sx={{
+                              "& .MuiAutocomplete-input": {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                          ></TextField>
+                        )}
+                      />
                     </FormControl>
                   </Tooltip>
                 </Grid>
@@ -698,9 +971,10 @@ export const MIR = () => {
                 {localStorage.getItem("Rol") === "Administrador" && (
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
-                      // disabled ={estadomir === "Todos" && institucionesb === "Todos" }
+                      // disabled ={estadomir === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
-                        buscador(estadomir, institucionesb);
+                        buscador(estadomir, instituciones?.Label);
+                        //getMIRs(setMirs);
                       }}
                     >
                       <SearchIcon
@@ -784,7 +1058,7 @@ export const MIR = () => {
                     />
                     <IconButton
                       type="button"
-                      sx={{ p: "10px" }}
+                      //sx={{ p: "10px" }}
                       aria-label="Buscar"
                       onClick={() => filtrarDatos()}
                     >
@@ -829,12 +1103,13 @@ export const MIR = () => {
                       height: ["40px", "40px", "40px", "40px", "50px"],
                       //color: "black",
                       fontFamily: "MontserratMedium",
-                      fontSize: [5, 7, 10, 12, 16, 20],
+                      //fontSize: [3, 6, 10, 12, 16, 20],
                     }}
                     onClick={() => {
                       setMirEdit([
                         {
                           Id: "",
+                          IdEntidad: "",
                           AnioFiscal: "",
                           Entidad: "",
                           Programa: "",
@@ -853,8 +1128,8 @@ export const MIR = () => {
                     }}
                   >
                     {!validaFecha
-                      ? "Fecha de captura terminada"
-                      : "Añadir registro"}
+                      ? "FECHA DE CAPTURA TERMINADA"
+                      : "AÑADIR REGISTRO"}
                   </Button>
                 </Grid>
               </Grid>
@@ -984,7 +1259,8 @@ export const MIR = () => {
                             component="th"
                             scope="row"
                           >
-                            {((row.Estado === "En Captura" || row.Estado === "Borrador Capturador") &&
+                            {((row.Estado === "En Captura" ||
+                              row.Estado === "Borrador Capturador") &&
                             localStorage.getItem("Rol") === "Capturador"
                               ? "Borrador Capturador"
                               : row.Estado === "En Revisión" &&
@@ -1104,13 +1380,14 @@ export const MIR = () => {
                                 estado={row.Estado}
                                 id={row.Id}
                                 actualizado={actualizaContador}
+                                MIR={mirEdit[0]?.MIR || ""}
+                                IdEntidad={row.IdEntidad}
                               />
 
                               <DeleteDialogMIR
                                 disab={
-                                  (row.Estado === "En Captura" 
-                                 // || row.Estado === "Borrador Capturador"
-                                  ) &&
+                                  row.Estado === "En Captura" &&
+                                  // || row.Estado === "Borrador Capturador"
                                   validaFecha &&
                                   localStorage.getItem("Rol") === "Capturador"
                                     ? false
@@ -1144,7 +1421,8 @@ export const MIR = () => {
                                 <span>
                                   <IconButton
                                     disabled={
-                                      ((row.Estado === "En Captura" || row.Estado === "Borrador Capturador") &&
+                                      ((row.Estado === "En Captura" ||
+                                        row.Estado === "Borrador Capturador") &&
                                         validaFecha &&
                                         localStorage.getItem("Rol") ===
                                           "Capturador") ||
@@ -1173,6 +1451,7 @@ export const MIR = () => {
                                         {
                                           Id: row.Id,
                                           AnioFiscal: row.AnioFiscal,
+                                          IdEntidad: row.IdEntidad,
                                           Entidad: row.Entidad,
                                           Programa: row.Programa,
                                           Eje: row.Eje,
@@ -1221,10 +1500,7 @@ export const MIR = () => {
                                   </IconButton>
                                 </span>
                               </Tooltip>
-                                      <MostrarLista
-                                      st=""
-                                      Id={row.Id}
-                                      />
+                              <MostrarLista st="" Id={row.Id} />
                               {/* <Tooltip
                                 title="Lista"
                                 PopperProps={{
@@ -1301,7 +1577,6 @@ export const MIR = () => {
                               </Tooltip>
 
  */}
-
                             </Grid>
                           </TableCell>
                         </TableRow>
@@ -1324,6 +1599,13 @@ export const MIR = () => {
                 />
               </Grid>
             </Grid>
+            {/* {openVisualizador ? (
+              <MostrarLista
+                handleClose={() => {
+                  setOpenVisualizador(false);
+                }}
+              />
+            ) : null} */}
             {/* {openVisualizador ? (
         <MostrarLista
           handleClose={() => {
@@ -1349,6 +1631,8 @@ export const MIR = () => {
               showResume={returnMain}
               IdMir={mirEdit[0]?.Id || ""}
               estado={estado}
+              IdEntidad={IdEntidad}
+              setIdEntidad={setIdEntidad}
             />
           </Grid>
         )}
@@ -1359,6 +1643,7 @@ export const MIR = () => {
 
 export interface IIMir {
   Id: string;
+  IdEntidad: string;
   AnioFiscal: string;
   Entidad: string;
   Programa: string;

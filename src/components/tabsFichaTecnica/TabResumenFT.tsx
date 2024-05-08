@@ -1,28 +1,21 @@
-import { Grid, Typography, Button, Checkbox } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
-import ModalsSolicitModifFT from "../modalsFT/ModalsSolicitModifFT";
-import {
-  IActividadesEditFT,
-  IActividadesFT,
-  IComponenteEditFT,
-  IComponentesFT,
-  ICValorFT,
-  IEncabezadoEditFT,
-  IEncabezadoFT,
-  IFinEditFT,
-  IFinFT,
-  IFT,
-  IFTEdit,
-  IPropositoEditFT,
-  IPropositoFT,
-} from "./Interfaces";
-import { queries } from "../../queries";
+import { Button, Checkbox, Grid, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
+import axios from "axios";
+import { useState } from "react";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
+import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
+import ModalsSolicitModifFT from "../modalsFT/ModalsSolicitModifFT";
+import {
+  IActividadesFT,
+  ICValorFT,
+  IComponentesFT,
+  IEncabezadoFT,
+  IFT,
+  IFTEdit,
+  IFinFT,
+  IPropositoFT
+} from "./Interfaces";
 
 export function TabResumenFT({
   show,
@@ -42,6 +35,7 @@ export function TabResumenFT({
   ftEditPadre,
   setFTEditPadre,
   estadoft,
+  IdEntidad,
 }: {
   show: boolean;
   encabezado: IEncabezadoFT;
@@ -60,6 +54,7 @@ export function TabResumenFT({
   ftEditPadre: IFTEdit;
   setFTEditPadre: Function;
   estadoft: string;
+  IdEntidad: string;
 }) {
   const [FT, setFT] = useState<IFT>(ftPadre);
 
@@ -88,7 +83,8 @@ export function TabResumenFT({
           Id: IdFT,
           Estado: estado,
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+          localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -121,8 +117,12 @@ export function TabResumenFT({
         //display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         // alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",
@@ -194,14 +194,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editEncabezado.programaSER}
+                // checked={!editEncabezado.programaSER}
                 // onChange={(v) => {
                 //   setEditEncabezado({
                 //     ...editEncabezado,
                 //     programaSER: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.encabezado?.programaSER}
+                checked={ftEditPadre.encabezado?.programaSER}
                 onChange={(v) => {
                   let aux = ftEditPadre.encabezado;
                   aux = { ...aux, programaSER: v.target.checked };
@@ -244,14 +244,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editEncabezado.objetivoSER}
+                // checked={!editEncabezado.objetivoSER}
                 // onChange={(v) => {
                 //   setEditEncabezado({
                 //     ...editEncabezado,
                 //     objetivoSER: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.encabezado?.objetivoSER}
+                checked={ftEditPadre.encabezado?.objetivoSER}
                 onChange={(v) => {
                   let aux = ftEditPadre.encabezado;
                   aux = { ...aux, objetivoSER: v.target.checked };
@@ -294,14 +294,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editEncabezado.objetivoODS}
+                // checked={!editEncabezado.objetivoODS}
                 // onChange={(v) => {
                 //   setEditEncabezado({
                 //     ...editEncabezado,
                 //     objetivoODS: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.encabezado?.objetivoODS}
+                checked={ftEditPadre.encabezado?.objetivoODS}
                 onChange={(v) => {
                   let aux = ftEditPadre.encabezado;
                   aux = { ...aux, objetivoODS: v.target.checked };
@@ -344,14 +344,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editEncabezado.metaODS}
+                // checked={!editEncabezado.metaODS}
                 // onChange={(v) => {
                 //   setEditEncabezado({
                 //     ...editEncabezado,
                 //     metaODS: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.encabezado?.metaODS}
+                checked={ftEditPadre.encabezado?.metaODS}
                 onChange={(v) => {
                   let aux = ftEditPadre.encabezado;
                   aux = { ...aux, metaODS: v.target.checked };
@@ -418,14 +418,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.tipoDeIndicador}
+                // checked={!editFin.tipoDeIndicador}
                 // onChange={(v) => {
                 //   setEditFin({
                 //     ...editFin,
                 //     tipoDeIndicador: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.fin?.tipoDeIndicador}
+                checked={ftEditPadre.fin?.tipoDeIndicador}
                 onChange={(v) => {
                   let aux = ftEditPadre.fin;
                   aux = { ...aux, tipoDeIndicador: v.target.checked };
@@ -466,14 +466,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.dimension}
+                // checked={!editFin.dimension}
                 // onChange={(v) => {
                 //   setEditFin({
                 //     ...editFin,
                 //     dimension: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.fin?.dimension}
+                checked={ftEditPadre.fin?.dimension}
                 onChange={(v) => {
                   let aux = ftEditPadre.fin;
                   aux = { ...aux, dimension: v.target.checked };
@@ -516,14 +516,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.unidadDeMedida}
+                // checked={!editFin.unidadDeMedida}
                 // onChange={(v) => {
                 //   setEditFin({
                 //     ...editFin,
                 //     unidadDeMedida: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.fin?.unidadDeMedida}
+                checked={ftEditPadre.fin?.unidadDeMedida}
                 onChange={(v) => {
                   let aux = ftEditPadre.fin;
                   aux = { ...aux, unidadDeMedida: v.target.checked };
@@ -566,14 +566,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.claridad}
+                // checked={!editFin.claridad}
                 // onChange={(v) => {
                 //   setEditFin({
                 //     ...editFin,
                 //     claridad: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.fin?.claridad}
+                checked={ftEditPadre.fin?.claridad}
                 onChange={(v) => {
                   let aux = ftEditPadre.fin;
                   aux = { ...aux, claridad: v.target.checked };
@@ -616,14 +616,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.relevancia}
+                // checked={!editFin.relevancia}
                 // onChange={(v) => {
                 //   setEditFin({
                 //     ...editFin,
                 //     relevancia: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.fin?.relevancia}
+                checked={ftEditPadre.fin?.relevancia}
                 onChange={(v) => {
                   let aux = ftEditPadre.fin;
                   aux = { ...aux, relevancia: v.target.checked };
@@ -666,14 +666,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.economia}
+                // checked={!editFin.economia}
                 // onChange={(v) => {
                 //   setEditFin({
                 //     ...editFin,
                 //     economia: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.fin?.economia}
+                checked={ftEditPadre.fin?.economia}
                 onChange={(v) => {
                   let aux = ftEditPadre.fin;
                   aux = { ...aux, economia: v.target.checked };
@@ -716,14 +716,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.monitoreable}
+                // checked={!editFin.monitoreable}
                 // onChange={(v) => {
                 //   setEditFin({
                 //     ...editFin,
                 //     monitoreable: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.fin?.monitoreable}
+                checked={ftEditPadre.fin?.monitoreable}
                 onChange={(v) => {
                   let aux = ftEditPadre.fin;
                   aux = { ...aux, monitoreable: v.target.checked };
@@ -766,14 +766,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.adecuado}
+                // checked={!editFin.adecuado}
                 // onChange={(v) => {
                 //   setEditFin({
                 //     ...editFin,
                 //     adecuado: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.fin?.adecuado}
+                checked={ftEditPadre.fin?.adecuado}
                 onChange={(v) => {
                   let aux = ftEditPadre.fin;
                   aux = { ...aux, adecuado: v.target.checked };
@@ -816,14 +816,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editFin.aporte_marginal}
+                // checked={!editFin.aporte_marginal}
                 // onChange={(v) => {
                 //   setEditFin({
                 //     ...editFin,
                 //     aporte_marginal: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.fin?.aporte_marginal}
+                checked={ftEditPadre.fin?.aporte_marginal}
                 onChange={(v) => {
                   let aux = ftEditPadre.fin;
                   aux = { ...aux, aporte_marginal: v.target.checked };
@@ -889,14 +889,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.tipoDeIndicador}
+                // checked={!editProposito.tipoDeIndicador}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     tipoDeIndicador: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.proposito?.tipoDeIndicador}
+                checked={ftEditPadre.proposito?.tipoDeIndicador}
                 onChange={(v) => {
                   let aux = ftEditPadre.proposito;
                   aux = { ...aux, tipoDeIndicador: v.target.checked };
@@ -938,14 +938,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.dimension}
+                // checked={!editProposito.dimension}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     dimension: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.proposito?.dimension}
+                checked={ftEditPadre.proposito?.dimension}
                 onChange={(v) => {
                   let aux = ftEditPadre.proposito;
                   aux = { ...aux, dimension: v.target.checked };
@@ -987,14 +987,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.unidadDeMedida}
+                // checked={!editProposito.unidadDeMedida}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     unidadDeMedida: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.proposito?.unidadDeMedida}
+                checked={ftEditPadre.proposito?.unidadDeMedida}
                 onChange={(v) => {
                   let aux = ftEditPadre.proposito;
                   aux = { ...aux, unidadDeMedida: v.target.checked };
@@ -1037,14 +1037,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.claridad}
+                // checked={!editProposito.claridad}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     claridad: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.proposito?.claridad}
+                checked={ftEditPadre.proposito?.claridad}
                 onChange={(v) => {
                   let aux = ftEditPadre.proposito;
                   aux = { ...aux, claridad: v.target.checked };
@@ -1087,14 +1087,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.relevancia}
+                // checked={!editProposito.relevancia}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     relevancia: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.proposito?.relevancia}
+                checked={ftEditPadre.proposito?.relevancia}
                 onChange={(v) => {
                   let aux = ftEditPadre.proposito;
                   aux = { ...aux, relevancia: v.target.checked };
@@ -1136,14 +1136,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.economia}
+                // checked={!editProposito.economia}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     economia: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.proposito?.economia}
+                checked={ftEditPadre.proposito?.economia}
                 onChange={(v) => {
                   let aux = ftEditPadre.proposito;
                   aux = { ...aux, economia: v.target.checked };
@@ -1186,14 +1186,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.monitoreable}
+                // checked={!editProposito.monitoreable}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     monitoreable: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.proposito?.monitoreable}
+                checked={ftEditPadre.proposito?.monitoreable}
                 onChange={(v) => {
                   let aux = ftEditPadre.proposito;
                   aux = { ...aux, monitoreable: v.target.checked };
@@ -1235,14 +1235,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.adecuado}
+                // checked={!editProposito.adecuado}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     adecuado: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.proposito?.adecuado}
+                checked={ftEditPadre.proposito?.adecuado}
                 onChange={(v) => {
                   let aux = ftEditPadre.proposito;
                   aux = { ...aux, adecuado: v.target.checked };
@@ -1287,14 +1287,14 @@ export function TabResumenFT({
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
               <Checkbox
-                // value={!editProposito.aporte_marginal}
+                // checked={!editProposito.aporte_marginal}
                 // onChange={(v) => {
                 //   setEditProposito({
                 //     ...editProposito,
                 //     aporte_marginal: !v.target.checked,
                 //   });
                 // }}
-                value={!ftEditPadre.proposito?.aporte_marginal}
+                checked={ftEditPadre.proposito?.aporte_marginal}
                 onChange={(v) => {
                   let aux = ftEditPadre.proposito;
                   aux = { ...aux, aporte_marginal: v.target.checked };
@@ -1395,13 +1395,13 @@ export function TabResumenFT({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      // value={!ftEditPadre.componentes[index]?.tipoDeIndicador}
+                      // checked={ftEditPadre.componentes[index]?.tipoDeIndicador}
                       // onChange={(v) => {
                       //   let aux = ftEditPadre.componentes[index]
                       //   aux = {...aux, tipoDeIndicador: v.target.checked }
                       //   setFTEditPadre({...ftEditPadre, componentes: aux  })
                       // }}
-                      value={ftEditPadre.componentes[index]?.tipoDeIndicador}
+                      checked={ftEditPadre.componentes[index]?.tipoDeIndicador}
                       onChange={(v) => {
                         let auxC = ftEditPadre.componentes;
                         auxC[index].tipoDeIndicador = v.target.checked;
@@ -1443,7 +1443,7 @@ export function TabResumenFT({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={ftEditPadre.componentes[index]?.dimension}
+                      checked={ftEditPadre.componentes[index]?.dimension}
                       onChange={(v) => {
                         let auxC = ftEditPadre.componentes;
                         auxC[index].dimension = v.target.checked;
@@ -1486,7 +1486,7 @@ export function TabResumenFT({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={ftEditPadre.componentes[index]?.unidadDeMedida}
+                      checked={ftEditPadre.componentes[index]?.unidadDeMedida}
                       onChange={(v) => {
                         let auxC = ftEditPadre.componentes;
                         auxC[index].unidadDeMedida = v.target.checked;
@@ -1528,7 +1528,7 @@ export function TabResumenFT({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={ftEditPadre.componentes[index]?.claridad}
+                      checked={ftEditPadre.componentes[index]?.claridad}
                       onChange={(v) => {
                         let auxC = ftEditPadre.componentes;
                         auxC[index].claridad = v.target.checked;
@@ -1570,7 +1570,7 @@ export function TabResumenFT({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={ftEditPadre.componentes[index]?.relevancia}
+                      checked={ftEditPadre.componentes[index]?.relevancia}
                       onChange={(v) => {
                         let auxC = ftEditPadre.componentes;
                         auxC[index].relevancia = v.target.checked;
@@ -1613,7 +1613,7 @@ export function TabResumenFT({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={ftEditPadre.componentes[index]?.economia}
+                      checked={ftEditPadre.componentes[index]?.economia}
                       onChange={(v) => {
                         let auxC = ftEditPadre.componentes;
                         auxC[index].economia = v.target.checked;
@@ -1655,7 +1655,7 @@ export function TabResumenFT({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={ftEditPadre.componentes[index]?.monitoreable}
+                      checked={ftEditPadre.componentes[index]?.monitoreable}
                       onChange={(v) => {
                         let auxC = ftEditPadre.componentes;
                         auxC[index].monitoreable = v.target.checked;
@@ -1697,7 +1697,7 @@ export function TabResumenFT({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={ftEditPadre.componentes[index]?.adecuado}
+                      checked={ftEditPadre.componentes[index]?.adecuado}
                       onChange={(v) => {
                         let auxC = ftEditPadre.componentes;
                         auxC[index].adecuado = v.target.checked;
@@ -1739,7 +1739,7 @@ export function TabResumenFT({
                 {localStorage.getItem("Rol") !== "Administrador" ? null : (
                   <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                     <Checkbox
-                      value={ftEditPadre.componentes[index]?.aporte_marginal}
+                      checked={ftEditPadre.componentes[index]?.aporte_marginal}
                       onChange={(v) => {
                         let auxC = ftEditPadre.componentes;
                         auxC[index].aporte_marginal = v.target.checked;
@@ -1849,14 +1849,14 @@ export function TabResumenFT({
                       "Administrador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={!ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]?.tipoDeIndicador}
+                            // checked={ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]?.tipoDeIndicador}
                             // onChange={(v) => {
                             //   let aux = ftEditPadre.componentes[indexComponentes]?.actividades[indexActividades]
                             //   aux = {...aux, tipoDeIndicador: v.target.checked }
                             //   setFTEditPadre({...ftEditPadre, componentes: aux  })
                             // }}
-                            value={
-                              !ftEditPadre.componentes[indexComponentes]
+                            checked={
+                              ftEditPadre.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.tipoDeIndicador
                             }
                             onChange={(v) => {
@@ -1906,7 +1906,7 @@ export function TabResumenFT({
                       "Administrador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
+                            // checked={
                             //   !editActividades[indexComponentes]?.dimension
                             // }
                             // onChange={(v) => {
@@ -1915,8 +1915,8 @@ export function TabResumenFT({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !ftEditPadre.componentes[indexComponentes]
+                            checked={
+                              ftEditPadre.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.dimension
                             }
                             onChange={(v) => {
@@ -1966,7 +1966,7 @@ export function TabResumenFT({
                       "Administrador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
+                            // checked={
                             //   !editActividades[indexComponentes]?.unidadDeMedida
                             // }
                             // onChange={(v) => {
@@ -1975,8 +1975,8 @@ export function TabResumenFT({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !ftEditPadre.componentes[indexComponentes]
+                            checked={
+                              ftEditPadre.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.unidadDeMedida
                             }
                             onChange={(v) => {
@@ -2026,15 +2026,15 @@ export function TabResumenFT({
                       "Administrador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={!editActividades[indexComponentes]?.claridad}
+                            // checked={!editActividades[indexComponentes]?.claridad}
                             // onChange={(v) => {
                             //   let past = [...editActividades];
                             //   past[indexComponentes].claridad =
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !ftEditPadre.componentes[indexComponentes]
+                            checked={
+                              ftEditPadre.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.claridad
                             }
                             onChange={(v) => {
@@ -2084,7 +2084,7 @@ export function TabResumenFT({
                       "Administrador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
+                            // checked={
                             //   !editActividades[indexComponentes]?.relevancia
                             // }
                             // onChange={(v) => {
@@ -2093,8 +2093,8 @@ export function TabResumenFT({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !ftEditPadre.componentes[indexComponentes]
+                            checked={
+                              ftEditPadre.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.relevancia
                             }
                             onChange={(v) => {
@@ -2144,15 +2144,15 @@ export function TabResumenFT({
                       "Administrador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={!editActividades[indexComponentes]?.economia}
+                            // checked={!editActividades[indexComponentes]?.economia}
                             // onChange={(v) => {
                             //   let past = [...editActividades];
                             //   past[indexComponentes].economia =
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !ftEditPadre.componentes[indexComponentes]
+                            checked={
+                              ftEditPadre.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.economia
                             }
                             onChange={(v) => {
@@ -2202,7 +2202,7 @@ export function TabResumenFT({
                       "Administrador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
+                            // checked={
                             //   !editActividades[indexComponentes]?.monitoreable
                             // }
                             // onChange={(v) => {
@@ -2211,8 +2211,8 @@ export function TabResumenFT({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !ftEditPadre.componentes[indexComponentes]
+                            checked={
+                              ftEditPadre.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.monitoreable
                             }
                             onChange={(v) => {
@@ -2263,15 +2263,15 @@ export function TabResumenFT({
                       "Administrador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={!editActividades[indexComponentes]?.adecuado}
+                            // checked={!editActividades[indexComponentes]?.adecuado}
                             // onChange={(v) => {
                             //   let past = [...editActividades];
                             //   past[indexComponentes].adecuado =
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !ftEditPadre.componentes[indexComponentes]
+                            checked={
+                              ftEditPadre.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.adecuado
                             }
                             onChange={(v) => {
@@ -2321,7 +2321,7 @@ export function TabResumenFT({
                       "Administrador" ? null : (
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
-                            // value={
+                            // checked={
                             //   !editActividades[indexComponentes]
                             //     ?.aporte_marginal
                             // }
@@ -2331,8 +2331,8 @@ export function TabResumenFT({
                             //     !v.target.checked;
                             //   setEditActividades(past);
                             // }}
-                            value={
-                              !ftEditPadre.componentes[indexComponentes]
+                            checked={
+                              ftEditPadre.componentes[indexComponentes]
                                 ?.actividades[indexActividades]?.aporte_marginal
                             }
                             onChange={(v) => {
@@ -2394,7 +2394,12 @@ export function TabResumenFT({
         }}
       >
         <Grid
-          sx={{ justifyContent: "center", display: "flex" }}
+           sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -2404,7 +2409,7 @@ export function TabResumenFT({
         >
           <Button
           className="cancelar"
-           
+          sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => showResume()}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -2414,7 +2419,12 @@ export function TabResumenFT({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -2426,7 +2436,7 @@ export function TabResumenFT({
             disabled={
               localStorage.getItem("Rol") === "Capturador" ? true : false
             }
-            
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             className="aceptar"
             onClick={() => setOpenModalSolicitarModif(true)}
           >
@@ -2438,7 +2448,12 @@ export function TabResumenFT({
 
         <Grid
         
-        sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+        sx={{
+          justifyContent: "center",
+          display: "flex",
+          margin: isSmallScreen ? "2px" : "5px",
+          width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+        }}
           item
           xl={3}
           lg={3}
@@ -2448,7 +2463,7 @@ export function TabResumenFT({
         >
           <Button
           className="aceptar"
-            
+          sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => {
               let estado = "";
               if (localStorage.getItem("Rol") === "Capturador") {
@@ -2471,7 +2486,12 @@ export function TabResumenFT({
         </Grid>
 
         <Grid
-          sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -2481,7 +2501,7 @@ export function TabResumenFT({
         >
           <Button
           className="aceptar"
-           
+          sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() =>{ console.log(estadoft)
             setOpenModalEnviar(true)}}
           >
@@ -2507,6 +2527,7 @@ export function TabResumenFT({
           IdMIR={IdMir}
           FTEdit={JSON.stringify(ftEditPadre)}
           FT={JSON.stringify(FT)}
+          IdEntidad={IdEntidad}
         />
 
         <ModalEnviarFT
@@ -2518,6 +2539,7 @@ export function TabResumenFT({
           showResume={showResume}
           FT={JSON.stringify(FT)}
           IdMA={IdMA}
+          IdEntidad={IdEntidad}
         />
       </Grid>
 

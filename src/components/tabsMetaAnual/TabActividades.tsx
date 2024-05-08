@@ -24,14 +24,13 @@ import axios from "axios";
 import { IComponenteMA } from "./Interfaces";
 import { clearInfo } from "../genericComponents/GenericMethods";
 
-
 //funcion main
 export const TabActividadesMA = ({
   edit,
   setMAActividadesPadre,
   ComponentesActividadMA,
-  showMirFnc,
-  setTxtShowFnc,
+  // showMirFnc,
+  // setTxtShowFnc,
   MA,
   MIR,
   
@@ -39,8 +38,8 @@ export const TabActividadesMA = ({
   edit: boolean;
   setMAActividadesPadre: Function;
   ComponentesActividadMA: IComponenteMA[];
-  showMirFnc: Function;
-  setTxtShowFnc: Function;
+  // showMirFnc: Function;
+  // setTxtShowFnc: Function;
   MA: string;
   MIR: string;
 
@@ -77,7 +76,7 @@ export const TabActividadesMA = ({
   const [elementoFormulaActividad, setElementoFormulaActividad] = useState("");
   // revisado
   const handleClickOpen = () => {
-    console.log("componentesActividadValues: ",componentesActividadValues);
+    
     setTipoFormula(
       JSON.parse(MIR)
         .componentes[componenteSelect].actividades[
@@ -176,7 +175,7 @@ export const TabActividadesMA = ({
       ].metaAnual = txt.split(",")[2];
     }
     setComponentesActividadValues([...componentesActividadValues]);
-    console.log("componentesActividadValues: ",componentesActividadValues);
+ 
   };
 
   const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
@@ -387,8 +386,12 @@ export const TabActividadesMA = ({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(!isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -429,8 +432,8 @@ export const TabActividadesMA = ({
         <Tooltip title="RESUMEN ACTIVIDADES">
           <InfoOutlinedIcon
             onClick={() => {
-              showMirFnc(true);
-              setTxtShowFnc("Actividades");
+              // showMirFnc(true);
+              // setTxtShowFnc("Actividades");
             }}
             fontSize="large"
             sx={{ cursor: "pointer" }}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
-  Box,
+  Grid,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -26,6 +26,7 @@ export default function ModalEnviarRF({
   IdMA,
   IdRF,
   showResume,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -35,6 +36,7 @@ export default function ModalEnviarRF({
   IdMA: string;
   IdRF: string;
   showResume: Function;
+  IdEntidad: string;
 }) {
 
   const [coment, setComment] = useState("");
@@ -178,7 +180,10 @@ export default function ModalEnviarRF({
           IdMa: IdMA,
           Id: IdRF,
           Estado: estado,
-          Rol: localStorage.getItem("Rol")
+          Rol: localStorage.getItem("Rol"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -200,10 +205,9 @@ export default function ModalEnviarRF({
         if(localStorage.getItem("Rol") === "Administrador"){
           rol = ["Capturador","Verificador"]
         }
-        console.log("r.data.data.Id: ",r.data.data.Id);
-        console.log("IdRF: ",IdRF);
+      
 
-        enviarNotificacionRol("RF", "RF enviada", r.data.data.Id, rol)
+        enviarNotificacionRol("RF", "RF ENVIADA", r.data.data.Id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
         if (estado === "Autorizada") {
           // CrearFichaTecnica();  
         }
@@ -230,7 +234,7 @@ export default function ModalEnviarRF({
         {
           params: {
             TipoUsuario: localStorage.getItem("Rol"),
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("dApp"),
           },
           headers: {
@@ -256,13 +260,14 @@ export default function ModalEnviarRF({
         sx={{
           fontFamily: "MontserratBold",
           borderBottom: 1,
-          height: "6vh",
+          fontSize: [18, 20, 15, 20, 15],
+          height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
           mb: 2,
         }}
       >
         {localStorage.getItem("Rol") === "Administrador"
-          ? "Confirmar Autorización"
-          : "Confirmar Envío"}
+          ? "CONFIRMAR AUTORIZACIÓN"
+          : "CONFIRMAR ENVÍO"}
       </DialogTitle>
 
       <DialogContent
@@ -272,9 +277,9 @@ export default function ModalEnviarRF({
           alignItems: "center",
         }}
       >
-        <Box
+        <Grid
           sx={{
-            width: "30vw",
+            width: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-evenly",
@@ -282,28 +287,32 @@ export default function ModalEnviarRF({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
+            sx={{
+              fontSize: [15, 15, 15, 15, 15],
+              fontFamily: "MontserratMedium",
+              textAlign: "center",
+            }}
           >
             {localStorage.getItem("Rol") === "Administrador"
-              ? "Al confirmar, la Raffi se autorizará"
+              ? "AL CONFIRMAR, LA RAFFI SE AUTORIZARÁ"
               : localStorage.getItem("Rol") === "Verificador"
-              ? "Al confirmar, la Raffi se enviará a los usuarios correspondientes para autorización"
-              : "Al confirmar, la Raffi se enviará a los usuarios correspondientes para revisión"}
+              ? "AL CONFIRMAR, LA RAFFI SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA AUTORIZACIÓN"
+              : "AL CONFIRMAR, LA RAFFI SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA REVISIÓN"}
           </Typography>
-        </Box>
+        </Grid>
 
        
-          <Box sx={{ width: "30vw" }}>
+        <Grid sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}>
             <TextField
               multiline
               rows={3}
-              label={"Agregar Comentario"}
-              sx={{ width: "30vw" }}
+              label={"AGREGAR COMENTARIO"}
+              sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"], }}
               onChange={(v) => setComment(v.target.value)}
             ></TextField>
-          </Box>
+          </Grid>
         
-        <Box
+        <Grid
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -311,22 +320,22 @@ export default function ModalEnviarRF({
             paddingBlockEnd: "1vh",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
-              alignItems: "flex-end",
+              alignItems: "center",
               justifyContent: "space-between",
-              width: "20vw",
+            
               mt: "4vh",
             }}
           >
             <Button
               className="cancelar"
-              
+              sx={{ marginRight: "1rem" }}
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
@@ -358,11 +367,11 @@ export default function ModalEnviarRF({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
-                Confirmar
+                CONFIRMAR
               </Typography>
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );

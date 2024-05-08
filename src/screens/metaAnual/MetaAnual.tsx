@@ -20,6 +20,9 @@ import {
   InputBase,
   Button,
   TableSortLabel,
+  Autocomplete,
+  TextField,
+  useMediaQuery,
 } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
@@ -33,7 +36,10 @@ import { queries } from "../../queries";
 import { buscador } from "../../services/servicesGlobals";
 import SearchIcon from "@mui/icons-material/Search";
 import { estados, heads } from "../../services/validations";
-import { MostrarLista } from "../../components/tabsMir/services mir/modalMIR";
+import { GridColDef } from "@mui/x-data-grid";
+import DataGridTable from "../../components/genericComponents/DataGridTable";
+import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
+import { alertaError } from "../../components/genericComponents/Alertas";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
@@ -45,13 +51,13 @@ export const MetaAnual = () => {
 
   useEffect(() => {
     setShowResume(true);
-    //getMA();
+   
   }, [ResumeDefaultMA]);
 
   const returnMain = () => {
     setShowResume(true);
     setActionNumber(1);
-    //getMA();
+    
   };
 
   const [showResume, setShowResume] = useState(true);
@@ -75,8 +81,8 @@ export const MetaAnual = () => {
   };
 
   const [findTextStr, setFindTextStr] = useState("");
-  const [findInstStr, setFindInstStr] = useState("Todos");
-  const [findSelectStr, setFindSelectStr] = useState("Todos");
+  const [findInstStr, setFindInstStr] = useState("TODOS");
+  const [findSelectStr, setFindSelectStr] = useState("TODOS");
   const [title_texto, setTitle] = useState("");
 
   const [validaFecha, setValidaFecha] = useState(true);
@@ -85,51 +91,70 @@ export const MetaAnual = () => {
   const [maFiltered, setMaFiltered] = useState<Array<IIMa>>([]);
   const [maxFiltered, setMaxFiltered] = useState<Array<IIMa>>([]);
 
-  const [instituciones, setInstituciones] = useState<Array<IEntidad>>();
-
-  const [estadoma, setEstadoMA] = useState("Todos");
+  const [estadoma, setEstadoMA] = useState("TODOS");
   const [estado, setEstado] = useState("");
-  const [institucionesb, setInstitucionesb] = useState("Todos");
+  const [IdEntidad, setIdEntidad] = useState("");
+  const [institucionesb, setInstitucionesb] = useState("TODOS");
+
+  interface IEntidadLabel {
+    Id: string;
+    Label: string;
+  }
+  // const objetiInstitucion: IEntidad = {
+  //   //ClaveSiregob: null,
+  //   //ControlInterno: "",
+  //   Id: "0",
+  //   Nombre: "TODOS",
+  //   NombreTipoEntidad: "",
+  //   EntidadPerteneceA: "",
+  //   Direccion: "",
+  //   Telefono: "",
+  //   IdEntidadPerteneceA: "",
+  //   IdTipoEntidad: "",
+  //   FechaCreacion: "",
+  //   CreadoPor: "",
+  //   UltimaActualizacion: "",
+  //   ModificadoPor: "",
+  //   Titular: "",
+  // };
+
+  const objetiInstitucion: IEntidadLabel = {
+    //ClaveSiregob: null,
+    //ControlInterno: "",
+    Id: "0",
+    Label: "TODOS",
+  };
+
+  const [instituciones, setInstituciones] = useState<IEntidadLabel>();
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<
+    Array<IEntidadLabel>
+  >([]);
 
   const getInstituciones = (setstate: Function) => {
     axios
-      .get(process.env.REACT_APP_APPLICATION_LOGIN + "/api/lista-entidades", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          Rol: localStorage.getItem("Rol"),
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/entidades-relacionadas",
+        {
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      )
       .then((r) => {
         if (r.status === 200) {
           let aux = r.data.data;
-
           aux.unshift({
-            ClaveSiregob: null,
-            ControlInterno: "",
-            Direccion: "",
-            EntidadPerteneceA: "",
-            FechaCreacion: "",
-            Id: "",
-            IdEntidadPerteneceA: "",
-            IdTipoEntidad: "",
-            IdTitular: null,
-            Nombre: "TODOS",
-            NombreTipoEntidad: "",
-            Telefono: "",
-            Titular: "",
-            UltimaActualizacion: "",
+            Id: "0",
+            Label: "TODOS",
           });
-
-          setstate(aux);
+          setstate(r.data.data);
         }
       });
   };
 
   useEffect(() => {
     getMA(setMa);
+    setEstadoMA("TODOS")
   }, [showResume]);
 
   useEffect(() => {
@@ -152,19 +177,10 @@ export const MetaAnual = () => {
     },
   });
 
-  // useEffect(() => {
-  //   const url = window.location.href;
-
-  //   const urlSearchParams = new URLSearchParams(url);
-
-  //   const id = url.split("?")[1].split("=")[1];
-
-  //   //let id = urlParams.get("Id");
-  //   setMaFiltered(ma.filter((x) => x.IdMa.toLowerCase().includes(id || "")));
-  // }, [ma]);
+  const[url, setUrl]=useState(window.location.href)
 
   useEffect(() => {
-    const url = window.location.href;
+    //const url = window.location.href;
 
     // Verificar si el parámetro 'Id' está presente en la URL
     if (url.includes("?Id=")) {
@@ -255,7 +271,7 @@ export const MetaAnual = () => {
 
   useEffect(() => {
     validaFechaCaptura();
-    getInstituciones(setInstituciones);
+    getInstituciones(setCatalogoInstituciones);
   }, []);
 
   // Filtrado por caracter
@@ -263,9 +279,9 @@ export const MetaAnual = () => {
     if (
       v !== "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setMaFiltered(
         ma.filter(
@@ -281,7 +297,7 @@ export const MetaAnual = () => {
       );
     } else if (
       v !== "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setMaFiltered(
         ma.filter(
@@ -297,8 +313,8 @@ export const MetaAnual = () => {
       );
     } else if (
       v !== "" &&
-      (est === "0" || est === "Todos") &&
-      (inst === "0" || inst === "Todos")
+      (est === "0" || est === "TODOS") &&
+      (inst === "0" || inst === "TODOS")
     ) {
       setMaFiltered(
         ma.filter(
@@ -313,9 +329,9 @@ export const MetaAnual = () => {
     } else if (
       v === "" &&
       est !== "0" &&
-      est !== "Todos" &&
+      est !== "TODOS" &&
       inst !== "0" &&
-      inst !== "Todos"
+      inst !== "TODOS"
     ) {
       setMaFiltered(
         ma.filter(
@@ -326,7 +342,7 @@ export const MetaAnual = () => {
       );
     } else if (
       v === "" &&
-      ((est !== "0" && est !== "Todos") || (inst !== "0" && inst !== "Todos"))
+      ((est !== "0" && est !== "TODOS") || (inst !== "0" && inst !== "TODOS"))
     ) {
       setMaFiltered(
         ma.filter(
@@ -351,27 +367,38 @@ export const MetaAnual = () => {
           IdUsuario: localStorage.getItem("IdUsuario"),
           IdEntidad: localStorage.getItem("IdEntidad"),
           Rol: localStorage.getItem("Rol"),
-          Estado: estadoma || "",
+          Estado: estadoma || "TODOS",
         },
         headers: {
           Authorization: localStorage.getItem("jwtToken") || "",
         },
       })
       .then((r) => {
-        setstate(r.data.data);
+        console.log("r.data.data1: ",r.data.data);
+        
+        if (r.data.data.length === 0) {
+          setstate(r.data.data);
+          alertaError(
+            "El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR"
+            
+          );
+          //setUrl("")
+          
+        }else{
+          setstate(r.data.data);
+          //setUrl("")
+        }
+
+        
         //setMaFiltered(r.data.data);
       });
   };
 
-  // useEffect(() => {
-  //   getMA();
-  // }, []);
+  
 
   const [actualizacion, setActualizacion] = useState(0);
 
-  // useEffect(() => {
-  //   getMA();
-  // }, [actualizacion]);
+ 
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
@@ -379,7 +406,7 @@ export const MetaAnual = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
-    // console.log("Entra");
+    ;
     let Arrayfiltro: IIMa[];
     Arrayfiltro = [];
 
@@ -422,6 +449,232 @@ export const MetaAnual = () => {
     setFindTextStr(dato);
   };
 
+  const columsMa: GridColDef[] = [
+    {
+      field: "Acciones",
+      disableExport: true,
+      headerName: "Acciones",
+      description: "Acciones",
+      sortable: false,
+      width: 230,
+      renderCell: (v: any) => {
+        return (
+          <Grid sx={{ display: "flex" }}>
+            {/* <Tooltip title="Eliminar Mir">
+              <IconButton onClick={() => {}}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip> */}
+
+            <Tooltip title="Descargar Ma">
+              <span>
+                <IconButton
+                  onClick={() => {
+                    getMetaAnualDownload(
+                      v.row.MIR,
+                      v.row.MetaAnual,
+                      v.row.Programa,
+                      v.row.FechaCreacion,
+                      v.row.Entidad
+                    );
+                  }}
+                  disabled={
+                    v.row.Estado === "Autorizada" && validaFecha ? false : true
+                  }
+                >
+                  <DownloadIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                </IconButton>
+              </span>
+            </Tooltip>
+
+            <Tooltip
+              title={title_texto}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -13],
+                    },
+                  },
+                ],
+              }}
+            >
+              <span>
+                <IconButton
+                  disabled={
+                    ((v.row.Estado === "En Captura" ||
+                      v.row.Estado === "Borrador Capturador") &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Capturador") ||
+                    (v.row.Estado === "En Revisión" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Verificador") ||
+                    (v.row.Estado === "Borrador Verificador" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Verificador") ||
+                    ((v.row.Estado === "En Autorización" ||
+                      v.row.Estado === "Autorizada") &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Administrador") ||
+                    (v.row.Estado === "Borrador Autorizador" &&
+                      validaFecha &&
+                      localStorage.getItem("Rol") === "Administrador")
+                      ? false
+                      : true
+                  }
+                  onClick={() => {
+                    let auxArrayMIR = JSON.parse(v.row.MIR);
+                    let auxArrayMIR2 = JSON.stringify(auxArrayMIR[0]);
+                    if (auxArrayMIR[1]) {
+                      setMaEdit([
+                        {
+                          IdMa: v.row.IdMa,
+                          IdMir: v.row.IdMir,
+                          IdEntidad: v.row.IdEntidad,
+                          AnioFiscal: v.row.AnioFiscal,
+                          Entidad: v.row.Entidad,
+                          Programa: v.row.Programa,
+                          MIR: auxArrayMIR2,
+                          //meta anual completa
+                          MetaAnual: v.row.MetaAnual,
+                          Estado: v.row.Estado,
+                          CreadoPor: v.row.CreadoPor,
+                          FechaCreacion: v.row.FechaCreacion,
+                          Opciones: v.row.Opciones,
+                        },
+                      ]);
+                    } else {
+                      setMaEdit([
+                        {
+                          IdMa: v.row.IdMa,
+                          IdMir: v.row.IdMir,
+                          IdEntidad: v.row.IdEntidad,
+                          AnioFiscal: v.row.AnioFiscal,
+                          Entidad: v.row.Entidad,
+                          Programa: v.row.Programa,
+                          MIR: v.row.MIR,
+                          //meta anual completa
+                          MetaAnual: v.row.MetaAnual,
+                          Estado: v.row.Estado,
+                          CreadoPor: v.row.CreadoPor,
+                          FechaCreacion: v.row.FechaCreacion,
+                          Opciones: v.row.Opciones,
+                        },
+                      ]);
+                    }
+
+                    setEstado(v.row.Estado);
+                    setShowResume(false);
+                    setActionNumber(1);
+                  }}
+                >
+                  <AddCircleOutlineIcon
+                    sx={{
+                      fontSize: "24px", // Tamaño predeterminado del icono
+
+                      "@media (max-width: 600px)": {
+                        fontSize: 20, // Pantalla extra pequeña (xs y sm)
+                      },
+
+                      "@media (min-width: 601px) and (max-width: 960px)": {
+                        fontSize: 20, // Pantalla pequeña (md)
+                      },
+
+                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                        fontSize: 20, // Pantalla mediana (lg)
+                      },
+
+                      "@media (min-width: 1281px)": {
+                        fontSize: 25, // Pantalla grande (xl)
+                      },
+
+                      "@media (min-width: 2200px)": {
+                        ffontSize: 25, // Pantalla grande (xl)
+                      },
+                    }}
+                  />
+                </IconButton>
+              </span>
+            </Tooltip>
+
+            <ComentDialogMA
+              estado={v.row.Estado}
+              id={v.row.Id}
+              actualizado={actualizaContador}
+              MIR={maEdit[0]?.MIR || ""}
+              IdEntidad={v.row.IdEntidad}
+            />
+
+            <MostrarLista st="" Id={v.row.Id} />
+          </Grid>
+        );
+      },
+    },
+    {
+      field: "AnioFiscal",
+      headerName: "Año Fiscal",
+      description: "Año Fiscal",
+      width: 100,
+    },
+    {
+      field: "Entidad",
+      headerName: "Entidad",
+      description: "Entidad",
+      width: 200,
+    },
+    {
+      field: "Programa",
+      headerName: "Programa",
+      description: "Programa",
+      width: 200,
+    },
+    {
+      field: "Estado",
+      headerName: "Estado",
+      description: "Estado",
+      width: 100,
+    },
+    {
+      field: "FechaCreacion",
+      headerName: "Fehca de creacion",
+      description: "Fecha de creacion",
+      width: 200,
+    },
+    {
+      field: "CreadoPor",
+      headerName: "Creado por",
+      description: "Creado por",
+      width: 200,
+    },
+  ];
+
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid
@@ -434,7 +687,7 @@ export const MetaAnual = () => {
         sx={{ height: "7vh", whitespace: "nowrap" }}
         // sx={{ mr: showResume ? 8 : 0 }}
       >
-        <LateralMenu selection={"META ANUAL"} actionNumber={actionNumber} />
+        <LateralMenu selection={"META ANUAL"} actionNumber={actionNumber} restore={setShowResume}/>
       </Grid>
 
       {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
@@ -460,7 +713,7 @@ export const MetaAnual = () => {
           //backgroundColor:"blue",
           justifyContent: "center",
           display: "flex",
-          height: "90vh",
+          height: "93vh",
           alignItems: "center",
           backgroundColor: "white",
         }}
@@ -475,13 +728,14 @@ export const MetaAnual = () => {
               xl={8}
               lg={8}
               md={8}
-              sm={8}
+              sm={10}
+              xs={11}
               // height="15vh"
               // direction="row"
               sx={{
-                boxShadow: 5,
-                backgroundColor: "#FFFF",
-                borderRadius: 5,
+                ...(!isSmallScreen
+                  ? { boxShadow: 5, backgroundColor: "#FFFF", borderRadius: 5 }
+                  : { marginBottom: "30px" }),
                 justifyContent: "space-evenly",
                 alignItems: "center",
                 height: "15vh",
@@ -509,23 +763,25 @@ export const MetaAnual = () => {
                 md={12}
                 sm={12}
                 xs={12}
-                // sx={{
-                //
-                //   //gridTemplateColumns: "repeat(2, 1fr)",
-                //   //alignItems:"center",
-                //   justifyItems: "space-evenly",
-                //   gap: 2,
-                //  // width: "90%",
-                // }}
                 sx={{
                   justifyContent: "space-around",
                   alignItems: "center",
-                  //display: "flex",
                   direction: "row",
+                  ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
                 }}
               >
                 {localStorage.getItem("Rol") === "Administrador" ? (
-                  <Grid item xl={5} lg={5} md={5} sm={5} xs={5}>
+                  <Grid
+                    item
+                    xl={5}
+                    lg={5}
+                    md={5}
+                    sm={5}
+                    xs={12}
+                    sx={{
+                      ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
+                    }}
+                  >
                     <Tooltip
                       title={findInstStr}
                       PopperProps={{
@@ -539,63 +795,61 @@ export const MetaAnual = () => {
                         ],
                       }}
                     >
-                      <FormControl fullWidth>
-                        <InputLabel sx={queries.text}>
-                          <Tooltip
-                            PopperProps={{
-                              modifiers: [
-                                {
-                                  name: "offset",
-                                  options: {
-                                    offset: [0, -13],
-                                  },
-                                },
-                              ],
-                            }}
-                            title={"FILTRO POR INSTITUCION"}
-                          >
-                            <span>FILTRO POR INSTITUCION</span>
-                          </Tooltip>
-                        </InputLabel>
-
-                        <Select
+                      <FormControl required fullWidth>
+                        <Autocomplete
+                          //  disabled={edit && !mirEdit?.encabezado.ejercicioFiscal}
+                          clearText="Borrar"
+                          noOptionsText="Sin opciones"
+                          closeText="Cerrar"
+                          openText="Abrir"
+                          disablePortal
                           size="small"
-                          variant="outlined"
-                          fullWidth
-                          label="FILTRO POR INSTITUCION"
-                          disabled={
-                            localStorage.getItem("Rol") !== "Administrador"
-                          }
-                          sx={{
-                            fontFamily: "MontserratRegular",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            //textAlign: "center",
-                            fontSize: [10, 10, 15, 15, 18, 20],
+                          options={catalogoInstituciones}
+                          getOptionLabel={(option) => option.Label || ""}
+                          value={instituciones || objetiInstitucion}
+                          getOptionDisabled={(option) => {
+                            if (option.Id === "") {
+                              return true;
+                            }
+                            return false;
                           }}
-                          value={institucionesb}
-                          // sx={{ fontFamily: "MontserratRegular" }}
-
-                          onChange={(v) => {
-                            setInstitucionesb(v.target.value);
-                          }}
-                        >
-                          <MenuItem
-                            value={institucionesb}
-                            sx={{ fontFamily: "MontserratRegular" }}
-                          >
-                            TODOS
-                          </MenuItem>
-
-                          {instituciones?.map((item) => {
+                          renderOption={(props, option) => {
                             return (
-                              <MenuItem value={item.Nombre} key={item.Id}>
-                                {item.Nombre.toUpperCase()}
-                              </MenuItem>
+                              <li {...props} key={option.Id}>
+                                <p
+                                  style={{
+                                    fontFamily: "MontserratRegular",
+                                  }}
+                                >
+                                  {option.Label}
+                                </p>
+                              </li>
                             );
-                          })}
-                        </Select>
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="FILTRO POR INSTITUCIÓN"
+                              variant="standard"
+                              InputLabelProps={{
+                                style: {
+                                  fontFamily: "MontserratSemiBold",
+                                },
+                              }}
+                              sx={{
+                                "& .MuiAutocomplete-input": {
+                                  fontFamily: "MontserratRegular",
+                                },
+                              }}
+                            ></TextField>
+                          )}
+                          onChange={(event, value) =>
+                            setInstituciones(value || objetiInstitucion)
+                          }
+                          isOptionEqualToValue={(option, value) =>
+                            option.Id === value.Id
+                          }
+                        />
                       </FormControl>
                     </Tooltip>
                   </Grid>
@@ -630,85 +884,76 @@ export const MetaAnual = () => {
                   xs={
                     localStorage.getItem("Rol") === "Administrador" ||
                     localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
+                      ? 11
                       : 11
                   }
                 >
                   <FormControl fullWidth>
-                    <InputLabel sx={queries.text}>
-                      <Tooltip
-                        PopperProps={{
-                          modifiers: [
-                            {
-                              name: "offset",
-                              options: {
-                                offset: [0, -13],
-                              },
-                            },
-                          ],
-                        }}
-                        title={"FILTRO POR ESTADO DE LA MA"}
-                      >
-                        <span>FILTRO POR ESTADO DE LA MA</span>
-                      </Tooltip>
-                    </InputLabel>
-                    <Select
-                      size="small"
+                    <Autocomplete
+                      clearText="Borrar"
+                      noOptionsText="Sin opciones"
+                      closeText="Cerrar"
+                      openText="Abrir"
+                      disablePortal
                       fullWidth
-                      variant="outlined"
-                      label="FILTRO POR ESTADO DE LA MA"
-                      sx={{
-                        fontFamily: "MontserratRegular",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        //textAlign: "center",
-                        fontSize: [10, 10, 15, 15, 18, 20],
-                        // Tamaños de fuente para diferentes breakpoints
-                      }}
+                      size="small"
                       value={
-                        localStorage.getItem("Rol") === "Administrador" ||
+                        (localStorage.getItem("Rol") === "Administrador" ||
                         localStorage.getItem("Rol") === "ADMINISTRADOR"
-                          ? estadoma
-                          : findSelectStr
+                          ? estadoma.toUpperCase()
+                          : findSelectStr.toUpperCase()) || estados[0]
                       }
-                      onChange={(v) => {
-                        // v.target.value === "Todos"
+                      options={estados}
+                      onChange={(event, newValue) => {
+                        // v.target.value === "TODOS"
                         //   ? findText(
                         //       findTextStr,
                         //       "0",
-                        //       findInstStr === "Todos" ? "0" : findInstStr
+                        //       findInstStr === "TODOS" ? "0" : findInstStr
                         //     )
                         //   : findText(findTextStr, v.target.value, findInstStr);
                         if (
                           localStorage.getItem("Rol") === "Administrador" ||
                           localStorage.getItem("Rol") === "ADMINISTRADOR"
                         ) {
-                          setEstadoMA(v.target.value);
+                          setEstadoMA(newValue || "");
                         } else {
-                          setFindSelectStr(v.target.value);
+                          setFindSelectStr(newValue || "");
                         }
                       }}
-                    >
-                      {estados.map((estado) => (
-                        <MenuItem key={estado} value={estado}>
-                          {estado.toUpperCase()}
-                        </MenuItem>
-                      ))}
-                    </Select>
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={"FILTRO POR ESTADO DE LA MA"}
+                          variant="standard"
+                          InputLabelProps={{
+                            style: {
+                              fontFamily: "MontserratSemiBold",
+                            },
+                          }}
+                          sx={{
+                            "& .MuiAutocomplete-input": {
+                              fontFamily: "MontserratRegular",
+                            },
+                          }}
+                        ></TextField>
+                      )}
+                    />
                   </FormControl>
                 </Grid>
 
                 {localStorage.getItem("Rol") === "Administrador" && (
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
-                      // disabled ={estadoma === "Todos" && institucionesb === "Todos" }
+                      // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
                         buscador(
                           estadoma,
                           institucionesb,
                           setMa,
-                          "list-metaAnual"
+                          "list-metaAnual",
+                          setUrl
+
                         );
                       }}
                     >
@@ -747,7 +992,7 @@ export const MetaAnual = () => {
                 lg={12}
                 md={12}
                 sm={11}
-                xs={11}
+                xs={12}
                 sx={{
                   direction: "row",
                   justifyContent: "space-around",
@@ -802,25 +1047,20 @@ export const MetaAnual = () => {
                       <SearchIcon
                         sx={{
                           fontSize: "24px", // Tamaño predeterminado del icono
-
                           "@media (max-width: 600px)": {
-                            fontSize: 25, // Pantalla extra pequeña (xs y sm)
+                            fontSize: 20, // Pantalla extra pequeña (xs y sm)
                           },
-
                           "@media (min-width: 601px) and (max-width: 960px)": {
-                            fontSize: 25, // Pantalla pequeña (md)
+                            fontSize: 20, // Pantalla pequeña (md)
                           },
-
                           "@media (min-width: 961px) and (max-width: 1280px)": {
-                            fontSize: 30, // Pantalla mediana (lg)
+                            fontSize: 20, // Pantalla mediana (lg)
                           },
-
                           "@media (min-width: 1281px)": {
-                            fontSize: 30, // Pantalla grande (xl)
+                            fontSize: 25, // Pantalla grande (xl)
                           },
-
                           "@media (min-width: 2200px)": {
-                            fontSize: 30, // Pantalla grande (xl)
+                            fontSize: 25, // Pantalla grande (xl)
                           },
                         }}
                       />
@@ -862,6 +1102,7 @@ export const MetaAnual = () => {
             </Grid>
 
             {/* TABLA */}
+
             <Grid
               item
               xl={10}
@@ -1097,6 +1338,7 @@ export const MetaAnual = () => {
                                           {
                                             IdMa: row.IdMa,
                                             IdMir: row.IdMir,
+                                            IdEntidad: row.IdEntidad,
                                             AnioFiscal: row.AnioFiscal,
                                             Entidad: row.Entidad,
                                             Programa: row.Programa,
@@ -1109,11 +1351,13 @@ export const MetaAnual = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
+                                        setIdEntidad(row.IdEntidad)
                                       } else {
                                         setMaEdit([
                                           {
                                             IdMa: row.IdMa,
                                             IdMir: row.IdMir,
+                                            IdEntidad: row.IdEntidad,
                                             AnioFiscal: row.AnioFiscal,
                                             Entidad: row.Entidad,
                                             Programa: row.Programa,
@@ -1127,7 +1371,7 @@ export const MetaAnual = () => {
                                           },
                                         ]);
                                       }
-
+                                      setIdEntidad(row.IdEntidad)
                                       setEstado(row.Estado);
                                       setShowResume(false);
                                       setActionNumber(1);
@@ -1217,6 +1461,8 @@ export const MetaAnual = () => {
                                 estado={row.Estado}
                                 id={row.IdMir}
                                 actualizado={actualizaContador}
+                                MIR={maEdit[0]?.MIR || ""}
+                                IdEntidad={row.IdEntidad}
                               />
 
                               <MostrarLista st="" Id={row.IdMa} />
@@ -1259,6 +1505,7 @@ export const MetaAnual = () => {
               IdMir={maEdit[0]?.IdMir || ""}
               IdMA={maEdit[0]?.IdMa || ""}
               estado={estado}
+              IdEntidad={IdEntidad}
             />
           </Grid>
         )}
@@ -1270,6 +1517,7 @@ export const MetaAnual = () => {
 export interface IIMa {
   IdMa: string;
   IdMir: string;
+  IdEntidad: string;
   AnioFiscal: string;
   Entidad: string;
   Programa: string;

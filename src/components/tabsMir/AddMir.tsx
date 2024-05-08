@@ -125,12 +125,16 @@ export default function FullModalMir({
   IdMir,
   anioFiscalEdit,
   estado,
+  IdEntidad,
+  setIdEntidad,
 }: {
   MIR: string;
   showResume: Function;
   IdMir: string;
   anioFiscalEdit: string;
   estado: string;
+  IdEntidad: string;
+  setIdEntidad: Function;
 }) {
   // useEffect(() => {
   //   getMAyFT(IdMir);
@@ -204,6 +208,11 @@ export default function FullModalMir({
   const [mirEdirPadre, setMIREDITPADRE] = useState<IMIREdit>(
     newMIREDIT(JSON.stringify(mir))
   );
+
+  useEffect(()=>{
+  
+    
+  },[mirEdirPadre])
 
   const [editMIR, setEditMIR] = useState(false);
 
@@ -356,6 +365,8 @@ export default function FullModalMir({
               MIR={MIRPADRE}
               setMIR={setMIRPADRE}
               mirEdit={mirEdirPadre}
+              IdEntidad={IdEntidad}
+              setIdEntidad={setIdEntidad}
             />
 
             {value === 1 && (
@@ -401,6 +412,7 @@ export default function FullModalMir({
                 mDocumentos={mDocumentos}
                 mirEdit={mirEdirPadre}
                 setMIREDITPADRE={setMIREDITPADRE}
+                IdEntidad={IdEntidad}
               />
             )}
           </Grid>

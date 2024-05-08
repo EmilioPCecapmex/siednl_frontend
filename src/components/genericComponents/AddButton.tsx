@@ -13,7 +13,7 @@ import { Tooltip, ToggleButton, Box } from "@mui/material";
         <Box>
             {agregar ? (
                 <Tooltip
-                    title={"Agregar"}>
+                    title={"AGREGAR"}>
                     <ToggleButton className="aceptar" value="check" onClick={() => handleOpen(true)}>
                         <AddIcon />
                     </ToggleButton>

@@ -49,7 +49,7 @@ export default function CapturaPAE() {
       >
         <Grid
           sx={{
-            //width: "93vw",
+            
             width: ["300xp", "750px", "750px", "1100px", "1200px"],
             height: "82vh",
 

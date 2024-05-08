@@ -3,16 +3,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
-  Box,
+  Grid,
   Dialog,
   DialogTitle,
   DialogContent,
   TextField,
   FormControl,
-  Select,
+  
   MenuItem,
   Button,
   Typography,
+  Autocomplete,
 } from "@mui/material";
 
 import { IActividad, IComponente } from "../tabsMir/interfaces mir/IMIR";
@@ -26,7 +27,8 @@ import {
   create_coment_mir,
   soliModyNoty,
 } from "../genericComponents/axiosGenericos";
-
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -36,6 +38,7 @@ export default function ModalSolicitaModif({
   MIREdit,
   showResume,
   IdMir,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -43,9 +46,25 @@ export default function ModalSolicitaModif({
   MIREdit: string;
   showResume: Function;
   IdMir: string;
+  IdEntidad: string;
 }) {
+  // const [catalogoUser, setCatalogoUser] = useState<IIUserXInst[]>(
+  //   []
+  // );
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
+  const newUser = {
+    IdUsuario: "",
+    IdUsuarioTiCentral: "",
+    Rol: "",
+    NombreInstitucion: "",
+    Nombre: "",
+    ApellidoPaterno: "",
+    ApellidoMaterno: "",
+    NombreUsuario: "",
+  };
+
+  const [user, setUser] = useState<IIUserXInst>(newUser);
   let err = 0;
 
   const [coment, setComment] = useState("");
@@ -58,9 +77,16 @@ export default function ModalSolicitaModif({
       .catch((err) => {});
   };
 
+  useEffect(() => {
+    let findUser = userXInst.find(
+      (item) => item.NombreUsuario === userSelected
+    );
+    setUser(findUser || newUser);
+  }, [userXInst]);
+
   const checkUsuario = (estado: string) => {
     if (userSelected === "0" || userSelected === "") {
-      alertaError("Introduce usuario al que se le solicita modificación");
+      alertaError("INTRODUCE USUARIO AL QUE SE LE SOLICITA MODIFICACIÓN");
     } else {
       checkMir(estado);
     }
@@ -84,9 +110,10 @@ export default function ModalSolicitaModif({
       JSON.parse(MIR)?.encabezado.estrategia === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.estrategia) ||
       JSON.parse(MIR)?.encabezado.lineas_de_accion === undefined ||
-      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.lineas_de_accion ||
-      JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
-      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
+      /^[\s]*$/.test(
+        JSON.parse(MIR)?.encabezado.lineas_de_accion ||
+          JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
+          /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
       )
     ) {
       err = 1;
@@ -97,8 +124,6 @@ export default function ModalSolicitaModif({
       JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label)
     ) {
-      console.log("ejercicioFiscal");
-
       err = 1;
       errores.push("<strong> EJERCICIO FISCAL</strong> NO SELECCIONADO.");
     }
@@ -167,8 +192,6 @@ export default function ModalSolicitaModif({
       JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
     ) {
-      console.log("JSON.parse(MIR)?.encabezado: ", JSON.parse(MIR)?.encabezado);
-
       err = 1;
       errores.push("<strong> BENEFICIARIO</strong> NO SELECCIONADO.");
     }
@@ -224,7 +247,7 @@ export default function ModalSolicitaModif({
       /^[\s]*$/.test(JSON.parse(MIR)?.fin.medios)
     ) {
       err = 1;
-      errores.push("<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.");
+      errores.push("<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MIR)?.fin.supuestos === undefined ||
@@ -287,7 +310,7 @@ export default function ModalSolicitaModif({
       /^[\s]*$/.test(JSON.parse(MIR)?.proposito.medios_verificacion)
     ) {
       err = 1;
-      errores.push("<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.");
+      errores.push("<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MIR)?.proposito.supuestos === undefined ||
@@ -355,7 +378,7 @@ export default function ModalSolicitaModif({
       ) {
         err = 1;
         errores.push(
-          `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
+          `<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -432,7 +455,7 @@ export default function ModalSolicitaModif({
             /^[\s]*$/.test(componente.actividades[indexA].medios)
           ) {
             errores.push(
-              `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
+              `<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.`
             );
             err = 1;
           }
@@ -494,6 +517,7 @@ export default function ModalSolicitaModif({
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
           IdEntidad:
             JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
             localStorage.getItem("IdEntidad"),
           Programa: JSON.parse(MIR)?.encabezado.programa.Label,
           Eje: JSON.parse(MIR)?.encabezado.eje.Label,
@@ -514,15 +538,15 @@ export default function ModalSolicitaModif({
 
         alertaExito(
           () => {},
-          localStorage.getItem("Rol") === "Verificador"
-            ? "MIR enviada a capturador"
-            : "MIR enviada a revisión"
+          // localStorage.getItem("Rol") !== "Verificador"
+          //   ? "MIR ENVIADA A REVISIÓN"
+          //   : "MIR ENVIADA A CAPTURADOR"
+          "MIR ENVIADA A CORRECION"
         );
-        console.log(IdMir, "IdMirS");
 
         soliModyNoty(
           userSelected,
-          "Se le ha solicitado una modificación.",
+          "SE LE HA SOLICITADO UNA MODIFICACIÓN.",
           "MIR",
           IdMir
         );
@@ -551,7 +575,7 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
           {
@@ -568,104 +592,135 @@ export default function ModalSolicitaModif({
     }
   }, [MIR, open]);
 
+  const theme = useTheme();
+const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
-      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
-        Solicitud de modificación
+      <DialogTitle
+        sx={{
+          fontFamily: "MontserratBold",
+          borderBottom: 1,
+          fontSize: [18, 20, 15, 20, 15],
+          height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
+        }}
+      >
+        SOLICITUD DE MODIFICACIÓN
       </DialogTitle>
-
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Box
-          sx={{
-            backgroundColor: "#BBBABA",
-            width: "60vw",
-            height: "0.1vh",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        />
-      </Box>
 
       <DialogContent
         sx={{
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Box
+        <Grid
           sx={{
             width: "100%",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
             justifyContent: "space-evenly",
+            mb: 2,
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
+            sx={{
+              fontSize: [15, 15, 15, 15, 15],
+              fontFamily: "MontserratMedium",
+              textAlign: "center",
+            }}
           >
             {MIR === undefined
-              ? "Selecciona una institución en el encabezado para asignar un usuario"
+              ? "SELECCIONA UNA INSTITUCIÓN EN EL ENCABEZADO PARA ASIGNAR UN USUARIO"
               : JSON.parse(MIR)?.encabezado?.institucion !== ""
-              ? `Selecciona un usuario de ${
-                  JSON.parse(MIR)?.encabezado?.institucion
-                } para solicitar la modificación`
-              : "Selecciona una institución en el encabezado para asignar un usuario"}
+              ? `SELECCIONA UN USUARIO PARA SOLICITAR LA MODIFICACIÓN`
+              : "SELECCIONA UNA INSTITUCIÓN EN EL ENCABEZADO PARA ASIGNAR UN USUARIO"}
           </Typography>
+
           <FormControl
-            sx={{
-              display: "flex",
-              width: "70%",
-              alignItems: "center",
-              justifyContent: "center",
-              border: 1,
-              borderRadius: 1,
-              borderColor: "#616161",
-              mb: 2,
-            }}
+            // sx={{
+            //   display: "flex",
+            //   alignItems: "center",
+            //   justifyContent: "center",
+            //   border: 1,
+            //   borderRadius: 1,
+            //   borderColor: "#616161",
+            //   mb: 2,
+            //   mt: "2vh",
+            // }}
             variant="standard"
           >
-            <Select
-              size="small"
-              sx={{ fontFamily: "MontserratRegular" }}
-              fullWidth
-              value={userSelected}
-              onChange={(v) => setUserSelected(v.target.value)}
-              disableUnderline
-            >
-              <MenuItem value={"0"} disabled>
-                Selecciona
-              </MenuItem>
-
-              {userXInst.map((item) => {
+            <Autocomplete
+              clearText="Borrar"
+              noOptionsText="Sin opciones"
+              closeText="Cerrar"
+              openText="Abrir"
+              options={userXInst}
+              getOptionLabel={(option) => option.NombreUsuario}
+              value={user}
+              renderOption={(props, option) => {
                 return (
-                  <MenuItem value={item.IdUsuario} key={item.IdUsuario}>
-                    {item.Rol +
-                      ": " +
-                      item.Nombre +
-                      " " +
-                      item.ApellidoPaterno +
-                      " " +
-                      item.ApellidoMaterno}
-                    - {item.NombreUsuario}
-                  </MenuItem>
+                  <li {...props} key={option.IdUsuario}>
+                    <p
+                      style={{
+                        fontFamily: "MontserratRegular",
+                      }}
+                    >
+                      {option.Rol +
+                        ": " +
+                        option.Nombre +
+                        " " +
+                        option.ApellidoPaterno +
+                        " " +
+                        option.ApellidoMaterno +
+                        " - " +
+                        option.NombreUsuario}
+                    </p>
+                  </li>
                 );
-              })}
-            </Select>
-          </FormControl>{" "}
-        </Box>
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={"USUARIO"}
+                  variant="standard"
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratSemiBold",
+                    },
+                  }}
+                  sx={{
+                    "& .MuiAutocomplete-input": {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                ></TextField>
+              )}
+              onChange={(event, value) => {
+                setUser(value || newUser);
+               setUserSelected(value?.IdUsuario || newUser.IdUsuario || value?.IdUsuarioTiCentral || newUser.IdUsuarioTiCentral)
+              }}
+              isOptionEqualToValue={(option, value) =>
+                option.IdUsuario === value.IdUsuario
+              }
+            />
 
-        <Box sx={{ width: "100%", mb: 2 }}>
+            
+          </FormControl>
+        </Grid>
+
+        <Grid sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}>
           <TextField
             multiline
             rows={2}
-            label={"Agregar Comentario"}
-            sx={{ width: "100%" }}
+            label={"AGREGAR COMENTARIO"}
+            sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}
             onChange={(v) => setComment(v.target.value)}
           ></TextField>
-        </Box>
+        </Grid>
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -673,37 +728,28 @@ export default function ModalSolicitaModif({
             paddingBlockEnd: "1vh",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "space-evenly",
-              width: "100vw",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexDirection: isSmScreen ? "column" : "row", // Cambia el flexDirection según el tamaño de la pantalla
+              mt: "4vh",
             }}
           >
             <Button
               className="cancelar"
-              sx={{
-                //...queries.buttonCancelarSolicitudInscripcion,
-                display: "flex",
-                width: "15vw",
-              }}
-              variant="contained"
+              sx={{ marginRight: "1rem" }}
+             // sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
             <Button
               className="aceptar"
-              sx={{
-                //...queries.buttonContinuarSolicitudInscripcion,
-                display: "flex",
-                width: "15vw",
-              }}
-              variant="contained"
               onClick={() => {
                 checkUsuario(
                   localStorage.getItem("Rol") === "Capturador"
@@ -716,11 +762,11 @@ export default function ModalSolicitaModif({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                {coment === "" ? "Enviar sin comentarios" : "Confirmar"}
+                {coment === "" ? "ENVIAR SIN COMENTARIOS" : "CONFIRMAR"}
               </Typography>
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );

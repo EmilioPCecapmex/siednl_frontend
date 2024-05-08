@@ -36,6 +36,7 @@ export const Settings = () => {
           selection={"CONFIGURACIÓN"}
           actionNumber={0}
           settingsCard={resetView}
+          restore={() =>{}}
         />
       </Grid>
 

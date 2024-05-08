@@ -14,6 +14,7 @@ import {
 import { useEffect, useLayoutEffect, useState } from "react";
 import { queries } from "../../queries";
 import { log } from "console";
+import { clearInfo } from "../genericComponents/GenericMethods";
 
 export const DialogFinPropositoRaffi = ({
   open,
@@ -132,10 +133,7 @@ export const DialogFinPropositoRaffi = ({
               value={Numerodador}
               onChange={(x) =>
                 setNumerdaor(
-                  x.target.value
-                    .replaceAll('"', "")
-                    .replaceAll("'", "")
-                    .replaceAll("\n", "")
+                  clearInfo(x.target.value)
                     .replaceAll(/[^0-9.]+/g, "")
                 )
               }
@@ -165,10 +163,7 @@ export const DialogFinPropositoRaffi = ({
                 value={Denominador}
                 onChange={(x) =>
                   setDenominador(
-                    x.target.value
-                      .replaceAll('"', "")
-                      .replaceAll("'", "")
-                      .replaceAll("\n", "")
+                    clearInfo(x.target.value)
                       .replaceAll(/[^0-9.]+/g, "")
                   )
                 }

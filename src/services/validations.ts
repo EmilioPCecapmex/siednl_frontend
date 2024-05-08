@@ -44,6 +44,14 @@ export const validarNumero = (dato: string, state: any) => {
     return "$ " + result;
   };
 
+export const quitarEspaciosFinales =(str: string) => {
+    // Eliminar las comillas dobles, las comillas simples y las nuevas líneas
+    str = str.replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "");
+  
+    // Eliminar los espacios en blanco al final de la cadena
+    return str.replace(/\s+$/g, "");
+  }
+  
   export const getValueOperacion=(txt:string, tipoFormula: string)=>{
     if(tipoFormula==="Índice"){
       return(txt)
@@ -51,22 +59,16 @@ export const validarNumero = (dato: string, state: any) => {
     return(txt.split(",")[2])
   }
 
-  export const quitarEspaciosFinales =(str: string) => {
-    // Eliminar las comillas dobles, las comillas simples y las nuevas líneas
-    str = str.replaceAll('"', "").replaceAll("'", "").replaceAll("\n", "");
   
-    // Eliminar los espacios en blanco al final de la cadena
-    return str.replace(/\s+$/g, "");
-  }
 
   export const estados = [
-    "Todos",
-    "En Captura",
-    "En Revisión",
-    "En Autorización",
-    "Autorizada",
-    "Borrador Autorizador",
-    "Borrador Verificador",
+    "TODOS",
+    "EN CAPTURA",
+    "EN REVISIÓN",
+    "EN AUTORIZACIÓN",
+    "AUTORIZADA",
+    "BORRADOR AUTORIZADOR",
+    "BORRADOR VERIFICADOR"
     //"Borrador Capturador"
   ];
   

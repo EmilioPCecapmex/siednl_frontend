@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import {
   TextField,
-  Box,
+  Grid,
   TableContainer,
   Table,
   TableHead,
@@ -21,19 +21,33 @@ import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import { queries } from "../../queries";
-import { alertaEliminar, alertaError, alertaExito } from "../genericComponents/Alertas";
-import { create_coment_mir, soliModyNoty, obtenerComentarios, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
+import {
+  alertaEliminar,
+  alertaError,
+  alertaExito,
+} from "../genericComponents/Alertas";
+import {
+  create_coment_mir,
+  soliModyNoty,
+  obtenerComentarios,
+  enviarNotificacionRol,
+} from "../genericComponents/axiosGenericos";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export const ComentDialogFT = ({
   estado,
   id,
   actualizado,
+  MIR,
+  IdEntidad,
 }: {
   estado: string;
   id: string;
   actualizado: Function;
+  MIR: string;
+  IdEntidad: string;
 }) => {
-
   const [coments, setComents] = React.useState([
     {
       Comentario: "",
@@ -60,15 +74,10 @@ export const ComentDialogFT = ({
 
   const [userXInst, setUserXInst] = React.useState<Array<IIUserXInst>>([]);
 
-  
-
   const [coment, setComent] = React.useState("");
 
- 
-
   const comentFt = () => {
-    
-      create_coment_mir(id, coment, "FT")
+    create_coment_mir(id, coment, "FT")
       .then((r) => {
         if (estado !== "En Captura") {
           // eslint-disable-next-line array-callback-return
@@ -76,19 +85,22 @@ export const ComentDialogFT = ({
           // userXInst.map((user) => {
           //   soliModyNoty(user.IdUsuario, coment, "Nuevo comentario Ficha Tecnica", id );
           // });
-          enviarNotificacionRol("FT", "Nuevo comentario Ficha Tecnica", id, ["Verificador"])
+          enviarNotificacionRol(
+            "FT",
+            "NUEVO COMENTARIO FICHA TECNICA",
+            id,
+            ["Verificador"],
+            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad
+          );
         }
-
         setNewComent(false);
         setComent("");
         handleClose();
         actualizado();
-        alertaExito(()=>{},"Comentario añadido")
-       
+        alertaExito(() => {}, "COMENTARIO AÑADIDO");
       })
       .catch((err) => {
-        alertaError("Se produjo un error")
-       
+        alertaError("SE PRODUJO UN ERROR");
       });
   };
 
@@ -108,15 +120,18 @@ export const ComentDialogFT = ({
   // }, [actualizado, id]);
 
   React.useEffect(() => {
-    obtenerComentarios(id,  setComents);
+    obtenerComentarios(id, setComents);
   }, [actualizado, id]);
 
   const isComentEmpty = () => {
     return !/^\s*$/.test(coment);
   };
 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
-    <Box>
+    <Grid>
       <Tooltip title="COMENTARIOS">
         <span>
           <IconButton onClick={handleClickOpen}>
@@ -156,7 +171,7 @@ export const ComentDialogFT = ({
             flexDirection: "column",
           }}
         >
-          <Box
+          <Grid
             sx={{
               width: "100%",
               display: "flex",
@@ -167,9 +182,9 @@ export const ComentDialogFT = ({
             <TableContainer
               sx={{
                 borderRadius: 1,
-                "&::-webkit-scrollbar": {
-                  width: ".1vw",
-                },
+                // "&::-webkit-scrollbar": {
+                //   width: ".1vw",
+                // },
                 "&::-webkit-scrollbar-thumb": {
                   backgroundColor: "rgba(0,0,0,.5)",
                   outline: "1px solid slategrey",
@@ -184,19 +199,19 @@ export const ComentDialogFT = ({
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Usuario
+                      USUARIO
                     </TableCell>
                     <TableCell
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Comentario
+                      COMENTARIO
                     </TableCell>
                     <TableCell
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      Fecha de envío
+                      FECHA DE ENVÍO
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -209,7 +224,7 @@ export const ComentDialogFT = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                           //   fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -218,7 +233,7 @@ export const ComentDialogFT = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                             // fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -227,7 +242,7 @@ export const ComentDialogFT = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              fontSize: ".7vw",
+                             // fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -244,11 +259,11 @@ export const ComentDialogFT = ({
                       <TableCell
                         sx={{
                           fontFamily: "MontserratRegular",
-                          fontSize: ".7vw",
+                         // fontSize: ".7vw",
                         }}
                         align="center"
                       >
-                        Sin Comentarios
+                        SIN COMENTARIOS
                       </TableCell>
                       <TableCell></TableCell>
                     </TableRow>
@@ -256,9 +271,9 @@ export const ComentDialogFT = ({
                 </TableBody>
               </Table>
             </TableContainer>
-          </Box>
+          </Grid>
 
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <Grid sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
             <TextField
               multiline
               rows={3}
@@ -267,67 +282,102 @@ export const ComentDialogFT = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              sx={{ width: "30vw" }}
-              placeholder="Añada un comentario para poder Agregar"
+              sx={{ width: ["100vw", "100vw", "100vw", "100vw", "100vw" ] }}
+              placeholder="AÑADA UN COMENTARIO PARA PODER ARGEGAR"
               onChange={(v) => {
                 setComent(v.target.value);
               }}
             ></TextField>
-          </Box>
+          </Grid>
 
-          <Box
+          <Grid
+            item
+            xl={12}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBlockEnd: "1vh",
-              paddingBlockEnd: "1vh",
+              ...(isSmallScreen && {
+                display: "flex",
+                // Otros estilos específicos para pantallas pequeñas
+              }),
+              //flexDirection: "row",
+    
+              //mt: 1,
+              alignItems: "center",
+              justifyContent: "center",
+    
+              borderBottom: 1,
+              borderColor: "#cfcfcf",
+    
+              ...(isSmallScreen && {
+                height: "15%",
+              }),
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "flex-end",
-                justifyContent: "space-evenly",
-                width: "100vw",
-                mt: "4vh",
-              }}
+            <Grid
+              sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+              item
+              xl={3}
+              lg={3}
+              md={3}
+              sm={12}
+              xs={12}
             >
               <Button
                 className="cancelar"
-                // sx={queries.buttonCancelarSolicitudInscripcion}
                 variant="contained"
-                //color="error"
+                sx={{ width: "100%"  }}
                 onClick={handleClose}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+                  sx={{ fontFamily: "MontserratMedium",  }}
                 >
-                  Cancelar
+                  CANCELAR
                 </Typography>{" "}
               </Button>
+
+              
+            </Grid>
+
+            <Grid
+              sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+              item
+              xl={3}
+              lg={3}
+              md={3}
+              sm={12}
+              xs={12}
+            >
+              
+
               <Button
-                className="aceptar"
-                // sx={queries.buttonContinuarSolicitudInscripcion}
+               // sx={queries.buttonContinuarSolicitudInscripcion}
+               sx={{ width:  "100%"  }}
+               className="aceptar"
                 variant="contained"
-                //disabled={estado === "Autorizada" && isComentEmpty()}
+                disabled={estado === "Autorizada" && isComentEmpty()}
                 color="info"
                 onClick={() => {
                   if (isComentEmpty()) {
-                    comentFt();
+                     comentFt();
                   }
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+                  sx={{ fontFamily: "MontserratMedium",  }}
                 >
-                  {"Agregar"}
+                  {"AGREGAR"}
                 </Typography>
               </Button>
-            </Box>
-          </Box>
+            </Grid>
+
+
+          </Grid>
         </DialogContent>
       </Dialog>
-    </Box>
+    </Grid>
   );
 };
 

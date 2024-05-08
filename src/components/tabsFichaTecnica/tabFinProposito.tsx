@@ -69,8 +69,12 @@ export function TabFinPropositoFT({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        boxShadow: 10,
-        borderRadius: 5,
+        ...(!isSmallScreen
+          ? {boxShadow: 10,
+            borderRadius: 5,}
+          : {
+              
+            }),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -322,7 +326,7 @@ export function TabFinPropositoFT({
                   </FormLabel>
                   <Grid sx={{ display: "flex", flexDirection: "column" }}>
                     <FormControlLabel
-                      value={"SELECCIÓN ESTRATEGICO"}
+                      value={"SELECCIÓN ESTRATÉGICO"}
                       label={
                         <Typography
                           sx={{
@@ -330,7 +334,7 @@ export function TabFinPropositoFT({
                             fontFamily: "MontserratMedium",
                           }}
                         >
-                          SELECCIÓN ESTRATEGICO
+                          SELECCIÓN ESTRATÉGICO
                         </Typography>
                       }
                       sx={{
@@ -339,7 +343,7 @@ export function TabFinPropositoFT({
                       control={
                         <Radio
                           checked={
-                            fin.tipoDeIndicador === "SELECCIÓN ESTRATEGICO"
+                            fin.tipoDeIndicador === "SELECCIÓN ESTRATÉGICO"
                           }
                           onChange={(c) => {
                             let finvalue = clearInfo(c.target.value);

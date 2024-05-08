@@ -50,6 +50,7 @@ import { VisualizadorAyudas } from "../../screens/Ayuda/VisualizadorAyudas";
 import HelpIcon from "@mui/icons-material/Help";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
+import { log } from "console";
 
 interface MenuObject {
   Id: string;
@@ -110,10 +111,12 @@ export const LateralMenu = ({
   selection,
   actionNumber,
   settingsCard,
+  restore,
 }: {
   selection: string;
   actionNumber: number;
   settingsCard?: Function;
+  restore: Function;
 }) => {
   const menus: MenuObject[] =
     localStorage.getItem("Menus") !== undefined &&
@@ -146,36 +149,104 @@ export const LateralMenu = ({
     setOpenProgramas(!openProgramas);
     setOpenDocs(false);
   };
+  // let vacia = "";
+
+  // useEffect(() => {
+  //   selection = "";
+  // }, [selection]);
+
+  const back = () => {};
 
   const exitAlert = (urlNavigate: string) => {
+    let url = urlNavigate.toLowerCase().replace(/s+/g, "").replace("/", "");
+
+    let select = selection.toLowerCase().replace(/s+/g, "");
+
+    let vacia =""
+    if (selection === "MIR") {
+      vacia = "/mir";
+    } else if (selection === "META ANUAL") {
+      vacia = "/metaAnual";
+    } else if (selection === "FICHA TECNICA") {
+      vacia = "/fichaTecnica";
+    } else if (selection === "AI") {
+      vacia = "/Institutionalactivities";
+    } else if (selection === "RAFFI") {
+      vacia = "/Raffi";
+    }
+
     if (
       selection === "MIR" ||
-      selection === "Meta Anual" ||
-      selection === "Ficha Técnica" ||
-      selection === "Actividades Institucionales" ||
+      selection === "META ANUAL" ||
+      selection === "FICHA TECNICA" ||
+      selection === "RAFFI" ||
+      selection === "AI" ||
       selection === "Programas Presupuestarios"
     ) {
       if (actionNumber === 1) {
-        Swal.fire({
-          title: "Pregunta",
-          text: `¿Estas seguro de que quieres salir perderás tú progreso actual?`,
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonColor: "#000E4E",
-          cancelButtonColor: "#A40000",
-          confirmButtonText: "Si",
-          cancelButtonText: "No",
-          allowOutsideClick: false,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate(urlNavigate);
-          } else {
-          }
-        });
+        //restore(false)
+
+        if (urlNavigate === vacia) {
+          Swal.fire({
+            title: "PREGUNTA",
+            text: `¿ESTAS SEGURO DE QUE QIIERES SALOR PERDERÁS TÚ PROGRESO ACTUAL?`,
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#000E4E",
+            cancelButtonColor: "#A40000",
+            confirmButtonText: "SI",
+            cancelButtonText: "NO",
+            allowOutsideClick: false,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              restore(true);
+              navigate(urlNavigate);
+            } else {
+            }
+          });
+        } else {
+          Swal.fire({
+            title: "PREGUNTA",
+            text: `¿ESTAS SEGURO DE QUE QIIERES SALOR PERDERÁS TÚ PROGRESO ACTUAL?`,
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#000E4E",
+            cancelButtonColor: "#A40000",
+            confirmButtonText: "SI",
+            cancelButtonText: "No",
+            allowOutsideClick: false,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate(urlNavigate);
+            } else {
+            }
+          });
+        }
+
+        // Swal.fire({
+        //   title: "Pregunta",
+        //   text: `¿Estas seguro de que quieres salir perderás tú progreso actual?`,
+        //   icon: "question",
+        //   showCancelButton: true,
+        //   confirmButtonColor: "#000E4E",
+        //   cancelButtonColor: "#A40000",
+        //   confirmButtonText: "Si",
+        //   cancelButtonText: "No",
+        //   allowOutsideClick: false,
+        // }).then((result) => {
+        //   if (result.isConfirmed) {
+        //     navigate(urlNavigate);
+        //   } else {
+        //   }
+        // });
       } else {
         navigate(urlNavigate);
+        console.log(urlNavigate);
       }
     } else {
+      console.log("urlNavigate: ", urlNavigate);
+      console.log("vacia: ", vacia);
+
       navigate(urlNavigate);
     }
   };
@@ -294,54 +365,70 @@ export const LateralMenu = ({
       <Dialog
         onClose={handleClosePasswordChange}
         open={openPasswordChange}
-        maxWidth={"sm"}
+        maxWidth={"lg"}
       >
         <Grid
-          // display= "flex"
-          // alignItems= "center"
-          // justifyContent= "center"
-          // borderBottom= "1"
-          // height= "5vh"
-          // boxShadow= "1"
-          // borderColor= "#ccc"
+          container
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          sx={{
+            height: ["80vh", "40vh", "40vh", "40vh", "30vh"],
+            width: ["80vh", "40vh", "40vh", "40vh", "30h"],
+            display: "flex",
+            alignItems: "center",
 
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderBottom: 1,
-            height: "5vh",
-            boxShadow: 1,
-            borderColor: "#ccc",
-          }}
-        >
-          <Typography sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}>
-            MODIFICAR CONTRASEÑA
-          </Typography>
-        </Grid>
-        <Grid
-          sx={{
-            height: "20vh",
-            width: "20vw",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-evenly",
+            //justifyContent: "space-evenly",
             flexDirection: "column",
           }}
         >
           <Grid
+            // display= "flex"
+            // alignItems= "center"
+            // justifyContent= "center"
+            // borderBottom= "1"
+            // height= "5vh"
+            // boxShadow= "1"
+            // borderColor= "#ccc"
+
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderBottom: 1,
+              marginBottom: "1rem",
+
+              borderColor: "#ccc",
+            }}
+          >
+            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              MODIFICAR CONTRASEÑA
+            </Typography>
+          </Grid>
+
+          <Grid
+            item
+            xl={10}
+            lg={10}
+            md={10}
+            sm={10}
+            xs={10}
             sx={{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               flexDirection: "column",
+              marginBottom: "1rem",
             }}
           >
             <TextField
+              fullWidth
               label="Contraseña"
               error={error.show}
               helperText={error.label}
-              size="small"
+              // size="small"
               type="password"
               InputLabelProps={{
                 style: {
@@ -358,34 +445,38 @@ export const LateralMenu = ({
           </Grid>
 
           <Grid
+            item
+            container
+            xl={12}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
             sx={{
               display: "flex",
               justifyContent: "space-evenly",
-              width: "100%",
+              marginBottom: "1rem",
             }}
           >
-            <Button
-              sx={queries.buttonCancelarSolicitudInscripcion}
-              onClick={() => handleClosePasswordChange()}
-              variant="outlined"
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+            <Grid item>
+              <Button
+                className="cancelar"
+                onClick={() => handleClosePasswordChange()}
+                variant="outlined"
               >
-                Cancelar
-              </Typography>
-            </Button>
+                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  CANCELAR
+                </Typography>
+              </Button>
+            </Grid>
 
-            <Button
-              sx={queries.buttonContinuarSolicitudInscripcion}
-              onClick={() => cambiarContrasena()}
-            >
-              <Typography
-                sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
-              >
-                Cambiar
-              </Typography>{" "}
-            </Button>
+            <Grid item>
+              <Button className="aceptar" onClick={() => cambiarContrasena()}>
+                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  CAMBIAR
+                </Typography>{" "}
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </Dialog>
@@ -408,7 +499,7 @@ export const LateralMenu = ({
   //     .then((r) => {
   //       if (r.status === 200) {
   //         setInstituciones(r.data.data);
-  //         console.log("usuarioInsitucion: ", r.data.data);
+  //
 
   //
   //       }
@@ -532,26 +623,33 @@ export const LateralMenu = ({
       }}
     >
       <AppBar position="static">
-        <Toolbar variant="dense" sx={{ height: "7vh", width: "100vw" }}>
+        <Toolbar
+          variant="dense"
+          sx={{ height: ["7vh", "7vh", "7vh", "7vh", "7vh"], width: "100vw" }}
+        >
           <Grid
             container
-            sx={{ height: "7vh", width: "100vw", display: "flex" }}
+            sx={{
+              height: ["7vh", "7vh", "7vh", "7vh", "7vh"],
+              width: "100vw",
+              display: "flex",
+            }}
           >
             <Grid
               container
               item
-              xl={8}
-              lg={8}
-              md={5}
-              sm={8}
-              xs={8}
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
               sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-start",
               }}
             >
-              <Grid item xl={1} lg={1} md={1} sm={3} xs={3}>
+              <Grid item xl={1} lg={1} md={1} sm={1} xs={2}>
                 <Tooltip title="Menu Lateral">
                   <IconButton
                     size="large"
@@ -563,8 +661,17 @@ export const LateralMenu = ({
                 </Tooltip>
               </Grid>
 
-              <Grid item xl={11} lg={11} md={11} sm={9} xs={9} sx={{}}>
+              <Grid
+                item
+                xl={9}
+                lg={9}
+                md={9}
+                sm={9}
+                xs={9}
+                //sx={{ backgroundColor: "blue" }}
+              >
                 <Header
+                  //sx={{ fontSize: [30, 30, 30, 30, 40]}}
                   details={{
                     name1: "INICIO",
                     path1: "../home",
@@ -574,90 +681,97 @@ export const LateralMenu = ({
                   }}
                 />
               </Grid>
-            </Grid>
 
-            <Grid
-              container
-              item
-              xl={4}
-              lg={4}
-              md={4}
-              sm={4}
-              xs={4}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-              }}
-            >
-              <Grid display={"flex"} justifyContent={"flex-end"}>
-                <IconButton color="inherit" onClick={handleMenu}>
-                  {IconsMenu("InfoOutlinedIcon")}
-                </IconButton>
-
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
+              <Grid
+                container
+                item
+                xl={2}
+                lg={2}
+                md={2}
+                sm={2}
+                xs={1}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Grid
+                  item
+                  xl={2}
+                  lg={2}
+                  md={2}
+                  sm={2}
+                  xs={12}
+                  display={"flex"}
+                  justifyContent={"flex-end"}
                 >
-                  {
-                    <MenuItem
-                      onClick={() => {
-                        getAyuda(setArrayAyudas, "1", "Videos", "1");
-                        setOpenVAyudas(true);
-                        setOption("Videos");
-                      }}
-                    >
-                      {IconsMenu("OndemandVideoIcon")} VER TUTORIALES{" "}
-                    </MenuItem>
-                  }
-                  {
-                    <MenuItem
-                      onClick={() => {
-                        getAyuda(setArrayAyudas, "1", "Guías", "1");
-                        setOpenVAyudas(true);
-                        setOption("Guías");
-                      }}
-                    >
-                      {IconsMenu("MenuBookIcon")} VER GUÍAS{" "}
-                    </MenuItem>
-                  }
-                  {
-                    <MenuItem
-                      onClick={() => {
-                        getAyuda(setArrayAyudas, "1", "Preguntas", "1");
-                        setOpenVAyudas(true);
-                        setOption("Preguntas");
-                      }}
-                    >
-                      {IconsMenu("HelpIcon")} PREGUNTAS{" "}
-                    </MenuItem>
-                  }
-                </Menu>
-              </Grid>
+                  <IconButton color="inherit" onClick={handleMenu}>
+                    {IconsMenu("InfoOutlinedIcon")}
+                  </IconButton>
 
-              {openVAyudas ? (
-                <VisualizadorAyudas
-                  handleClose={() => {
-                    handleCloseVAyudas();
-                  }}
-                  arrayAyudas={arrayAyudas}
-                  value={option}
-                />
-              ) : null}
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    {
+                      <MenuItem
+                        onClick={() => {
+                          getAyuda(setArrayAyudas, "1", "Videos", "1");
+                          setOpenVAyudas(true);
+                          setOption("Videos");
+                        }}
+                      >
+                        {IconsMenu("OndemandVideoIcon")} VER TUTORIALES{" "}
+                      </MenuItem>
+                    }
+                    {
+                      <MenuItem
+                        onClick={() => {
+                          getAyuda(setArrayAyudas, "1", "Guías", "1");
+                          setOpenVAyudas(true);
+                          setOption("Guías");
+                        }}
+                      >
+                        {IconsMenu("MenuBookIcon")} VER GUÍAS{" "}
+                      </MenuItem>
+                    }
+                    {
+                      <MenuItem
+                        onClick={() => {
+                          getAyuda(setArrayAyudas, "1", "Preguntas", "1");
+                          setOpenVAyudas(true);
+                          setOption("Preguntas");
+                        }}
+                      >
+                        {IconsMenu("HelpIcon")} PREGUNTAS{" "}
+                      </MenuItem>
+                    }
+                  </Menu>
 
-              <Grid>
-                <NotificationsPanel />
+                  <NotificationsPanel />
+                </Grid>
+
+                {openVAyudas ? (
+                  <VisualizadorAyudas
+                    handleClose={() => {
+                      handleCloseVAyudas();
+                    }}
+                    arrayAyudas={arrayAyudas}
+                    value={option}
+                  />
+                ) : null}
               </Grid>
             </Grid>
           </Grid>

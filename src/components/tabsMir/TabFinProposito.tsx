@@ -17,7 +17,6 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import { clearInfo } from "../genericComponents/GenericMethods";
 
-
 export function TabFinProposito({
   MIR,
   setMIR,
@@ -32,21 +31,21 @@ export function TabFinProposito({
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   const [fin, setFin] = useState<IFin>({
-    resumen: MIR.fin?.resumen || "",
-    indicador: MIR.fin?.indicador || "",
-    formula: MIR.fin?.formula || "",
-    frecuencia: MIR.fin?.frecuencia || "",
-    medios: MIR.fin?.medios || "",
-    supuestos: MIR.fin?.supuestos || "",
+    resumen: MIR.fin?.resumen.trimEnd() || "",
+    indicador: MIR.fin?.indicador.trimEnd() || "",
+    formula: MIR.fin?.formula.trimEnd() || "",
+    frecuencia: MIR.fin?.frecuencia.trimEnd() || "",
+    medios: MIR.fin?.medios.trimEnd() || "",
+    supuestos: MIR.fin?.supuestos.trimEnd() || "",
   });
 
   const [proposito, setProposito] = useState<IProposito>({
-    resumen: MIR.proposito?.resumen || "",
-    indicador: MIR.proposito?.indicador || "",
-    formula: MIR.proposito?.formula || "",
-    frecuencia: "ANUAL",
-    medios_verificacion: MIR.proposito?.medios_verificacion || "",
-    supuestos: MIR.proposito?.supuestos || "",
+    resumen: MIR.proposito?.resumen.trimEnd() || "",
+    indicador: MIR.proposito?.indicador.trimEnd() || "",
+    formula: MIR.proposito?.formula.trimEnd() || "",
+    frecuencia: "ANUAL" || "",
+    medios_verificacion: MIR.proposito?.medios_verificacion?.trimEnd() || "",
+    supuestos: MIR.proposito?.supuestos.trimEnd() || "",
   });
 
   const [showFin, setShowFin] = useState(true);
@@ -204,21 +203,17 @@ export function TabFinProposito({
     if (elementoFormula === "Fin") {
       setFin({
         ...fin,
-        formula: txt
-          .replaceAll('"', "")
-          .replaceAll("'", "")
-          .replaceAll("\n", ""),
+        formula: clearInfo(txt),
       });
     } else if (elementoFormula === "Proposito") {
       setProposito({
         ...proposito,
-        formula: txt
-          .replaceAll('"', "")
-          .replaceAll("'", "")
-          .replaceAll("\n", ""),
+        formula: clearInfo(txt),
       });
     }
   };
+
+  
 
   return (
     <Grid
@@ -227,10 +222,9 @@ export function TabFinProposito({
         display: "flex",
         width: "93vw",
         height: ["82vh", "82vh", "82vh", "82vh", "82vh", "82vh"],
-        boxShadow: 10,
-        borderRadius: 5,
         flexDirection: "column",
         backgroundColor: "#fff",
+        ...(!isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
         overflow: "auto",
       }}
     >
@@ -498,7 +492,7 @@ export function TabFinProposito({
                   onChange={(c) => {
                     setFin({
                       ...fin,
-                      resumen: clearInfo(c.target.value)
+                      resumen: clearInfo(c.target.value),
                     });
                   }}
                   value={fin.resumen}
@@ -575,7 +569,10 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                  disabled={edit && !mirEdit?.fin.formula && fin.formula !== ""}
+                 // disabled={edit && !mirEdit?.fin.formula && fin.formula !== ""}
+                 disabled={
+                  edit && !mirEdit?.fin.indicador && fin.indicador !== ""
+                }
                   rows={8}
                   multiline
                   variant="filled"
@@ -698,7 +695,7 @@ export function TabFinProposito({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  label={"MEDIOS DE VERIFICACIÓN"}
+                  label={"MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION"}
                   onChange={(c) => {
                     setFin({
                       ...fin,
@@ -797,7 +794,8 @@ export function TabFinProposito({
                     }}
                   >
                     <Typography
-                      sx={{ fontSize: "6vw", fontFamily: "MontserratMedium" }}
+                    
+                      sx={{  fontFamily: "MontserratMedium",fontSize: [10, 10, 10, 13, 15, 18], }}
                     >
                       FIN
                     </Typography>
@@ -830,7 +828,7 @@ export function TabFinProposito({
                     >
                       <Typography
                         sx={{
-                          fontSize: "6vw",
+                          fontSize: [10, 10, 10, 13, 15, 18],
                           fontFamily: "MontserratMedium",
                         }}
                       >
@@ -935,7 +933,7 @@ export function TabFinProposito({
                   error={errorIndicadorProposito === "proposito" ? true : false}
                   helperText={
                     errorIndicadorProposito
-                      ? "Incluir tipo de indicador: Porcentaje, Tasa, Indice ó Promedio. "
+                      ? "INCLUIR TIPO DE INDICADOR: PORCENTAJE, TASA, ÍNDICE Ó PROMEDIO."
                       : null
                   }
                   onChange={(c) => {
@@ -965,8 +963,8 @@ export function TabFinProposito({
                 <TextField
                   disabled={
                     edit &&
-                    !mirEdit?.proposito.formula &&
-                    proposito.formula !== ""
+                    !mirEdit?.proposito.indicador &&
+                    proposito.indicador !== ""
                   }
                   rows={8}
                   multiline
@@ -1073,7 +1071,7 @@ export function TabFinProposito({
                       fontFamily: "MontserratRegular",
                     },
                   }}
-                  label={"MEDIOS DE VERIFICACIÓN"}
+                  label={"MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION"}
                   onChange={(c) => {
                     setProposito({
                       ...proposito,

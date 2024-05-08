@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
-  Box,
+  Grid,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -45,6 +45,7 @@ export default function ModalEnviarMIR({
   estadoMIR,
   RestructuraMAyFT,
   mDocumentos,
+  IdEntidad,
 }: {
   open: boolean;
   handleClose: Function;
@@ -54,6 +55,7 @@ export default function ModalEnviarMIR({
   estadoMIR: string;
   RestructuraMAyFT: Function;
   mDocumentos: IMovimientos[];
+  IdEntidad: string;
 }) {
   const [ma, setMA] = useState<IMA>();
   const [ft, setFT] = useState<IFT>();
@@ -67,7 +69,6 @@ export default function ModalEnviarMIR({
     if (estadoMIR === "Autorizada") {
       getMAyFT(IdMir, setMA, setFT, setRF, setIdMA, setIdFT, setIdRF);
     }
-    console.log("Idma: ", Idma);
   }, [Idma]);
 
   ///////////////////////////////////////////////////////////////////////////////////////////
@@ -205,9 +206,10 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.encabezado.estrategia === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.estrategia) ||
       JSON.parse(MIR)?.encabezado.lineas_de_accion === undefined ||
-      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.lineas_de_accion ||
-      JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
-      /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
+      /^[\s]*$/.test(
+        JSON.parse(MIR)?.encabezado.lineas_de_accion ||
+          JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
+          /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
       )
     ) {
       err = 1;
@@ -218,8 +220,6 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label)
     ) {
-      console.log("ejercicioFiscal");
-
       err = 1;
       errores.push("<strong> EJERCICIO FISCAL</strong> NO SELECCIONADO.");
     }
@@ -288,8 +288,6 @@ export default function ModalEnviarMIR({
       JSON.parse(MIR)?.encabezado.beneficiario === undefined ||
       /^[\s]*$/.test(JSON.parse(MIR)?.encabezado.beneficiario)
     ) {
-      console.log("JSON.parse(MIR)?.encabezado: ", JSON.parse(MIR)?.encabezado);
-
       err = 1;
       errores.push("<strong> BENEFICIARIO</strong> NO SELECCIONADO.");
     }
@@ -345,7 +343,7 @@ export default function ModalEnviarMIR({
       /^[\s]*$/.test(JSON.parse(MIR)?.fin.medios)
     ) {
       err = 1;
-      errores.push("<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.");
+      errores.push("<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MIR)?.fin.supuestos === undefined ||
@@ -408,7 +406,7 @@ export default function ModalEnviarMIR({
       /^[\s]*$/.test(JSON.parse(MIR)?.proposito.medios_verificacion)
     ) {
       err = 1;
-      errores.push("<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.");
+      errores.push("<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.");
     }
     if (
       JSON.parse(MIR)?.proposito.supuestos === undefined ||
@@ -476,7 +474,7 @@ export default function ModalEnviarMIR({
       ) {
         err = 1;
         errores.push(
-          `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
+          `<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.`
         );
       }
       if (
@@ -553,7 +551,7 @@ export default function ModalEnviarMIR({
             /^[\s]*$/.test(componente.actividades[indexA].medios)
           ) {
             errores.push(
-              `<strong> MEDIOS DE VERIFICACIÓN</strong> SIN INFORMACIÓN.`
+              `<strong> MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION</strong> SIN INFORMACIÓN.`
             );
             err = 1;
           }
@@ -592,7 +590,10 @@ export default function ModalEnviarMIR({
           Estado: "En Captura",
           Id: "",
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -613,13 +614,14 @@ export default function ModalEnviarMIR({
         if (localStorage.getItem("Rol") === "Administrador") {
           rol = ["Capturador", "Verificador"];
         }
-        console.log("MA-r.data.data.Id: ", r.data.data);
-
+          
+          
         enviarNotificacionRol(
           "MA",
-          "MA enviada",
+          "MA ENVIADA",
           r?.data?.data?.Id || IdMa,
-          rol
+          rol,
+          JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad
         );
         showResume();
       })
@@ -643,7 +645,10 @@ export default function ModalEnviarMIR({
               : //se va a modificar
                 localStorage.getItem("IdUsuario"),
           AnioFiscal: JSON.parse(MIR)?.encabezado.ejercicioFiscal.Label,
-          IdEntidad: localStorage.getItem("IdEntidad"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
+            localStorage.getItem("IdEntidad"),
           Programa: JSON.parse(MIR)?.encabezado.programa.Label,
           Eje: JSON.parse(MIR)?.encabezado.eje.Label,
           Tematica: JSON.parse(MIR)?.encabezado.tema.Label,
@@ -674,22 +679,23 @@ export default function ModalEnviarMIR({
         if (localStorage.getItem("Rol") === "Administrador") {
           rol = ["Capturador", "Verificador"];
         }
-        console.log("r.dada.data: ", r.data.data);
-
-        enviarNotificacionRol("MIR", "MIR enviada", r.data.data.Id, rol);
-        console.log("estado: ", estado);
+       
+        enviarNotificacionRol(
+          "MIR",
+          "MIR ENVIADA",
+          r.data.data.Id,
+          rol,
+          JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad
+        );
 
         if (estado === "Autorizada") {
-          console.log("r.data.data.Id: ", r.data.data.Id);
-          console.log("IdMir: ", IdMir);
-          console.log("r.data.data.IdMa: ", r.data.data.IdMa);
           CrearMetaAnual(r.data.data.Id, IdMir, r.data.data.IdMa);
         }
 
         alertaExitoConfirm(
           (localStorage.getItem("Rol") === "Administrador"
-            ? "¡MIR autorizada con éxito!, Meta Anual disponible para captura"
-            : "¡MIR enviada con éxito!"
+            ? "¡MIR AUTORIZADA CON ÉXITO!, META ANUAL DISPONIBLE PARA CAPTURA"
+            : "¡MIR ENVIADA CON ÉXITO!"
           ).toUpperCase()
         );
 
@@ -714,7 +720,7 @@ export default function ModalEnviarMIR({
 
           {
             TipoUsuario: localStorage.getItem("Rol"),
-            IdEntidad: localStorage.getItem("IdEntidad"),
+            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
 
@@ -807,13 +813,14 @@ export default function ModalEnviarMIR({
         sx={{
           fontFamily: "MontserratBold",
           borderBottom: 1,
-          height: "6vh",
+          fontSize: [18, 20, 15, 20, 15],
+          height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
           mb: 2,
         }}
       >
         {localStorage.getItem("Rol") === "Administrador"
-          ? "Confirmar Autorización"
-          : "Confirmar Envío"}
+          ? "CONFIRMAR AUTORIZACIÓN"
+          : "CONFIRMAR ENVÍO"}
       </DialogTitle>
 
       <DialogContent
@@ -823,9 +830,9 @@ export default function ModalEnviarMIR({
           alignItems: "center",
         }}
       >
-        <Box
+        <Grid
           sx={{
-            width: "30vw",
+            width: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-evenly",
@@ -833,31 +840,36 @@ export default function ModalEnviarMIR({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratMedium", textAlign: "center" }}
+            sx={{
+              fontSize: [15, 15, 15, 15, 15],
+              fontFamily: "MontserratMedium",
+              textAlign: "center",
+            }}
           >
             {localStorage.getItem("Rol") === "Administrador"
               ? estadoMIR === "Autorizada"
-                ? "Al confirmar, la MIR se autorizará y el apartado de la Meta Anual será habilitado. Al confirmar los cambios se modificará la MIR y afectará la información de la Meta Anual y Ficha Técnica."
-                : "Al confirmar, la MIR se autorizará y el apartado de la Meta Anual será habilitado."
+                ? "AL CONFIRMAR, LA MIR SE AUTORIZARÁ Y EL APARTADO DE LA META ANUAL SERÁ HABILITADO. AL CONFIRMAR LOS CAMBIOS SE MODIFICARÁ LA MIR Y AFECTARÁ LA INFORMACIÓN DE LA META ANUAL Y FICHA TÉCNICA."
+                : "AL CONFIRMAR, LA MIR SE AUTORIZARÁ Y EL APARTADO DE LA META ANUAL SERÁ HABILITADO."
               : localStorage.getItem("Rol") === "Verificador"
-              ? "Al confirmar, la MIR se enviará a los usuarios correspondientes para autorización."
-              : "Al confirmar, la MIR se enviará a los usuarios correspondientes para revisión."}
+              ? "AL CONFIRMAR, LA MIR SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA AUTORIZACIÓN."
+              : "AL CONFIRMAR, LA MIR SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA REVISIÓN."}
           </Typography>
-        </Box>
+        </Grid>
 
         {estadoMIR !== "Autorizada" && (
-          <Box sx={{ width: "30vw" }}>
+          <Grid sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"] }}>
             <TextField
               multiline
               rows={3}
-              label={"Agregar Comentario"}
-              sx={{ width: "30vw" }}
+              label={"AGREGAR COMENTARIO"}
+              
+              sx={{ width: ["55vw", "60vw", "60vw", "40vw", "30vw"], }}
               onChange={(v) => setComment(v.target.value)}
             />
-          </Box>
+          </Grid>
         )}
 
-        <Box
+        <Grid
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -865,28 +877,28 @@ export default function ModalEnviarMIR({
             paddingBlockEnd: "1vh",
           }}
         >
-          <Box
+          <Grid
             sx={{
               display: "flex",
-              alignItems: "flex-ce",
+              alignItems: "center",
               justifyContent: "space-between",
-              width: "20vw",
+              //width: "20vw",
               mt: "4vh",
             }}
           >
             <Button
               className="cancelar"
-              //sx={queries.buttonCancelarSolicitudInscripcion}
+              sx={{ marginRight: "1rem" }} // Agregar un margen a la derecha del botón
               onClick={() => handleClose(false)}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
-                Cancelar
+                CANCELAR
               </Typography>
             </Button>
 
             <Button
               className="aceptar"
-              //sx={queries.buttonContinuarSolicitudInscripcion}
+             
               onClick={() => {
                 checkMir(
                   localStorage.getItem("Rol") === "Capturador"
@@ -904,11 +916,11 @@ export default function ModalEnviarMIR({
               }}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
-                Confirmar
+                CONFIRMAR
               </Typography>
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </DialogContent>
     </Dialog>
   );
@@ -916,11 +928,11 @@ export default function ModalEnviarMIR({
 
 export interface IIUserXInst {
   IdUsuario: string;
+  IdUsuarioTiCentral: string;
   Rol: string;
-  Entidad: string;
+  NombreInstitucion: string;
   Nombre: string;
   ApellidoPaterno: string;
   ApellidoMaterno: string;
-  NomvreUsuario: string;
-  CorreoElectronico: string;
+  NombreUsuario: string;
 }
