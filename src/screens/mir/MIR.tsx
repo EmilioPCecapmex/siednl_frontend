@@ -502,7 +502,7 @@ export const MIR = () => {
 
   useEffect(() => {
     validaFechaCaptura(setValidaFecha,setTitle,"Mir");
-    getMIRs(setMirs, setAnioFiscalEdit, estadomir, url, setUrl);
+    getMIRs(setMirs, setAnioFiscalEdit, estadomir);
     setEstadoMIR("TODOS");
   }, [showResume]);
 
@@ -773,7 +773,7 @@ export const MIR = () => {
                     <IconButton
                       onClick={() => {
                         buscador(estadomir, instituciones?.Label,setMirs,'list-mir',setUrl, 
-                        url
+                      
                         );
                       }}
                     >
