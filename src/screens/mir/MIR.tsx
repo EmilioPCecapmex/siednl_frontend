@@ -32,7 +32,7 @@ import FullModalMir from "../../components/tabsMir/AddMir";
 import { IIMir, ILista } from "../../components/tabsMir/interfaces mir/IMIR";
 import {
   getInstituciones,
-  getMIRs,
+
 } from "../../services/mir_services/servicesMIR";
 import {
   buscador,
@@ -502,7 +502,8 @@ export const MIR = () => {
       localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
       setMirs,
       "list-mir",
-      setUrl
+      setUrl,
+      url,
     );
   }, []);//actualizacion
 
@@ -783,13 +784,15 @@ export const MIR = () => {
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       onClick={() => {
-                        // buscador(
-                        //   estadomir,
-                        //   instituciones?.Label,
-                        //   setMirs,
-                        //   "list-mir",
-                        //   setUrl
-                        // );
+                        localStorage.setItem("IdNotificacion", "")
+                        buscador(
+                          estadomir,
+                          instituciones?.Label,
+                          setMirs,
+                          "list-mir",
+                          setUrl,
+                          url,
+                        );
                       }}
                     >
                       <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }}/>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { alertaError, alertaExito } from "../components/genericComponents/Alertas";
 
-export const buscador = (estado: any, Ins: any, setsate: Function, list: string, setsate2: Function) => {
+export const buscador = (estado: any, Ins: any, setsate: Function, list: string, setsate2: Function, url: string) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/" + list, {
         params: {
@@ -16,18 +16,28 @@ export const buscador = (estado: any, Ins: any, setsate: Function, list: string,
       })
       .then((r) => {
         //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
- 
-        if (r.data.data.length === 0) {
-          alertaError(
-            "El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR"
-            
-          );
-          setsate(r.data.data);
-          setsate2("")
-        } else {
+        console.log("url: ",url);
+        
+        if(localStorage.getItem("IdNotificacion") || localStorage.getItem("IdNotificacion") !== ""){
+          const id = localStorage.getItem("IdNotificacion")
+          setsate(r.data.data.filter((x: any) => x.Id.toLowerCase().includes(id || ""))); 
+          //localStorage.setItem("IdNotificacion", "")
+        }else{
           setsate(r.data.data);
           setsate2("")
         }
+ 
+        // if (r.data.data.length === 0) {
+        //   alertaError(
+        //     "El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR"
+            
+        //   );
+        //   setsate(r.data.data);
+        //   setsate2("")
+        // } else {
+        //   setsate(r.data.data);
+        //   setsate2("")
+        // }
       });
   };
 

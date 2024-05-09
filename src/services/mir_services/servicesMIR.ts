@@ -83,25 +83,7 @@ export const getLista = (tabla:string,valorCondicion:string,setState:Function) =
       });
   };
 
-  export const getMIRs = (setState: Function,setAnioFistal:Function, estadomir:string) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-mir", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
-          Rol: localStorage.getItem("Rol"),
-          Estado: estadomir || "TODOS",
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        setAnioFistal(r.data.data[0]?.AnioFiscal);
-
-        setState(r.data.data);
-      });
-  };
+  
 
   export  function getMAyFT(IdMIR:string, setMA:Function, setFt:Function, setRF:Function,  setIdMA:Function, setIdFt:Function, setIdRF:Function ){
     axios
