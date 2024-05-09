@@ -123,7 +123,6 @@ export default function FullModalMir({
   MIR,
   showResume,
   IdMir,
-  anioFiscalEdit,
   estado,
   IdEntidad,
   setIdEntidad,
@@ -131,20 +130,14 @@ export default function FullModalMir({
   MIR: string;
   showResume: Function;
   IdMir: string;
-  anioFiscalEdit: string;
   estado: string;
   IdEntidad: string;
   setIdEntidad: Function;
 }) {
-  // useEffect(() => {
-  //   getMAyFT(IdMir);
-  // }, [])
 
   const [value, setValue] = useState(0);
 
   const noComponentes = [1, 2];
-
-  //let mDocumentos: IMovimientos[] = []
 
   const movimientos = (movimientos: string, indices: string) => {
     let Documentos: IMovimientos = {
@@ -156,8 +149,6 @@ export default function FullModalMir({
     auxMDocumentos.push(Documentos);
 
     SetMDocumentos(auxMDocumentos);
-
-    // return Documentos
   };
 
   const [mDocumentos, SetMDocumentos] = useState<IMovimientos[]>([]);
@@ -337,7 +328,6 @@ export default function FullModalMir({
       >
         <Grid
           sx={{
-            //width: "93vw",
             width: ["300xp", "750px", "750px", "1100px", "1200px"],
             height: "82vh",
 

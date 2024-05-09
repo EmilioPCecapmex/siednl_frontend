@@ -1153,7 +1153,6 @@ export const MIR = () => {
             gridArea={"main"}
           >
             <FullModalMir
-              anioFiscalEdit={anioFiscalEdit}
               MIR={mirEdit[0]?.MIR || ""}
               showResume={returnMain}
               IdMir={mirEdit[0]?.Id || ""}
