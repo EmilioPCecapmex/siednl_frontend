@@ -1,10 +1,9 @@
 import { IFin, IProposito } from "../TabFinProposito";
 import {
-  IActividadesMirEdit,
   IComponenteMirEdit,
   IEncabezadoEdit,
   IFinEdit,
-  IPropositoEdit,
+  IPropositoEdit
 } from "../TabResumen";
 
 export interface IMIR {
@@ -47,7 +46,6 @@ export interface IMovimientos {
   indice: string;
 }
 
-
 export interface ILista {
   Id: string;
   Label: string;
@@ -78,4 +76,21 @@ export interface IEncabezado {
   conac: string;
   consecutivo: string;
   anticorrupcion: string;
+}
+
+export interface IIMir {
+  Id: string;
+  IdEntidad: string;
+  AnioFiscal: string;
+  Entidad: string;
+  Programa: string;
+  Eje: string;
+  Tematica: string;
+  MIR: string;
+  Estado: string;
+  FechaCreacion: string;
+  CreadoPor: string;
+  Conac: string;
+  Consecutivo: String;
+  Opciones: string;
 }
