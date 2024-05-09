@@ -785,10 +785,7 @@ export const MIR = () => {
                         );
                       }}
                     >
-                      <SearchIcon
-                        sx={{ fontSize: [20, 20, 20, 25, 25] }}
-                        onClick={() => {}}
-                      />
+                      <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }}/>
                     </IconButton>
                   </Grid>
                 )}
