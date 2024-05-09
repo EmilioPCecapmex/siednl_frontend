@@ -137,20 +137,7 @@ export const ComentDialogRF = ({
       });
   };
 
-  // React.useEffect(() => {
-  //   axios
-  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/get-coment-mir", {
-  //       params: {
-  //         IdMir: id,
-  //       },
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //     })
-  //     .then((r) => {
-  //       setComents(r.data.data);
-  //     });
-  // }, [ id]);
+
 
   React.useEffect(() => {
     obtenerComentarios(id,  setComents);

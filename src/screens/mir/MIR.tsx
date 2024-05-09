@@ -488,8 +488,16 @@ export const MIR = () => {
   }, [mirs]);
 
   useEffect(() => {
-    getMIRs(setMirs, setAnioFiscalEdit, estadomir);
-  }, [actualizacion]);
+    console.log('localStorage.getItem("Rol")',localStorage.getItem("Rol"));
+    
+    buscador(
+      estadomir,
+      localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
+      setMirs,
+      "list-mir",
+      setUrl
+    );
+  }, []);//actualizacion
 
   useEffect(() => {
     getInstituciones(setCatalogoInstituciones);
@@ -499,7 +507,6 @@ export const MIR = () => {
   }, [findTextStr, findInstStr, findSelectStr]);
   useEffect(() => {
     validaFechaCaptura(setValidaFecha, setTitle, "Mir");
-    getMIRs(setMirs, setAnioFiscalEdit, estadomir);
     setEstadoMIR("TODOS");
   }, [showResume]);
 
@@ -767,13 +774,13 @@ export const MIR = () => {
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       onClick={() => {
-                        buscador(
-                          estadomir,
-                          instituciones?.Label,
-                          setMirs,
-                          "list-mir",
-                          setUrl
-                        );
+                        // buscador(
+                        //   estadomir,
+                        //   instituciones?.Label,
+                        //   setMirs,
+                        //   "list-mir",
+                        //   setUrl
+                        // );
                       }}
                     >
                       <SearchIcon
