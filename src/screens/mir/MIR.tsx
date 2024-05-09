@@ -29,9 +29,16 @@ import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import FullModalMir from "../../components/tabsMir/AddMir";
-import { ILista } from "../../components/tabsMir/interfaces mir/IMIR";
-import { getInstituciones, getMIRs } from "../../services/mir_services/servicesMIR";
-import { buscador, downloadMIR, validaFechaCaptura } from "../../services/servicesGlobals";
+import { IIMir, ILista } from "../../components/tabsMir/interfaces mir/IMIR";
+import {
+  getInstituciones,
+  getMIRs,
+} from "../../services/mir_services/servicesMIR";
+import {
+  buscador,
+  downloadMIR,
+  validaFechaCaptura,
+} from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
 
 export let resumeDefaultMIR = true;
@@ -41,10 +48,12 @@ export let setResumeDefaultMIR = () => {
 };
 
 export const MIR = () => {
-  const objetiInstitucion: ILista = {Id: "0",Label: "TODOS",};
+  const objetiInstitucion: ILista = { Id: "0", Label: "TODOS" };
 
   const [instituciones, setInstituciones] = useState<ILista>();
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState<ILista[]>([]);
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<ILista[]>(
+    []
+  );
 
   const [showResume, setShowResume] = useState(true);
   const [validaFecha, setValidaFecha] = useState(true);
@@ -53,12 +62,10 @@ export const MIR = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
   const [actionNumber, setActionNumber] = useState(0);
 
- 
-
   const returnMain = () => {
     setShowResume(true);
   };
-   
+
   const onChangeActionNumberValue = () => {
     setActionNumber(1);
   };
@@ -232,8 +239,6 @@ export const MIR = () => {
   const [estado, setEstado] = useState("");
 
   const [IdEntidad, setIdEntidad] = useState("");
-
-  
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
@@ -493,7 +498,7 @@ export const MIR = () => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
   useEffect(() => {
-    validaFechaCaptura(setValidaFecha,setTitle,"Mir");
+    validaFechaCaptura(setValidaFecha, setTitle, "Mir");
     getMIRs(setMirs, setAnioFiscalEdit, estadomir);
     setEstadoMIR("TODOS");
   }, [showResume]);
@@ -510,11 +515,32 @@ export const MIR = () => {
     setShowResume(true);
   }, []);
 
-  const widthCondition=()=>{
-    return ( 
-    localStorage.getItem("Rol") === "Administrador" ||
-    localStorage.getItem("Rol") === "ADMINISTRADOR")
-  }
+  const widthCondition = () => {
+    return (
+      localStorage.getItem("Rol") === "Administrador" ||
+      localStorage.getItem("Rol") === "ADMINISTRADOR"
+    );
+  };
+
+  const TableCellFormat = (data: any) => {
+    return (
+      <>
+        <TableCell
+          sx={{
+            padding: "1px 15px 1px 0",
+            fontFamily: "MontserratRegular",
+            fontSize: [10, 10, 10, 15, 15, 18],
+            textAlign: "center",
+          }}
+          align="center"
+          component="th"
+          scope="row"
+        >
+          {data}
+        </TableCell>
+      </>
+    );
+  };
 
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
@@ -673,31 +699,11 @@ export const MIR = () => {
 
                 <Grid
                   item
-                  xl={
-                    widthCondition()
-                      ? 5
-                      : 11
-                  }
-                  lg={
-                    widthCondition()
-                      ? 5
-                      : 11
-                  }
-                  md={
-                    widthCondition()
-                      ? 5
-                      : 11
-                  }
-                  sm={
-                    widthCondition()
-                      ? 5
-                      : 11
-                  }
-                  xs={
-                    widthCondition()
-                      ? 11
-                      : 11
-                  }
+                  xl={widthCondition() ? 5 : 11}
+                  lg={widthCondition() ? 5 : 11}
+                  md={widthCondition() ? 5 : 11}
+                  sm={widthCondition() ? 5 : 11}
+                  xs={widthCondition() ? 11 : 11}
                 >
                   <Tooltip
                     PopperProps={{
@@ -729,9 +735,7 @@ export const MIR = () => {
                         }
                         options={estados}
                         onChange={(event, newValue) => {
-                          if (
-                            widthCondition()
-                          ) {
+                          if (widthCondition()) {
                             setEstadoMIR(newValue || "");
                           } else {
                             setFindSelectStr(newValue || "");
@@ -763,14 +767,19 @@ export const MIR = () => {
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       onClick={() => {
-                        buscador(estadomir, instituciones?.Label,setMirs,'list-mir',setUrl);
+                        buscador(
+                          estadomir,
+                          instituciones?.Label,
+                          setMirs,
+                          "list-mir",
+                          setUrl
+                        );
                       }}
                     >
                       <SearchIcon
-                        sx={{fontSize:[20,20,20,25,25] }}
-                        onClick={() => {
-                        }}
-                      ></SearchIcon>
+                        sx={{ fontSize: [20, 20, 20, 25, 25] }}
+                        onClick={() => {}}
+                      />
                     </IconButton>
                   </Grid>
                 )}
@@ -829,9 +838,7 @@ export const MIR = () => {
                       aria-label="Buscar"
                       onClick={() => filtrarDatos()}
                     >
-                      <SearchIcon
-                        sx={{fontSize: [25,25,30,30,30]}}
-                      />
+                      <SearchIcon sx={{ fontSize: [25, 25, 30, 30, 30] }} />
                     </IconButton>
                   </Paper>
                 </Grid>
@@ -899,7 +906,6 @@ export const MIR = () => {
                   overflow: "auto",
                   "&::-webkit-scrollbar": {
                     width: ".5vw",
-                    //mt: 1,
                   },
                   "&::-webkit-scrollbar-thumb": {
                     backgroundColor: "#edeaea",
@@ -943,58 +949,11 @@ export const MIR = () => {
                       )
                       .map((row, index) => (
                         <TableRow>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                            align="center"
-                            component="th"
-                            scope="row"
-                          >
-                            {row.AnioFiscal}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                            align="center"
-                            component="th"
-                            scope="row"
-                          >
-                            {row.Entidad.toUpperCase()}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                            align="center"
-                            component="th"
-                            scope="row"
-                          >
-                            {row.Programa.toUpperCase()}
-                          </TableCell>
-
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                            align="center"
-                            component="th"
-                            scope="row"
-                          >
-                            {((row.Estado === "En Captura" ||
+                          {TableCellFormat(row.AnioFiscal)}
+                          {TableCellFormat(row.Entidad.toUpperCase())}
+                          {TableCellFormat(row.Programa.toUpperCase())}
+                          {TableCellFormat(
+                            ((row.Estado === "En Captura" ||
                               row.Estado === "Borrador Capturador") &&
                             localStorage.getItem("Rol") === "Capturador"
                               ? "Borrador Capturador"
@@ -1005,52 +964,16 @@ export const MIR = () => {
                                 localStorage.getItem("Rol") === "Administrador"
                               ? "En Autorización"
                               : row.Estado
-                            ).toUpperCase()}
-                          </TableCell>
-
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                            align="center"
-                            component="th"
-                            scope="row"
-                          >
-                            {moment(row.FechaCreacion, moment.ISO_8601)
+                            ).toUpperCase()
+                          )}
+                          {TableCellFormat(
+                            moment(row.FechaCreacion, moment.ISO_8601)
                               .format("DD/MM/YYYY HH:mm:SS")
-                              .toString()}
-                          </TableCell>
-
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                            align="center"
-                            component="th"
-                            scope="row"
-                          >
-                            {row.CreadoPor.toUpperCase()}
-                          </TableCell>
-
-                          <TableCell
-                            sx={{
-                              flexDirection: "row",
-                              //display: "grid",
-                              gridTemplateColumns: "repeat(2,2fr)",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                            align="center"
-                            component="th"
-                            scope="row"
-                          >
-                            <Grid sx={{ display: "flex" }}>
+                              .toString()
+                          )}
+                          {TableCellFormat(row.CreadoPor.toUpperCase())}
+                          {TableCellFormat( 
+                          <Grid sx={{ display: "flex" }}>
                               <Tooltip
                                 PopperProps={{
                                   modifiers: [
@@ -1082,27 +1005,7 @@ export const MIR = () => {
                                   >
                                     <DownloadIcon
                                       sx={{
-                                        fontSize: "24px", // Tamaño predeterminado del icono
-
-                                        "@media (max-width: 600px)": {
-                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                        },
-
-                                        "@media (min-width: 601px) and (max-width: 960px)": {
-                                          fontSize: 20, // Pantalla pequeña (md)
-                                        },
-
-                                        "@media (min-width: 961px) and (max-width: 1280px)": {
-                                          fontSize: 20, // Pantalla mediana (lg)
-                                        },
-
-                                        "@media (min-width: 1281px)": {
-                                          fontSize: 25, // Pantalla grande (xl)
-                                        },
-
-                                        "@media (min-width: 2200px)": {
-                                          ffontSize: 25, // Pantalla grande (xl)
-                                        },
+                                        fontSize: [20, 20, 20, 25, 25],
                                       }}
                                     />
                                   </IconButton>
@@ -1120,7 +1023,6 @@ export const MIR = () => {
                               <DeleteDialogMIR
                                 disab={
                                   row.Estado === "En Captura" &&
-                                  // || row.Estado === "Borrador Capturador"
                                   validaFecha &&
                                   localStorage.getItem("Rol") === "Capturador"
                                     ? false
@@ -1204,40 +1106,17 @@ export const MIR = () => {
                                     }}
                                   >
                                     <EditIcon
-                                      sx={{
-                                        fontSize: "24px", // Tamaño predeterminado del icono
-
-                                        "@media (max-width: 600px)": {
-                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                        },
-
-                                        "@media (min-width: 601px) and (max-width: 960px)": {
-                                          fontSize: 20, // Pantalla pequeña (md)
-                                        },
-
-                                        "@media (min-width: 961px) and (max-width: 1280px)": {
-                                          fontSize: 20, // Pantalla mediana (lg)
-                                        },
-
-                                        "@media (min-width: 1281px)": {
-                                          fontSize: 25, // Pantalla grande (xl)
-                                        },
-
-                                        "@media (min-width: 2200px)": {
-                                          ffontSize: 25, // Pantalla grande (xl)
-                                        },
-                                      }}
+                                      sx={{ fontSize: [20, 20, 20, 25, 25] }}
                                     />
                                   </IconButton>
                                 </span>
                               </Tooltip>
                               <MostrarLista st="" Id={row.Id} />
-                            </Grid>
-                          </TableCell>
+                            </Grid>)}
+
                         </TableRow>
                       ))}
 
-                    {/* ))} */}
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -1282,19 +1161,4 @@ export const MIR = () => {
   );
 };
 
-export interface IIMir {
-  Id: string;
-  IdEntidad: string;
-  AnioFiscal: string;
-  Entidad: string;
-  Programa: string;
-  Eje: string;
-  Tematica: string;
-  MIR: string;
-  Estado: string;
-  FechaCreacion: string;
-  CreadoPor: string;
-  Conac: string;
-  Consecutivo: String;
-  Opciones: string;
-}
+
