@@ -15,29 +15,16 @@ export const buscador = (estado: any, Ins: any, setsate: Function, list: string,
         },
       })
       .then((r) => {
-        //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-  
         
-        if(localStorage.getItem("IdNotificacion") || localStorage.getItem("IdNotificacion") !== ""){
-          const id = localStorage.getItem("IdNotificacion")
-          setsate(r.data.data.filter((x: any) => x.Id.toLowerCase().includes(id || ""))); 
-          //localStorage.setItem("IdNotificacion", "")
+        if(localStorage.getItem('IdNotificacion') !== ""){
+     
+          setsate(r.data.data.filter((x: any) => x.Id.toLowerCase().includes(localStorage.getItem('IdNotificacion') || ""))); 
+          
         }else{
           setsate(r.data.data);
           setsate2("")
         }
  
-        // if (r.data.data.length === 0) {
-        //   alertaError(
-        //     "El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR"
-            
-        //   );
-        //   setsate(r.data.data);
-        //   setsate2("")
-        // } else {
-        //   setsate(r.data.data);
-        //   setsate2("")
-        // }
       });
   };
 

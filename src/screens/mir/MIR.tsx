@@ -46,6 +46,7 @@ export let setResumeDefaultMIR = () => {
 };
 
 export const MIR = () => {
+
   const objetiInstitucion: ILista = { Id: "0", Label: "TODOS" };
 
   const [instituciones, setInstituciones] = useState<ILista>();
@@ -464,7 +465,15 @@ export const MIR = () => {
       width: 200,
     },
   ];
-
+  const getListadoMirs=()=>{
+    buscador(
+      estadomir,
+      localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
+      setMirs,
+      "list-mir",
+      setUrl
+    );
+  }
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     findTextStr.length !== 0 ? setMirsFiltered(mirsFiltered) : null;
@@ -475,7 +484,6 @@ export const MIR = () => {
   
   useEffect(() => {
     // Verificar si el parámetro 'Id' está presente en la URL
-    console.log();
     
     if (url.includes("?Id=")) {
       const id = url.split("?")[1].split("=")[1];
@@ -485,21 +493,12 @@ export const MIR = () => {
         setMirsFiltered(
           mirs.filter((x) => x.Id.toLowerCase().includes(id || ""))
         );
-        //setUrl("")
       }
     } 
-
-  
   }, [mirs]);
 
   useEffect(() => {
-   buscador(
-      estadomir,
-      localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
-      setMirs,
-      "list-mir",
-      setUrl,
-    );
+    getListadoMirs()
   }, []);//actualizacion
 
   useEffect(() => {
@@ -569,6 +568,7 @@ export const MIR = () => {
           selection={"MIR"}
           actionNumber={actionNumber}
           restore={setShowResume}
+          fnc={getListadoMirs}
         />
       </Grid>
 
@@ -780,7 +780,6 @@ export const MIR = () => {
                     <IconButton
                       onClick={() => {
                         localStorage.setItem("IdNotificacion", "");
-                        window.location.href = "../#/mir";
                         buscador(
                           estadomir,
                           instituciones?.Label,

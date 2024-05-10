@@ -1,29 +1,25 @@
-import React, { useEffect, useState } from "react";
-import NotificationsIcon from "@mui/icons-material/NotificationsNone";
 import CheckIcon from "@mui/icons-material/Check";
+import NotificationsIcon from "@mui/icons-material/NotificationsNone";
+import React, { useEffect, useState } from "react";
 
 import {
-  Button,
-  Drawer,
-  List,
-  Divider,
-  ListItem,
   Badge,
-  Typography,
-  IconButton,
-  ToggleButton,
+  Button,
+  Divider,
+  Drawer,
   Grid,
+  IconButton,
+  List,
+  ListItem,
+  ToggleButton,
+  Typography,
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import axios from "axios";
-import { INotificacion } from "./NotificacionesInterfaz";
 import { useNavigate } from "react-router-dom";
-import moment from "moment";
-import { queries } from "../../queries";
 import { obtenerNotificaciones, verNotificacion } from "../genericComponents/axiosGenericos";
-import { log } from "console";
+import { INotificacion } from "./NotificacionesInterfaz";
 
-export default function NotificationsPanel() {
+export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
   const navigate = useNavigate();
 
   const [notificaciones, setNotificaciones] = useState<Array<INotificacion>>();
@@ -102,10 +98,9 @@ export default function NotificationsPanel() {
                     variant="text"
                     onClick={() => {
                      // verNotificacion(index.Id, setNotificaciones, setSinNotificaciones );
+                     fnc();
                       if (index.Titulo === "MIR") {
-                       // navigate("../MIR" + "?Id=" + index.IdDocumento);
                        localStorage.setItem("IdNotificacion", index.IdDocumento)
-                       window.location.href = "../#/mir?Notificacion";
                       }
                       if (index.Titulo === "MA") {
                         navigate("../metaAnual" + "?Id=" + index.IdDocumento);

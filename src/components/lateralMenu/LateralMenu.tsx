@@ -112,11 +112,13 @@ export const LateralMenu = ({
   actionNumber,
   settingsCard,
   restore,
+  fnc=()=>{},
 }: {
   selection: string;
   actionNumber: number;
   settingsCard?: Function;
   restore: Function;
+  fnc?:Function;
 }) => {
   const menus: MenuObject[] =
     localStorage.getItem("Menus") !== undefined &&
@@ -762,7 +764,7 @@ export const LateralMenu = ({
                     }
                   </Menu>
 
-                  <NotificationsPanel />
+                  <NotificationsPanel fnc={fnc} />
                 </Grid>
 
                 {openVAyudas ? (
