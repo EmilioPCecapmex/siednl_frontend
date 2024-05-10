@@ -101,6 +101,7 @@ export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
                      fnc();
                       if (index.Titulo === "MIR") {
                        localStorage.setItem("IdNotificacion", index.IdDocumento)
+                       navigate("../mir" + "?Id=" + index.IdDocumento)
                       }
                       if (index.Titulo === "MA") {
                         navigate("../metaAnual" + "?Id=" + index.IdDocumento);
