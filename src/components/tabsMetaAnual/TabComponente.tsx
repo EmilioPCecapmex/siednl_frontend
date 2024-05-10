@@ -543,12 +543,7 @@ export const TabComponenteMA = ({
                 },
               }}
               onClick={() =>
-                (MAEdit !== ""
-                  ? MAEdit?.componentes[componentSelect].metaAnual
-                  : false) &&
-                componentesValues[componentSelect]?.metaAnual !== ""
-                  ? ""
-                  : handleClickOpen()
+                handleClickOpen()
               }
               value={componentesValues[componentSelect]?.metaAnual || ""}
               error={
@@ -702,12 +697,7 @@ export const TabComponenteMA = ({
                   },
                 }}
                 onClick={() =>
-                  (MAEdit !== ""
-                    ? MAEdit?.componentes[componentSelect].valorNumerador
-                    : false) &&
-                  componentesValues[componentSelect]?.valorNumerador !== ""
-                    ? ""
-                    : handleClickOpen()
+                  handleClickOpen()
                 }
                 value={componentesValues[componentSelect]?.valorNumerador || ""}
               />
@@ -761,12 +751,7 @@ export const TabComponenteMA = ({
                   },
                 }}
                 onClick={() =>
-                  (MAEdit !== ""
-                    ? MAEdit?.componentes[componentSelect].valorNumerador
-                    : false) &&
-                  componentesValues[componentSelect]?.valorNumerador !== ""
-                    ? ""
-                    : handleClickOpen()
+                   handleClickOpen()
                 }
                 value={componentesValues[componentSelect]?.valorNumerador || ""}
               />
@@ -801,12 +786,7 @@ export const TabComponenteMA = ({
                   },
                 }}
                 onClick={() =>
-                  (MAEdit !== ""
-                    ? MAEdit?.componentes[componentSelect].valorDenominador
-                    : false) &&
-                  componentesValues[componentSelect]?.valorDenominador !== ""
-                    ? ""
-                    : handleClickOpen()
+                   handleClickOpen()
                 }
                 value={
                   componentesValues[componentSelect]?.valorDenominador || ""
@@ -977,14 +957,7 @@ export const TabComponenteMA = ({
                   sx={{ boxShadow: 2 }}
                   variant={"filled"}
                   onClick={() =>
-                    (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect]
-                          .metasPorFrecuencia[0].trimestre1
-                      : false) &&
-                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
-                      ?.trimestre1 !== ""
-                      ? ""
-                      : handleClickOpen2()
+                     handleClickOpen2()
                   }
                   label={
                     <Typography
@@ -1039,14 +1012,7 @@ export const TabComponenteMA = ({
                   sx={{ boxShadow: 2 }}
                   variant={"filled"}
                   onClick={() =>
-                    (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect]
-                          .metasPorFrecuencia[0].trimestre2
-                      : false) &&
-                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
-                      ?.trimestre2 !== ""
-                      ? ""
-                      : handleClickOpen2()
+                     handleClickOpen2()
                   }
                   label={
                     <Typography
@@ -1101,14 +1067,7 @@ export const TabComponenteMA = ({
                   sx={{ boxShadow: 2 }}
                   variant={"filled"}
                   onClick={() =>
-                    (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect]
-                          .metasPorFrecuencia[0].trimestre3
-                      : false) &&
-                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
-                      ?.trimestre3 !== ""
-                      ? ""
-                      : handleClickOpen2()
+                     handleClickOpen2()
                   }
                   label={
                     <Typography
@@ -1163,14 +1122,7 @@ export const TabComponenteMA = ({
                   sx={{ boxShadow: 2 }}
                   variant={"filled"}
                   onClick={() =>
-                    (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect]
-                          .metasPorFrecuencia[0].trimestre4
-                      : false) &&
-                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
-                      ?.trimestre4 !== ""
-                      ? ""
-                      : handleClickOpen2()
+                    handleClickOpen2()
                   }
                   label={
                     <Typography
@@ -1241,14 +1193,7 @@ export const TabComponenteMA = ({
                   sx={{ boxShadow: 2 }}
                   variant={"filled"}
                   onClick={() =>
-                    (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect]
-                          .metasPorFrecuencia[0].semestre1
-                      : false) &&
-                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
-                      ?.semestre1 !== ""
-                      ? ""
-                      : handleClickOpen2()
+                     handleClickOpen2()
                   }
                   label={
                     <Typography
@@ -1303,14 +1248,7 @@ export const TabComponenteMA = ({
                   sx={{ boxShadow: 2 }}
                   variant={"filled"}
                   onClick={() =>
-                    (MAEdit !== ""
-                      ? MAEdit?.componentes[componentSelect]
-                          .metasPorFrecuencia[0].semestre2
-                      : false) &&
-                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
-                      ?.semestre2 !== ""
-                      ? ""
-                      : handleClickOpen2()
+                     handleClickOpen2()
                   }
                   label={
                     <Typography

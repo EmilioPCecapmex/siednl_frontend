@@ -30,16 +30,14 @@ import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import FullModalMir from "../../components/tabsMir/AddMir";
 import { IIMir, ILista } from "../../components/tabsMir/interfaces mir/IMIR";
-import {
-  getInstituciones,
-  getMIRs,
-} from "../../services/mir_services/servicesMIR";
+
 import {
   buscador,
   downloadMIR,
   validaFechaCaptura,
 } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
+import { getInstituciones } from "../../services/mir_services/servicesMIR";
 
 export let resumeDefaultMIR = true;
 
@@ -188,7 +186,7 @@ export const MIR = () => {
     onChangeActionNumberValue();
   };
 
-  const [url, setUrl] = useState(window.location.href);
+  
   const [actualizacion, setActualizacion] = useState(0);
 
   const actualizaContador = () => {
@@ -472,11 +470,16 @@ export const MIR = () => {
     findTextStr.length !== 0 ? setMirsFiltered(mirsFiltered) : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [findTextStr]);
+
+  const [url, setUrl] = useState(window.location.href);
+  
   useEffect(() => {
     // Verificar si el parámetro 'Id' está presente en la URL
+    console.log();
+    
     if (url.includes("?Id=")) {
       const id = url.split("?")[1].split("=")[1];
-
+      setUrl(id)
       // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
       if (id) {
         setMirsFiltered(
@@ -484,18 +487,18 @@ export const MIR = () => {
         );
         //setUrl("")
       }
-    }
+    } 
+
+  
   }, [mirs]);
 
   useEffect(() => {
-    console.log('localStorage.getItem("Rol")',localStorage.getItem("Rol"));
-    
-    buscador(
+   buscador(
       estadomir,
       localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
       setMirs,
       "list-mir",
-      setUrl
+      setUrl,
     );
   }, []);//actualizacion
 
@@ -505,10 +508,12 @@ export const MIR = () => {
   useEffect(() => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
+
   useEffect(() => {
     validaFechaCaptura(setValidaFecha, setTitle, "Mir");
     setEstadoMIR("TODOS");
   }, [showResume]);
+
 
   useEffect(() => {
     setMirsFiltered(mirs);
@@ -774,19 +779,18 @@ export const MIR = () => {
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       onClick={() => {
-                        // buscador(
-                        //   estadomir,
-                        //   instituciones?.Label,
-                        //   setMirs,
-                        //   "list-mir",
-                        //   setUrl
-                        // );
+                        localStorage.setItem("IdNotificacion", "");
+                        window.location.href = "../#/mir";
+                        buscador(
+                          estadomir,
+                          instituciones?.Label,
+                          setMirs,
+                          "list-mir",
+                          setUrl,
+                        );
                       }}
                     >
-                      <SearchIcon
-                        sx={{ fontSize: [20, 20, 20, 25, 25] }}
-                        onClick={() => {}}
-                      />
+                      <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }}/>
                     </IconButton>
                   </Grid>
                 )}

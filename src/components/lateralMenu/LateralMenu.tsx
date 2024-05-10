@@ -189,11 +189,12 @@ export const LateralMenu = ({
         if (urlNavigate === vacia) {
           Swal.fire({
             title: "PREGUNTA",
-            text: `¿ESTAS SEGURO DE QUE QIIERES SALOR PERDERÁS TÚ PROGRESO ACTUAL?`,
+            text: `¿ESTAS SEGURO QUE QUIERES SALIR PERDERÁS TÚ PROGRESO ACTUAL?`,
             icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#000E4E",
-            cancelButtonColor: "#A40000",
+            //confirmButtonColor: "#000E4E",
+            confirmButtonColor: "#15212f",
+            cancelButtonColor: "#af8c55",
             confirmButtonText: "SI",
             cancelButtonText: "NO",
             allowOutsideClick: false,
@@ -207,11 +208,12 @@ export const LateralMenu = ({
         } else {
           Swal.fire({
             title: "PREGUNTA",
-            text: `¿ESTAS SEGURO DE QUE QIIERES SALOR PERDERÁS TÚ PROGRESO ACTUAL?`,
+            text: `¿ESTAS SEGURO QUE QUIERES SALIR PERDERÁS TÚ PROGRESO ACTUAL?`,
             icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#000E4E",
-            cancelButtonColor: "#A40000",
+           // confirmButtonColor: "#000E4E",
+            confirmButtonColor: "#15212f",
+            cancelButtonColor: "#af8c55",
             confirmButtonText: "SI",
             cancelButtonText: "No",
             allowOutsideClick: false,

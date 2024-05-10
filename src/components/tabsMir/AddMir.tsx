@@ -1,6 +1,13 @@
 /* eslint-disase array-callback-return */
 import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
+import { alertaError } from "../genericComponents/Alertas";
+import GenericTabs from "../genericComponents/genericTabs";
+import { TabActividades } from "./TabActividades";
+import { TabComponente } from "./TabComponente";
+import TabEncabezado from "./TabEncabezado";
+import TabFinProposito from "./TabFinProposito";
+import TabResumen, { IComponenteMirEdit } from "./TabResumen";
 import {
   IActividad,
   IComponente,
@@ -8,14 +15,6 @@ import {
   IMIREdit,
   IMovimientos,
 } from "./interfaces mir/IMIR";
-import { TabActividades } from "./TabActividades";
-import { TabComponente } from "./TabComponente";
-import TabEncabezado from "./TabEncabezado";
-import TabFinProposito from "./TabFinProposito";
-import TabResumen, { IComponenteMirEdit } from "./TabResumen";
-import { alertaError } from "../genericComponents/Alertas";
-import GenericTabs from "../genericComponents/genericTabs";
-import { getMAyFT } from "../../services/mir_services/servicesMIR";
 
 const tabs = [
   "Encabezado",

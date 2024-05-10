@@ -570,6 +570,7 @@ export function TabFinProposito({
               >
                 <TextField
                  // disabled={edit && !mirEdit?.fin.formula && fin.formula !== ""}
+                 //disabled={edit && !mirEdit?.fin.medios && fin.medios !== ""}
                  disabled={
                   edit && !mirEdit?.fin.indicador && fin.indicador !== ""
                 }
