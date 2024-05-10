@@ -105,7 +105,7 @@ export default function NotificationsPanel() {
                       if (index.Titulo === "MIR") {
                        // navigate("../MIR" + "?Id=" + index.IdDocumento);
                        localStorage.setItem("IdNotificacion", index.IdDocumento)
-                       window.location.href = "../mir" + "?Id=" + index.IdDocumento + "#/mir";
+                       window.location.href = "../#/mir?Notificacion";
                       }
                       if (index.Titulo === "MA") {
                         navigate("../metaAnual" + "?Id=" + index.IdDocumento);

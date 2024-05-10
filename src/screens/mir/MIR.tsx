@@ -30,16 +30,14 @@ import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import FullModalMir from "../../components/tabsMir/AddMir";
 import { IIMir, ILista } from "../../components/tabsMir/interfaces mir/IMIR";
-import {
-  getInstituciones,
 
-} from "../../services/mir_services/servicesMIR";
 import {
   buscador,
   downloadMIR,
   validaFechaCaptura,
 } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
+import { getInstituciones } from "../../services/mir_services/servicesMIR";
 
 export let resumeDefaultMIR = true;
 
@@ -495,15 +493,12 @@ export const MIR = () => {
   }, [mirs]);
 
   useEffect(() => {
-    console.log('localStorage.getItem("Rol")',localStorage.getItem("Rol"));
-    
-    buscador(
+   buscador(
       estadomir,
       localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
       setMirs,
       "list-mir",
       setUrl,
-      url,
     );
   }, []);//actualizacion
 
@@ -784,14 +779,14 @@ export const MIR = () => {
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       onClick={() => {
-                        localStorage.setItem("IdNotificacion", "")
+                        localStorage.setItem("IdNotificacion", "");
+                        window.location.href = "../#/mir";
                         buscador(
                           estadomir,
                           instituciones?.Label,
                           setMirs,
                           "list-mir",
                           setUrl,
-                          url,
                         );
                       }}
                     >

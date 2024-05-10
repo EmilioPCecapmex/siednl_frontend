@@ -1,7 +1,7 @@
 import axios from "axios";
 import { alertaError, alertaExito } from "../components/genericComponents/Alertas";
 
-export const buscador = (estado: any, Ins: any, setsate: Function, list: string, setsate2: Function, url: string) => {
+export const buscador = (estado: any, Ins: any, setsate: Function, list: string, setsate2: Function) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/" + list, {
         params: {
@@ -16,7 +16,7 @@ export const buscador = (estado: any, Ins: any, setsate: Function, list: string,
       })
       .then((r) => {
         //setAnioFiscalEdit(r.data.data[0]?.AnioFiscal);
-        console.log("url: ",url);
+  
         
         if(localStorage.getItem("IdNotificacion") || localStorage.getItem("IdNotificacion") !== ""){
           const id = localStorage.getItem("IdNotificacion")

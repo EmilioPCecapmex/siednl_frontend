@@ -1,26 +1,22 @@
 /* eslint-disable array-callback-return */
 
-import React, { useEffect, useState } from "react";
 import {
-  FormControl,
-  TextField,
-  Grid,
   Autocomplete,
   Checkbox,
+  FormControl,
   FormControlLabel,
+  Grid,
+  TextField,
   Typography,
 } from "@mui/material";
-import { ILista, IListaProgramas, IMIR, IMIREdit } from "./interfaces mir/IMIR";
 import Stack from "@mui/material/Stack";
-import {
-  getListPedColumns,
-  getLista,
-  getListasLogin,
-  getListasLoginProgramas,
-} from "../../services/mir_services/servicesMIR";
-import { alertaInfo } from "../genericComponents/Alertas";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import React, { useEffect, useState } from "react";
+
+import { alertaInfo } from "../genericComponents/Alertas";
+import { ILista, IListaProgramas, IMIR, IMIREdit } from "./interfaces mir/IMIR";
+import { getListPedColumns, getLista, getListasLoginProgramas } from "../../services/mir_services/servicesMIR";
 export function TabEncabezado({
   edit,
   show,
