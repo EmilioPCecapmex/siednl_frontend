@@ -34,7 +34,7 @@ export const FormulaDialogMACA = ({
   frecuencia: string;
   valores: string;
 }) => {
-  let valoresJSON=JSON.parse(valores)
+  let valoresJSON = JSON.parse(valores)
 
   const [ValorA, setValorA] = useState("");
   const [ValorB, setValorB] = useState("");
@@ -58,14 +58,12 @@ export const FormulaDialogMACA = ({
   };
 
   useEffect(() => {
-    if (frecuencia === "trimestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice"))
-    {
+    if (frecuencia === "trimestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice")) {
       setValorA(valoresJSON?.metasPorFrecuencia[0]?.trimestre1)
       setValorB(valoresJSON?.metasPorFrecuencia[0]?.trimestre2)
       setValorC(valoresJSON?.metasPorFrecuencia[0]?.trimestre3)
       setValorD(valoresJSON?.metasPorFrecuencia[0]?.trimestre4)
-    }else if(frecuencia === "trimestral")
-    {
+    } else if (frecuencia === "trimestral") {
       setValorA(valoresJSON?.valoresPorFrecuencia[0]?.valorA)
       setValorB(valoresJSON?.valoresPorFrecuencia[0]?.valorB)
       setValorC(valoresJSON?.valoresPorFrecuencia[0]?.valorC)
@@ -74,18 +72,16 @@ export const FormulaDialogMACA = ({
       setValorF(valoresJSON?.valoresPorFrecuencia[0]?.valorF)
       setValorG(valoresJSON?.valoresPorFrecuencia[0]?.valorG)
       setValorH(valoresJSON?.valoresPorFrecuencia[0]?.valorH)
-    }else if (frecuencia === "semestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice"))
-    {
+    } else if (frecuencia === "semestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice")) {
       setValorA(valoresJSON?.metasPorFrecuencia[0]?.semestre1)
       setValorB(valoresJSON?.metasPorFrecuencia[0]?.semestre2)
-      
-    }else
-    {
+
+    } else {
       setValorA(valoresJSON?.valoresPorFrecuencia[0]?.valorA)
       setValorB(valoresJSON?.valoresPorFrecuencia[0]?.valorB)
       setValorC(valoresJSON?.valoresPorFrecuencia[0]?.valorC)
       setValorD(valoresJSON?.valoresPorFrecuencia[0]?.valorD)
-      
+
     }
   }, [open]);
 
@@ -102,13 +98,13 @@ export const FormulaDialogMACA = ({
         } else {
           textoSet(
             parseFloat(ValorA).toFixed(2) +
-              "," +
-              parseFloat(ValorB).toFixed(2) +
-              "," +
-              parseFloat(ValorC).toFixed(2) +
-              "," +
-              parseFloat(ValorD).toFixed(2)
-              ,""
+            "," +
+            parseFloat(ValorB).toFixed(2) +
+            "," +
+            parseFloat(ValorC).toFixed(2) +
+            "," +
+            parseFloat(ValorD).toFixed(2)
+            , ""
           );
           limpiaVar();
           close();
@@ -148,13 +144,13 @@ export const FormulaDialogMACA = ({
               100;
             textoSet(
               T1.toFixed(2) +
-                "," +
-                T2.toFixed(2) +
-                "," +
-                T3.toFixed(2) +
-                "," +
-                T4.toFixed(2)
-                ,
+              "," +
+              T2.toFixed(2) +
+              "," +
+              T3.toFixed(2) +
+              "," +
+              T4.toFixed(2)
+              ,
               ValorA +
               "," +
               ValorB +
@@ -178,7 +174,7 @@ export const FormulaDialogMACA = ({
               ((parseFloat(ValorA) - parseFloat(ValorB)) / parseFloat(ValorB)) *
               100;
             let T2 =
-              ((parseFloat(ValorA) +parseFloat(ValorC) - (parseFloat(ValorB) + parseFloat(ValorD))) /(parseFloat(ValorB) + parseFloat(ValorD))) * 100;
+              ((parseFloat(ValorA) + parseFloat(ValorC) - (parseFloat(ValorB) + parseFloat(ValorD))) / (parseFloat(ValorB) + parseFloat(ValorD))) * 100;
             let T3 =
               ((parseFloat(ValorA) + parseFloat(ValorC) + parseFloat(ValorE) -
                 (parseFloat(ValorB) + parseFloat(ValorD) + parseFloat(ValorF))) /
@@ -200,13 +196,13 @@ export const FormulaDialogMACA = ({
               100;
             textoSet(
               T1.toFixed(2) +
-                "," +
-                T2.toFixed(2) +
-                "," +
-                T3.toFixed(2) +
-                "," +
-                T4.toFixed(2)
-                ,
+              "," +
+              T2.toFixed(2) +
+              "," +
+              T3.toFixed(2) +
+              "," +
+              T4.toFixed(2)
+              ,
               ValorA +
               "," +
               ValorB +
@@ -245,13 +241,13 @@ export const FormulaDialogMACA = ({
                 parseFloat(ValorH));
             textoSet(
               T1.toFixed(2) +
-                "," +
-                T2.toFixed(2) +
-                "," +
-                T3.toFixed(2) +
-                "," +
-                T4.toFixed(2)
-                ,
+              "," +
+              T2.toFixed(2) +
+              "," +
+              T3.toFixed(2) +
+              "," +
+              T4.toFixed(2)
+              ,
               ValorA +
               "," +
               ValorB +
@@ -275,13 +271,13 @@ export const FormulaDialogMACA = ({
         }
       }
     } else {
-     
+
       if (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice")
         if (/^[\s]*$/.test(ValorA) || /^[\s]*$/.test(ValorB)) {
           setEmptyTxt(true);
         } else {
           textoSet(
-            parseFloat(ValorA).toFixed(2) + "," + parseFloat(ValorB).toFixed(2),""
+            parseFloat(ValorA).toFixed(2) + "," + parseFloat(ValorB).toFixed(2), ""
           );
           limpiaVar();
           close();
@@ -301,14 +297,14 @@ export const FormulaDialogMACA = ({
           100;
 
         textoSet(S1.toFixed(2) + "," + S2.toFixed(2)
-        ,
-              ValorA +
-              "," +
-              ValorB +
-              "," +
-              ValorC +
-              "," +
-              ValorD);
+          ,
+          ValorA +
+          "," +
+          ValorB +
+          "," +
+          ValorC +
+          "," +
+          ValorD);
 
         limpiaVar();
         close();
@@ -321,16 +317,16 @@ export const FormulaDialogMACA = ({
             (parseFloat(ValorB) + parseFloat(ValorD))) /
             (parseFloat(ValorB) + parseFloat(ValorD))) *
           100;
-          
+
         textoSet(S1.toFixed(2) + "," + S2.toFixed(2)
-        ,
-              ValorA +
-              "," +
-              ValorB +
-              "," +
-              ValorC +
-              "," +
-              ValorD);
+          ,
+          ValorA +
+          "," +
+          ValorB +
+          "," +
+          ValorC +
+          "," +
+          ValorD);
 
         limpiaVar();
         close();
@@ -340,14 +336,14 @@ export const FormulaDialogMACA = ({
           (parseFloat(ValorA) + parseFloat(ValorC)) /
           (parseFloat(ValorB) + parseFloat(ValorD));
         textoSet(S1.toFixed(2) + "," + S2.toFixed(2)
-        ,
-              ValorA +
-              "," +
-              ValorB +
-              "," +
-              ValorC +
-              "," +
-              ValorD);
+          ,
+          ValorA +
+          "," +
+          ValorB +
+          "," +
+          ValorC +
+          "," +
+          ValorD);
 
         limpiaVar();
         close();
@@ -413,13 +409,13 @@ export const FormulaDialogMACA = ({
           {elemento === "Fin"
             ? JSON.parse(MIR).fin.formula
             : elemento === "Propósito"
-            ? JSON.parse(MIR).proposito.formula
-            : elemento.includes("Componente")
-            ? JSON.parse(MIR).componentes[noComponente]?.formula
-            : elemento.includes("A")
-            ? JSON.parse(MIR).componentes[noComponente].actividades[noActividad]
-                ?.formula
-            : null}
+              ? JSON.parse(MIR).proposito.formula
+              : elemento.includes("Componente")
+                ? JSON.parse(MIR).componentes[noComponente]?.formula
+                : elemento.includes("A")
+                  ? JSON.parse(MIR).componentes[noComponente].actividades[noActividad]
+                    ?.formula
+                  : null}
         </Typography>
       </Box>
 
@@ -440,8 +436,8 @@ export const FormulaDialogMACA = ({
           }}
         >
           {frecuencia === "trimestral" &&
-          (tipo.toLowerCase() === "indice" ||
-            tipo.toLowerCase() === "índice") ? (
+            (tipo.toLowerCase() === "indice" ||
+              tipo.toLowerCase() === "índice") ? (
             <Box
               sx={{
                 width: "80%",
@@ -456,17 +452,24 @@ export const FormulaDialogMACA = ({
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "80%", mb: 2 }}
+                sx={{
+                  width: "80%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 value={ValorA}
                 error={
                   parseFloat(ValorA) < 0 ||
-                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
+                    (isNaN(parseFloat(ValorA)) && ValorA !== "")
                     ? true
                     : false
                 }
                 helperText={
                   parseFloat(ValorA) < 0 ||
-                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
+                    (isNaN(parseFloat(ValorA)) && ValorA !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -490,17 +493,24 @@ export const FormulaDialogMACA = ({
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "80%", mb: 2 }}
+                sx={{
+                  width: "80%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 value={ValorB}
                 error={
                   parseFloat(ValorB) < 0 ||
-                  (isNaN(parseFloat(ValorB)) && ValorB !== "")
+                    (isNaN(parseFloat(ValorB)) && ValorB !== "")
                     ? true
                     : false
                 }
                 helperText={
                   parseFloat(ValorB) < 0 ||
-                  (isNaN(parseFloat(ValorB)) && ValorB !== "")
+                    (isNaN(parseFloat(ValorB)) && ValorB !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -524,17 +534,24 @@ export const FormulaDialogMACA = ({
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "80%", mb: 2 }}
+                sx={{
+                  width: "80%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 value={ValorC}
                 error={
                   parseFloat(ValorC) < 0 ||
-                  (isNaN(parseFloat(ValorC)) && ValorC !== "")
+                    (isNaN(parseFloat(ValorC)) && ValorC !== "")
                     ? true
                     : false
                 }
                 helperText={
                   parseFloat(ValorC) < 0 ||
-                  (isNaN(parseFloat(ValorC)) && ValorC !== "")
+                    (isNaN(parseFloat(ValorC)) && ValorC !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -558,17 +575,24 @@ export const FormulaDialogMACA = ({
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "80%" }}
+                sx={{
+                  width: "80%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 value={ValorD}
                 error={
                   parseFloat(ValorD) < 0 ||
-                  (isNaN(parseFloat(ValorD)) && ValorD !== "")
+                    (isNaN(parseFloat(ValorD)) && ValorD !== "")
                     ? true
                     : false
                 }
                 helperText={
                   parseFloat(ValorD) < 0 ||
-                  (isNaN(parseFloat(ValorD)) && ValorD !== "")
+                    (isNaN(parseFloat(ValorD)) && ValorD !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -606,14 +630,21 @@ export const FormulaDialogMACA = ({
                 label={
                   <Typography
                     sx={{
-                     
+
                       fontFamily: "MontserratMedium",
                     }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
                 }
-                sx={{ width: "95%", mb: 2 }}
+                sx={{
+                  width: "95%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 value={ValorA}
                 error={parseFloat(ValorA) < 0 ? true : false}
                 helperText={
@@ -642,7 +673,14 @@ export const FormulaDialogMACA = ({
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
                 }
-                sx={{ width: "95%", mb: 2 }}
+                sx={{
+                  width: "95%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
@@ -660,7 +698,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
-              
+
               <Typography>Trimestre 2</Typography>
               <TextField
                 type={"number"}
@@ -671,7 +709,14 @@ export const FormulaDialogMACA = ({
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
                 }
-                sx={{ width: "95%" }}
+                sx={{
+                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
@@ -698,7 +743,14 @@ export const FormulaDialogMACA = ({
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
                 }
-                sx={{ width: "95%" }}
+                sx={{
+                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
@@ -726,7 +778,14 @@ export const FormulaDialogMACA = ({
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
                 }
-                sx={{ width: "95%" }}
+                sx={{
+                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
@@ -753,7 +812,14 @@ export const FormulaDialogMACA = ({
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
                 }
-                sx={{ width: "95%" }}
+                sx={{
+                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
@@ -781,7 +847,14 @@ export const FormulaDialogMACA = ({
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
                 }
-                sx={{ width: "95%" }}
+                sx={{
+                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
@@ -808,7 +881,14 @@ export const FormulaDialogMACA = ({
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
                 }
-                sx={{ width: "95%" }}
+                sx={{
+                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
@@ -858,17 +938,24 @@ export const FormulaDialogMACA = ({
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "95%", mb: 2 }}
+                sx={{
+                  width: "95%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 value={ValorA}
                 error={
                   parseFloat(ValorA) < 0 ||
-                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
+                    (isNaN(parseFloat(ValorA)) && ValorA !== "")
                     ? true
                     : false
                 }
                 helperText={
                   parseFloat(ValorA) < 0 ||
-                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
+                    (isNaN(parseFloat(ValorA)) && ValorA !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -892,17 +979,24 @@ export const FormulaDialogMACA = ({
               <TextField
                 type={"number"}
                 label={"Valor"}
-                sx={{ width: "95%" }}
+                sx={{
+                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 value={ValorB}
                 error={
                   parseFloat(ValorB) < 0 ||
-                  (isNaN(parseFloat(ValorB)) && ValorB !== "")
+                    (isNaN(parseFloat(ValorB)) && ValorB !== "")
                     ? true
                     : false
                 }
                 helperText={
                   parseFloat(ValorB) < 0 ||
-                  (isNaN(parseFloat(ValorB)) && ValorB !== "")
+                    (isNaN(parseFloat(ValorB)) && ValorB !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -944,17 +1038,24 @@ export const FormulaDialogMACA = ({
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
                 }
-                sx={{ width: "95%", mb: 2 }}
+                sx={{
+                  width: "95%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 value={ValorA}
                 error={
                   parseFloat(ValorA) < 0 ||
-                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
+                    (isNaN(parseFloat(ValorA)) && ValorA !== "")
                     ? true
                     : false
                 }
                 helperText={
                   parseFloat(ValorA) < 0 ||
-                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
+                    (isNaN(parseFloat(ValorA)) && ValorA !== "")
                     ? "Introducir valor mayor que 0"
                     : null
                 }
@@ -983,7 +1084,14 @@ export const FormulaDialogMACA = ({
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
                 }
-                sx={{ width: "95%", mb: 2 }}
+                sx={{
+                  width: "95%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                    display: "none",
+                  },
+                  "& input[type=number]": {
+                    MozAppearance: "textfield",
+                  },
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
@@ -1006,7 +1114,14 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{
+                      fontFamily: "MontserratMedium", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                        display: "none",
+                      },
+                      "& input[type=number]": {
+                        MozAppearance: "textfield",
+                      },
+                    }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -1033,7 +1148,14 @@ export const FormulaDialogMACA = ({
                 type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{
+                      fontFamily: "MontserratMedium", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                        display: "none",
+                      },
+                      "& input[type=number]": {
+                        MozAppearance: "textfield",
+                      },
+                    }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -1084,7 +1206,7 @@ export const FormulaDialogMACA = ({
         <Button
           className="aceptar"
           onClick={() => {
-            
+
             checkValues();
           }}
         >
