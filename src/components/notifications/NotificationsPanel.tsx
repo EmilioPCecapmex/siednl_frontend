@@ -104,15 +104,17 @@ export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
                        navigate("../mir" + "?Id=" + index.IdDocumento)
                       }
                       if (index.Titulo === "MA") {
+                        localStorage.setItem("IdNotificacion", index.IdDocumento)
                         navigate("../metaAnual" + "?Id=" + index.IdDocumento);
                       }
                       if (index.Titulo === "FT") {
-                        
+                        localStorage.setItem("IdNotificacion", index.IdDocumento)
                         navigate(
                           "../fichaTecnica" + "?Id=" + index.IdDocumento
                         );
                       }
                       if (index.Titulo === "RF") {
+                        localStorage.setItem("IdNotificacion", index.IdDocumento)
                         navigate(
                           "../Raffi" + "?Id=" + index.IdDocumento
                         );

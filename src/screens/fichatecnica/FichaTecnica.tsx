@@ -48,6 +48,7 @@ export let setResumeDefaultFT = () => {
 };
 
 export const FichaTecnica = () => {
+  
   const getFT = (setstate: Function, estado: any) => {
     axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fichaTecnica", {
@@ -64,13 +65,15 @@ export const FichaTecnica = () => {
       .then((r) => {
         //setft(r.data.data)
         if (r.data.data.length === 0) {
-          alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR")
-         // setUrl("")
-        }else{
-         // setUrl("")
+          alertaError(
+            "El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR"
+          );
+          // setUrl("")
+        } else {
+          // setUrl("")
           setstate(r.data.data);
         }
-        
+
         //setFtFiltered(r.data.data);
       })
       .catch((err) => {});
@@ -166,7 +169,7 @@ export const FichaTecnica = () => {
 
   useEffect(() => {
     getFT(setft, estadoft);
-    setEstadoFT("TODOS")
+    setEstadoFT("TODOS");
     validaFechaCaptura();
   }, [showResume]);
 
@@ -363,24 +366,11 @@ export const FichaTecnica = () => {
 
   const [validaFecha, setValidaFecha] = useState(true);
   const [actualizacion, setActualizacion] = useState(0);
-  const[url, setUrl]=useState(window.location.href)
+  const [url, setUrl] = useState(window.location.href);
 
   useEffect(() => {
-    
-
-    // Verificar si el parámetro 'Id' está presente en la URL
-    if (url.includes("?Id=")) {
-      const id = url.split("?")[1].split("=")[1];
-
-      // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
-      if (id) {
-        setFtFiltered(ft.filter((x) => x.IdFt.includes(id || "")));
-      }
-    }
-  }, [ft]);
-
-  useEffect(() => {
-    getFT(setft, estadoft);
+    //getFT(setft, estadoft);
+    getListadoFT()
   }, [actualizacion]);
 
   const actualizaContador = () => {
@@ -768,6 +758,44 @@ export const FichaTecnica = () => {
     setFindTextStr(dato);
   };
 
+  const widthCondition = () => {
+    return (
+      localStorage.getItem("Rol") === "Administrador" ||
+      localStorage.getItem("Rol") === "ADMINISTRADOR"
+    );
+  };
+
+  const TableCellFormat = (data: any) => {
+    return (
+      <>
+        <TableCell
+          sx={{
+            padding: "1px 15px 1px 0",
+            fontFamily: "MontserratRegular",
+            fontSize: [10, 10, 10, 15, 15, 18],
+            textAlign: "center",
+          }}
+          align="center"
+          component="th"
+          scope="row"
+        >
+          {data}
+        </TableCell>
+      </>
+    );
+  };
+
+  const getListadoFT=()=>{
+    buscador(
+      estadoft,
+      localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
+      //institucionesb,
+      setft,
+      "list-fichaTecnica",
+      setUrl
+    );
+  }
+
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid
@@ -779,7 +807,12 @@ export const FichaTecnica = () => {
         xs={12}
         sx={{ height: "7vh", whitespace: "nowrap" }}
       >
-        <LateralMenu selection={"FICHA TECNICA"} actionNumber={actionNumber} restore={setShowResume}/>
+        <LateralMenu
+          selection={"FICHA TECNICA"}
+          actionNumber={actionNumber}
+          restore={setShowResume}
+          fnc={getListadoFT}
+        />
       </Grid>
 
       <Grid
@@ -927,36 +960,11 @@ export const FichaTecnica = () => {
 
                 <Grid
                   item
-                  xl={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
-                      : 11
-                  }
-                  lg={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
-                      : 11
-                  }
-                  md={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
-                      : 11
-                  }
-                  sm={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
-                      : 11
-                  }
-                  xs={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 11
-                      : 11
-                  }
+                  xl={widthCondition() ? 5 : 11}
+                  lg={widthCondition() ? 5 : 11}
+                  md={widthCondition() ? 5 : 11}
+                  sm={widthCondition() ? 5 : 11}
+                  xs={widthCondition() ? 11 : 11}
                 >
                   <FormControl fullWidth>
                     <Autocomplete
@@ -1021,29 +1029,7 @@ export const FichaTecnica = () => {
                         );
                       }}
                     >
-                      <SearchIcon
-                        sx={{
-                          fontSize: "24px", // Tamaño predeterminado del icono
-                          "@media (max-width: 600px)": {
-                            fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                          },
-                          "@media (min-width: 601px) and (max-width: 960px)": {
-                            fontSize: 20, // Pantalla pequeña (md)
-                          },
-                          "@media (min-width: 961px) and (max-width: 1280px)": {
-                            fontSize: 20, // Pantalla mediana (lg)
-                          },
-                          "@media (min-width: 1281px)": {
-                            fontSize: 25, // Pantalla grande (xl)
-                          },
-                          "@media (min-width: 2200px)": {
-                            fontSize: 25, // Pantalla grande (xl)
-                          },
-                        }}
-                        onClick={() => {
-                          // Acciones adicionales al hacer clic en el ícono de búsqueda
-                        }}
-                      ></SearchIcon>
+                       <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }}/>
                     </IconButton>
                   </Grid>
                 )}
@@ -1108,26 +1094,7 @@ export const FichaTecnica = () => {
                       aria-label="search"
                       onClick={() => filtrarDatos()}
                     >
-                      <SearchIcon
-                        sx={{
-                          fontSize: "24px", // Tamaño predeterminado del icono
-                          "@media (max-width: 600px)": {
-                            fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                          },
-                          "@media (min-width: 601px) and (max-width: 960px)": {
-                            fontSize: 20, // Pantalla pequeña (md)
-                          },
-                          "@media (min-width: 961px) and (max-width: 1280px)": {
-                            fontSize: 20, // Pantalla mediana (lg)
-                          },
-                          "@media (min-width: 1281px)": {
-                            fontSize: 25, // Pantalla grande (xl)
-                          },
-                          "@media (min-width: 2200px)": {
-                            fontSize: 25, // Pantalla grande (xl)
-                          },
-                        }}
-                      />
+                       <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }}/>
                     </IconButton>
                   </Paper>
                 </Grid>
@@ -1232,46 +1199,12 @@ export const FichaTecnica = () => {
                       )
                       .map((row, index) => (
                         <TableRow>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            {row.AnioFiscal}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            {row.Entidad.toUpperCase()}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            {row.Programa.toUpperCase()}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            {row.Estado === "En Captura" &&
-                            localStorage.getItem("Rol") === "Capturador"
+                          {TableCellFormat(row.AnioFiscal)}
+                          {TableCellFormat(row.Entidad.toUpperCase())}
+                          {TableCellFormat(row.Programa.toUpperCase())}
+                          {TableCellFormat(
+                            row.Estado === "En Captura" &&
+                              localStorage.getItem("Rol") === "Capturador"
                               ? "ESPERANDO CAPTURA"
                               : row.Estado === "En Revisión" &&
                                 localStorage.getItem("Rol") === "Verificador"
@@ -1279,46 +1212,22 @@ export const FichaTecnica = () => {
                               : row.Estado === "En Autorización" &&
                                 localStorage.getItem("Rol") === "Administrador"
                               ? "ESPERANDO AUTORIZACIÓN"
-                              : row.Estado.toUpperCase()}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            {moment(row.FechaCreacion, moment.ISO_8601)
-                              .format("DD/MM/YYYY HH:mm:SS")
-                              .toString()}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                          >
-                            {row.Estado === "En Captura"
-                              ? "SIN ASIGNAR"
-                              : row.CreadoPor.toUpperCase()}
-                          </TableCell>
+                              : row.Estado.toUpperCase()
+                          )}
 
-                          <TableCell
-                            sx={{
-                              flexDirection: "row",
-                              // display: "grid",
-                              padding: "1px 15px 1px 0",
-                              gridTemplateColumns: "repeat(1,4fr)",
-                              fontSize: [10, 10, 10, 15, 15, 18],
-                              textAlign: "center",
-                            }}
-                            align="center"
-                            component="th"
-                            scope="row"
-                          >
+                          {TableCellFormat(
+                            moment(row.FechaCreacion, moment.ISO_8601)
+                              .format("DD/MM/YYYY HH:mm:SS")
+                              .toString()
+                          )}
+
+                          {TableCellFormat(
+                            row.Estado === "En Captura"
+                              ? "SIN ASIGNAR"
+                              : row.CreadoPor.toUpperCase()
+                          )}
+
+                          {TableCellFormat(
                             <Grid sx={{ display: "flex" }}>
                               <Tooltip title="REGISTRAR FICHA TÉCNICA">
                                 <span>
@@ -1400,7 +1309,7 @@ export const FichaTecnica = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
-                                        setIdEntidad(row.IdEntidad)
+                                        setIdEntidad(row.IdEntidad);
                                       } else {
                                         setFTEdit([
                                           {
@@ -1423,7 +1332,7 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       }
-                                      setIdEntidad(row.IdEntidad)
+                                      setIdEntidad(row.IdEntidad);
                                       setShowResume(false);
                                       setActionNumber(1);
                                       setEstado(row.Estado);
@@ -1544,7 +1453,7 @@ export const FichaTecnica = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
-                                        setIdEntidad(row.IdEntidad)
+                                        setIdEntidad(row.IdEntidad);
                                       } else {
                                         setFTShow([
                                           {
@@ -1567,7 +1476,7 @@ export const FichaTecnica = () => {
                                           },
                                         ]);
                                       }
-                                      setIdEntidad(row.IdEntidad)
+                                      setIdEntidad(row.IdEntidad);
                                       setOpenModalVerResumenFT(true);
                                     }}
                                   >
@@ -1603,16 +1512,17 @@ export const FichaTecnica = () => {
                               </Tooltip>
 
                               <ComentDialogFT
-                                  estado={row.Estado}
-                                  id={row.IdMir}
-                                  actualizado={actualizaContador}
-                                  MIR={FTEdit[0]?.MIR || ""}
-                                  IdEntidad={IdEntidad}
+                                estado={row.Estado}
+                                id={row.IdMir}
+                                actualizado={actualizaContador}
+                                MIR={FTEdit[0]?.MIR || ""}
+                                IdEntidad={IdEntidad}
                               />
 
                               <MostrarLista st="" Id={row.IdFt} />
                             </Grid>
-                          </TableCell>
+                          )}
+
                         </TableRow>
                       ))}
                   </TableBody>

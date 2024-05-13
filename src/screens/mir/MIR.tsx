@@ -482,20 +482,7 @@ export const MIR = () => {
 
   const [url, setUrl] = useState(window.location.href);
   
-  useEffect(() => {
-    // Verificar si el parámetro 'Id' está presente en la URL
-    
-    if (url.includes("?Id=")) {
-      const id = url.split("?")[1].split("=")[1];
-      setUrl(id)
-      // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
-      if (id) {
-        setMirsFiltered(
-          mirs.filter((x) => x.Id.toLowerCase().includes(id || ""))
-        );
-      }
-    } 
-  }, [mirs]);
+  
 
   useEffect(() => {
     getListadoMirs()
@@ -776,6 +763,7 @@ export const MIR = () => {
                 </Grid>
 
                 {localStorage.getItem("Rol") === "Administrador" && (
+
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       onClick={() => {
@@ -976,11 +964,13 @@ export const MIR = () => {
                               : row.Estado
                             ).toUpperCase()
                           )}
+
                           {TableCellFormat(
                             moment(row.FechaCreacion, moment.ISO_8601)
                               .format("DD/MM/YYYY HH:mm:SS")
                               .toString()
                           )}
+
                           {TableCellFormat(row.CreadoPor.toUpperCase())}
                           {TableCellFormat( 
                           <Grid sx={{ display: "flex" }}>

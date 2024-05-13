@@ -105,8 +105,13 @@ export const Raffi = () => {
 
   useEffect(() => {
     setRfFiltered(rf);
-    setEstadoRF("TODOS")
+    setEstadoRF("TODOS");
   }, [rf]);
+
+  useEffect(() => {
+    getListadoRF()
+  }, []);
+  
 
   useEffect(() => {
     setRfxFiltered(rfFiltered);
@@ -347,24 +352,9 @@ export const Raffi = () => {
       });
   };
 
-  const[url, setUrl]=useState(window.location.href)
+  const [url, setUrl] = useState(window.location.href);
 
-  useEffect(() => {
-    
-
-    // Verificar si el parámetro 'Id' está presente en la URL
-    if (url.includes("?Id=")) {
-      const id = url.split("?")[1].split("=")[1];
-
-      // Verificar si 'id' no es undefined o null antes de incluirlo en la comparación
-      if (id) {
-        setRfFiltered(
-          rf.filter((x) => x.IdRaffi.toLowerCase().includes(id || ""))
-        );
-      }
-    }
-  }, [rf]);
-
+  
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   const columsRf: GridColDef[] = [
@@ -698,6 +688,45 @@ export const Raffi = () => {
     },
   ];
 
+  const widthCondition = () => {
+    return (
+      localStorage.getItem("Rol") === "Administrador" ||
+      localStorage.getItem("Rol") === "ADMINISTRADOR"
+    );
+  };
+
+  const TableCellFormat = (data: any) => {
+    return (
+      <>
+        <TableCell
+          sx={{
+            padding: "1px 15px 1px 0",
+            fontFamily: "MontserratRegular",
+            fontSize: [10, 10, 10, 15, 15, 18],
+            textAlign: "center",
+          }}
+          align="center"
+          component="th"
+          scope="row"
+        >
+          {data}
+        </TableCell>
+      </>
+    );
+  };
+
+  const getListadoRF = () => {
+    buscador(
+      estadorf,
+      localStorage.getItem("Rol")?.toUpperCase() === "ADMINISTRADOR"
+        ? "TODOS"
+        : localStorage.getItem("IdEntidad"),
+      setRf,
+      "list-raffis",
+      setUrl
+    );
+  };
+
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid
@@ -709,7 +738,12 @@ export const Raffi = () => {
         xs={12}
         sx={{ height: "7vh", whitespace: "nowrap" }}
       >
-        <LateralMenu selection={"RAFFI"} actionNumber={actionNumber} restore={setOpenTabs}/>
+        <LateralMenu
+          selection={"RAFFI"}
+          actionNumber={actionNumber}
+          restore={setOpenTabs}
+          fnc={getListadoRF}
+        />
       </Grid>
 
       <Grid
@@ -800,8 +834,7 @@ export const Raffi = () => {
                         renderOption={(props, option) => {
                           return (
                             <li {...props} key={option.Id}>
-                              <p style={{ fontFamily: "MontserratRegular", }}
-                              >
+                              <p style={{ fontFamily: "MontserratRegular" }}>
                                 {option.Nombre}
                               </p>
                             </li>
@@ -821,47 +854,26 @@ export const Raffi = () => {
                               "& .MuiAutocomplete-input": {
                                 fontFamily: "MontserratRegular",
                               },
-                            }}/>
+                            }}
+                          />
                         )}
                         onChange={(event, value) =>
-                          setInstituciones(value || objetiInstitucion)}
-                        isOptionEqualToValue={(option, value) =>option.Id === value.Id }
+                          setInstituciones(value || objetiInstitucion)
+                        }
+                        isOptionEqualToValue={(option, value) =>
+                          option.Id === value.Id
+                        }
                       />
                     </FormControl>
                   </Grid>
                 ) : null}
                 <Grid
                   item
-                  xl={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
-                      : 11
-                  }
-                  lg={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
-                      : 11
-                  }
-                  md={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
-                      : 11
-                  }
-                  sm={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 5
-                      : 11
-                  }
-                  xs={
-                    localStorage.getItem("Rol") === "Administrador" ||
-                    localStorage.getItem("Rol") === "ADMINISTRADOR"
-                      ? 11
-                      : 11
-                  }
+                  xl={widthCondition() ? 5 : 11}
+                  lg={widthCondition() ? 5 : 11}
+                  md={widthCondition() ? 5 : 11}
+                  sm={widthCondition() ? 5 : 11}
+                  xs={widthCondition() ? 11 : 11}
                 >
                   <FormControl fullWidth>
                     <Autocomplete
@@ -926,29 +938,7 @@ export const Raffi = () => {
                         );
                       }}
                     >
-                      <SearchIcon
-                        sx={{
-                          fontSize: "24px", // Tamaño predeterminado del icono
-                          "@media (max-width: 600px)": {
-                            fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                          },
-                          "@media (min-width: 601px) and (max-width: 960px)": {
-                            fontSize: 20, // Pantalla pequeña (md)
-                          },
-                          "@media (min-width: 961px) and (max-width: 1280px)": {
-                            fontSize: 20, // Pantalla mediana (lg)
-                          },
-                          "@media (min-width: 1281px)": {
-                            fontSize: 25, // Pantalla grande (xl)
-                          },
-                          "@media (min-width: 2200px)": {
-                            fontSize: 25, // Pantalla grande (xl)
-                          },
-                        }}
-                        onClick={() => {
-                          // Acciones adicionales al hacer clic en el ícono de búsqueda
-                        }}
-                      ></SearchIcon>
+                      <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
                     </IconButton>
                   </Grid>
                 )}
@@ -1001,31 +991,7 @@ export const Raffi = () => {
                     aria-label="Buscar"
                     onClick={() => filtrarDatos()}
                   >
-                    <SearchIcon
-                      sx={{
-                        fontSize: "24px", // Tamaño predeterminado del icono
-
-                        "@media (max-width: 600px)": {
-                          fontSize: 25, // Pantalla extra pequeña (xs y sm)
-                        },
-
-                        "@media (min-width: 601px) and (max-width: 960px)": {
-                          fontSize: 25, // Pantalla pequeña (md)
-                        },
-
-                        "@media (min-width: 961px) and (max-width: 1280px)": {
-                          fontSize: 30, // Pantalla mediana (lg)
-                        },
-
-                        "@media (min-width: 1281px)": {
-                          fontSize: 30, // Pantalla grande (xl)
-                        },
-
-                        "@media (min-width: 2200px)": {
-                          fontSize: 30, // Pantalla grande (xl)
-                        },
-                      }}
-                    />
+                    <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
                   </IconButton>
                 </Paper>
               </Grid>
@@ -1098,46 +1064,12 @@ export const Raffi = () => {
                       .map((row, index) => {
                         return (
                           <TableRow>
-                            <TableCell
-                              sx={{
-                                padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
-                                fontSize: [10, 10, 10, 15, 15, 18],
-                                textAlign: "center",
-                              }}
-                            >
-                              {row.AnioFiscal.toUpperCase()}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
-                                fontSize: [10, 10, 10, 15, 15, 18],
-                                textAlign: "center",
-                              }}
-                            >
-                              {row.Entidad?.toUpperCase()}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
-                                fontSize: [10, 10, 10, 15, 15, 18],
-                                textAlign: "center",
-                              }}
-                            >
-                              {row.Programa.toUpperCase()}
-                            </TableCell>
+                            {TableCellFormat(row.AnioFiscal)}
+                            {TableCellFormat(row.Entidad)}
+                            {TableCellFormat(row.Programa.toUpperCase())}
 
-                            <TableCell
-                              sx={{
-                                padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
-                                fontSize: [10, 10, 10, 15, 15, 18],
-                                textAlign: "center",
-                              }}
-                            >
-                              {(row.Estado === "En Captura" &&
+                            {TableCellFormat(
+                              (row.Estado === "En Captura" &&
                               localStorage.getItem("Rol") === "Capturador"
                                 ? "Borrador Capturador"
                                 : row.Estado === "En Revisión" &&
@@ -1148,30 +1080,21 @@ export const Raffi = () => {
                                     "Administrador"
                                 ? "En Autorización"
                                 : row.Estado
-                              ).toUpperCase()}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
-                                fontSize: [10, 10, 10, 15, 15, 18],
-                                textAlign: "center",
-                              }}
-                            >
-                              {moment(row.FechaCreacion, moment.ISO_8601)
+                              ).toUpperCase()
+                            )}
+
+                            {TableCellFormat(
+                              moment(row.FechaCreacion, moment.ISO_8601)
                                 .format("DD/MM/YYYY HH:mm:SS")
-                                .toString()}
-                            </TableCell>
-                            <TableCell
-                              sx={{
-                                padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
-                                fontSize: [10, 10, 10, 15, 15, 18],
-                                textAlign: "center",
-                              }}
-                            >
-                              {row.CreadoPor?.toUpperCase()}
-                            </TableCell>
+                                .toString()
+                            )}
+
+                            {TableCellFormat(
+                              row.Estado === "En Captura"
+                                ? "SIN ASIGNAR"
+                                : row.CreadoPor.toUpperCase()
+                            )}
+
                             <TableCell
                               sx={{
                                 flexDirection: "row",
@@ -1241,7 +1164,7 @@ export const Raffi = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
-                                        setIdEntidad(row.IdEntidad)
+                                        setIdEntidad(row.IdEntidad);
                                       } else {
                                         setRfEdit([
                                           {
@@ -1266,7 +1189,6 @@ export const Raffi = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
-                                        
                                       }
                                       setEstado(row.Estado);
                                       setIdEntidad(row.IdEntidad);
@@ -1275,32 +1197,9 @@ export const Raffi = () => {
                                     }}
                                   >
                                     <EditIcon
-                                      sx={{
-                                        fontSize: "24px", // Tamaño predeterminado del icono
-
-                                        "@media (max-width: 600px)": {
-                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                        },
-
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
-
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
-
-                                        "@media (min-width: 1281px)": {
-                                          fontSize: 25, // Pantalla grande (xl)
-                                        },
-
-                                        "@media (min-width: 2200px)": {
-                                          ffontSize: 25, // Pantalla grande (xl)
-                                        },
-                                      }}
+                                      sx={{ fontSize: [20, 20, 20, 25, 25] }}
                                     />
+
                                     {row.Opciones}
                                   </IconButton>
                                 </Tooltip>
@@ -1340,7 +1239,7 @@ export const Raffi = () => {
                                             Opciones: row.Opciones,
                                           },
                                         ]);
-                                        setIdEntidad(row.IdEntidad)
+                                        setIdEntidad(row.IdEntidad);
                                       } else {
                                         setRfEdit([
                                           {
@@ -1366,39 +1265,16 @@ export const Raffi = () => {
                                           },
                                         ]);
                                       }
-                                      setIdEntidad(row.IdEntidad)
+                                      setIdEntidad(row.IdEntidad);
                                       setEstado(row.Estado);
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
                                   >
                                     <AddCircleOutlineIcon
-                                      sx={{
-                                        fontSize: "24px", // Tamaño predeterminado del icono
-
-                                        "@media (max-width: 600px)": {
-                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                        },
-
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
-
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
-
-                                        "@media (min-width: 1281px)": {
-                                          fontSize: 25, // Pantalla grande (xl)
-                                        },
-
-                                        "@media (min-width: 2200px)": {
-                                          ffontSize: 25, // Pantalla grande (xl)
-                                        },
-                                      }}
+                                      sx={{ fontSize: [20, 20, 20, 25, 25] }}
                                     />
+
                                     {row.Opciones}
                                   </IconButton>
                                 </Tooltip>
@@ -1439,31 +1315,7 @@ export const Raffi = () => {
                                     }
                                   >
                                     <DownloadIcon
-                                      sx={{
-                                        fontSize: "24px", // Tamaño predeterminado del icono
-
-                                        "@media (max-width: 600px)": {
-                                          fontSize: 20, // Pantalla extra pequeña (xs y sm)
-                                        },
-
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
-
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
-
-                                        "@media (min-width: 1281px)": {
-                                          fontSize: 25, // Pantalla grande (xl)
-                                        },
-
-                                        "@media (min-width: 2200px)": {
-                                          ffontSize: 25, // Pantalla grande (xl)
-                                        },
-                                      }}
+                                      sx={{ fontSize: [20, 20, 20, 25, 25] }}
                                     />
                                   </IconButton>
                                 </span>

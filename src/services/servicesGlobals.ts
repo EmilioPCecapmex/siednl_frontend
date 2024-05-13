@@ -19,8 +19,10 @@ export const buscador = (estado: any, Ins: any, setsate: Function, list: string,
         if(localStorage.getItem('IdNotificacion') !== ""){
      
           setsate(r.data.data.filter((x: any) => x.Id.toLowerCase().includes(localStorage.getItem('IdNotificacion') || ""))); 
-          
+          localStorage.setItem("IdNotificacion","")
         }else{
+          console.log("entre aqui ma: ",r.data.data)
+          
           setsate(r.data.data);
           setsate2("")
         }
