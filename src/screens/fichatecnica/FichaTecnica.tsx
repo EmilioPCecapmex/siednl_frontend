@@ -85,7 +85,7 @@ export const FichaTecnica = () => {
 
   const returnMain = () => {
     setShowResume(true);
-    getFT(setft, estadoft);
+    getListadoFT()
   };
 
   const [openModalVerResumenFT, setOpenModalVerResumenFT] = useState(false);
@@ -168,7 +168,7 @@ export const FichaTecnica = () => {
   };
 
   useEffect(() => {
-    getFT(setft, estadoft);
+    getListadoFT()
     setEstadoFT("TODOS");
     validaFechaCaptura();
   }, [showResume]);
@@ -369,7 +369,6 @@ export const FichaTecnica = () => {
   const [url, setUrl] = useState(window.location.href);
 
   useEffect(() => {
-    //getFT(setft, estadoft);
     getListadoFT()
   }, [actualizacion]);
 
@@ -789,7 +788,6 @@ export const FichaTecnica = () => {
     buscador(
       estadoft,
       localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
-      //institucionesb,
       setft,
       "list-fichaTecnica",
       setUrl
