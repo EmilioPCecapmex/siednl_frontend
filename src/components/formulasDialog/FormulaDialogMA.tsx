@@ -37,9 +37,8 @@ export const FormulaDialogMA = ({
     setDescB("");
   };
 
-
   const checkValues = () => {
-
+    
     if (tipo === "Indice" || tipo === "Índice") {
       if (/^[\s]*$/.test(descA)) {
         setEmptyTxt(true);
@@ -119,10 +118,10 @@ export const FormulaDialogMA = ({
           {valores.includes(elemento.toLowerCase())
             ? `${elemento} - Fórmula - ${tipo}`
             : elementoA
-              ? `${elementoA} - Fórmula - ${tipo}`
-              : elemento.includes("A")
-                ? `${elemento} - Fórmula - ${tipo}`
-                : `Componente ${noComponente + 1} - Fórmula - ${tipo}`}
+            ? `${elementoA} - Fórmula - ${tipo}`
+            : elemento.includes("A")
+            ? `${elemento} - Fórmula - ${tipo}`
+            : `Componente ${noComponente + 1} - Fórmula - ${tipo}`}
         </Typography>
 
         <Typography
@@ -157,13 +156,13 @@ export const FormulaDialogMA = ({
           {elemento === "Fin"
             ? JSON.parse(MIR).fin.formula
             : elemento === "Propósito"
-              ? JSON.parse(MIR).proposito.formula
-              : elemento.includes("Componente")
-                ? JSON.parse(MIR).componentes[noComponente]?.formula
-                : elemento.includes("A" || "a")
-                  ? JSON.parse(MIR).componentes[noComponente]?.actividades[noActividad]
-                    ?.formula
-                  : null}
+            ? JSON.parse(MIR).proposito.formula
+            : elemento.includes("Componente")
+            ? JSON.parse(MIR).componentes[noComponente]?.formula
+            : elemento.includes("A" || "a") 
+            ? JSON.parse(MIR).componentes[noComponente]?.actividades[noActividad]
+                ?.formula
+            : null}
         </Typography>
       </Grid>
 
@@ -198,32 +197,24 @@ export const FormulaDialogMA = ({
                   {"Valor del índice"}
                 </Typography>
               }
-              sx={{
-                width: "45%",
-                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                  display: "none",
-                },
-                "& input[type=number]": {
-                  MozAppearance: "textfield",
-                },
-              }}
+              sx={{ width: "45%" }}
               value={descA}
               error={
                 parseFloat(descA) < 0 ||
-                  (isNaN(parseFloat(descA)) && descA !== "")
+                (isNaN(parseFloat(descA)) && descA !== "")
                   ? true
                   : false
               }
               helperText={
                 parseFloat(descA) < 0 ||
-                  (isNaN(parseFloat(descA)) && descA !== "")
+                (isNaN(parseFloat(descA)) && descA !== "")
                   ? "Introducir valor mayor que 0"
                   : null
               }
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratSemiBold",
-
+                  
                 },
               }}
               onChange={(c) =>
@@ -234,7 +225,7 @@ export const FormulaDialogMA = ({
               InputProps={{
                 style: {
                   fontFamily: "MontserratRegular",
-
+                  
                 },
               }}
             />
@@ -248,24 +239,17 @@ export const FormulaDialogMA = ({
             >
               <TextField
                 type={"number"}
-
+                
                 label={
                   <Typography sx={{ fontFamily: "MontserratBold" }}>
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
                 }
-                sx={{
-                  width: "45%", mr: 1, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
-                }}
+                sx={{ width: "45%", mr: 1, }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-
+                    
                   },
                 }}
                 error={
@@ -285,7 +269,7 @@ export const FormulaDialogMA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-
+                   
                   },
                 }}
               />
@@ -295,12 +279,7 @@ export const FormulaDialogMA = ({
                   <Typography
                     sx={{
                       fontFamily: "MontserratBold",
-                      fontSize: [10, 10, 10, 14, 15, 18], "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                        display: "none",
-                      },
-                      "& input[type=number]": {
-                        MozAppearance: "textfield",
-                      },
+                      fontSize: [10, 10, 10, 14, 15, 18],
                     }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
@@ -310,7 +289,7 @@ export const FormulaDialogMA = ({
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
-
+                
                   },
                 }}
                 value={descB}
@@ -330,7 +309,7 @@ export const FormulaDialogMA = ({
                 InputProps={{
                   style: {
                     fontFamily: "MontserratRegular",
-
+                    
                   },
                 }}
               />
@@ -340,10 +319,10 @@ export const FormulaDialogMA = ({
       </DialogContent>
 
       <Grid
-        sx={{ width: "100%", justifyContent: "space-evenly", display: "flex", mb: 2 }}
+        sx={{ width: "100%", justifyContent: "space-evenly", display: "flex" , mb: 2}}
       >
         <Button
-
+          
           className="cancelar"
           onClick={() => close()}
         >
