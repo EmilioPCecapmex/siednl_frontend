@@ -1138,9 +1138,9 @@ export const FichaTecnica = () => {
                       )
                       .map((row, index) => (
                         <TableRow>
-                          {TableCellFormat(row.AnioFiscal)}
-                          {TableCellFormat(row.Entidad.toUpperCase())}
-                          {TableCellFormat(row.Programa.toUpperCase())}
+                          {TableCellFormat(row.AnioFiscal || "")}
+                          {TableCellFormat(row.Entidad.toUpperCase() || "")}
+                          {TableCellFormat(row.Programa.toUpperCase() || "")}
                           {TableCellFormat(
                             row.Estado === "En Captura" &&
                               localStorage.getItem("Rol") === "Capturador"
@@ -1155,7 +1155,7 @@ export const FichaTecnica = () => {
                           )}
 
                           {TableCellFormat(
-                            moment(row.FechaCreacion, moment.ISO_8601)
+                            moment(row.FechaCreacion, moment.ISO_8601 || "")
                               .format("DD/MM/YYYY HH:mm:SS")
                               .toString()
                           )}
@@ -1163,7 +1163,7 @@ export const FichaTecnica = () => {
                           {TableCellFormat(
                             row.Estado === "En Captura"
                               ? "SIN ASIGNAR"
-                              : row.CreadoPor.toUpperCase()
+                              : row.CreadoPor.toUpperCase() || ""
                           )}
 
                           {TableCellFormat(
