@@ -1,8 +1,8 @@
 import axios from "axios";
 import { alertaError, alertaExito } from "../components/genericComponents/Alertas";
 
-export const buscador = (estado: any, Ins: any, setsate: Function, list: string, setsate2: Function) => {
-    axios
+export const buscador = async (estado: any, Ins: any, setsate: Function, list: string, setsate2: Function) => {
+    await axios
       .get(process.env.REACT_APP_APPLICATION_BACK + "/api/" + list, {
         params: {
           IdUsuario: localStorage.getItem("IdUsuario"),

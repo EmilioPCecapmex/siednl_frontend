@@ -1,12 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DownloadIcon from "@mui/icons-material/Download";
+import SearchIcon from "@mui/icons-material/Search";
 import {
-  Grid,
+  Autocomplete,
+  Button,
   FormControl,
+  Grid,
   IconButton,
-  MenuItem,
-  Select,
+  InputBase,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -14,32 +17,22 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Tooltip,
-  InputLabel,
-  Paper,
-  InputBase,
-  Button,
   TableSortLabel,
-  Autocomplete,
   TextField,
-  useMediaQuery,
+  Tooltip,
+  useMediaQuery
 } from "@mui/material";
+import { GridColDef } from "@mui/x-data-grid";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { IEntidad } from "../../components/appsDialog/AppsDialog";
+import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
-import { queries } from "../../queries";
 import { buscador } from "../../services/servicesGlobals";
-import SearchIcon from "@mui/icons-material/Search";
 import { estados, heads } from "../../services/validations";
-import { GridColDef } from "@mui/x-data-grid";
-import DataGridTable from "../../components/genericComponents/DataGridTable";
-import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
-import { alertaError } from "../../components/genericComponents/Alertas";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
@@ -47,7 +40,6 @@ export let setResumeDefaultMA = () => {
 
 export const MetaAnual = () => {
   const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
 
   useEffect(() => {
     setShowResume(true);
@@ -92,33 +84,13 @@ export const MetaAnual = () => {
   const [estadoma, setEstadoMA] = useState("TODOS");
   const [estado, setEstado] = useState("");
   const [IdEntidad, setIdEntidad] = useState("");
-  const [institucionesb, setInstitucionesb] = useState("TODOS");
 
   interface IEntidadLabel {
     Id: string;
     Label: string;
   }
-  // const objetiInstitucion: IEntidad = {
-  //   //ClaveSiregob: null,
-  //   //ControlInterno: "",
-  //   Id: "0",
-  //   Nombre: "TODOS",
-  //   NombreTipoEntidad: "",
-  //   EntidadPerteneceA: "",
-  //   Direccion: "",
-  //   Telefono: "",
-  //   IdEntidadPerteneceA: "",
-  //   IdTipoEntidad: "",
-  //   FechaCreacion: "",
-  //   CreadoPor: "",
-  //   UltimaActualizacion: "",
-  //   ModificadoPor: "",
-  //   Titular: "",
-  // };
 
   const objetiInstitucion: IEntidadLabel = {
-    //ClaveSiregob: null,
-    //ControlInterno: "",
     Id: "0",
     Label: "TODOS",
   };
@@ -340,14 +312,6 @@ export const MetaAnual = () => {
   useEffect(() => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
-
-  // buscador(
-  //   estadoma,
-  //   institucionesb,
-  //   setMa,
-  //   "list-metaAnual",
-  //   setUrl
-  // );
 
   const getListadoMA = () => {
     buscador(
@@ -690,17 +654,7 @@ export const MetaAnual = () => {
         />
       </Grid>
 
-      {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
-        <Header
-          details={{
-            name1: "Inicio",
-            path1: "../home",
-            name2: "Meta Anual",
-            path2: "../metaAnual",
-            name3: "",
-          }}
-        />
-      </Grid> */}
+     
       <Grid
         container
         item
@@ -880,13 +834,7 @@ export const MetaAnual = () => {
                       }
                       options={estados}
                       onChange={(event, newValue) => {
-                        // v.target.value === "TODOS"
-                        //   ? findText(
-                        //       findTextStr,
-                        //       "0",
-                        //       findInstStr === "TODOS" ? "0" : findInstStr
-                        //     )
-                        //   : findText(findTextStr, v.target.value, findInstStr);
+                      
                         if (widthCondition()) {
                           setEstadoMA(newValue || "");
                         } else {
@@ -919,13 +867,7 @@ export const MetaAnual = () => {
                     <IconButton
                       // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
-                        buscador(
-                          estadoma,
-                          institucionesb,
-                          setMa,
-                          "list-metaAnual",
-                          setUrl
-                        );
+                        getListadoMA();
                       }}
                     >
                       <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
