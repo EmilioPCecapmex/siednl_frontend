@@ -1,91 +1,53 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
-import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import {
-  Grid,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Tooltip,
-  IconButton,
-  TablePagination,
-  Select,
-  FormControl,
-  MenuItem,
-  InputLabel,
-  Paper,
-  Button,
-  InputBase,
-  TableSortLabel,
-  Autocomplete,
-  TextField,
-  useMediaQuery,
-} from "@mui/material";
-import axios from "axios";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DownloadIcon from "@mui/icons-material/Download";
 import SearchIcon from "@mui/icons-material/Search";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import {
+  Autocomplete,
+  Button,
+  FormControl,
+  Grid,
+  IconButton,
+  InputBase,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+  TextField,
+  Tooltip,
+  useMediaQuery,
+} from "@mui/material";
+import { GridColDef } from "@mui/x-data-grid";
+import axios from "axios";
 import moment from "moment";
-import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
+import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import ComentDialogFT from "../../components/modalsFT/ModalComentariosFT";
 import ModalVerResumenFT from "../../components/modalsFT/ModalVerResumenFT";
-import Swal from "sweetalert2";
-import { queries } from "../../queries";
-import { IEntidad } from "../../components/appsDialog/AppsDialog";
+import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
-import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
-import { GridColDef } from "@mui/x-data-grid";
-import DataGridTable from "../../components/genericComponents/DataGridTable";
-import { alertaError } from "../../components/genericComponents/Alertas";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
 };
 
 export const FichaTecnica = () => {
-  
-  const getFT = (setstate: Function, estado: any) => {
-    axios
-      .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-fichaTecnica", {
-        params: {
-          IdUsuario: localStorage.getItem("IdUsuario"),
-          IdEntidad: localStorage.getItem("IdEntidad"),
-          Rol: localStorage.getItem("Rol"),
-          Estado: estado || "TODOS",
-        },
-        headers: {
-          Authorization: localStorage.getItem("jwtToken") || "",
-        },
-      })
-      .then((r) => {
-        //setft(r.data.data)
-        if (r.data.data.length === 0) {
-          alertaError(
-            "El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR"
-          );
-          // setUrl("")
-        } else {
-          // setUrl("")
-          setstate(r.data.data);
-        }
-
-        //setFtFiltered(r.data.data);
-      })
-      .catch((err) => {});
-  };
-
   useEffect(() => {
     setShowResume(true);
   }, []);
 
   const returnMain = () => {
     setShowResume(true);
-    getListadoFT()
+    getListadoFT();
   };
 
   const [openModalVerResumenFT, setOpenModalVerResumenFT] = useState(false);
@@ -168,7 +130,7 @@ export const FichaTecnica = () => {
   };
 
   useEffect(() => {
-    getListadoFT()
+    getListadoFT();
     setEstadoFT("TODOS");
     validaFechaCaptura();
   }, [showResume]);
@@ -369,7 +331,7 @@ export const FichaTecnica = () => {
   const [url, setUrl] = useState(window.location.href);
 
   useEffect(() => {
-    getListadoFT()
+    getListadoFT();
   }, [actualizacion]);
 
   const actualizaContador = () => {
@@ -378,43 +340,44 @@ export const FichaTecnica = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
+console.log('hola');
 
-    let Arrayfiltro: IIFT[];
-    Arrayfiltro = [];
+    getListadoFT().then(() => {
+      
+      let Arrayfiltro: IIFT[];
+      Arrayfiltro = [];
+      
+      Arrayfiltro = ftxFiltered;console.log('Arrayfiltro',Arrayfiltro);
+      console.log('findTextStr',findTextStr);
+      
+      // eslint-disable-next-line array-callback-return
+      let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
+        if (
+          elemento.AnioFiscal.toString()
+            .toLocaleLowerCase()
+            .includes(findTextStr.toLocaleLowerCase()) ||
+          elemento.Entidad.toString()
+            .toLocaleLowerCase()
+            .includes(findTextStr.toLocaleLowerCase()) ||
+          elemento.Programa.toString()
+            .toLocaleLowerCase()
+            .includes(findTextStr.toLocaleLowerCase()) ||
+          elemento.Estado.toString()
+            .toLocaleLowerCase()
+            .includes(findTextStr.toLocaleLowerCase()) ||
+          elemento.FechaCreacion.toString()
+            .toLocaleLowerCase()
+            .includes(findTextStr.toLocaleLowerCase()) ||
+          elemento.CreadoPor.toString()
+            .toLocaleLowerCase()
+            .includes(findTextStr.toLocaleLowerCase())
+        ) {
+          return elemento;
+        }
+      });
 
-    if (ftxFiltered.length !== 0) {
-      Arrayfiltro = ftxFiltered;
-    } else {
-      Arrayfiltro = ftxFiltered;
-    }
-
-    // eslint-disable-next-line array-callback-return
-    let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
-      if (
-        elemento.AnioFiscal.toString()
-          .toLocaleLowerCase()
-          .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Entidad.toString()
-          .toLocaleLowerCase()
-          .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Programa.toString()
-          .toLocaleLowerCase()
-          .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Estado.toString()
-          .toLocaleLowerCase()
-          .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.FechaCreacion.toString()
-          .toLocaleLowerCase()
-          .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.CreadoPor.toString()
-          .toLocaleLowerCase()
-          .includes(findTextStr.toLocaleLowerCase())
-      ) {
-        return elemento;
-      }
+      setFtFiltered(ResultadoBusqueda);
     });
-
-    setFtFiltered(ResultadoBusqueda);
   };
 
   useEffect(() => {
@@ -784,15 +747,29 @@ export const FichaTecnica = () => {
     );
   };
 
-  const getListadoFT=()=>{
-    buscador(
-      estadoft,
-      localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
-      setft,
-      "list-fichaTecnica",
-      setUrl
-    );
-  }
+  // const getListadoFT=()=>{
+  //   buscador(
+  //     estadoft,
+  //     localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
+  //     setft,
+  //     "list-fichaTecnica",
+  //     setUrl
+  //   );
+  // }
+
+  const getListadoFT = () => {
+    return new Promise((resolve, reject) => {
+      buscador(
+        estadoft,
+        localStorage.getItem("Rol")?.toUpperCase() === "ADMINISTRADOR"
+          ? "TODOS"
+          : localStorage.getItem("IdEntidad"),
+        setft,
+        "list-fichaTecnica",
+        setUrl
+      );
+    });
+  };
 
   return (
     <Grid container justifyContent={"space-between"}>
@@ -1018,16 +995,10 @@ export const FichaTecnica = () => {
                     <IconButton
                       // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
-                        buscador(
-                          estadoft,
-                          institucionesb,
-                          setft,
-                          "list-fichaTecnica",
-                          setUrl
-                        );
+                        getListadoFT();
                       }}
                     >
-                       <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }}/>
+                      <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
                     </IconButton>
                   </Grid>
                 )}
@@ -1092,7 +1063,7 @@ export const FichaTecnica = () => {
                       aria-label="search"
                       onClick={() => filtrarDatos()}
                     >
-                       <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }}/>
+                      <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
                     </IconButton>
                   </Paper>
                 </Grid>
@@ -1262,15 +1233,13 @@ export const FichaTecnica = () => {
                                         fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                       },
 
-                                      "@media (min-width: 601px) and (max-width: 960px)":
-                                        {
-                                          fontSize: 20, // Pantalla pequeña (md)
-                                        },
+                                      "@media (min-width: 601px) and (max-width: 960px)": {
+                                        fontSize: 20, // Pantalla pequeña (md)
+                                      },
 
-                                      "@media (min-width: 961px) and (max-width: 1280px)":
-                                        {
-                                          fontSize: 20, // Pantalla mediana (lg)
-                                        },
+                                      "@media (min-width: 961px) and (max-width: 1280px)": {
+                                        fontSize: 20, // Pantalla mediana (lg)
+                                      },
 
                                       "@media (min-width: 1281px)": {
                                         fontSize: 25, // Pantalla grande (xl)
@@ -1344,15 +1313,13 @@ export const FichaTecnica = () => {
                                           fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
 
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
+                                        "@media (min-width: 601px) and (max-width: 960px)": {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
 
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
@@ -1394,15 +1361,13 @@ export const FichaTecnica = () => {
                                           fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
 
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
+                                        "@media (min-width: 601px) and (max-width: 960px)": {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
 
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
@@ -1486,15 +1451,13 @@ export const FichaTecnica = () => {
                                           fontSize: 20, // Pantalla extra pequeña (xs y sm)
                                         },
 
-                                        "@media (min-width: 601px) and (max-width: 960px)":
-                                          {
-                                            fontSize: 20, // Pantalla pequeña (md)
-                                          },
+                                        "@media (min-width: 601px) and (max-width: 960px)": {
+                                          fontSize: 20, // Pantalla pequeña (md)
+                                        },
 
-                                        "@media (min-width: 961px) and (max-width: 1280px)":
-                                          {
-                                            fontSize: 20, // Pantalla mediana (lg)
-                                          },
+                                        "@media (min-width: 961px) and (max-width: 1280px)": {
+                                          fontSize: 20, // Pantalla mediana (lg)
+                                        },
 
                                         "@media (min-width: 1281px)": {
                                           fontSize: 25, // Pantalla grande (xl)
@@ -1520,7 +1483,6 @@ export const FichaTecnica = () => {
                               <MostrarLista st="" Id={row.IdFt} />
                             </Grid>
                           )}
-
                         </TableRow>
                       ))}
                   </TableBody>
