@@ -98,27 +98,29 @@ export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
                     variant="text"
                     onClick={() => {
                      // verNotificacion(index.Id, setNotificaciones, setSinNotificaciones );
-                     fnc();
+                    
                       if (index.Titulo === "MIR") {
-                       localStorage.setItem("IdNotificacion", index.IdDocumento)
+                      
                        navigate("../mir" + "?Id=" + index.IdDocumento)
+                       localStorage.setItem("IdNotificacion", index.IdDocumento)
                       }
-                      if (index.Titulo === "MA") {
+                      else if (index.Titulo === "MA") {
                         localStorage.setItem("IdNotificacion", index.IdDocumento)
                         navigate("../metaAnual" + "?Id=" + index.IdDocumento);
                       }
-                      if (index.Titulo === "FT") {
+                      else if (index.Titulo === "FT") {
                         localStorage.setItem("IdNotificacion", index.IdDocumento)
                         navigate(
                           "../fichaTecnica" + "?Id=" + index.IdDocumento
                         );
                       }
-                      if (index.Titulo === "RF") {
+                      else if (index.Titulo === "RF") {
                         localStorage.setItem("IdNotificacion", index.IdDocumento)
                         navigate(
                           "../Raffi" + "?Id=" + index.IdDocumento
                         );
                       }
+                      fnc();
                     }}
                   >
                     <Typography

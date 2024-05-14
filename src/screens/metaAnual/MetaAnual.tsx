@@ -327,7 +327,6 @@ export const MetaAnual = () => {
 
   useEffect(() => {
     getListadoMA();
-    console.log(ma);
     
   }, []); //actualizacion
 

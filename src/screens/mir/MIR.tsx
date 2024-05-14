@@ -474,6 +474,7 @@ export const MIR = () => {
       setUrl
     );
   };
+
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     findTextStr.length !== 0 ? setMirsFiltered(mirsFiltered) : null;
@@ -763,7 +764,7 @@ export const MIR = () => {
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       onClick={() => {
-                        localStorage.setItem("IdNotificacion", "");
+                        // localStorage.setItem("IdNotificacion", "");
                         getListadoMirs();
                       }}
                     >

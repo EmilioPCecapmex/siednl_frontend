@@ -339,8 +339,6 @@ export const FichaTecnica = () => {
   };
 
   const filtrarDatos = () => {
-    // eslint-disable-next-line array-callback-return
-console.log('hola');
 
     getListadoFT().then(() => {
       
