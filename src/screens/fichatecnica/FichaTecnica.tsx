@@ -338,7 +338,6 @@ export const FichaTecnica = () => {
   };
 
   const filtrarDatos = () => {
-    // eslint-disable-next-line array-callback-return
 
     getListadoFT().then(() => {
       
@@ -961,7 +960,7 @@ export const FichaTecnica = () => {
                   </FormControl>
                 </Grid>
 
-                
+              
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
@@ -972,7 +971,7 @@ export const FichaTecnica = () => {
                       <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
                     </IconButton>
                   </Grid>
-                
+               
               </Grid>
 
               <Grid

@@ -1,7 +1,6 @@
-import { Typography, Grid, Breadcrumbs, Link } from "@mui/material";
+import { Breadcrumbs, Grid, Link, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { TimerCounter } from "../timer/TimerCounter";
-import NotificationsPanel from "../notifications/NotificationsPanel";
 
 interface BreadcrumbsDetails {
   name1: string;

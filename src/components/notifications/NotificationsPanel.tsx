@@ -111,40 +111,31 @@ export default function NotificationsPanel({
                   <Button
                     variant="text"
                     onClick={() => {
-                      // verNotificacion(index.Id, setNotificaciones, setSinNotificaciones );
-
+                     // verNotificacion(index.Id, setNotificaciones, setSinNotificaciones );
+                    
                       if (index.Titulo === "MIR") {
-                        localStorage.setItem(
-                          "IdNotificacion",
-                          index.IdDocumento
-                        );
-                        navigate("../mir" + "?Id=" + index.IdDocumento);
+                      
+                       navigate("../mir" + "?Id=" + index.IdDocumento)
+                       localStorage.setItem("IdNotificacion", index.IdDocumento)
                       }
-                      if (index.Titulo === "MA") {
-                        localStorage.setItem(
-                          "IdNotificacion",
-                          index.IdDocumento
-                        );
+                      else if (index.Titulo === "MA") {
+                        localStorage.setItem("IdNotificacion", index.IdDocumento)
                         navigate("../metaAnual" + "?Id=" + index.IdDocumento);
                       }
-                      if (index.Titulo === "FT") {
-                        localStorage.setItem(
-                          "IdNotificacion",
-                          index.IdDocumento
-                        );
+                      else if (index.Titulo === "FT") {
+                        localStorage.setItem("IdNotificacion", index.IdDocumento)
                         navigate(
                           "../fichaTecnica" + "?Id=" + index.IdDocumento
                         );
                       }
-                      if (index.Titulo === "RF") {
-                        localStorage.setItem(
-                          "IdNotificacion",
-                          index.IdDocumento
+                      else if (index.Titulo === "RF") {
+                        localStorage.setItem("IdNotificacion", index.IdDocumento)
+                        navigate(
+                          "../Raffi" + "?Id=" + index.IdDocumento
                         );
                         navigate("../Raffi" + "?Id=" + index.IdDocumento);
                       }
                       fnc();
-                     // localStorage.setItem("IdNotificacion", "");
                     }}
                   >
                     <Typography
