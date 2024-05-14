@@ -17,6 +17,7 @@ import React, { useEffect, useState } from "react";
 import { alertaInfo } from "../genericComponents/Alertas";
 import { ILista, IListaProgramas, IMIR, IMIREdit } from "./interfaces mir/IMIR";
 import { getListPedColumns, getLista, getListasLoginProgramas } from "../../services/mir_services/servicesMIR";
+import { clearInfo } from "../genericComponents/GenericMethods";
 export function TabEncabezado({
   edit,
   show,
