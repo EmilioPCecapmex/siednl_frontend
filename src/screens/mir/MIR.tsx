@@ -200,11 +200,7 @@ export const MIR = () => {
     let Arrayfiltro: IIMir[];
     Arrayfiltro = [];
 
-    if (mirxFiltered.length !== 0) {
       Arrayfiltro = mirxFiltered;
-    } else {
-      Arrayfiltro = mirxFiltered;
-    }
 
     // eslint-disable-next-line array-callback-return
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
@@ -815,8 +811,11 @@ export const MIR = () => {
                       sx={{
                         ml: 1,
                         flex: 1,
-                        fontSize: [10, 10, 15, 15, 18, 20],
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
                         textAlign: "center",
+                        fontSize: [10, 10, 15, 15, 18, 20],
                       }}
                       placeholder="Buscar"
                       value={findTextStr}
@@ -834,6 +833,7 @@ export const MIR = () => {
                     <IconButton
                       type="button"
                       aria-label="Buscar"
+                      sx={{ p: "10px" }}
                       onClick={() => filtrarDatos()}
                     >
                       <SearchIcon sx={{ fontSize: [25, 25, 30, 30, 30] }} />

@@ -293,9 +293,7 @@ export const FichaTecnica = () => {
     }
   };
 
-  useEffect(() => {
-    findText(findTextStr, findSelectStr, findInstStr);
-  }, [findTextStr, findInstStr, findSelectStr]);
+  
 
   const [title_texto, setTitle] = useState("");
 
@@ -347,8 +345,10 @@ console.log('hola');
       let Arrayfiltro: IIFT[];
       Arrayfiltro = [];
       
-      Arrayfiltro = ftxFiltered;console.log('Arrayfiltro',Arrayfiltro);
-      console.log('findTextStr',findTextStr);
+      Arrayfiltro = ftxFiltered;
+      console.log('Arrayfiltro',Arrayfiltro);
+      
+      
       
       // eslint-disable-next-line array-callback-return
       let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
@@ -713,6 +713,10 @@ console.log('hola');
       width: 200,
     },
   ];
+
+  useEffect(() => {
+    findText(findTextStr, findSelectStr, findInstStr);
+  }, [findTextStr, findInstStr, findSelectStr]);
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
