@@ -990,7 +990,7 @@ console.log('hola');
                   </FormControl>
                 </Grid>
 
-                {localStorage.getItem("Rol") === "Administrador" && (
+              
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
@@ -1001,7 +1001,7 @@ console.log('hola');
                       <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
                     </IconButton>
                   </Grid>
-                )}
+               
               </Grid>
 
               <Grid

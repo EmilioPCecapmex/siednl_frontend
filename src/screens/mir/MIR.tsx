@@ -46,7 +46,6 @@ export let setResumeDefaultMIR = () => {
 };
 
 export const MIR = () => {
-
   const objetiInstitucion: ILista = { Id: "0", Label: "TODOS" };
 
   const [instituciones, setInstituciones] = useState<ILista>();
@@ -187,7 +186,6 @@ export const MIR = () => {
     onChangeActionNumberValue();
   };
 
-  
   const [actualizacion, setActualizacion] = useState(0);
 
   const actualizaContador = () => {
@@ -465,15 +463,17 @@ export const MIR = () => {
       width: 200,
     },
   ];
-  const getListadoMirs=()=>{
+  const getListadoMirs = () => {
     buscador(
       estadomir,
-      localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
+      localStorage.getItem("Rol")?.toUpperCase() === "ADMINISTRADOR"
+        ? "TODOS"
+        : localStorage.getItem("IdEntidad"),
       setMirs,
       "list-mir",
       setUrl
     );
-  }
+  };
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     findTextStr.length !== 0 ? setMirsFiltered(mirsFiltered) : null;
@@ -481,12 +481,10 @@ export const MIR = () => {
   }, [findTextStr]);
 
   const [url, setUrl] = useState(window.location.href);
-  
-  
 
   useEffect(() => {
-    getListadoMirs()
-  }, []);//actualizacion
+    getListadoMirs();
+  }, []); //actualizacion
 
   useEffect(() => {
     getInstituciones(setCatalogoInstituciones);
@@ -499,7 +497,6 @@ export const MIR = () => {
     validaFechaCaptura(setValidaFecha, setTitle, "Mir");
     setEstadoMIR("TODOS");
   }, [showResume]);
-
 
   useEffect(() => {
     setMirsFiltered(mirs);
@@ -762,25 +759,18 @@ export const MIR = () => {
                   </Tooltip>
                 </Grid>
 
-                {localStorage.getItem("Rol") === "Administrador" && (
-
+               
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       onClick={() => {
                         localStorage.setItem("IdNotificacion", "");
-                        buscador(
-                          estadomir,
-                          instituciones?.Label,
-                          setMirs,
-                          "list-mir",
-                          setUrl,
-                        );
+                        getListadoMirs();
                       }}
                     >
-                      <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }}/>
+                      <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
                     </IconButton>
                   </Grid>
-                )}
+                
               </Grid>
 
               <Grid
@@ -972,8 +962,8 @@ export const MIR = () => {
                           )}
 
                           {TableCellFormat(row.CreadoPor.toUpperCase())}
-                          {TableCellFormat( 
-                          <Grid sx={{ display: "flex" }}>
+                          {TableCellFormat(
+                            <Grid sx={{ display: "flex" }}>
                               <Tooltip
                                 PopperProps={{
                                   modifiers: [
@@ -1112,11 +1102,10 @@ export const MIR = () => {
                                 </span>
                               </Tooltip>
                               <MostrarLista st="" Id={row.Id} />
-                            </Grid>)}
-
+                            </Grid>
+                          )}
                         </TableRow>
                       ))}
-
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -1159,5 +1148,3 @@ export const MIR = () => {
     </Grid>
   );
 };
-
-
