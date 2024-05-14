@@ -1139,7 +1139,7 @@ export const FichaTecnica = () => {
                       .map((row, index) => (
                         <TableRow>
                           {TableCellFormat(row.AnioFiscal || "")}
-                          {TableCellFormat(row.Entidad.toUpperCase() || "")}
+                          {TableCellFormat(row.Entidad || "")}
                           {TableCellFormat(row.Programa.toUpperCase() || "")}
                           {TableCellFormat(
                             row.Estado === "En Captura" &&
@@ -1163,7 +1163,7 @@ export const FichaTecnica = () => {
                           {TableCellFormat(
                             row.Estado === "En Captura"
                               ? "SIN ASIGNAR"
-                              : row.CreadoPor.toUpperCase() || ""
+                              : row.CreadoPor || ""
                           )}
 
                           {TableCellFormat(
