@@ -1042,7 +1042,7 @@ export const MetaAnual = () => {
                           {TableCellFormat(
                             row.Estado === "En Captura"
                               ? "SIN ASIGNAR"
-                              : row.CreadoPor.toUpperCase()
+                              :  row.CreadoPor?.toUpperCase() || ""
                           )}
 
                           {TableCellFormat(
