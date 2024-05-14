@@ -20,7 +20,7 @@ import {
   TableSortLabel,
   TextField,
   Tooltip,
-  useMediaQuery
+  useMediaQuery,
 } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import axios from "axios";
@@ -33,6 +33,7 @@ import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
+import { TableCellFormat, widthCondition } from "../../components/genericComponents/GenericMethods";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
@@ -314,20 +315,21 @@ export const MetaAnual = () => {
   }, [findTextStr, findInstStr, findSelectStr]);
 
   const getListadoMA = () => {
-    buscador(
-      estadoma,
-      localStorage.getItem("Rol")?.toUpperCase() === "ADMINISTRADOR"
-        ? "TODOS"
-        : localStorage.getItem("IdEntidad"),
-      setMa,
-      "list-metaAnual",
-      setUrl
-    );
+    return new Promise((resolve, reject) => {
+      buscador(
+        estadoma,
+        localStorage.getItem("Rol")?.toUpperCase() === "ADMINISTRADOR"
+          ? "TODOS"
+          : localStorage.getItem("IdEntidad"),
+        setMa,
+        "list-metaAnual",
+        setUrl
+      );
+    });
   };
 
   useEffect(() => {
     getListadoMA();
-    console.log(ma);
     
   }, []); //actualizacion
 
@@ -339,14 +341,13 @@ export const MetaAnual = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
+
+    getListadoMA().then(() => {
+
     let Arrayfiltro: IIMa[];
     Arrayfiltro = [];
-
-    if (maxFiltered.length !== 0) {
-      Arrayfiltro = maxFiltered;
-    } else {
-      Arrayfiltro = maxFiltered;
-    }
+    Arrayfiltro = maxFiltered;
+    
 
     // eslint-disable-next-line array-callback-return
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
@@ -375,6 +376,7 @@ export const MetaAnual = () => {
     });
 
     setMaFiltered(ResultadoBusqueda);
+  });
   };
 
   const handleChange = (dato: string) => {
@@ -607,32 +609,7 @@ export const MetaAnual = () => {
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
-  const widthCondition = () => {
-    return (
-      localStorage.getItem("Rol") === "Administrador" ||
-      localStorage.getItem("Rol") === "ADMINISTRADOR"
-    );
-  };
-
-  const TableCellFormat = (data: any) => {
-    return (
-      <>
-        <TableCell
-          sx={{
-            padding: "1px 15px 1px 0",
-            fontFamily: "MontserratRegular",
-            fontSize: [10, 10, 10, 15, 15, 18],
-            textAlign: "center",
-          }}
-          align="center"
-          component="th"
-          scope="row"
-        >
-          {data}
-        </TableCell>
-      </>
-    );
-  };
+  
 
   return (
     <Grid container justifyContent={"space-between"}>
@@ -654,7 +631,6 @@ export const MetaAnual = () => {
         />
       </Grid>
 
-     
       <Grid
         container
         item
@@ -834,7 +810,6 @@ export const MetaAnual = () => {
                       }
                       options={estados}
                       onChange={(event, newValue) => {
-                      
                         if (widthCondition()) {
                           setEstadoMA(newValue || "");
                         } else {
@@ -862,18 +837,16 @@ export const MetaAnual = () => {
                   </FormControl>
                 </Grid>
 
-                
-                  <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
-                    <IconButton
-                      // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
-                      onClick={() => {
-                        getListadoMA();
-                      }}
-                    >
-                      <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
-                    </IconButton>
-                  </Grid>
-                
+                <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
+                  <IconButton
+                    // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
+                    onClick={() => {
+                      getListadoMA();
+                    }}
+                  >
+                    <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
+                  </IconButton>
+                </Grid>
               </Grid>
 
               <Grid

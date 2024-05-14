@@ -44,6 +44,7 @@ import ComentDialogRF from "../../components/modalsRF/ModalComentariosRF";
 import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
 import { GridColDef } from "@mui/x-data-grid";
 import DataGridTable from "../../components/genericComponents/DataGridTable";
+import { TableCellFormat, widthCondition } from "../../components/genericComponents/GenericMethods";
 
 export const Raffi = () => {
   const [actionNumber, setActionNumber] = useState(0);
@@ -243,15 +244,12 @@ export const Raffi = () => {
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
 
+    getListadoRF().then(() => {
+
     let Arrayfiltro: IRaffi[];
     Arrayfiltro = [];
-
-    if (rfxFiltered.length !== 0) {
-      Arrayfiltro = rfxFiltered;
-    } else {
-      Arrayfiltro = rfFiltered;
-    }
-
+    Arrayfiltro = rfxFiltered;
+  
     // eslint-disable-next-line array-callback-return
     let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
       if (
@@ -277,8 +275,8 @@ export const Raffi = () => {
         return elemento;
       }
     });
-
     setRfxFiltered(ResultadoBusqueda);
+  });
   };
 
   useEffect(() => {
@@ -688,34 +686,10 @@ export const Raffi = () => {
     },
   ];
 
-  const widthCondition = () => {
-    return (
-      localStorage.getItem("Rol") === "Administrador" ||
-      localStorage.getItem("Rol") === "ADMINISTRADOR"
-    );
-  };
-
-  const TableCellFormat = (data: any) => {
-    return (
-      <>
-        <TableCell
-          sx={{
-            padding: "1px 15px 1px 0",
-            fontFamily: "MontserratRegular",
-            fontSize: [10, 10, 10, 15, 15, 18],
-            textAlign: "center",
-          }}
-          align="center"
-          component="th"
-          scope="row"
-        >
-          {data}
-        </TableCell>
-      </>
-    );
-  };
+ 
 
   const getListadoRF = () => {
+    return new Promise((resolve, reject) => {
     buscador(
       estadorf,
       localStorage.getItem("Rol")?.toUpperCase() === "ADMINISTRADOR"
@@ -725,6 +699,7 @@ export const Raffi = () => {
       "list-raffis",
       setUrl
     );
+  });
   };
 
   return (

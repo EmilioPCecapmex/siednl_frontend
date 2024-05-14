@@ -35,6 +35,7 @@ import ModalVerResumenFT from "../../components/modalsFT/ModalVerResumenFT";
 import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
+import { TableCellFormat, widthCondition } from "../../components/genericComponents/GenericMethods";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -338,7 +339,6 @@ export const FichaTecnica = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
-console.log('hola');
 
     getListadoFT().then(() => {
       
@@ -346,10 +346,7 @@ console.log('hola');
       Arrayfiltro = [];
       
       Arrayfiltro = ftxFiltered;
-      console.log('Arrayfiltro',Arrayfiltro);
-      
-      
-      
+        
       // eslint-disable-next-line array-callback-return
       let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
         if (
@@ -724,44 +721,12 @@ console.log('hola');
     setFindTextStr(dato);
   };
 
-  const widthCondition = () => {
-    return (
-      localStorage.getItem("Rol") === "Administrador" ||
-      localStorage.getItem("Rol") === "ADMINISTRADOR"
-    );
-  };
+  
 
-  const TableCellFormat = (data: any) => {
-    return (
-      <>
-        <TableCell
-          sx={{
-            padding: "1px 15px 1px 0",
-            fontFamily: "MontserratRegular",
-            fontSize: [10, 10, 10, 15, 15, 18],
-            textAlign: "center",
-          }}
-          align="center"
-          component="th"
-          scope="row"
-        >
-          {data}
-        </TableCell>
-      </>
-    );
-  };
-
-  // const getListadoFT=()=>{
-  //   buscador(
-  //     estadoft,
-  //     localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
-  //     setft,
-  //     "list-fichaTecnica",
-  //     setUrl
-  //   );
-  // }
+  
 
   const getListadoFT = () => {
+
     return new Promise((resolve, reject) => {
       buscador(
         estadoft,
@@ -772,7 +737,9 @@ console.log('hola');
         "list-fichaTecnica",
         setUrl
       );
+
     });
+
   };
 
   return (
@@ -994,7 +961,7 @@ console.log('hola');
                   </FormControl>
                 </Grid>
 
-                {localStorage.getItem("Rol") === "Administrador" && (
+                
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
@@ -1005,7 +972,7 @@ console.log('hola');
                       <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
                     </IconButton>
                   </Grid>
-                )}
+                
               </Grid>
 
               <Grid

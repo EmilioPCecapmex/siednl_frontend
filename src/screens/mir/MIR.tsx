@@ -38,6 +38,7 @@ import {
 } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
 import { getInstituciones } from "../../services/mir_services/servicesMIR";
+import { TableCellFormat, widthCondition } from "../../components/genericComponents/GenericMethods";
 
 export let resumeDefaultMIR = true;
 
@@ -46,7 +47,6 @@ export let setResumeDefaultMIR = () => {
 };
 
 export const MIR = () => {
-
   const objetiInstitucion: ILista = { Id: "0", Label: "TODOS" };
 
   const [instituciones, setInstituciones] = useState<ILista>();
@@ -187,7 +187,6 @@ export const MIR = () => {
     onChangeActionNumberValue();
   };
 
-  
   const [actualizacion, setActualizacion] = useState(0);
 
   const actualizaContador = () => {
@@ -196,39 +195,42 @@ export const MIR = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
+    localStorage.setItem("IdNotificacion","")
 
-    let Arrayfiltro: IIMir[];
-    Arrayfiltro = [];
+    getListadoMirs().then(() => {
+      let Arrayfiltro: IIMir[];
+      Arrayfiltro = [];
 
       Arrayfiltro = mirxFiltered;
 
-    // eslint-disable-next-line array-callback-return
-    let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
-      if (
-        elemento.AnioFiscal.toString()
-          .toLocaleLowerCase()
-          .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Entidad.toString()
-          .toLocaleLowerCase()
-          .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Programa.toString()
-          .toLocaleLowerCase()
-          .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.Estado.toString()
-          .toLocaleLowerCase()
-          .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.FechaCreacion.toString()
-          .toLocaleLowerCase()
-          .includes(findTextStr.toLocaleLowerCase()) ||
-        elemento.CreadoPor.toString()
-          .toLocaleLowerCase()
-          .includes(findTextStr.toLocaleLowerCase())
-      ) {
-        return elemento;
-      }
-    });
+      // eslint-disable-next-line array-callback-return
+      let ResultadoBusqueda = Arrayfiltro.filter((elemento) => {
+        if (
+          elemento.AnioFiscal.toString()
+            .toLocaleLowerCase()
+            .includes(findTextStr.toLocaleLowerCase()) ||
+          elemento.Entidad.toString()
+            .toLocaleLowerCase()
+            .includes(findTextStr.toLocaleLowerCase()) ||
+          elemento.Programa.toString()
+            .toLocaleLowerCase()
+            .includes(findTextStr.toLocaleLowerCase()) ||
+          elemento.Estado.toString()
+            .toLocaleLowerCase()
+            .includes(findTextStr.toLocaleLowerCase()) ||
+          elemento.FechaCreacion.toString()
+            .toLocaleLowerCase()
+            .includes(findTextStr.toLocaleLowerCase()) ||
+          elemento.CreadoPor.toString()
+            .toLocaleLowerCase()
+            .includes(findTextStr.toLocaleLowerCase())
+        ) {
+          return elemento;
+        }
+      });
 
-    setMirsFiltered(ResultadoBusqueda);
+      setMirsFiltered(ResultadoBusqueda);
+    });
   };
 
   const [estado, setEstado] = useState("");
@@ -461,15 +463,19 @@ export const MIR = () => {
       width: 200,
     },
   ];
-  const getListadoMirs=()=>{
-    buscador(
-      estadomir,
-      localStorage.getItem("Rol")?.toUpperCase()==='ADMINISTRADOR'?'TODOS':localStorage.getItem("IdEntidad"),
-      setMirs,
-      "list-mir",
-      setUrl
-    );
-  }
+  const getListadoMirs = () => {
+    return new Promise((resolve, reject) => {
+      buscador(
+        estadomir,
+        localStorage.getItem("Rol")?.toUpperCase() === "ADMINISTRADOR"
+          ? "TODOS"
+          : localStorage.getItem("IdEntidad"),
+        setMirs,
+        "list-mir",
+        setUrl
+      );
+    });
+  };
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     findTextStr.length !== 0 ? setMirsFiltered(mirsFiltered) : null;
@@ -477,12 +483,10 @@ export const MIR = () => {
   }, [findTextStr]);
 
   const [url, setUrl] = useState(window.location.href);
-  
-  
 
   useEffect(() => {
-    getListadoMirs()
-  }, []);//actualizacion
+    getListadoMirs();
+  }, []); //actualizacion
 
   useEffect(() => {
     getInstituciones(setCatalogoInstituciones);
@@ -496,7 +500,6 @@ export const MIR = () => {
     setEstadoMIR("TODOS");
   }, [showResume]);
 
-
   useEffect(() => {
     setMirsFiltered(mirs);
   }, [mirs]);
@@ -509,32 +512,7 @@ export const MIR = () => {
     setShowResume(true);
   }, []);
 
-  const widthCondition = () => {
-    return (
-      localStorage.getItem("Rol") === "Administrador" ||
-      localStorage.getItem("Rol") === "ADMINISTRADOR"
-    );
-  };
 
-  const TableCellFormat = (data: any) => {
-    return (
-      <>
-        <TableCell
-          sx={{
-            padding: "1px 15px 1px 0",
-            fontFamily: "MontserratRegular",
-            fontSize: [10, 10, 10, 15, 15, 18],
-            textAlign: "center",
-          }}
-          align="center"
-          component="th"
-          scope="row"
-        >
-          {data}
-        </TableCell>
-      </>
-    );
-  };
 
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
@@ -758,8 +736,7 @@ export const MIR = () => {
                   </Tooltip>
                 </Grid>
 
-                {localStorage.getItem("Rol") === "Administrador" && (
-
+               
                   <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       onClick={() => {
@@ -769,14 +746,14 @@ export const MIR = () => {
                           instituciones?.Label,
                           setMirs,
                           "list-mir",
-                          setUrl,
+                          setUrl
                         );
                       }}
                     >
-                      <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }}/>
+                      <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
                     </IconButton>
                   </Grid>
-                )}
+                
               </Grid>
 
               <Grid
@@ -820,10 +797,12 @@ export const MIR = () => {
                       placeholder="Buscar"
                       value={findTextStr}
                       onChange={(e) => {
+                        
                         handleChange(e.target.value);
                       }}
                       onKeyPress={(ev) => {
                         if (ev.key === "Enter") {
+                          
                           filtrarDatos();
                           ev.preventDefault();
                           return false;
@@ -972,8 +951,8 @@ export const MIR = () => {
                           )}
 
                           {TableCellFormat(row.CreadoPor.toUpperCase())}
-                          {TableCellFormat( 
-                          <Grid sx={{ display: "flex" }}>
+                          {TableCellFormat(
+                            <Grid sx={{ display: "flex" }}>
                               <Tooltip
                                 PopperProps={{
                                   modifiers: [
@@ -1112,11 +1091,10 @@ export const MIR = () => {
                                 </span>
                               </Tooltip>
                               <MostrarLista st="" Id={row.Id} />
-                            </Grid>)}
-
+                            </Grid>
+                          )}
                         </TableRow>
                       ))}
-
                   </TableBody>
                 </Table>
               </TableContainer>
@@ -1159,5 +1137,3 @@ export const MIR = () => {
     </Grid>
   );
 };
-
-

@@ -16,10 +16,17 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
-import { obtenerNotificaciones, verNotificacion } from "../genericComponents/axiosGenericos";
+import {
+  obtenerNotificaciones,
+  verNotificacion,
+} from "../genericComponents/axiosGenericos";
 import { INotificacion } from "./NotificacionesInterfaz";
 
-export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
+export default function NotificationsPanel({
+  fnc = () => {},
+}: {
+  fnc: Function;
+}) {
   const navigate = useNavigate();
 
   const [notificaciones, setNotificaciones] = useState<Array<INotificacion>>();
@@ -59,13 +66,20 @@ export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
         },
       }}
     >
-      
-
       {sinNotificaciones ? (
-        <List sx={{ width: { xs: "100vw", sm: "30vw", md: "20vw", lg: "20vw", xl: "20vw" }, height: "auto" }}>
+        <List
+          sx={{
+            width: {
+              xs: "100vw",
+              sm: "30vw",
+              md: "20vw",
+              lg: "20vw",
+              xl: "20vw",
+            },
+            height: "auto",
+          }}
+        >
           {notificaciones?.map((index) => (
-            
-            
             <ListItem key={index.Id || Math.random()} disablePadding>
               <Box
                 sx={{
@@ -87,7 +101,7 @@ export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
                   <Typography
                     sx={{
                       fontFamily: "MontserratSemiBold",
-                   
+
                       color: "#af8c55",
                     }}
                   >
@@ -97,39 +111,51 @@ export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
                   <Button
                     variant="text"
                     onClick={() => {
-                     // verNotificacion(index.Id, setNotificaciones, setSinNotificaciones );
-                     fnc();
+                      // verNotificacion(index.Id, setNotificaciones, setSinNotificaciones );
+
                       if (index.Titulo === "MIR") {
-                       localStorage.setItem("IdNotificacion", index.IdDocumento)
-                       navigate("../mir" + "?Id=" + index.IdDocumento)
+                        localStorage.setItem(
+                          "IdNotificacion",
+                          index.IdDocumento
+                        );
+                        navigate("../mir" + "?Id=" + index.IdDocumento);
                       }
                       if (index.Titulo === "MA") {
-                        localStorage.setItem("IdNotificacion", index.IdDocumento)
+                        localStorage.setItem(
+                          "IdNotificacion",
+                          index.IdDocumento
+                        );
                         navigate("../metaAnual" + "?Id=" + index.IdDocumento);
                       }
                       if (index.Titulo === "FT") {
-                        localStorage.setItem("IdNotificacion", index.IdDocumento)
+                        localStorage.setItem(
+                          "IdNotificacion",
+                          index.IdDocumento
+                        );
                         navigate(
                           "../fichaTecnica" + "?Id=" + index.IdDocumento
                         );
                       }
                       if (index.Titulo === "RF") {
-                        localStorage.setItem("IdNotificacion", index.IdDocumento)
-                        navigate(
-                          "../Raffi" + "?Id=" + index.IdDocumento
+                        localStorage.setItem(
+                          "IdNotificacion",
+                          index.IdDocumento
                         );
+                        navigate("../Raffi" + "?Id=" + index.IdDocumento);
                       }
+                      fnc();
+                     // localStorage.setItem("IdNotificacion", "");
                     }}
                   >
                     <Typography
                       sx={{
                         fontFamily: "MontserratSemiBold",
-                        
+
                         color: "blue",
                       }}
                     >
                       {" "}
-                      { "Ver"}
+                      {"Ver"}
                     </Typography>
                   </Button>
 
@@ -157,7 +183,7 @@ export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
                   <Typography
                     sx={{
                       fontFamily: "MontserratLight",
-                   
+
                       ml: "1vw",
                       mt: "1vh",
                     }}
@@ -171,7 +197,12 @@ export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
                       height: "1vh",
                     }}
                     value="check"
-                    onClick={() => verNotificacion(index.Id, setNotificaciones, setSinNotificaciones)
+                    onClick={() =>
+                      verNotificacion(
+                        index.Id,
+                        setNotificaciones,
+                        setSinNotificaciones
+                      )
                     }
                   >
                     <CheckIcon />
@@ -205,8 +236,6 @@ export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
       )}
 
       <Divider />
-
-      
     </Box>
   );
 
@@ -249,7 +278,7 @@ export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
         sx={{
           display: "flex",
           maxHeight: "90vh",
-       //   overflow: "auto",
+          //   overflow: "auto",
           alignItems: "flex-end",
 
           // ...(isXsScreen
@@ -295,7 +324,6 @@ export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
             justifyContent: "center",
             overflow: "auto",
           }}
-          
         >
           <Grid
             xl={12}
@@ -316,27 +344,23 @@ export default function NotificationsPanel({fnc=()=>{}}:{fnc:Function}) {
           </Grid>
 
           <Divider />
-          
         </Grid>
         <Grid
-            sx={{
-              justifyContent: "center",
-              alignItems: "flex-end",
-              display: "flex",
-              //height: "10%",
-            }}
-            
-          
+          sx={{
+            justifyContent: "center",
+            alignItems: "flex-end",
+            display: "flex",
+            //height: "10%",
+          }}
+        >
+          <Button
+            className="cancelar"
+            onClick={() => handleCloseNotifPanel()}
+            color="error"
           >
-            <Button
-            
-              className="cancelar"
-              onClick={() => handleCloseNotifPanel()}
-              color="error"
-            >
-              CERRAR
-            </Button>
-          </Grid>
+            CERRAR
+          </Button>
+        </Grid>
       </Drawer>
     </React.Fragment>
   );
