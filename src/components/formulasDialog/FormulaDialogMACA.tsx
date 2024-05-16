@@ -11,6 +11,7 @@ import {
 import { useLayoutEffect, useState, useEffect } from "react";
 import { queries } from "../../queries";
 import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
+import { validarNumero } from "../../services/validations";
 import { clearInfo } from "../genericComponents/GenericMethods";
 
 export const FormulaDialogMACA = ({
@@ -450,15 +451,10 @@ export const FormulaDialogMACA = ({
             >
               <Typography>Trimestre 1</Typography>
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={"Valor"}
                 sx={{
-                  width: "80%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "80%", mb: 2
                 }}
                 value={ValorA}
                 error={
@@ -480,7 +476,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorA(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorA)
                   )
                 }
                 InputProps={{
@@ -491,15 +487,10 @@ export const FormulaDialogMACA = ({
               />
               <Typography>Trimestre 2</Typography>
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={"Valor"}
                 sx={{
-                  width: "80%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "80%", mb: 2
                 }}
                 value={ValorB}
                 error={
@@ -521,7 +512,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorB(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorB)
                   )
                 }
                 InputProps={{
@@ -532,15 +523,10 @@ export const FormulaDialogMACA = ({
               />
               <Typography>Trimestre 3</Typography>
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={"Valor"}
                 sx={{
-                  width: "80%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "80%", mb: 2
                 }}
                 value={ValorC}
                 error={
@@ -562,7 +548,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorC(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorC)
                   )
                 }
                 InputProps={{
@@ -573,15 +559,10 @@ export const FormulaDialogMACA = ({
               />
               <Typography>Trimestre 4</Typography>
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={"Valor"}
                 sx={{
-                  width: "80%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "80%"
                 }}
                 value={ValorD}
                 error={
@@ -603,7 +584,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorD(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorD)
                   )
                 }
                 InputProps={{
@@ -626,7 +607,7 @@ export const FormulaDialogMACA = ({
             >
               <Typography>Trimestre 1</Typography>
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{
@@ -638,12 +619,7 @@ export const FormulaDialogMACA = ({
                   </Typography>
                 }
                 sx={{
-                  width: "95%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "95%", mb: 2
                 }}
                 value={ValorA}
                 error={parseFloat(ValorA) < 0 ? true : false}
@@ -657,7 +633,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorA(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorA)
                   )
                 }
                 InputProps={{
@@ -667,19 +643,14 @@ export const FormulaDialogMACA = ({
                 }}
               />
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography sx={{ fontFamily: "MontserratMedium" }}>
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
                 }
                 sx={{
-                  width: "95%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "95%", mb: 2
                 }}
                 InputLabelProps={{
                   style: {
@@ -689,7 +660,7 @@ export const FormulaDialogMACA = ({
                 value={ValorB}
                 onChange={(c) =>
                   setValorB(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorB)
                   )
                 }
                 InputProps={{
@@ -701,7 +672,7 @@ export const FormulaDialogMACA = ({
 
               <Typography>Trimestre 2</Typography>
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{ fontFamily: "MontserratMedium" }}
@@ -710,12 +681,7 @@ export const FormulaDialogMACA = ({
                   </Typography>
                 }
                 sx={{
-                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "95%"
                 }}
                 InputLabelProps={{
                   style: {
@@ -725,7 +691,7 @@ export const FormulaDialogMACA = ({
                 value={ValorC}
                 onChange={(c) =>
                   setValorC(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorC)
                   )
                 }
                 InputProps={{
@@ -735,7 +701,7 @@ export const FormulaDialogMACA = ({
                 }}
               />
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{ fontFamily: "MontserratMedium" }}
@@ -744,12 +710,7 @@ export const FormulaDialogMACA = ({
                   </Typography>
                 }
                 sx={{
-                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "95%"
                 }}
                 InputLabelProps={{
                   style: {
@@ -759,7 +720,7 @@ export const FormulaDialogMACA = ({
                 value={ValorD}
                 onChange={(c) =>
                   setValorD(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorD)
                   )
                 }
                 InputProps={{
@@ -770,7 +731,7 @@ export const FormulaDialogMACA = ({
               />
               <Typography>Trimestre 3</Typography>
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{ fontFamily: "MontserratMedium" }}
@@ -779,12 +740,7 @@ export const FormulaDialogMACA = ({
                   </Typography>
                 }
                 sx={{
-                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "95%"
                 }}
                 InputLabelProps={{
                   style: {
@@ -794,7 +750,7 @@ export const FormulaDialogMACA = ({
                 value={ValorE}
                 onChange={(c) =>
                   setValorE(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorE)
                   )
                 }
                 InputProps={{
@@ -804,7 +760,7 @@ export const FormulaDialogMACA = ({
                 }}
               />
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{ fontFamily: "MontserratMedium" }}
@@ -813,12 +769,7 @@ export const FormulaDialogMACA = ({
                   </Typography>
                 }
                 sx={{
-                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "95%"
                 }}
                 InputLabelProps={{
                   style: {
@@ -828,7 +779,7 @@ export const FormulaDialogMACA = ({
                 value={ValorF}
                 onChange={(c) =>
                   setValorF(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorF)
                   )
                 }
                 InputProps={{
@@ -839,7 +790,7 @@ export const FormulaDialogMACA = ({
               />
               <Typography>Trimestre 4</Typography>
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{ fontFamily: "MontserratMedium" }}
@@ -848,12 +799,7 @@ export const FormulaDialogMACA = ({
                   </Typography>
                 }
                 sx={{
-                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "95%"
                 }}
                 InputLabelProps={{
                   style: {
@@ -863,7 +809,7 @@ export const FormulaDialogMACA = ({
                 value={ValorG}
                 onChange={(c) =>
                   setValorG(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorG)
                   )
                 }
                 InputProps={{
@@ -873,7 +819,7 @@ export const FormulaDialogMACA = ({
                 }}
               />
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{ fontFamily: "MontserratMedium" }}
@@ -882,12 +828,7 @@ export const FormulaDialogMACA = ({
                   </Typography>
                 }
                 sx={{
-                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "95%"
                 }}
                 InputLabelProps={{
                   style: {
@@ -897,7 +838,7 @@ export const FormulaDialogMACA = ({
                 value={ValorH}
                 onChange={(c) =>
                   setValorH(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorH)
                   )
                 }
                 InputProps={{
@@ -936,15 +877,10 @@ export const FormulaDialogMACA = ({
             >
               <Typography>Semestre 1</Typography>
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={"Valor"}
                 sx={{
-                  width: "95%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "95%", mb: 2
                 }}
                 value={ValorA}
                 error={
@@ -966,7 +902,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorA(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorA)
                   )
                 }
                 InputProps={{
@@ -977,15 +913,10 @@ export const FormulaDialogMACA = ({
               />
               <Typography>Semestre 2</Typography>
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={"Valor"}
                 sx={{
-                  width: "95%", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "95%"
                 }}
                 value={ValorB}
                 error={
@@ -1007,7 +938,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorB(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorB)
                   )
                 }
                 InputProps={{
@@ -1030,7 +961,7 @@ export const FormulaDialogMACA = ({
             >
               <Typography>Semestre 1</Typography>
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{ fontFamily: "MontserratMedium" }}
@@ -1039,12 +970,7 @@ export const FormulaDialogMACA = ({
                   </Typography>
                 }
                 sx={{
-                  width: "95%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "95%", mb: 2
                 }}
                 value={ValorA}
                 error={
@@ -1066,7 +992,7 @@ export const FormulaDialogMACA = ({
                 }}
                 onChange={(c) =>
                   setValorA(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorA)
                   )
                 }
                 InputProps={{
@@ -1076,7 +1002,7 @@ export const FormulaDialogMACA = ({
                 }}
               />
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{ fontFamily: "MontserratMedium" }}
@@ -1085,12 +1011,7 @@ export const FormulaDialogMACA = ({
                   </Typography>
                 }
                 sx={{
-                  width: "95%", mb: 2, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "95%", mb: 2
                 }}
                 InputLabelProps={{
                   style: {
@@ -1100,7 +1021,7 @@ export const FormulaDialogMACA = ({
                 value={ValorB}
                 onChange={(c) =>
                   setValorB(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorB)
                   )
                 }
                 InputProps={{
@@ -1111,16 +1032,11 @@ export const FormulaDialogMACA = ({
               />
               <Typography>Semestre 2</Typography>
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{
-                      fontFamily: "MontserratMedium", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                        display: "none",
-                      },
-                      "& input[type=number]": {
-                        MozAppearance: "textfield",
-                      },
+                      fontFamily: "MontserratMedium"
                     }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
@@ -1135,7 +1051,7 @@ export const FormulaDialogMACA = ({
                 value={ValorC}
                 onChange={(c) =>
                   setValorC(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorC)
                   )
                 }
                 InputProps={{
@@ -1145,16 +1061,11 @@ export const FormulaDialogMACA = ({
                 }}
               />
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{
-                      fontFamily: "MontserratMedium", "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                        display: "none",
-                      },
-                      "& input[type=number]": {
-                        MozAppearance: "textfield",
-                      },
+                      fontFamily: "MontserratMedium"
                     }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
@@ -1169,7 +1080,7 @@ export const FormulaDialogMACA = ({
                 value={ValorD}
                 onChange={(c) =>
                   setValorD(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,ValorD)
                   )
                 }
                 InputProps={{

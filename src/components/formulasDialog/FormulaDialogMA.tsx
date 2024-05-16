@@ -11,6 +11,7 @@ import {
 import { useLayoutEffect, useState } from "react";
 import { queries } from "../../queries";
 import { clearInfo } from "../genericComponents/GenericMethods";
+import { validarNumero } from "../../services/validations";
 export const FormulaDialogMA = ({
   open,
   close,
@@ -187,7 +188,7 @@ export const FormulaDialogMA = ({
         >
           {tipo === "Indice" || tipo === "Índice" ? (
             <TextField
-              type={"number"}
+              // type={"number"}
               label={
                 <Typography
                   sx={{
@@ -199,13 +200,7 @@ export const FormulaDialogMA = ({
                 </Typography>
               }
               sx={{
-                width: "45%",
-                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                  display: "none",
-                },
-                "& input[type=number]": {
-                  MozAppearance: "textfield",
-                },
+                width: "45%"
               }}
               value={descA}
               error={
@@ -228,7 +223,7 @@ export const FormulaDialogMA = ({
               }}
               onChange={(c) =>
                 setDescA(
-                  clearInfo(c.target.value)
+                  validarNumero(c.target.value,descA)
                 )
               }
               InputProps={{
@@ -247,7 +242,7 @@ export const FormulaDialogMA = ({
               }}
             >
               <TextField
-                type={"number"}
+                // type={"number"}
 
                 label={
                   <Typography sx={{ fontFamily: "MontserratBold" }}>
@@ -255,12 +250,7 @@ export const FormulaDialogMA = ({
                   </Typography>
                 }
                 sx={{
-                  width: "45%", mr: 1, "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                    display: "none",
-                  },
-                  "& input[type=number]": {
-                    MozAppearance: "textfield",
-                  },
+                  width: "45%", mr: 1
                 }}
                 InputLabelProps={{
                   style: {
@@ -279,7 +269,7 @@ export const FormulaDialogMA = ({
                 value={descA}
                 onChange={(c) =>
                   setDescA(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,descA)
                   )
                 }
                 InputProps={{
@@ -290,17 +280,12 @@ export const FormulaDialogMA = ({
                 }}
               />
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{
                       fontFamily: "MontserratBold",
-                      fontSize: [10, 10, 10, 14, 15, 18], "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                        display: "none",
-                      },
-                      "& input[type=number]": {
-                        MozAppearance: "textfield",
-                      },
+                      fontSize: [10, 10, 10, 14, 15, 18]
                     }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
@@ -324,7 +309,7 @@ export const FormulaDialogMA = ({
                 }
                 onChange={(c) =>
                   setDescB(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,descB)
                   )
                 }
                 InputProps={{
