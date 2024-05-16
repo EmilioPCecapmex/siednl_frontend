@@ -13,6 +13,7 @@ import {
 } from "./interfaces mir/IMIR";
 import { queries } from "../../queries";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { alertaInfo } from "../genericComponents/Alertas";
 import { useTheme } from "@mui/material/styles";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
 
@@ -1000,7 +1001,11 @@ export function TabResumen({
                 checked={mirEdit.fin?.indicador}
                 onChange={(v) => {
                   let aux = mirEdit.fin;
-                  aux = { ...aux, indicador: v.target.checked };
+                  aux = {
+                    ...aux,
+                    indicador: v.target.checked, // Actualizar indicador
+                    formula: v.target.checked // Actualizar formula
+                  };
                   setMIREDITPADRE({ ...mirEdit, fin: aux });
                 }}
                 // onChange={(v) => {
@@ -1052,9 +1057,24 @@ export function TabResumen({
                 // checked={editFin.formula}
                 checked={mirEdit.fin?.formula}
                 onChange={(v) => {
-                  let aux = mirEdit.fin;
-                  aux = { ...aux, formula: v.target.checked };
+                  alertaInfo("SI SE SELECCIONA INDICADOR TAMBIEN SE SELECCIONA FORMULA")
+                  // let aux = mirEdit.fin;
+                  // aux = { ...aux, formula: v.target.checked };
+                  // setMIREDITPADRE({ ...mirEdit, fin: aux });
+                  // let aux = mirEdit.fin;
+                  // let aux2 = mirEdit.fin;
+                  // aux = { ...aux, indicador: v.target.checked };
+                  // aux2 = { ...aux2, formula: v.target.checked };
+                  // setMIREDITPADRE({ ...mirEdit, fin: aux });
+                  // setMIREDITPADRE({ ...mirEdit, fin: aux2 });
+                  let aux = { ...mirEdit.fin }; // Crear un objeto auxiliar basado en el estado actual
+                  aux = {
+                    ...aux,
+                    indicador: v.target.checked, // Actualizar indicador
+                    formula: v.target.checked // Actualizar formula
+                  };
                   setMIREDITPADRE({ ...mirEdit, fin: aux });
+                  
                 }}
                 // onChange={(v) => {
                 //   setEditFin({ ...editFin, formula: !v.target.checked });
@@ -1123,7 +1143,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              FÓRMULA:
+              FRECUENCIA:
             </Typography>
           </Grid>
 
@@ -1350,7 +1370,13 @@ export function TabResumen({
                 checked={mirEdit.proposito?.indicador}
                 onChange={(v) => {
                   let aux = mirEdit.proposito;
-                  aux = { ...aux, indicador: v.target.checked };
+
+                  aux = {
+                    ...aux,
+                    indicador: v.target.checked, // Actualizar indicador
+                    formula: v.target.checked // Actualizar formula
+                  };
+                
                   setMIREDITPADRE({ ...mirEdit, proposito: aux });
                 }}
                 // onChange={(v) => {
@@ -1405,8 +1431,14 @@ export function TabResumen({
                 // checked={editProposito.formula}
                 checked={mirEdit.proposito?.formula}
                 onChange={(v) => {
-                  let aux = mirEdit.proposito;
-                  aux = { ...aux, formula: v.target.checked };
+                 
+
+                  let aux = { ...mirEdit.proposito }; // Crear un objeto auxiliar basado en el estado actual
+                  aux = {
+                    ...aux,
+                    indicador: v.target.checked, // Actualizar indicador
+                    formula: v.target.checked // Actualizar formula
+                  };
                   setMIREDITPADRE({ ...mirEdit, proposito: aux });
                 }}
                 // onChange={(v) => {
@@ -1483,7 +1515,7 @@ export function TabResumen({
                 textTransform: "uppercase",
               }}
             >
-              FÓRMULA:
+              FRECUENCIA::
             </Typography>
           </Grid>
 
@@ -1759,15 +1791,21 @@ export function TabResumen({
                       // checked={editComponentes[index]?.indicador}
                       checked={mirEdit.componentes[index]?.indicador}
                       onChange={(v) => {
-                        let auxC = mirEdit.componentes;
-                        auxC[index].indicador = v.target.checked;
-                        setMIREDITPADRE({ ...mirEdit, componentes: auxC });
+                        const newComponentes = [...mirEdit.componentes]; // Crear una nueva copia del array componentes
+                        newComponentes[index] = {
+                          ...newComponentes[index], // Copiar el componente existente del índice
+                          indicador: v.target.checked, // Actualizar el valor de indicador
+                          formula: v.target.checked // Actualizar el valor de formula
+                        };
+                        setMIREDITPADRE({ ...mirEdit, componentes: newComponentes }); // Actualizar el estado con el nuevo array de componentes
                       }}
+
                       // onChange={(v) => {
-                      //   let past = [...editComponentes];
-                      //   past[index].indicador = !v.target.checked;
-                      //   setEditComponentes(past);
+                      //   let auxC = mirEdit.componentes;
+                      //   auxC[index].indicador = v.target.checked;
+                      //   setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                       // }}
+                      
                     />
                   </Grid>
                 )}
@@ -1813,9 +1851,13 @@ export function TabResumen({
                       // checked={editComponentes[index]?.formula}
                       checked={mirEdit.componentes[index]?.formula}
                       onChange={(v) => {
-                        let auxC = mirEdit.componentes;
-                        auxC[index].formula = v.target.checked;
-                        setMIREDITPADRE({ ...mirEdit, componentes: auxC });
+                        const newComponentes = [...mirEdit.componentes]; // Crear una nueva copia del array componentes
+                        newComponentes[index] = {
+                          ...newComponentes[index], // Copiar el componente existente del índice
+                          indicador: v.target.checked, // Actualizar el valor de indicador
+                          formula: v.target.checked // Actualizar el valor de formula
+                        };
+                        setMIREDITPADRE({ ...mirEdit, componentes: newComponentes }); // Actualizar el estado con el nuevo array de componentes
                       }}
                       // onChange={(v) => {
                       //   let past = [...editComponentes];
@@ -1888,7 +1930,7 @@ export function TabResumen({
                       textTransform: "uppercase",
                     }}
                   >
-                    FÓRMULA:
+                    FRECUENCIA::
                   </Typography>
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
@@ -2153,8 +2195,10 @@ export function TabResumen({
                         }
                         onChange={(v) => {
                           let auxC = mirEdit.componentes;
-                          auxC[index].actividades[index2].indicador =
-                            v.target.checked;
+                          
+
+                          auxC[index].actividades[index2].formula = v.target.checked;
+                          auxC[index].actividades[index2].indicador = v.target.checked;
                           setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                         }}
                         // onChange={(v) => {
@@ -2200,6 +2244,8 @@ export function TabResumen({
                     borderBottom: 1,
                     borderColor: "#cfcfcf",
                   }}
+
+                  
                 >
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
@@ -2211,8 +2257,8 @@ export function TabResumen({
                         }
                         onChange={(v) => {
                           let auxC = mirEdit.componentes;
-                          auxC[index].actividades[index2].formula =
-                            v.target.checked;
+                          auxC[index].actividades[index2].formula = v.target.checked;
+                          auxC[index].actividades[index2].indicador = v.target.checked;
                           setMIREDITPADRE({ ...mirEdit, componentes: auxC });
                         }}
                         // onChange={(v) => {
@@ -2289,7 +2335,7 @@ export function TabResumen({
                         textTransform: "uppercase",
                       }}
                     >
-                      FÓRMULA:
+                      FRECUENCIA::
                     </Typography>
                   </Grid>
 

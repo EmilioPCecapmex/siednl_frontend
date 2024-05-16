@@ -57,35 +57,35 @@ export function TabFinPropositoMA({
   const [valueProposito, setValueProposito] = useState<IPropositoMA>(newFinPropositoMA);
 
   useEffect(()=>{
-    console.log(
-      "MA",MA,
-      "MA",propositoPadre.metaAnual.trimEnd() ,
-      "MA",propositoPadre.lineaBase.trimEnd() ,
-      "MA",propositoPadre.valorNumerador.trimEnd() ,
-      "MA",propositoPadre.valorDenominador.trimEnd() ,
-      "MA",propositoPadre.sentidoDelIndicador.trimEnd() ,
-      "MA",propositoPadre.unidadResponsable.trimEnd() ,
-      "MA", propositoPadre.descIndicador.trimEnd() ,
-      "MA",propositoPadre.valorNumerador.trimEnd() ,
-      "MA", propositoPadre.descDenominador.trimEnd() ,
+    // console.log(
+    //   "MA",MA,
+    //   "MA",propositoPadre.metaAnual.trimEnd() ,
+    //   "MA",propositoPadre.lineaBase.trimEnd() ,
+    //   "MA",propositoPadre.valorNumerador.trimEnd() ,
+    //   "MA",propositoPadre.valorDenominador.trimEnd() ,
+    //   "MA",propositoPadre.sentidoDelIndicador.trimEnd() ,
+    //   "MA",propositoPadre.unidadResponsable.trimEnd() ,
+    //   "MA", propositoPadre.descIndicador.trimEnd() ,
+    //   "MA",propositoPadre.valorNumerador.trimEnd() ,
+    //   "MA", propositoPadre.descDenominador.trimEnd() ,
       
-        finPadre.metaAnual.trimEnd() ,
-       finPadre.lineaBase.trimEnd() ,
-        finPadre.valorNumerador.trimEnd() ,
-        finPadre.valorDenominador.trimEnd() ,
-         finPadre.sentidoDelIndicador,
-         finPadre.unidadResponsable.trimEnd() ,
-         finPadre.descIndicador.trimEnd() ,
-         finPadre.valorNumerador.trimEnd() ,
-         finPadre.descDenominador.trimEnd() ,
+    //     finPadre.metaAnual.trimEnd() ,
+    //    finPadre.lineaBase.trimEnd() ,
+    //     finPadre.valorNumerador.trimEnd() ,
+    //     finPadre.valorDenominador.trimEnd() ,
+    //      finPadre.sentidoDelIndicador,
+    //      finPadre.unidadResponsable.trimEnd() ,
+    //      finPadre.descIndicador.trimEnd() ,
+    //      finPadre.valorNumerador.trimEnd() ,
+    //      finPadre.descDenominador.trimEnd() ,
       
-    );
+    // );
     
     setValueFin({
       metaAnual: finPadre.metaAnual.trimEnd() || "",
       lineaBase: finPadre.lineaBase.trimEnd() || "",
-      valorNumerador: finPadre.valorNumerador.trimEnd() || "",
-      valorDenominador: finPadre.valorDenominador.trimEnd() || "",
+      valorNumerador: finPadre.valorNumerador || "",
+      valorDenominador: finPadre.valorDenominador || "",
       sentidoDelIndicador: finPadre.sentidoDelIndicador,
       unidadResponsable: finPadre.unidadResponsable.trimEnd() || "",
       descIndicador: finPadre.descIndicador.trimEnd() || "",
@@ -95,8 +95,8 @@ export function TabFinPropositoMA({
     setValueProposito({
       metaAnual: propositoPadre.metaAnual.trimEnd() || "",
       lineaBase: propositoPadre.lineaBase.trimEnd() || "",
-      valorNumerador: propositoPadre.valorNumerador.trimEnd() || "",
-      valorDenominador: propositoPadre.valorDenominador.trimEnd() || "",
+      valorNumerador: propositoPadre.valorNumerador || "",
+      valorDenominador: propositoPadre.valorDenominador|| "",
       sentidoDelIndicador: propositoPadre.sentidoDelIndicador.trimEnd() || "",
       unidadResponsable: propositoPadre.unidadResponsable.trimEnd() || "",
       descIndicador: propositoPadre.descIndicador.trimEnd() || "",
@@ -609,9 +609,7 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onClick={() =>
-                    MAEdit?.fin?.metaAnual && valueFin?.metaAnual !== ""
-                      ? ""
-                      : handleClickOpen()
+                     handleClickOpen()
                   }
                   value={valueFin?.metaAnual }
                   error={parseFloat(valueFin?.metaAnual) < 0 ? true : false}
@@ -693,6 +691,7 @@ export function TabFinPropositoMA({
               {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
               JSON.parse(MIR).fin.indicador.toLowerCase().includes("INDICE") ||
               JSON.parse(MIR).fin.indicador.toLowerCase().includes("ÍNDICE") ||
+              JSON.parse(MIR).fin.indicador.toLowerCase().includes("Índice") ||
               JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice") ? (
                 <Grid
                   item
@@ -725,7 +724,7 @@ export function TabFinPropositoMA({
                           fontFamily: "MontserratMedium",
                         }}
                       >
-                        ÍNDICE
+                       ÍNDICE
                       </Typography>
                     }
                     InputLabelProps={{
@@ -739,10 +738,8 @@ export function TabFinPropositoMA({
                       },
                     }}
                     onClick={() =>
-                      MAEdit?.fin?.valorNumerador &&
-                      valueFin?.valorNumerador !== ""
-                        ? ""
-                        : handleClickOpen()
+                      handleClickOpen()
+                        
                     }
                     value={valueFin?.valorNumerador || ""}
                   />
@@ -795,10 +792,7 @@ export function TabFinPropositoMA({
                       },
                     }}
                     onClick={() =>
-                      MAEdit?.fin?.valorNumerador &&
-                      valueFin?.valorNumerador !== ""
-                        ? ""
-                        : handleClickOpen()
+                       handleClickOpen()
                     }
                     value={valueFin?.valorNumerador || ""}
                   />
@@ -835,10 +829,7 @@ export function TabFinPropositoMA({
                       },
                     }}
                     onClick={() =>
-                      MAEdit?.fin?.valorDenominador &&
-                      valueFin?.valorDenominador !== ""
-                        ? ""
-                        : handleClickOpen()
+                       handleClickOpen()
                     }
                     value={valueFin?.valorDenominador || ""}
                   />
@@ -1321,10 +1312,7 @@ export function TabFinPropositoMA({
                     },
                   }}
                   onClick={() =>
-                    MAEdit?.proposito?.metaAnual &&
-                    valueProposito.metaAnual !== ""
-                      ? ""
-                      : handleClickOpen()
+                     handleClickOpen()
                   }
                   value={valueProposito?.metaAnual || ""}
                   error={
@@ -1408,7 +1396,8 @@ export function TabFinPropositoMA({
               {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
               JSON.parse(MIR).fin.indicador.toLowerCase().includes("INDICE") ||
               JSON.parse(MIR).fin.indicador.toLowerCase().includes("ÍNDICE") ||
-              JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice") ? (
+              JSON.parse(MIR).fin.indicador.toLowerCase().includes("ÍNDICE") ||
+              JSON.parse(MIR).fin.indicador.toLowerCase().includes("Índice") ? (
                 <Grid
                   item
                   xl={3}
@@ -1453,10 +1442,7 @@ export function TabFinPropositoMA({
                       },
                     }}
                     onClick={() =>
-                      MAEdit?.proposito?.valorNumerador &&
-                      valueProposito.valorNumerador !== ""
-                        ? ""
-                        : handleClickOpen()
+                       handleClickOpen()
                     }
                     value={valueProposito?.valorNumerador || ""}
                   />
@@ -1509,10 +1495,7 @@ export function TabFinPropositoMA({
                       },
                     }}
                     onClick={() =>
-                      MAEdit?.proposito?.valorNumerador &&
-                      valueProposito.valorNumerador !== ""
-                        ? ""
-                        : handleClickOpen()
+                      handleClickOpen()
                     }
                     value={valueProposito?.valorNumerador || ""}
                   />
@@ -1545,10 +1528,7 @@ export function TabFinPropositoMA({
                       },
                     }}
                     onClick={() =>
-                      MAEdit?.proposito?.valorDenominador &&
-                      valueProposito.valorDenominador !== ""
-                        ? ""
-                        : handleClickOpen()
+                       handleClickOpen()
                     }
                     value={valueProposito?.valorDenominador || ""}
                   />

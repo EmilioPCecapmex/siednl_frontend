@@ -1,6 +1,13 @@
 /* eslint-disase array-callback-return */
 import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
+import { alertaError } from "../genericComponents/Alertas";
+import GenericTabs from "../genericComponents/genericTabs";
+import { TabActividades } from "./TabActividades";
+import { TabComponente } from "./TabComponente";
+import TabEncabezado from "./TabEncabezado";
+import TabFinProposito from "./TabFinProposito";
+import TabResumen, { IComponenteMirEdit } from "./TabResumen";
 import {
   IActividad,
   IComponente,
@@ -8,14 +15,6 @@ import {
   IMIREdit,
   IMovimientos,
 } from "./interfaces mir/IMIR";
-import { TabActividades } from "./TabActividades";
-import { TabComponente } from "./TabComponente";
-import TabEncabezado from "./TabEncabezado";
-import TabFinProposito from "./TabFinProposito";
-import TabResumen, { IComponenteMirEdit } from "./TabResumen";
-import { alertaError } from "../genericComponents/Alertas";
-import GenericTabs from "../genericComponents/genericTabs";
-import { getMAyFT } from "../../services/mir_services/MIR_services";
 
 const tabs = [
   "Encabezado",
@@ -123,7 +122,6 @@ export default function FullModalMir({
   MIR,
   showResume,
   IdMir,
-  anioFiscalEdit,
   estado,
   IdEntidad,
   setIdEntidad,
@@ -131,20 +129,14 @@ export default function FullModalMir({
   MIR: string;
   showResume: Function;
   IdMir: string;
-  anioFiscalEdit: string;
   estado: string;
   IdEntidad: string;
   setIdEntidad: Function;
 }) {
-  // useEffect(() => {
-  //   getMAyFT(IdMir);
-  // }, [])
 
   const [value, setValue] = useState(0);
 
   const noComponentes = [1, 2];
-
-  //let mDocumentos: IMovimientos[] = []
 
   const movimientos = (movimientos: string, indices: string) => {
     let Documentos: IMovimientos = {
@@ -156,8 +148,6 @@ export default function FullModalMir({
     auxMDocumentos.push(Documentos);
 
     SetMDocumentos(auxMDocumentos);
-
-    // return Documentos
   };
 
   const [mDocumentos, SetMDocumentos] = useState<IMovimientos[]>([]);
@@ -337,7 +327,6 @@ export default function FullModalMir({
       >
         <Grid
           sx={{
-            //width: "93vw",
             width: ["300xp", "750px", "750px", "1100px", "1200px"],
             height: "82vh",
 

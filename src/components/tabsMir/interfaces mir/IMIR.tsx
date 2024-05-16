@@ -1,32 +1,23 @@
 import { IFin, IProposito } from "../TabFinProposito";
 import {
-  IActividadesMirEdit,
   IComponenteMirEdit,
   IEncabezadoEdit,
   IFinEdit,
-  IPropositoEdit,
+  IPropositoEdit
 } from "../TabResumen";
 
 export interface IMIR {
   encabezado: IEncabezado;
-
   fin: IFin;
-
   proposito: IProposito;
-
   componentes: IComponente[];
 }
 
 export interface IMIREdit {
   encabezado: IEncabezadoEdit;
-
   fin: IFinEdit;
-
   proposito: IPropositoEdit;
-
   componentes: Array<IComponenteMirEdit>;
-
-  // actividades: Array<IActividadesMirEdit>;
 }
 
 export interface IComponente {
@@ -54,21 +45,6 @@ export interface IMovimientos {
   movimiento: string;
   indice: string;
 }
-
-// export interface ICValor {
-//   [x: string]: any;
-//   componentes: {
-//     actividades: {
-//       actividad: string;
-//       resumen: string;
-//       indicador: string;
-//       formula: string;
-//       frecuencia: string;
-//       medios: string;
-//       supuestos: string;
-//     }[];
-//   }[];
-// }
 
 export interface ILista {
   Id: string;
@@ -100,4 +76,21 @@ export interface IEncabezado {
   conac: string;
   consecutivo: string;
   anticorrupcion: string;
+}
+
+export interface IIMir {
+  Id: string;
+  IdEntidad: string;
+  AnioFiscal: string;
+  Entidad: string;
+  Programa: string;
+  Eje: string;
+  Tematica: string;
+  MIR: string;
+  Estado: string;
+  FechaCreacion: string;
+  CreadoPor: string;
+  Conac: string;
+  Consecutivo: String;
+  Opciones: string;
 }

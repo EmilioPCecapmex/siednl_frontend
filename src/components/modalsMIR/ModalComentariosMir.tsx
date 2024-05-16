@@ -130,26 +130,9 @@ export const ComentDialogMir = ({
       });
   };
 
-
-
   // React.useEffect(() => {
-  //   axios
-  //     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/get-coment-mir", {
-  //       params: {
-  //         IdMir: id,
-  //       },
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //     })
-  //     .then((r) => {
-  //       setComents(r.data.data);
-  //     });
+  //   obtenerComentarios(id,  setComents);
   // }, [actualizado, id]);
-
-  React.useEffect(() => {
-    obtenerComentarios(id,  setComents);
-  }, [actualizado, id]);
 
   const isComentEmpty = () => {
     return !/^\s*$/.test(coment);

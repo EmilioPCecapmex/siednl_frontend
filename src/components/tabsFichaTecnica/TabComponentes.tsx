@@ -249,7 +249,7 @@ export const TabComponenteFT = ({
               </FormLabel>
               <Grid sx={{ display: "flex", flexDirection: "column" }}>
                 <FormControlLabel
-                  value={"SELECCIÓN ESTRATÉGICO"}
+                  value={"ESTRATÉGICO"}
                   label={
                     <Typography
                       sx={{
@@ -257,7 +257,7 @@ export const TabComponenteFT = ({
                         fontFamily: "MontserratMedium",
                       }}
                     >
-                      SELECCIÓN ESTRATÉGICO
+                      ESTRATÉGICO
                     </Typography>
                   }
                   sx={{
@@ -267,7 +267,7 @@ export const TabComponenteFT = ({
                     <Radio
                       checked={
                         componentesValues[componentSelect]?.tipoDeIndicador ===
-                        "SELECCIÓN ESTRATÉGICO"
+                        "ESTRATÉGICO"
                       }
                       onChange={(c) => {
                         componentesValues[componentSelect].tipoDeIndicador =

@@ -1854,12 +1854,7 @@ export function TabResumenMA({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                        // checked={!editComponentes[index - 1]?.valorDenominador}
-                        // onChange={(v) => {
-                        //   let past = [...editComponentes];
-                        //   past[index - 1].valorDenominador = !v.target.checked;
-                        //   setEditComponentes(past);
-                        // }}
+                      
                         checked={
                           maPadreEdit.componentes[index]?.valorDenominador
                         }
@@ -2593,14 +2588,23 @@ export function TabResumenMA({
                         <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                           <Checkbox
                             checked={
-                              maPadreEdit.componentes[indexComponentes]
-                                ?.actividades[indexActividades]?.metaAnual
+                             ( maPadreEdit.componentes[indexComponentes]
+                                ?.actividades[indexActividades]?.valorNumerador) 
+
+                                // || 
+
+                                // ( maPadreEdit.componentes[indexComponentes]
+                                //   ?.actividades[indexActividades]?.valorDenominador)
                             }
                             onChange={(v) => {
                               let auxC = maPadreEdit.componentes;
+
                               auxC[indexComponentes].actividades[
                                 indexActividades
-                              ].metaAnual = v.target.checked;
+                              ].valorNumerador = v.target.checked;
+
+                              
+
                               setMAPadreEdit({
                                 ...maPadreEdit,
                                 componentes: auxC,

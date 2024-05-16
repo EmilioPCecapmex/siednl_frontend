@@ -1,38 +1,34 @@
 /* eslint-disable array-callback-return */
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
 import {
-  Grid,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField,
   Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  TextField,
   Typography,
 } from "@mui/material";
-
-import { queries } from "../../queries";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import {
+  alertaErroresDocumento,
+  alertaExito,
+  alertaExitoConfirm
+} from "../genericComponents/Alertas";
+import {
+  create_coment_mir,
+  enviarNotificacionRol,
+} from "../genericComponents/axiosGenericos";
+import { IComponentesFT, IFT } from "../tabsFichaTecnica/Interfaces";
+import { IMA } from "../tabsMetaAnual/IMA";
+import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import {
   IActividad,
   IComponente,
   IMovimientos,
 } from "../tabsMir/interfaces mir/IMIR";
-import { getMAyFT } from "../../services/mir_services/MIR_services";
-import { IMA } from "../tabsMetaAnual/IMA";
-import { IComponentesFT, IFT } from "../tabsFichaTecnica/Interfaces";
-import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
-import {
-  alertaEliminar,
-  alertaErroresDocumento,
-  alertaExito,
-  alertaExitoConfirm,
-} from "../genericComponents/Alertas";
 import { IComponenteRF, IRF } from "../tabsRaffi/interfacesRaffi";
-import {
-  create_coment_mir,
-  enviarNotificacionRol,
-} from "../genericComponents/axiosGenericos";
+import { getMAyFT } from "../../services/mir_services/servicesMIR";
 
 export let errores: string[] = [];
 
