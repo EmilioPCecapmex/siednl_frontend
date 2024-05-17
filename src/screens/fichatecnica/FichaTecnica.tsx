@@ -42,6 +42,7 @@ export let setResumeDefaultFT = () => {
 };
 
 export const FichaTecnica = () => {
+
   useEffect(() => {
     setShowResume(true);
   }, []);
@@ -53,9 +54,7 @@ export const FichaTecnica = () => {
 
   const [openModalVerResumenFT, setOpenModalVerResumenFT] = useState(false);
 
-  const handleCloseVerResumenFT = () => {
-    setOpenModalVerResumenFT(false);
-  };
+ 
 
   const [showResume, setShowResume] = useState(true);
   const [page, setPage] = useState(0);
@@ -64,6 +63,10 @@ export const FichaTecnica = () => {
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
 
   const [actionNumber, setActionNumber] = useState(0);
+
+  const handleCloseVerResumenFT = () => {
+    setOpenModalVerResumenFT(false);
+  };
 
   // Realiza el cambio de pagina
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -143,8 +146,6 @@ export const FichaTecnica = () => {
   useEffect(() => {
     setFtxFiltered(ftFiltered);
   }, [ftFiltered]);
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -157,6 +158,33 @@ export const FichaTecnica = () => {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
+
+  const validaFechaCaptura = () => {
+    axios
+      .get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+          params: {
+            Rol: localStorage.getItem("Rol"),
+            Modulo: "Ficha Tecnica",
+          },
+        }
+      )
+      .then((r) => {
+        if (r.data.data.valida === "true") {
+          setValidaFecha(true);
+          setTitle("VER FICHA TÉCNICA");
+        } else {
+          setValidaFecha(false);
+          setTitle("FECHA CAPTURA FINALIZADA");
+        }
+      })
+      .catch((err) => {});
+  };
 
   /////////////////////////////////////////
   const getFichaTecnicaDownload = (
@@ -297,40 +325,14 @@ export const FichaTecnica = () => {
   
 
   const [title_texto, setTitle] = useState("");
-
-  const validaFechaCaptura = () => {
-    axios
-      .get(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/valida-fechaDeCaptura",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-          params: {
-            Rol: localStorage.getItem("Rol"),
-            Modulo: "Ficha Tecnica",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.data.data.valida === "true") {
-          setValidaFecha(true);
-          setTitle("VER FICHA TÉCNICA");
-        } else {
-          setValidaFecha(false);
-          setTitle("FECHA CAPTURA FINALIZADA");
-        }
-      })
-      .catch((err) => {});
-  };
-
   const [validaFecha, setValidaFecha] = useState(true);
   const [actualizacion, setActualizacion] = useState(0);
-  const [url, setUrl] = useState(window.location.href);
+ 
 
   useEffect(() => {
     getListadoFT();
+    console.log("me ejecute y actualice la lista 1");
+    
   }, [actualizacion]);
 
   const actualizaContador = () => {
@@ -721,11 +723,8 @@ export const FichaTecnica = () => {
   };
 
   
-
-  
-
   const getListadoFT = () => {
-
+    console.log("me ejecute y actualice la lista 2");
     return new Promise((resolve, reject) => {
       buscador(
         estadoft,
@@ -734,7 +733,7 @@ export const FichaTecnica = () => {
           : localStorage.getItem("IdEntidad"),
         setft,
         "list-fichaTecnica",
-        setUrl
+       
       );
 
     });

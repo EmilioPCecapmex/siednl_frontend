@@ -728,28 +728,7 @@ export default function ModalEnviarFT({
     }
   }, [MIR, open]);
 
-  // const soliModyNoty = (
-  //   IdUsuarioDestino: string,
-  //   IdDoc = "",
-  //   tipoDoc = "",
-  //   Nombre = ""
-  // ) => {
-  //   axios.post(
-  //     process.env.REACT_APP_APPLICATION_BACK + "/api/create-notif",
-  //     {
-  //       IdUsuarioDestino: IdUsuarioDestino,
-  //       Titulo: tipoDoc,
-  //       Mensaje: enviarMensaje + " " + Nombre,
-  //       IdDocumento: IdDoc,
-  //       CreadoPor: localStorage.getItem("IdUsuario"),
-  //     },
-  //     {
-  //       headers: {
-  //         Authorization: localStorage.getItem("jwtToken") || "",
-  //       },
-  //     }
-  //   );
-  // };
+  
 
   return (
     <Dialog fullWidth 

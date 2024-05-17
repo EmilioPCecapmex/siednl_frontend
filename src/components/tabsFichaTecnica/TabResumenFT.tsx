@@ -93,12 +93,12 @@ export function TabResumenFT({
         }
       )
       .then((r) => {
-        alertaExito(()=> {}, r.data.data.message )
+        alertaExito(()=> {}, r.data.data.message.toUpperCase() )
         
         showResume();
       })
       .catch((err) => {
-        alertaError(err.response.data.result.error)
+        alertaError(err.response.data.result.error.toUpperCase())
       
       });
   };
