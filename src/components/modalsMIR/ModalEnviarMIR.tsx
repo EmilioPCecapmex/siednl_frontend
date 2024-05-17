@@ -624,6 +624,7 @@ export default function ModalEnviarMIR({
       .catch((err) => {
         err = 1;
         errores.push(err);
+        
       });
   };
 
@@ -701,7 +702,7 @@ export default function ModalEnviarMIR({
         showResume();
       })
       .catch((err) => {
-        errores.push(err.response.data.result.error);
+        errores.push(err.response.data.result.error.toUpperCase());
         err = 1;
         alertaErroresDocumento(errores);
       });

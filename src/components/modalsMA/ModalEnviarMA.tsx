@@ -559,8 +559,6 @@ export default function ModalEnviarMA({
   };
 
   const creaMA = (estado: string) => {
-  
-
     axios
       .post(
         process.env.REACT_APP_APPLICATION_BACK + "/api/create-ma-generic",
@@ -642,8 +640,6 @@ export default function ModalEnviarMA({
         showResume();
       })
       .catch((err) => {
-        
-
         alertaErrorConfirm(
           err.response.data.result.error.toUpperCase() || "SIN INFORMACION"
         );

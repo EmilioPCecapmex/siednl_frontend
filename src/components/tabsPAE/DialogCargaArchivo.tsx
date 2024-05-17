@@ -69,7 +69,7 @@ export function DialogCargaArchivo({
 
       guardarDoc(
         data,
-        "2022" + "/" + tabSelected.replaceAll(" ", "_"),
+        fechaEdit?.substring(0,4) + "/" + tabSelected.replaceAll(" ", "_"),
         fechaEdit || ""
       ).then(() => actualizarDatos());
       fileInputRef.current.click();

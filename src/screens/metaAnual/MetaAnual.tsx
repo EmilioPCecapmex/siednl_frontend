@@ -40,13 +40,13 @@ export let setResumeDefaultMA = () => {
 };
 
 export const MetaAnual = () => {
-  const queryString = window.location.search;
-
+  
   useEffect(() => {
     setShowResume(true);
   }, [ResumeDefaultMA]);
 
   const returnMain = () => {
+    getListadoMA();
     setShowResume(true);
     setActionNumber(1);
   };
@@ -147,7 +147,7 @@ export const MetaAnual = () => {
     },
   });
 
-  const [url, setUrl] = useState(window.location.href);
+  
 
   const validaFechaCaptura = () => {
     axios
@@ -310,30 +310,13 @@ export const MetaAnual = () => {
     }
   };
 
-  useEffect(() => {
-    findText(findTextStr, findSelectStr, findInstStr);
-  }, [findTextStr, findInstStr, findSelectStr]);
 
-  const getListadoMA = () => {
-    return new Promise((resolve, reject) => {
-      buscador(
-        estadoma,
-        localStorage.getItem("Rol")?.toUpperCase() === "ADMINISTRADOR"
-          ? "TODOS"
-          : localStorage.getItem("IdEntidad"),
-        setMa,
-        "list-metaAnual",
-        setUrl
-      );
-    });
-  };
+  const [actualizacion, setActualizacion] = useState(0);
 
   useEffect(() => {
     getListadoMA();
-    
-  }, []); //actualizacion
-
-  const [actualizacion, setActualizacion] = useState(0);
+    console.log("me ejecute y actualice la lista 1");
+  }, [actualizacion]); //actualizacion
 
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
@@ -379,9 +362,12 @@ export const MetaAnual = () => {
   });
   };
 
-  const handleChange = (dato: string) => {
-    setFindTextStr(dato);
-  };
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    findTextStr.length !== 0 ? setMaFiltered(maFiltered) : null;
+                              
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [findTextStr]);
 
   const columsMa: GridColDef[] = [
     {
@@ -607,9 +593,30 @@ export const MetaAnual = () => {
     },
   ];
 
+  useEffect(() => {
+    findText(findTextStr, findSelectStr, findInstStr);
+  }, [findTextStr, findInstStr, findSelectStr]);
+  
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
-  
+  const handleChange = (dato: string) => {
+    setFindTextStr(dato);
+  };
+
+  const getListadoMA = () => {
+    console.log("me ejecute y actualice la lista 2");
+    return new Promise((resolve, reject) => {
+      buscador(
+        estadoma,
+        localStorage.getItem("Rol")?.toUpperCase() === "ADMINISTRADOR"
+          ? "TODOS"
+          : localStorage.getItem("IdEntidad"),
+        setMa,
+        "list-metaAnual",
+        
+      );
+    });
+  };
 
   return (
     <Grid container justifyContent={"space-between"}>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { alertaError, alertaExito } from "../components/genericComponents/Alertas";
 
-export const buscador = async (estado: any, Ins: any, setsate: Function, list: string, setsate2: Function) => {
+export const buscador = async (estado: any, Ins: any, setsate: Function, list: string) => {
   await axios
     .get(process.env.REACT_APP_APPLICATION_BACK + "/api/" + list, {
       params: {
@@ -17,11 +17,12 @@ export const buscador = async (estado: any, Ins: any, setsate: Function, list: s
     .then((r) => {
 
       if (localStorage.getItem('IdNotificacion') && localStorage.getItem('IdNotificacion') !== "") {
-        setsate(r.data.data.filter((x: any) => x.Id.toLowerCase().includes(localStorage.getItem('IdNotificacion') || "")))
+        setsate(r.data.data.filter((x: any) => x.Id?.toLowerCase().includes(localStorage.getItem('IdNotificacion') || "")))
          setTimeout(()=>localStorage.setItem('IdNotificacion', ""),1000) 
+         console.log("me ejecute y actualice la lista 3");
       } else {
         setsate(r.data.data);
-        setsate2("")
+        console.log("me ejecute y actualice la lista 4");
       }
     })
 };

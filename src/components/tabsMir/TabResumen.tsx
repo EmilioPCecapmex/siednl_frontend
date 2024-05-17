@@ -154,11 +154,11 @@ export function TabResumen({
       .then((r) => {
         
         showResume();
-        alertaExito(()=>{},r.data.data.message)
+        alertaExito(()=>{},r.data.data.message.toUpperCase())
       })
       .catch((err) => {
         if (err.response.status === 409) {
-          alertaError(err.response.data.result.error)
+          alertaError(err.response.data.result.error.toUpperCase())
         }
       });
   };

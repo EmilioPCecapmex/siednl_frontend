@@ -63,6 +63,7 @@ export const MIR = () => {
 
   const returnMain = () => {
     setShowResume(true);
+    getListadoMirs()
   };
 
   const onChangeActionNumberValue = () => {
@@ -472,7 +473,7 @@ export const MIR = () => {
           : localStorage.getItem("IdEntidad"),
         setMirs,
         "list-mir",
-        setUrl
+        
       );
     });
   };
@@ -482,7 +483,7 @@ export const MIR = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [findTextStr]);
 
-  const [url, setUrl] = useState(window.location.href);
+ 
 
   useEffect(() => {
     getListadoMirs();
@@ -746,7 +747,7 @@ export const MIR = () => {
                           instituciones?.Label,
                           setMirs,
                           "list-mir",
-                          setUrl
+                        
                         );
                       }}
                     >

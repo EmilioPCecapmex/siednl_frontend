@@ -130,7 +130,12 @@ export const ResumenFichaTecnica = ({
   const jsonFT = JSON.parse(FT);
 
   const page1Values = [
-    jsonMir.encabezado.beneficiario.Label.toUpperCase(),
+    jsonMir.encabezado.beneficiario.map(
+      (value: { Id: string; Label: string }, x: any) => {
+        return value?.Label.toUpperCase();
+      }
+    ),
+
     jsonMir.encabezado.tema.Label.toUpperCase(),
     jsonMir.encabezado.objetivo.Label.toUpperCase(),
     jsonMir.encabezado.estrategia.Label.toUpperCase(),

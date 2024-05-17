@@ -697,7 +697,7 @@ export const Raffi = () => {
         : localStorage.getItem("IdEntidad"),
       setRf,
       "list-raffis",
-      setUrl
+   
     );
   });
   };
@@ -909,7 +909,7 @@ export const Raffi = () => {
                           institucionesb,
                           setRf,
                           "list-raffis",
-                          setUrl
+                          
                         );
                       }}
                     >
@@ -1040,8 +1040,8 @@ export const Raffi = () => {
                         return (
                           <TableRow>
                             {TableCellFormat(row.AnioFiscal)}
-                            {TableCellFormat(row.Entidad)}
-                            {TableCellFormat(row.Programa.toUpperCase())}
+                            {TableCellFormat(row.Entidad?.toUpperCase())}
+                            {TableCellFormat(row.Programa?.toUpperCase())}
 
                             {TableCellFormat(
                               (row.Estado === "En Captura" &&

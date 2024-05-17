@@ -11,6 +11,7 @@ import {
 import { useLayoutEffect, useState } from "react";
 import { queries } from "../../queries";
 import { clearInfo } from "../genericComponents/GenericMethods";
+import { validarNumero } from "../../services/validations";
 export const FormulaDialogMA = ({
   open,
   close,
@@ -186,7 +187,7 @@ export const FormulaDialogMA = ({
         >
           {tipo === "Indice" || tipo === "Índice" ? (
             <TextField
-              type={"number"}
+              // type={"number"}
               label={
                 <Typography
                   sx={{
@@ -197,7 +198,9 @@ export const FormulaDialogMA = ({
                   {"Valor del índice"}
                 </Typography>
               }
-              sx={{ width: "45%" }}
+              sx={{
+                width: "45%"
+              }}
               value={descA}
               error={
                 parseFloat(descA) < 0 ||
@@ -219,7 +222,7 @@ export const FormulaDialogMA = ({
               }}
               onChange={(c) =>
                 setDescA(
-                  clearInfo(c.target.value)
+                  validarNumero(c.target.value,descA)
                 )
               }
               InputProps={{
@@ -238,14 +241,16 @@ export const FormulaDialogMA = ({
               }}
             >
               <TextField
-                type={"number"}
-                
+                // type={"number"}
+
                 label={
                   <Typography sx={{ fontFamily: "MontserratBold" }}>
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
                 }
-                sx={{ width: "45%", mr: 1, }}
+                sx={{
+                  width: "45%", mr: 1
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
@@ -263,7 +268,7 @@ export const FormulaDialogMA = ({
                 value={descA}
                 onChange={(c) =>
                   setDescA(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,descA)
                   )
                 }
                 InputProps={{
@@ -274,12 +279,12 @@ export const FormulaDialogMA = ({
                 }}
               />
               <TextField
-                type={"number"}
+                // type={"number"}
                 label={
                   <Typography
                     sx={{
                       fontFamily: "MontserratBold",
-                      fontSize: [10, 10, 10, 14, 15, 18],
+                      fontSize: [10, 10, 10, 14, 15, 18]
                     }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
@@ -303,7 +308,7 @@ export const FormulaDialogMA = ({
                 }
                 onChange={(c) =>
                   setDescB(
-                    clearInfo(c.target.value)
+                    validarNumero(c.target.value,descB)
                   )
                 }
                 InputProps={{
