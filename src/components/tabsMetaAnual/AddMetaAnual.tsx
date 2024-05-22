@@ -275,6 +275,7 @@ export default function AddMetaAnual({
     if (MA !== "") {
       let auxArrayMA = JSON.parse(MA);
       // console.log('auxArrayMA',auxArrayMA);
+      console.log("auxArrayMA: ",auxArrayMA);
       
       if (auxArrayMA[1]) {
         let auxDBMA: IMA = auxArrayMA[0];

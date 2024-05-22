@@ -777,6 +777,7 @@ export const LateralMenu = ({
                   />
                 ) : null}
               </Grid>
+
             </Grid>
           </Grid>
 
@@ -915,7 +916,9 @@ export const LateralMenu = ({
 
               <Grid sx={st.selectInstitucionBox}></Grid>
             </Grid>
+            
             <Divider />
+
             <Grid
               item
               container
@@ -968,10 +971,12 @@ export const LateralMenu = ({
                 </ListItemButton>
               </List>
             </Grid>
+
           </Grid>
         </Drawer>
       </AppBar>
       <ChangePasswordModal />
+
     </Grid>
   );
 };
