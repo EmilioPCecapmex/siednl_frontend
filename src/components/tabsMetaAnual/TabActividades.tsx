@@ -446,7 +446,7 @@ export const TabActividadesMA = ({
             fontSize: "1.5vw",
           }}
         >
-          COMPONENTE #{componenteSelect + 1} - ACTIVIDAD # {actividadSelect + 1}
+          A{actividadSelect + 1}C{componenteSelect + 1}
         </Typography>
       </Grid>
 
@@ -659,7 +659,18 @@ export const TabActividadesMA = ({
               })}
             </List>
           )}
-
+          <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              {JSON.parse(MIR).componentes[componenteSelect].actividades[actividadSelect].resumen}
+            </Typography>
+            
+          </Grid>
           <Grid
             item
             xl={3}

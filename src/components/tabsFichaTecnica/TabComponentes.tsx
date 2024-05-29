@@ -20,12 +20,14 @@ export const TabComponenteFT = ({
   setFTcomponentesPadre,
   ComponentesFT,
   ftEditPadre,
+  MIR,
 }: {
   edit: boolean;
   show: boolean;
   setFTcomponentesPadre: Function;
   ComponentesFT: IComponentesFT[];
   ftEditPadre: IFTEdit;
+  MIR: string;
 }) => {
   const [componentSelect, setComponentSelect] = useState(0);
 
@@ -155,6 +157,7 @@ export const TabComponenteFT = ({
             })}
           </List>
         )}
+        
         <Grid
           item
           container
@@ -211,7 +214,17 @@ export const TabComponenteFT = ({
               })}
             </List>
           )}
-
+<Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratSemiBold",
+                      // fontSize: "1vw",
+                      textAlign: "center",
+                    }}
+                  >
+                    {JSON.parse(MIR).componentes[componentSelect].indicador}
+                  </Typography>
+                </Grid>
           <Grid
             item
             xl={3.5}
