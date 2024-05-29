@@ -1065,7 +1065,7 @@ export const Raffi = () => {
                             )}
 
                             {TableCellFormat(
-                              row.Estado === "En Captura"
+                              row.Estado === "SIN ASIGNAR" || "Sin Asignar"
                                 ? "SIN ASIGNAR"
                                 :  row.CreadoPor?.toUpperCase() || ""
                             )}
@@ -1167,6 +1167,8 @@ export const Raffi = () => {
                                       }
                                       setEstado(row.Estado);
                                       setIdEntidad(row.IdEntidad);
+                                      console.log("row.Estado; ",row.Estado)
+                                      console.log("row.IdEntidad; ",row.IdEntidad)
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
@@ -1242,6 +1244,9 @@ export const Raffi = () => {
                                       }
                                       setIdEntidad(row.IdEntidad);
                                       setEstado(row.Estado);
+                                      
+                                      console.log("row.Estado; ",row.Estado)
+                                      console.log("row.IdEntidad; ",row.IdEntidad)
                                       setOpenTabs(false);
                                       setActionNumber(1); //Revisar esta funcionalidad
                                     }}
