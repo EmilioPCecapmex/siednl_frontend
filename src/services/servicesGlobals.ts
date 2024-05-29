@@ -19,10 +19,10 @@ export const buscador = async (estado: any, Ins: any, setsate: Function, list: s
       if (localStorage.getItem('IdNotificacion') && localStorage.getItem('IdNotificacion') !== "") {
         setsate(r.data.data.filter((x: any) => x.Id?.toLowerCase().includes(localStorage.getItem('IdNotificacion') || "")))
          setTimeout(()=>localStorage.setItem('IdNotificacion', ""),1000) 
-         console.log("me ejecute y actualice la lista 3");
+         
       } else {
         setsate(r.data.data);
-        console.log("me ejecute y actualice la lista 4");
+       
       }
     })
 };
@@ -70,7 +70,7 @@ export const downloadMIR = (
       }
     )
     .then((r) => {
-      alertaExito(() => { }, "La descarga comenzara en un momento.");
+      alertaExito(() => { }, ("La descarga comenzara en un momento.").toUpperCase());
 
       const href = URL.createObjectURL(r.data);
 
@@ -89,7 +89,7 @@ export const downloadMIR = (
       URL.revokeObjectURL(href);
     })
     .catch((err) => {
-      alertaError("Error al intentar descargar el documento.");
+      alertaError("Error al intentar descargar el documento.".toUpperCase());
     });
 };
 
