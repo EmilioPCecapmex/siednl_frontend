@@ -119,7 +119,7 @@ export const Raffi = () => {
   }, [rfFiltered]);
 
   const returnMain = () => {
-    getListadoRF()
+   // getListadoRF()
     setOpenTabs(true);
     setActionNumber(1);
   };
@@ -1066,7 +1066,7 @@ export const Raffi = () => {
                             )}
 
                             {TableCellFormat(
-                              row.Estado === "SIN ASIGNAR" || "Sin Asignar"
+                              row.Estado === "SIN ASIGNAR" || row.Estado === "Sin Asignar"
                                 ? "SIN ASIGNAR"
                                 :  row.CreadoPor?.toUpperCase() || ""
                             )}
