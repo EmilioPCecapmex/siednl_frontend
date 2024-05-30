@@ -23,6 +23,7 @@ export function TabFinPropositoFT({
   FinValues,
   PropositoValues,
   ftEditPadre,
+  MIR,
 }: {
   edit: boolean;
   show: boolean;
@@ -31,6 +32,7 @@ export function TabFinPropositoFT({
   FinValues: IFinFT;
   PropositoValues: IPropositoFT;
   ftEditPadre: IFTEdit;
+  MIR: string;
 }) {
 
 
@@ -254,6 +256,8 @@ export function TabFinPropositoFT({
                     <Divider />
                   </Grid>
 
+
+                  
                   <Grid
                     sx={{
                       display: "flex",
@@ -290,7 +294,17 @@ export function TabFinPropositoFT({
                   </Grid>
                 </List>
               )}
-
+                <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratSemiBold",
+                      // fontSize: "1vw",
+                      textAlign: "center",
+                    }}
+                  >
+                    {JSON.parse(MIR).fin.indicador}
+                  </Typography>
+                </Grid>
               <Grid
                 item
                 xl={3.5}
@@ -1228,6 +1242,18 @@ export function TabFinPropositoFT({
                   </Grid>
                 </List>
               )}
+
+                <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratSemiBold",
+                      // fontSize: "1vw",
+                      textAlign: "center",
+                    }}
+                  >
+                    {JSON.parse(MIR).proposito.indicador}
+                  </Typography>
+                </Grid>
               <Grid
                 item
                 xl={3.5}

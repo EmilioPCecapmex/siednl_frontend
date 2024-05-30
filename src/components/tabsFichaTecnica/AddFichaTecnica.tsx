@@ -363,6 +363,7 @@ export default function AddFichaTecnica({
               FinValues={ftPadre.fin}
               PropositoValues={ftPadre.proposito}
               ftEditPadre={ftEditPadre}
+              MIR={MIR}
             ></TabFinPropositoFT>
           ) : null}
           {value === 2 ? (
@@ -372,6 +373,7 @@ export default function AddFichaTecnica({
               setFTcomponentesPadre={setFTcomponentesPadre}
               ComponentesFT={ftPadre.componentes}
               ftEditPadre={ftEditPadre}
+              MIR={MIR}
             ></TabComponenteFT>
           ) : null}
           {value === 3 ? (
@@ -381,6 +383,7 @@ export default function AddFichaTecnica({
               setFTcomponentesActividadPadre={setFTcomponentesActividadPadre}
               componentesActividad={ftPadre.componentes}
               ftEditPadre={ftEditPadre}
+              MIR={MIR}
             ></TabActividadesFT>
           ) : null}
           {value === 4 ? (

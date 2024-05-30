@@ -188,6 +188,19 @@ export function TabEncabezado({
         </Typography>
       </Grid>
 
+
+      <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+        <Typography
+          sx={{
+            fontFamily: "MontserratSemiBold",
+            // fontSize: "1vw",
+            textAlign: "center",
+          }}
+        >
+          {JSON.parse(MIR).encabezado.programa.Label}
+        </Typography>
+      </Grid>
+      
       <Grid
         sx={{
           width: "100%",

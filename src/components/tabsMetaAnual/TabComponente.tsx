@@ -499,7 +499,18 @@ export const TabComponenteMA = ({
               </List>
             </Grid>
           )}
-
+          <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              {JSON.parse(MIR).componentes[componentSelect].resumen}
+            </Typography>
+            
+          </Grid>
           <Grid
             item
             xl={3}

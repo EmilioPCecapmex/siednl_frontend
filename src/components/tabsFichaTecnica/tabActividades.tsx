@@ -25,12 +25,14 @@ export const TabActividadesFT = ({
   setFTcomponentesActividadPadre,
   componentesActividad,
   ftEditPadre,
+  MIR,
 }: {
   edit: boolean;
   show: boolean;
   setFTcomponentesActividadPadre: Function;
   componentesActividad: IComponentesFT[];
   ftEditPadre: IFTEdit;
+  MIR: string;
 }) => {
   const [componentesActividadValues, setComponentesActividadValues] =
     useState<IComponentesFT[]>(componentesActividad);
@@ -305,7 +307,17 @@ export const TabActividadesFT = ({
               })}
             </List>
           )}
-
+<Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratSemiBold",
+                      // fontSize: "1vw",
+                      textAlign: "center",
+                    }}
+                  >
+                    {JSON.parse(MIR).componentes[componenteSelect].actividades[actividadSelect].indicador}
+                  </Typography>
+                </Grid>
           <Grid
             item
             xl={3.5}

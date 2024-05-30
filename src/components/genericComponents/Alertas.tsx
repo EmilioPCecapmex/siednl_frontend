@@ -49,7 +49,7 @@ export function alertaErroresDocumento(errores: string[] = []) {
     confirmButtonColor: "#15212f",
     html: `
     <div style="height:50%;">
-    <h3>SE HAN ENCONTRADO LOS SIGUEINTES ERRORES:</h3> 
+    <h3>SE HAN ENCONTRADO LOS SIGUIENTES ERRORES:</h3> 
     <div style="text-align: left; margin-left: 10px; color: red; height: 300px; overflow: auto;">
   <small>
   <strong>
