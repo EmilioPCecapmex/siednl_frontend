@@ -219,10 +219,11 @@ export const TabActividadRf = ({
               fontSize: "1.5vw",
             }}
           >
-            COMPONENTE #{componenteSelect + 1} - ACTIVIDAD #{" "}
-            {actividadSelect + 1}
+            A{actividadSelect + 1}C{componenteSelect + 1}
           </Typography>
         </Grid>
+
+        
         <Grid
           sx={{
             width: "100%",
@@ -328,6 +329,7 @@ export const TabActividadRf = ({
               })}
             </List>
           )}
+          
           <Grid
             item
             container
@@ -345,6 +347,19 @@ export const TabActividadRf = ({
               },
             }}
           >
+            <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              {JSON.parse(MIR).componentes[componenteSelect]?.actividades[
+                          actividadSelect]?.resumen}
+            </Typography>
+            
+          </Grid>
             {isSmallScreen && (
               <List
               
@@ -521,6 +536,20 @@ export const TabActividadRf = ({
                 value={jsonMA?.componentes[componenteSelect]?.lineaBase || ""}
               />
             </Grid>
+
+            <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              METAS
+            </Typography>
+            
+          </Grid>
+
 
             <Grid
               container
@@ -720,7 +749,19 @@ export const TabActividadRf = ({
                 </Grid>
               </Grid>
             </Grid>
-
+            
+            <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              CAPTURA AVANCE
+            </Typography>
+            
+          </Grid>
             <Grid
               container
               direction={"row"}

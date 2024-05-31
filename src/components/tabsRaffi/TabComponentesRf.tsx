@@ -237,7 +237,7 @@ export const TabComponenteRf = ({
           COMPONENTE {componentSelect + 1}
         </Typography>
       </Grid>
-
+      
       {/* COLUMNA IZQUIERDA QUE MUESTRA LOS COMPONENTES */}
       <Grid
         sx={{
@@ -371,7 +371,18 @@ export const TabComponenteRf = ({
               })}
             </List>
           )}
-
+          <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              {JSON.parse(MIR).componentes[componentSelect].resumen}
+            </Typography>
+            
+          </Grid>
           <Grid
             item
             xl={3}
@@ -457,7 +468,20 @@ export const TabComponenteRf = ({
               value={jsonMA?.componentes[componentSelect]?.lineaBase || ""}
             />
           </Grid>
+          
 
+          <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              METAS
+            </Typography>
+            
+          </Grid>
           {jsonMIR?.componentes[componentSelect]?.frecuencia === "SEMESTRAL" ? (
             <Grid
               container
@@ -766,6 +790,18 @@ export const TabComponenteRf = ({
             </Grid>
           )}
 
+          <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              CAPTURA AVANCE
+            </Typography>
+            
+          </Grid>
           {jsonMIR?.componentes[componentSelect]?.frecuencia === "SEMESTRAL" ? (
             <Grid
               container
@@ -796,6 +832,7 @@ export const TabComponenteRf = ({
                     justifyContent: "space-around",
                   }}
                 >
+                  
                   <Grid item>
                     <InputLabel sx={queries.medium_text}>SEMESTRE 1</InputLabel>
                   </Grid>
