@@ -119,7 +119,7 @@ export const Raffi = () => {
   }, [rfFiltered]);
 
   const returnMain = () => {
-   // getListadoRF()
+   getListadoRF()
     setOpenTabs(true);
     setActionNumber(1);
   };

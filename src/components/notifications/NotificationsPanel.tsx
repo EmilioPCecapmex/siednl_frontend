@@ -21,6 +21,12 @@ import {
   verNotificacion,
 } from "../genericComponents/axiosGenericos";
 import { INotificacion } from "./NotificacionesInterfaz";
+import DeleteIcon from "@mui/icons-material/Delete";
+import MessageIcon from "@mui/icons-material/Message";
+import ComentDialogMir from "../modalsMIR/ModalComentariosMir";
+import ComentDialogMA from "../modalsMA/ModalComentariosMA";
+import ComentDialogFT from "../modalsFT/ModalComentariosFT";
+import ComentDialogRF from "../modalsRF/ModalComentariosRF";
 
 export default function NotificationsPanel({
   fnc = () => {},
@@ -45,6 +51,63 @@ export default function NotificationsPanel({
 
   const handleCloseNotifPanel = () => {
     setOpenNotifPanel(false);
+  };
+
+  const notificacionesOpcion = (
+    titulo: string,
+    CreadoPor: string,
+    IdDocumento: string
+  ) => {
+    console.log("Titulo: ", titulo);
+    
+    if (titulo === "MIR") {
+      return (
+        <ComentDialogMir
+          estado={CreadoPor}
+          id={IdDocumento}
+          actualizado={() => {}}
+          MIR={""}
+          IdEntidad={localStorage.getItem("IdEntidad") || ""}
+        />
+      );
+    }
+
+    if (titulo === "MA") {
+      console.log("Entre aqui MA");
+      
+      return (
+        <ComentDialogMA
+          estado={CreadoPor}
+          id={IdDocumento}
+          actualizado={() => {}}
+          MIR={""}
+          IdEntidad={localStorage.getItem("IdEntidad") || ""}
+        />
+      );
+    }
+
+    if (titulo === "FT") {
+      return (
+        <ComentDialogFT
+          estado={CreadoPor}
+          id={IdDocumento}
+          actualizado={() => {}}
+          MIR={""}
+          IdEntidad={localStorage.getItem("IdEntidad") || ""}
+        />
+      );
+    }
+
+    if (titulo === "RF") {
+      return (
+        <ComentDialogRF
+          estado={CreadoPor}
+          id={IdDocumento}
+          MIR={""}
+          IdEntidad={localStorage.getItem("IdEntidad") || ""}
+        />
+      );
+    }
   };
 
   const list = () => (
@@ -111,28 +174,34 @@ export default function NotificationsPanel({
                   <Button
                     variant="text"
                     onClick={() => {
-                     // verNotificacion(index.Id, setNotificaciones, setSinNotificaciones );
-                    
+                      // verNotificacion(index.Id, setNotificaciones, setSinNotificaciones );
+
                       if (index.Titulo === "MIR") {
-                      
-                       navigate("../mir" + "?Id=" + index.IdDocumento)
-                       localStorage.setItem("IdNotificacion", index.IdDocumento)
-                      }
-                      else if (index.Titulo === "MA") {
-                        localStorage.setItem("IdNotificacion", index.IdDocumento)
+                        navigate("../mir" + "?Id=" + index.IdDocumento);
+                        localStorage.setItem(
+                          "IdNotificacion",
+                          index.IdDocumento
+                        );
+                      } else if (index.Titulo === "MA") {
+                        localStorage.setItem(
+                          "IdNotificacion",
+                          index.IdDocumento
+                        );
                         navigate("../metaAnual" + "?Id=" + index.IdDocumento);
-                      }
-                      else if (index.Titulo === "FT") {
-                        localStorage.setItem("IdNotificacion", index.IdDocumento)
+                      } else if (index.Titulo === "FT") {
+                        localStorage.setItem(
+                          "IdNotificacion",
+                          index.IdDocumento
+                        );
                         navigate(
                           "../fichaTecnica" + "?Id=" + index.IdDocumento
                         );
-                      }
-                      else if (index.Titulo === "RF") {
-                        localStorage.setItem("IdNotificacion", index.IdDocumento)
-                        navigate(
-                          "../Raffi" + "?Id=" + index.IdDocumento
+                      } else if (index.Titulo === "RF") {
+                        localStorage.setItem(
+                          "IdNotificacion",
+                          index.IdDocumento
                         );
+                        navigate("../Raffi" + "?Id=" + index.IdDocumento);
                         navigate("../Raffi" + "?Id=" + index.IdDocumento);
                       }
                       fnc();
@@ -267,10 +336,11 @@ export default function NotificationsPanel({
         open={openNotifPanel}
         onClose={() => handleCloseNotifPanel()}
         sx={{
-          display: "flex",
+          // display: "flex",
           maxHeight: "90vh",
+
           //   overflow: "auto",
-          alignItems: "flex-end",
+          //alignItems: "flex-end",
 
           // ...(isXsScreen
           //   ? {
@@ -282,7 +352,249 @@ export default function NotificationsPanel({
           //   : {}),
         }}
       >
-        <Grid
+        <Grid container sx={{ width: "40vh", alignItems: "center" }}>
+          <Grid
+            item
+            xl={12}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
+            sx={{
+              display: "flex",
+              //  flexDirection: "column",
+              justifyContent: "center",
+              borderBottom: 1,
+              // borderColor: "#ggg",
+            }}
+          >
+            <Typography>NOTIFICACIONES</Typography>
+          </Grid>
+
+          <Divider />
+
+          {sinNotificaciones ? (
+            <List
+              sx={{
+                width: {
+                  xs: "100vw",
+                  sm: "30vw",
+                  md: "20vw",
+                  lg: "20vw",
+                  xl: "20vw",
+                },
+                height: "auto",
+                overflow: "auto",
+              }}
+            >
+              {notificaciones?.map((index) => (
+                <ListItem key={index.Id || Math.random()} disablePadding>
+                  <Grid
+                    item
+                    container
+                    xl={12}
+                    lg={12}
+                    md={12}
+                    sm={12}
+                    xs={12}
+                    sx={{ borderBottom: 1 }}
+                  >
+                    <Grid
+                      item
+                      container
+                      xl={6}
+                      lg={6}
+                      md={6}
+                      sm={6}
+                      xs={6}
+                      //sx={{ backgroundColor: "blue" }}
+                    >
+                      <Grid
+                        item
+                        container
+                        direction={"row"}
+                        xl={3}
+                        lg={3}
+                        md={3}
+                        sm={3}
+                        xs={3}
+                        //sx={{ backgroundColor: "blue" }}
+                      >
+                        <Grid>
+                          <Typography
+                            sx={{
+                              fontFamily: "MontserratSemiBold",
+
+                              color: "#af8c55",
+                            }}
+                          >
+                            {index.Titulo}
+                          </Typography>
+                        </Grid>
+
+                        <Grid>
+                          <Typography
+                            sx={{
+                              fontFamily: "MontserratLight",
+
+                              //ml: "1vw",
+                              mt: "1vh",
+                            }}
+                          >
+                            {index.Mensaje}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+
+                      <Grid
+                        item
+                        xl={9}
+                        lg={9}
+                        md={9}
+                        sm={9}
+                        xs={9}
+                        //sx={{ backgroundColor: "blue" }}
+                      ></Grid>
+                    </Grid>
+
+                    <Grid
+                      item
+                      container
+                      xl={6}
+                      lg={6}
+                      md={6}
+                      sm={6}
+                      xs={6}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Grid item xl={5} lg={5} md={5} sm={12} xs={12}>
+                        <Button
+                          variant="text"
+                          onClick={() => {
+                            // verNotificacion(index.Id, setNotificaciones, setSinNotificaciones );
+
+                            if (index.Titulo === "MIR") {
+                              navigate("../mir" + "?Id=" + index.IdDocumento);
+                              localStorage.setItem(
+                                "IdNotificacion",
+                                index.IdDocumento
+                              );
+                            } else if (index.Titulo === "MA") {
+                              localStorage.setItem(
+                                "IdNotificacion",
+                                index.IdDocumento
+                              );
+                              navigate(
+                                "../metaAnual" + "?Id=" + index.IdDocumento
+                              );
+                            } else if (index.Titulo === "FT") {
+                              localStorage.setItem(
+                                "IdNotificacion",
+                                index.IdDocumento
+                              );
+                              navigate(
+                                "../fichaTecnica" + "?Id=" + index.IdDocumento
+                              );
+                            } else if (index.Titulo === "RF") {
+                              localStorage.setItem(
+                                "IdNotificacion",
+                                index.IdDocumento
+                              );
+                              navigate("../Raffi" + "?Id=" + index.IdDocumento);
+                              
+                            }
+                            fnc();
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              fontFamily: "MontserratSemiBold",
+
+                              color: "blue",
+                            }}
+                          >
+                            {" "}
+                            {"Ver"}
+                          </Typography>
+                        </Button>
+                      </Grid>
+
+                      <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
+                        <ToggleButton
+                          sx={{
+                            width: "1vw",
+                            height: "1vh",
+                          }}
+                          value="check"
+                          onClick={() =>
+                            verNotificacion(
+                              index.Id,
+                              setNotificaciones,
+                              setSinNotificaciones
+                            )
+                          }
+                        >
+                          <DeleteIcon />
+                        </ToggleButton>
+                      </Grid>
+
+                      <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+
+                        {notificacionesOpcion(
+                          index.Titulo,
+                          index.CreadoPor,
+                          index.IdDocumento
+                        )}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <Typography
+              sx={{
+                fontFamily: "MontserratLight",
+                fontSize: ".9vw",
+                ml: "1vw",
+                mt: "1vh",
+              }}
+            >
+              Sin Notificaciones
+            </Typography>
+          )}
+
+          <Grid
+            item
+            xl={12}
+            lg={12}
+            md={12}
+            sm={12}
+            xs={12}
+            sx={{
+              display: "flex",
+              //  flexDirection: "column",
+              justifyContent: "center",
+
+              // borderColor: "#ggg",
+            }}
+          >
+            <Button
+              className="cancelar"
+              sx={{ width: "90%" }}
+              onClick={() => handleCloseNotifPanel()}
+              color="error"
+            >
+              CERRAR
+            </Button>
+          </Grid>
+        </Grid>
+
+        {/* <Grid
           item
           display={"flex"}
           justifyContent={"space-evenly"}
@@ -303,40 +615,6 @@ export default function NotificationsPanel({
         </Grid>
         <Divider />
         <Grid
-          xs={12}
-          sm={12}
-          md={12}
-          lg={12}
-          xl={12}
-          container
-          item
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            overflow: "auto",
-          }}
-        >
-          <Grid
-            xl={12}
-            lg={12}
-            md={12}
-            sm={12}
-            xs={12}
-            container
-            item
-            sx={{
-              // height: "90%",
-              overflow: "auto",
-              //justifyContent: "center",
-              // display: "flex",
-            }}
-          >
-            {list()}
-          </Grid>
-
-          <Divider />
-        </Grid>
-        <Grid
           sx={{
             justifyContent: "center",
             alignItems: "flex-end",
@@ -351,7 +629,7 @@ export default function NotificationsPanel({
           >
             CERRAR
           </Button>
-        </Grid>
+        </Grid> */}
       </Drawer>
     </React.Fragment>
   );

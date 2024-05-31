@@ -63,6 +63,8 @@ import axios from "axios";
 
   
 export const obtenerComentarios = async (id: string,  state: Function) => {
+  console.log("entre");
+  
     try {
       const response = await axios.get(
         process.env.REACT_APP_APPLICATION_BACK + "/api/get-coment-mir",
@@ -77,7 +79,11 @@ export const obtenerComentarios = async (id: string,  state: Function) => {
       );
   
       state(response.data.data);
+      console.log("response.data.data: ",response.data.data);
+      
     } catch (error) {
+      console.log("entre aqui");
+      
       console.error("Error al obtener comentarios:", error);
       // Puedes manejar el error según tus necesidades
     }

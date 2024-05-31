@@ -79,20 +79,21 @@ export const ComentDialogFT = ({
   const comentFt = () => {
     create_coment_mir(id, coment, "FT")
       .then((r) => {
-        if (estado !== "En Captura") {
-          // eslint-disable-next-line array-callback-return
+        // if (estado !== "En Captura") {
+        //   // eslint-disable-next-line array-callback-return
 
-          // userXInst.map((user) => {
-          //   soliModyNoty(user.IdUsuario, coment, "Nuevo comentario Ficha Tecnica", id );
-          // });
-          enviarNotificacionRol(
-            "FT",
-            "NUEVO COMENTARIO FICHA TECNICA",
-            id,
-            ["Verificador"],
-            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad
-          );
-        }
+        //   // userXInst.map((user) => {
+        //   //   soliModyNoty(user.IdUsuario, coment, "Nuevo comentario Ficha Tecnica", id );
+        //   // });
+        //   enviarNotificacionRol(
+        //     "FT",
+        //     "NUEVO COMENTARIO FICHA TECNICA",
+        //     id,
+        //     ["Verificador"],
+        //     JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad
+        //   );
+        // }
+
         setNewComent(false);
         setComent("");
         handleClose();

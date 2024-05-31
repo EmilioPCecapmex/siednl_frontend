@@ -22,9 +22,18 @@ import moment from "moment";
 import { IIUserXInst } from "../modalsMIR/ModalEnviarMIR";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import "../../../src/Globals.css"
-import {alertaExito, alertaError, alertaInfo} from "../genericComponents/Alertas";
-import { create_coment_mir, soliModyNoty, obtenerComentarios, enviarNotificacionRol } from "../genericComponents/axiosGenericos";
+import "../../../src/Globals.css";
+import {
+  alertaExito,
+  alertaError,
+  alertaInfo,
+} from "../genericComponents/Alertas";
+import {
+  create_coment_mir,
+  soliModyNoty,
+  obtenerComentarios,
+  enviarNotificacionRol,
+} from "../genericComponents/axiosGenericos";
 
 export const ComentDialogMA = ({
   estado,
@@ -39,8 +48,6 @@ export const ComentDialogMA = ({
   MIR: string;
   IdEntidad: string;
 }) => {
- 
-
   const [coments, setComents] = React.useState([
     {
       Comentario: "",
@@ -65,70 +72,81 @@ export const ComentDialogMA = ({
     setComent("");
   };
 
-  const [userXInst, setUserXInst] = React.useState<Array<IIUserXInst>>([]);
+  // const [userXInst, setUserXInst] = React.useState<Array<IIUserXInst>>([]);
 
-  const getUsuariosXInstitucion = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
-        {
-          TipoUsuario: localStorage.getItem("Rol"),
-          IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
-          IdApp: localStorage.getItem("dApp"),
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          setUserXInst(r.data.data);
-        }
-      });
-  };
+  // const getUsuariosXInstitucion = () => {
+  //   axios
+  //     .post(
+  //       process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
+  //       {
+  //         TipoUsuario: localStorage.getItem("Rol"),
+  //         IdEntidad:
+  //           IdEntidad ||
+  //           JSON.parse(MIR)?.encabezado.entidad.Id ||
+  //           localStorage.getItem("IdEntidad"),
+  //         IdApp: localStorage.getItem("IdApp"),
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: localStorage.getItem("jwtToken") || "",
+  //         },
+  //       }
+  //     )
+  //     .then((r) => {
+  //       if (r.status === 200) {
+  //         setUserXInst(r.data.data);
+  //       }
+  //     });
+  // };
 
-  React.useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
-    }
-  }, [open]);
+  // React.useEffect(() => {
+  //   if (open) {
+  //     getUsuariosXInstitucion();
+  //   }
+  // }, [open]);
 
   const [coment, setComent] = React.useState("");
 
   const comentMa = () => {
 
-    
-      create_coment_mir(id, coment, "MA")
+    create_coment_mir(id, coment, "MA")
+
       .then((r) => {
-        if (estado !== "En Captura") {
-          // eslint-disable-next-line array-callback-return
-          let rol: string[] = [];
-        if(localStorage.getItem("Rol") === "Verificador"){
-          rol = ["Administrador"]
-        }
+        // if (estado !== "En Captura") {
+        //   // eslint-disable-next-line array-callback-return
+        //   let rol: string[] = [];
+        //   if (localStorage.getItem("Rol") === "Verificador") {
+        //     rol = ["Administrador"];
+        //     console.log("entre Administrador: ");
+        //   }
 
-        if(localStorage.getItem("Rol") === "Capturador"){
-          rol = ["Verificador"]
-        }
+        //   if (localStorage.getItem("Rol") === "Capturador") {
+        //     rol = ["Verificador"];
+        //     console.log("entre Verificador: ");
+        //   }
 
-        if(localStorage.getItem("Rol") === "Administrador"){
-          rol = ["Capturador","Verificador"]
-        }
+        //   if (localStorage.getItem("Rol") === "Administrador") {
+        //     rol = ["Capturador", "Verificador"];
+        //     console.log("entre Capturador: Verificador");
+        //   }
 
-        enviarNotificacionRol("MA", "COMENTARIO NUEVO DE MA", id, rol, (JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad))
-        }
+        //   enviarNotificacionRol(
+        //     "MA",
+        //     "COMENTARIO NUEVO DE MA",
+        //     id,
+        //     rol,
+        //     JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad || localStorage.getItem("IdEntidad")
+        //   );
+        // }
 
         setNewComent(false);
         setComent("");
         handleClose();
         actualizado();
-        
+
         alertaExito(() => {}, "COMENTARIO AÑADIDO");
       })
       .catch((err) => {
-       
         alertaError("SE PRODUJO UN ERROR ");
       });
   };
@@ -149,7 +167,7 @@ export const ComentDialogMA = ({
   // }, [actualizado, id]);
 
   React.useEffect(() => {
-    obtenerComentarios(id,  setComents);
+    obtenerComentarios(id, setComents);
   }, [actualizado, id]);
 
   const isComentEmpty = () => {
@@ -159,27 +177,26 @@ export const ComentDialogMA = ({
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
-  return ( 
+  return (
     <Grid>
       <Tooltip title="COMENTARIOS">
         <span>
           <IconButton onClick={handleClickOpen}>
             <MessageIcon
-               sx={{
+              sx={{
                 fontSize: "24px", // Tamaño predeterminado del icono
 
                 "@media (max-width: 600px)": {
                   fontSize: 20, // Pantalla extra pequeña (xs y sm)
                 },
 
-                "@media (min-width: 601px) and (max-width: 960px)":
-                  {
-                    fontSize: 20, // Pantalla pequeña (md)
-                  },
+                "@media (min-width: 601px) and (max-width: 960px)": {
+                  fontSize: 20, // Pantalla pequeña (md)
+                },
 
-                  "@media (min-width: 961px) and (max-width: 1280px)": {
-                    fontSize: 20, // Pantalla mediana (lg)
-                  },
+                "@media (min-width: 961px) and (max-width: 1280px)": {
+                  fontSize: 20, // Pantalla mediana (lg)
+                },
 
                 "@media (min-width: 1281px)": {
                   fontSize: 25, // Pantalla grande (xl)
@@ -241,20 +258,22 @@ export const ComentDialogMA = ({
                       sx={{ fontFamily: "MontserratBold" }}
                       align="center"
                     >
-                      FECHA DE ENVÍO 
+                      FECHA DE ENVÍO
                     </TableCell>
                   </TableRow>
                 </TableHead>
 
                 <TableBody>
                   {coments.length >= 1 && !coments[0]?.error ? (
+                    console.log(""),
+                    
                     coments.map((row, index) =>
                       row.MIR_MA === "MA" ? (
                         <TableRow key={index}>
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                         //     fontSize: ".7vw",
+                              //     fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -263,7 +282,7 @@ export const ComentDialogMA = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                            //  fontSize: ".7vw",
+                              //  fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -272,7 +291,7 @@ export const ComentDialogMA = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                          //    fontSize: ".7vw",
+                              //    fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -289,7 +308,7 @@ export const ComentDialogMA = ({
                       <TableCell
                         sx={{
                           fontFamily: "MontserratRegular",
-                       //   fontSize: ".7vw",
+                          //   fontSize: ".7vw",
                         }}
                         align="center"
                       >
@@ -312,7 +331,7 @@ export const ComentDialogMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              sx={{ width: ["100vw", "100vw", "100vw", "100vw", "100vw" ] }}
+              sx={{ width: ["100vw", "100vw", "100vw", "100vw", "100vw"] }}
               placeholder="AÑADA UN COMENTARIO PARA PODER ARGEGAR"
               onChange={(v) => {
                 setComent(v.target.value);
@@ -333,21 +352,25 @@ export const ComentDialogMA = ({
                 // Otros estilos específicos para pantallas pequeñas
               }),
               //flexDirection: "row",
-    
+
               //mt: 1,
               alignItems: "center",
               justifyContent: "center",
-    
+
               borderBottom: 1,
               borderColor: "#cfcfcf",
-    
+
               ...(isSmallScreen && {
                 height: "15%",
               }),
             }}
           >
             <Grid
-              sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+              sx={{
+                justifyContent: "center",
+                display: "flex",
+                margin: isSmallScreen ? "2px" : "5px",
+              }}
               item
               xl={3}
               lg={3}
@@ -358,21 +381,21 @@ export const ComentDialogMA = ({
               <Button
                 className="cancelar"
                 variant="contained"
-                sx={{ width: "100%"  }}
+                sx={{ width: "100%" }}
                 onClick={handleClose}
               >
-                <Typography
-                  sx={{ fontFamily: "MontserratMedium",  }}
-                >
+                <Typography sx={{ fontFamily: "MontserratMedium" }}>
                   CANCELAR
                 </Typography>{" "}
               </Button>
-
-              
             </Grid>
 
             <Grid
-              sx={{ justifyContent: "center", display: "flex", margin: isSmallScreen ? "2px" : "5px", }}
+              sx={{
+                justifyContent: "center",
+                display: "flex",
+                margin: isSmallScreen ? "2px" : "5px",
+              }}
               item
               xl={3}
               lg={3}
@@ -380,30 +403,24 @@ export const ComentDialogMA = ({
               sm={12}
               xs={12}
             >
-              
-
               <Button
-               // sx={queries.buttonContinuarSolicitudInscripcion}
-               sx={{ width:  "100%"  }}
-               className="aceptar"
+                // sx={queries.buttonContinuarSolicitudInscripcion}
+                sx={{ width: "100%" }}
+                className="aceptar"
                 variant="contained"
                 disabled={estado === "Autorizada" && isComentEmpty()}
                 color="info"
                 onClick={() => {
                   if (isComentEmpty()) {
-                     comentMa();
+                    comentMa();
                   }
                 }}
               >
-                <Typography
-                  sx={{ fontFamily: "MontserratMedium",  }}
-                >
+                <Typography sx={{ fontFamily: "MontserratMedium" }}>
                   {"AGREGAR"}
                 </Typography>
               </Button>
             </Grid>
-
-
           </Grid>
         </DialogContent>
       </Dialog>
