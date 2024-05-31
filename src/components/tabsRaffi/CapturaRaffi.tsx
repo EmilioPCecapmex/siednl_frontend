@@ -405,6 +405,7 @@ export default function CapturaRaffi({
                 finRF={raffi.fin}
                 propositoRF={raffi.proposito}
                 RF={RF}
+                MA={MA}
                 raffiboolean={raffiboolean}
               />
             )}

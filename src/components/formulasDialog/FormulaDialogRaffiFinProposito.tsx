@@ -15,35 +15,53 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { queries } from "../../queries";
 import { log } from "console";
 import { clearInfo } from "../genericComponents/GenericMethods";
+import { IMA } from "../tabsMetaAnual/IMA";
+
 
 export const DialogFinPropositoRaffi = ({
   open,
   close,
   setValor,
   tipo,
+  MA,
   elemento,
 }: {
   open: boolean;
   close: Function;
   setValor: Function;
   tipo: string;
+  MA: string;
   elemento: string;
 }) => {
-  const [Numerodador, setNumerdaor] = useState("");
+  const [Numerador, setNumerdaor] = useState("");
   const [Denominador, setDenominador] = useState("");
+
+  const jsonMA: IMA = JSON.parse(MA) || "";
 
   const handleClose = () => {
     close(false); // Call the close function provided as a prop when the dialog should be closed.
   };
 
+  //const ValorNumerador = (tipo === "FIN") ? setNumerdaor(jsonMA.fin.valorNumerador) : (tipo === "PROPOSITO") ? setNumerdaor(jsonMA.fin.valorNumerador) : "";
+
+  useEffect(() => {
+    if (tipo === "FIN") {
+      setDenominador(jsonMA.fin.valorDenominador);
+    } else if (tipo === "PROPOSITO") {
+      setDenominador(jsonMA.proposito.valorDenominador);
+    } else {
+      setDenominador('');
+    }
+  }, [tipo, jsonMA]);
+
   const handleChange = () => {
     switch (elemento) {
       case "PORCENTAJE":
-        let aux = (parseFloat(Numerodador) / parseFloat(Denominador)) * 100;
-
+        let aux = (parseFloat(Numerador) / parseFloat(Denominador)) * 100;
+        aux = parseFloat(aux.toFixed(2));
         if (
-          Numerodador === "" ||
-          Numerodador === null ||
+          Numerador === "" ||
+          Numerador === null ||
           Denominador === "" ||
           Denominador === null
         ) {
@@ -56,9 +74,10 @@ export const DialogFinPropositoRaffi = ({
         break;
 
       case "INDICE" || "ÍNDICE":
-        let aux2 = parseFloat(Numerodador);
+        let aux2 = parseFloat(Numerador);
+        aux2 = parseFloat(aux2.toFixed(2));
       
-        if (Numerodador === "" || Numerodador === null) {
+        if (Numerador === "" || Numerador === null) {
         } else {
           setValor(aux2, elemento, tipo);
           setNumerdaor("");
@@ -68,11 +87,12 @@ export const DialogFinPropositoRaffi = ({
         break;
 
       case "PROMEDIO":
-        let aux3 = (parseFloat(Numerodador) + parseFloat(Denominador)) / 2;
+        let aux3 = (parseFloat(Numerador) + parseFloat(Denominador)) / 2;
+        aux3 = parseFloat(aux3.toFixed(2));
 
         if (
-          Numerodador === "" ||
-          Numerodador === null ||
+          Numerador === "" ||
+          Numerador === null ||
           Denominador === "" ||
           Denominador === null
         ) {
@@ -86,11 +106,12 @@ export const DialogFinPropositoRaffi = ({
 
       case "TASA":
         let aux4 =
-          ((parseFloat(Numerodador) - parseFloat(Denominador)) /
+          ((parseFloat(Numerador) - parseFloat(Denominador)) /
             parseFloat(Denominador)) *100;
+            aux4 = parseFloat(aux4.toFixed(2));
         if (
-          Numerodador === "" ||
-          Numerodador === null ||
+          Numerador === "" ||
+          Numerador === null ||
           Denominador === "" ||
           Denominador === null
         ) {
@@ -130,7 +151,7 @@ export const DialogFinPropositoRaffi = ({
               multiline
               rows={4}
               sx={{ width: "100%" }}
-              value={Numerodador}
+              value={Numerador}
               onChange={(x) =>
                 setNumerdaor(
                   clearInfo(x.target.value)

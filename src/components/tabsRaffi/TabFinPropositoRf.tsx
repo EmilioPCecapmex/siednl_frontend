@@ -16,6 +16,7 @@ export function TabFinPropositoRF({
   finRF,
   propositoRF,
   raffiboolean,
+  MA,
 }: {
   edit:boolean;
   setRFFinPadre: Function;
@@ -25,8 +26,9 @@ export function TabFinPropositoRF({
   propositoRF: IPropositoRF;
   RF: string;
   raffiboolean: IRFEdit;
+  MA: string;
 }) {
-  const jsonMir: IMIR = JSON.parse(MIR);
+  const jsonMir: IMIR = JSON.parse(MIR) || "";
 
   const [fin, setFin] = useState<IFinRF>(finRF);
 
@@ -117,6 +119,7 @@ export function TabFinPropositoRF({
         break;
     }
   };
+  
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
   return (
     <>
@@ -426,6 +429,7 @@ export function TabFinPropositoRF({
           close={handleClose}
           elemento={unico}
           tipo={apartado}
+          MA={MA}
           setValor={assignValue}
         />
       </Grid>

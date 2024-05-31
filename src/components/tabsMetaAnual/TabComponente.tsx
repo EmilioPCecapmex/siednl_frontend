@@ -321,6 +321,10 @@ export const TabComponenteMA = ({
         elemento={elementoFormula}
         elementoA={""}
         MIR={MIR}
+        MA={MA || ""}
+        index={0}
+        tab={""}
+        index2={0}
       />
 
       <FormulaDialogMACA

@@ -8,10 +8,11 @@ import {
   Alert,
   Snackbar,
 } from "@mui/material";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { queries } from "../../queries";
 import { clearInfo } from "../genericComponents/GenericMethods";
 import { validarNumero } from "../../services/validations";
+import { IMA } from "../tabsMetaAnual/IMA";
 export const FormulaDialogMA = ({
   open,
   close,
@@ -20,6 +21,10 @@ export const FormulaDialogMA = ({
   elemento,
   elementoA,
   MIR,
+  MA,
+  index,
+  index2,
+  tab,
 }: {
   open: boolean;
   close: Function;
@@ -28,6 +33,10 @@ export const FormulaDialogMA = ({
   elemento: string;
   elementoA: string;
   MIR: string;
+  MA: string;
+  index: number;
+  index2: number;
+  tab: string;
 }) => {
   const [descA, setDescA] = useState("");
   const [descB, setDescB] = useState("");
@@ -37,6 +46,17 @@ export const FormulaDialogMA = ({
     setDescA("");
     setDescB("");
   };
+
+  const jsonMA: IMA = JSON.parse(MA) || "";
+
+  useEffect(() => {
+    if (tab === "COMPONENTES") {
+      console.log("jsonMA.componentes[index].valorNumerador: ",index, jsonMA.componentes[index].valorNumerador);
+      setDescB(jsonMA.componentes[index].valorNumerador);
+    } else if(tab === "ACTIVIDADES"){
+      setDescB(jsonMA.componentes[index].actividades[index2].valorNumerador);
+    }
+  }, [tipo, jsonMA]);
 
   const checkValues = () => {
     
@@ -337,7 +357,7 @@ export const FormulaDialogMA = ({
               fontSize: [10, 10, 10, 14, 15, 18],
             }}
           >
-            Cancelar
+            CANCELAR
           </Typography>
         </Button>
         <Button
@@ -351,7 +371,7 @@ export const FormulaDialogMA = ({
               fontSize: [10, 10, 10, 14, 15, 18],
             }}
           >
-            Agregar
+            AGREGAR
           </Typography>
         </Button>
       </Grid>

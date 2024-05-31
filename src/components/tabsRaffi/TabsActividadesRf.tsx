@@ -11,7 +11,7 @@ import {
   TextField,
   Tooltip,
   Typography,
-  useMediaQuery
+  useMediaQuery,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { queries } from "../../queries";
@@ -35,8 +35,6 @@ export const TabActividadRf = ({
   setRFactividadesPadre: Function;
   raffiboolean: IRFEdit;
 }) => {
-  
-
   const [componentesActividadesValues, setComponentesActividadesValues] =
     useState<Array<IComponenteRF>>(ComponentesRF);
 
@@ -49,35 +47,45 @@ export const TabActividadRf = ({
   const [elementoFormula, setElementoFormula] = useState("");
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
+  const [index, setIndex] = useState(0);
+  const [index2, setIndex2] = useState(0);
   const handleClose = () => {
     setOpenFormulaDialog(false);
   };
- 
-
-  
 
   const changeFormula = (txt: string) => {
-
     switch (frecuencia) {
       case "trimestre1":
         componentesActividadesValues[componenteSelect].actividades[
           actividadSelect
-        ].metasPorFrecuencia[0].trimestre1 =getValueOperacion(txt, tipoFormula);
+        ].metasPorFrecuencia[0].trimestre1 = getValueOperacion(
+          txt,
+          tipoFormula
+        );
         break;
       case "trimestre2":
         componentesActividadesValues[componenteSelect].actividades[
           actividadSelect
-        ].metasPorFrecuencia[0].trimestre2 =getValueOperacion(txt, tipoFormula);
+        ].metasPorFrecuencia[0].trimestre2 = getValueOperacion(
+          txt,
+          tipoFormula
+        );
         break;
       case "trimestre3":
         componentesActividadesValues[componenteSelect].actividades[
           actividadSelect
-        ].metasPorFrecuencia[0].trimestre3 =getValueOperacion(txt, tipoFormula);
+        ].metasPorFrecuencia[0].trimestre3 = getValueOperacion(
+          txt,
+          tipoFormula
+        );
         break;
       case "trimestre4":
         componentesActividadesValues[componenteSelect].actividades[
           actividadSelect
-        ].metasPorFrecuencia[0].trimestre4 =getValueOperacion(txt, tipoFormula);
+        ].metasPorFrecuencia[0].trimestre4 = getValueOperacion(
+          txt,
+          tipoFormula
+        );
         break;
 
       default:
@@ -86,8 +94,6 @@ export const TabActividadRf = ({
     setComponentesActividadesValues([...componentesActividadesValues]);
   };
   const [open, setOpen] = useState(0);
-
-
 
   const [frecuencia, setFrecuencia] = useState("");
 
@@ -147,15 +153,10 @@ export const TabActividadRf = ({
         : ""
     );
     setElementoFormula(
-      "C" +
-        (componenteSelect ).toString() +
-        "A" +
-        (actividadSelect ).toString()
+      "C" + (componenteSelect + 1).toString() + "A" + (actividadSelect + 1).toString()
     );
     setOpenFormulaDialog(true);
   };
-
-  
 
   let jsonMA =
     MA === ""
@@ -173,15 +174,10 @@ export const TabActividadRf = ({
           display: "flex",
           width: "93vw",
           height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
-          ...(!isSmallScreen
-            ? {boxShadow: 10,
-              borderRadius: 5,}
-            : {
-                
-              }),
+          ...(!isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
           flexDirection: "column",
           backgroundColor: "#fff",
-          overflow: "auto"
+          overflow: "auto",
         }}
       >
         <FormulaDialogMA
@@ -192,6 +188,10 @@ export const TabActividadRf = ({
           elemento={elementoFormula}
           elementoA={""}
           MIR={MIR}
+          MA={MA || ""}
+          index={index}
+          tab={"ACTIVIDADES"}
+          index2={index2}
         />
 
         <Grid
@@ -205,9 +205,7 @@ export const TabActividadRf = ({
         >
           <Tooltip title="RESUMEN ACTIVIDAD">
             <InfoOutlinedIcon
-              onClick={() => {
-               
-              }}
+              onClick={() => {}}
               fontSize="large"
               sx={{ cursor: "pointer" }}
             ></InfoOutlinedIcon>
@@ -346,9 +344,7 @@ export const TabActividadRf = ({
             }}
           >
             {isSmallScreen && (
-              <List
-              
-              >
+              <List>
                 {componentesActividadesValues.map((componente, index) => {
                   return (
                     <Grid
@@ -357,7 +353,6 @@ export const TabActividadRf = ({
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
-                        
                       }}
                     >
                       <Divider />
@@ -368,6 +363,7 @@ export const TabActividadRf = ({
                           setComponenteSelect(index);
                           setOpen(index);
                           setActividadSelect(0);
+                          setIndex(index);
                         }}
                         sx={{
                           fontSize: [10, 10, 10, 13, 15, 18],
@@ -405,6 +401,7 @@ export const TabActividadRf = ({
                               key={index}
                               onClick={() => {
                                 setActividadSelect(index);
+                                setIndex2(index)
                               }}
                               sx={{
                                 height: "7vh",
@@ -474,7 +471,6 @@ export const TabActividadRf = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                
                 value={jsonMA?.componentes[componenteSelect]?.metaAnual || ""}
               />
             </Grid>
@@ -517,16 +513,11 @@ export const TabActividadRf = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-               
                 value={jsonMA?.componentes[componenteSelect]?.lineaBase || ""}
               />
             </Grid>
 
-            <Grid
-              container
-              direction={"row"}
-             
-            >
+            <Grid container direction={"row"}>
               <Grid
                 container
                 item
@@ -559,7 +550,6 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      
                       disabled={true}
                       size="small"
                       sx={{ boxShadow: 2 }}
@@ -638,7 +628,7 @@ export const TabActividadRf = ({
                   xs={12}
                   direction={"column"}
                   sx={{
-                  alignItems: "center",
+                    alignItems: "center",
                     display: "flex",
                     justifyContent: "space-around",
                   }}
@@ -721,10 +711,7 @@ export const TabActividadRf = ({
               </Grid>
             </Grid>
 
-            <Grid
-              container
-              direction={"row"}
-            >
+            <Grid container direction={"row"}>
               <Grid
                 container
                 item
@@ -756,10 +743,13 @@ export const TabActividadRf = ({
                   </Grid>
 
                   <Grid item>
-                   
                     <TextField
-                      
-                      disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1}
+                      disabled={
+                        edit &&
+                        !raffiboolean?.componentes[componenteSelect]
+                          ?.actividades[actividadSelect].metasPorFrecuencia[0]
+                          ?.trimestre1
+                      }
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -806,8 +796,12 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      
-                      disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2}
+                      disabled={
+                        edit &&
+                        !raffiboolean?.componentes[componenteSelect]
+                          ?.actividades[actividadSelect].metasPorFrecuencia[0]
+                          ?.trimestre2
+                      }
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -823,7 +817,6 @@ export const TabActividadRf = ({
                       }}
                       onClick={() => handleClickOpen("trimestre2")}
                       value={
-
                         componentesActividadesValues[componenteSelect]
                           .actividades[actividadSelect].metasPorFrecuencia[0]
                           ?.trimestre2 || ""
@@ -841,7 +834,6 @@ export const TabActividadRf = ({
                   xs={12}
                   direction={"column"}
                   sx={{
-
                     alignItems: "center",
                     display: "flex",
                     justifyContent: "space-around",
@@ -855,8 +847,12 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      
-                      disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3}
+                      disabled={
+                        edit &&
+                        !raffiboolean?.componentes[componenteSelect]
+                          ?.actividades[actividadSelect].metasPorFrecuencia[0]
+                          ?.trimestre3
+                      }
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -872,7 +868,6 @@ export const TabActividadRf = ({
                       }}
                       onClick={() => handleClickOpen("trimestre3")}
                       value={
-
                         componentesActividadesValues[componenteSelect]
                           .actividades[actividadSelect].metasPorFrecuencia[0]
                           ?.trimestre3 || ""
@@ -902,8 +897,12 @@ export const TabActividadRf = ({
                   </Grid>
                   <Grid item>
                     <TextField
-                      
-                      disabled={edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4}
+                      disabled={
+                        edit &&
+                        !raffiboolean?.componentes[componenteSelect]
+                          ?.actividades[actividadSelect].metasPorFrecuencia[0]
+                          ?.trimestre4
+                      }
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -919,7 +918,6 @@ export const TabActividadRf = ({
                       }}
                       onClick={() => handleClickOpen("trimestre4")}
                       value={
-
                         componentesActividadesValues[componenteSelect]
                           .actividades[actividadSelect].metasPorFrecuencia[0]
                           ?.trimestre4 || ""
@@ -935,4 +933,3 @@ export const TabActividadRf = ({
     </>
   );
 };
-

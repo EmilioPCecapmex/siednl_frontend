@@ -342,6 +342,10 @@ export function TabFinPropositoMA({
         elemento={elementoFormula}
         elementoA={""}
         MIR={MIR}
+        MA={MA || ""}
+        index={0}
+        tab={""}
+        index2={0}
       />
 
       {!isSmallScreen ? (

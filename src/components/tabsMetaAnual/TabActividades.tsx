@@ -33,7 +33,6 @@ export const TabActividadesMA = ({
   // setTxtShowFnc,
   MA,
   MIR,
-  
 }: {
   edit: boolean;
   setMAActividadesPadre: Function;
@@ -42,10 +41,7 @@ export const TabActividadesMA = ({
   // setTxtShowFnc: Function;
   MA: string;
   MIR: string;
-
 }) => {
-
-
   const [componentesActividadValues, setComponentesActividadValues] = useState<
     IComponenteMA[]
   >(ComponentesActividadMA);
@@ -53,12 +49,8 @@ export const TabActividadesMA = ({
   const [componenteSelect, setComponenteSelect] = useState(0);
   const [actividadSelect, setActividadSelect] = useState(0);
 
- 
-
   let MAEdit =
     MA === "" ? "" : JSON.parse(MA).length > 1 ? JSON.parse(MA)[1] : "";
-
- 
 
   useEffect(() => {
     setMAActividadesPadre(componentesActividadValues);
@@ -76,7 +68,6 @@ export const TabActividadesMA = ({
   const [elementoFormulaActividad, setElementoFormulaActividad] = useState("");
   // revisado
   const handleClickOpen = () => {
-    
     setTipoFormula(
       JSON.parse(MIR)
         .componentes[componenteSelect].actividades[
@@ -175,7 +166,6 @@ export const TabActividadesMA = ({
       ].metaAnual = txt.split(",")[2];
     }
     setComponentesActividadValues([...componentesActividadValues]);
- 
   };
 
   const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
@@ -247,50 +237,68 @@ export const TabActividadesMA = ({
     setOpenFormulaDialogMACA(false);
   };
 
-  const changeFormula2 = (txt: string, txtValores:string) => {
-    if (tipoFormula.toLowerCase()==="índice" || tipoFormula.toLowerCase()==="indice") {
-    componentesActividadValues[componenteSelect].actividades[
-      actividadSelect
-    ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
+  const changeFormula2 = (txt: string, txtValores: string) => {
+    if (
+      tipoFormula.toLowerCase() === "índice" ||
+      tipoFormula.toLowerCase() === "indice"
+    ) {
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
 
-    componentesActividadValues[componenteSelect].actividades[
-      actividadSelect
-    ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1];
 
-    componentesActividadValues[componenteSelect].actividades[
-      actividadSelect
-    ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2];
 
-    componentesActividadValues[componenteSelect].actividades[
-      actividadSelect
-    ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3];
-  }else
-  {
-    componentesActividadValues[componenteSelect].actividades[
-      actividadSelect
-    ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3];
+    } else {
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].metasPorFrecuencia[0].trimestre1 = txt.split(",")[0];
 
-    componentesActividadValues[componenteSelect].actividades[
-      actividadSelect
-    ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].metasPorFrecuencia[0].trimestre2 = txt.split(",")[1];
 
-    componentesActividadValues[componenteSelect].actividades[
-      actividadSelect
-    ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].metasPorFrecuencia[0].trimestre3 = txt.split(",")[2];
 
-    componentesActividadValues[componenteSelect].actividades[
-      actividadSelect
-    ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].metasPorFrecuencia[0].trimestre4 = txt.split(",")[3];
 
-    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorA = txtValores.split(",")[0];
-    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorB = txtValores.split(",")[1];
-    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorC = txtValores.split(",")[2];
-    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorD = txtValores.split(",")[3];
-    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorE = txtValores.split(",")[4];
-    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorF = txtValores.split(",")[5];
-    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorG = txtValores.split(",")[6];
-    componentesActividadValues[componenteSelect].actividades[actividadSelect].valoresPorFrecuencia[0].valorH = txtValores.split(",")[7];
-  }
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].valoresPorFrecuencia[0].valorA = txtValores.split(",")[0];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].valoresPorFrecuencia[0].valorB = txtValores.split(",")[1];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].valoresPorFrecuencia[0].valorC = txtValores.split(",")[2];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].valoresPorFrecuencia[0].valorD = txtValores.split(",")[3];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].valoresPorFrecuencia[0].valorE = txtValores.split(",")[4];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].valoresPorFrecuencia[0].valorF = txtValores.split(",")[5];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].valoresPorFrecuencia[0].valorG = txtValores.split(",")[6];
+      componentesActividadValues[componenteSelect].actividades[
+        actividadSelect
+      ].valoresPorFrecuencia[0].valorH = txtValores.split(",")[7];
+    }
     setComponentesActividadValues([...componentesActividadValues]);
   };
 
@@ -386,12 +394,7 @@ export const TabActividadesMA = ({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        ...(!isSmallScreen
-          ? {boxShadow: 10,
-            borderRadius: 5,}
-          : {
-              
-            }),
+        ...(!isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -405,6 +408,10 @@ export const TabActividadesMA = ({
         elemento={elementoFormula}
         elementoA={elementoFormulaActividad}
         MIR={MIR}
+        MA={MA || ""}
+        index={0}
+        tab={""}
+        index2={0}
       />
       <FormulaDialogMACA
         open={openFormulaDialogMACA}
@@ -415,9 +422,11 @@ export const TabActividadesMA = ({
         elementoA={elementoFormulaActividad}
         MIR={MIR}
         frecuencia={"trimestral"}
-        valores={JSON.stringify(componentesActividadValues[componenteSelect].actividades[
-          actividadSelect
-        ])}
+        valores={JSON.stringify(
+          componentesActividadValues[componenteSelect].actividades[
+            actividadSelect
+          ]
+        )}
       />
 
       <Grid
@@ -667,9 +676,12 @@ export const TabActividadesMA = ({
                 textAlign: "center",
               }}
             >
-              {JSON.parse(MIR).componentes[componenteSelect].actividades[actividadSelect].resumen}
+              {
+                JSON.parse(MIR).componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].resumen
+              }
             </Typography>
-            
           </Grid>
           <Grid
             item
@@ -724,9 +736,7 @@ export const TabActividadesMA = ({
                   fontFamily: "MontserratRegular",
                 },
               }}
-              onClick={() =>
-                 handleClickOpen()
-              }
+              onClick={() => handleClickOpen()}
               value={
                 componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
@@ -863,7 +873,7 @@ export const TabActividadesMA = ({
               onChange={(c) => {
                 let y = [...componentesActividadValues];
                 y[componenteSelect].actividades[actividadSelect].lineaBase =
-                clearInfo(c.target.value);
+                  clearInfo(c.target.value);
 
                 setComponentesActividadValues(y);
               }}
@@ -932,9 +942,7 @@ export const TabActividadesMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onClick={() =>
-                   handleClickOpen()
-                }
+                onClick={() => handleClickOpen()}
                 value={
                   componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
@@ -1053,9 +1061,7 @@ export const TabActividadesMA = ({
                     fontFamily: "MontserratRegular",
                   },
                 }}
-                onClick={() =>
-                   handleClickOpen()
-                }
+                onClick={() => handleClickOpen()}
                 value={
                   componentesActividadValues[componenteSelect].actividades[
                     actividadSelect
@@ -1249,9 +1255,7 @@ export const TabActividadesMA = ({
                 }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
-                onClick={() =>
-                   handleClickOpen2()
-                }
+                onClick={() => handleClickOpen2()}
                 label={
                   <Typography
                     sx={{
@@ -1312,9 +1316,7 @@ export const TabActividadesMA = ({
                 }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
-                onClick={() =>
-                 handleClickOpen2()
-                }
+                onClick={() => handleClickOpen2()}
                 label={
                   <Typography
                     sx={{
@@ -1375,9 +1377,7 @@ export const TabActividadesMA = ({
                 }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
-                onClick={() =>
-                   handleClickOpen2()
-                }
+                onClick={() => handleClickOpen2()}
                 label={
                   <Typography
                     sx={{
@@ -1438,9 +1438,7 @@ export const TabActividadesMA = ({
                 }
                 sx={{ boxShadow: 2 }}
                 variant={"filled"}
-                onClick={() =>
-                   handleClickOpen2()
-                }
+                onClick={() => handleClickOpen2()}
                 label={
                   <Typography
                     sx={{

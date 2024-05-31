@@ -43,7 +43,7 @@ export const TabComponenteRf = ({
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
-
+  const [index, setIndex] = useState(0);
 
   const [frecuencia, setFrecuencia] = useState("");
 
@@ -83,7 +83,7 @@ export const TabComponenteRf = ({
         ? "Promedio"
         : ""
     );
-    setElementoFormula("Componente " + componentSelect.toString());
+    setElementoFormula("Componente " + (componentSelect).toString());
     setOpenFormulaDialog(true);
   };
 
@@ -202,12 +202,26 @@ export const TabComponenteRf = ({
       <FormulaDialogMA
         open={openFormulaDialog}
         close={handleClose}
+
         textoSet={changeFormula}
         tipo={tipoFormula}
         elemento={elementoFormula}
         elementoA={""}
         MIR={MIR}
+        MA={MA || ""}
+        index={index}
+        tab={"COMPONENTES"}
+        index2={0}
       />
+
+      {/* <DialogFinPropositoRaffi
+          open={openFormulaDialog} =
+          close={handleClose}=
+
+          elemento={unico}
+          tipo={apartado}
+          MA={MA}
+          setValor={assignValue}/> */}
 
       <Grid
         sx={{
@@ -282,6 +296,7 @@ export const TabComponenteRf = ({
                     key={index}
                     onClick={() => {
                       setComponentSelect(index);
+                      setIndex(index)
                     }}
                     sx={{
                       height: "7vh",
