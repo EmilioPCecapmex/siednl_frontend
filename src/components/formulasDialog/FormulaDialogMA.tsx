@@ -47,11 +47,22 @@ export const FormulaDialogMA = ({
     setDescB("");
   };
 
-  const jsonMA: IMA = JSON.parse(MA) || "";
+  let jsonMA: IMA;
+
+  try {
+    if (MA) {
+      jsonMA = JSON.parse(MA);
+    } else {
+      jsonMA = {} as IMA; // O el valor predeterminado que tenga sentido en tu caso
+    }
+  } catch (error) {
+    //console.error("Error parsing JSON:", error);
+    jsonMA = {} as IMA; // O el valor predeterminado que tenga sentido en tu caso
+  }
 
   useEffect(() => {
     if (tab === "COMPONENTES") {
-      console.log("jsonMA.componentes[index].valorNumerador: ",index, jsonMA.componentes[index].valorNumerador);
+     // console.log("jsonMA.componentes[index].valorNumerador: ",index, jsonMA.componentes[index].valorNumerador);
       setDescB(jsonMA.componentes[index].valorNumerador);
     } else if(tab === "ACTIVIDADES"){
       setDescB(jsonMA.componentes[index].actividades[index2].valorNumerador);
