@@ -38,12 +38,14 @@ export const ComentDialogMir = ({
   actualizado,
   MIR,
   IdEntidad,
+  titulo,
 }: {
   estado: string;
   id: string;
   actualizado: Function;
   MIR: string;
   IdEntidad: string;
+  titulo: string;
 }) => {
   const Toast = Swal.mixin({
     toast: true,
@@ -298,47 +300,110 @@ export const ComentDialogMir = ({
             </TableContainer>
           </Grid>
 
-          <Grid sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-            <TextField
-              multiline
-              rows={3}
-              InputProps={{
-                style: {
-                  fontFamily: "MontserratRegular",
-                },
-              }}
-              sx={{ width: ["100vw", "100vw", "100vw", "100vw", "100vw"] }}
-              placeholder="AÑADE UN COMENTARIO "
-              onChange={(v) => setComent(v.target.value)}
-            ></TextField>
-          </Grid>
+          {titulo === "MIR" ? (
+            <>
+              <Grid sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+                <TextField
+                  multiline
+                  rows={3}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  sx={{ width: ["100vw", "100vw", "100vw", "100vw", "100vw"] }}
+                  placeholder="AÑADA UN COMENTARIO PARA PODER ARGEGAR"
+                  onChange={(v) => {
+                    setComent(v.target.value);
+                  }}
+                ></TextField>
+              </Grid>
 
-          <Grid
-            item
-            xl={12}
-            lg={12}
-            md={12}
-            sm={12}
-            xs={12}
-            sx={{
-              ...(isSmallScreen && {
-                display: "flex",
-                // Otros estilos específicos para pantallas pequeñas
-              }),
-              //flexDirection: "row",
+              <Grid
+                item
+                xl={12}
+                lg={12}
+                md={12}
+                sm={12}
+                xs={12}
+                sx={{
+                  ...(isSmallScreen && {
+                    display: "flex",
+                    // Otros estilos específicos para pantallas pequeñas
+                  }),
+                  //flexDirection: "row",
 
-              //mt: 1,
-              alignItems: "center",
-              justifyContent: "center",
+                  //mt: 1,
+                  alignItems: "center",
+                  justifyContent: "center",
 
-              borderBottom: 1,
-              borderColor: "#cfcfcf",
+                  borderBottom: 1,
+                  borderColor: "#cfcfcf",
 
-              ...(isSmallScreen && {
-                height: "15%",
-              }),
-            }}
-          >
+                  ...(isSmallScreen && {
+                    height: "15%",
+                  }),
+                }}
+              >
+                <Grid
+                  sx={{
+                    justifyContent: "center",
+                    display: "flex",
+                    margin: isSmallScreen ? "2px" : "5px",
+                  }}
+                  item
+                  xl={3}
+                  lg={3}
+                  md={3}
+                  sm={12}
+                  xs={12}
+                >
+                  <Button
+                    className="cancelar"
+                    variant="contained"
+                    sx={{ width: "100%" }}
+                    onClick={handleClose}
+                  >
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      CANCELAR
+                    </Typography>{" "}
+                  </Button>
+                </Grid>
+
+                <Grid
+                  sx={{
+                    justifyContent: "center",
+                    display: "flex",
+                    margin: isSmallScreen ? "2px" : "5px",
+                  }}
+                  item
+                  xl={3}
+                  lg={3}
+                  md={3}
+                  sm={12}
+                  xs={12}
+                >
+                  <Button
+                    // sx={queries.buttonContinuarSolicitudInscripcion}
+                    sx={{ width: "100%" }}
+                    className="aceptar"
+                    variant="contained"
+                    disabled={estado === "Autorizada" && isComentEmpty()}
+                    color="info"
+                    onClick={() => {
+                      if (isComentEmpty()) {
+                        comentMir();
+                      }
+                    }}
+                  >
+                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      {"AGREGAR"}
+                    </Typography>
+                  </Button>
+                </Grid>
+              </Grid>
+            </>
+          ) : (
             <Grid
               sx={{
                 justifyContent: "center",
@@ -346,9 +411,9 @@ export const ComentDialogMir = ({
                 margin: isSmallScreen ? "2px" : "5px",
               }}
               item
-              xl={3}
-              lg={3}
-              md={3}
+              xl={12}
+              lg={12}
+              md={12}
               sm={12}
               xs={12}
             >
@@ -359,43 +424,11 @@ export const ComentDialogMir = ({
                 onClick={handleClose}
               >
                 <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                  CANCELAR
+                  SALIR
                 </Typography>{" "}
               </Button>
             </Grid>
-
-            <Grid
-              sx={{
-                justifyContent: "center",
-                display: "flex",
-                margin: isSmallScreen ? "2px" : "5px",
-              }}
-              item
-              xl={3}
-              lg={3}
-              md={3}
-              sm={12}
-              xs={12}
-            >
-              <Button
-                // sx={queries.buttonContinuarSolicitudInscripcion}
-                sx={{ width: "100%" }}
-                className="aceptar"
-                variant="contained"
-                disabled={estado === "Autorizada" && isComentEmpty()}
-                color="info"
-                onClick={() => {
-                  if (isComentEmpty()) {
-                    comentMir();
-                  }
-                }}
-              >
-                <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                  {"AGREGAR"}
-                </Typography>
-              </Button>
-            </Grid>
-          </Grid>
+          )}
         </DialogContent>
       </Dialog>
     </Grid>

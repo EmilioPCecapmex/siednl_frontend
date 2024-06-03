@@ -641,6 +641,7 @@ export const Raffi = () => {
               id={v.row.IdMir}
               MIR={rfEdit[0]?.MIR || ""}
               IdEntidad={v.row.IdEntidad}
+              titulo={""}
             />
 
             <MostrarLista st="" Id={v.row.IdRaffi} />
@@ -1304,9 +1305,10 @@ export const Raffi = () => {
 
                               <ComentDialogRF
                                 estado={row.Estado}
-                                id={row.IdMir}
+                                id={row.IdRaffi}
                                 MIR={rfEdit[0]?.MIR || ""}
                                 IdEntidad={row.IdEntidad}
+                                titulo={"RF"}
                               />
                               <MostrarLista st="" Id={row.IdRaffi} />
                             </TableCell>

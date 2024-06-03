@@ -302,6 +302,7 @@ export default function NotificationsPanel({
           </Typography>
         </Grid>
         <Divider />
+        
         <Grid
           xs={12}
           sm={12}

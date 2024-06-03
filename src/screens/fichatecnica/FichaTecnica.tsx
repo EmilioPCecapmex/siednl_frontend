@@ -663,10 +663,11 @@ export const FichaTecnica = () => {
 
             <ComentDialogFT
               estado={v.row.Estado}
-              id={v.row.IdMir}
+              id={v.row.IdFT}
               actualizado={actualizaContador}
               MIR={FTEdit[0]?.MIR || ""}
               IdEntidad={IdEntidad}
+              titulo={""}
             />
 
             <MostrarLista st="" Id={v.row.Id} />
@@ -1443,10 +1444,11 @@ export const FichaTecnica = () => {
 
                               <ComentDialogFT
                                 estado={row.Estado}
-                                id={row.IdMir}
+                                id={row.IdFt}
                                 actualizado={actualizaContador}
                                 MIR={FTEdit[0]?.MIR || ""}
                                 IdEntidad={IdEntidad}
+                                titulo={"FT"}
                               />
 
                               <MostrarLista st="" Id={row.IdFt} />

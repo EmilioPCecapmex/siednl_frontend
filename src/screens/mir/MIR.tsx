@@ -420,6 +420,7 @@ export const MIR = () => {
               actualizado={actualizaContador}
               MIR={mirEdit[0]?.MIR || ""}
               IdEntidad={v.row.IdEntidad}
+              titulo={"MIR"}
             />
 
             <MostrarLista st="" Id={v.row.Id} />
@@ -998,6 +999,7 @@ export const MIR = () => {
                                 actualizado={actualizaContador}
                                 MIR={mirEdit[0]?.MIR || ""}
                                 IdEntidad={row.IdEntidad}
+                                titulo={""}
                               />
 
                               <DeleteDialogMIR

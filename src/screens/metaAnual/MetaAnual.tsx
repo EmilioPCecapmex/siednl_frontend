@@ -548,6 +548,7 @@ export const MetaAnual = () => {
               actualizado={actualizaContador}
               MIR={maEdit[0]?.MIR || ""}
               IdEntidad={v.row.IdEntidad}
+              titulo={""}
             />
 
             <MostrarLista st="" Id={v.row.Id} />
@@ -1184,10 +1185,11 @@ export const MetaAnual = () => {
 
                               <ComentDialogMA
                                 estado={row.Estado}
-                                id={row.IdMir}
+                                id={row.IdMa}
                                 actualizado={actualizaContador}
                                 MIR={maEdit[0]?.MIR || ""}
                                 IdEntidad={row.IdEntidad}
+                                titulo={"MA"}
                               />
 
                               <MostrarLista st="" Id={row.IdMa} />
