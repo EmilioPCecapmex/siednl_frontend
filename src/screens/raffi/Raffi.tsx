@@ -40,11 +40,11 @@ import Swal from "sweetalert2";
 import { IEntidad } from "../../components/appsDialog/AppsDialog";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
-import ComentDialogRF from "../../components/modalsRF/ModalComentariosRF";
 import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
 import { GridColDef } from "@mui/x-data-grid";
 import DataGridTable from "../../components/genericComponents/DataGridTable";
 import { TableCellFormat, widthCondition } from "../../components/genericComponents/GenericMethods";
+import ComentDialog from "../../components/genericComponents/genericModals/ModalComentarios";
 
 export const Raffi = () => {
   const [actionNumber, setActionNumber] = useState(0);
@@ -636,12 +636,14 @@ export const Raffi = () => {
               </span>
             </Tooltip>
 
-            <ComentDialogRF
+            <ComentDialog
               estado={v.row.Estado}
               id={v.row.IdMir}
               MIR={rfEdit[0]?.MIR || ""}
+              actualizado={actualizaContador}
               IdEntidad={v.row.IdEntidad}
-              titulo={""}
+              titulo={"RF"}
+              titulo2={"RF"}
             />
 
             <MostrarLista st="" Id={v.row.IdRaffi} />
@@ -702,6 +704,12 @@ export const Raffi = () => {
    
     );
   });
+  };
+
+  const [actualizacion, setActualizacion] = useState(0);
+
+  const actualizaContador = () => {
+    setActualizacion(actualizacion + 1);
   };
 
   return (
@@ -1303,12 +1311,14 @@ export const Raffi = () => {
                                 </span>
                               </Tooltip>
 
-                              <ComentDialogRF
+                              <ComentDialog
                                 estado={row.Estado}
                                 id={row.IdRaffi}
                                 MIR={rfEdit[0]?.MIR || ""}
+                                actualizado={actualizaContador}
                                 IdEntidad={row.IdEntidad}
                                 titulo={"RF"}
+                                titulo2={"RF"}
                               />
                               <MostrarLista st="" Id={row.IdRaffi} />
                             </TableCell>

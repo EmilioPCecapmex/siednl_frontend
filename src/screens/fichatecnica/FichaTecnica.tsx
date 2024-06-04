@@ -30,12 +30,12 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import ComentDialogFT from "../../components/modalsFT/ModalComentariosFT";
 import ModalVerResumenFT from "../../components/modalsFT/ModalVerResumenFT";
 import AddFichaTecnica from "../../components/tabsFichaTecnica/AddFichaTecnica";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
 import { TableCellFormat, widthCondition } from "../../components/genericComponents/GenericMethods";
+import ComentDialog from "../../components/genericComponents/genericModals/ModalComentarios";
 export let resumeDefaultFT = true;
 export let setResumeDefaultFT = () => {
   resumeDefaultFT = !resumeDefaultFT;
@@ -661,13 +661,14 @@ export const FichaTecnica = () => {
               </span>
             </Tooltip>
 
-            <ComentDialogFT
+            <ComentDialog
               estado={v.row.Estado}
               id={v.row.IdFT}
-              actualizado={actualizaContador}
               MIR={FTEdit[0]?.MIR || ""}
               IdEntidad={IdEntidad}
+              actualizado={actualizaContador}
               titulo={""}
+              titulo2={""}
             />
 
             <MostrarLista st="" Id={v.row.Id} />
@@ -1442,13 +1443,14 @@ export const FichaTecnica = () => {
                                 </span>
                               </Tooltip>
 
-                              <ComentDialogFT
+                              <ComentDialog
                                 estado={row.Estado}
                                 id={row.IdFt}
-                                actualizado={actualizaContador}
                                 MIR={FTEdit[0]?.MIR || ""}
                                 IdEntidad={IdEntidad}
+                                actualizado={actualizaContador}
                                 titulo={"FT"}
+                                titulo2={"FT"}
                               />
 
                               <MostrarLista st="" Id={row.IdFt} />

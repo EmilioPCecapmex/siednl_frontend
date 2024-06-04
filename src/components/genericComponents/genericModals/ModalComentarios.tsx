@@ -17,48 +17,33 @@ import {
   IconButton,
   Button,
 } from "@mui/material";
-
 import MessageIcon from "@mui/icons-material/Message";
 import moment from "moment";
-import { IIUserXInst } from "./ModalEnviarMIR";
-import { alertaError, alertaExito } from "../genericComponents/Alertas";
-import {
-  create_coment_mir,
-  soliModyNoty,
-  obtenerComentarios,
-  enviarNotificacionRol,
-} from "../genericComponents/axiosGenericos";
+
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { log } from "console";
+import { IIUserXInst } from "../../modalsMA/ModalEnviarMA";
+import { create_coment_mir, obtenerComentarios } from "../axiosGenericos";
+import { alertaError, alertaExito } from "../Alertas";
+import { TonalityOutlined } from "@mui/icons-material";
 
-export const ComentDialogMir = ({
+export const ComentDialog = ({
   estado,
   id,
-  actualizado,
   MIR,
   IdEntidad,
+  actualizado,
   titulo,
+  titulo2,
 }: {
   estado: string;
   id: string;
-  actualizado: Function;
   MIR: string;
   IdEntidad: string;
+  actualizado: Function;
   titulo: string;
+  titulo2: string;
 }) => {
-  const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-  });
-
   const [coments, setComents] = React.useState([
     {
       Comentario: "",
@@ -81,53 +66,27 @@ export const ComentDialogMir = ({
     setOpen(false);
     setNewComent(false);
     setComent("");
+    
+
   };
 
   const [userXInst, setUserXInst] = React.useState<Array<IIUserXInst>>([]);
 
-  const getUsuariosXInstitucion = () => {
-    axios
-      .post(
-        process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
-        {
-          TipoUsuario: localStorage.getItem("Rol"),
-          IdEntidad:
-            IdEntidad ||
-            JSON.parse(MIR)?.encabezado.entidad.Id ||
-            localStorage.getItem("IdEntidad"),
-          IdApp: localStorage.getItem("dApp"),
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("jwtToken") || "",
-          },
-        }
-      )
-      .then((r) => {
-        if (r.status === 200) {
-          setUserXInst(r.data.data);
-        }
-      });
-  };
-
-  React.useEffect(() => {
-    if (open) {
-      getUsuariosXInstitucion();
-    }
-  }, [open]);
-
   const [coment, setComent] = React.useState("");
 
-  const comentMir = () => {
-   
-    create_coment_mir(id, coment, "MIR")
+  const comentario = () => {
+    create_coment_mir(id, coment, titulo)
       .then((r) => {
-     
+        console.log("titulo-modal: ", titulo);
         // if (estado !== "En Captura") {
         //   // eslint-disable-next-line array-callback-return
+
+        //   // userXInst.map((user) => {
+        //   //   soliModyNoty(user.IdUsuario, coment, "Nuevo comentario Ficha Tecnica", id );
+        //   // });
         //   enviarNotificacionRol(
         //     "FT",
-        //     "NUEVO COMENTARIO FICHA TÉCNICA",
+        //     "NUEVO COMENTARIO FICHA TECNICA",
         //     id,
         //     ["Verificador"],
         //     JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad
@@ -141,19 +100,19 @@ export const ComentDialogMir = ({
         alertaExito(() => {}, "COMENTARIO AÑADIDO");
       })
       .catch((err) => {
-        console.log("error: ", err);
-
         alertaError("SE PRODUJO UN ERROR");
       });
   };
 
   React.useEffect(() => {
     obtenerComentarios(id, setComents);
+
   }, [actualizado, id]);
 
   const isComentEmpty = () => {
     return !/^\s*$/.test(coment);
   };
+
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -246,12 +205,12 @@ export const ComentDialogMir = ({
                 <TableBody>
                   {coments.length >= 1 && !coments[0]?.error ? (
                     coments.map((row, index) =>
-                      row.MIR_MA === "MIR" ? (
+                      row.MIR_MA === titulo ? (
                         <TableRow key={index}>
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              // fontSize: ".7vw",
+                              //   fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -260,7 +219,7 @@ export const ComentDialogMir = ({
                           <TableCell
                             sx={{
                               fontFamily: "MontserratRegular",
-                              //fontSize: ".7vw",
+                              // fontSize: ".7vw",
                             }}
                             align="center"
                           >
@@ -300,7 +259,7 @@ export const ComentDialogMir = ({
             </TableContainer>
           </Grid>
 
-          {titulo === "MIR" ? (
+          {["FT", "MA", "MIR", "RF"].includes(titulo2) ? (
             <>
               <Grid sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                 <TextField
@@ -366,7 +325,7 @@ export const ComentDialogMir = ({
                   >
                     <Typography sx={{ fontFamily: "MontserratMedium" }}>
                       CANCELAR
-                    </Typography>{" "}
+                    </Typography>
                   </Button>
                 </Grid>
 
@@ -384,7 +343,6 @@ export const ComentDialogMir = ({
                   xs={12}
                 >
                   <Button
-                    // sx={queries.buttonContinuarSolicitudInscripcion}
                     sx={{ width: "100%" }}
                     className="aceptar"
                     variant="contained"
@@ -392,12 +350,12 @@ export const ComentDialogMir = ({
                     color="info"
                     onClick={() => {
                       if (isComentEmpty()) {
-                        comentMir();
+                        comentario();
                       }
                     }}
                   >
                     <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                      {"AGREGAR"}
+                      AGREGAR
                     </Typography>
                   </Button>
                 </Grid>
@@ -425,7 +383,7 @@ export const ComentDialogMir = ({
               >
                 <Typography sx={{ fontFamily: "MontserratMedium" }}>
                   SALIR
-                </Typography>{" "}
+                </Typography>
               </Button>
             </Grid>
           )}
@@ -435,4 +393,4 @@ export const ComentDialogMir = ({
   );
 };
 
-export default ComentDialogMir;
+export default ComentDialog;

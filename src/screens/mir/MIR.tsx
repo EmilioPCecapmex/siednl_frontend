@@ -26,7 +26,6 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import ComentDialogMir from "../../components/modalsMIR/ModalComentariosMir";
 import DeleteDialogMIR from "../../components/modalsMIR/ModalEliminarMIR";
 import FullModalMir from "../../components/tabsMir/AddMir";
 import { IIMir, ILista } from "../../components/tabsMir/interfaces mir/IMIR";
@@ -39,6 +38,7 @@ import {
 import { estados, heads } from "../../services/validations";
 import { getInstituciones } from "../../services/mir_services/servicesMIR";
 import { TableCellFormat, widthCondition } from "../../components/genericComponents/GenericMethods";
+import ComentDialog from "../../components/genericComponents/genericModals/ModalComentarios";
 
 export let resumeDefaultMIR = true;
 
@@ -414,13 +414,14 @@ export const MIR = () => {
               </span>
             </Tooltip>
 
-            <ComentDialogMir
+            <ComentDialog
               estado={v.row.Estado}
               id={v.row.Id}
-              actualizado={actualizaContador}
               MIR={mirEdit[0]?.MIR || ""}
+              actualizado={actualizaContador}
               IdEntidad={v.row.IdEntidad}
               titulo={"MIR"}
+              titulo2={"MIR"}
             />
 
             <MostrarLista st="" Id={v.row.Id} />
@@ -993,13 +994,14 @@ export const MIR = () => {
                                 </span>
                               </Tooltip>
 
-                              <ComentDialogMir
+                              <ComentDialog
                                 estado={row.Estado}
                                 id={row.Id}
-                                actualizado={actualizaContador}
                                 MIR={mirEdit[0]?.MIR || ""}
                                 IdEntidad={row.IdEntidad}
-                                titulo={""}
+                                actualizado={actualizaContador}
+                                titulo={"MIR"}
+                                titulo2={"MIR"}
                               />
 
                               <DeleteDialogMIR

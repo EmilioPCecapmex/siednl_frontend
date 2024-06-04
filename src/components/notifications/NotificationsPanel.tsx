@@ -23,10 +23,7 @@ import {
 import { INotificacion } from "./NotificacionesInterfaz";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MessageIcon from "@mui/icons-material/Message";
-import ComentDialogMir from "../modalsMIR/ModalComentariosMir";
-import ComentDialogMA from "../modalsMA/ModalComentariosMA";
-import ComentDialogFT from "../modalsFT/ModalComentariosFT";
-import ComentDialogRF from "../modalsRF/ModalComentariosRF";
+import ComentDialog from "../genericComponents/genericModals/ModalComentarios";
 
 export default function NotificationsPanel({
   fnc = () => {},
@@ -53,65 +50,38 @@ export default function NotificationsPanel({
     setOpenNotifPanel(false);
   };
 
-  const notificacionesOpcion = (
-    titulo: string,
-    CreadoPor: string,
-    IdDocumento: string
-  ) => {
-    console.log("Titulo: ", titulo);
+  const [actualizacion, setActualizacion] = useState(0);
+  
+  const actualizaContador = () => {
+    setActualizacion(actualizacion + 1);
+  };
 
-    if (titulo === "MIR") {
+  const notificacionesOpcion = (titulo: string, CreadoPor: string, IdDocumento: string) => {
+    const mapeoTitulo: { [key in string]: string } = {
+      MIR: "mir1",
+      MA: "MetaAnual",
+      FT: "FichaTecnica",
+      RF: "Raffi"
+    };
+  
+    const dialogTitulo = mapeoTitulo[titulo];
+    console.log("dialogTitulo: ",dialogTitulo);
+    
+    if (dialogTitulo) {
       return (
-        <ComentDialogMir
-          estado={CreadoPor}
-          id={IdDocumento}
-          actualizado={() => {}}
-          MIR={""}
-          IdEntidad={localStorage.getItem("IdEntidad") || ""}
-          titulo={"mir"}
-        />
-      );
-    }
-
-    if (titulo === "MA") {
-      console.log("Entre aqui MA");
-
-      return (
-        <ComentDialogMA
-          estado={CreadoPor}
-          id={IdDocumento}
-          actualizado={() => {}}
-          MIR={""}
-          IdEntidad={localStorage.getItem("IdEntidad") || ""}
-          titulo={"MetaAnual"}
-        />
-      );
-    }
-
-    if (titulo === "FT") {
-      return (
-        <ComentDialogFT
-          estado={CreadoPor}
-          id={IdDocumento}
-          actualizado={() => {}}
-          MIR={""}
-          IdEntidad={localStorage.getItem("IdEntidad") || ""}
-          titulo={"FichaTecnica"}
-        />
-      );
-    }
-
-    if (titulo === "RF") {
-      return (
-        <ComentDialogRF
+        <ComentDialog
           estado={CreadoPor}
           id={IdDocumento}
           MIR={""}
+          actualizado={actualizaContador}
           IdEntidad={localStorage.getItem("IdEntidad") || ""}
-          titulo={"Raffi"}
+          titulo={titulo}
+          titulo2={dialogTitulo}
         />
       );
     }
+  
+    return null; // Si `titulo` no coincide con ninguna clave del mapeo, no se renderiza nada
   };
 
   const formatFecha = (fechaISO: any) => {

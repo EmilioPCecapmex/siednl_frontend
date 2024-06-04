@@ -29,11 +29,11 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { MostrarLista } from "../../components/genericComponents/ModalTrazabilidad";
 import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
-import ComentDialogMA from "../../components/modalsMA/ModalComentariosMA";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
 import { TableCellFormat, widthCondition } from "../../components/genericComponents/GenericMethods";
+import ComentDialog from "../../components/genericComponents/genericModals/ModalComentarios";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
   ResumeDefaultMA = !ResumeDefaultMA;
@@ -542,13 +542,14 @@ export const MetaAnual = () => {
               </span>
             </Tooltip>
 
-            <ComentDialogMA
+            <ComentDialog
               estado={v.row.Estado}
               id={v.row.Id}
               actualizado={actualizaContador}
               MIR={maEdit[0]?.MIR || ""}
               IdEntidad={v.row.IdEntidad}
               titulo={""}
+              titulo2={""}
             />
 
             <MostrarLista st="" Id={v.row.Id} />
@@ -1183,13 +1184,14 @@ export const MetaAnual = () => {
                                 </span>
                               </Tooltip>
 
-                              <ComentDialogMA
+                              <ComentDialog
                                 estado={row.Estado}
                                 id={row.IdMa}
                                 actualizado={actualizaContador}
                                 MIR={maEdit[0]?.MIR || ""}
                                 IdEntidad={row.IdEntidad}
                                 titulo={"MA"}
+                                titulo2={"MA"}
                               />
 
                               <MostrarLista st="" Id={row.IdMa} />
