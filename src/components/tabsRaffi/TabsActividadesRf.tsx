@@ -158,6 +158,17 @@ export const TabActividadRf = ({
     setOpenFormulaDialog(true);
   };
 
+  
+  const year=new Date().getFullYear();
+  const dateSem = [new Date(year,6,30), new Date(year,12,31)];
+  const dateTrim = [
+    new Date(year,3,31),
+    new Date(year,6,30),
+    new Date(year,9,30),
+    new Date(year,12,31),
+  ];
+
+
   let jsonMA =
     MA === ""
       ? ""
@@ -217,10 +228,11 @@ export const TabActividadRf = ({
               fontSize: "1.5vw",
             }}
           >
-            COMPONENTE #{componenteSelect + 1} - ACTIVIDAD #{" "}
-            {actividadSelect + 1}
+            A{actividadSelect + 1}C{componenteSelect + 1}
           </Typography>
         </Grid>
+
+        
         <Grid
           sx={{
             width: "100%",
@@ -326,6 +338,7 @@ export const TabActividadRf = ({
               })}
             </List>
           )}
+          
           <Grid
             item
             container
@@ -344,7 +357,9 @@ export const TabActividadRf = ({
             }}
           >
             {isSmallScreen && (
-              <List>
+              <List
+              
+              >
                 {componentesActividadesValues.map((componente, index) => {
                   return (
                     <Grid
@@ -517,7 +532,25 @@ export const TabActividadRf = ({
               />
             </Grid>
 
-            <Grid container direction={"row"}>
+            <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              METAS
+            </Typography>
+            
+          </Grid>
+
+
+            <Grid
+              container
+              direction={"row"}
+             
+            >
               <Grid
                 container
                 item
@@ -710,8 +743,23 @@ export const TabActividadRf = ({
                 </Grid>
               </Grid>
             </Grid>
-
-            <Grid container direction={"row"}>
+            
+            <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              CAPTURA AVANCE
+            </Typography>
+            
+          </Grid>
+            <Grid
+              container
+              direction={"row"}
+            >
               <Grid
                 container
                 item
@@ -744,12 +792,7 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      disabled={
-                        edit &&
-                        !raffiboolean?.componentes[componenteSelect]
-                          ?.actividades[actividadSelect].metasPorFrecuencia[0]
-                          ?.trimestre1
-                      }
+                      disabled={(edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1) || (new Date()>dateTrim[0])}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -796,12 +839,7 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      disabled={
-                        edit &&
-                        !raffiboolean?.componentes[componenteSelect]
-                          ?.actividades[actividadSelect].metasPorFrecuencia[0]
-                          ?.trimestre2
-                      }
+                      disabled={(edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2) || !(new Date()<dateTrim[1] && new Date()>dateTrim[0])}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -847,12 +885,7 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      disabled={
-                        edit &&
-                        !raffiboolean?.componentes[componenteSelect]
-                          ?.actividades[actividadSelect].metasPorFrecuencia[0]
-                          ?.trimestre3
-                      }
+                      disabled={(edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3) || !(new Date()<dateTrim[2] && new Date()>dateTrim[1])}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -897,12 +930,7 @@ export const TabActividadRf = ({
                   </Grid>
                   <Grid item>
                     <TextField
-                      disabled={
-                        edit &&
-                        !raffiboolean?.componentes[componenteSelect]
-                          ?.actividades[actividadSelect].metasPorFrecuencia[0]
-                          ?.trimestre4
-                      }
+                      disabled={(edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4) || !(new Date()<dateTrim[3] && new Date()>dateTrim[2])}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
