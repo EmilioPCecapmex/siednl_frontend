@@ -13,6 +13,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import "../../../src/Globals.css"
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
+import ModalEnviar from "../genericComponents/genericModals/ModalEnviar";
 
 export function TabResumenMA({
   maPadre,
@@ -3174,7 +3175,7 @@ export function TabResumenMA({
           IdEntidad={IdEntidad}
         />
 
-        <ModalEnviarMA
+        <ModalEnviar
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
           MA={JSON.stringify(MA)}
@@ -3183,7 +3184,8 @@ export function TabResumenMA({
           IdMIR={IdMir}
           showResume={showResume}
           IdEntidad={IdEntidad}
-        ></ModalEnviarMA>
+          Documento={"MA"}
+        />
       </Grid>
 
     </Grid>

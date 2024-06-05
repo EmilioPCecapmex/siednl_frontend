@@ -1,72 +1,58 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
 import {
-  Grid,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField,
   Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  TextField,
   Typography,
 } from "@mui/material";
-import { create_coment_mir, enviarNotificacionRol } from "../axiosGenericos";
-import {
-  IActividadesFT,
-  IComponentesFT,
-} from "../../tabsFichaTecnica/Interfaces";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { IActividadesMA, IComponenteMA } from "../../tabsMetaAnual/Interfaces";
 import {
   alertaErrorConfirm,
   alertaErroresDocumento,
+  alertaExito,
   alertaExitoConfirm,
 } from "../Alertas";
-import { checkDocumentoFT } from "./checksDocumentos";
-//import { sendMail } from "../../funcs/sendMailCustomMessage";
+import { enviarNotificacionRol } from "../axiosGenericos";
+import { checkMA } from "./CheckDocumento";
 
 export let errores: string[] = [];
 
-export default function ModalEnviarFT({
+export default function ModalEnviar({
   open,
   handleClose,
+  MA,
   MIR,
-  Documento,
-  IdFT,
-  IdMIR,
   IdMA,
+  IdMIR,
   showResume,
   IdEntidad,
+  Documento,
 }: {
   open: boolean;
   handleClose: Function;
+  MA: string;
   MIR: string;
-  Documento: string;
-  IdFT: string;
-  IdMIR: string;
   IdMA: string;
+  IdMIR: string;
   showResume: Function;
   IdEntidad: string;
+  Documento: string;
 }) {
   const [comment, setComment] = useState("");
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [newComent, setNewComent] = React.useState(false);
-  const enviarMensaje = "Se ha creado una nueva";
-
-  const comentFT = () => {
-    create_coment_mir(IdMIR, comment, "FT")
-      .then((r) => {
-        setNewComent(false);
-        setComment("");
-      })
-      .catch((err) => {});
-  };
 
   let err = 0;
 
   useEffect(() => {
     if (open) {
-      ////////////////////////Esto esta fallando
       axios
         .post(
+          // eslint-disable-next-line no-useless-concat
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: localStorage.getItem("Rol"),
@@ -74,7 +60,7 @@ export default function ModalEnviarFT({
               IdEntidad ||
               JSON.parse(MIR)?.encabezado.entidad.Id ||
               localStorage.getItem("IdEntidad"),
-            IdApp: localStorage.getItem("dApp"),
+            IdApp: localStorage.getItem("IdApp"),
           },
           {
             headers: {
@@ -130,10 +116,10 @@ export default function ModalEnviarFT({
             }}
           >
             {localStorage.getItem("Rol") === "Administrador"
-              ? "AL CONFIRMAR, LA FICHA TÉCNICA SE AUTORIZARÁ."
+              ? "AL CONFIRMAR, LA META ANUAL SE AUTORIZARÁ Y EL APARTADO DE LA FICHA TÉCNICA Y RAFFI SERÁ HABILITADO"
               : localStorage.getItem("Rol") === "Verificador"
-              ? "AL CONFIRMAR, LA FICHA TÉCNICA SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA AUTORIZACIÓN."
-              : "AL CONFIRMAR, LA FICHA TÉCNICA SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA REVISIÓN."}
+              ? "AL CONFIRMAR, LA META ANUAL SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA AUTORIZACIÓN"
+              : "AL CONFIRMAR, LA META ANUAL SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA REVISIÓN"}
           </Typography>
         </Grid>
 
@@ -160,14 +146,14 @@ export default function ModalEnviarFT({
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              // width: "30vw",
+              //width: "20vw",
               mt: "4vh",
             }}
           >
             <Button
               className="cancelar"
-              sx={{ marginRight: "1rem" }}
               //sx={queries.buttonCancelarSolicitudInscripcion}
+              sx={{ marginRight: "1rem" }}
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratRegular" }}>
@@ -178,16 +164,28 @@ export default function ModalEnviarFT({
             <Button
               className="aceptar"
               //sx={queries.buttonContinuarSolicitudInscripcion}
-
               onClick={() => {
-                checkDocumentoFT(
+                if(Documento === "MA"){
+                  checkMA(
                   localStorage.getItem("Rol") === "Capturador"
                     ? "En Revisión"
                     : localStorage.getItem("Rol") === "Verificador"
                     ? "En Autorización"
                     : "Autorizada",
+                  MA,
+                  MIR,
+                  IdMIR,
+                  IdMA,
+                  IdEntidad,
+                  comment,
+                  setComment,
+                  showResume,
+                  setNewComent,
+                  handleClose,
                   Documento,
                 );
+                }
+                
                 handleClose();
                 setNewComent(false);
               }}

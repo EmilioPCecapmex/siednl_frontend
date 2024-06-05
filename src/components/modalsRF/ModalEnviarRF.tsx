@@ -251,9 +251,6 @@ export default function ModalEnviarRF({
   }, [MIR, open]);
 
   
-
-
-
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle
