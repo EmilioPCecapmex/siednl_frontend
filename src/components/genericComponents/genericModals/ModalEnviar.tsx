@@ -17,15 +17,20 @@ import {
   alertaExitoConfirm,
 } from "../Alertas";
 import { enviarNotificacionRol } from "../axiosGenericos";
-import { checkMA } from "./CheckDocumento";
+import { checKRF, checkFT, checkMA } from "./CheckDocumento";
+import { IRF } from "../../tabsRaffi/interfacesRaffi";
 
 export let errores: string[] = [];
 
 export default function ModalEnviar({
   open,
   handleClose,
+  RF,
+  FT,
   MA,
   MIR,
+  IdRF,
+  IdFT,
   IdMA,
   IdMIR,
   showResume,
@@ -34,8 +39,12 @@ export default function ModalEnviar({
 }: {
   open: boolean;
   handleClose: Function;
+  RF: string;
+  FT: string;
   MA: string;
   MIR: string;
+  IdRF: string;
+  IdFT: string;
   IdMA: string;
   IdMIR: string;
   showResume: Function;
@@ -47,6 +56,13 @@ export default function ModalEnviar({
   const [newComent, setNewComent] = React.useState(false);
 
   let err = 0;
+
+  let jsonRF: IRF =
+    RF === ""
+      ? ""
+      : JSON.parse(RF).length > 1
+      ? JSON.parse(RF)[0]
+      : JSON.parse(RF);
 
   useEffect(() => {
     if (open) {
@@ -165,27 +181,73 @@ export default function ModalEnviar({
               className="aceptar"
               //sx={queries.buttonContinuarSolicitudInscripcion}
               onClick={() => {
-                if(Documento === "MA"){
+                if (Documento === "MA") {
                   checkMA(
-                  localStorage.getItem("Rol") === "Capturador"
-                    ? "En Revisión"
-                    : localStorage.getItem("Rol") === "Verificador"
-                    ? "En Autorización"
-                    : "Autorizada",
-                  MA,
-                  MIR,
-                  IdMIR,
-                  IdMA,
-                  IdEntidad,
-                  comment,
-                  setComment,
-                  showResume,
-                  setNewComent,
-                  handleClose,
-                  Documento,
-                );
+                    localStorage.getItem("Rol") === "Capturador"
+                      ? "En Revisión"
+                      : localStorage.getItem("Rol") === "Verificador"
+                      ? "En Autorización"
+                      : "Autorizada",
+                    MA,
+                    MIR,
+                    IdMIR,
+                    IdMA,
+                    IdEntidad,
+                    comment,
+                    setComment,
+                    showResume,
+                    setNewComent,
+                    handleClose,
+                    Documento
+                  );
                 }
-                
+
+                if (Documento === "FT") {
+                  checkFT(
+                    localStorage.getItem("Rol") === "Capturador"
+                      ? "En Revisión"
+                      : localStorage.getItem("Rol") === "Verificador"
+                      ? "En Autorización"
+                      : "Autorizada",
+                    FT,
+                    MA,
+                    MIR,
+                    IdFT,
+                    IdMIR,
+                    IdMA,
+                    IdEntidad,
+                    comment,
+                    setComment,
+                    showResume,
+                    setNewComent,
+                    handleClose,
+                    Documento
+                  );
+                }
+
+                if (Documento === "RF") {
+                  checKRF(
+                    localStorage.getItem("Rol") === "Capturador"
+                      ? "En Revisión"
+                      : localStorage.getItem("Rol") === "Verificador"
+                      ? "En Autorización"
+                      : "Autorizada",
+                    jsonRF,
+                    MA,
+                    MIR,
+                    IdRF,
+                    IdMIR,
+                    IdMA,
+                    IdEntidad,
+                    comment,
+                    setComment,
+                    showResume,
+                    setNewComent,
+                    handleClose,
+                    Documento
+                  );
+                }
+
                 handleClose();
                 setNewComent(false);
               }}

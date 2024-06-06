@@ -4,7 +4,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import axios from "axios";
 import { useState } from "react";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
-import ModalEnviarFT from "../modalsFT/ModalEnviarFT";
 import ModalsSolicitModifFT from "../modalsFT/ModalsSolicitModifFT";
 import {
   IActividadesFT,
@@ -14,8 +13,9 @@ import {
   IFT,
   IFTEdit,
   IFinFT,
-  IPropositoFT
+  IPropositoFT,
 } from "./Interfaces";
+import ModalEnviar from "../genericComponents/genericModals/ModalEnviar";
 
 export function TabResumenFT({
   show,
@@ -70,7 +70,6 @@ export function TabResumenFT({
     setOpenModalEnviar(false);
   };
 
-
   const creaFT = (estado: string) => {
     axios
       .post(
@@ -83,8 +82,10 @@ export function TabResumenFT({
           Id: IdFT,
           Estado: estado,
           Rol: localStorage.getItem("Rol"),
-          IdEntidad: JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
-          localStorage.getItem("IdEntidad"),
+          IdEntidad:
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
+            localStorage.getItem("IdEntidad"),
         },
         {
           headers: {
@@ -93,19 +94,14 @@ export function TabResumenFT({
         }
       )
       .then((r) => {
-        alertaExito(()=> {}, r.data.data.message.toUpperCase() )
-        
+        alertaExito(() => {}, r.data.data.message.toUpperCase());
+
         showResume();
       })
       .catch((err) => {
-        alertaError(err.response.data.result.error.toUpperCase())
-      
+        alertaError(err.response.data.result.error.toUpperCase());
       });
   };
-
-
-
-
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
@@ -117,12 +113,7 @@ export function TabResumenFT({
         //display: "flex",
         width: "93vw",
         height: "82vh",
-        ...(isSmallScreen
-          ? {boxShadow: 10,
-            borderRadius: 5,}
-          : {
-              
-            }),
+        ...(isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
         // alignItems: "center",
         // justifyContent: "center",
         flexDirection: "column",
@@ -1264,8 +1255,6 @@ export function TabResumenFT({
           </Grid>
         </Grid>
 
-
-
         <Grid
           item
           container
@@ -2379,9 +2368,7 @@ export function TabResumenFT({
             display: "flex",
             // Otros estilos específicos para pantallas pequeñas
           }),
-          
 
-         
           alignItems: "center",
           justifyContent: "center",
 
@@ -2394,7 +2381,7 @@ export function TabResumenFT({
         }}
       >
         <Grid
-           sx={{
+          sx={{
             justifyContent: "center",
             display: "flex",
             margin: isSmallScreen ? "2px" : "5px",
@@ -2408,8 +2395,8 @@ export function TabResumenFT({
           xs={12}
         >
           <Button
-          className="cancelar"
-          sx={{ width: !isSmallScreen ? "100%" : "auto" }}
+            className="cancelar"
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => showResume()}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
@@ -2447,13 +2434,12 @@ export function TabResumenFT({
         </Grid>
 
         <Grid
-        
-        sx={{
-          justifyContent: "center",
-          display: "flex",
-          margin: isSmallScreen ? "2px" : "5px",
-          width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
-        }}
+          sx={{
+            justifyContent: "center",
+            display: "flex",
+            margin: isSmallScreen ? "2px" : "5px",
+            width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
+          }}
           item
           xl={3}
           lg={3}
@@ -2462,8 +2448,8 @@ export function TabResumenFT({
           xs={12}
         >
           <Button
-          className="aceptar"
-          sx={{ width: !isSmallScreen ? "100%" : "auto" }}
+            className="aceptar"
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => {
               let estado = "";
               if (localStorage.getItem("Rol") === "Capturador") {
@@ -2500,10 +2486,12 @@ export function TabResumenFT({
           xs={12}
         >
           <Button
-          className="aceptar"
-          sx={{ width: !isSmallScreen ? "100%" : "auto" }}
-            onClick={() =>{ console.log(estadoft)
-            setOpenModalEnviar(true)}}
+            className="aceptar"
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
+            onClick={() => {
+              console.log(estadoft);
+              setOpenModalEnviar(true);
+            }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
               {localStorage.getItem("Rol") === "Administrador"
@@ -2515,7 +2503,6 @@ export function TabResumenFT({
           </Button>
         </Grid>
 
-        
         <ModalsSolicitModifFT
           open={openModalSolicitarModif}
           handleClose={handleCloseModif}
@@ -2530,7 +2517,7 @@ export function TabResumenFT({
           IdEntidad={IdEntidad}
         />
 
-        <ModalEnviarFT
+        {/* <ModalEnviarFT
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
           MIR={MIR}
@@ -2540,9 +2527,25 @@ export function TabResumenFT({
           FT={JSON.stringify(FT)}
           IdMA={IdMA}
           IdEntidad={IdEntidad}
+          //Documento={"FT"}
+        /> */}
+
+        <ModalEnviar
+          open={openModalEnviar}
+          handleClose={handleCloseEnviar}
+          MA={""}
+          MIR={MIR}
+          RF={""}
+          FT={JSON.stringify(FT)}
+          IdRF={""}
+          IdFT={IdFT}
+          IdMA={IdMA}
+          IdMIR={IdMir}
+          showResume={showResume}
+          IdEntidad={IdEntidad}
+          Documento={"FT"}
         />
       </Grid>
-
     </Grid>
   );
 }

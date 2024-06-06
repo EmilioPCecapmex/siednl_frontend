@@ -22,10 +22,11 @@ import moment from "moment";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { IIUserXInst } from "../../modalsMA/ModalEnviarMA";
+//import { IIUserXInst } from "../../modalsMA/ModalEnviarMA";
 import { create_coment_mir, obtenerComentarios } from "../axiosGenericos";
 import { alertaError, alertaExito } from "../Alertas";
 import { TonalityOutlined } from "@mui/icons-material";
+import { IIUserXInst } from "./ModalEnviar";
 
 export const ComentDialog = ({
   estado,

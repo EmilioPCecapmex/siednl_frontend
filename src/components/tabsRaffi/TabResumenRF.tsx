@@ -1,29 +1,16 @@
-import {
-  Grid,
-
-  Typography,
- 
-  Button,
-  Checkbox,
-} from "@mui/material";
+import { Grid, Typography, Button, Checkbox } from "@mui/material";
 import axios from "axios";
-import {  useState } from "react";
+import { useState } from "react";
 import Swal from "sweetalert2";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { queries } from "../../queries";
-import {
-  IActividadesRF,
-
-  IComponenteRF,
-  IRF,
-  IRFEdit,
-} from "./interfacesRaffi";
+import { IActividadesRF, IComponenteRF, IRF, IRFEdit } from "./interfacesRaffi";
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
-import ModalEnviarRF from "../modalsRF/ModalEnviarRF";
 import ModalSolicitaModifRF from "../modalsRF/ModalSolicitaModifRAFFI";
 import { alertaError, alertaExito } from "../genericComponents/Alertas";
+import ModalEnviar from "../genericComponents/genericModals/ModalEnviar";
 
 export const TabResumenRF = ({
   IdMir,
@@ -70,7 +57,6 @@ export const TabResumenRF = ({
   };
 
   const isCapturador = localStorage.getItem("Rol") === "Capturador";
- 
 
   const [RF, setRF] = useState<IRF>(Raffi);
 
@@ -106,7 +92,8 @@ export const TabResumenRF = ({
           Id: IdRF,
           Rol: localStorage.getItem("Rol"),
           IdEntidad:
-            JSON.parse(MIR)?.encabezado.entidad.Id || IdEntidad ||
+            JSON.parse(MIR)?.encabezado.entidad.Id ||
+            IdEntidad ||
             localStorage.getItem("IdEntidad"),
         },
         {
@@ -130,16 +117,10 @@ export const TabResumenRF = ({
   return (
     <Grid
       sx={{
-        
         width: "93vw",
         height: "82vh",
-        ...(isSmallScreen
-          ? {boxShadow: 10,
-            borderRadius: 5,}
-          : {
-              
-            }),
-        
+        ...(isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
+
         flexDirection: "column",
         backgroundColor: "#fff",
         ...(!isSmallScreen && {
@@ -202,7 +183,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -250,7 +230,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -317,7 +296,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -380,7 +358,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -443,7 +420,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -506,7 +482,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -569,7 +544,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -629,7 +603,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -637,11 +610,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-               
-                
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -669,7 +638,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -677,10 +645,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-               
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -708,7 +673,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -716,10 +680,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-                
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -747,7 +708,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -755,10 +715,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-             
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -786,7 +743,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -794,10 +750,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-                
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -852,7 +805,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -874,7 +826,6 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-               
               />
             </Grid>
           )}
@@ -903,7 +854,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -925,7 +875,6 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-                
               />
             </Grid>
           )}
@@ -954,7 +903,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -976,8 +924,6 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-       
-              
               />
             </Grid>
           )}
@@ -1006,7 +952,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1028,7 +973,6 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-            
               />
             </Grid>
           )}
@@ -1057,7 +1001,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1076,7 +1019,6 @@ export const TabResumenRF = ({
                     v.target.checked;
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-            
               />
             </Grid>
           )}
@@ -1105,7 +1047,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1113,11 +1054,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-
-              
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -1148,7 +1085,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1156,10 +1092,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-             
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -1190,7 +1123,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1198,10 +1130,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-               
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -1232,7 +1161,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1240,10 +1168,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-               
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -1274,7 +1199,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1282,10 +1206,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-                
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -1340,7 +1261,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1362,7 +1282,6 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-            
               />
             </Grid>
           )}
@@ -1391,7 +1310,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1413,7 +1331,6 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-              
               />
             </Grid>
           )}
@@ -1442,7 +1359,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1464,7 +1380,6 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-            
               />
             </Grid>
           )}
@@ -1493,7 +1408,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1515,7 +1429,6 @@ export const TabResumenRF = ({
                   };
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-              
               />
             </Grid>
           )}
@@ -1544,7 +1457,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1562,7 +1474,6 @@ export const TabResumenRF = ({
                   aux.monto.ejercidoModificado.cuentaPublica = v.target.checked;
                   setRaffiboolean({ ...raffiboolean, avanceFinanciero: aux });
                 }}
-            
               />
             </Grid>
           )}
@@ -1591,7 +1502,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1599,10 +1509,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-             
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -1630,7 +1537,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1638,10 +1544,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-               
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -1669,7 +1572,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1677,10 +1579,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-             
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -1708,7 +1607,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1716,10 +1614,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-            
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -1747,7 +1642,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1755,10 +1649,7 @@ export const TabResumenRF = ({
         >
           {localStorage.getItem("Rol") !== "Administrador" ? null : (
             <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-              <Checkbox
-                disabled={true}
-               
-              />
+              <Checkbox disabled={true} />
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
@@ -1816,7 +1707,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1859,7 +1749,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1929,7 +1818,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -1972,7 +1860,6 @@ export const TabResumenRF = ({
             display: "flex",
             flexDirection: "row",
 
-            
             alignItems: "center",
             borderBottom: 1,
             borderColor: "#cfcfcf",
@@ -2076,7 +1963,6 @@ export const TabResumenRF = ({
                     display: "flex",
                     flexDirection: "row",
 
-                    
                     alignItems: "center",
                     borderBottom: 1,
                     borderColor: "#cfcfcf",
@@ -2161,7 +2047,6 @@ export const TabResumenRF = ({
                     display: "flex",
                     flexDirection: "row",
 
-                    
                     alignItems: "center",
                     borderBottom: 1,
                     borderColor: "#cfcfcf",
@@ -2378,7 +2263,6 @@ export const TabResumenRF = ({
                       display: "flex",
                       flexDirection: "row",
 
-                      
                       alignItems: "center",
                       borderBottom: 1,
                       borderColor: "#cfcfcf",
@@ -2541,11 +2425,8 @@ export const TabResumenRF = ({
         sx={{
           ...(isSmallScreen && {
             display: "flex",
-   
           }),
-        
 
-          
           alignItems: "center",
           justifyContent: "center",
 
@@ -2558,7 +2439,7 @@ export const TabResumenRF = ({
         }}
       >
         <Grid
-           sx={{
+          sx={{
             justifyContent: "center",
             display: "flex",
             margin: isSmallScreen ? "2px" : "5px",
@@ -2572,8 +2453,10 @@ export const TabResumenRF = ({
           xs={12}
         >
           <Button
-           sx={{ width: !isSmallScreen ? "100%" : "auto" }}
-          className="cancelar" onClick={() => showResume()}>
+            sx={{ width: !isSmallScreen ? "100%" : "auto" }}
+            className="cancelar"
+            onClick={() => showResume()}
+          >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
               CANCELAR
             </Typography>
@@ -2601,7 +2484,7 @@ export const TabResumenRF = ({
             onClick={() => setOpenModalSolicitarModif(true)}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-            SOLICITAR MODIFICACIÓN
+              SOLICITAR MODIFICACIÓN
             </Typography>
           </Button>
         </Grid>
@@ -2613,7 +2496,7 @@ export const TabResumenRF = ({
             margin: isSmallScreen ? "2px" : "5px",
             width: "100%", // Ajusta el ancho del Grid al 100% en pantallas pequeñas
           }}
-            item
+          item
           xl={3}
           lg={3}
           md={3}
@@ -2638,7 +2521,7 @@ export const TabResumenRF = ({
             }}
           >
             <Typography sx={{ fontFamily: "MontserratMedium" }}>
-             GUARDAR BORRADOR
+              GUARDAR BORRADOR
             </Typography>
           </Button>
         </Grid>
@@ -2668,7 +2551,7 @@ export const TabResumenRF = ({
                 ? estadorf === "Autorizada"
                   ? "MODIFICAR RF AUTORIZADA"
                   : "AUTORIZAR"
-                  : "ENVIAR"}
+                : "ENVIAR"}
             </Typography>
           </Button>
         </Grid>
@@ -2686,17 +2569,22 @@ export const TabResumenRF = ({
           IdEntidad={IdEntidad}
         ></ModalSolicitaModifRF>
 
-        <ModalEnviarRF
+
+        <ModalEnviar
           open={openModalEnviar}
           handleClose={handleCloseEnviar}
           RF={JSON.stringify(RF)}
           MA={JSON.stringify(MA)}
           MIR={MIR}
-          IdMA={IdMA}
+          FT={""}
           IdRF={IdRF}
+          IdFT={""}
+          IdMA={IdMA}
+          IdMIR={""}
           showResume={showResume}
           IdEntidad={IdEntidad}
-        ></ModalEnviarRF>
+          Documento={"RF"}
+        />
       </Grid>
     </Grid>
   );

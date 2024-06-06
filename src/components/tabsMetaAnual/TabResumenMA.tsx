@@ -3,7 +3,6 @@ import { Grid, Typography, Button, Checkbox } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import ModalEnviarMA from "../modalsMA/ModalEnviarMA";
 import ModalSolicitaModif from "../modalsMA/ModalSolicitaModifMA";
 import { IFinMA, IPropositoMA } from "./IFin";
 import { IMA, IMAEdit } from "./IMA";
@@ -3180,6 +3179,10 @@ export function TabResumenMA({
           handleClose={handleCloseEnviar}
           MA={JSON.stringify(MA)}
           MIR={MIR}
+          RF={""}
+          FT={""}
+          IdRF={""}
+          IdFT={""}
           IdMA={IdMA}
           IdMIR={IdMir}
           showResume={showResume}
