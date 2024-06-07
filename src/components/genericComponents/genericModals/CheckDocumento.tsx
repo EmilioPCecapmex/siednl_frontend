@@ -1778,7 +1778,7 @@ export const creaRF = (
     .post(
       process.env.REACT_APP_APPLICATION_BACK + "/api/create-rf-generic",
       {
-        Raffi: RF,
+        Raffi: JSON.stringify(RF),
         CreadoPor: localStorage.getItem("IdUsuario"),
         IdMa: IdMA,
         Id: IdRF,
