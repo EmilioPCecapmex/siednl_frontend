@@ -131,12 +131,12 @@ export default function ModalEnviar({
               textAlign: "center",
             }}
           >
-            {jsonRF.avanceFinanciero.valorProgramaPresupuestario}
-            {/* {localStorage.getItem("Rol") === "Administrador"
-              ? "AL CONFIRMAR, LA META ANUAL SE AUTORIZARÁ Y EL APARTADO DE LA FICHA TÉCNICA Y RAFFI SERÁ HABILITADO"
+            {/* {jsonRF.avanceFinanciero.valorProgramaPresupuestario} */}
+            {localStorage.getItem("Rol") === "Administrador"
+              ? "AL CONFIRMAR,  EL DOCUMENTO SE AUTORIZARÁ Y EL SIGUIENTE APARTADO SERÁ HABILITADO"
               : localStorage.getItem("Rol") === "Verificador"
-              ? "AL CONFIRMAR, LA META ANUAL SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA AUTORIZACIÓN"
-              : "AL CONFIRMAR, LA META ANUAL SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA REVISIÓN"} */}
+              ? "AL CONFIRMAR, EL DOCUMENTO SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA AUTORIZACIÓN"
+              : "AL CONFIRMAR, EL DOCUMENTO SE ENVIARÁ A LOS USUARIOS CORRESPONDIENTES PARA REVISIÓN"}
           </Typography>
         </Grid>
 
