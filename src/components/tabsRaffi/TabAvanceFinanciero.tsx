@@ -194,8 +194,8 @@ export function TabAvanceFinanciero({
       modificadoAutorizado.t1.resultado !== "" ||
       modificadoAutorizado.t2.resultado !== "" ||
       modificadoAutorizado.t3.resultado !== "" ||
-      modificadoAutorizado.t4.resultado !== "" ||
-      valorProgramaPresupuestario !== ""
+      modificadoAutorizado.t4.resultado !== "" 
+      || valorProgramaPresupuestario !== ""
     ) {
       setAvanceFinancieroRF(auxRaffi);
     }
