@@ -195,7 +195,6 @@ export function TabAvanceFinanciero({
       modificadoAutorizado.t2.resultado !== "" ||
       modificadoAutorizado.t3.resultado !== "" ||
       modificadoAutorizado.t4.resultado !== "" 
-      || valorProgramaPresupuestario !== ""
     ) {
       setAvanceFinancieroRF(auxRaffi);
     }
@@ -489,9 +488,13 @@ export function TabAvanceFinanciero({
                       "Se necesita un valor para capturar los campos de trimestre"
                     );
                   }
+                  
                   setValorProgramaPresupuestario(
                     validarNumero(a.target.value, valorProgramaPresupuestario)
                   );
+                  let prevLocal = avanceFinancieroRF;
+                      prevLocal.valorProgramaPresupuestario = a.target.value;
+                  setAvanceFinancieroRF(prevLocal);
                 } else {
                   setValorProgramaPresupuestario("");
                 }
