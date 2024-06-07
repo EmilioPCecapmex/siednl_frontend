@@ -12,6 +12,7 @@ import {
   List,
   ListItem,
   ToggleButton,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -96,6 +97,7 @@ export default function NotificationsPanel({
     <React.Fragment key={"right"}>
       <IconButton color="inherit" onClick={() => handleOpenNotifPanel()}>
         <Badge badgeContent={sinNotificaciones ? notificaciones?.length : 0}>
+        <Tooltip title="NOTIFICACIONES">
           <NotificationsIcon
             sx={{
               fontSize: "24px", // Tamaño predeterminado del icono
@@ -121,6 +123,7 @@ export default function NotificationsPanel({
               },
             }}
           />
+          </Tooltip>
         </Badge>
       </IconButton>
 
@@ -297,6 +300,7 @@ export default function NotificationsPanel({
                           fnc();
                         }}
                       >
+                        
                         <VisibilityIcon />
                       </IconButton>
 

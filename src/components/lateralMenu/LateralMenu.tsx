@@ -710,9 +710,11 @@ export const LateralMenu = ({
                   display={"flex"}
                   justifyContent={"flex-end"}
                 >
-                  <IconButton color="inherit" onClick={handleMenu}>
-                    {IconsMenu("InfoOutlinedIcon")}
-                  </IconButton>
+                  <Tooltip title="TUTORIALES">
+                    <IconButton color="inherit" onClick={handleMenu}>
+                      {IconsMenu("InfoOutlinedIcon")}
+                    </IconButton>
+                  </Tooltip>
 
                   <Menu
                     id="menu-appbar"
