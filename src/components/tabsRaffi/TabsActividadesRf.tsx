@@ -19,6 +19,7 @@ import { getValueOperacion } from "../../services/validations";
 import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { alertaError } from "../genericComponents/Alertas";
 import { IComponenteRF, IRFEdit } from "./interfacesRaffi";
+import { useTheme } from '@mui/material/styles';
 
 export const TabActividadRf = ({
   edit,
@@ -49,6 +50,8 @@ export const TabActividadRf = ({
   const [actividadSelect, setActividadSelect] = useState(0);
   const [index, setIndex] = useState(0);
   const [index2, setIndex2] = useState(0);
+  const theme = useTheme();
+
   const handleClose = () => {
     setOpenFormulaDialog(false);
   };
@@ -225,7 +228,7 @@ export const TabActividadRf = ({
             sx={{
               mr: "1vw",
               fontFamily: "MontserratSemiBold",
-              fontSize: "1.5vw",
+              fontSize: [10, 10, 10, 13, 15, 18],
             }}
           >
             A{actividadSelect + 1}C{componenteSelect + 1}
@@ -243,7 +246,11 @@ export const TabActividadRf = ({
           {!isSmallScreen && (
             <List
               sx={{
+               
                 width: "15vw",
+                [theme.breakpoints.between(587, 769)]: {
+                  width: "30vw",
+                },
                 height: "95%",
                 borderRight: "solid",
                 display: "flex",
@@ -255,7 +262,7 @@ export const TabActividadRf = ({
                 },
                 "&::-webkit-scrollbar-thumb": {
                   backgroundColor: "rgba(0,0,0,.5)",
-                  outline: "1px solid slategrey",
+                  outline: "px solid slategrey",
                   borderRadius: 10,
                 },
               }}
@@ -292,7 +299,7 @@ export const TabActividadRf = ({
                       <Typography
                         sx={{
                           fontFamily: "MontserratMedium",
-                          fontSize: "0.7vw",
+                          fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       >
                         COMPONENTE {index + 1}
@@ -322,6 +329,7 @@ export const TabActividadRf = ({
                           >
                             <Typography
                               sx={{
+                                fontSize: [8, 9, 10, 13, 15, 18],
                                 fontFamily: "MontserratMedium",
                               }}
                             >
@@ -356,10 +364,21 @@ export const TabActividadRf = ({
               },
             }}
           >
+            <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              {JSON.parse(MIR).componentes[componenteSelect]?.actividades[
+                          actividadSelect]?.resumen}
+            </Typography>
+            
+          </Grid>
             {isSmallScreen && (
-              <List
-              
-              >
+              <List>
                 {componentesActividadesValues.map((componente, index) => {
                   return (
                     <Grid
@@ -380,8 +399,9 @@ export const TabActividadRf = ({
                           setActividadSelect(0);
                           setIndex(index);
                         }}
+                        
                         sx={{
-                          fontSize: [10, 10, 10, 13, 15, 18],
+                          fontSize: { xs: 8, sm: 13, md: 15, lg: 18 },
                           height: "7vh",
                           "&.Mui-selected ": {
                             backgroundColor: "#c4a57b",
@@ -394,7 +414,7 @@ export const TabActividadRf = ({
                         <Typography
                           sx={{
                             fontFamily: "MontserratMedium",
-                            fontSize: [10, 10, 10, 13, 15, 18],
+                           
                           }}
                         >
                           COMPONENTE {index + 1}
@@ -419,6 +439,7 @@ export const TabActividadRf = ({
                                 setIndex2(index)
                               }}
                               sx={{
+                                fontSize: { xs: 8, sm: 13, md: 15, lg: 18 },
                                 height: "7vh",
                                 "&.Mui-selected ": {
                                   backgroundColor: "#c4a57b",
@@ -430,7 +451,7 @@ export const TabActividadRf = ({
                             >
                               <Typography
                                 sx={{
-                                  fontSize: [10, 10, 10, 13, 15, 18],
+                                  
                                   fontFamily: "MontserratMedium",
                                 }}
                               >

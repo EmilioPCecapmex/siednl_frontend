@@ -17,6 +17,7 @@ import { alertaError } from "../genericComponents/Alertas";
 import { IMIR } from "../tabsMir/interfaces mir/IMIR";
 import { IComponenteRF, IRFEdit } from "./interfacesRaffi";
 import { getValueOperacion } from "../../services/validations";
+import { useTheme } from '@mui/material/styles';
 
 export const TabComponenteRf = ({
   edit,
@@ -44,6 +45,7 @@ export const TabComponenteRf = ({
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
   const [index, setIndex] = useState(0);
+  const theme = useTheme();
 
   const [frecuencia, setFrecuencia] = useState("");
 
@@ -274,6 +276,9 @@ export const TabComponenteRf = ({
           <List
             sx={{
               width: "15vw",
+              [theme.breakpoints.between(587, 769)]: {
+                width: "30vw",
+              },
               height: "95%",
               borderRight: "solid",
               display: "flex",
