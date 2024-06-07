@@ -19,13 +19,13 @@ import {
 export let errores: string[] = [];
 
 let err = 0;
-const year=new Date().getFullYear();
-const dateSem = [new Date(year,6,30), new Date(year,12,31)];
+const year = new Date().getFullYear();
+const dateSem = [new Date(year, 6, 30), new Date(year, 12, 31)];
 const dateTrim = [
-  new Date(year,3,31),
-  new Date(year,6,30),
-  new Date(year,9,30),
-  new Date(year,12,31),
+  new Date(year, 3, 31),
+  new Date(year, 6, 30),
+  new Date(year, 9, 30),
+  new Date(year, 12, 31),
 ];
 export const comententario = (
   id: string,
@@ -1486,6 +1486,395 @@ export const checKRF = (
   Documento: string
 ) => {
   errores = [];
+  //////////////////////////// devengadoModificado  monto ////////////////////////////////////
+  if (
+    !(new Date() > dateTrim[0]) &&
+    (jsonRF?.avanceFinanciero.monto.devengadoModificado.t1.resultado === null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.monto.devengadoModificado.t1.resultado
+      ) ||
+      jsonRF?.avanceFinanciero.monto.devengadoModificado.t1.resultado === "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 1 monto incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[1] &&
+    new Date() > dateTrim[0] &&
+    (jsonRF?.avanceFinanciero.monto.devengadoModificado.t2.resultado === null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.monto.devengadoModificado.t2.resultado
+      ) ||
+      jsonRF?.avanceFinanciero.monto.devengadoModificado.t2.resultado === "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 2 monto incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[2] &&
+    new Date() > dateTrim[1] &&
+    (jsonRF?.avanceFinanciero.monto.devengadoModificado.t3.resultado === null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.monto.devengadoModificado.t3.resultado
+      ) ||
+      jsonRF?.avanceFinanciero.monto.devengadoModificado.t3.resultado === "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 3 monto incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[3] &&
+    new Date() > dateTrim[2] &&
+    (jsonRF?.avanceFinanciero.monto.devengadoModificado.t4.resultado === null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.monto.devengadoModificado.t4.resultado
+      ) ||
+      jsonRF?.avanceFinanciero.monto.devengadoModificado.t4.resultado === "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 4 monto incompleta."
+    );
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////// devengadoModificado  porcentaje ////////////////////////////////////
+  if (
+    !(new Date() > dateTrim[0]) &&
+    (jsonRF?.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt1 ===
+      null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt1
+      ) ||
+      jsonRF?.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt1 ===
+        "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 1 porcentaje incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[1] &&
+    new Date() > dateTrim[0] &&
+    (jsonRF?.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt2 ===
+      null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt2
+      ) ||
+      jsonRF?.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt2 ===
+        "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 2 porcentaje incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[2] &&
+    new Date() > dateTrim[1] &&
+    (jsonRF?.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt3 ===
+      null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt3
+      ) ||
+      jsonRF?.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt3 ===
+        "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 3 porcentaje incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[3] &&
+    new Date() > dateTrim[2] &&
+    (jsonRF?.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt4 ===
+      null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt4
+      ) ||
+      jsonRF?.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt4 ===
+        "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 4 porcentaje incompleta."
+    );
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////// ejercidoModificado  monto ////////////////////////////////////
+  if (
+    !(new Date() > dateTrim[0]) &&
+    (jsonRF?.avanceFinanciero.monto.ejercidoModificado.t1.resultado === null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.monto.ejercidoModificado.t1.resultado
+      ) ||
+      jsonRF?.avanceFinanciero.monto.ejercidoModificado.t1.resultado === "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 1 monto incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[1] &&
+    new Date() > dateTrim[0] &&
+    (jsonRF?.avanceFinanciero.monto.ejercidoModificado.t2.resultado === null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.monto.ejercidoModificado.t2.resultado
+      ) ||
+      jsonRF?.avanceFinanciero.monto.ejercidoModificado.t2.resultado === "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 2 monto incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[2] &&
+    new Date() > dateTrim[1] &&
+    (jsonRF?.avanceFinanciero.monto.ejercidoModificado.t3.resultado === null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.monto.ejercidoModificado.t3.resultado
+      ) ||
+      jsonRF?.avanceFinanciero.monto.ejercidoModificado.t3.resultado === "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 3 monto incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[3] &&
+    new Date() > dateTrim[2] &&
+    (jsonRF?.avanceFinanciero.monto.ejercidoModificado.t4.resultado === null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.monto.ejercidoModificado.t4.resultado
+      ) ||
+      jsonRF?.avanceFinanciero.monto.ejercidoModificado.t4.resultado === "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 4 monto incompleta."
+    );
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////// porcentajeEjercidoModificado  porcentaje ////////////////////////////////////
+  if (
+    !(new Date() > dateTrim[0]) &&
+    (jsonRF?.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt1 ===
+      null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt1
+      ) ||
+      jsonRF?.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt1 ===
+        "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 1 porcentaje incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[1] &&
+    new Date() > dateTrim[0] &&
+    (jsonRF?.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt2 ===
+      null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt2
+      ) ||
+      jsonRF?.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt2 ===
+        "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 2 porcentaje incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[2] &&
+    new Date() > dateTrim[1] &&
+    (jsonRF?.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt3 ===
+      null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt3
+      ) ||
+      jsonRF?.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt3 ===
+        "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 3 porcentaje incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[3] &&
+    new Date() > dateTrim[2] &&
+    (jsonRF?.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt4 ===
+      null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt4
+      ) ||
+      jsonRF?.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt4 ===
+        "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 4 porcentaje incompleta."
+    );
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////// modificadoAutorizado  monto ////////////////////////////////////
+  if (
+    !(new Date() > dateTrim[0]) &&
+    (jsonRF?.avanceFinanciero.monto.modificadoAutorizado.t1.resultado === null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.monto.modificadoAutorizado.t1.resultado
+      ) ||
+      jsonRF?.avanceFinanciero.monto.modificadoAutorizado.t1.resultado === "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 1 monto incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[1] &&
+    new Date() > dateTrim[0] &&
+    (jsonRF?.avanceFinanciero.monto.modificadoAutorizado.t2.resultado === null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.monto.modificadoAutorizado.t2.resultado
+      ) ||
+      jsonRF?.avanceFinanciero.monto.modificadoAutorizado.t2.resultado === "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 2 monto incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[2] &&
+    new Date() > dateTrim[1] &&
+    (jsonRF?.avanceFinanciero.monto.modificadoAutorizado.t3.resultado === null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.monto.modificadoAutorizado.t3.resultado
+      ) ||
+      jsonRF?.avanceFinanciero.monto.modificadoAutorizado.t3.resultado === "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 3 monto incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[3] &&
+    new Date() > dateTrim[2] &&
+    (jsonRF?.avanceFinanciero.monto.modificadoAutorizado.t4.resultado === null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.monto.modificadoAutorizado.t4.resultado
+      ) ||
+      jsonRF?.avanceFinanciero.monto.modificadoAutorizado.t4.resultado === "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 4 monto incompleta."
+    );
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////// porcentajeModificadoAutorizado  porcentaje ////////////////////////////////////
+  if (
+    !(new Date() > dateTrim[0]) &&
+    (jsonRF?.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado.pt1 ===
+      null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado.pt1
+      ) ||
+      jsonRF?.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado.pt1 ===
+        "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 1 porcentaje incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[1] &&
+    new Date() > dateTrim[0] &&
+    (jsonRF?.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado.pt2 ===
+      null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado.pt2
+      ) ||
+      jsonRF?.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado.pt2 ===
+        "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 2 porcentaje incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[2] &&
+    new Date() > dateTrim[1] &&
+    (jsonRF?.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado.pt3 ===
+      null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado.pt3
+      ) ||
+      jsonRF?.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado.pt3 ===
+        "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 3 porcentaje incompleta."
+    );
+  }
+
+  if (
+    new Date() < dateTrim[3] &&
+    new Date() > dateTrim[2] &&
+    (jsonRF?.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado.pt4 ===
+      null ||
+      /^[\s]*$/.test(
+        jsonRF?.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado.pt4
+      ) ||
+      jsonRF?.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado.pt4 ===
+        "")
+  ) {
+    err = 1;
+    errores.push(
+      "Sección <strong>Avance Financiero</strong>Trimestre 4 porcentaje incompleta."
+    );
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////
 
   if (jsonRF?.fin === null) {
     err = 1;
@@ -1568,64 +1957,81 @@ export const checkComponentesRF = (
   Documento: string
 ) => {
   jsonRF.componentes.map((componente: IComponenteRF, index: number) => {
-    if(JSON.parse(MIR).componentes[index].frecuencia === "TRIMESTRAL")
-    {
-      if(!(new Date()>dateTrim[0]) && (componente.metasPorFrecuencia[0].trimestre1 === undefined ||
-      /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre1))){
+    if (JSON.parse(MIR).componentes[index].frecuencia === "TRIMESTRAL") {
+      if (
+        !(new Date() > dateTrim[0]) &&
+        (componente.metasPorFrecuencia[0].trimestre1 === undefined ||
+          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre1))
+      ) {
         err = 1;
         errores.push(
           `<strong> Componente ${
             index + 1
-          } </strong>: Metas por frecuencia sin información (trimestre1).` 
+          } </strong>: Metas por frecuencia sin información (trimestre1).`
         );
-      }else
-      if((new Date()<dateTrim[1] && new Date()>dateTrim[0]) && (componente.metasPorFrecuencia[0].trimestre2 === undefined ||
-        /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre2))){
-          err = 1;
-          errores.push(
-            `<strong> Componente ${
-              index + 1
-            } </strong>: Metas por frecuencia sin información (trimestre2).`
-          );
-        }else
-        if((new Date()<dateTrim[2] && new Date()>dateTrim[1]) && (componente.metasPorFrecuencia[0].trimestre3 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre3))){
-            err = 1;
-            errores.push(
-              `<strong> Componente ${
-                index + 1
-              } </strong>: Metas por frecuencia sin información (trimestre3).`
-            );
-          }else
-          if((new Date()<dateTrim[3] && new Date()>dateTrim[2]) && (componente.metasPorFrecuencia[0].trimestre4 === undefined ||
-            /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre4))){
-              err = 1;
-              errores.push(
-                `<strong> Componente ${
-                  index + 1
-                } </strong>: Metas por frecuencia sin información (trimestre4).`
-              );
-            }
-      }else{
-        if((new Date()>dateSem[0]) && (componente.metasPorFrecuencia[0].semestre1 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1))){
-            err = 1;
-            errores.push(
-              `<strong> Componente ${
-                index + 1
-              } </strong>: Metas por frecuencia sin información (semestre1).` 
-            );
-          }else
-          if((new Date()<dateSem[1] && new Date()>dateSem[0]) && (componente.metasPorFrecuencia[0].semestre2 === undefined ||
-            /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre2))){
-              err = 1;
-              errores.push(
-                `<strong> Componente ${
-                  index + 1
-                } </strong>: Metas por frecuencia sin información (semestre2).`
-              );
-            }
-      };
+      } else if (
+        new Date() < dateTrim[1] &&
+        new Date() > dateTrim[0] &&
+        (componente.metasPorFrecuencia[0].trimestre2 === undefined ||
+          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre2))
+      ) {
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Metas por frecuencia sin información (trimestre2).`
+        );
+      } else if (
+        new Date() < dateTrim[2] &&
+        new Date() > dateTrim[1] &&
+        (componente.metasPorFrecuencia[0].trimestre3 === undefined ||
+          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre3))
+      ) {
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Metas por frecuencia sin información (trimestre3).`
+        );
+      } else if (
+        new Date() < dateTrim[3] &&
+        new Date() > dateTrim[2] &&
+        (componente.metasPorFrecuencia[0].trimestre4 === undefined ||
+          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre4))
+      ) {
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Metas por frecuencia sin información (trimestre4).`
+        );
+      }
+    } else {
+      if (
+        new Date() > dateSem[0] &&
+        (componente.metasPorFrecuencia[0].semestre1 === undefined ||
+          /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1))
+      ) {
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Metas por frecuencia sin información (semestre1).`
+        );
+      } else if (
+        new Date() < dateSem[1] &&
+        new Date() > dateSem[0] &&
+        (componente.metasPorFrecuencia[0].semestre2 === undefined ||
+          /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre2))
+      ) {
+        err = 1;
+        errores.push(
+          `<strong> Componente ${
+            index + 1
+          } </strong>: Metas por frecuencia sin información (semestre2).`
+        );
+      }
+    }
     // if (
     //   (componente.metasPorFrecuencia[0].semestre1 === undefined ||
     //     /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1) ||
@@ -1685,42 +2091,54 @@ export const checkActividadesRF = (
 ) => {
   jsonRF.componentes.map((componente: IComponenteRF, index: number) => {
     componente.actividades.map((actividad: IActividadesRF, index: number) => {
-      if(!(new Date()>dateTrim[0]) && (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
-        /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1))){
-          err = 1;
-          errores.push(
-            `<strong> Actividad ${
-              index + 1
-            } </strong>: Metas por frecuencia sin información (trimestre1).` 
-          );
-        }else
-        if((new Date()<dateTrim[1] && new Date()>dateTrim[0]) && (actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2))){
-            err = 1;
-            errores.push(
-              `<strong> Actividad ${
-                index + 1
-              } </strong>: Metas por frecuencia sin información (trimestre2).`
-            );
-          }else
-          if((new Date()<dateTrim[2] && new Date()>dateTrim[1]) && (actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
-            /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3))){
-              err = 1;
-              errores.push(
-                `<strong> Actividad ${
-                  index + 1
-                } </strong>: Metas por frecuencia sin información (trimestre3).`
-              );
-            }else
-            if((new Date()<dateTrim[3] && new Date()>dateTrim[2]) && (actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
-              /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4))){
-                err = 1;
-                errores.push(
-                  `<strong> Actividad ${
-                    index + 1
-                  } </strong>: Metas por frecuencia sin información (trimestre4).`
-                );
-              }
+      if (
+        !(new Date() > dateTrim[0]) &&
+        (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
+          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1))
+      ) {
+        err = 1;
+        errores.push(
+          `<strong> Actividad ${
+            index + 1
+          } </strong>: Metas por frecuencia sin información (trimestre1).`
+        );
+      } else if (
+        new Date() < dateTrim[1] &&
+        new Date() > dateTrim[0] &&
+        (actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
+          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2))
+      ) {
+        err = 1;
+        errores.push(
+          `<strong> Actividad ${
+            index + 1
+          } </strong>: Metas por frecuencia sin información (trimestre2).`
+        );
+      } else if (
+        new Date() < dateTrim[2] &&
+        new Date() > dateTrim[1] &&
+        (actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
+          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3))
+      ) {
+        err = 1;
+        errores.push(
+          `<strong> Actividad ${
+            index + 1
+          } </strong>: Metas por frecuencia sin información (trimestre3).`
+        );
+      } else if (
+        new Date() < dateTrim[3] &&
+        new Date() > dateTrim[2] &&
+        (actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
+          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4))
+      ) {
+        err = 1;
+        errores.push(
+          `<strong> Actividad ${
+            index + 1
+          } </strong>: Metas por frecuencia sin información (trimestre4).`
+        );
+      }
       // if (
       //   actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
       //   /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||

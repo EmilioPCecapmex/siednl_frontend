@@ -194,7 +194,7 @@ export function TabAvanceFinanciero({
       modificadoAutorizado.t1.resultado !== "" ||
       modificadoAutorizado.t2.resultado !== "" ||
       modificadoAutorizado.t3.resultado !== "" ||
-      modificadoAutorizado.t4.resultado !== "" 
+      modificadoAutorizado.t4.resultado !== ""
     ) {
       setAvanceFinancieroRF(auxRaffi);
     }
@@ -488,12 +488,12 @@ export function TabAvanceFinanciero({
                       "Se necesita un valor para capturar los campos de trimestre"
                     );
                   }
-                  
+
                   setValorProgramaPresupuestario(
                     validarNumero(a.target.value, valorProgramaPresupuestario)
                   );
                   let prevLocal = avanceFinancieroRF;
-                      prevLocal.valorProgramaPresupuestario = a.target.value;
+                  prevLocal.valorProgramaPresupuestario = a.target.value;
                   setAvanceFinancieroRF(prevLocal);
                 } else {
                   setValorProgramaPresupuestario("");
@@ -809,7 +809,10 @@ export function TabAvanceFinanciero({
                           ?.modificadoAutorizado?.t2?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
                           ?.ejercidoModificado?.t2?.resultado)) ||
-                    !(new Date() < dateTrim[1] && new Date() > dateTrim[0])
+                    !
+                    (
+                       new Date() < dateTrim[1] 
+                    && new Date() > dateTrim[0])
                   }
                   sx={queries.medium_text}
                   value={
