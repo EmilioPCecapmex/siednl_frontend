@@ -5,7 +5,9 @@ import {
   FormLabel,
   Grid,
   InputLabel,
+  MenuItem,
   Radio,
+  Select,
   TextField,
   Typography,
   useMediaQuery,
@@ -409,22 +411,15 @@ export function TabAvanceFinanciero({
   return (
     <>
       <Grid
-      
         container
         direction={"row"}
         sx={{
-         
           width: "93vw",
           height: ["90vh", "82vh", "82vh", "82vh", "82vh"],
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "#fff",
-          ...(!isSmallScreen
-            ? {boxShadow: 10,
-              borderRadius: 5,}
-            : {
-                
-              }),
+          ...(!isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
           overflow: "auto",
         }}
       >
@@ -448,6 +443,7 @@ export function TabAvanceFinanciero({
             }}
           />
         </Grid>
+
         <Grid
           justifyContent={"space-between"}
           container
@@ -461,7 +457,15 @@ export function TabAvanceFinanciero({
           gap={2}
           sx={{}}
         >
-          <Grid item lg={5} md={5} sm={11} xs={11} sx={{ marginTop: 2 }}>
+          <Grid
+            item
+            xl={5}
+            lg={5}
+            md={10}
+            sm={11}
+            xs={11}
+            sx={{ marginTop: 2 }}
+          >
             <TextField
               fullWidth
               size="small"
@@ -507,110 +511,67 @@ export function TabAvanceFinanciero({
 
           <Grid
             item
+            xl={5}
             lg={5}
-            md={5}
+            md={10}
             sm={11}
             xs={11}
             sx={{
-            
               display: "flex",
-              
               alignItems: "center",
               justifyContent: "center",
-              boxShadow: 2,
-              border: "1px solid #ccc",
-              height: "24vh",
+             // boxShadow: 2,
+             // border: "1px solid #ccc",
+             // height: "24vh",
             }}
           >
-            <FormControl>
-              <FormLabel
+            <FormControl fullWidth>
+              <InputLabel
                 sx={{
                   fontFamily: "MontserratBold",
                 }}
               >
                 CALCULO
-              </FormLabel>
-              <Grid
+              </InputLabel>
+              <Select
+                value={selector}
+                onChange={(e) => setSelector(e.target.value)}
+                label="CALCULO"
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyItems: "center",
+                  fontFamily: "MontserratMedium",
                 }}
               >
-                <FormControlLabel
-                  value={"MODIFICADO/AUTORIZADO"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontFamily: "MontserratMedium",
-                        fontSize: ["2vh", "3vh", "3vh", "3vh", "2vh"],
-                      }}
-                    >
-                      MODIFICADO/AUTORIZADO
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={selector === "MODIFICADO/AUTORIZADO"}
-                      onChange={(a) => {
-                        setSelector(a.target.value);
-                      }}
-                    />
-                  }
-                />
-                <FormControlLabel
-                  value={"DEVENGADO/MODIFICADO"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontFamily: "MontserratMedium",
-                        fontSize: ["2vh", "3vh", "3vh", "3vh", "2vh"],
-                      }}
-                    >
-                      DEVENGADO/MODIFICADO
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={selector === "DEVENGADO/MODIFICADO"}
-                      onChange={(a) => {
-                        setSelector(a.target.value);
-                      }}
-                    />
-                  }
-                />
-
-                <FormControlLabel
-                  value={"EJERCIDO/MODIFICADO"}
-                  label={
-                    <Typography
-                      sx={{
-                        fontFamily: "MontserratMedium",
-                        fontSize: ["2vh", "3vh", "3vh", "3vh", "2vh"],
-                      }}
-                    >
-                      EJERCIDO/MODIFICADO
-                    </Typography>
-                  }
-                  sx={{
-                    fontFamily: "MontserratMedium",
-                  }}
-                  control={
-                    <Radio
-                      checked={selector === "EJERCIDO/MODIFICADO"}
-                      onChange={(a) => {
-                        setSelector(a.target.value);
-                      }}
-                    />
-                  }
-                />
-              </Grid>
+                <MenuItem value={"MODIFICADO/AUTORIZADO"}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      fontSize: ["2vh", "2vh", "2vh", "2vh", "2vh"],
+                    }}
+                  >
+                    MODIFICADO/AUTORIZADO
+                  </Typography>
+                </MenuItem>
+                <MenuItem value={"DEVENGADO/MODIFICADO"}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      fontSize: ["2vh", "2vh", "2vh", "2vh", "2vh"]
+                    }}
+                  >
+                    DEVENGADO/MODIFICADO
+                  </Typography>
+                </MenuItem>
+                <MenuItem value={"EJERCIDO/MODIFICADO"}>
+                  <Typography
+                    sx={{
+                      fontFamily: "MontserratMedium",
+                      fontSize: ["2vh", "2vh", "2vh", "2vh", "2vh"]
+                    }}
+                  >
+                    EJERCIDO/MODIFICADO
+                  </Typography>
+                </MenuItem>
+              </Select>
             </FormControl>
           </Grid>
         </Grid>
@@ -619,7 +580,6 @@ export function TabAvanceFinanciero({
           <Grid
             container
             item
-           
             direction={"row"}
             sx={{
               justifyContent: "space-around",
@@ -1016,7 +976,6 @@ export function TabAvanceFinanciero({
                     }
                   }}
                   value={
-                  
                     selector === "DEVENGADO/MODIFICADO"
                       ? devengadoModificado.t4.resultado
                       : selector === "EJERCIDO/MODIFICADO"
@@ -1044,7 +1003,6 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   placeholder="SIN PORCENTAJE"
-    
                   disabled={
                     valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
@@ -1102,7 +1060,6 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   size="small"
-                  
                   placeholder="SIN CAPTURAR"
                   onChange={(a) => {
                     let valor: Number;
@@ -1161,7 +1118,6 @@ export function TabAvanceFinanciero({
                     }
                   }}
                   value={
-                 
                     selector === "DEVENGADO/MODIFICADO"
                       ? devengadoModificado.cuentaPublica
                       : selector === "EJERCIDO/MODIFICADO"
@@ -1171,7 +1127,6 @@ export function TabAvanceFinanciero({
                       : null
                   }
                   sx={queries.medium_text}
-                  
                   InputLabelProps={{
                     style: {
                       fontFamily: "MontserratMedium",
@@ -1191,7 +1146,6 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   placeholder="SIN PORCENTAJE"
-               
                   sx={queries.medium_text}
                   value={
                     selector === "DEVENGADO/MODIFICADO"
