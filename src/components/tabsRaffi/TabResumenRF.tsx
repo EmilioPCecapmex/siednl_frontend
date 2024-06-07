@@ -130,8 +130,8 @@ export const TabResumenRF = ({
         }),
       }}
     >
-      {/* prueba
-        {JSON.stringify(AFinanciero)} */}
+      
+        {/* {JSON.stringify(RF)} */}
       <Grid
         item
         container
