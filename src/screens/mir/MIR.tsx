@@ -545,11 +545,11 @@ export const MIR = () => {
         sm={12}
         xs={12}
         sx={{
-          backgroundColor: "white",
           justifyContent: "center",
           display: "flex",
           height: "93vh",
           alignItems: "center",
+          backgroundColor: "white",
         }}
       >
         {showResume ? (
@@ -740,7 +740,7 @@ export const MIR = () => {
                 </Grid>
 
                
-                  <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
+                  {/* <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       onClick={() => {
                         localStorage.setItem("IdNotificacion", "");
@@ -755,7 +755,7 @@ export const MIR = () => {
                     >
                       <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
                     </IconButton>
-                  </Grid>
+                  </Grid> */}
                 
               </Grid>
 
@@ -1113,6 +1113,11 @@ export const MIR = () => {
                   page={page}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
+                  labelDisplayedRows={
+                    ({ from, to, count }) => {
+                      return '' + from + '-' + to + ' de ' + count
+                    }
+                  }
                 />
               </Grid>
             </Grid>

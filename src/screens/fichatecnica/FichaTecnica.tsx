@@ -962,7 +962,7 @@ export const FichaTecnica = () => {
                 </Grid>
 
               
-                  <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
+                  {/* <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
                     <IconButton
                       // disabled ={estadoma === "TODOS" && institucionesb === "TODOS" }
                       onClick={() => {
@@ -971,7 +971,7 @@ export const FichaTecnica = () => {
                     >
                       <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
                     </IconButton>
-                  </Grid>
+                  </Grid> */}
                
               </Grid>
 
@@ -1470,6 +1470,11 @@ export const FichaTecnica = () => {
                   page={page}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
+                  labelDisplayedRows={
+                    ({ from, to, count }) => {
+                      return '' + from + '-' + to + ' de ' + count
+                    }
+                  }
                 />
               </Grid>
             </Grid>

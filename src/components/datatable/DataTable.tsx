@@ -314,6 +314,11 @@ export const DataTable = ({
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        labelDisplayedRows={
+          ({ from, to, count }) => {
+            return '' + from + '-' + to + ' de ' + count
+          }
+        }
       />
 
       {openModalEditarUsuario ? (
