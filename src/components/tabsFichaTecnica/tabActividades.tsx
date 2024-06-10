@@ -69,12 +69,7 @@ export const TabActividadesFT = ({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        ...(!isSmallScreen
-          ? {boxShadow: 10,
-            borderRadius: 5,}
-          : {
-              
-            }),
+        ...(!isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -156,7 +151,7 @@ export const TabActividadesFT = ({
                     <Typography
                       sx={{
                         fontFamily: "MontserratMedium",
-                        //fontSize: [10, 10, 12, 15, 18, 20],
+                        fontSize: [10, 10, 10, 13, 15, 18],
                       }}
                     >
                       COMPONENTE {index + 1}
@@ -187,7 +182,7 @@ export const TabActividadesFT = ({
                           >
                             <Typography
                               sx={{
-                                //fontSize: [10, 10, 12, 15, 18, 20],
+                                fontSize: [10, 10, 10, 13, 15, 18],
                                 fontFamily: "MontserratMedium",
                               }}
                             >
@@ -258,7 +253,7 @@ export const TabActividadesFT = ({
                       <Typography
                         sx={{
                           fontFamily: "MontserratMedium",
-                          fontSize: [10, 10, 12, 15, 18, 20],
+                          fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       >
                         COMPONENTE {index + 1}
@@ -289,7 +284,7 @@ export const TabActividadesFT = ({
                             >
                               <Typography
                                 sx={{
-                                  fontSize: [10, 10, 12, 15, 18, 20],
+                                  fontSize: [10, 10, 10, 13, 15, 18],
                                   fontFamily: "MontserratMedium",
                                 }}
                               >
@@ -307,17 +302,21 @@ export const TabActividadesFT = ({
               })}
             </List>
           )}
-<Grid sx={{ width: "90%", gridColumn: "1/4" }}>
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratSemiBold",
-                      // fontSize: "1vw",
-                      textAlign: "center",
-                    }}
-                  >
-                    {JSON.parse(MIR).componentes[componenteSelect].actividades[actividadSelect].indicador}
-                  </Typography>
-                </Grid>
+          <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              {
+                JSON.parse(MIR).componentes[componenteSelect].actividades[
+                  actividadSelect
+                ].indicador
+              }
+            </Typography>
+          </Grid>
           <Grid
             item
             xl={3.5}
@@ -630,7 +629,6 @@ export const TabActividadesFT = ({
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
-                  fontSize: "1vw",
                 },
               }}
               InputProps={{
@@ -642,7 +640,7 @@ export const TabActividadesFT = ({
                 let y = [...componentesActividadValues];
                 y[componenteSelect].actividades[
                   actividadSelect
-                ].unidadDeMedida = clearInfo(c.target.value)
+                ].unidadDeMedida = clearInfo(c.target.value);
                 setComponentesActividadValues(y);
               }}
               value={

@@ -83,7 +83,7 @@ export default function ModalSolicitaModifRF({
 
   const [coment, setComment] = useState("");
 
-  const comentMA = (id: string) => {
+  const comentRF = (id: string) => {
    
       create_coment_mir(id, coment, "RF")
       .then((r) => {
@@ -257,7 +257,7 @@ export default function ModalSolicitaModifRF({
       )
       .then((r) => {
         if (coment !== "") {
-          comentMA(IdRF);
+          comentRF(IdRF);
         }
         alertaExitoConfirm(
         //   (localStorage.getItem("Rol") === "Verificador"

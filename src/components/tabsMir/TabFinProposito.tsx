@@ -213,8 +213,6 @@ export function TabFinProposito({
     }
   };
 
-  
-
   return (
     <Grid
       //position="absolute"
@@ -251,7 +249,7 @@ export function TabFinProposito({
             sx={{
               mr: "1vw",
               fontFamily: "MontserratSemiBold",
-              fontSize: "1.5vw",
+              fontSize: [10, 10, 15, 18, 25, 25],
             }}
           >
             {showFin ? "FIN" : null}
@@ -312,7 +310,10 @@ export function TabFinProposito({
                 }}
               >
                 <Typography
-                  sx={{ fontSize: "1vw", fontFamily: "MontserratMedium" }}
+                  sx={{
+                    fontSize: [10, 10, 12, 15, 18, 20],
+                    fontFamily: "MontserratMedium",
+                  }}
                 >
                   FIN
                 </Typography>
@@ -347,7 +348,7 @@ export function TabFinProposito({
                 <Typography
                   sx={{
                     fontFamily: "MontserratMedium",
-                    fontSize: [10, 10, 10, 13, 15, 18],
+                    fontSize: [10, 10, 12, 15, 18, 20],
                   }}
                 >
                   PROPÓSITO
@@ -407,7 +408,7 @@ export function TabFinProposito({
                       <Typography
                         sx={{
                           fontFamily: "MontserratMedium",
-                          fontSize: [10, 10, 10, 13, 15, 18],
+                          fontSize: [10, 10, 12, 15, 18, 20],
                         }}
                       >
                         FIN
@@ -442,7 +443,7 @@ export function TabFinProposito({
                         <Typography
                           sx={{
                             fontFamily: "MontserratMedium",
-                            fontSize: [10, 10, 10, 13, 15, 18],
+                            fontSize: [10, 10, 12, 15, 18, 20],
                           }}
                         >
                           PROPÓSITO
@@ -569,11 +570,11 @@ export function TabFinProposito({
                 }}
               >
                 <TextField
-                 // disabled={edit && !mirEdit?.fin.formula && fin.formula !== ""}
-                 //disabled={edit && !mirEdit?.fin.medios && fin.medios !== ""}
-                 disabled={
-                  edit && !mirEdit?.fin.indicador && fin.indicador !== ""
-                }
+                  // disabled={edit && !mirEdit?.fin.formula && fin.formula !== ""}
+                  //disabled={edit && !mirEdit?.fin.medios && fin.medios !== ""}
+                  disabled={
+                    edit && !mirEdit?.fin.indicador && fin.indicador !== ""
+                  }
                   rows={8}
                   multiline
                   variant="filled"
@@ -795,8 +796,10 @@ export function TabFinProposito({
                     }}
                   >
                     <Typography
-                    
-                      sx={{  fontFamily: "MontserratMedium",fontSize: [10, 10, 10, 13, 15, 18], }}
+                      sx={{
+                        fontFamily: "MontserratMedium",
+                        fontSize: [10, 10, 10, 13, 15, 18],
+                      }}
                     >
                       FIN
                     </Typography>
