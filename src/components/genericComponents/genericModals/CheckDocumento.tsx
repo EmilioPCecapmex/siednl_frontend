@@ -586,7 +586,7 @@ export const checkActividadesMA = (
     }
   );
 
-  if (err === 0) {
+  if (errores.length === 0) {
     creaMA(
       v,
       MA,
@@ -1365,7 +1365,7 @@ export const checkActividadesFT = (
       );
     }
   );
-  if (err === 0) {
+  if (errores.length === 0) {
     crearFichaTecnica(
       v,
       FT,
@@ -1740,7 +1740,7 @@ export const checkActividadesRF = (
       // }
     });
   });
-  if (err === 0) {
+  if (errores.length === 0) {
     creaRF(
       v,
       jsonRF,
