@@ -32,7 +32,7 @@ import { LateralMenu } from "../../components/lateralMenu/LateralMenu";
 import AddMetaAnual from "../../components/tabsMetaAnual/AddMetaAnual";
 import { buscador } from "../../services/servicesGlobals";
 import { estados, heads } from "../../services/validations";
-import { TableCellFormat, widthCondition } from "../../components/genericComponents/GenericMethods";
+import { TableCellFormat, clearInfo, widthCondition } from "../../components/genericComponents/GenericMethods";
 import ComentDialog from "../../components/genericComponents/genericModals/ModalComentarios";
 export let ResumeDefaultMA = true;
 export let setResumeDefaultMA = () => {
@@ -1104,7 +1104,7 @@ export const MetaAnual = () => {
                                     }
                                     sx={{ fontSize: [20, 20, 20, 25, 25] }}
                                     onClick={() => {
-                                      let auxArrayMIR = JSON.parse(row.MIR);
+                                      let auxArrayMIR = JSON.parse(clearInfo(row.MIR));
                                       let auxArrayMIR2 = JSON.stringify(
                                         auxArrayMIR[0]
                                       );
