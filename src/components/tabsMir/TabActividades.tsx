@@ -317,7 +317,7 @@ export const TabActividades = ({
                     }}
                   >
                     <Typography
-                      sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
+                      sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 10, 13, 15, 18], }}
                     >
                       COMPONENTE {index + 1}
                     </Typography>
@@ -346,7 +346,7 @@ export const TabActividades = ({
                         >
                           <Typography
                             sx={{
-                              //  fontSize: "1vw",
+                              fontSize: [10, 10, 10, 13, 15, 18],
                               fontFamily: "MontserratMedium",
                             }}
                           >
@@ -404,7 +404,7 @@ export const TabActividades = ({
                         setActividadSelect(0);
                       }}
                       sx={{
-                        //height: "7vh",
+                        height: "7vh",
                         "&.Mui-selected ": {
                           backgroundColor: "#c4a57b",
                         },
@@ -415,7 +415,7 @@ export const TabActividades = ({
                     >
                       <Typography
                         sx={{ fontFamily: "MontserratMedium", 
-                        //fontSize: "6vw" 
+                        fontSize: [10, 10, 10, 13, 15, 18],
                       }}
                       >
                         COMPONENTE {index + 1}
@@ -445,7 +445,7 @@ export const TabActividades = ({
                           >
                             <Typography
                               sx={{
-                                // fontSize: "1vw",
+                                fontSize: [10, 10, 10, 13, 15, 18],
                                 fontFamily: "MontserratMedium",
                               }}
                             >

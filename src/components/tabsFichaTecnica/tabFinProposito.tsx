@@ -34,12 +34,8 @@ export function TabFinPropositoFT({
   ftEditPadre: IFTEdit;
   MIR: string;
 }) {
-
-
-
   const [fin, setFin] = useState<IFinFT>(FinValues);
 
-  
   const [proposito, setProposito] = useState<IPropositoFT>(PropositoValues);
 
   const [showFin, setShowFin] = useState(true);
@@ -71,12 +67,7 @@ export function TabFinPropositoFT({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        ...(!isSmallScreen
-          ? {boxShadow: 10,
-            borderRadius: 5,}
-          : {
-              
-            }),
+        ...(!isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -256,8 +247,6 @@ export function TabFinPropositoFT({
                     <Divider />
                   </Grid>
 
-
-                  
                   <Grid
                     sx={{
                       display: "flex",
@@ -294,17 +283,17 @@ export function TabFinPropositoFT({
                   </Grid>
                 </List>
               )}
-                <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratSemiBold",
-                      // fontSize: "1vw",
-                      textAlign: "center",
-                    }}
-                  >
-                    {JSON.parse(MIR).fin.indicador}
-                  </Typography>
-                </Grid>
+              <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratSemiBold",
+                    // fontSize: "1vw",
+                    textAlign: "center",
+                  }}
+                >
+                  {JSON.parse(MIR).fin.indicador}
+                </Typography>
+              </Grid>
               <Grid
                 item
                 xl={3.5}
@@ -356,9 +345,7 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={
-                            fin.tipoDeIndicador === "ESTRATÉGICO"
-                          }
+                          checked={fin.tipoDeIndicador === "ESTRATÉGICO"}
                           onChange={(c) => {
                             let finvalue = clearInfo(c.target.value);
 
@@ -560,7 +547,6 @@ export function TabFinPropositoFT({
               >
                 <TextField
                   disabled={edit && !ftEditPadre?.fin?.unidadDeMedida}
-
                   fullWidth
                   rows={5}
                   multiline
@@ -695,7 +681,6 @@ export function TabFinPropositoFT({
               >
                 <FormControl
                   disabled={edit && !ftEditPadre?.fin?.relevancia}
-
                   fullWidth
                   sx={{
                     backgroundColor: "#f0f0f0",
@@ -1243,17 +1228,17 @@ export function TabFinPropositoFT({
                 </List>
               )}
 
-                <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratSemiBold",
-                      // fontSize: "1vw",
-                      textAlign: "center",
-                    }}
-                  >
-                    {JSON.parse(MIR).proposito.indicador}
-                  </Typography>
-                </Grid>
+              <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratSemiBold",
+                    // fontSize: "1vw",
+                    textAlign: "center",
+                  }}
+                >
+                  {JSON.parse(MIR).proposito.indicador}
+                </Typography>
+              </Grid>
               <Grid
                 item
                 xl={3.5}
@@ -1296,7 +1281,7 @@ export function TabFinPropositoFT({
                             fontFamily: "MontserratMedium",
                           }}
                         >
-                           ESTRATÉGICO
+                          ESTRATÉGICO
                         </Typography>
                       }
                       sx={{
@@ -1304,10 +1289,7 @@ export function TabFinPropositoFT({
                       }}
                       control={
                         <Radio
-                          checked={
-                            proposito.tipoDeIndicador ===
-                            " ESTRATÉGICO"
-                          }
+                          checked={proposito.tipoDeIndicador === " ESTRATÉGICO"}
                           onChange={(c) => {
                             let propositovalue = clearInfo(c.target.value);
 

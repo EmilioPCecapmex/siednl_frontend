@@ -70,6 +70,12 @@ export default function ModalSolicitaModif({
   const [user, setUser] = useState<IIUserXInst>(newUser);
 
   useEffect(() => {
+    console.log("IdEntidad en ft: ", IdEntidad);
+    console.log(
+      "JSON.parse(MIR)?.encabezado.entidad.Id en ft: ",
+      JSON.parse(MIR)?.encabezado.entidad.Id
+    );
+
     let findUser = userXInst.find(
       (item) => item.NombreUsuario === userSelected
     );
@@ -79,7 +85,7 @@ export default function ModalSolicitaModif({
   const [coment, setComment] = useState("");
 
   const comentFT = () => {
-    create_coment_mir(IdMIR, coment, "FT")
+    create_coment_mir(IdFT, coment, "FT")
       .then((r) => {
         setComment("");
         handleClose();
@@ -776,7 +782,10 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
+            IdEntidad:
+              IdEntidad ||
+              JSON.parse(MIR)?.encabezado.entidad.Id ||
+              localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
           {
@@ -898,7 +907,12 @@ export default function ModalSolicitaModif({
                 setUser(value || newUser);
                 //setUserSelected(value?.Nombre || newUser.Nombre)
 
-                setUserSelected(value?.IdUsuario || newUser.IdUsuario || value?.IdUsuarioTiCentral || newUser.IdUsuarioTiCentral)
+                setUserSelected(
+                  value?.IdUsuario ||
+                    newUser.IdUsuario ||
+                    value?.IdUsuarioTiCentral ||
+                    newUser.IdUsuarioTiCentral
+                );
               }}
               isOptionEqualToValue={(option, value) =>
                 option.IdUsuario === value.IdUsuario
@@ -937,7 +951,7 @@ export default function ModalSolicitaModif({
             <Button
               className="cancelar"
               sx={{ marginRight: "1rem" }}
-             //sx={{ marginRight: "1rem" }} sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
+              //sx={{ marginRight: "1rem" }} sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
               onClick={() => handleClose()}
             >
               <Typography sx={{ fontFamily: "MontserratMedium" }}>

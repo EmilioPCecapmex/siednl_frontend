@@ -108,7 +108,7 @@ export const FichaTecnica = () => {
   >([]);
 
   const [estadoft, setEstadoFT] = useState("TODOS");
-  const [IdEntidad, setIdEntidad] = useState("TODOS");
+  const [IdEntidad, setIdEntidad] = useState("");
   const [institucionesb, setInstitucionesb] = useState("TODOS");
 
   const getInstituciones = (setstate: Function) => {
@@ -1447,7 +1447,7 @@ export const FichaTecnica = () => {
                                 estado={row.Estado}
                                 id={row.IdFt}
                                 MIR={FTEdit[0]?.MIR || ""}
-                                IdEntidad={IdEntidad}
+                                IdEntidad={row.IdEntidad ||IdEntidad}
                                 actualizado={actualizaContador}
                                 titulo={"FT"}
                                 titulo2={"FT"}

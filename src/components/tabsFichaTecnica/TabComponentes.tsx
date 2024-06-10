@@ -53,12 +53,7 @@ export const TabComponenteFT = ({
         display: "flex",
         width: "93vw",
         height: "82vh",
-        ...(!isSmallScreen
-          ? {boxShadow: 10,
-            borderRadius: 5,}
-          : {
-              
-            }),
+        ...(!isSmallScreen ? { boxShadow: 10, borderRadius: 5 } : {}),
         flexDirection: "column",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -157,7 +152,7 @@ export const TabComponenteFT = ({
             })}
           </List>
         )}
-        
+
         <Grid
           item
           container
@@ -214,17 +209,17 @@ export const TabComponenteFT = ({
               })}
             </List>
           )}
-<Grid sx={{ width: "90%", gridColumn: "1/4" }}>
-                  <Typography
-                    sx={{
-                      fontFamily: "MontserratSemiBold",
-                      // fontSize: "1vw",
-                      textAlign: "center",
-                    }}
-                  >
-                    {JSON.parse(MIR).componentes[componentSelect].indicador}
-                  </Typography>
-                </Grid>
+          <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+            <Typography
+              sx={{
+                fontFamily: "MontserratSemiBold",
+                // fontSize: "1vw",
+                textAlign: "center",
+              }}
+            >
+              {JSON.parse(MIR).componentes[componentSelect].indicador}
+            </Typography>
+          </Grid>
           <Grid
             item
             xl={3.5}
@@ -514,7 +509,7 @@ export const TabComponenteFT = ({
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
-                  fontSize: "1vw",
+                  // fontSize: "1vw",
                 },
               }}
               InputProps={{
@@ -524,8 +519,9 @@ export const TabComponenteFT = ({
               }}
               value={componentesValues[componentSelect]?.unidadDeMedida || ""}
               onChange={(c) => {
-                componentesValues[componentSelect].unidadDeMedida =
-                clearInfo(c.target.value)
+                componentesValues[componentSelect].unidadDeMedida = clearInfo(
+                  c.target.value
+                );
                 setComponentesValues([...componentesValues]);
               }}
             />

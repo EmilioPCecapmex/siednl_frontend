@@ -29,16 +29,12 @@ export const TabActividadesMA = ({
   edit,
   setMAActividadesPadre,
   ComponentesActividadMA,
-  // showMirFnc,
-  // setTxtShowFnc,
   MA,
   MIR,
 }: {
   edit: boolean;
   setMAActividadesPadre: Function;
   ComponentesActividadMA: IComponenteMA[];
-  // showMirFnc: Function;
-  // setTxtShowFnc: Function;
   MA: string;
   MIR: string;
 }) => {

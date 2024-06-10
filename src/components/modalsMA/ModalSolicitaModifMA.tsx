@@ -8,7 +8,6 @@ import {
   DialogContent,
   TextField,
   FormControl,
-  
   MenuItem,
   Button,
   Typography,
@@ -26,8 +25,8 @@ import {
   create_coment_mir,
   soliModyNoty,
 } from "../genericComponents/axiosGenericos";
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 export let errores: string[] = [];
 
 export default function ModalSolicitaModif({
@@ -53,7 +52,7 @@ export default function ModalSolicitaModif({
 }) {
   const [userXInst, setUserXInst] = useState<Array<IIUserXInst>>([]);
   const [userSelected, setUserSelected] = useState("0");
-  
+
   const newUser = {
     IdUsuario: "",
     IdUsuarioTiCentral: "",
@@ -68,13 +67,18 @@ export default function ModalSolicitaModif({
   const [user, setUser] = useState<IIUserXInst>(newUser);
 
   useEffect(() => {
+    console.log("IdEntidad en ma: ", IdEntidad);
+    console.log(
+      "JSON.parse(MIR)?.encabezado.entidad.Id en ma: ",
+      JSON.parse(MIR)?.encabezado.entidad.Id
+    );
+
     let findUser = userXInst.find(
       (item) => item.NombreUsuario === userSelected
     );
     setUser(findUser || newUser);
   }, [userXInst]);
 
-  
   const [coment, setComment] = useState("");
   const comentMA = (id: string) => {
     create_coment_mir(id, coment, "MA")
@@ -295,8 +299,11 @@ export default function ModalSolicitaModif({
   const checkComponentes = (v: string) => {
     JSON.parse(MA)?.componentes.map(
       (componente: IComponenteMA, index: number) => {
-        console.log("componente.actividades[index].unidadResponsable: ",componente.actividades[index].unidadResponsable);
-        
+        console.log(
+          "componente.actividades[index].unidadResponsable: ",
+          componente.actividades[index].unidadResponsable
+        );
+
         if (
           componente.metaAnual === undefined ||
           /^[\s]*$/.test(componente.metaAnual) ||
@@ -304,7 +311,6 @@ export default function ModalSolicitaModif({
           componente.lineaBase === undefined ||
           /^[\s]*$/.test(componente.lineaBase) ||
           componente.lineaBase === undefined ||
-
           /^[\s]*$/.test(componente.unidadResponsable) ||
           componente.unidadResponsable === undefined ||
           componente.valorNumerador === undefined ||
@@ -582,7 +588,6 @@ export default function ModalSolicitaModif({
 
   const createMA = (estado: string) => {
     let rolusuario = userXInst.find((user) => user.IdUsuario === userSelected);
-    
 
     if (
       estado === "Autorizada" &&
@@ -636,7 +641,7 @@ export default function ModalSolicitaModif({
       )
       .then((r) => {
         if (coment !== "") {
-          comentMA(IdMIR);
+          comentMA(IdMA);
         }
 
         alertaExitoConfirm(
@@ -644,7 +649,7 @@ export default function ModalSolicitaModif({
           //   ? "META ANUAL ENVIADA A CAPTURADOR PARA CORRECCIÓN"
           //   : "META ANUAL ENVIADA"
           // ).toUpperCase()
-          "META ANUAL ENVIADA A CORRECION" 
+          "META ANUAL ENVIADA A CORRECION"
         );
 
         soliModyNoty(
@@ -677,7 +682,10 @@ export default function ModalSolicitaModif({
           process.env.REACT_APP_APPLICATION_BACK + "/api/tipo-usuario",
           {
             TipoUsuario: tipousuario,
-            IdEntidad: IdEntidad ||  JSON.parse(MIR)?.encabezado.entidad.Id || localStorage.getItem("IdEntidad"),
+            IdEntidad:
+              IdEntidad ||
+              JSON.parse(MIR)?.encabezado.entidad.Id ||
+              localStorage.getItem("IdEntidad"),
             IdApp: localStorage.getItem("IdApp"),
           },
           {
@@ -695,7 +703,7 @@ export default function ModalSolicitaModif({
   }, [MA, open]);
 
   const theme = useTheme();
-  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
@@ -733,7 +741,7 @@ export default function ModalSolicitaModif({
               textAlign: "center",
             }}
           >
-          SELECCIONA USUARIO PARA SOLICITAR MODIFICACIÓN
+            SELECCIONA USUARIO PARA SOLICITAR MODIFICACIÓN
           </Typography>
 
           <FormControl
@@ -797,14 +805,17 @@ export default function ModalSolicitaModif({
               )}
               onChange={(event, value) => {
                 setUser(value || newUser);
-                setUserSelected(value?.IdUsuario || newUser.IdUsuario || value?.IdUsuarioTiCentral || newUser.IdUsuarioTiCentral)
+                setUserSelected(
+                  value?.IdUsuario ||
+                    newUser.IdUsuario ||
+                    value?.IdUsuarioTiCentral ||
+                    newUser.IdUsuarioTiCentral
+                );
               }}
               isOptionEqualToValue={(option, value) =>
                 option.IdUsuario === value.IdUsuario
               }
             />
-
-            
           </FormControl>
         </Grid>
 
@@ -827,53 +838,52 @@ export default function ModalSolicitaModif({
           }}
         >
           <Grid
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBlockEnd: "1vh",
-            paddingBlockEnd: "1vh",
-          }}
-        >
-          <Grid
             sx={{
               display: "flex",
-              alignItems: "center",
               justifyContent: "space-between",
-              flexDirection: isSmScreen ? "column" : "row", // Cambia el flexDirection según el tamaño de la pantalla
-              mt: "4vh",
+              marginBlockEnd: "1vh",
+              paddingBlockEnd: "1vh",
             }}
           >
-            <Button
-              className="cancelar"
-              //sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
-              sx={{ marginRight: "1rem" }}
-              onClick={() => handleClose()}
-            >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                CANCELAR
-              </Typography>
-            </Button>
-
-            <Button
-              className="aceptar"
-              onClick={() => {
-                checkUsuario(
-                  localStorage.getItem("Rol") === "Capturador"
-                    ? "En Revisión"
-                    : localStorage.getItem("Rol") === "Verificador"
-                    ? "En Autorización"
-                    : "Autorizada"
-                );
-                handleClose();
+            <Grid
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexDirection: isSmScreen ? "column" : "row", // Cambia el flexDirection según el tamaño de la pantalla
+                mt: "4vh",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
-                {coment === "" ? "ENVIAR SIN COMENTARIOS" : "CONFIRMAR"}
-              </Typography>
-            </Button>
-          </Grid>
-        </Grid>
+              <Button
+                className="cancelar"
+                //sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
+                sx={{ marginRight: "1rem" }}
+                onClick={() => handleClose()}
+              >
+                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  CANCELAR
+                </Typography>
+              </Button>
 
+              <Button
+                className="aceptar"
+                onClick={() => {
+                  checkUsuario(
+                    localStorage.getItem("Rol") === "Capturador"
+                      ? "En Revisión"
+                      : localStorage.getItem("Rol") === "Verificador"
+                      ? "En Autorización"
+                      : "Autorizada"
+                  );
+                  handleClose();
+                }}
+              >
+                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  {coment === "" ? "ENVIAR SIN COMENTARIOS" : "CONFIRMAR"}
+                </Typography>
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       </DialogContent>
     </Dialog>
