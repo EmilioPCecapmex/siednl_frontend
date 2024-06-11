@@ -1104,7 +1104,7 @@ export const MetaAnual = () => {
                                     }
                                     sx={{ fontSize: [20, 20, 20, 25, 25] }}
                                     onClick={() => {
-                                      let auxArrayMIR = JSON.parse(clearInfo(row.MIR));
+                                      let auxArrayMIR = JSON.parse(row.MIR);
                                       let auxArrayMIR2 = JSON.stringify(
                                         auxArrayMIR[0]
                                       );
