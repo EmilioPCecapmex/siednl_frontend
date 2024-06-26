@@ -164,28 +164,7 @@ export const Notification = () => {
       });
   };
 
-  // const getUsuarios = () => {
-  //   axios
-  //     .get(
-  //       process.env.REACT_APP_APPLICATION_BACK + "/api/usuarios",
-
-  //       {
-  //         params: {
-  //           IdUsuario: localStorage.getItem("IdUsuario"),
-  //           IdEntidad: "",
-  //           Rol: localStorage.getItem("Rol"),
-  //         },
-  //         headers: {
-  //           Authorization: localStorage.getItem("jwtToken") || "",
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     )
-  //     .then((response) => {
-  //       setUsuarios(response.data.data);
-  //     });
-  // };
-
+ 
   useEffect(() => {
     //getUsuarios();
     getNotifEnviadas();
@@ -262,18 +241,6 @@ export const Notification = () => {
         <LateralMenu selection={"Notificaciones"} actionNumber={0} restore={() =>{}} />
         {/* <TutorialGrid initialState={13} endState={17} /> */}
       </Grid>
-
-      {/* <Grid gridArea={"header"} sx={{ height: "8vh" }}>
-        <Header
-          details={{
-            name1: "Notificaciones",
-            path1: "../notifications",
-            name2: "",
-            path2: "#",
-            name3: "",
-          }}
-        />
-      </Grid> */}
 
       <Grid
         sx={{
