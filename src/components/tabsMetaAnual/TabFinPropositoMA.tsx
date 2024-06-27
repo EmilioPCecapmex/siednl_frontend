@@ -246,6 +246,8 @@ export function TabFinPropositoMA({
   };
 
   useEffect(() => {
+    
+    
     setValueFin(finPadre);
   }, [finPadre]);
 
@@ -455,6 +457,7 @@ export function TabFinPropositoMA({
                 onClick={() => {
                   setShowProposito(true);
                   setShowFin(false);
+                  console.log("  JSON.parse(MIR).fin.indicador.: ",  JSON.parse(MIR).proposito.indicador);
                 }}
                 sx={{
                   height: "7vh",
@@ -704,9 +707,13 @@ export function TabFinPropositoMA({
               </Grid>
 
               {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
-              JSON.parse(MIR).fin.indicador.toLowerCase().includes("INDICE") ||
-              JSON.parse(MIR).fin.indicador.toLowerCase().includes("ÍNDICE") ||
+              JSON.parse(MIR).fin.indicador.toUpperCase().includes("INDICE") ||
+              JSON.parse(MIR).fin.indicador.toUpperCase().includes("ÍNDICE") ||
               JSON.parse(MIR).fin.indicador.toLowerCase().includes("Índice") ||
+              JSON.parse(MIR).fin.indicador === ("INDICE") ||
+              JSON.parse(MIR).fin.indicador === ("Índice") ||
+              JSON.parse(MIR).fin.indicador === ("indice") ||
+              JSON.parse(MIR).fin.indicador === ("ÍNDICE") ||
               JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice") ? (
                 <Grid
                   item
@@ -1419,11 +1426,11 @@ export function TabFinPropositoMA({
                 />
               </Grid>
 
-              {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
-              JSON.parse(MIR).fin.indicador.toLowerCase().includes("INDICE") ||
-              JSON.parse(MIR).fin.indicador.toLowerCase().includes("ÍNDICE") ||
-              JSON.parse(MIR).fin.indicador.toLowerCase().includes("ÍNDICE") ||
-              JSON.parse(MIR).fin.indicador.toLowerCase().includes("Índice") ? (
+              {JSON.parse(MIR).proposito.indicador.toLowerCase().includes("indice") ||
+              JSON.parse(MIR).proposito.indicador.toLowerCase().includes("INDICE") ||
+              JSON.parse(MIR).proposito.indicador.toLowerCase().includes("ÍNDICE") ||
+              JSON.parse(MIR).proposito.indicador.toLowerCase().includes("ÍNDICE") ||
+              JSON.parse(MIR).proposito.indicador.toLowerCase().includes("Índice") ? (
                 <Grid
                   item
                   xl={3}

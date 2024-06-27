@@ -47,6 +47,8 @@ export const FormulaDialogMACA = ({
   const [ValorH, setValorH] = useState("");
   const [emptyTxt, setEmptyTxt] = useState(false);
 
+ 
+
   const limpiaVar = () => {
     setValorA("");
     setValorB("");
@@ -362,7 +364,9 @@ export const FormulaDialogMACA = ({
   }, [open]);
 
   let noComponente = parseFloat(elemento.split(" ")[1]);
-  let noActividad = parseFloat(elemento.split("")[3]);
+  let noActividad = parseFloat(elementoA.split("")[3]) - 1;
+
+  
 
   return (
     <Dialog open={open} fullWidth maxWidth="md">
@@ -411,13 +415,13 @@ export const FormulaDialogMACA = ({
             textAlign: "center",
           }}
         >
-          {elemento === "Fin"
+          {elemento === "Fin" || elemento === "FIN"
             ? JSON.parse(MIR).fin.formula
-            : elemento === "Propósito"
+            : elemento === "Propósito" || elemento === "Proposito" || elemento === "PROPOSITO"
             ? JSON.parse(MIR).proposito.formula
-            : elemento.includes("Componente")
+            : elemento.includes("Componente") && (elementoA === "" || elementoA=== undefined )
             ? JSON.parse(MIR).componentes[noComponente]?.formula
-            : elemento.includes("A")
+            : elementoA.includes("A" || "a" || "Actividad" ) 
             ? JSON.parse(MIR).componentes[noComponente].actividades[noActividad]
                 ?.formula
             : null}

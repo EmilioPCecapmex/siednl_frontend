@@ -115,7 +115,13 @@ export const FormulaDialogMA = ({
   }, [open]);
 
   let noComponente = parseFloat(elemento.split(" ")[1]);
-  let noActividad = parseFloat(elemento.split("")[3]);
+  let noActividad = parseFloat(elementoA.split("")[3]) - 1;
+
+  useEffect(() => {
+    console.log("MA");
+    console.log("elemento: ",elemento);
+    console.log("elementoA: ",elementoA);
+   }, [elemento, elementoA])
 
   const valores = [
     "fin",
@@ -129,6 +135,12 @@ export const FormulaDialogMA = ({
     "propósito",
     "Propósito",
   ];
+
+  useEffect(() => {
+    console.log("MA");
+   console.log("noComponente: ",noComponente);
+   console.log("noActividad: ",noActividad);
+  }, [noComponente, noActividad])
 
   return (
     <Dialog open={open} fullWidth>
@@ -187,11 +199,11 @@ export const FormulaDialogMA = ({
         >
           {elemento === "Fin"
             ? JSON.parse(MIR).fin.formula
-            : elemento === "Propósito"
+            : elemento === "Propósito" || elemento === "Proposito" || elemento === "PROPOSITO"
             ? JSON.parse(MIR).proposito.formula
-            : elemento.includes("Componente")
+            : elemento.includes("Componente") && (elementoA === "" || elementoA=== undefined )
             ? JSON.parse(MIR).componentes[noComponente]?.formula
-            : elemento.includes("A" || "a") 
+            : elementoA.includes("A" || "a" || "Actividad" ) 
             ? JSON.parse(MIR).componentes[noComponente]?.actividades[noActividad]
                 ?.formula
             : null}

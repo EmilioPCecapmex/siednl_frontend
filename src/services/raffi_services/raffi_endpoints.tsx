@@ -19,7 +19,7 @@ export const listaRaffi = (setState: Function, estadorf: string, setState2: Func
         
 
         if (r.data.data.length === 0) {
-          alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR");
+         // alertaError("El DOCUMENTO NO ESTA DISPONIBLE O NO HAY DOCUMENTOS PARA LLENAR");
           setState2("")
         } else {
           setState(r.data.data);

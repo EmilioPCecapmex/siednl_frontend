@@ -55,7 +55,7 @@ export const MIR = () => {
   );
 
   const [showResume, setShowResume] = useState(true);
-  const [validaFecha, setValidaFecha] = useState(true);
+  const [validaFecha, setValidaFecha] = useState(false);
   const [page, setPage] = useState(0);
   const renglonesPagina = 6;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
@@ -515,7 +515,8 @@ export const MIR = () => {
     setShowResume(true);
   }, []);
 
-
+  const rolUsuario = localStorage.getItem("Rol");
+  const isDisabled = !validaFecha && rolUsuario !== "Administrador";
 
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
@@ -825,7 +826,9 @@ export const MIR = () => {
 
                 <Grid item xl={3} lg={3} md={4} sm={4} xs={4}>
                   <Button
-                    disabled={!validaFecha}
+                    disabled={isDisabled
+                      
+                    }
                     className="aceptar"
                     sx={{
                       width: ["100px", "120px", "160px", "180px", "250px"],

@@ -66,7 +66,7 @@ export default function NotificationsPanel({
     };
   
     const dialogTitulo = mapeoTitulo[titulo];
-    console.log("dialogTitulo: ",dialogTitulo);
+   
     
     if (dialogTitulo) {
       return (

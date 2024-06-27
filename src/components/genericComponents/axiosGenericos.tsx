@@ -63,7 +63,7 @@ import axios from "axios";
 
   
 export const obtenerComentarios = async (id: string,  state: Function) => {
-  console.log("entre");
+ 
   
     try {
       const response = await axios.get(
@@ -79,7 +79,7 @@ export const obtenerComentarios = async (id: string,  state: Function) => {
       );
   
       state(response.data.data);
-      console.log("response.data.data: ",response.data.data);
+      
       
     } catch (error) {
       console.log("entre aqui");
