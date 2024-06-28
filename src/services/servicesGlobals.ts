@@ -43,7 +43,11 @@ export const validaFechaCaptura = (setValidaFecha: Function, setTitle: Function,
       }
     )
     .then((r) => {
+      console.log("r.data.data.valida: ",r.data.data.valida);
+
       if (r.data.data.valida === "true") {
+        
+        
         setValidaFecha(true);
         setTitle("EDITAR");
       } else {
@@ -51,7 +55,11 @@ export const validaFechaCaptura = (setValidaFecha: Function, setTitle: Function,
         setTitle("FECHA CAPTURA FINALIZADA");
       }
     })
-    .catch((err) => { });
+    .catch((err) => { 
+      console.log(err);
+      setValidaFecha(false);
+      setTitle("FECHA CAPTURA FINALIZADA");
+    });
 };
 
 export const downloadMIR = (

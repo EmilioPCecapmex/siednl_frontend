@@ -55,7 +55,7 @@ export const MIR = () => {
   );
 
   const [showResume, setShowResume] = useState(true);
-  const [validaFecha, setValidaFecha] = useState(false);
+  const [validaFecha, setValidaFecha] = useState(true);
   const [page, setPage] = useState(0);
   const renglonesPagina = 6;
   const [rowsPerPage, setRowsPerPage] = useState(renglonesPagina);
@@ -82,7 +82,6 @@ export const MIR = () => {
     setPage(0);
   };
 
-  const [anioFiscalEdit, setAnioFiscalEdit] = useState("");
   
   const [title_texto, setTitle] = useState("");
 
@@ -827,8 +826,10 @@ export const MIR = () => {
 
                 <Grid item xl={3} lg={3} md={4} sm={4} xs={4}>
                   <Button
-                    disabled={isDisabled
-                      
+                    disabled={
+                      localStorage.getItem("Rol") === "Administrador"
+                      ? false
+                      : !validaFecha
                     }
                     className="aceptar"
                     sx={{
@@ -857,10 +858,14 @@ export const MIR = () => {
                       ]);
                       handleClickOpen();
                     }}
-                  >
-                    {!validaFecha
+                  > 
+                    {
+                    localStorage.getItem("Rol") === "Administrador"
+                    ? "AÑADIR REGISTRO"
+                    : !validaFecha 
+              
                       ? "FECHA DE CAPTURA TERMINADA"
-                      : "AÑADIR REGISTRO"}
+                      : "AÑADIR REGISTRO" }
                   </Button>
                 </Grid>
               </Grid>
@@ -1059,7 +1064,7 @@ export const MIR = () => {
                                           "Verificador") ||
                                       ((row.Estado === "En Autorización" ||
                                         row.Estado === "Autorizada") &&
-                                        validaFecha &&
+                                        
                                         localStorage.getItem("Rol") ===
                                           "Administrador") ||
                                       (row.Estado === "Borrador Autorizador" &&
