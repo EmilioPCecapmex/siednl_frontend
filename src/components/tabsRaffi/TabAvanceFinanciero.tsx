@@ -642,7 +642,8 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   disabled={
-                    valorProgramaPresupuestario === "0" ||
+                    localStorage.getItem("Rol") === "Administrador" ? false :
+                    (valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
                     valorProgramaPresupuestario === "" ||
                     (edit &&
@@ -652,7 +653,7 @@ export function TabAvanceFinanciero({
                           ?.modificadoAutorizado?.t1?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
                           ?.ejercidoModificado?.t1?.resultado)) ||
-                    new Date() > dateTrim[0]
+                    new Date() > dateTrim[0])
                   }
                   placeholder="SIN CAPTURAR"
                   onClick={(a) => {
@@ -686,7 +687,8 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   disabled={
-                    valorProgramaPresupuestario === "0" ||
+                    localStorage.getItem("Rol") === "Administrador" ? false :
+                    (valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
                     valorProgramaPresupuestario === "" ||
                     (edit &&
@@ -696,7 +698,7 @@ export function TabAvanceFinanciero({
                           ?.modificadoAutorizado?.t1?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
                           ?.ejercidoModificado?.t1?.resultado)) ||
-                    new Date() > dateTrim[0]
+                    new Date() > dateTrim[0])
                   }
                   size="small"
                   placeholder="SIN PORCENTAJE"
@@ -744,7 +746,8 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   disabled={
-                    valorProgramaPresupuestario === "0" ||
+                    localStorage.getItem("Rol") === "Administrador" ? false :
+                    (valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
                     valorProgramaPresupuestario === "" ||
                     (edit &&
@@ -754,7 +757,7 @@ export function TabAvanceFinanciero({
                           ?.modificadoAutorizado?.t2?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
                           ?.ejercidoModificado?.t2?.resultado)) ||
-                    !(new Date() < dateTrim[1] && new Date() > dateTrim[0])
+                    !(new Date() < dateTrim[1] && new Date() > dateTrim[0]))
                   }
                   size="small"
                   placeholder="SIN CAPTURAR"
@@ -799,7 +802,8 @@ export function TabAvanceFinanciero({
                   size="small"
                   placeholder="SIN PORCENTAJE"
                   disabled={
-                    valorProgramaPresupuestario === "0" ||
+                    localStorage.getItem("Rol") === "Administrador" ? false :
+                    (valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
                     valorProgramaPresupuestario === "" ||
                     (edit &&
@@ -812,7 +816,7 @@ export function TabAvanceFinanciero({
                     !
                     (
                        new Date() < dateTrim[1] 
-                    && new Date() > dateTrim[0])
+                    && new Date() > dateTrim[0]))
                   }
                   sx={queries.medium_text}
                   value={
@@ -858,7 +862,8 @@ export function TabAvanceFinanciero({
               <Grid item>
                 <TextField
                   disabled={
-                    valorProgramaPresupuestario === "0" ||
+                    localStorage.getItem("Rol") === "Administrador" ? false :
+                    (valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
                     valorProgramaPresupuestario === "" ||
                     (edit &&
@@ -868,7 +873,7 @@ export function TabAvanceFinanciero({
                           ?.modificadoAutorizado?.t3?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
                           ?.ejercidoModificado?.t3?.resultado)) ||
-                    !(new Date() < dateTrim[2] && new Date() > dateTrim[1])
+                    !(new Date() < dateTrim[2] && new Date() > dateTrim[1]))
                   }
                   fullWidth
                   size="small"
@@ -914,7 +919,8 @@ export function TabAvanceFinanciero({
                   size="small"
                   placeholder="SIN PORCENTAJE"
                   disabled={
-                    valorProgramaPresupuestario === "0" ||
+                    localStorage.getItem("Rol") === "Administrador" ? false :
+                    (valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
                     valorProgramaPresupuestario === "" ||
                     (edit &&
@@ -924,7 +930,7 @@ export function TabAvanceFinanciero({
                           ?.modificadoAutorizado?.t3?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
                           ?.ejercidoModificado?.t3?.resultado)) ||
-                    !(new Date() < dateTrim[2] && new Date() > dateTrim[1])
+                    !(new Date() < dateTrim[2] && new Date() > dateTrim[1]))
                   }
                   sx={queries.medium_text}
                   value={
@@ -970,7 +976,8 @@ export function TabAvanceFinanciero({
                 <TextField
                   fullWidth
                   disabled={
-                    valorProgramaPresupuestario === "0" ||
+                    localStorage.getItem("Rol") === "Administrador" ? false :
+                    (valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
                     valorProgramaPresupuestario === "" ||
                     (edit &&
@@ -980,7 +987,7 @@ export function TabAvanceFinanciero({
                           ?.modificadoAutorizado?.t4?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
                           ?.ejercidoModificado?.t4?.resultado)) ||
-                    !(new Date() < dateTrim[3] && new Date() > dateTrim[2])
+                    !(new Date() < dateTrim[3] && new Date() > dateTrim[2]))
                   }
                   size="small"
                   placeholder="SIN CAPTURAR"
@@ -1025,7 +1032,8 @@ export function TabAvanceFinanciero({
                   size="small"
                   placeholder="SIN PORCENTAJE"
                   disabled={
-                    valorProgramaPresupuestario === "0" ||
+                    localStorage.getItem("Rol") === "Administrador" ? false :
+                    (valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
                     valorProgramaPresupuestario === "" ||
                     (edit &&
@@ -1035,7 +1043,7 @@ export function TabAvanceFinanciero({
                           ?.modificadoAutorizado?.t4?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
                           ?.ejercidoModificado?.t4?.resultado)) ||
-                    !(new Date() < dateTrim[3] && new Date() > dateTrim[2])
+                    !(new Date() < dateTrim[3] && new Date() > dateTrim[2]))
                   }
                   sx={queries.medium_text}
                   value={

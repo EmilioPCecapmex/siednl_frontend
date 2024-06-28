@@ -28,6 +28,14 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 export let errores: string[] = [];
 
+const year = new Date().getFullYear();
+const dateSem = [new Date(year, 6, 30), new Date(year, 12, 31)];
+const dateTrim = [
+  new Date(year, 3, 31),
+  new Date(year, 6, 30),
+  new Date(year, 9, 30),
+  new Date(year, 12, 31),
+];
 export default function ModalSolicitaModifRF({
   open,
   handleClose,
@@ -144,27 +152,102 @@ export default function ModalSolicitaModifRF({
   const checkComponentes = (v: string) => {
     // eslint-disable-next-line array-callback-return
     jsonRF.componentes.map((componente: IComponenteRF, index: number)  => {
-      if (
-        (componente.metasPorFrecuencia[0].semestre1 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1) ||
-          componente.metasPorFrecuencia[0].semestre2 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre2)) &&
-        (componente.metasPorFrecuencia[0].trimestre1 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre1) ||
-          componente.metasPorFrecuencia[0].trimestre2 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre2) ||
-          componente.metasPorFrecuencia[0].trimestre3 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre3) ||
-          componente.metasPorFrecuencia[0].trimestre4 === undefined ||
-          /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre4))
-      ) {
-        err = 1;
-        errores.push(
-          `<strong> Componente ${
-            index + 1
-          } </strong>: Metas por frecuencia sin información.`
-        );
+      if (JSON.parse(MIR).componentes[index].frecuencia === "TRIMESTRAL") {
+        if (
+          !(new Date() > dateTrim[0]) &&
+          (componente.metasPorFrecuencia[0].trimestre1 === undefined ||
+            /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre1))
+        ) {
+          err = 1;
+          errores.push(
+            `<strong> Componente ${
+              index + 1
+            } </strong>: Metas por frecuencia sin información (trimestre1).`
+          );
+        } else if (
+          new Date() < dateTrim[1] &&
+          new Date() > dateTrim[0] &&
+          (componente.metasPorFrecuencia[0].trimestre2 === undefined ||
+            /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre2))
+        ) {
+          err = 1;
+          errores.push(
+            `<strong> Componente ${
+              index + 1
+            } </strong>: Metas por frecuencia sin información (trimestre2).`
+          );
+        } else if (
+          new Date() < dateTrim[2] &&
+          new Date() > dateTrim[1] &&
+          (componente.metasPorFrecuencia[0].trimestre3 === undefined ||
+            /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre3))
+        ) {
+          err = 1;
+          errores.push(
+            `<strong> Componente ${
+              index + 1
+            } </strong>: Metas por frecuencia sin información (trimestre3).`
+          );
+        } else if (
+          new Date() < dateTrim[3] &&
+          new Date() > dateTrim[2] &&
+          (componente.metasPorFrecuencia[0].trimestre4 === undefined ||
+            /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre4))
+        ) {
+          err = 1;
+          errores.push(
+            `<strong> Componente ${
+              index + 1
+            } </strong>: Metas por frecuencia sin información (trimestre4).`
+          );
+        }
+      } else {
+        if (
+          new Date() > dateSem[0] &&
+          (componente.metasPorFrecuencia[0].semestre1 === undefined ||
+            /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1))
+        ) {
+          err = 1;
+          errores.push(
+            `<strong> Componente ${
+              index + 1
+            } </strong>: Metas por frecuencia sin información (semestre1).`
+          );
+        } else if (
+          new Date() < dateSem[1] &&
+          new Date() > dateSem[0] &&
+          (componente.metasPorFrecuencia[0].semestre2 === undefined ||
+            /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre2))
+        ) {
+          err = 1;
+          errores.push(
+            `<strong> Componente ${
+              index + 1
+            } </strong>: Metas por frecuencia sin información (semestre2).`
+          );
+        }
       }
+      // if (
+      //   (componente.metasPorFrecuencia[0].semestre1 === undefined ||
+      //     /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre1) ||
+      //     componente.metasPorFrecuencia[0].semestre2 === undefined ||
+      //     /^[\s]*$/.test(componente.metasPorFrecuencia[0].semestre2)) &&
+      //   (componente.metasPorFrecuencia[0].trimestre1 === undefined ||
+      //     /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre1) ||
+      //     componente.metasPorFrecuencia[0].trimestre2 === undefined ||
+      //     /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre2) ||
+      //     componente.metasPorFrecuencia[0].trimestre3 === undefined ||
+      //     /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre3) ||
+      //     componente.metasPorFrecuencia[0].trimestre4 === undefined ||
+      //     /^[\s]*$/.test(componente.metasPorFrecuencia[0].trimestre4))
+      // ) {
+      //   err = 1;
+      //   errores.push(
+      //     `<strong> Componente ${
+      //       index + 1
+      //     } </strong>: Metas por frecuencia sin información.`
+      //   );
+      // }
     });
 
     checkActividades(v);
@@ -175,22 +258,71 @@ export default function ModalSolicitaModifRF({
     jsonRF.componentes.map((componente: IComponenteRF, index: number) => {
       componente.actividades.map((actividad: IActividadesRF, index: number) => {
         if (
-          actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
-          actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2) ||
-          actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3) ||
-          actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
-          /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4)
+          !(new Date() > dateTrim[0]) &&
+          (actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
+            /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1))
         ) {
           err = 1;
           errores.push(
             `<strong> Actividad ${
               index + 1
-            } </strong>: Metas por frecuencia sin información.`
+            } </strong>: Metas por frecuencia sin información (trimestre1).`
+          );
+        } else if (
+          new Date() < dateTrim[1] &&
+          new Date() > dateTrim[0] &&
+          (actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
+            /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2))
+        ) {
+          err = 1;
+          errores.push(
+            `<strong> Actividad ${
+              index + 1
+            } </strong>: Metas por frecuencia sin información (trimestre2).`
+          );
+        } else if (
+          new Date() < dateTrim[2] &&
+          new Date() > dateTrim[1] &&
+          (actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
+            /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3))
+        ) {
+          err = 1;
+          errores.push(
+            `<strong> Actividad ${
+              index + 1
+            } </strong>: Metas por frecuencia sin información (trimestre3).`
+          );
+        } else if (
+          new Date() < dateTrim[3] &&
+          new Date() > dateTrim[2] &&
+          (actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
+            /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4))
+        ) {
+          err = 1;
+          errores.push(
+            `<strong> Actividad ${
+              index + 1
+            } </strong>: Metas por frecuencia sin información (trimestre4).`
           );
         }
+        // if (
+        //   actividad.metasPorFrecuencia[0].trimestre1 === undefined ||
+        //   /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre1) ||
+        //   actividad.metasPorFrecuencia[0].trimestre2 === undefined ||
+        //   /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre2) ||
+        //   actividad.metasPorFrecuencia[0].trimestre3 === undefined ||
+        //   /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre3) ||
+        //   actividad.metasPorFrecuencia[0].trimestre4 === undefined ||
+        //   /^[\s]*$/.test(actividad.metasPorFrecuencia[0].trimestre4)
+        // ) {
+        //   err = 1;
+        //   errores.push(
+        //     `<strong> Actividad ${
+        //       index + 1
+        //     } </strong>: Metas por frecuencia sin información.`
+        //   );
+        // }
+
       });
     });
     //////////////////////////////////////////777

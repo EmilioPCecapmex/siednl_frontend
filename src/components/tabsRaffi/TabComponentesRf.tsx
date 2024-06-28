@@ -869,7 +869,8 @@ export const TabComponenteRf = ({
 
                   <Grid item>
                     <TextField
-                      disabled={(edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.semestre1) || (new Date()>dateSem[0])}
+                    
+                    disabled={localStorage.getItem("Rol") === "Administrador" ? false :(edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.semestre1)?false: (edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.semestre1)|| (new Date()>dateSem[0])}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -915,7 +916,7 @@ export const TabComponenteRf = ({
 
                   <Grid item>
                     <TextField
-                      disabled={(edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.semestre2) || !(new Date()<dateSem[1] && new Date()>dateSem[0])}
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :(edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.semestre2)?false:(edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.semestre2) || !(new Date()<dateSem[1] && new Date()>dateSem[0])}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -978,7 +979,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       
-                      disabled={(edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre1) || (new Date()>dateTrim[0])}
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :(edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre1)?false:(edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre1) || (new Date()>dateTrim[0])}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -1027,7 +1028,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       
-                      disabled={(edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre2) || !(new Date()<dateTrim[1] && new Date()>dateTrim[0])}
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :(edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre2)?false:(edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre2) || !(new Date()<dateTrim[1] && new Date()>dateTrim[0])}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -1075,7 +1076,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       
-                      disabled={(edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre3) || !(new Date()<dateTrim[2] && new Date()>dateTrim[1])}
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :(edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre3)?false:(edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre3) || !(new Date()<dateTrim[2] && new Date()>dateTrim[1])}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -1123,7 +1124,7 @@ export const TabComponenteRf = ({
                   <Grid item>
                     <TextField
                       
-                      disabled={(edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre4) || !(new Date()<dateTrim[3] && new Date()>dateTrim[2])}
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :(edit && raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre4)?false:(edit && !raffiboolean?.componentes[componentSelect]?.metasPorFrecuencia[0]?.trimestre4) || !(new Date()<dateTrim[3] && new Date()>dateTrim[2])}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
