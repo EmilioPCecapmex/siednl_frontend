@@ -642,18 +642,27 @@ export function TabAvanceFinanciero({
                   fullWidth
                   size="small"
                   disabled={
+
+
                     localStorage.getItem("Rol") === "Administrador" ? false :
                     (valorProgramaPresupuestario === "0" ||
                     valorProgramaPresupuestario === null ||
                     valorProgramaPresupuestario === "" ||
                     (edit &&
+                      (raffiboolean?.avanceFinanciero?.monto
+                        ?.devengadoModificado?.t1?.resultado ||
+                        raffiboolean?.avanceFinanciero?.monto
+                          ?.modificadoAutorizado?.t1?.resultado ||
+                        raffiboolean?.avanceFinanciero?.monto
+                          ?.ejercidoModificado?.t1?.resultado)))?false:
+                    ((edit &&
                       (!raffiboolean?.avanceFinanciero?.monto
                         ?.devengadoModificado?.t1?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
                           ?.modificadoAutorizado?.t1?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
                           ?.ejercidoModificado?.t1?.resultado)) ||
-                    new Date() > dateTrim[0])
+                          new Date() > dateTrim[0])
                   }
                   placeholder="SIN CAPTURAR"
                   onClick={(a) => {
@@ -751,6 +760,13 @@ export function TabAvanceFinanciero({
                     valorProgramaPresupuestario === null ||
                     valorProgramaPresupuestario === "" ||
                     (edit &&
+                      (raffiboolean?.avanceFinanciero?.monto
+                        ?.devengadoModificado?.t2?.resultado ||
+                        raffiboolean?.avanceFinanciero?.monto
+                          ?.modificadoAutorizado?.t2?.resultado ||
+                        raffiboolean?.avanceFinanciero?.monto
+                          ?.ejercidoModificado?.t2?.resultado)))?false:
+                    ((edit &&
                       (!raffiboolean?.avanceFinanciero?.monto
                         ?.devengadoModificado?.t2?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
@@ -867,6 +883,13 @@ export function TabAvanceFinanciero({
                     valorProgramaPresupuestario === null ||
                     valorProgramaPresupuestario === "" ||
                     (edit &&
+                      (raffiboolean?.avanceFinanciero?.monto
+                        ?.devengadoModificado?.t3?.resultado ||
+                        raffiboolean?.avanceFinanciero?.monto
+                          ?.modificadoAutorizado?.t3?.resultado ||
+                        raffiboolean?.avanceFinanciero?.monto
+                          ?.ejercidoModificado?.t3?.resultado)))?false:
+                    ((edit &&
                       (!raffiboolean?.avanceFinanciero?.monto
                         ?.devengadoModificado?.t3?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
@@ -931,6 +954,7 @@ export function TabAvanceFinanciero({
                         !raffiboolean?.avanceFinanciero?.monto
                           ?.ejercidoModificado?.t3?.resultado)) ||
                     !(new Date() < dateTrim[2] && new Date() > dateTrim[1]))
+                    
                   }
                   sx={queries.medium_text}
                   value={
@@ -981,6 +1005,13 @@ export function TabAvanceFinanciero({
                     valorProgramaPresupuestario === null ||
                     valorProgramaPresupuestario === "" ||
                     (edit &&
+                      (raffiboolean?.avanceFinanciero?.monto
+                        ?.devengadoModificado?.t4?.resultado ||
+                        raffiboolean?.avanceFinanciero?.monto
+                          ?.modificadoAutorizado?.t4?.resultado ||
+                        raffiboolean?.avanceFinanciero?.monto
+                          ?.ejercidoModificado?.t4?.resultado)))?false:
+                    ((edit &&
                       (!raffiboolean?.avanceFinanciero?.monto
                         ?.devengadoModificado?.t4?.resultado ||
                         !raffiboolean?.avanceFinanciero?.monto
