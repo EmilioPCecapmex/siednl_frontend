@@ -1120,6 +1120,7 @@ export const Raffi = () => {
                                     }
                                     type="button"
                                     onClick={() => {
+                                      
                                       let auxArrayMIR = JSON.parse(row.MIR);
                                       let auxArrayMIR2 = JSON.stringify(
                                         auxArrayMIR[0]
