@@ -1068,7 +1068,7 @@ export const MIR = () => {
                                         localStorage.getItem("Rol") ===
                                           "Administrador") ||
                                       (row.Estado === "Borrador Autorizador" &&
-                                        validaFecha &&
+                                        
                                         localStorage.getItem("Rol") ===
                                           "Administrador")
                                         ? false
