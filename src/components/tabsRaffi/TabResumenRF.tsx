@@ -52,6 +52,16 @@ export const TabResumenRF = ({
 
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
+  const year=new Date().getFullYear();
+  const dateSem = [new Date(year,6,30), new Date(year,12,31)];
+  const dateTrim = [
+    new Date(year,3,31),
+    new Date(year,6,30),
+    new Date(year,9,30),
+    new Date(year,12,31),
+  ];
+
+
   const handleCloseModif = () => {
     setOpenModalSolicitarModif(false);
   };
@@ -1971,6 +1981,7 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
+                        disabled={localStorage.getItem("Rol") === "Administrador" ? false : (new Date()>dateSem[0])}
                         checked={
                           raffiboolean?.componentes[indexComponentes]
                             .metasPorFrecuencia[0].semestre1
@@ -2004,6 +2015,7 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
+                        disabled={localStorage.getItem("Rol") === "Administrador" ? false : !(new Date()<dateSem[1] && new Date()>dateSem[0])}
                         checked={
                           raffiboolean?.componentes[indexComponentes]
                             .metasPorFrecuencia[0].semestre2
@@ -2055,6 +2067,7 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
+                        disabled={localStorage.getItem("Rol") === "Administrador" ? false : (new Date()>dateTrim[0])}
                         checked={
                           raffiboolean?.componentes[indexComponentes]
                             .metasPorFrecuencia[0].trimestre1
@@ -2088,6 +2101,7 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
+                        disabled={localStorage.getItem("Rol") === "Administrador" ? false : !(new Date()<dateTrim[1] && new Date()>dateTrim[0])}
                         checked={
                           raffiboolean?.componentes[indexComponentes]
                             .metasPorFrecuencia[0].trimestre2
@@ -2121,6 +2135,7 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false : !(new Date()<dateTrim[0] && new Date()>dateTrim[1])}
                         checked={
                           raffiboolean?.componentes[indexComponentes]
                             .metasPorFrecuencia[0].trimestre3
@@ -2154,6 +2169,7 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
+                        disabled={localStorage.getItem("Rol") === "Administrador" ? false : !(new Date()<dateTrim[3] && new Date()>dateTrim[2])}
                         checked={
                           raffiboolean?.componentes[indexComponentes]
                             .metasPorFrecuencia[0].trimestre4
@@ -2271,6 +2287,7 @@ export const TabResumenRF = ({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
+                          disabled={localStorage.getItem("Rol") === "Administrador" ? false : (new Date()>dateTrim[0])}
                           checked={
                             raffiboolean?.componentes[indexComponentes]
                               .actividades[indexActividades]
@@ -2306,6 +2323,7 @@ export const TabResumenRF = ({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
+                          disabled={localStorage.getItem("Rol") === "Administrador" ? false : !(new Date()<dateTrim[1] && new Date()>dateTrim[0])}
                           checked={
                             raffiboolean?.componentes[indexComponentes]
                               .actividades[indexActividades]
@@ -2341,6 +2359,7 @@ export const TabResumenRF = ({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
+                          disabled={localStorage.getItem("Rol") === "Administrador" ? false : !(new Date()<dateTrim[2] && new Date()>dateTrim[1])}
                           checked={
                             raffiboolean?.componentes[indexComponentes]
                               .actividades[indexActividades]
@@ -2376,6 +2395,7 @@ export const TabResumenRF = ({
                     {localStorage.getItem("Rol") === "Capturador" ? null : (
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                         <Checkbox
+                          disabled={localStorage.getItem("Rol") === "Administrador" ? false : !(new Date()<dateTrim[3] && new Date()>dateTrim[2])}
                           checked={
                             raffiboolean?.componentes[indexComponentes]
                               .actividades[indexActividades]

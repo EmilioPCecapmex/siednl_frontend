@@ -807,13 +807,13 @@ export const TabActividadRf = ({
                 >
                   <Grid item>
                     <InputLabel sx={queries.medium_text}>
-                      TRIMESTRE 1
+                    TRIMESTRE 1
                     </InputLabel>
                   </Grid>
 
                   <Grid item>
                     <TextField
-                      disabled={(edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1) || (new Date()>dateTrim[0])}
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :((edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1)?false:(edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1||(new Date()>dateTrim[0])))}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -860,7 +860,7 @@ export const TabActividadRf = ({
 
                   <Grid item>
                     <TextField
-                      disabled={(edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2) || !(new Date()<dateTrim[1] && new Date()>dateTrim[0])}
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :((edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2)?false: (edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2)||!(new Date()<dateTrim[1] && new Date()>dateTrim[0]))}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -900,13 +900,13 @@ export const TabActividadRf = ({
                 >
                   <Grid item>
                     <InputLabel sx={queries.medium_text}>
-                      TRIMESTRE 3
+                    TRIMESTRE 3
                     </InputLabel>
                   </Grid>
 
                   <Grid item>
                     <TextField
-                      disabled={(edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3) || !(new Date()<dateTrim[2] && new Date()>dateTrim[1])}
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :(edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3)?false: (edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3)||!(new Date()<dateTrim[2] && new Date()>dateTrim[1])}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
@@ -946,12 +946,12 @@ export const TabActividadRf = ({
                 >
                   <Grid item>
                     <InputLabel sx={queries.medium_text}>
-                      TRIMESTRE 4
+                    TRIMESTRE 4
                     </InputLabel>
                   </Grid>
                   <Grid item>
                     <TextField
-                      disabled={(edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4) || !(new Date()<dateTrim[3] && new Date()>dateTrim[2])}
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :(edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4)?false:(edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4)||!(new Date()<dateTrim[3] && new Date()>dateTrim[2])}
                       size="small"
                       sx={{ boxShadow: 2 }}
                       variant={"filled"}
