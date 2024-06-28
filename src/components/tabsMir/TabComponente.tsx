@@ -94,6 +94,7 @@ export const TabComponente = ({
       }
     }
   };
+
   const clearComponentes = (componentes: IComponente[]) => {
     let auxCompo: IComponente[] = [];
     componentes.map((item, i) => {
@@ -120,11 +121,13 @@ export const TabComponente = ({
     clearComponentes(MIR.componentes)
   );
 
-  // useEffect(() => {
-  //   setComponentes(MIR.componentes);
+  
 
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [MIR]);
+  useEffect(() => {
+    setComponentes(MIR.componentes);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [MIR]);
 
   useEffect(() => {
     setMIR((MIR: IMIR) => ({
@@ -190,6 +193,15 @@ export const TabComponente = ({
         >
           COMPONENTE #{componentSelect}
         </Typography>
+
+        <IconButton
+          onClick={() => {
+            addComponente();
+            setComponentSelect(MIR.componentes.length);
+          }}
+        >
+          <AddCircleIcon fontSize="large" />
+        </IconButton>
 
         <IconButton
           onClick={() => {
