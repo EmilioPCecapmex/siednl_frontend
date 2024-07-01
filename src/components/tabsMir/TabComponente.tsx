@@ -203,14 +203,7 @@ export const TabComponente = ({
           <AddCircleIcon fontSize="large" />
         </IconButton>
 
-        <IconButton
-          onClick={() => {
-            addComponente();
-            setComponentSelect(MIR.componentes.length);
-          }}
-        >
-          <AddCircleIcon fontSize="large" />
-        </IconButton>
+       
 
         <IconButton
           onClick={() => {
