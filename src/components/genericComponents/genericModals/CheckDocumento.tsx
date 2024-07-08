@@ -20,12 +20,12 @@ export let errores: string[] = [];
 
 let err = 0;
 const year = new Date().getFullYear();
-const dateSem = [new Date(year, 6, 30), new Date(year, 12, 31)];
+const dateSem = [new Date(year, 5, 30), new Date(year, 11, 31)];
 const dateTrim = [
-  new Date(year, 3, 31),
-  new Date(year, 6, 30),
-  new Date(year, 9, 30),
-  new Date(year, 12, 31),
+  new Date(year, 2, 31),
+  new Date(year, 5, 30),
+  new Date(year, 8, 30),
+  new Date(year, 11, 31),
 ];
 export const comententario = (
   id: string,
