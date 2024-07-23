@@ -61,11 +61,50 @@ export const FormulaDialogMA = ({
   }
 
   useEffect(() => {
-    if (tab === "COMPONENTES") {
+    if (tab === "COMPONENTES" && elementoA.substring(0,8)==="semestre") {
      // console.log("jsonMA.componentes[index].valorNumerador: ",index, jsonMA.componentes[index].valorNumerador);
-      setDescB(jsonMA.componentes[index].valorNumerador);
-    } else if(tab === "ACTIVIDADES"){
-      setDescB(jsonMA.componentes[index].actividades[index2].valorNumerador);
+     //setDescB(jsonMA.componentes[index].valorNumerador);
+      switch (elementoA.substring(8,9)) {
+        case "1":
+          setDescB(jsonMA.componentes[index].valoresPorFrecuencia[0].valorB);
+        break;
+        case "2":
+          setDescB(jsonMA.componentes[index].valoresPorFrecuencia[0].valorD);
+        break;
+      }
+    } else if (tab === "COMPONENTES")
+    {
+      switch (elementoA.substring(9,10)) {
+        case "1":
+          setDescB(jsonMA.componentes[index].valoresPorFrecuencia[0].valorB);
+        break;
+        case "2":
+          setDescB(jsonMA.componentes[index].valoresPorFrecuencia[0].valorD);
+        break;
+        case "3":
+          setDescB(jsonMA.componentes[index].valoresPorFrecuencia[0].valorF);
+        break;
+        case "4":
+          setDescB(jsonMA.componentes[index].valoresPorFrecuencia[0].valorH);
+        break;
+      }
+    }
+      else if(tab === "ACTIVIDADES"){
+      //setDescB(jsonMA.componentes[index].actividades[index2].valorNumerador);
+      switch (elementoA.substring(9,10)) {
+        case "1":
+          setDescB(jsonMA.componentes[index].actividades[index2].valoresPorFrecuencia[0].valorB);
+        break;
+        case "2":
+          setDescB(jsonMA.componentes[index].actividades[index2].valoresPorFrecuencia[0].valorD);
+        break;
+        case "3":
+          setDescB(jsonMA.componentes[index].actividades[index2].valoresPorFrecuencia[0].valorF);
+        break;
+        case "4":
+          setDescB(jsonMA.componentes[index].actividades[index2].valoresPorFrecuencia[0].valorH);
+        break;
+      }
     }
   }, [tipo, jsonMA]);
 
