@@ -1355,6 +1355,7 @@ export const TabComponenteMA = ({
                     sx={{
                       "& .MuiAutocomplete-input": {
                         fontFamily: "MontserratRegular",
+                        whiteSpace: "pre-wrap",
                       },
                     }}
                   ></TextField>
@@ -1398,6 +1399,7 @@ export const TabComponenteMA = ({
                   sx={{
                     fontSize: [10, 10, 10, 15, 15, 18],
                     fontFamily: "MontserratMedium",
+                    whiteSpace: "pre-wrap",
                   }}
                 >
                   DESCRIPCIÓN DEL INDICADOR
@@ -1451,6 +1453,7 @@ export const TabComponenteMA = ({
                   sx={{
                     fontSize: [10, 10, 10, 15, 15, 18],
                     fontFamily: "MontserratMedium",
+                    whiteSpace: "pre-wrap",
                   }}
                 >
                   DESCRIPCIÓN DEL NUMERADOR
@@ -1505,6 +1508,7 @@ export const TabComponenteMA = ({
                   sx={{
                     fontSize: [10, 10, 10, 15, 15, 18],
                     fontFamily: "MontserratMedium",
+                    whiteSpace: "pre-wrap",
                   }}
                 >
                   DESCRIPCIÓN DEL DENOMINADOR

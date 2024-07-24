@@ -1066,6 +1066,7 @@ export function TabFinPropositoMA({
                       sx={{
                         fontSize: [10, 10, 10, 13, 15, 18],
                         fontFamily: "MontserratMedium",
+                        whiteSpace: "pre-wrap",
                       }}
                     >
                       DESCRIPCIÓN DEL INDICADOR
@@ -1118,6 +1119,7 @@ export function TabFinPropositoMA({
                       sx={{
                         fontSize: [10, 10, 10, 13, 15, 18],
                         fontFamily: "MontserratMedium",
+                        whiteSpace: "pre-wrap",
                       }}
                     >
                       DESCRIPCIÓN DEL NUMERADOR
@@ -1170,6 +1172,7 @@ export function TabFinPropositoMA({
                       sx={{
                         fontSize: [10, 10, 10, 13, 15, 18],
                         fontFamily: "MontserratMedium",
+                        whiteSpace: "pre-wrap",
                       }}
                     >
                       DESCRIPCIÓN DEL DENOMINADOR
@@ -1733,6 +1736,7 @@ export function TabFinPropositoMA({
                         sx={{
                           fontFamily: "MontserratRegular",
                           fontSize: [10, 10, 10, 13, 15, 18],
+                          whiteSpace: "pre-wrap",
                         }}
                       ></TextField>
                     )}
