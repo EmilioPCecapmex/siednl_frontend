@@ -106,7 +106,7 @@ export const FormulaDialogMA = ({
         break;
       }
     }
-  }, [tipo, jsonMA]);
+  }, [open]);
 
   const checkValues = () => {
     
