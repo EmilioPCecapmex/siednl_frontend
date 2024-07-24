@@ -886,10 +886,11 @@ export function TabEncabezado({
                 noOptionsText="Sin opciones"
                 closeText="Cerrar"
                 openText="Abrir"
+                // disabled={edit && !mirEdit?.encabezado.beneficiario}
                 disabled={
                   (edit &&
                     !mirEdit?.encabezado.lineas_de_accion &&
-                    lineaDeAccion[0]?.Id === "") ||
+                    lineaDeAccion[0]?.Id !== "") ||
                   disabledLineasDeAccion
                 }
                 multiple

@@ -29,6 +29,12 @@ export function TabFinPropositoRF({
   MA: string;
 }) {
   const jsonMir: IMIR = JSON.parse(MIR) || "";
+  let jsonMA =
+    MA === ""
+      ? ""
+      : JSON.parse(MA).length > 1
+      ? JSON.parse(MA)[0]
+      : JSON.parse(MA);
 
   const [fin, setFin] = useState<IFinRF>(finRF);
 
@@ -283,6 +289,33 @@ export function TabFinPropositoRF({
               />
             </Grid>
 
+            <Typography sx={{ ...queries.bold_text, width: "100%", textAlign:"center"}}>
+            META
+          </Typography>
+
+          <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
+              <TextField
+                disabled={true}
+                fullWidth
+                size="small"
+                
+                value={jsonMA.fin.metaAnual}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+              />
+            </Grid>
+            <Typography sx={{ ...queries.bold_text, width: "100%", textAlign:"center"}}>
+            CAPTURA FIN
+          </Typography>
             <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
               <TextField
                 disabled={edit && !raffiboolean?.fin?.valorAvanceFisico}
@@ -395,6 +428,40 @@ export function TabFinPropositoRF({
                 }}
               />
             </Grid>
+
+            <Typography sx={{ ...queries.bold_text, width: "100%", textAlign:"center"}}>
+            META
+          </Typography>
+
+
+
+
+            <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
+              <TextField
+                disabled={true}
+                fullWidth
+                size="small"
+                
+                value={jsonMA.proposito.metaAnual}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+                InputProps={{
+                  
+                  style: {
+                    fontFamily: "MontserratMedium",
+                  },
+                }}
+              />
+            </Grid>
+          
+            <Typography sx={{ ...queries.bold_text, width: "100%", textAlign:"center"}}>
+            CAPTURA PROPÓSITO
+          </Typography>
+
+
 
             <Grid item mt={{ lg: 2 }} mb={{ lg: 2 }} lg={6}>
               <TextField

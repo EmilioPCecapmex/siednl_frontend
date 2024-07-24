@@ -52,7 +52,7 @@ export const DialogFinPropositoRaffi = ({
     } else {
       setDenominador('');
     }
-  }, [tipo, jsonMA]);
+  }, [open]);
 
   const handleChange = () => {
     switch (elemento) {

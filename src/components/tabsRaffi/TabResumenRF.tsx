@@ -53,12 +53,12 @@ export const TabResumenRF = ({
   const [openModalSolicitarModif, setOpenModalSolicitarModif] = useState(false);
 
   const year=new Date().getFullYear();
-  const dateSem = [new Date(year,6,30), new Date(year,12,31)];
+  const dateSem = [new Date(year,5,30), new Date(year,11,31)];
   const dateTrim = [
-    new Date(year,3,31),
-    new Date(year,6,30),
-    new Date(year,9,30),
-    new Date(year,12,31),
+    new Date(year,2,31),
+    new Date(year,5,30),
+    new Date(year,8,30),
+    new Date(year,11,31),
   ];
 
 
@@ -2135,7 +2135,7 @@ export const TabResumenRF = ({
                   {localStorage.getItem("Rol") === "Capturador" ? null : (
                     <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
                       <Checkbox
-                      disabled={localStorage.getItem("Rol") === "Administrador" ? false : !(new Date()<dateTrim[0] && new Date()>dateTrim[1])}
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false : !(new Date()<dateTrim[2] && new Date()>dateTrim[1])}
                         checked={
                           raffiboolean?.componentes[indexComponentes]
                             .metasPorFrecuencia[0].trimestre3
