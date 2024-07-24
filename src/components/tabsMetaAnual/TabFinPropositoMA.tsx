@@ -321,7 +321,7 @@ export function TabFinPropositoMA({
   };
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
-
+  const initialPadding = '\n\n';
   return (
     <Grid
       // visibility={show ? "visible" : "hidden"}
@@ -1066,7 +1066,7 @@ export function TabFinPropositoMA({
                   }
                   rows={5}
                   multiline
-                  sx={{ boxShadow: 2 }}
+                  sx={{ boxShadow: 2, }}
                   variant={"filled"}
                   label={
                     <Typography
@@ -1081,12 +1081,15 @@ export function TabFinPropositoMA({
                   }
                   InputLabelProps={{
                     style: {
+                      
                       fontFamily: "MontserratMedium",
                     },
                   }}
                   InputProps={{
                     style: {
                       fontFamily: "MontserratRegular",
+                      textAlign: 'center',
+                      justifyContent: "center",
                     },
                   }}
                   onChange={(c) => {
@@ -1094,7 +1097,7 @@ export function TabFinPropositoMA({
                     auxFin.descIndicador = clearInfo(c.target.value);
                     setValueFin({ ...auxFin });
                   }}
-                  value={valueFin?.descIndicador || ""}
+                  value={initialPadding+valueFin?.descIndicador || ""}
                 />
               </Grid>
 
@@ -1147,7 +1150,7 @@ export function TabFinPropositoMA({
                     auxFin.descNumerador = clearInfo(c.target.value);
                     setValueFin({ ...auxFin });
                   }}
-                  value={valueFin?.descNumerador || ""}
+                  value={initialPadding+valueFin?.descNumerador || ""}
                 />
               </Grid>
 
@@ -1200,7 +1203,7 @@ export function TabFinPropositoMA({
                     auxFin.descDenominador = clearInfo(c.target.value);
                     setValueFin({ ...auxFin });
                   }}
-                  value={valueFin?.descDenominador || ""}
+                  value={initialPadding+valueFin?.descDenominador || ""}
                 />
               </Grid>
             </Grid>
@@ -1789,6 +1792,7 @@ export function TabFinPropositoMA({
                       sx={{
                         fontSize: [10, 10, 10, 13, 15, 18],
                         fontFamily: "MontserratMedium",
+                        whiteSpace: "pre-wrap",
                       }}
                     >
                       DESCRIPCIÓN DEL INDICADOR
@@ -1809,7 +1813,7 @@ export function TabFinPropositoMA({
                     auxProposito.descIndicador = clearInfo(c.target.value);
                     setValueProposito({ ...auxProposito });
                   }}
-                  value={valueProposito?.descIndicador || ""}
+                  value={initialPadding+valueProposito?.descIndicador || ""}
                 />
               </Grid>
 
@@ -1841,6 +1845,7 @@ export function TabFinPropositoMA({
                       sx={{
                         fontSize: [10, 10, 10, 13, 15, 18],
                         fontFamily: "MontserratMedium",
+                        whiteSpace: "pre-wrap",
                       }}
                     >
                       DESCRIPCIÓN DEL NUMERADOR
@@ -1861,7 +1866,7 @@ export function TabFinPropositoMA({
                     auxProposito.descNumerador = clearInfo(c.target.value);
                     setValueProposito({ ...auxProposito });
                   }}
-                  value={valueProposito.descNumerador || ""}
+                  value={initialPadding+valueProposito.descNumerador || ""}
                 />
               </Grid>
               <Grid
@@ -1892,6 +1897,7 @@ export function TabFinPropositoMA({
                       sx={{
                         fontSize: [10, 10, 10, 13, 15, 18],
                         fontFamily: "MontserratMedium",
+                        whiteSpace: "pre-wrap",
                       }}
                     >
                       DESCRIPCIÓN DEL DENOMINADOR
@@ -1912,7 +1918,7 @@ export function TabFinPropositoMA({
                     auxProposito.descDenominador = clearInfo(c.target.value);
                     setValueProposito({ ...auxProposito });
                   }}
-                  value={valueProposito.descDenominador || ""}
+                  value={initialPadding+valueProposito.descDenominador || ""}
                 />
               </Grid>
             </Grid>

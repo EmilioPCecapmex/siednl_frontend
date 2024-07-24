@@ -380,7 +380,7 @@ export const TabActividadesMA = ({
   }
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
-
+  const initialPadding = '\n\n';
   //return main
   return (
     <Grid
@@ -1599,7 +1599,7 @@ export const TabActividadesMA = ({
                 </Typography>
               }
               value={
-                componentesActividadValues[componenteSelect].actividades[
+                initialPadding+componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.descIndicador || ""
               }
@@ -1669,7 +1669,7 @@ export const TabActividadesMA = ({
                 </Typography>
               }
               value={
-                componentesActividadValues[componenteSelect].actividades[
+                initialPadding+componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.descNumerador || ""
               }
@@ -1739,7 +1739,7 @@ export const TabActividadesMA = ({
                 </Typography>
               }
               value={
-                componentesActividadValues[componenteSelect].actividades[
+                initialPadding+componentesActividadValues[componenteSelect].actividades[
                   actividadSelect
                 ]?.descDenominador || ""
               }

@@ -293,7 +293,7 @@ export const TabComponenteMA = ({
   }, []);
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
-
+  const initialPadding = '\n\n';
   return (
     <Grid
       // visibility={show ? "visible" : "hidden"}
@@ -1405,7 +1405,7 @@ export const TabComponenteMA = ({
                   DESCRIPCIÓN DEL INDICADOR
                 </Typography>
               }
-              value={componentesValues[componentSelect]?.descIndicador || ""}
+              value={initialPadding+componentesValues[componentSelect]?.descIndicador || ""}
               onChange={(c) => {
                 componentesValues[componentSelect].descIndicador =
                 clearInfo(c.target.value);
@@ -1459,7 +1459,7 @@ export const TabComponenteMA = ({
                   DESCRIPCIÓN DEL NUMERADOR
                 </Typography>
               }
-              value={componentesValues[componentSelect]?.descNumerador || ""}
+              value={initialPadding+componentesValues[componentSelect]?.descNumerador || ""}
               onChange={(c) => {
                 componentesValues[componentSelect].descNumerador =
                 clearInfo(c.target.value);
@@ -1514,7 +1514,7 @@ export const TabComponenteMA = ({
                   DESCRIPCIÓN DEL DENOMINADOR
                 </Typography>
               }
-              value={componentesValues[componentSelect]?.descDenominador || ""}
+              value={initialPadding+componentesValues[componentSelect]?.descDenominador || ""}
               onChange={(c) => {
                 componentesValues[componentSelect].descDenominador =
                 clearInfo(c.target.value);
