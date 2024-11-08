@@ -10,6 +10,7 @@ import {
   Autocomplete,
   Tooltip,
   useMediaQuery,
+  InputLabel
 } from "@mui/material";
 import { IComponenteMA } from "./Interfaces";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -20,6 +21,7 @@ import { FormulaDialogMA } from "../formulasDialog/FormulaDialogMA";
 import { FormulaDialogMACA } from "../formulasDialog/FormulaDialogMACA";
 import axios from "axios";
 import { clearInfo } from "../genericComponents/GenericMethods";
+import { queries } from "../../queries";
 
 export const TabComponenteMA = ({
   edit,
@@ -503,7 +505,45 @@ export const TabComponenteMA = ({
               </List>
             </Grid>
           )}
-          <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
+          <Grid item
+                container
+                xl={11}
+                lg={11}
+                md={11}
+                sm={11}
+                xs={11}
+              >
+                <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  RESUMEN NARRATIVO
+                </InputLabel>
+                <TextField
+                  disabled={
+                    true
+                  }
+                  rows={3}
+                  sx={{
+                    boxShadow: 2,
+                    fontSize: [10, 10, 10, 15, 15, 18],
+                    width: "100%"
+                  }}
+                  variant={"filled"}
+
+                  InputLabelProps={{
+                    style: {
+                      fontFamily: "MontserratMedium",
+                    },
+                  }}
+                  InputProps={{
+                    style: {
+                      fontFamily: "MontserratRegular",
+                    },
+                  }}
+                  value={JSON.parse(MIR).componentes[componentSelect].resumen}
+
+                />
+
+              </Grid>
+          {/* <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
             <Typography
               sx={{
                 fontFamily: "MontserratSemiBold",
@@ -514,20 +554,90 @@ export const TabComponenteMA = ({
               {JSON.parse(MIR).componentes[componentSelect].resumen}
             </Typography>
             
-          </Grid>
+          </Grid> */}
+        <Grid item
+                container
+                xl={11}
+                lg={11}
+                md={11}
+                sm={11}
+                xs={11}
+              >
+                <FormControl required fullWidth>
+                <Autocomplete
+                clearText="Borrar"
+                noOptionsText="Sin opciones"
+                closeText="Cerrar"
+                openText="Abrir"
+                disabled={
+                  (MAEdit !== ""
+                    ? edit &&
+                      !MAEdit?.componentes[componentSelect].unidadResponsable
+                    : false) &&
+                  componentesValues[componentSelect]?.unidadResponsable !== ""
+                }
+                options={catalogoUnidadResponsable}
+                getOptionLabel={(option) => option.Label}
+                value={{
+                  Id: catalogoUnidadResponsable[0].Id || "",
+                  Label:
+                    componentesValues[componentSelect]?.unidadResponsable || "",
+                }}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.Id}>
+                      <p
+                        style={{
+                          fontFamily: "MontserratRegular",
+                          //fontSize: ".7vw",
+                        }}
+                      >
+                        {option.Label}
+                      </p>
+                    </li>
+                  );
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={"UNIDAD RESPONSABLE"}
+                    variant="standard"
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratSemiBold",
+                        // fontSize: "1vw",
+                      },
+                    }}
+                    sx={{
+                      "& .MuiAutocomplete-input": {
+                        fontFamily: "MontserratRegular",
+                        whiteSpace: "pre-wrap",
+                      },
+                    }}
+                  ></TextField>
+                )}
+                onChange={(event, value) => {
+                  componentesValues[componentSelect].unidadResponsable =
+                    value?.Label || "";
+                  setComponentesValues([...componentesValues]);
+                }}
+                isOptionEqualToValue={(option, value) => option.Id === value.Id}
+              />
+                </FormControl>
+
+              </Grid>
           <Grid
             item
-            xl={3}
-            lg={3}
-            md={2}
-            sm={2}
-            xs={12}
-            sx={{
-              alignContent: "center",
-              display: "flex",
-              justifyContent: "center",
-            }}
+            container
+            xl={2.5}
+            lg={2.5}
+            md={2.5}
+            sm={5}
+            xs={5}
           >
+            <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+              META ANUAL 2023
+            </InputLabel>
             <TextField
               disabled={
                 (MAEdit !== ""
@@ -535,18 +645,12 @@ export const TabComponenteMA = ({
                   : false) &&
                 componentesValues[componentSelect]?.metaAnual !== ""
               }
-              sx={{ boxShadow: 2 }}
+              sx={{
+                boxShadow: 2,
+                fontSize: [10, 10, 10, 15, 15, 18],
+              }}
               variant={"filled"}
-              label={
-                <Typography
-                  sx={{
-                    fontSize: [10, 10, 10, 15, 15, 18],
-                    fontFamily: "MontserratMedium",
-                  }}
-                >
-                  META ANUAL 2023
-                </Typography>
-              }
+
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -563,10 +667,10 @@ export const TabComponenteMA = ({
               value={componentesValues[componentSelect]?.metaAnual || ""}
               error={
                 parseFloat(componentesValues[componentSelect]?.metaAnual) < 0 ||
-                (componentesValues[componentSelect]?.metaAnual !==
-                  componentesValues[componentSelect]?.metasPorFrecuencia[0]
-                    ?.trimestre4 &&
-                  componentesValues[componentSelect]?.metaAnual !==
+                  (componentesValues[componentSelect]?.metaAnual !==
+                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
+                      ?.trimestre4 &&
+                    componentesValues[componentSelect]?.metaAnual !==
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
                       ?.semestre2)
                   ? true
@@ -574,15 +678,15 @@ export const TabComponenteMA = ({
               }
               helperText={
                 parseFloat(componentesValues[componentSelect]?.metaAnual) < 0 ||
-                (componentesValues[componentSelect]?.metaAnual !==
-                  componentesValues[componentSelect]?.metasPorFrecuencia[0]
-                    ?.trimestre4 &&
-                  componentesValues[componentSelect]?.metaAnual !==
+                  (componentesValues[componentSelect]?.metaAnual !==
+                    componentesValues[componentSelect]?.metasPorFrecuencia[0]
+                      ?.trimestre4 &&
+                    componentesValues[componentSelect]?.metaAnual !==
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
                       ?.semestre2)
                   ? JSON.parse(MIR).componentes[
-                      componentSelect
-                    ].frecuencia?.toLowerCase() === "trimestral"
+                    componentSelect
+                  ].frecuencia?.toLowerCase() === "trimestral"
                     ? "El valor de la meta anual debe coincidir con el valor del trimestre 4, verifica los valores"
                     : "El valor de la meta anual debe coincidir con el valor del semestre 2, verifica los valores"
                   : null
@@ -591,18 +695,17 @@ export const TabComponenteMA = ({
           </Grid>
 
           <Grid
-            item
-            xl={3}
-            lg={3}
-            md={2}
-            sm={2}
-            xs={12}
-            sx={{
-              alignContent: "center",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+                  item
+                  container
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={5}
+                  xs={5}
+                >
+                  <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  LÍNEA BASE 2021
+                  </InputLabel>
             <TextField
               disabled={
                 (MAEdit !== ""
@@ -610,18 +713,12 @@ export const TabComponenteMA = ({
                   : false) &&
                 componentesValues[componentSelect]?.lineaBase !== ""
               }
-              sx={{ boxShadow: 2 }}
+              sx={{
+                      boxShadow: 2,
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                    }}
               variant={"filled"}
-              label={
-                <Typography
-                  sx={{
-                    fontSize: [10, 10, 10, 15, 15, 18],
-                    fontFamily: "MontserratMedium",
-                  }}
-                >
-                  LÍNEA BASE 2021
-                </Typography>
-              }
+              
               error={
                 (parseFloat(componentesValues[componentSelect]?.lineaBase) <
                   0 ||
@@ -666,19 +763,18 @@ export const TabComponenteMA = ({
           JSON.parse(MIR)
             .componentes[componentSelect].indicador.toLowerCase()
             .includes("índice") ? (
-            <Grid
+              <Grid
               item
-              xl={3}
-              lg={3}
-              md={2}
-              sm={2}
-              xs={12}
-              sx={{
-                alignContent: "center",
-                display: "flex",
-                justifyContent: "center",
-              }}
+              container
+              xl={2.5}
+              lg={2.5}
+              md={2.5}
+              sm={5}
+              xs={5}
             >
+              <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+              ÍNDICE
+              </InputLabel>
               <TextField
                 disabled={
                   (MAEdit !== ""
@@ -687,20 +783,11 @@ export const TabComponenteMA = ({
                     : false) &&
                   componentesValues[componentSelect]?.valorNumerador !== ""
                 }
-                sx={{ boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  // fontSize: [10, 10, 10, 15, 15, 18]
-                  //fontSize: [10, 10, 10, 11, 12, 13]
-                  <Typography
-                    sx={{
+                sx={{
+                      boxShadow: 2,
                       fontSize: [10, 10, 10, 15, 15, 18],
-                      fontFamily: "MontserratMedium",
                     }}
-                  >
-                    ÍNDICE
-                  </Typography>
-                }
+                variant={"filled"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -719,19 +806,17 @@ export const TabComponenteMA = ({
             </Grid>
           ) : (
             <Grid
-              item
-              xl={3}
-              lg={3}
-              md={2}
-              sm={2}
-              xs={12}
-              sx={{
-                alignContent: "center",
-                display: "flex",
-                justifyContent: "center",
-                columnGap: 2,
-              }}
-            >
+                  item
+                  container
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={5}
+                  xs={5}
+                >
+                  <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  NUMERADOR
+                  </InputLabel>
               <TextField
                 disabled={
                   (MAEdit !== ""
@@ -745,16 +830,6 @@ export const TabComponenteMA = ({
                   // mr: "2%"
                 }}
                 variant={"filled"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [10, 10, 10, 15, 15, 18],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    NUMERADOR
-                  </Typography>
-                }
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -770,6 +845,9 @@ export const TabComponenteMA = ({
                 }
                 value={componentesValues[componentSelect]?.valorNumerador || ""}
               />
+              <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  DENOMINADOR
+                  </InputLabel>
               <TextField
                 disabled={
                   (MAEdit !== ""
@@ -778,18 +856,11 @@ export const TabComponenteMA = ({
                     : false) &&
                   componentesValues[componentSelect]?.valorDenominador !== ""
                 }
-                sx={{ boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{
+                sx={{
+                      boxShadow: 2,
                       fontSize: [10, 10, 10, 15, 15, 18],
-                      fontFamily: "MontserratMedium",
                     }}
-                  >
-                    DENOMINADOR
-                  </Typography>
-                }
+                variant={"filled"}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratMedium",
@@ -810,19 +881,20 @@ export const TabComponenteMA = ({
             </Grid>
           )}
 
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            md={2}
-            sm={2}
-            xs={12}
-            sx={{
-              alignContent: "center",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+<Grid
+                  item
+                  container
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={5}
+                  xs={5}
+                >
+                  <InputLabel
+                sx={{ ...queries.medium_text, width: '100%' }}
+                    >
+                      SENTIDO DEL INDICADOR
+                    </InputLabel>
             <FormControl
               disabled={
                 (MAEdit !== ""
@@ -835,18 +907,10 @@ export const TabComponenteMA = ({
                 backgroundColor: "#f0f0f0",
                 boxShadow: 6,
                 fontFamily: "MontserratMedium",
-                justifyContent: "space-evenly",
-                alignItems: "flex-start",
+                justifyContent: "center",
+                alignItems: "center",width:'100%'
               }}
             >
-              <FormLabel
-                sx={{
-                  fontFamily: "MontserratBold",
-                  fontSize: [10, 10, 10, 11, 12, 13],
-                }}
-              >
-                SENTIDO DEL INDICADOR
-              </FormLabel>
               <FormControlLabel
                 value={"ASCENDENTE"}
                 label={
@@ -947,18 +1011,17 @@ export const TabComponenteMA = ({
               }}
             >
               <Grid
-                item
-                xl={12}
-                lg={12}
-                md={12}
-                sm={12}
-                xs={12}
-                sx={{
-                  alignContent: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
+                  item
+                  container
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={5}
+                  xs={5}
+                >
+                  <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  TRIMESTRE 1
+                  </InputLabel>
                 <TextField
                   disabled={
                     (MAEdit !== ""
@@ -969,20 +1032,13 @@ export const TabComponenteMA = ({
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
                       ?.trimestre1 !== ""
                   }
-                  sx={{ boxShadow: 2 }}
+                  sx={{
+                      boxShadow: 2,
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                    }}
                   variant={"filled"}
                   onClick={() =>
                      handleClickOpen2()
-                  }
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [10, 10, 10, 15, 15, 18],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      TRIMESTRE 1
-                    </Typography>
                   }
                   value={
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
@@ -1002,18 +1058,17 @@ export const TabComponenteMA = ({
               </Grid>
 
               <Grid
-                item
-                xl={12}
-                lg={12}
-                md={12}
-                sm={12}
-                xs={12}
-                sx={{
-                  alignContent: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
+                  item
+                  container
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={5}
+                  xs={5}
+                >
+                  <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  TRIMESTRE 2
+                  </InputLabel>
                 <TextField
                   disabled={
                     (MAEdit !== ""
@@ -1024,20 +1079,13 @@ export const TabComponenteMA = ({
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
                       ?.trimestre2 !== ""
                   }
-                  sx={{ boxShadow: 2 }}
+                  sx={{
+                      boxShadow: 2,
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                    }}
                   variant={"filled"}
                   onClick={() =>
                      handleClickOpen2()
-                  }
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [10, 10, 10, 15, 15, 18],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      TRIMESTRE 2
-                    </Typography>
                   }
                   value={
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
@@ -1057,18 +1105,17 @@ export const TabComponenteMA = ({
               </Grid>
 
               <Grid
-                item
-                xl={12}
-                lg={12}
-                md={12}
-                sm={12}
-                xs={12}
-                sx={{
-                  alignContent: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
+                  item
+                  container
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={5}
+                  xs={5}
+                >
+                  <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  TRIMESTRE 3
+                  </InputLabel>
                 <TextField
                   disabled={
                     (MAEdit !== ""
@@ -1079,20 +1126,13 @@ export const TabComponenteMA = ({
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
                       ?.trimestre3 !== ""
                   }
-                  sx={{ boxShadow: 2 }}
+                  sx={{
+                      boxShadow: 2,
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                    }}
                   variant={"filled"}
                   onClick={() =>
                      handleClickOpen2()
-                  }
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [10, 10, 10, 15, 15, 18],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      TRIMESTRE 3
-                    </Typography>
                   }
                   value={
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
@@ -1112,18 +1152,17 @@ export const TabComponenteMA = ({
               </Grid>
 
               <Grid
-                item
-                xl={12}
-                lg={12}
-                md={12}
-                sm={12}
-                xs={12}
-                sx={{
-                  alignContent: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
+                  item
+                  container
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={5}
+                  xs={5}
+                >
+                  <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  TRIMESTRE 4
+                  </InputLabel>
                 <TextField
                   disabled={
                     (MAEdit !== ""
@@ -1134,20 +1173,13 @@ export const TabComponenteMA = ({
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
                       ?.trimestre4 !== ""
                   }
-                  sx={{ boxShadow: 2 }}
+                  sx={{
+                      boxShadow: 2,
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                    }}
                   variant={"filled"}
                   onClick={() =>
                     handleClickOpen2()
-                  }
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [10, 10, 10, 15, 15, 18],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      TRIMESTRE 4
-                    </Typography>
                   }
                   value={
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
@@ -1183,18 +1215,17 @@ export const TabComponenteMA = ({
             >
               
               <Grid
-                item
-                xl={12}
-                lg={12}
-                md={12}
-                sm={12}
-                xs={12}
-                sx={{
-                  alignContent: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
+                  item
+                  container
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={5}
+                  xs={5}
+                >
+                  <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  SEMESTRE 1
+                  </InputLabel>
                 <TextField
                   disabled={
                     (MAEdit !== ""
@@ -1205,20 +1236,13 @@ export const TabComponenteMA = ({
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
                       ?.semestre1 !== ""
                   }
-                  sx={{ boxShadow: 2 }}
+                  sx={{
+                      boxShadow: 2,
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                    }}
                   variant={"filled"}
                   onClick={() =>
                      handleClickOpen2()
-                  }
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [10, 10, 10, 15, 15, 18],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      SEMESTRE 1
-                    </Typography>
                   }
                   value={
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
@@ -1238,18 +1262,17 @@ export const TabComponenteMA = ({
               </Grid>
 
               <Grid
-                item
-                xl={12}
-                lg={12}
-                md={12}
-                sm={12}
-                xs={12}
-                sx={{
-                  alignContent: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
+                  item
+                  container
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={5}
+                  xs={5}
+                >
+                  <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  SEMESTRE 2
+                  </InputLabel>
                 <TextField
                   disabled={
                     (MAEdit !== ""
@@ -1260,20 +1283,13 @@ export const TabComponenteMA = ({
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
                       ?.semestre2 !== ""
                   }
-                  sx={{ boxShadow: 2 }}
+                  sx={{
+                      boxShadow: 2,
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                    }}
                   variant={"filled"}
                   onClick={() =>
                      handleClickOpen2()
-                  }
-                  label={
-                    <Typography
-                      sx={{
-                        fontSize: [10, 10, 10, 15, 15, 18],
-                        fontFamily: "MontserratMedium",
-                      }}
-                    >
-                      SEMESTRE 2
-                    </Typography>
                   }
                   value={
                     componentesValues[componentSelect]?.metasPorFrecuencia[0]
@@ -1294,95 +1310,19 @@ export const TabComponenteMA = ({
             </Grid>
           )}
 
-          <Grid
-            item
-            xl={2}
-            lg={2}
-            md={4}
-            sm={4}
-            xs={11}
-            sx={{
-              alignContent: "center",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <FormControl required fullWidth>
-              <Autocomplete
-                clearText="Borrar"
-                noOptionsText="Sin opciones"
-                closeText="Cerrar"
-                openText="Abrir"
-                disabled={
-                  (MAEdit !== ""
-                    ? edit &&
-                      !MAEdit?.componentes[componentSelect].unidadResponsable
-                    : false) &&
-                  componentesValues[componentSelect]?.unidadResponsable !== ""
-                }
-                options={catalogoUnidadResponsable}
-                getOptionLabel={(option) => option.Label}
-                value={{
-                  Id: catalogoUnidadResponsable[0].Id || "",
-                  Label:
-                    componentesValues[componentSelect]?.unidadResponsable || "",
-                }}
-                renderOption={(props, option) => {
-                  return (
-                    <li {...props} key={option.Id}>
-                      <p
-                        style={{
-                          fontFamily: "MontserratRegular",
-                          //fontSize: ".7vw",
-                        }}
-                      >
-                        {option.Label}
-                      </p>
-                    </li>
-                  );
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={"UNIDAD RESPONSABLE"}
-                    variant="standard"
-                    InputLabelProps={{
-                      style: {
-                        fontFamily: "MontserratSemiBold",
-                        // fontSize: "1vw",
-                      },
-                    }}
-                    sx={{
-                      "& .MuiAutocomplete-input": {
-                        fontFamily: "MontserratRegular",
-                        whiteSpace: "pre-wrap",
-                      },
-                    }}
-                  ></TextField>
-                )}
-                onChange={(event, value) => {
-                  componentesValues[componentSelect].unidadResponsable =
-                    value?.Label || "";
-                  setComponentesValues([...componentesValues]);
-                }}
-                isOptionEqualToValue={(option, value) => option.Id === value.Id}
-              />
-            </FormControl>{" "}
-          </Grid>
 
           <Grid
-            item
-            xl={2}
-            lg={2}
-            md={2}
-            sm={2}
-            xs={12}
-            sx={{
-              alignContent: "center",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+                  item
+                  container
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={5}
+                  xs={5}
+                >
+                  <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  DESCRIPCIÓN DEL INDICADOR
+                  </InputLabel>
             <TextField
               disabled={
                 (MAEdit !== ""
@@ -1392,19 +1332,11 @@ export const TabComponenteMA = ({
               }
               rows={5}
               multiline
-              sx={{ boxShadow: 2 }}
+              sx={{
+                      boxShadow: 2,
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                    }}
               variant={"filled"}
-              label={
-                <Typography
-                  sx={{
-                    fontSize: [10, 10, 10, 15, 15, 18],
-                    fontFamily: "MontserratMedium",
-                    whiteSpace: "pre-wrap",
-                  }}
-                >
-                  DESCRIPCIÓN DEL INDICADOR
-                </Typography>
-              }
               value={initialPadding+componentesValues[componentSelect]?.descIndicador || ""}
               onChange={(c) => {
                 componentesValues[componentSelect].descIndicador =
@@ -1425,18 +1357,17 @@ export const TabComponenteMA = ({
           </Grid>
 
           <Grid
-            item
-            xl={3}
-            lg={3}
-            md={2}
-            sm={2}
-            xs={12}
-            sx={{
-              alignContent: "center",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+                  item
+                  container
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={5}
+                  xs={5}
+                >
+                  <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  DESCRIPCIÓN DEL NUMERADOR
+                  </InputLabel>
             <TextField
               disabled={
                 (MAEdit !== ""
@@ -1446,19 +1377,11 @@ export const TabComponenteMA = ({
               }
               rows={5}
               multiline
-              sx={{ boxShadow: 2 }}
+              sx={{
+                      boxShadow: 2,
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                    }}
               variant={"filled"}
-              label={
-                <Typography
-                  sx={{
-                    fontSize: [10, 10, 10, 15, 15, 18],
-                    fontFamily: "MontserratMedium",
-                    whiteSpace: "pre-wrap",
-                  }}
-                >
-                  DESCRIPCIÓN DEL NUMERADOR
-                </Typography>
-              }
               value={initialPadding+componentesValues[componentSelect]?.descNumerador || ""}
               onChange={(c) => {
                 componentesValues[componentSelect].descNumerador =
@@ -1479,18 +1402,17 @@ export const TabComponenteMA = ({
           </Grid>
 
           <Grid
-            item
-            xl={3}
-            lg={3}
-            md={2}
-            sm={2}
-            xs={12}
-            sx={{
-              alignContent: "center",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+                  item
+                  container
+                  xl={2.5}
+                  lg={2.5}
+                  md={2.5}
+                  sm={5}
+                  xs={5}
+                >
+                  <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+                  DESCRIPCIÓN DEL DENOMINADOR
+                  </InputLabel>
             <TextField
               disabled={
                 (MAEdit !== ""
@@ -1501,19 +1423,11 @@ export const TabComponenteMA = ({
               }
               rows={5}
               multiline
-              sx={{ boxShadow: 2 }}
+              sx={{
+                      boxShadow: 2,
+                      fontSize: [10, 10, 10, 15, 15, 18],
+                    }}
               variant={"filled"}
-              label={
-                <Typography
-                  sx={{
-                    fontSize: [10, 10, 10, 15, 15, 18],
-                    fontFamily: "MontserratMedium",
-                    whiteSpace: "pre-wrap",
-                  }}
-                >
-                  DESCRIPCIÓN DEL DENOMINADOR
-                </Typography>
-              }
               value={initialPadding+componentesValues[componentSelect]?.descDenominador || ""}
               onChange={(c) => {
                 componentesValues[componentSelect].descDenominador =
