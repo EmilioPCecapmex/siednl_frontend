@@ -7,6 +7,7 @@ import "./Globals.css";
 import { continueSession, sessionValid } from "./funcs/validation";
 import Ayuda from "./screens/Ayuda/Ayuda";
 import { PanelUsuarios } from "./screens/config/PanelUsuarios";
+import { PanelCorreos } from "./screens/config/PanelCorreos";
 import { Settings } from "./screens/config/Settings";
 import { E404 } from "./screens/e404/E404";
 import { Home } from "./screens/home/Home";
@@ -62,6 +63,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="home" element={<Home />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="correos" element={<PanelCorreos />} />
         <Route path="users" element={<PanelUsuarios />} />
         <Route path="*" element={<E404 />} />
         <Route path="fichaTecnica" element={<FichaTecnica />} />

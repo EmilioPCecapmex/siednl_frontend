@@ -8,13 +8,14 @@ export const SettingsCard = ({ showConfig }: { showConfig: Function }) => {
     { id: 1, label: "Años Fiscales" },
     { id: 2, label: "Beneficiarios" },
     { id: 3, label: "Clasificación Programática" },
-    { id: 4, label: "Dimensiones del Indicador" },
-    { id: 5, label: "Ejes" },
-    { id: 6, label: "Ejes del Plan Nacional de Desarrollo" },
-    { id: 7, label: "Estrategias" },
-    { id: 8, label: "Fechas de Captura" },
-    { id: 9, label: "Fórmulas" },
-    { id: 10, label: "Frecuencias" },
+    { id: 4, label: "Correos Electrónicos" },
+    { id: 5, label: "Dimensiones del Indicador" },
+    { id: 6, label: "Ejes" },
+    { id: 7, label: "Ejes del Plan Nacional de Desarrollo" },
+    { id: 8, label: "Estrategias" },
+    { id: 9, label: "Fechas de Captura" },
+    { id: 10, label: "Fórmulas" },
+    { id: 11, label: "Frecuencias" },
     //{ id: 11, label: "Instituciones" },
     { id: 12, label: "Lineas de Acción" },
     { id: 13, label: "Metas ODS" },
@@ -38,6 +39,9 @@ export const SettingsCard = ({ showConfig }: { showConfig: Function }) => {
   const navigationOptions = (value: number, label: string) => {
     if (value === 25) {
       navigate("../users");
+    } else 
+    if (value === 4){
+      navigate("../correos");
     } else {
       showConfig(label);
     }
