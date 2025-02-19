@@ -11,6 +11,8 @@ import {
   IconButton,
   Tooltip,
   useMediaQuery,
+  InputLabel,
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 //import { IAI } from "../../screens/InterfacesActividadesInstitucionales";
@@ -19,6 +21,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { IAccion } from "./IAccion1";
 import { clearInfo } from "../genericComponents/GenericMethods";
+import { queries } from "../../queries";
 export function TabAccion1({
   AI,
   noAcciones,
@@ -61,40 +64,246 @@ export function TabAccion1({
     setOpenFormulaDialog(true);
   };
 
-  const evalueTxtIndicador = () => {
+  const evalueTxtIndicador = (dato: string) => {
     const cIndicador =
-      AI.acciones[componentSelect - 1].nombreIndicador?.toLowerCase();
+      // jsonMIR.componentes[componentSelect - 1].indicador?.toLowerCase();
+      "1";
     if (cIndicador !== undefined) {
-      if (cIndicador.includes("porcentaje" || "PORCENTAJE")) {
+      if (cIndicador.includes("porcentaje")) {
         setTipoFormula("Porcentaje");
-        setElementoFormula("Componente " + componentSelect.toString());
+        setElementoFormula(dato);
         handleClickOpen();
         setErrorIndicador(-1);
       } else if (cIndicador.includes("tasa")) {
         setTipoFormula("Tasa");
-        setElementoFormula("Componente " + componentSelect.toString());
+        setElementoFormula(dato);
         handleClickOpen();
         setErrorIndicador(-1);
-      } else if (cIndicador.includes("indice" || "índice" || "Índice")) {
+      } else if (cIndicador.includes("indice" || "índice")) {
         setTipoFormula("Índice");
-        setElementoFormula("Componente " + componentSelect.toString());
+        setElementoFormula(dato);
         handleClickOpen();
         setErrorIndicador(-1);
       } else if (cIndicador.includes("promedio")) {
         setTipoFormula("Promedio");
-        setElementoFormula("Componente " + componentSelect.toString());
+        setElementoFormula(dato);
         handleClickOpen();
         setErrorIndicador(-1);
       } else {
         setErrorIndicador(componentSelect - 1);
-        let prevLocal = [...AI.acciones];
-        prevLocal[componentSelect - 1].nombreIndicador = "";
-        setAcciones(prevLocal);
+        // let prevLocal = [...jsonRF.componentes];
+        // prevLocal[componentSelect - 1].indicador = "";
+        // setComponentesValues(prevLocal);
       }
     }
   };
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const dateSem = [new Date("2023-06-30"), new Date("2023-12-31")];
+  const dateTrim = [
+    new Date("2023-03-31"),
+    new Date("2023-06-30"),
+    new Date("2023-09-30"),
+    new Date("2023-12-31"),
+  ];
+  
+  const d1 = "",
+    d2 = "",
+    d3 = "",
+    d4 = "",
+    r1 = "",
+    r2 = "",
+    r3 = "",
+    r4 = "";
+  
+  const GridTablePer = ({ periodo }: { periodo: string }) => {
+    return (
+      <div
+        className="grid-container"
+        style={{
+          backgroundColor: "lightgray",
+          boxShadow: "1px 2px 2px",
+          textAlign: "center",
+          width: "100%",
+        }}
+      >
+        <table style={{ width: "100%", textAlign: "center" }}>
+          <thead style={{ width: "100%", textAlign: "center" }}>
+            <tr>
+              <th style={{ textAlign: "center" }}>{periodo}</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    );
+  };
+  
+  const GridTableTrim = ({
+    d1,
+    d2,
+    d3,
+    d4,
+  }: {
+    d1: string;
+    d2: string;
+    d3: string;
+    d4: string;
+  }) => {
+    return (
+      <div className="grid-container" style={{ width: "100%" }}>
+        <table style={{ width: "100%" }}>
+          <thead
+            style={{
+              backgroundColor: "lightgray",
+              boxShadow: "1px 2px 2px",
+              textAlign: "center",
+            }}
+          >
+            <tr>
+              <th>I</th>
+              <th>II</th>
+              <th>III</th>
+              <th>IV</th>
+            </tr>
+          </thead>
+          <tbody style={{ width: "100%", textAlign: "center" }}>
+            <tr>
+              <td>{d1}</td>
+              <td>{d2}</td>
+              <td>{d3}</td>
+              <td>{d4}</td>
+            </tr>
+            {/* <tr>
+              <td>100</td>
+              <td>100</td>
+              <td>100</td>
+              <td><input></input></td>
+            </tr> */}
+          </tbody>
+        </table>
+      </div>
+    );
+  };
+  
+  const GridTableSem = ({ d1, d2 }: { d1: string; d2: string }) => {
+    return (
+      <div className="grid-container" style={{ width: "100%" }}>
+        <table style={{ width: "100%" }}>
+          <thead
+            style={{
+              backgroundColor: "lightgray",
+              boxShadow: "1px 2px 2px",
+              textAlign: "center",
+            }}
+          >
+            <tr>
+              <th>I</th>
+              <th>II</th>
+            </tr>
+          </thead>
+          <tbody style={{ width: "100%", textAlign: "center" }}>
+            <tr>
+              <td>{d1}</td>
+              <td>{d2}</td>
+            </tr>
+            {/* <tr>
+              <td>100</td>
+              <td>100</td>
+              <td>100</td>
+              <td><input></input></td>
+            </tr> */}
+          </tbody>
+        </table>
+      </div>
+    );
+  };
+  
+  const Logmensaje = ({ d1 }: { d1: string }) => {
+    return <div></div>;
+  };
+  const GridTableMetasTitulo = () => {
+    return (
+      <div
+        style={{
+          backgroundColor: "lightgray",
+          boxShadow: "1px 2px 2px",
+          textAlign: "center",
+          width: "100%",
+        }}
+      >
+        <table style={{ width: "100%", textAlign: "center" }}>
+          <thead style={{ width: "100%", textAlign: "center" }}>
+            <tr>
+              <th style={{ width: "100%", textAlign: "center" }}>METAS</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    );
+  };
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <Grid
@@ -257,78 +466,13 @@ export function TabAccion1({
             </List>
           )}
 
+          
           <Grid
             item
-            xl={4}
-            lg={4}
-            md={4}
-            sm={4}
-            xs={11}
-            sx={{
-              //alignContent: "center",
-              display: "flex",
-
-              //justifyContent: "center",
-              justifyContent: ["center", "flex-end", "flex-end", "flex-end", "flex-end"],
-
-              alignItems: "center",
-              //backgroundColor: "blue"
-            }}
-          >
-            <Tooltip title="RESUMEN">
-              <InfoOutlinedIcon
-                fontSize="large"
-                sx={{ cursor: "pointer" }}
-              ></InfoOutlinedIcon>
-            </Tooltip>
-            <Typography
-              sx={{
-                fontFamily: "MontserratBold",
-                fontSize: ["2vh", "2vh", "2vh", "3vh", "4vh", "4vh"],
-              }}
-            >
-              Datos de la linea de las metas
-            </Typography>
-          </Grid>
-
-          <Grid
-            item
-            xl={4}
-            lg={4}
-            md={4}
-            sm={4}
-            xs={11}
-            sx={{
-              //alignContent: "center",
-              display: "flex",
-              //justifyContent: "center",
-              justifyContent: ["center", "flex-end", "flex-end", "flex-end", "flex-end"],
-              alignItems: "center",
-              //backgroundColor: "blue"
-            }}
-          >
-            <Tooltip title="RESUMEN">
-              <InfoOutlinedIcon
-                fontSize="large"
-                sx={{ cursor: "pointer" }}
-              ></InfoOutlinedIcon>
-            </Tooltip>
-            <Typography
-              sx={{
-                fontFamily: "MontserratBold",
-                fontSize: ["2vh", "2vh", "2vh", "3vh", "4vh", "4vh"],
-              }}
-            >
-              Acción - Datos del Indicador
-            </Typography>
-          </Grid>
-
-          <Grid
-            item
-            xl={4}
-            lg={4}
-            md={4}
-            sm={4}
+            xl={11}
+            lg={11}
+            md={11}
+            sm={11}
             xs={11}
             sx={{
               //alignContent: "center",
@@ -483,9 +627,9 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               sx={{ boxShadow: 2 }}
               label={"Fórmula de Cálculo"}
-              onClick={() => {
-                evalueTxtIndicador();
-              }}
+              // onClick={() => {
+              //   evalueTxtIndicador();
+              // }}
               value={acciones[componentSelect - 1]?.formula}
             />
           </Grid>
@@ -513,7 +657,7 @@ export function TabAccion1({
               }}
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               sx={{ boxShadow: 2 }}
-              label={"Numerador"}
+              label={"MV / FI"}
               onChange={(c) => {
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].numerador = clearInfo(c.target.value)
@@ -542,7 +686,7 @@ export function TabAccion1({
               rows={4}
               variant="filled"
               sx={{ boxShadow: 2 }}
-              label={"Unidad de Medida"}
+              label={"Frecuencia"}
               InputLabelProps={{
                 style: { fontFamily: "MontserratSemiBold" },
               }}
@@ -575,7 +719,7 @@ export function TabAccion1({
               rows={4}
               variant="filled"
               sx={{ boxShadow: 2 }}
-              label={"Medio de Verificación / Fuente de Información"}
+              label={"Unidad de medida"}
               InputLabelProps={{
                 style: { fontFamily: "MontserratSemiBold" },
               }}
@@ -608,7 +752,7 @@ export function TabAccion1({
               rows={4}
               variant="filled"
               sx={{ boxShadow: 2 }}
-              label={"Denominador"}
+              label={"Sentido"}
               InputLabelProps={{
                 style: { fontFamily: "MontserratSemiBold" },
               }}
@@ -641,7 +785,7 @@ export function TabAccion1({
               rows={4}
               variant="filled"
               sx={{ boxShadow: 2 }}
-              label={"Unidad de Medida"}
+              label={"Frecuencia"}
               InputLabelProps={{
                 style: { fontFamily: "MontserratSemiBold" },
               }}
@@ -687,21 +831,441 @@ export function TabAccion1({
               value={acciones[componentSelect - 1]?.medio_fuente2}
             />
           </Grid>
+          
+          
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          {/* <Grid
+            container
+            item
+            sx={{ display: "flex", justifyContent: "center" }}
+            xs={12}
+          >
+            <Grid item xs={6}>
+              <GridTablePer
+                periodo={
+                  "METAS POR FRECUENCIA"
+                }
+              />
+            </Grid>
+          </Grid> */}
+
+          
+          
+                <TableContainer sx={{ width: "75vw", overflow: "auto"}}
+                  
+                >
+                  <Table size="small" sx={{ width: "100%" }} >
+                  <TableHead sx={{ position: "sticky", top: 0, backgroundColor: "#ccc", zIndex: 2 }}>
+                  <TableRow>
+                    <TableCell sx={{ fontWeight: "bold", textAlign: "center", border: "1px solid #ddd" }} colSpan={7}>METAS POR FRECUENCIA</TableCell>
+                  </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ fontWeight: "bold", textAlign: "center", border: "1px solid #ddd" }}>CONCEPTO</TableCell>
+                      <TableCell sx={{ fontWeight: "bold", textAlign: "center", border: "1px solid #ddd" }}>LÍNEA BASE 2021</TableCell>
+                      <TableCell sx={{ fontWeight: "bold", textAlign: "center", border: "1px solid #ddd" }}>DATO I</TableCell>
+                      <TableCell sx={{ fontWeight: "bold", textAlign: "center", border: "1px solid #ddd" }}>DATO II</TableCell>
+                      <TableCell sx={{ fontWeight: "bold", textAlign: "center", border: "1px solid #ddd" }}>DATO III</TableCell>
+                      <TableCell sx={{ fontWeight: "bold", textAlign: "center", border: "1px solid #ddd" }}>DATO IV</TableCell>
+                      <TableCell sx={{ fontWeight: "bold", textAlign: "center", border: "1px solid #ddd" }}>ANUAL</TableCell>
+                    </TableRow>
+                  </TableHead>
+                    <TableBody>
+                      
+
+
+                      <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
+                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "5px", flex: 1 }}>
+                        <TextField sx={{ width: "100%" }}
+                            // disabled={new Date()>dateTrim[0]}
+                            value={
+                              
+                                "VALOR"
+                              
+                            }
+                            
+                            
+                          />
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "2px", flex: 1 }}>
+                          <TextField sx={{ width: "100%" }}
+                            // disabled={new Date()>dateTrim[0]}
+                            variant={"filled"}
+                            label={
+                              <Typography
+                                sx={{
+                                  fontSize: "0.7vw",
+                                  fontFamily: "MontserratMedium",
+                                }}
+                              >
+                                DATO I
+                              </Typography>
+                            }
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratMedium",
+                              },
+                            }}
+                            InputProps={{
+                              style: {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                            onClick={() =>
+                              evalueTxtIndicador("DATO I,trimestre1")
+                            }
+                            value={
+                              // componentesValues[componentSelect - 1]
+                              //   ?.metasPorFrecuencia[0]?.trimestre1 || ""
+                              1
+                            }
+                          />
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "2px", flex: 1 }}>
+                          <TextField sx={{ width: "100%" }}
+                            // disabled={new Date()>dateTrim[1]}
+                            variant={"filled"}
+                            label={
+                              <Typography
+                                sx={{
+                                  fontSize: "0.7vw",
+                                  fontFamily: "MontserratMedium",
+                                }}
+                              >
+                                DATO II
+                              </Typography>
+                            }
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratMedium",
+                              },
+                            }}
+                            InputProps={{
+                              style: {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                            onClick={() =>
+                              evalueTxtIndicador("DATO II,trimestre2")
+                            }
+                            value={
+                              // componentesValues[componentSelect - 1]
+                              //   ?.metasPorFrecuencia[0]?.trimestre2 || ""
+                              2
+                            }
+                          />
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "2px", flex: 1 }}>
+                          <TextField sx={{ width: "100%" }}
+                            // disabled={new Date()>dateTrim[2]}
+                            variant={"filled"}
+                            label={
+                              <Typography
+                                sx={{
+                                  fontSize: "0.7vw",
+                                  fontFamily: "MontserratMedium",
+                                }}
+                              >
+                                DATO III
+                              </Typography>
+                            }
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratMedium",
+                              },
+                            }}
+                            InputProps={{
+                              style: {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                            onClick={() =>
+                              evalueTxtIndicador("DATO III,trimestre3")
+                            }
+                            value={
+                              // componentesValues[componentSelect - 1]
+                              //   ?.metasPorFrecuencia[0]?.trimestre3 || ""
+                              3
+                            }
+                          />
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "2px", flex: 1 }}>
+                          <TextField sx={{ width: "100%" }}
+                            // disabled={new Date()>dateTrim[3]}
+                            variant={"filled"}
+                            label={
+                              <Typography
+                                sx={{
+                                  fontSize: "0.7vw",
+                                  fontFamily: "MontserratMedium",
+                                }}
+                              >
+                                DATO IV
+                              </Typography>
+                            }
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratMedium",
+                              },
+                            }}
+                            InputProps={{
+                              style: {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                            onClick={() =>
+                              evalueTxtIndicador("DATO IV,trimestre4")
+                            }
+                            value={
+                              // componentesValues[componentSelect - 1]
+                              //   ?.metasPorFrecuencia[0]?.trimestre4 || ""
+                              4
+                            }
+                          />
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "2px", flex: 1 }}>
+                          <TextField sx={{ width: "100%" }}
+                            // disabled={new Date()>dateTrim[3]}
+                            variant={"filled"}
+                            label={
+                              <Typography
+                                sx={{
+                                  fontSize: "0.7vw",
+                                  fontFamily: "MontserratMedium",
+                                }}
+                              >
+                                DATO IV
+                              </Typography>
+                            }
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratMedium",
+                              },
+                            }}
+                            InputProps={{
+                              style: {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                            onClick={() =>
+                              evalueTxtIndicador("DATO IV,trimestre4")
+                            }
+                            value={
+                              // componentesValues[componentSelect - 1]
+                              //   ?.metasPorFrecuencia[0]?.trimestre4 || ""
+                              4
+                            }
+                          />
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "2px", flex: 1 }}>
+                          <TextField sx={{ width: "100%" }}
+                            // disabled={new Date()>dateTrim[3]}
+                            variant={"filled"}
+                            label={
+                              <Typography
+                                sx={{
+                                  fontSize: "0.7vw",
+                                  fontFamily: "MontserratMedium",
+                                }}
+                              >
+                                ANUAL
+                              </Typography>
+                            }
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratMedium",
+                              },
+                            }}
+                            InputProps={{
+                              style: {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                            onClick={() =>
+                              evalueTxtIndicador("DATO IV,trimestre4")
+                            }
+                            value={
+                              // componentesValues[componentSelect - 1]
+                              //   ?.metasPorFrecuencia[0]?.trimestre4 || ""
+                              4
+                            }
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              {/* // ) : (
+              //   <div
+              //     className="grid-container"
+              //     style={{ width: "100%", textAlign: "center" }}
+              //   >
+              //     <table style={{ width: "100%" }}>
+              //       <tbody>
+              //         <tr style={{ borderColor: "black" }}>
+              //           <td style={{ width: "25%" }}>
+              //             <TextField
+                           
+              //               variant={"filled"}
+              //               label={
+              //                 <Typography
+              //                   sx={{
+              //                     fontSize: "0.7vw",
+              //                     fontFamily: "MontserratMedium",
+              //                   }}
+              //                 >
+              //                   DATO I
+              //                 </Typography>
+              //               }
+              //               InputLabelProps={{
+              //                 style: {
+              //                   fontFamily: "MontserratMedium",
+              //                 },
+              //               }}
+              //               InputProps={{
+              //                 style: {
+              //                   fontFamily: "MontserratRegular",
+              //                 },
+              //               }}
+              //               onClick={() =>
+              //                 evalueTxtIndicador("DATO I,semestre1")
+              //               }
+                            
+              //               value={
+              //                 componentesValues[componentSelect - 1]
+              //                   ?.metasPorFrecuencia[0]?.semestre1 || ""
+              //               }
+              //             />
+              //           </td>
+              //           <td style={{ width: "25%" }}>
+              //             <TextField
+              //               disabled={new Date() > dateSem[1]}
+              //               variant={"filled"}
+              //               label={
+              //                 <Typography
+              //                   sx={{
+              //                     fontSize: "0.7vw",
+              //                     fontFamily: "MontserratMedium",
+              //                   }}
+              //                 >
+              //                   DATO II
+              //                 </Typography>
+              //               }
+              //               onClick={() =>
+              //                 evalueTxtIndicador("DATO II,semestre2")
+              //               }
+              //               InputLabelProps={{
+              //                 style: {
+              //                   fontFamily: "MontserratMedium",
+              //                 },
+              //               }}
+              //               InputProps={{
+              //                 style: {
+              //                   fontFamily: "MontserratRegular",
+              //                 },
+              //               }}
+              //               value={
+              //                 componentesValues[componentSelect - 1]
+              //                   ?.metasPorFrecuencia[0]?.semestre2 || ""
+              //               }
+              //             />
+              //           </td>
+              //         </tr>
+              //       </tbody>
+              //     </table>
+              //   </div>
+              // )} */}
+            </Grid>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
           {/* ---------------------------------------------------------------------------------------------------------------------------- */}
         </Grid>
       </Grid>
-    </Grid>
+    
+   
   );
 }
 
 export default TabAccion1;
 
-const top100Films = () => [
-  "Lorem ipsum dolor",
-  "Sit amet consectetur",
-  "Itaque facere ut voluptatum",
-  "Ullam voluptatem accusantium",
-];
 
 const periodo = [2021, 2022, 2023, 2024, 2025, 2026, 2027];

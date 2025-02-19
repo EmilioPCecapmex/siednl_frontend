@@ -5,12 +5,19 @@ import { Grid, useMediaQuery } from "@mui/material";
 
 import TabAccion1 from "./TabAccion1";
 import TabAccion2 from "./TabAccion2";
-import TabIdentificacion from "./TabIdentificacion";
+import TabEncabezado from "./TabEncabezado";
 import { TabResumen } from "./TabResumen";
 import TabAvance from "./TabAvance";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { IAI } from "../../screens/actividadesInstitucionales/InterfacesActividadesInstitucionales";
+import {
+  IActividad,
+  IComponente,
+  IMIR,
+  IMIREdit,
+  IMovimientos,
+} from "../tabsMir/interfaces mir/IMIR";
 
 const newAI = {
   identificacion: {
@@ -43,6 +50,8 @@ export default function TabsActividadesInstitucionales({
   IdMir,
   IdFT,
   IdAI,
+  IdEntidad,
+  setIdEntidad,
 }: {
   MIR: string;
 
@@ -53,6 +62,8 @@ export default function TabsActividadesInstitucionales({
   IdFT: string;
   IdAI: string;
   returnMain: Function;
+  IdEntidad: string;
+  setIdEntidad: Function;
 }) {
   const [value, setValue] = React.useState(10);
 
@@ -71,7 +82,12 @@ export default function TabsActividadesInstitucionales({
   };
 
   const [ai, setAi] = useState<IAI>(newAI);
-
+  const [editMIR, setEditMIR] = useState(false);
+  const [MIRPADRE, setMIRPADRE] = useState<IMIR>(JSON.parse(MIR));
+  const [mirEdirPadre, setMIREDITPADRE] = useState<IMIREdit>(
+    
+      // newMIREDIT(JSON.stringify(MIR))
+    );
   const [noAcciones, setNoAcciones] = useState([1]);
   const [apartado, setApartado] = useState(
     noAcciones.map((v, index) => {
@@ -315,7 +331,13 @@ export default function TabsActividadesInstitucionales({
             }}
           >
             {/* tabs */}
-            {value === 10 && <TabIdentificacion AI={AI} />}
+            {value === 10 && <TabEncabezado edit={editMIR}
+              show={value === 10 ? true : false}
+              MIR={MIRPADRE}
+              setMIR={setMIRPADRE}
+              // mirEdit={mirEdirPadre}
+              IdEntidad={IdEntidad}
+              setIdEntidad={setIdEntidad} />}
             {value === 20 && (
               <TabAccion1
                 AI={ai}

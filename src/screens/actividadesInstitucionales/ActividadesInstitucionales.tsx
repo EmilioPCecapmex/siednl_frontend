@@ -40,6 +40,8 @@ import { listaActividadInstitucional } from "../../services/actividadesinstituci
 import { getInstituciones } from "../../services/instituciones_services/instituciones";
 import { queries } from "../../queries";
 import { getListaAI } from "../../services/actividadesinstitucionales_services/Actividadades_endpoints";
+
+
 export let resumeDefaultAI = true;
 export let setResumeDefaultAI = () => {
   resumeDefaultAI = !resumeDefaultAI;
@@ -109,7 +111,7 @@ const heads: readonly Head[] = [
 
 export const ActividadesInstitucionales = ({}: {}) => {
   const [showResume, setShowResume] = useState(true);
-
+  const [IdEntidad, setIdEntidad] = useState("");
   useEffect(() => {
     setShowResume(true);
   }, [resumeDefaultAI]);
@@ -794,21 +796,21 @@ export const ActividadesInstitucionales = ({}: {}) => {
                               {
                                 <Tooltip title="REGISTRAR ACTIVIDAD INSTITUCIONAL">
                                   <IconButton
-                                    disabled={
-                                      row.Estado === "En Captura" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Capturador"
-                                        ? false
-                                        : row.Estado === "En Revisión" &&
-                                          localStorage.getItem("Rol") ===
-                                            "Verificador"
-                                        ? false
-                                        : row.Estado === "En Autorización" &&
-                                          localStorage.getItem("Rol") ===
-                                            "Administrador"
-                                        ? false
-                                        : true
-                                    }
+                                    // disabled={
+                                    //   row.Estado === "En Captura" &&
+                                    //   localStorage.getItem("Rol") ===
+                                    //     "Capturador"
+                                    //     ? false
+                                    //     : row.Estado === "En Revisión" &&
+                                    //       localStorage.getItem("Rol") ===
+                                    //         "Verificador"
+                                    //     ? false
+                                    //     : row.Estado === "En Autorización" &&
+                                    //       localStorage.getItem("Rol") ===
+                                    //         "Administrador"
+                                    //     ? false
+                                    //     : true
+                                    // }
                                     type="button"
                                     onClick={() => {
                                       setAiEdit([
@@ -874,6 +876,8 @@ export const ActividadesInstitucionales = ({}: {}) => {
               IdFT={aiEdit[0].IdFichaTecnica || ""}
               IdAI={aiEdit[0].IdActividadInstitucional || ""}
               returnMain={returnMain}
+              IdEntidad={IdEntidad}
+              setIdEntidad={setIdEntidad}
             />
           </Grid>
         )}
