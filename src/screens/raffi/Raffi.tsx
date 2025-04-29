@@ -767,7 +767,13 @@ export const Raffi = () => {
 
                 justifyContent: "space-evenly",
                 alignItems: "center",
-                height: "15vh",
+                height: {
+                  xs: "15vh",  // tamaño extra pequeño
+                  sm: "12vh",  // tamaño pequeño
+                  md: "12vh",  // tamaño mediano
+                  lg: "12vh",  // tamaño grande
+                  xl: "12vh",  // tamaño extra grande
+                },
                 direction: "row",
               }}
             >
@@ -934,7 +940,7 @@ export const Raffi = () => {
                 lg={3}
                 md={3}
                 sm={3}
-                xs={3}
+                xs={12}
               >
                 <Paper
                   component="form"
@@ -995,14 +1001,20 @@ export const Raffi = () => {
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 boxShadow: 5,
-                height: "75vh",
+                height: {
+                  xs: "74vh",  // tamaño extra pequeño
+                  sm: "80vh",  // tamaño pequeño
+                  md: "80vh",  // tamaño mediano
+                  lg: "80vh",  // tamaño grande
+                  xl: "80vh",  // tamaño extra grande
+                },
                 direction: "row",
               }}
             >
               <TableContainer
                 sx={{
                   borderRadius: 5,
-                  height: 450,
+                  height: '100%',
                   overflow: "auto",
                   "&::-webkit-scrollbar": {
                     width: ".5vw",

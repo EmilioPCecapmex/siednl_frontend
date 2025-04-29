@@ -10,7 +10,10 @@ export const IFrame = ({
 }) => {
 
   useEffect(() => {
-    // getToken();
+    console.log("source", source);
+    console.log("baseURL", baseURL);
+    
+    
   }, []);
 
   if (!source) {

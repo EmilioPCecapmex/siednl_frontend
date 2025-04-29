@@ -19,6 +19,7 @@ import {
   TableSortLabel,
   TextField,
   Tooltip,
+  Typography,
   useMediaQuery,
 } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
@@ -50,10 +51,7 @@ export const MIR = () => {
   const objetiInstitucion: ILista = { Id: "0", Label: "TODOS" };
 
   const [instituciones, setInstituciones] = useState<ILista>();
-  const [catalogoInstituciones, setCatalogoInstituciones] = useState<ILista[]>(
-    []
-  );
-
+  const [catalogoInstituciones, setCatalogoInstituciones] = useState<ILista[]>([]);
   const [showResume, setShowResume] = useState(true);
   const [validaFecha, setValidaFecha] = useState(true);
   const [page, setPage] = useState(0);
@@ -75,9 +73,7 @@ export const MIR = () => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 5));
     setPage(0);
   };
@@ -488,11 +484,10 @@ export const MIR = () => {
 
   useEffect(() => {
     getListadoMirs();
+    getInstituciones(setCatalogoInstituciones);
+    setShowResume(true);
   }, []); //actualizacion
 
-  useEffect(() => {
-    getInstituciones(setCatalogoInstituciones);
-  }, []);
   useEffect(() => {
     findText(findTextStr, findSelectStr, findInstStr);
   }, [findTextStr, findInstStr, findSelectStr]);
@@ -510,12 +505,9 @@ export const MIR = () => {
     setMirxFiltered(mirsFiltered);
   }, [mirsFiltered]);
 
-  useEffect(() => {
-    setShowResume(true);
-  }, []);
 
-  const rolUsuario = localStorage.getItem("Rol");
-  const isDisabled = !validaFecha && rolUsuario !== "Administrador";
+  // const rolUsuario = localStorage.getItem("Rol");
+  // const isDisabled = !validaFecha && rolUsuario !== "Administrador";
 
   return (
     <Grid container sx={{ justifyContent: "space-between" }}>
@@ -558,47 +550,40 @@ export const MIR = () => {
             <Grid
               container
               item
-              xl={12}
-              lg={12}
-              md={12}
-              sm={12}
-              xs={12}
+              xl={11.5}
+              lg={11.5}
+              md={11.5}
+              sm={11.5}
+              xs={11.5}
               sx={{
                 ...(!isSmallScreen
                   ? { backgroundColor: "#FFFF", borderRadius: 5 }
                   : { marginBottom: "30px" }),
 
-                justifyContent: "space-evenly",
+                justifyContent: "space-around",
                 alignItems: "center",
-                height: "15vh",
+                height: {
+                  xs: "20vh",  // tamaño extra pequeño
+                  sm: "12vh",  // tamaño pequeño
+                  md: "12vh",  // tamaño mediano
+                  lg: "12vh",  // tamaño grande
+                  xl: "12vh",  // tamaño extra grande
+                },
                 direction: "row",
               }}
             >
-              <Grid
-                xl={12}
-                lg={12}
-                md={12}
-                sm={12}
-                xs={12}
-                container
-                item
-                sx={{
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                  direction: "row",
-                  ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
-                }}
-              >
+              
                 {localStorage.getItem("Rol") === "Administrador" ? (
                   <Grid
                     item
-                    xl={3}
-                    lg={3}
-                    md={3}
-                    sm={3}
-                    xs={12}
+                    xl={2.8}
+                    lg={2.8}
+                    md={2.8}
+                    sm={2.8}
+                    xs={11.5}
                     sx={{
                       ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
+                      justifyContent:'flex-start'
                     }}
                   >
                     <Tooltip
@@ -659,7 +644,7 @@ export const MIR = () => {
                                   fontFamily: "MontserratRegular",
                                 },
                               }}
-                            ></TextField>
+                            />
                           )}
                           onChange={(event, value) =>
                             setInstituciones(value || objetiInstitucion)
@@ -675,11 +660,12 @@ export const MIR = () => {
 
                 <Grid
                   item
-                  xl={widthCondition() ? 3 : 11}
-                  lg={widthCondition() ? 3 : 11}
-                  md={widthCondition() ? 3 : 11}
-                  sm={widthCondition() ? 3 : 11}
-                  xs={widthCondition() ? 11 : 11}
+                  xl={widthCondition() ? 2.8 : 11.5}
+                  lg={widthCondition() ? 2.8 : 11.5}
+                  md={widthCondition() ? 2.8 : 11.5}
+                  sm={widthCondition() ? 2.8 : 11.5}
+                  xs={widthCondition() ? 11.5 : 11.5}
+                  sx={{display:'flex',justifyContent:'center' }}
                 >
                   <Tooltip
                     PopperProps={{
@@ -739,12 +725,13 @@ export const MIR = () => {
                   </Tooltip>
                 </Grid>
                 <Grid
-                  sx={{ fontFamily: "MontserratRegular" }}
+                  sx={{ fontFamily: "MontserratRegular",display:'flex',justifyContent:'center' }}
                   item
-                  xl={3}
-                  lg={3}
-                  md={3}
-                  sm={7}
+                  xl={2.8}
+                    lg={2.8}
+                    md={2.8}
+                    sm={2.8}
+                    xs={11.5}
                 >
                   <Paper
                     component="form"
@@ -789,7 +776,14 @@ export const MIR = () => {
                   </Paper>
                 </Grid>
 
-                <Grid item xl={1} lg={1} md={4} sm={4} xs={4}>
+                <Grid  
+                    sx={{display:'flex',justifyContent:'flex-end' }}
+                    item
+                    xl={2.8}
+                      lg={2.8}
+                      md={2.8}
+                      sm={2.8}
+                      xs={11.5}>
                   <Button
                     disabled={
                       localStorage.getItem("Rol") === "Administrador"
@@ -800,7 +794,7 @@ export const MIR = () => {
                     sx={{
                       width: ["100px", "120px", "160px", "180px", "250px"],
                       height: ["40px", "40px", "40px", "40px", "50px"],
-                      fontFamily: "MontserratMedium",
+                     
                     }}
                     onClick={() => {
                       setMirEdit([
@@ -824,16 +818,17 @@ export const MIR = () => {
                       handleClickOpen();
                     }}
                   >
+                    <Typography sx={{ fontFamily: "MontserratMedium",fontSize:['5px', '10px', '12px', '15px', '15px', '15px']}}>
                     {
                       localStorage.getItem("Rol") === "Administrador"
                         ? "AÑADIR REGISTRO"
                         : !validaFecha
 
                           ? "FECHA DE CAPTURA TERMINADA"
-                          : "AÑADIR REGISTRO"}
+                          : "AÑADIR REGISTRO"}</Typography>
                   </Button>
                 </Grid>
-              </Grid>
+              
             </Grid>
 
 
@@ -853,7 +848,13 @@ export const MIR = () => {
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 boxShadow: 5,
-                height: "80vh",
+                height:{
+                  xs: "69vh",  // tamaño extra pequeño
+                  sm: "80vh",  // tamaño pequeño
+                  md: "80vh",  // tamaño mediano
+                  lg: "80vh",  // tamaño grande
+                  xl: "80vh",  // tamaño extra grande
+                },
                 direction: "row",
               }}
             >

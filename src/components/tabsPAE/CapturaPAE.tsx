@@ -25,6 +25,7 @@ const tabsShow = [
 ];
 export default function CapturaPAE() {
   const [value, setValue] = useState(0);
+  
   return (
     <Grid
       container

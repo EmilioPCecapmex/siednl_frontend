@@ -1,11 +1,9 @@
-import CheckIcon from "@mui/icons-material/Check";
+import DeleteIcon from "@mui/icons-material/Delete";
 import NotificationsIcon from "@mui/icons-material/NotificationsNone";
-import React, { useEffect, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Badge,
   Button,
-  Divider,
   Drawer,
   Grid,
   IconButton,
@@ -13,21 +11,19 @@ import {
   ListItem,
   ToggleButton,
   Tooltip,
-  Typography,
+  Typography
 } from "@mui/material";
-import Box from "@mui/material/Box";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   obtenerNotificaciones,
   verNotificacion,
 } from "../genericComponents/axiosGenericos";
-import { INotificacion } from "./NotificacionesInterfaz";
-import DeleteIcon from "@mui/icons-material/Delete";
-import MessageIcon from "@mui/icons-material/Message";
 import ComentDialog from "../genericComponents/genericModals/ModalComentarios";
+import { INotificacion } from "./NotificacionesInterfaz";
 
 export default function NotificationsPanel({
-  fnc = () => {},
+  fnc = () => { },
 }: {
   fnc: Function;
 }) {
@@ -52,7 +48,7 @@ export default function NotificationsPanel({
   };
 
   const [actualizacion, setActualizacion] = useState(0);
-  
+
   const actualizaContador = () => {
     setActualizacion(actualizacion + 1);
   };
@@ -64,10 +60,9 @@ export default function NotificationsPanel({
       FT: "FichaTecnica",
       RF: "Raffi"
     };
-  
+
     const dialogTitulo = mapeoTitulo[titulo];
-   
-    
+
     if (dialogTitulo) {
       return (
         <ComentDialog
@@ -81,7 +76,7 @@ export default function NotificationsPanel({
         />
       );
     }
-  
+
     return null; // Si `titulo` no coincide con ninguna clave del mapeo, no se renderiza nada
   };
 
@@ -97,32 +92,12 @@ export default function NotificationsPanel({
     <React.Fragment key={"right"}>
       <IconButton color="inherit" onClick={() => handleOpenNotifPanel()}>
         <Badge badgeContent={sinNotificaciones ? notificaciones?.length : 0}>
-        <Tooltip title="NOTIFICACIONES">
-          <NotificationsIcon
-            sx={{
-              fontSize: "24px", // Tamaño predeterminado del icono
-
-              "@media (max-width: 600px)": {
-                fontSize: 20, // Pantalla extra pequeña (xs y sm)
-              },
-
-              "@media (min-width: 601px) and (max-width: 960px)": {
-                fontSize: 20, // Pantalla pequeña (md)
-              },
-
-              "@media (min-width: 961px) and (max-width: 1280px)": {
-                fontSize: 20, // Pantalla mediana (lg)
-              },
-
-              "@media (min-width: 1281px)": {
-                fontSize: 30, // Pantalla grande (xl)
-              },
-
-              "@media (min-width: 2200px)": {
-                ffontSize: 30, // Pantalla grande (xl)
-              },
-            }}
-          />
+          <Tooltip title="NOTIFICACIONES">
+            <NotificationsIcon
+              sx={{
+                fontSize: [20,20,20,30,30]
+              }}
+            />
           </Tooltip>
         </Badge>
       </IconButton>
@@ -132,10 +107,8 @@ export default function NotificationsPanel({
         open={openNotifPanel}
         onClose={() => handleCloseNotifPanel()}
         sx={{
-          // display: "flex",
           display: "flex",
           maxHeight: "90vh",
-          //   overflow: "auto",
           alignItems: "flex-end",
         }}
       >
@@ -145,10 +118,8 @@ export default function NotificationsPanel({
           justifyContent={"space-evenly"}
           sx={{
             display: "flex",
-            //  flexDirection: "column",
             justifyContent: "center",
             borderBottom: 1,
-            // borderColor: "#ggg",
           }}
         >
           <Typography>NOTIFICACIONES</Typography>
@@ -190,80 +161,72 @@ export default function NotificationsPanel({
                     md={12}
                     sm={12}
                     xs={12}
-                    sx={{ borderBottom: 1 }}
+                    sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
                   >
                     <Grid
                       item
-                      xl={9}
-                      lg={9}
-                      md={9}
-                      sm={9}
-                      xs={9}
-                      //sx={{ backgroundColor: "blue" }}
+                      xl={11}
+                      lg={11}
+                      md={11}
+                      sm={11}
+                      xs={11}
                     >
-                      <Grid
-                        item
-                        container
-                        xl={8}
-                        lg={8}
-                        md={8}
-                        sm={8}
-                        xs={8}
-                        //sx={{ backgroundColor: "blue" }}
-                      >
-                        <Grid>
-                          <Typography
-                            sx={{
-                              fontFamily: "MontserratSemiBold",
-
-                              color: "#af8c55",
-                            }}
-                          >
-                            {"DOCUMENTO: " + index.Titulo}
-                          </Typography>
-                        </Grid>
-
-                        <Grid>
-                          <Typography
-                            sx={{
-                              fontFamily: "MontserratLight",
-
-                              //ml: "1vw",
-                              mt: "1vh",
-                            }}
-                          >
-                            {"MENSAJE: " + index.Mensaje}
-                          </Typography>
-                        </Grid>
-
-                        <Grid>
-                          <Typography
-                            sx={{
-                              fontFamily: "MontserratLight",
-
-                              //ml: "1vw",
-                              mt: "1vh",
-                            }}
-                          >
-                            {"FECHA: " + formatFecha(index.FechaCreacion)}
-                          </Typography>
-                        </Grid>
+                      <Grid item
+                        xl={12}
+                        lg={12}
+                        md={12}
+                        sm={12}
+                        xs={12} sx={{ display: "flex", justifyContent: "space-between", mt: "1vh",flexWrap: "wrap" }}>
+                        <Typography
+                          sx={{
+                            fontFamily: "MontserratSemiBold",
+                            color: "#af8c55", fontSize: ['15px', '12px', '12px', '12px', '15px'],
+                          }}
+                        >
+                          {"DOCUMENTO: " + index.Titulo}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontFamily: "MontserratLight",
+                            fontSize: ['12px', '12px', '12px', '10px', '13px'],
+                          }}
+                        >
+                          {"FECHA: " + formatFecha(index.FechaCreacion)}
+                        </Typography>
                       </Grid>
+
+                      <Grid>
+                        <Typography
+                          sx={{
+                            fontFamily: "MontserratLight",
+                            fontSize: ['14px', '12px', '12px', '12px', '14px'],
+                            //ml: "1vw",
+                          }}
+                        >
+                          {"MENSAJE: " + index.Mensaje}
+                        </Typography>
+                      </Grid>
+
+                      {/* <Grid>
+                          
+                        </Grid> */}
+
                     </Grid>
 
                     <Grid
                       item
                       container
-                      direction={"column"} // Cambiado a "column" para apilar los íconos verticalmente
-                      xl={2}
-                      lg={2}
-                      md={2}
-                      sm={2}
-                      xs={2}
+
+                      xl={11}
+                      lg={11}
+                      md={11}
+                      sm={11}
+                      xs={11}
                       sx={{
                         display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center", // Para centrar horizontalmente
+                        justifyContent: "flex-end", // Para centrar verticalmente
+                        alignItems: "center", // Para centrar horizontalmente,
+                        borderBottom: 1,
                       }}
                     >
                       <IconButton
@@ -300,32 +263,24 @@ export default function NotificationsPanel({
                           fnc();
                         }}
                       >
-                        
+
                         <VisibilityIcon />
                       </IconButton>
 
                       <ToggleButton
                         sx={{
                           width: "1vw",
-                          height: "1vh",
+                          height: "1vh", display: "flex", justifyContent: "center", alignItems: "center"
                         }}
                         value="check"
                         onClick={() =>
-                          verNotificacion(
-                            index.Id,
-                            setNotificaciones,
-                            setSinNotificaciones
-                          )
+                          verNotificacion(index.Id, setNotificaciones,  setSinNotificaciones)
                         }
                       >
                         <DeleteIcon />
                       </ToggleButton>
 
-                      {notificacionesOpcion(
-                        index.Titulo,
-                        index.CreadoPor,
-                        index.IdDocumento
-                      )}
+                      {notificacionesOpcion(index.Titulo, index.CreadoPor,  index.IdDocumento)}
                     </Grid>
                   </Grid>
                 </ListItem>

@@ -677,7 +677,13 @@ export const MetaAnual = () => {
                   : { marginBottom: "30px" }),
                 justifyContent: "space-evenly",
                 alignItems: "center",
-                height: "15vh",
+                height: {
+                  xs: "15vh",  // tamaño extra pequeño
+                  sm: "12vh",  // tamaño pequeño
+                  md: "12vh",  // tamaño mediano
+                  lg: "12vh",  // tamaño grande
+                  xl: "12vh",  // tamaño extra grande
+                },
                 direction: "row",
               }}
             >
@@ -716,7 +722,7 @@ export const MetaAnual = () => {
                     lg={3}
                     md={3}
                     sm={3}
-                    xs={3}
+                    xs={11}
                     sx={{
                       ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
                     }}
@@ -967,7 +973,13 @@ export const MetaAnual = () => {
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 boxShadow: 5,
-                height: "80vh",
+                height: {
+                  xs: "74vh",  // tamaño extra pequeño
+                  sm: "80vh",  // tamaño pequeño
+                  md: "80vh",  // tamaño mediano
+                  lg: "80vh",  // tamaño grande
+                  xl: "80vh",  // tamaño extra grande
+                },
                 direction: "row",
               }}
             >
