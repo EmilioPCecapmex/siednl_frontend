@@ -16,33 +16,40 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 //import { IAI } from "../../screens/InterfacesActividadesInstitucionales";
-import { IAI } from "../../screens/actividadesInstitucionales/InterfacesActividadesInstitucionales";
+import { IAI, IAcciones } from "./Interfaces";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
-import { IAccion } from "./IAccion1";
 import { clearInfo } from "../genericComponents/GenericMethods";
 import { queries } from "../../queries";
+import { FormulaDialog } from "../formulasDialog/FormulaDialog";
+import { FormulaDialogAIAP } from "../formulasDialog/FormulaDialogAIAP";
+
+
 export function TabAccion1({
   AI,
   noAcciones,
   addAccion,
   addremoveAccion,
   setAi,
+  setAIAcciones,
 }: {
   AI: IAI;
   noAcciones: number[];
   addAccion: Function;
   addremoveAccion: Function;
   setAi: Function;
+  setAIAcciones: Function;
 }) {
   const [componentSelect, setComponentSelect] = useState(1);
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
-  const [acciones, setAcciones] = useState<Array<IAccion>>(AI.acciones);
+  const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
+  const [acciones, setAcciones] = useState<Array<IAcciones>>(AI.acciones);
   const [prevTextFormula, setPrevTextFormula] = useState("");
   const [errorIndicador, setErrorIndicador] = useState(-1);
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
-
+  const [componentesValues, setComponentesValues] =
+    useState<IAcciones[]>(AI.acciones); 
   useEffect(() => {
     setAcciones(AI.acciones);
   }, [AI]);
@@ -60,14 +67,112 @@ export function TabAccion1({
   
 
   const handleClickOpen = () => {
-    setPrevTextFormula(AI.acciones[componentSelect - 1].formula);
+    setPrevTextFormula(AI.acciones[componentSelect - 1].formulaCalculo);
     setOpenFormulaDialog(true);
   };
+  const handleClose = () => {
+    setOpenFormulaDialog(false);
+  };
+
+
+
+  const handleClickOpen2 = () => {
+    // setFrecuencia(
+    //   JSON.parse(MIR).componentes[componentSelect].frecuencia?.toLowerCase()
+    // );
+    // setTipoFormula(
+    //   AI.acciones[componentSelect].indicador.toUpperCase()
+    //     .includes("PORCENTAJE") ||
+    //     AI.acciones[componentSelect].indicador.toLowerCase()
+    //       .includes("porcentaje")
+    //     ? "Porcentaje"
+    //     : AI.acciones[componentSelect].indicador.toUpperCase()
+    //         .includes("TASA") ||
+    //         AI.acciones[componentSelect].indicador.toLowerCase()
+    //         .includes("tasa")
+    //     ? "Tasa"
+    //     : AI.acciones[componentSelect].indicador.toUpperCase()
+    //         .includes("ÍNDICE" || "indice" || "Índice") ||
+    //         AI.acciones[componentSelect].indicador.toLowerCase()
+    //         .includes("indice") ||
+    //         AI.acciones[componentSelect].indicador.toLowerCase()
+    //         .includes("índice")
+    //     ? "Indice"
+    //     : AI.acciones[componentSelect].indicador.toUpperCase()
+    //         .includes("PROMEDIO") ||
+    //         AI.acciones[componentSelect].indicador.toLowerCase()
+    //         .includes("promedio")
+    //     ? "Promedio"
+    //     : ""
+    // );
+    // setElementoFormula("Componente " + componentSelect.toString());
+    console.log("asdasd");
+    setOpenFormulaDialogMACA(true);
+  };
+
+  const handleClose2 = () => {
+    setOpenFormulaDialogMACA(false);
+  };
+
+
+  const changeFormula = (txt: string) => {
+    let prevLocal = [...AI.acciones];
+    prevLocal[componentSelect - 1].formulaCalculo = txt;
+    setAcciones(prevLocal);
+  };
+
+  const changeFormula2 = (txt: string,txtValores:string) => {
+    
+    if (tipoFormula.toLowerCase()==="índice" || tipoFormula.toLowerCase()==="indice") {
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].lineaBase =
+        txt.split(",")[0];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre1 =
+        txt.split(",")[1];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre2 =
+        txt.split(",")[2];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre3 =
+        txt.split(",")[3];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre4 =
+        txt.split(",")[4];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].anual =
+        txt.split(",")[5];
+        
+    } else
+    {
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].lineaBase =
+        txt.split(",")[0];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre1 =
+        txt.split(",")[1];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre2 =
+        txt.split(",")[2];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre3 =
+        txt.split(",")[3];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre4 =
+        txt.split(",")[4];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].anual =
+        txt.split(",")[5];
+        
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorA = txtValores.split(",")[0];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorB = txtValores.split(",")[1];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorC = txtValores.split(",")[2];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorD = txtValores.split(",")[3];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorE = txtValores.split(",")[4];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorF = txtValores.split(",")[5];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorG = txtValores.split(",")[6];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorH = txtValores.split(",")[7];
+
+    }
+
+
+    setComponentesValues([...componentesValues]);
+  };
+
+
+
 
   const evalueTxtIndicador = (dato: string) => {
     const cIndicador =
-      // jsonMIR.componentes[componentSelect - 1].indicador?.toLowerCase();
-      "1";
+      AI.acciones[componentSelect - 1].indicador?.toLowerCase();
     if (cIndicador !== undefined) {
       if (cIndicador.includes("porcentaje")) {
         setTipoFormula("Porcentaje");
@@ -91,9 +196,9 @@ export function TabAccion1({
         setErrorIndicador(-1);
       } else {
         setErrorIndicador(componentSelect - 1);
-        // let prevLocal = [...jsonRF.componentes];
-        // prevLocal[componentSelect - 1].indicador = "";
-        // setComponentesValues(prevLocal);
+        let prevLocal = [...AI.acciones];
+        prevLocal[componentSelect - 1].indicador = "";
+        setAIAcciones(prevLocal);
       }
     }
   };
@@ -101,7 +206,60 @@ export function TabAccion1({
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
 
+  // const changeFormula2 = (txt: string,txtValores:string) => {
+    
+  //   if (frecuencia === "trimestral" && (tipoFormula.toLowerCase()==="índice" || tipoFormula.toLowerCase()==="indice")) {
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
+  //       txt.split(",")[0];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre2 =
+  //       txt.split(",")[1];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre3 =
+  //       txt.split(",")[2];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
+  //       txt.split(",")[3];
+        
+  //   } else if(frecuencia === "trimestral")
+  //   {
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
+  //       txt.split(",")[0];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre2 =
+  //       txt.split(",")[1];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre3 =
+  //       txt.split(",")[2];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
+  //       txt.split(",")[3];
+        
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorA = txtValores.split(",")[0];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorB = txtValores.split(",")[1];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorC = txtValores.split(",")[2];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorD = txtValores.split(",")[3];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorE = txtValores.split(",")[4];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorF = txtValores.split(",")[5];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorG = txtValores.split(",")[6];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorH = txtValores.split(",")[7];
 
+  //   } else if (frecuencia ==="semestral" && (tipoFormula.toLowerCase()==="índice" || tipoFormula.toLowerCase()==="indice"))
+  //   {
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
+  //       txt.split(",")[0];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].semestre2 =
+  //       txt.split(",")[1];
+  //   } else
+  //   {
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
+  //       txt.split(",")[0];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].semestre2 =
+  //       txt.split(",")[1];
+
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorA = txtValores.split(",")[0];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorB = txtValores.split(",")[1];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorC = txtValores.split(",")[2];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorD = txtValores.split(",")[3];
+  //   }
+
+
+  //   setComponentesValues([...componentesValues]);
+  // };
 
 
 
@@ -319,6 +477,28 @@ export function TabAccion1({
         overflow: "auto",
       }}
     >
+      <FormulaDialog
+        open={openFormulaDialog}
+        close={handleClose}
+        textoSet={changeFormula}
+        prevText={prevTextFormula}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+      />
+
+
+      <FormulaDialogAIAP
+        open={openFormulaDialogMACA}
+        close={handleClose2}
+        textoSet={changeFormula2}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+        elementoA={""}
+        MIR={""}
+        frecuencia={""}
+        valores={JSON.stringify(AI.acciones)}
+      />
+
       <Grid
         sx={{
           width: "100%",
@@ -511,7 +691,7 @@ export function TabAccion1({
               ACCION #{componentSelect}
             </Typography>
           </Grid>
-
+          
           {/* </Grid> */}
 
           {/* <Grid
@@ -530,7 +710,7 @@ export function TabAccion1({
               //backgroundColor: "blue"
             }}
           ></Grid> */}
-
+{/* {JSON.stringify(AI)} */}
           <Grid
             item
             xl={3.5}
@@ -544,6 +724,7 @@ export function TabAccion1({
               justifyContent: "center",
             }}
           >
+            
             <TextField
               multiline
               fullWidth
@@ -563,7 +744,7 @@ export function TabAccion1({
               value={acciones[componentSelect - 1]?.descripcion}
             />
           </Grid>
-
+              
           <Grid
             item
             xl={3.5}
@@ -577,6 +758,7 @@ export function TabAccion1({
               justifyContent: "center",
             }}
           >
+            
             <TextField
               multiline
               fullWidth
@@ -596,10 +778,11 @@ export function TabAccion1({
               }
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].nombreIndicador = clearInfo(c.target.value)
+                prevLocal[componentSelect - 1].indicador = clearInfo(c.target.value)
                 setAcciones(prevLocal);
+
               }}
-              value={acciones[componentSelect - 1]?.nombreIndicador}
+              value={acciones[componentSelect - 1]?.indicador}
             />
           </Grid>
 
@@ -627,10 +810,10 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               sx={{ boxShadow: 2 }}
               label={"Fórmula de Cálculo"}
-              // onClick={() => {
-              //   evalueTxtIndicador();
-              // }}
-              value={acciones[componentSelect - 1]?.formula}
+              onClick={() => {
+                evalueTxtIndicador("Fórmula de Cálculo");
+              }}
+              value={AI.acciones[0].formulaCalculo}
             />
           </Grid>
 
@@ -660,10 +843,10 @@ export function TabAccion1({
               label={"MV / FI"}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].numerador = clearInfo(c.target.value)
+                prevLocal[componentSelect - 1].mv = clearInfo(c.target.value)
                 setAcciones(prevLocal);
               }}
-              value={acciones[componentSelect - 1]?.numerador}
+              value={acciones[componentSelect - 1]?.mv}
             />
           </Grid>
 
@@ -693,10 +876,10 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value)
+                prevLocal[componentSelect - 1].frecuencia = clearInfo(c.target.value)
                 setAcciones(prevLocal);
               }}
-              value={acciones[componentSelect - 1]?.unidadMedida}
+              value={acciones[componentSelect - 1]?.frecuencia}
             />
           </Grid>
 
@@ -726,10 +909,10 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].medio_fuente = clearInfo(c.target.value)
+                prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value)
                 setAcciones(prevLocal);
               }}
-              value={acciones[componentSelect - 1]?.medio_fuente}
+              value={acciones[componentSelect - 1]?.unidadMedida}
             />
           </Grid>
 
@@ -759,10 +942,10 @@ export function TabAccion1({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].denomidador = clearInfo(c.target.value)
+                prevLocal[componentSelect - 1].sentidoDelIndicador = clearInfo(c.target.value)
                 setAcciones(prevLocal);
               }}
-              value={acciones[componentSelect - 1]?.denomidador}
+              value={acciones[componentSelect - 1]?.sentidoDelIndicador}
             />
           </Grid>
 
@@ -785,7 +968,7 @@ export function TabAccion1({
               rows={4}
               variant="filled"
               sx={{ boxShadow: 2 }}
-              label={"Frecuencia"}
+              label={"Descripción de indicador"}
               InputLabelProps={{
                 style: { fontFamily: "MontserratSemiBold" },
               }}
@@ -799,7 +982,7 @@ export function TabAccion1({
             />
           </Grid>
 
-          <Grid
+          {/* <Grid
             item
             xl={3.5}
             lg={3.5}
@@ -830,7 +1013,7 @@ export function TabAccion1({
               }}
               value={acciones[componentSelect - 1]?.medio_fuente2}
             />
-          </Grid>
+          </Grid> */}
           
           
 
@@ -902,21 +1085,49 @@ export function TabAccion1({
 
 
                       <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "5px", flex: 1 }}>
-                        <TextField sx={{ width: "100%" }}
-                            // disabled={new Date()>dateTrim[0]}
-                            value={
+                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "5px", flex: 1,backgroundColor: "#ccc",textAlign: "center", }}>
+                        
+                                VALOR
                               
-                                "VALOR"
-                              
-                            }
                             
-                            
-                          />
                         </TableCell>
                         <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "2px", flex: 1 }}>
                           <TextField sx={{ width: "100%" }}
                             // disabled={new Date()>dateTrim[0]}
+                            variant={"filled"}
+                            label={
+                              <Typography
+                                sx={{
+                                  fontSize: "0.7vw",
+                                  fontFamily: "MontserratMedium",
+                                }}
+                              >
+                                LÍNEA BASE 2021
+                              </Typography>
+                            }
+                            InputLabelProps={{
+                              style: {
+                                fontFamily: "MontserratMedium",
+                              },
+                            }}
+                            InputProps={{
+                              style: {
+                                fontFamily: "MontserratRegular",
+                              },
+                            }}
+                            onClick={() =>
+                              handleClickOpen2()
+                            }
+                            value={
+                              componentesValues[componentSelect - 1]
+                                ?.metasPorFrecuencia[0]?.lineaBase || ""
+                              
+                            }
+                          />
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "2px", flex: 1 }}>
+                          <TextField sx={{ width: "100%" }}
+                            // disabled={new Date()>dateTrim[1]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -939,18 +1150,17 @@ export function TabAccion1({
                               },
                             }}
                             onClick={() =>
-                              evalueTxtIndicador("DATO I,trimestre1")
+                              handleClickOpen2()
                             }
                             value={
-                              // componentesValues[componentSelect - 1]
-                              //   ?.metasPorFrecuencia[0]?.trimestre1 || ""
-                              1
+                              componentesValues[componentSelect - 1]
+                                ?.metasPorFrecuencia[0]?.trimestre1 || ""
                             }
                           />
                         </TableCell>
                         <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "2px", flex: 1 }}>
                           <TextField sx={{ width: "100%" }}
-                            // disabled={new Date()>dateTrim[1]}
+                            // disabled={new Date()>dateTrim[2]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -976,15 +1186,14 @@ export function TabAccion1({
                               evalueTxtIndicador("DATO II,trimestre2")
                             }
                             value={
-                              // componentesValues[componentSelect - 1]
-                              //   ?.metasPorFrecuencia[0]?.trimestre2 || ""
-                              2
+                              componentesValues[componentSelect - 1]
+                                ?.metasPorFrecuencia[0]?.trimestre2 || ""
                             }
                           />
                         </TableCell>
                         <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "2px", flex: 1 }}>
                           <TextField sx={{ width: "100%" }}
-                            // disabled={new Date()>dateTrim[2]}
+                            // disabled={new Date()>dateTrim[3]}
                             variant={"filled"}
                             label={
                               <Typography
@@ -1010,9 +1219,8 @@ export function TabAccion1({
                               evalueTxtIndicador("DATO III,trimestre3")
                             }
                             value={
-                              // componentesValues[componentSelect - 1]
-                              //   ?.metasPorFrecuencia[0]?.trimestre3 || ""
-                              3
+                              componentesValues[componentSelect - 1]
+                                ?.metasPorFrecuencia[0]?.trimestre3 || ""
                             }
                           />
                         </TableCell>
@@ -1044,43 +1252,8 @@ export function TabAccion1({
                               evalueTxtIndicador("DATO IV,trimestre4")
                             }
                             value={
-                              // componentesValues[componentSelect - 1]
-                              //   ?.metasPorFrecuencia[0]?.trimestre4 || ""
-                              4
-                            }
-                          />
-                        </TableCell>
-                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "2px", flex: 1 }}>
-                          <TextField sx={{ width: "100%" }}
-                            // disabled={new Date()>dateTrim[3]}
-                            variant={"filled"}
-                            label={
-                              <Typography
-                                sx={{
-                                  fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
-                                }}
-                              >
-                                DATO IV
-                              </Typography>
-                            }
-                            InputLabelProps={{
-                              style: {
-                                fontFamily: "MontserratMedium",
-                              },
-                            }}
-                            InputProps={{
-                              style: {
-                                fontFamily: "MontserratRegular",
-                              },
-                            }}
-                            onClick={() =>
-                              evalueTxtIndicador("DATO IV,trimestre4")
-                            }
-                            value={
-                              // componentesValues[componentSelect - 1]
-                              //   ?.metasPorFrecuencia[0]?.trimestre4 || ""
-                              4
+                              componentesValues[componentSelect - 1]
+                                ?.metasPorFrecuencia[0]?.trimestre4 || ""
                             }
                           />
                         </TableCell>
@@ -1109,12 +1282,11 @@ export function TabAccion1({
                               },
                             }}
                             onClick={() =>
-                              evalueTxtIndicador("DATO IV,trimestre4")
+                              evalueTxtIndicador("ANUAL")
                             }
                             value={
-                              // componentesValues[componentSelect - 1]
-                              //   ?.metasPorFrecuencia[0]?.trimestre4 || ""
-                              4
+                              componentesValues[componentSelect - 1]
+                                ?.metasPorFrecuencia[0]?.anual || ""
                             }
                           />
                         </TableCell>

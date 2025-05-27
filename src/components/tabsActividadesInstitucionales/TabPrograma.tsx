@@ -16,13 +16,16 @@ import {
 } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 //import { IAI } from "../../screens/InterfacesActividadesInstitucionales";
-import { IAI, IAcciones, IProgramas } from "./Interfaces";
+import { IAI, IAcciones } from "./Interfaces";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DoDisturbOnIcon from "@mui/icons-material/DoDisturbOn";
 import { clearInfo } from "../genericComponents/GenericMethods";
 import { queries } from "../../queries";
 import { FormulaDialog } from "../formulasDialog/FormulaDialog";
-export function TabAccion2({
+import { FormulaDialogAIAP } from "../formulasDialog/FormulaDialogAIAP";
+
+
+export function TabPrograma({
   AI,
   noProgramas,
   addPrograma,
@@ -38,20 +41,18 @@ export function TabAccion2({
   setAIProgramas: Function;
 }) {
   const [componentSelect, setComponentSelect] = useState(1);
+  const [programaSelect, setProgramaSelect] = useState(1);
   const [openFormulaDialog, setOpenFormulaDialog] = useState(false);
+  const [openFormulaDialogMACA, setOpenFormulaDialogMACA] = useState(false);
   const [acciones, setAcciones] = useState<Array<IAcciones>>(AI.acciones);
-  const [programas, setProgramas] = useState<Array<IProgramas>>(AI.acciones[componentSelect-1].programas);
   const [prevTextFormula, setPrevTextFormula] = useState("");
   const [errorIndicador, setErrorIndicador] = useState(-1);
   const [tipoFormula, setTipoFormula] = useState("");
   const [elementoFormula, setElementoFormula] = useState("");
-
+  const [componentesValues, setComponentesValues] =
+    useState<IAcciones[]>(AI.acciones); 
   useEffect(() => {
     setAcciones(AI.acciones);
-  }, [AI]);
-
-  useEffect(() => {
-    setProgramas(AI.acciones[componentSelect-1].programas);
   }, [AI]);
 
   useEffect(() => {
@@ -67,21 +68,112 @@ export function TabAccion2({
   
 
   const handleClickOpen = () => {
-    setPrevTextFormula(AI.acciones[componentSelect - 1].formulaCalculo);
+    setPrevTextFormula(AI.acciones[componentSelect - 1].programas[programaSelect -1].formulaCalculo);
     setOpenFormulaDialog(true);
   };
   const handleClose = () => {
     setOpenFormulaDialog(false);
   };
 
+
+
+  const handleClickOpen2 = () => {
+    // setFrecuencia(
+    //   JSON.parse(MIR).componentes[componentSelect].frecuencia?.toLowerCase()
+    // );
+    // setTipoFormula(
+    //   AI.acciones[componentSelect].indicador.toUpperCase()
+    //     .includes("PORCENTAJE") ||
+    //     AI.acciones[componentSelect].indicador.toLowerCase()
+    //       .includes("porcentaje")
+    //     ? "Porcentaje"
+    //     : AI.acciones[componentSelect].indicador.toUpperCase()
+    //         .includes("TASA") ||
+    //         AI.acciones[componentSelect].indicador.toLowerCase()
+    //         .includes("tasa")
+    //     ? "Tasa"
+    //     : AI.acciones[componentSelect].indicador.toUpperCase()
+    //         .includes("ÍNDICE" || "indice" || "Índice") ||
+    //         AI.acciones[componentSelect].indicador.toLowerCase()
+    //         .includes("indice") ||
+    //         AI.acciones[componentSelect].indicador.toLowerCase()
+    //         .includes("índice")
+    //     ? "Indice"
+    //     : AI.acciones[componentSelect].indicador.toUpperCase()
+    //         .includes("PROMEDIO") ||
+    //         AI.acciones[componentSelect].indicador.toLowerCase()
+    //         .includes("promedio")
+    //     ? "Promedio"
+    //     : ""
+    // );
+    // setElementoFormula("Componente " + componentSelect.toString());
+    console.log("asdasd");
+    setOpenFormulaDialogMACA(true);
+  };
+
+  const handleClose2 = () => {
+    setOpenFormulaDialogMACA(false);
+  };
+
+
   const changeFormula = (txt: string) => {
     let prevLocal = [...AI.acciones];
     prevLocal[componentSelect - 1].formulaCalculo = txt;
     setAcciones(prevLocal);
   };
+
+  const changeFormula2 = (txt: string,txtValores:string) => {
+    
+    if (tipoFormula.toLowerCase()==="índice" || tipoFormula.toLowerCase()==="indice") {
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].lineaBase =
+        txt.split(",")[0];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre1 =
+        txt.split(",")[1];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre2 =
+        txt.split(",")[2];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre3 =
+        txt.split(",")[3];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre4 =
+        txt.split(",")[4];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].anual =
+        txt.split(",")[5];
+        
+    } else
+    {
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].lineaBase =
+        txt.split(",")[0];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre1 =
+        txt.split(",")[1];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre2 =
+        txt.split(",")[2];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre3 =
+        txt.split(",")[3];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].trimestre4 =
+        txt.split(",")[4];
+      AI.acciones[componentSelect-1].metasPorFrecuencia[0].anual =
+        txt.split(",")[5];
+        
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorA = txtValores.split(",")[0];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorB = txtValores.split(",")[1];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorC = txtValores.split(",")[2];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorD = txtValores.split(",")[3];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorE = txtValores.split(",")[4];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorF = txtValores.split(",")[5];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorG = txtValores.split(",")[6];
+      // AI.acciones[componentSelect].valoresPorFrecuencia[0].valorH = txtValores.split(",")[7];
+
+    }
+
+
+    setComponentesValues([...componentesValues]);
+  };
+
+
+
+
   const evalueTxtIndicador = (dato: string) => {
     const cIndicador =
-    AI.acciones[componentSelect - 1].descIndicador?.toLowerCase();
+      AI.acciones[componentSelect - 1].indicador?.toLowerCase();
     if (cIndicador !== undefined) {
       if (cIndicador.includes("porcentaje")) {
         setTipoFormula("Porcentaje");
@@ -105,9 +197,9 @@ export function TabAccion2({
         setErrorIndicador(-1);
       } else {
         setErrorIndicador(componentSelect - 1);
-        // let prevLocal = [...jsonRF.componentes];
-        // prevLocal[componentSelect - 1].indicador = "";
-        // setComponentesValues(prevLocal);
+        let prevLocal = [...AI.acciones];
+        prevLocal[componentSelect - 1].programas[programaSelect - 1].indicador = "";
+        setAIProgramas(prevLocal);
       }
     }
   };
@@ -115,7 +207,60 @@ export function TabAccion2({
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
 
+  // const changeFormula2 = (txt: string,txtValores:string) => {
+    
+  //   if (frecuencia === "trimestral" && (tipoFormula.toLowerCase()==="índice" || tipoFormula.toLowerCase()==="indice")) {
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
+  //       txt.split(",")[0];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre2 =
+  //       txt.split(",")[1];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre3 =
+  //       txt.split(",")[2];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
+  //       txt.split(",")[3];
+        
+  //   } else if(frecuencia === "trimestral")
+  //   {
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre1 =
+  //       txt.split(",")[0];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre2 =
+  //       txt.split(",")[1];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre3 =
+  //       txt.split(",")[2];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].trimestre4 =
+  //       txt.split(",")[3];
+        
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorA = txtValores.split(",")[0];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorB = txtValores.split(",")[1];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorC = txtValores.split(",")[2];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorD = txtValores.split(",")[3];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorE = txtValores.split(",")[4];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorF = txtValores.split(",")[5];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorG = txtValores.split(",")[6];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorH = txtValores.split(",")[7];
 
+  //   } else if (frecuencia ==="semestral" && (tipoFormula.toLowerCase()==="índice" || tipoFormula.toLowerCase()==="indice"))
+  //   {
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
+  //       txt.split(",")[0];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].semestre2 =
+  //       txt.split(",")[1];
+  //   } else
+  //   {
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].semestre1 =
+  //       txt.split(",")[0];
+  //     componentesValues[componentSelect].metasPorFrecuencia[0].semestre2 =
+  //       txt.split(",")[1];
+
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorA = txtValores.split(",")[0];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorB = txtValores.split(",")[1];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorC = txtValores.split(",")[2];
+  //     componentesValues[componentSelect].valoresPorFrecuencia[0].valorD = txtValores.split(",")[3];
+  //   }
+
+
+  //   setComponentesValues([...componentesValues]);
+  // };
 
 
 
@@ -334,13 +479,27 @@ export function TabAccion2({
       }}
     >
       <FormulaDialog
-                    open={openFormulaDialog}
-                    close={handleClose}
-                    textoSet={changeFormula}
-                    prevText={prevTextFormula}
-                    tipo={tipoFormula}
-                    elemento={elementoFormula}
-                  />
+        open={openFormulaDialog}
+        close={handleClose}
+        textoSet={changeFormula}
+        prevText={prevTextFormula}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+      />
+
+
+      <FormulaDialogAIAP
+        open={openFormulaDialogMACA}
+        close={handleClose2}
+        textoSet={changeFormula2}
+        tipo={tipoFormula}
+        elemento={elementoFormula}
+        elementoA={""}
+        MIR={""}
+        frecuencia={""}
+        valores={JSON.stringify(AI.acciones)}
+      />
+
       <Grid
         sx={{
           width: "100%",
@@ -479,7 +638,7 @@ export function TabAccion2({
                           fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       >
-                        Accion {item}
+                        Programa {item}
                       </Typography>
                     </ListItemButton>
                   </Grid>
@@ -508,18 +667,18 @@ export function TabAccion2({
             <IconButton
               onClick={() => {
                 addPrograma();
-                setComponentSelect(AI.acciones[componentSelect-1].programas.length + 1);
+                setComponentSelect(AI.acciones.length + 1);
               }}
-              disabled={AI.acciones[componentSelect-1].programas.length === 2}
+              disabled={AI.acciones.length === 2}
             >
               <AddCircleIcon fontSize="large" />
             </IconButton>
             <IconButton
               onClick={() => {
                 addremovePrograma();
-                setComponentSelect(AI.acciones[componentSelect-1].programas.length - 1);
+                setComponentSelect(AI.acciones.length - 1);
               }}
-              disabled={AI.acciones[componentSelect-1].programas.length <= 1}
+              disabled={AI.acciones.length <= 1}
             >
               <DoDisturbOnIcon fontSize="large" />
             </IconButton>
@@ -533,7 +692,7 @@ export function TabAccion2({
               PROGRAMA #{componentSelect}
             </Typography>
           </Grid>
-
+          
           {/* </Grid> */}
 
           {/* <Grid
@@ -552,7 +711,7 @@ export function TabAccion2({
               //backgroundColor: "blue"
             }}
           ></Grid> */}
-
+{/* {JSON.stringify(AI)} */}
           <Grid
             item
             xl={3.5}
@@ -566,6 +725,7 @@ export function TabAccion2({
               justifyContent: "center",
             }}
           >
+            
             <TextField
               multiline
               fullWidth
@@ -576,16 +736,18 @@ export function TabAccion2({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               variant="filled"
               sx={{ boxShadow: 2 }}
-              label={"Descripción de la accion"}
+              label={"Descripción del programa"}
               onChange={(c) => {
-                let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].descripcion = clearInfo(c.target.value)
-                setAcciones(prevLocal);
+                let y = [...acciones];
+                y[componentSelect-1].programas[programaSelect-1].descripcion =
+                  clearInfo(c.target.value);
+
+                setAcciones(y);
               }}
-              value={""} //{acciones[componentSelect - 1]?.descripcion}
+              value={acciones[componentSelect - 1]?.programas[programaSelect-1]?.descripcion}
             />
           </Grid>
-
+              
           <Grid
             item
             xl={3.5}
@@ -599,6 +761,7 @@ export function TabAccion2({
               justifyContent: "center",
             }}
           >
+            
             <TextField
               multiline
               fullWidth
@@ -617,11 +780,13 @@ export function TabAccion2({
                   : null
               }
               onChange={(c) => {
-                let prevLocal = [...programas];
-                prevLocal[componentSelect - 1].descIndicador = clearInfo(c.target.value)
-                setProgramas(prevLocal);
+                let y = [...acciones];
+                y[componentSelect-1].programas[programaSelect-1].indicador =
+                  clearInfo(c.target.value);
+
+                setAcciones(y);
               }}
-              value={programas[componentSelect - 1]?.descIndicador}
+              value={acciones[componentSelect - 1]?.programas[programaSelect-1]?.indicador}
             />
           </Grid>
 
@@ -649,10 +814,10 @@ export function TabAccion2({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               sx={{ boxShadow: 2 }}
               label={"Fórmula de Cálculo"}
-              // onClick={() => {
-              //   evalueTxtIndicador();
-              // }}
-              value={acciones[componentSelect - 1]?.formulaCalculo}
+              onClick={() => {
+                evalueTxtIndicador("Fórmula de Cálculo");
+              }}
+              value={AI.acciones[0].programas[0].formulaCalculo}
             />
           </Grid>
 
@@ -680,12 +845,20 @@ export function TabAccion2({
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               sx={{ boxShadow: 2 }}
               label={"MV / FI"}
+              // onChange={(c) => {
+              //   let prevLocal = [...acciones];
+              //   prevLocal[componentSelect - 1].mv = clearInfo(c.target.value)
+              //   setAcciones(prevLocal);
+              // }}
+              // value={acciones[componentSelect - 1]?.mv}
               onChange={(c) => {
-                let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].mv = clearInfo(c.target.value)
-                setAcciones(prevLocal);
+                let y = [...acciones];
+                y[componentSelect-1].programas[programaSelect-1].mv =
+                  clearInfo(c.target.value);
+
+                setAcciones(y);
               }}
-              value={acciones[componentSelect - 1]?.mv}
+              value={acciones[componentSelect - 1]?.programas[programaSelect-1]?.mv}
             />
           </Grid>
 
@@ -714,11 +887,13 @@ export function TabAccion2({
               }}
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
-                let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value)
-                setAcciones(prevLocal);
+                let y = [...acciones];
+                y[componentSelect-1].programas[programaSelect-1].frecuencia =
+                  clearInfo(c.target.value);
+
+                setAcciones(y);
               }}
-              value={acciones[componentSelect - 1]?.unidadMedida}
+              value={acciones[componentSelect - 1]?.programas[programaSelect-1]?.frecuencia}
             />
           </Grid>
 
@@ -747,11 +922,13 @@ export function TabAccion2({
               }}
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
-                let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value)
-                setAcciones(prevLocal);
+                let y = [...acciones];
+                y[componentSelect-1].programas[programaSelect-1].unidadMedida =
+                  clearInfo(c.target.value);
+
+                setAcciones(y);
               }}
-              value={acciones[componentSelect - 1]?.unidadMedida}
+              value={acciones[componentSelect - 1]?.programas[programaSelect-1]?.unidadMedida}
             />
           </Grid>
 
@@ -780,11 +957,13 @@ export function TabAccion2({
               }}
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
-                let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].sentidoDelIndicador = clearInfo(c.target.value)
-                setAcciones(prevLocal);
+                let y = [...acciones];
+                y[componentSelect-1].programas[programaSelect-1].sentidoDelIndicador =
+                  clearInfo(c.target.value);
+
+                setAcciones(y);
               }}
-              value={acciones[componentSelect - 1]?.sentidoDelIndicador}
+              value={acciones[componentSelect - 1]?.programas[programaSelect-1]?.sentidoDelIndicador}
             />
           </Grid>
 
@@ -813,11 +992,13 @@ export function TabAccion2({
               }}
               InputProps={{ style: { fontFamily: "MontserratRegular" } }}
               onChange={(c) => {
-                let prevLocal = [...acciones];
-                prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value)
-                setAcciones(prevLocal);
+                let y = [...acciones];
+                y[componentSelect-1].programas[programaSelect-1].descIndicador =
+                  clearInfo(c.target.value);
+
+                setAcciones(y);
               }}
-              value={acciones[componentSelect - 1]?.unidadMedida}
+              value={acciones[componentSelect - 1]?.programas[programaSelect-1]?.descIndicador}
             />
           </Grid>
 
@@ -924,8 +1105,8 @@ export function TabAccion2({
 
 
                       <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "5px", flex: 1,textAlign: "center",backgroundColor: "#ccc" }}>
-                       
+                        <TableCell sx={{ fontWeight: "bold", border: "1px solid #ddd", padding: "5px", flex: 1,backgroundColor: "#ccc",textAlign: "center", }}>
+                        
                                 VALOR
                               
                             
@@ -955,10 +1136,12 @@ export function TabAccion2({
                               },
                             }}
                             onClick={() =>
-                              evalueTxtIndicador("DATO I,trimestre1")
+                              handleClickOpen2()
                             }
                             value={
-                              ""
+                              componentesValues[componentSelect - 1]
+                                ?.metasPorFrecuencia[0]?.lineaBase || ""
+                              
                             }
                           />
                         </TableCell>
@@ -987,12 +1170,11 @@ export function TabAccion2({
                               },
                             }}
                             onClick={() =>
-                              evalueTxtIndicador("DATO II,trimestre2")
+                              handleClickOpen2()
                             }
                             value={
-                              // componentesValues[componentSelect - 1]
-                              //   ?.metasPorFrecuencia[0]?.trimestre2 || ""
-                              ""
+                              componentesValues[componentSelect - 1]
+                                ?.metasPorFrecuencia[0]?.trimestre1 || ""
                             }
                           />
                         </TableCell>
@@ -1021,12 +1203,11 @@ export function TabAccion2({
                               },
                             }}
                             onClick={() =>
-                              evalueTxtIndicador("DATO III,trimestre3")
+                              evalueTxtIndicador("DATO II,trimestre2")
                             }
                             value={
-                              // componentesValues[componentSelect - 1]
-                              //   ?.metasPorFrecuencia[0]?.trimestre3 || ""
-                              ""
+                              componentesValues[componentSelect - 1]
+                                ?.metasPorFrecuencia[0]?.trimestre2 || ""
                             }
                           />
                         </TableCell>
@@ -1055,12 +1236,11 @@ export function TabAccion2({
                               },
                             }}
                             onClick={() =>
-                              evalueTxtIndicador("DATO IV,trimestre4")
+                              evalueTxtIndicador("DATO III,trimestre3")
                             }
                             value={
-                              // componentesValues[componentSelect - 1]
-                              //   ?.metasPorFrecuencia[0]?.trimestre4 || ""
-                              ""
+                              componentesValues[componentSelect - 1]
+                                ?.metasPorFrecuencia[0]?.trimestre3 || ""
                             }
                           />
                         </TableCell>
@@ -1092,9 +1272,8 @@ export function TabAccion2({
                               evalueTxtIndicador("DATO IV,trimestre4")
                             }
                             value={
-                              // componentesValues[componentSelect - 1]
-                              //   ?.metasPorFrecuencia[0]?.trimestre4 || ""
-                              ""
+                              componentesValues[componentSelect - 1]
+                                ?.metasPorFrecuencia[0]?.trimestre4 || ""
                             }
                           />
                         </TableCell>
@@ -1123,12 +1302,11 @@ export function TabAccion2({
                               },
                             }}
                             onClick={() =>
-                              evalueTxtIndicador("DATO IV,trimestre4")
+                              evalueTxtIndicador("ANUAL")
                             }
                             value={
-                              // componentesValues[componentSelect - 1]
-                              //   ?.metasPorFrecuencia[0]?.trimestre4 || ""
-                              ""
+                              componentesValues[componentSelect - 1]
+                                ?.metasPorFrecuencia[0]?.anual || ""
                             }
                           />
                         </TableCell>
@@ -1279,7 +1457,7 @@ export function TabAccion2({
   );
 }
 
-export default TabAccion2;
+export default TabPrograma;
 
 
 const periodo = [2021, 2022, 2023, 2024, 2025, 2026, 2027];

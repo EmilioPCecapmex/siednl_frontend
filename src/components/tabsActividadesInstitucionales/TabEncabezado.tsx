@@ -15,24 +15,26 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useEffect, useState } from "react";
 
 import { alertaInfo } from "../genericComponents/Alertas";
-import { ILista, IListaProgramas, IMIR, IMIREdit } from "../tabsMir/interfaces mir/IMIR";
+import { ILista, IListaProgramas, IAI, IAcciones, IProgramas } from "./Interfaces";
 import { getListPedColumns, getLista, getListasLoginProgramas } from "../../services/mir_services/servicesMIR";
 export function TabEncabezado({
   edit,
   show,
-  MIR,
-  setMIR,
+  AI,
+  setAI,
   // mirEdit,
   IdEntidad,
   setIdEntidad,
+  setAIIdentificacion,
 }: {
   edit: boolean;
   show: boolean;
-  MIR: IMIR;
-  setMIR: Function;
+  AI: IAI;
+  setAI: Function;
   // mirEdit: IMIREdit;
   IdEntidad: string;
   setIdEntidad: Function;
+  setAIIdentificacion:Function;
 }) {
   // const [nombreArchivo, setNombreArchivo] = useState(
   //   "ARRASTRE O DE CLICK AQUÍ PARA SELECCIONAR ARCHIVO"
@@ -47,25 +49,36 @@ export function TabEncabezado({
   const [disabledLineasDeAccion, setDisabledLineasDeAccion] = useState(true);
 
   const [anticorrupcion, setAnticorrupcion] = React.useState(
-    MIR.encabezado?.anticorrupcion || "NO"
+    AI.encabezado?.anticorrupcion || "NO"
   );
+
+  const [rop, setROP] = React.useState(
+    AI.encabezado?.anticorrupcion || "NO"
+  );
+
+  const [genero, setGenero] = React.useState(
+    AI.encabezado?.anticorrupcion || "NO"
+  );
+
+
 
   //Catalogos
   const [catalogoAniosFiscales, setCatalogoAniosFiscales] = useState<
     Array<ILista>
   >([]);
   const [anioFiscal, setAnioFiscal] = useState<ILista>(
-    MIR.encabezado.ejercicioFiscal || {
+    AI.encabezado.ejercicioFiscal || {
       Id: new Date().getFullYear().toString(),
       Label: new Date().getFullYear().toString(),
     }
+    
   );
 
   const [catalogoInstituciones, setCatalogoInstituciones] = useState<
     Array<ILista>
   >([]);
   const [entidadSeleccionada, setEntidadSeleccionada] = useState(
-    MIR.encabezado?.entidad || {
+    AI.encabezado?.entidad || {
       Id: localStorage.getItem("IdEntidad") || "",
       Label: localStorage.getItem("Entidad") || "",
     }
@@ -75,34 +88,34 @@ export function TabEncabezado({
     Array<IListaProgramas>
   >([]);
   const [programa, setPrograma] = useState<IListaProgramas>(
-    MIR.encabezado?.programa || { ...objetoVacio, Conac: "", Consecutivo: "" }
+    AI.encabezado?.programa || { ...objetoVacio, Conac: "", Consecutivo: "" }
   );
 
-  const [conac, setConac] = useState(MIR.encabezado?.conac || "");
+  const [conac, setConac] = useState(AI.encabezado?.conac || "");
 
   const [consecutivo, setConsecutivo] = useState(
-    MIR.encabezado?.consecutivo || ""
+    AI.encabezado?.consecutivo || ""
   );
 
   const [catalogoEjes, setCatalogoEjes] = useState<Array<ILista>>([]);
-  const [eje, setEje] = useState<ILista>(MIR.encabezado?.eje || objetoVacio);
+  const [eje, setEje] = useState<ILista>(AI.encabezado?.eje || objetoVacio);
 
   const [catalogoTematicas, setCatalogoTematicas] = useState<Array<ILista>>([]);
   const [tematica, setTematica] = useState<ILista>(
     
-    MIR.encabezado?.tema || objetoVacio
+    AI.encabezado?.tema || objetoVacio
   );
 
   const [catalogoObjetivos, setCatalogoObjetivos] = useState<Array<ILista>>([]);
   const [objetivo, setObjetivo] = useState<ILista>(
-    MIR.encabezado?.objetivo || objetoVacio
+    AI.encabezado?.objetivo || objetoVacio
   );
 
   const [catalogoEstrategias, setCatalogoEstrategias] = useState<Array<ILista>>(
     []
   );
   const [estrategia, setEstrategia] = useState<ILista>(
-    MIR.encabezado?.estrategia || objetoVacio
+    AI.encabezado?.estrategia || objetoVacio
   );
 
   const [catalogoLineasDeAccion, setCatalogoLineasDeAccion] = useState<
@@ -110,7 +123,7 @@ export function TabEncabezado({
   >([]);
 
   const [lineaDeAccion, setLineaDeAccion] = useState<Array<ILista>>(
-    MIR.encabezado?.lineas_de_accion || []
+    AI.encabezado?.lineas_de_accion || []
   );
 
   const [catalogoBeneficiarios, setCatalogoBeneficiarios] = useState<
@@ -118,16 +131,16 @@ export function TabEncabezado({
   >([]);
 
   const [beneficiario, setBeneficiario] = useState<Array<ILista>>(
-    MIR.encabezado?.beneficiario || []
+    AI.encabezado?.beneficiario || []
   );
 
   useEffect(() => {
     getLista("AniosFiscales", "", setCatalogoAniosFiscales);
-    setIdEntidad(MIR.encabezado?.entidad.Id)
+    setIdEntidad(AI.encabezado?.entidad)
     getListasLoginProgramas(setCatalogoInstituciones);
     getListPedColumns({ Col: "Ejes", Id: "" }, setCatalogoEjes, () => {});
     getLista("Beneficiario", "", setCatalogoBeneficiarios);
-    setEje(MIR.encabezado?.eje || objetoVacio);
+    setEje(AI.encabezado?.eje || "");
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -225,8 +238,8 @@ export function TabEncabezado({
   }
 
   useEffect(() => {
-    setMIR((MIR: IMIR) => ({
-      ...MIR,
+    setAI((AI: IAI) => ({
+      ...AI,
       ...{
         encabezado: {
           ejercicioFiscal: anioFiscal,
@@ -315,6 +328,8 @@ export function TabEncabezado({
           </Typography>
         </Button> 
       </Grid> */}
+
+      {/* {JSON.stringify(AI)} */}
       <Grid
         item
         container
@@ -659,11 +674,11 @@ export function TabEncabezado({
             label="SUJETO A ROP O LOP"
             control={
               <Checkbox
-                checked={anticorrupcion === "SI"}
+                checked={rop === "SI"}
                 onChange={() => {
-                  anticorrupcion === "NO"
-                    ? setAnticorrupcion("SI")
-                    : setAnticorrupcion("NO");
+                  rop === "NO"
+                    ? setROP("SI")
+                    : setROP("NO");
                 }}
               />
             }
@@ -711,11 +726,11 @@ export function TabEncabezado({
             label="INDICADOR DE GÉNERO"
             control={
               <Checkbox
-                checked={anticorrupcion === "SI"}
+                checked={genero === "SI"}
                 onChange={() => {
-                  anticorrupcion === "NO"
-                    ? setAnticorrupcion("SI")
-                    : setAnticorrupcion("NO");
+                  genero === "NO"
+                    ? setGenero("SI")
+                    : setGenero("NO");
                 }}
               />
             }

@@ -4,13 +4,13 @@ import Tab from "@mui/material/Tab";
 import { Grid, useMediaQuery } from "@mui/material";
 
 import TabAccion1 from "./TabAccion1";
-import TabAccion2 from "./TabAccion2";
+import TabPrograma from "./TabPrograma";
 import TabEncabezado from "./TabEncabezado";
 import { TabResumen } from "./TabResumen";
 import TabAvance from "./TabAvance";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import { IAI } from "../../screens/actividadesInstitucionales/InterfacesActividadesInstitucionales";
+import { IAI,IEncabezado,IAcciones } from "./Interfaces";
 import {
   IActividad,
   IComponente,
@@ -20,23 +20,63 @@ import {
 } from "../tabsMir/interfaces mir/IMIR";
 
 const newAI = {
-  identificacion: {
-    programaSectorial: "",
-    objetivoProgramaSectorial: "",
-    objetivogeneral: "",
-    objetivosespecificos: [],
+  encabezado: {
+    ejercicioFiscal: { Id: "", Label: "" },
+    entidad: { Id: "", Label: "" },
+    programa: { Id: "", Label: "", Conac: "", Consecutivo: "" },
+    eje: { Id: "", Label: "" },
+    tema: { Id: "", Label: "" },
+    objetivo: { Id: "", Label: "" },
+    estrategia: { Id: "", Label: "" },
+    lineas_de_accion: [],
+    beneficiario: [],
+    conac: "",
+    consecutivo: "",
+    anticorrupcion: "",
   },
   acciones: [
     {
-      accion: "",
+      acciones: "",
       descripcion: "",
-      nombreIndicador: "",
-      formula: "",
+      indicador: "",
+      formulaCalculo: "",
+      mv: "",
+      frecuencia: "",
       unidadMedida: "",
-      numerador: "",
-      medio_fuente: "",
-      denomidador: "",
-      medio_fuente2: "",
+      sentidoDelIndicador: "",
+      descIndicador: "",
+      metasPorFrecuencia: [
+        {
+          lineaBase: "",
+          trimestre1: "",
+          trimestre2: "",
+          trimestre3: "",
+          trimestre4: "",
+          anual: "",
+        }
+      ],
+      programas: 
+      [{
+        programas: "",
+        descripcion: "",
+        indicador: "",
+        formulaCalculo: "",
+        mv: "",
+        frecuencia: "",
+        unidadMedida: "",
+        sentidoDelIndicador: "",
+        descIndicador: "",
+        metasPorFrecuencia: [
+          {
+            lineaBase: "",
+            trimestre1: "",
+            trimestre2: "",
+            trimestre3: "",
+            trimestre4: "",
+            anual: "",
+          }
+        ],
+      }],
     },
   ],
 };
@@ -82,18 +122,48 @@ export default function TabsActividadesInstitucionales({
   };
 
   const [ai, setAi] = useState<IAI>(newAI);
+  const [aiPadre, setAIPadre] = useState<IAI>(newAI);
   const [editMIR, setEditMIR] = useState(false);
-  const [MIRPADRE, setMIRPADRE] = useState<IMIR>(JSON.parse(MIR));
+  // const [MIRPADRE, setMIRPADRE] = useState<IMIR>(JSON.parse(MIR));
   const [mirEdirPadre, setMIREDITPADRE] = useState<IMIREdit>(
     
       // newMIREDIT(JSON.stringify(MIR))
     );
   const [noAcciones, setNoAcciones] = useState([1]);
+  const [noProgramas, setNoProgramas] = useState([1]);
   const [apartado, setApartado] = useState(
     noAcciones.map((v, index) => {
       return [1, 2];
     })
   );
+
+
+
+ const setAIIdentificacion = (IdentificacionValues: IEncabezado) => {
+    setAIPadre({
+      ...aiPadre,
+      encabezado: IdentificacionValues,
+    });
+  };
+  const setAIAcciones = (componentesValues: IAcciones[]) => {
+    setAIPadre({
+      ...aiPadre,
+      acciones: componentesValues,
+    });
+  };
+  
+
+  const setAIProgramas = (
+      accionesProgramasValues: IAcciones[]
+    ) => {
+      setAIPadre({
+        ...aiPadre,
+        acciones: accionesProgramasValues,
+      });
+    };
+
+
+
 
   useEffect(() => {
     if (AI !== "" && AI !== null) {
@@ -120,15 +190,17 @@ export default function TabsActividadesInstitucionales({
       ...{
         acciones: arr.map((x, index) => {
           return {
-            accion: `A${index + 1}`,
+            acciones: `A${index + 1}`,
             descripcion: ai.acciones[index]?.descripcion || "",
-            nombreIndicador: ai.acciones[index]?.nombreIndicador || "",
-            formula: ai.acciones[index]?.formula || "",
+            indicador: ai.acciones[index]?.indicador || "",
+            formulaCalculo: ai.acciones[index]?.formulaCalculo || "",
+            mv: ai.acciones[index]?.mv || "",
+            frecuencia: ai.acciones[index]?.frecuencia || "",
             unidadMedida: ai.acciones[index]?.unidadMedida || "",
-            numerador: ai.acciones[index]?.numerador || "",
-            medio_fuente: ai.acciones[index]?.numerador || "",
-            denomidador: ai.acciones[index]?.medio_fuente || "",
-            medio_fuente2: ai.acciones[index]?.medio_fuente2 || "",
+            sentidoDelIndicador: ai.acciones[index]?.sentidoDelIndicador || "",
+            descIndicador: ai.acciones[index]?.descIndicador || "",
+            metasPorFrecuencia: ai.acciones[index]?.metasPorFrecuencia || "",
+            programas: ai.acciones[index]?.programas || "",
           };
         }),
       },
@@ -147,15 +219,61 @@ export default function TabsActividadesInstitucionales({
       ...{
         acciones: arr.map((x, index) => {
           return {
-            accion: `A${index + 1}`,
+            acciones: `A${index + 1}`,
             descripcion: ai.acciones[index]?.descripcion || "",
-            nombreIndicador: ai.acciones[index]?.nombreIndicador || "",
-            formula: ai.acciones[index]?.formula || "",
+            indicador: ai.acciones[index]?.indicador || "",
+            formulaCalculo: ai.acciones[index]?.formulaCalculo || "",
+            mv: ai.acciones[index]?.mv || "",
+            frecuencia: ai.acciones[index]?.frecuencia || "",
             unidadMedida: ai.acciones[index]?.unidadMedida || "",
-            numerador: ai.acciones[index]?.numerador || "",
-            medio_fuente: ai.acciones[index]?.numerador || "",
-            denomidador: ai.acciones[index]?.medio_fuente || "",
-            medio_fuente2: ai.acciones[index]?.medio_fuente2 || "",
+            sentidoDelIndicador: ai.acciones[index]?.sentidoDelIndicador || "",
+            descIndicador: ai.acciones[index]?.descIndicador || "",
+            metasPorFrecuencia: ai.acciones[index]?.metasPorFrecuencia || "",
+            programas: ai.acciones[index]?.programas || "",
+          };
+        }),
+      },
+    }));
+  };
+
+
+  const addPrograma = (accionesProgramas: IAcciones[]) => {
+    // let arrAccion = ai.programas;
+    let arr: Array<number> = noProgramas;
+    arr.push(noProgramas.length + 1);
+    setNoProgramas(arr);
+    setAi((ai: IAI) => ({
+      ...ai,
+      componentes:accionesProgramas
+     
+      
+    }));
+  };
+
+  const addremovePrograma = (accionSelect: number,
+    programaSelect: number) => {
+    let arrAccion = ai.acciones;
+    let arr: Array<number> = noProgramas;
+    if (noProgramas.length > 1) {
+      arr.pop();
+    }
+    setNoProgramas(arr);
+    setAi((ai: IAI) => ({
+      ...ai,
+      ...{
+        programas: arr.map((x, index) => {
+          return {
+            acciones: `A${index + 1}`,
+            descripcion: ai.acciones[index]?.descripcion || "",
+            indicador: ai.acciones[index]?.indicador || "",
+            formulaCalculo: ai.acciones[index]?.formulaCalculo || "",
+            mv: ai.acciones[index]?.mv || "",
+            frecuencia: ai.acciones[index]?.frecuencia || "",
+            unidadMedida: ai.acciones[index]?.unidadMedida || "",
+            sentidoDelIndicador: ai.acciones[index]?.sentidoDelIndicador || "",
+            descIndicador: ai.acciones[index]?.descIndicador || "",
+            metasPorFrecuencia: ai.acciones[index]?.metasPorFrecuencia || "",
+            programas: ai.acciones[index]?.programas || "",
           };
         }),
       },
@@ -261,7 +379,7 @@ export default function TabsActividadesInstitucionales({
               }}
             />
             <Tab
-              label="Accion 1"
+              label="Acciones"
               value={20}
               onClick={() => {
                 setValue(20);
@@ -276,7 +394,7 @@ export default function TabsActividadesInstitucionales({
             />
 
             <Tab
-              label="Avance fisico financiero"
+              label="Programas"
               value={30}
               onClick={() => {
                 setValue(30);
@@ -333,11 +451,12 @@ export default function TabsActividadesInstitucionales({
             {/* tabs */}
             {value === 10 && <TabEncabezado edit={editMIR}
               show={value === 10 ? true : false}
-              MIR={MIRPADRE}
-              setMIR={setMIRPADRE}
+              AI={ai}
+              setAI={setAi}
               // mirEdit={mirEdirPadre}
               IdEntidad={IdEntidad}
-              setIdEntidad={setIdEntidad} />}
+              setIdEntidad={setIdEntidad}
+              setAIIdentificacion={setAIIdentificacion} />}
             {value === 20 && (
               <TabAccion1
                 AI={ai}
@@ -345,11 +464,24 @@ export default function TabsActividadesInstitucionales({
                 addAccion={addAccion}
                 addremoveAccion={addremoveAccion}
                 setAi={setAi}
+                setAIAcciones={setAIAcciones}
               />
             )}
 
-            {value === 30 && <TabAvance />}
-            {value === 40 && <TabResumen showResume={returnMain} />}
+            {value === 30 && 
+            <TabPrograma
+                AI={ai}
+                noProgramas={noProgramas}
+                addPrograma={addPrograma}
+                addremovePrograma={addremovePrograma}
+                setAi={setAi}
+                setAIProgramas={setAIProgramas}
+              />}
+            {value === 40 &&
+            <TabResumen 
+              AI={ai}
+              showResume={returnMain}
+             />}
           </Grid>
         </Grid>
       </Grid>
