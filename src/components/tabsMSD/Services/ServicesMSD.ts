@@ -5,9 +5,9 @@ import {
   alertaInfo,
 } from "../../genericComponents/Alertas";
 
-export const getListaPae = (anio: string, setState: Function) => {
+export const getListaMSD = (anio: string, setState: Function) => {
   axios
-    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-pae", {
+    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/list-msd", {
       params: { Anio: anio },
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export const getListaPae = (anio: string, setState: Function) => {
     });
 };
 
-export const creaPAE = (
+export const creaMSD = (
   Nombre: string,
   Ruta: string,
   Anio: string,
@@ -37,7 +37,7 @@ export const creaPAE = (
 
   axios
     .post(
-      process.env.REACT_APP_APPLICATION_BACK + "/api/create-pae",
+      process.env.REACT_APP_APPLICATION_BACK + "/api/create-msd",
       {
         Nombre: Nombre,
         Tipo: "pdf",
@@ -60,13 +60,13 @@ export const creaPAE = (
     });
 };
 
-export const modifyPAE = (
+export const modifyMSD = (
   CampoModificar: string,
   Campo: string,
   Id: string
 ) => {
   return axios
-    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/modify-pae", {
+    .get(process.env.REACT_APP_APPLICATION_BACK + "/api/modify-msd", {
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("jwtToken") || "",
@@ -74,7 +74,7 @@ export const modifyPAE = (
       params: {
         CampoModificar: CampoModificar,
         Campo: Campo,
-        IdPAE: Id,
+        IdMSD: Id,
       },
     })
     .then(() => {
@@ -85,9 +85,9 @@ export const modifyPAE = (
     });
 };
 
-export const deletePAE = (id:string) => {
+export const deleteMSD = (id:string) => {
   return axios
-    .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-pae", {
+    .delete(process.env.REACT_APP_APPLICATION_BACK + "/api/delete-msd", {
       data: {
         Id: id,
         ModificadoPor: localStorage.getItem("IdUsuario"),
@@ -110,7 +110,7 @@ export const guardarDoc = (
   fechaPublicacion: string,
 ) => {
   const url = new File([archivo.archivo], archivo.nombreArchivo);
-  let ruta = "/PAE/" + perteneceA + "/";
+  let ruta = "/MSD/" + perteneceA + "/";
   ruta = ((process.env.REACT_APP_DOC_ROUTE || "") + ruta).trim();
 
   let dataArray = new FormData();
@@ -133,7 +133,7 @@ export const guardarDoc = (
     .then(({ data }) => {
       if (data.SUCCESS) {
         let auxPerteneceA = perteneceA.split("/");
-        creaPAE(
+        creaMSD(
           data.RESPONSE.NOMBREARCHIVO,
           ruta,
           auxPerteneceA[0],

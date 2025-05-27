@@ -1,29 +1,20 @@
 import { Grid } from "@mui/material";
 import { useState } from "react";
-// import { TabPAE } from "./TabPAE";
+import { TabMSD } from "./TabMSD";
 import GenericTabs from "../genericComponents/genericTabs";
 
 const tabsInfo = [
   "Todos los Documentos",
-  "Programa Anual Evaluación",
-  "Términos de Referencia",
-  "Bitácoras de Información",
-  "Informe Calidad de Información",
-  "Informe Final",
-  "Anexo CONAC",
-  "Reporte Anual de Evaluación",
+  "MSD",
+  "Desempeño",
+  
 ];
 const tabsShow = [
   "Todos_los_Documentos",
-  "Programa_Anual_Evaluación",
-  "Términos_de_Referencia",
-  "Bitácoras_de_Información",
-  "Informe_Calidad_de_Información",
-  "Informe_Final",
-  "Anexo_CONAC",
-  "Reporte_Anual_de_Evaluación",
+  "MSD",
+  "Desempeño",
 ];
-export default function CapturaPAE() {
+export default function CapturaMSD() {
   const [value, setValue] = useState(0);
   return (
     <Grid
@@ -70,11 +61,11 @@ export default function CapturaPAE() {
               alignItems: "center",
             }}
           >
-            {/* <TabPAE
+            <TabMSD
               TabSelect={tabsInfo[value]}
               Tabs={tabsInfo}
               tabsShow={tabsShow[value]}
-            /> */}
+            />
           </Grid>
         </Grid>
       </Grid>

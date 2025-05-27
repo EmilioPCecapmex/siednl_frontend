@@ -17,6 +17,7 @@ import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { MIR } from "./screens/mir/MIR";
 import { ProgramaAnualEvaluacion } from "./screens/programaAnauldeEvaluacion/ProgramaAnualdeEvaluacion";
+import { MSD } from "./screens/MSD/MSD";
 import { Raffi } from "./screens/raffi/Raffi";
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
         <Route path="metaAnual" element={<MetaAnual />} />
         <Route path="programaAnualEvaluacion" element={<ProgramaAnualEvaluacion />} />
         <Route path="raffi" element={<Raffi />} />
+        <Route path="msd" element={<MSD />} />
         <Route path="notifications" element={<Notification />} />
         <Route path="AdministracionAyudas" element={<Ayuda />} />
 

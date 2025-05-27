@@ -15,7 +15,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useRef, useState, useEffect } from "react";
-import { deletePAE, guardarDoc } from "./Services/ServicesMSD";
+import { deleteMSD, guardarDoc } from "./Services/ServicesMSD";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { queries } from "../../queries";
@@ -274,7 +274,7 @@ export function DialogCargaArchivo({
   );
 }
 
-export const DeleteDialogPAE = ({
+export const DeleteDialogMSD = ({
   id,
   updateData,
 }: {
@@ -287,12 +287,12 @@ export const DeleteDialogPAE = ({
     //setOpen(true);
     alertaEliminar(
       () => {
-        deletePAE(id);
+        deleteMSD(id);
       },
       () => {},
       "Deseas eliminar el documento?"
     ).then(() => handleClose());
-    //deletePAE(id).then(() => handleClose());
+    //deleteMSD(id).then(() => handleClose());
   };
 
   const handleClose = () => {

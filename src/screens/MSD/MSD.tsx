@@ -10,7 +10,7 @@ import {
 //import { useNavigate } from "react-router-dom";
 //import { Header } from "../../components/header/Header";
 import React, { useState } from "react";
-import CapturaPAE from "../../components/tabsPAE/CapturaPAE";
+import CapturaMSD from "../../components/tabsMSD/CapturaMSD";
             
 export const MSD = () => {
   //const navigate = useNavigate();
@@ -27,7 +27,7 @@ export const MSD = () => {
         //</Grid>sx={{ mr: showResume ? 5 : 0 }}
       >
         <LateralMenu
-          selection={"PAE"}
+          selection={"MSD"}
           actionNumber={actionNumber}
           restore={() =>{}}
           
@@ -47,20 +47,7 @@ export const MSD = () => {
         xs={6}
         sx={{ backgroundColor: "white", }}
       >
-        {/* <Grid sx={{ height: "8vh", marginLeft: "4vw" }}>
-          <Header
-            details={{
-              name1: "Inicio",
-              path1: "../home",
-              name2: "Programa Anual de Evaluación",
-              path2: "../ProgramaAnualEvaluacion",
-              name3: "",
-            }}
-          />
-
-        
-
-      </Grid> */}
+      
       <Grid
             sx={{
               display: "flex",
@@ -71,7 +58,7 @@ export const MSD = () => {
             }}
             gridArea={"main"}
           >
-            <CapturaPAE />
+            <CapturaMSD />
           </Grid>
     </Grid>
     </Grid>

@@ -20,10 +20,10 @@ import { useEffect, useState } from "react";
 import { MostrarArchivos } from "../../screens/Ayuda/MostrarArchivos";
 import { IInfoFile } from "../../screens/Ayuda/VisualizadorAyudas";
 import SliderProgress from "../genericComponents/SliderProgress";
-import { DialogCargaArchivo, DeleteDialogPAE } from "./DialogCargaArchivo";
-import { getListaPae, modifyPAE } from "./Services/ServicesMSD";
+import { DialogCargaArchivo, DeleteDialogMSD } from "./DialogCargaArchivo";
+import { getListaMSD, modifyMSD } from "./Services/ServicesMSD";
 
-export const TabPAE = ({
+export const TabMSD = ({
   TabSelect,
   Tabs,
   tabsShow,
@@ -49,7 +49,7 @@ export const TabPAE = ({
   const [infoFile, setInfoFile] = useState<IInfoFile>({ nombre: "", ruta: "" });
 
   const actuaizarDatos = () => {
-    getListaPae(listaDeAnios[componenteSelect].toString(), setRegistros);
+    getListaMSD(listaDeAnios[componenteSelect].toString(), setRegistros);
   };
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export const TabPAE = ({
 
   const saveEditedDate = (id: string, rowIndex: number) => {
     setEditMode(registrosFiltrados.map(() => false));
-    modifyPAE("FechaCaptura", editedDate[rowIndex], id).then(() => {
+    modifyMSD("FechaCaptura", editedDate[rowIndex], id).then(() => {
       actuaizarDatos();
     });
     setBanderaEdit(true);
@@ -509,7 +509,7 @@ export const TabPAE = ({
                           </span>
                         </Tooltip>
                         {localStorage.getItem("Rol") === "Administrador" ? (
-                          <DeleteDialogPAE
+                          <DeleteDialogMSD
                             id={row.Id}
                             updateData={() => {
                               actuaizarDatos();
@@ -528,7 +528,7 @@ export const TabPAE = ({
 
       {openVisualizador ? (
         <MostrarArchivos
-          value="PAE"
+          value="MSD"
           infoFile={infoFile}
           handleClose={() => {
             setOpenVisualizador(false);
@@ -538,7 +538,7 @@ export const TabPAE = ({
     </>
   );
 };
-export interface IIPAE {
+export interface IIMSD {
   Id: string;
   AnioFiscal: string;
   Entidad: string;
