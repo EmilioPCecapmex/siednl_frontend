@@ -165,7 +165,7 @@ export const TabComponente = ({
         overflow: "auto",
       }}
     >
-      {JSON.stringify(MIR)}
+      {/* {JSON.stringify(MIR)} */}
       <FormulaDialog
         open={openFormulaDialog}
         close={handleClose}
