@@ -106,54 +106,54 @@ export const TabActividadRf = ({
     setTipoFormula(
       JSON.parse(MIR)
         .componentes[componenteSelect].actividades[
-          actividadSelect
-        ].indicador.toUpperCase()
+        actividadSelect
+      ].indicador.toUpperCase()
         .includes("PORCENTAJE") ||
         JSON.parse(MIR)
           .componentes[componenteSelect].actividades[
-            actividadSelect
-          ].indicador.toUpperCase()
+          actividadSelect
+        ].indicador.toUpperCase()
           .includes("PORCENTAJE")
         ? "Porcentaje"
         : JSON.parse(MIR)
-            .componentes[componenteSelect].actividades[
-              actividadSelect
-            ].indicador.toUpperCase()
-            .includes("TASA") ||
+          .componentes[componenteSelect].actividades[
+          actividadSelect
+        ].indicador.toUpperCase()
+          .includes("TASA") ||
           JSON.parse(MIR)
             .componentes[componenteSelect].actividades[
-              actividadSelect
-            ].indicador.toUpperCase()
+            actividadSelect
+          ].indicador.toUpperCase()
             .includes("TASA")
-        ? "Tasa"
-        : JSON.parse(MIR)
+          ? "Tasa"
+          : JSON.parse(MIR)
             .componentes[componenteSelect].actividades[
-              actividadSelect
-            ].indicador.toUpperCase()
+            actividadSelect
+          ].indicador.toUpperCase()
             .includes("INDICE" || "ÍNDICE") ||
-          JSON.parse(MIR)
-            .componentes[componenteSelect].actividades[
+            JSON.parse(MIR)
+              .componentes[componenteSelect].actividades[
               actividadSelect
             ].indicador.toUpperCase()
-            .includes("INDICE") ||
-          JSON.parse(MIR)
-            .componentes[componenteSelect].actividades[
+              .includes("INDICE") ||
+            JSON.parse(MIR)
+              .componentes[componenteSelect].actividades[
               actividadSelect
             ].indicador.toUpperCase()
-            .includes("ÍNDICE")
-        ? "Índice"
-        : JSON.parse(MIR)
-            .componentes[componenteSelect].actividades[
+              .includes("ÍNDICE")
+            ? "Índice"
+            : JSON.parse(MIR)
+              .componentes[componenteSelect].actividades[
               actividadSelect
             ].indicador.toUpperCase()
-            .includes("PROMEDIO") ||
-          JSON.parse(MIR)
-            .componentes[componenteSelect].actividades[
-              actividadSelect
-            ].indicador.toUpperCase()
-            .includes("PROMEDIO")
-        ? "Promedio"
-        : ""
+              .includes("PROMEDIO") ||
+              JSON.parse(MIR)
+                .componentes[componenteSelect].actividades[
+                actividadSelect
+              ].indicador.toUpperCase()
+                .includes("PROMEDIO")
+              ? "Promedio"
+              : ""
     );
     setElementoFormula(
       "C" + (componenteSelect + 1).toString() + "A" + (actividadSelect + 1).toString()
@@ -161,14 +161,14 @@ export const TabActividadRf = ({
     setOpenFormulaDialog(true);
   };
 
-  
-  const year=new Date().getFullYear();
-  const dateSem = [new Date(year,5,30), new Date(year,11,31)];
+
+  const year = new Date().getFullYear();
+  const dateSem = [new Date(year, 5, 30), new Date(year, 11, 31)];
   const dateTrim = [
-    new Date(year,2,31),
-    new Date(year,5,30),
-    new Date(year,8,30),
-    new Date(year,11,31),
+    new Date(year, 2, 31),
+    new Date(year, 5, 30),
+    new Date(year, 8, 30),
+    new Date(year, 11, 31),
   ];
 
 
@@ -176,8 +176,8 @@ export const TabActividadRf = ({
     MA === ""
       ? ""
       : JSON.parse(MA).length > 1
-      ? JSON.parse(MA)[0]
-      : JSON.parse(MA);
+        ? JSON.parse(MA)[0]
+        : JSON.parse(MA);
 
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
@@ -219,7 +219,7 @@ export const TabActividadRf = ({
         >
           <Tooltip title="RESUMEN ACTIVIDAD">
             <InfoOutlinedIcon
-              onClick={() => {}}
+              onClick={() => { }}
               fontSize="large"
               sx={{ cursor: "pointer" }}
             ></InfoOutlinedIcon>
@@ -235,7 +235,7 @@ export const TabActividadRf = ({
           </Typography>
         </Grid>
 
-        
+
         <Grid
           sx={{
             width: "100%",
@@ -246,7 +246,7 @@ export const TabActividadRf = ({
           {!isSmallScreen && (
             <List
               sx={{
-               
+
                 width: "15vw",
                 [theme.breakpoints.between(587, 769)]: {
                   width: "30vw",
@@ -346,7 +346,7 @@ export const TabActividadRf = ({
               })}
             </List>
           )}
-          
+
           <Grid
             item
             container
@@ -364,19 +364,112 @@ export const TabActividadRf = ({
               },
             }}
           >
-            <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
-            <Typography
-              sx={{
-                fontFamily: "MontserratSemiBold",
-                // fontSize: "1vw",
-                textAlign: "center",
-              }}
-            >
-              {JSON.parse(MIR).componentes[componenteSelect]?.actividades[
-                          actividadSelect]?.resumen}
-            </Typography>
-            
-          </Grid>
+            {/* ############################################################### */}
+            <Grid
+              item
+              container
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
+              sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Grid
+                xl={11}
+                lg={11}
+                md={11}
+                sm={11}
+                xs={11} sx={{ display: 'flex', justifyContent: 'left' }}>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratSemiBold",
+                    // fontSize: "1vw",
+                    textAlign: "center",
+                  }}
+                >
+                  {JSON.parse(MIR).componentes[componenteSelect]?.actividades[
+                    actividadSelect]?.resumen}
+                </Typography>
+
+              </Grid>
+
+              <Grid
+                xl={11}
+                lg={11}
+                md={11}
+                sm={11}
+                xs={11}
+                sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Grid
+                  item
+                  xl={5}
+                  lg={5}
+                  md={5}
+                  sm={11}
+                  xs={11}
+                  sx={{
+                    alignContent: "center",
+                    display: "flex", flexDirection: 'column',
+                    justifyContent: "center", mt: '1vh'
+                  }}
+                >
+                  <InputLabel sx={{ width: '100%' }}>META ANUAL 2023</InputLabel>
+                  <TextField
+                    disabled={true}
+                    fullWidth
+                    sx={{ boxShadow: 2, width:'100%' }}
+                    variant={"filled"}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratMedium",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    value={jsonMA?.componentes[componenteSelect]?.metaAnual || ""}
+                  />
+                </Grid>
+
+                <Grid
+                  item
+                  xl={5}
+                  lg={5}
+                  md={5}
+                  sm={11}
+                  xs={11}
+                  sx={{
+                    alignContent: "center",
+                    display: "flex", flexDirection: 'column',
+                    justifyContent: "center", mt: '1vh'
+                  }}
+                >
+                  <InputLabel sx={{ width: '100%' }}> LINEA BASE 2021</InputLabel>
+                  <TextField
+                    fullWidth
+                    disabled={true}
+                    sx={{ boxShadow: 2, width:'100%' }}
+                    variant={"filled"}
+                    InputLabelProps={{
+                      style: {
+                        fontFamily: "MontserratMedium",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        fontFamily: "MontserratRegular",
+                      },
+                    }}
+                    value={jsonMA?.componentes[componenteSelect]?.lineaBase || ""}
+                  />
+                </Grid>
+              </Grid>
+
+            </Grid>
+            {/* #################################################################### */}
+
             {isSmallScreen && (
               <List>
                 {componentesActividadesValues.map((componente, index) => {
@@ -399,7 +492,7 @@ export const TabActividadRf = ({
                           setActividadSelect(0);
                           setIndex(index);
                         }}
-                        
+
                         sx={{
                           fontSize: { xs: 8, sm: 13, md: 15, lg: 18 },
                           height: "7vh",
@@ -414,7 +507,7 @@ export const TabActividadRf = ({
                         <Typography
                           sx={{
                             fontFamily: "MontserratMedium",
-                           
+
                           }}
                         >
                           COMPONENTE {index + 1}
@@ -451,7 +544,7 @@ export const TabActividadRf = ({
                             >
                               <Typography
                                 sx={{
-                                  
+
                                   fontFamily: "MontserratMedium",
                                 }}
                               >
@@ -469,353 +562,275 @@ export const TabActividadRf = ({
               </List>
             )}
 
+            {/* ############################################################### */}
             <Grid
               item
-              xl={3}
-              lg={3}
-              md={2}
-              sm={2}
-              xs={11}
-              sx={{
-                alignContent: "center",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <TextField
-                disabled={true}
-                fullWidth
-                sx={{ boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [10, 10, 10, 15, 15, 18],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    META ANUAL 2023
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={jsonMA?.componentes[componenteSelect]?.metaAnual || ""}
-              />
-            </Grid>
-
-            <Grid
-              item
-              xl={3}
-              lg={3}
-              md={2}
-              sm={2}
-              xs={11}
-              sx={{
-                alignContent: "center",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <TextField
-                fullWidth
-                disabled={true}
-                sx={{ boxShadow: 2 }}
-                variant={"filled"}
-                label={
-                  <Typography
-                    sx={{
-                      fontSize: [10, 10, 10, 15, 15, 18],
-                      fontFamily: "MontserratMedium",
-                    }}
-                  >
-                    LINEA BASE 2021
-                  </Typography>
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratMedium",
-                  },
-                }}
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-                value={jsonMA?.componentes[componenteSelect]?.lineaBase || ""}
-              />
-            </Grid>
-
-            <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
-            <Typography
-              sx={{
-                fontFamily: "MontserratSemiBold",
-                // fontSize: "1vw",
-                textAlign: "center",
-              }}
-            >
-              METAS
-            </Typography>
-            
-          </Grid>
-
-
-            <Grid
               container
-              direction={"row"}
-             
-            >
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
+              sx={{ display: 'flex', justifyContent: 'center' }}>
               <Grid
-                container
-                item
-                direction={"row"}
-                sx={{
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                }}
-                gap={2}
-              >
-                <Grid
-                  item
-                  xl={2.5}
-                  lg={2.5}
-                  md={2.5}
-                  sm={12}
-                  xs={12}
-                  direction={"column"}
+                xl={11}
+                lg={11}
+                md={11}
+                sm={11}
+                xs={11} sx={{ display: 'flex', justifyContent: 'left' }}>
+                <Typography
                   sx={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "space-around",
+                    fontFamily: "MontserratSemiBold",
+                    // fontSize: "1vw",
+                    textAlign: "center",
                   }}
                 >
-                  <Grid item>
-                    <InputLabel sx={queries.medium_text}>
-                      TRIMESTRE 1
-                    </InputLabel>
-                  </Grid>
+                  METAS
+                </Typography>
 
-                  <Grid item>
-                    <TextField
-                      disabled={true}
-                      size="small"
-                      sx={{ boxShadow: 2 }}
-                      variant={"filled"}
-                      InputLabelProps={{
-                        style: {
-                          fontFamily: "MontserratMedium",
-                        },
-                      }}
-                      InputProps={{
-                        style: {
-                          fontFamily: "MontserratRegular",
-                        },
-                      }}
-                      value={
-                        jsonMA?.componentes[componenteSelect]?.actividades[
-                          actividadSelect
-                        ]?.metasPorFrecuencia[0]?.trimestre1
-                      }
-                    />
-                  </Grid>
-                </Grid>
-
-                <Grid
-                  item
-                  xl={2.5}
-                  lg={2.5}
-                  md={2.5}
-                  sm={12}
-                  xs={12}
-                  direction={"column"}
-                  sx={{
-                    //alignContent: "center",
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Grid item>
-                    <InputLabel sx={queries.medium_text}>
-                      TRIMESTRE 2
-                    </InputLabel>
-                  </Grid>
-
-                  <Grid item>
-                    <TextField
-                      disabled={true}
-                      size="small"
-                      sx={{ boxShadow: 2 }}
-                      variant={"filled"}
-                      InputLabelProps={{
-                        style: {
-                          fontFamily: "MontserratMedium",
-                        },
-                      }}
-                      InputProps={{
-                        style: {
-                          fontFamily: "MontserratRegular",
-                        },
-                      }}
-                      value={
-                        jsonMA?.componentes[componenteSelect]?.actividades[
-                          actividadSelect
-                        ]?.metasPorFrecuencia[0]?.trimestre2
-                      }
-                    />
-                  </Grid>
-                </Grid>
-
-                <Grid
-                  item
-                  xl={2.5}
-                  lg={2.5}
-                  md={2.5}
-                  sm={12}
-                  xs={12}
-                  direction={"column"}
-                  sx={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Grid item>
-                    <InputLabel sx={queries.medium_text}>
-                      TRIMESTRE 3
-                    </InputLabel>
-                  </Grid>
-
-                  <Grid item>
-                    <TextField
-                      disabled={true}
-                      size="small"
-                      sx={{ boxShadow: 2 }}
-                      variant={"filled"}
-                      InputLabelProps={{
-                        style: {
-                          fontFamily: "MontserratMedium",
-                        },
-                      }}
-                      InputProps={{
-                        style: {
-                          fontFamily: "MontserratRegular",
-                        },
-                      }}
-                      value={
-                        jsonMA?.componentes[componenteSelect]?.actividades[
-                          actividadSelect
-                        ]?.metasPorFrecuencia[0]?.trimestre3
-                      }
-                    />
-                  </Grid>
-                </Grid>
-
-                <Grid
-                  item
-                  xl={2.5}
-                  lg={2.5}
-                  md={2.5}
-                  sm={12}
-                  xs={12}
-                  direction={"column"}
-                  sx={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Grid item>
-                    <InputLabel sx={queries.medium_text}>
-                      TRIMESTRE 4
-                    </InputLabel>
-                  </Grid>
-
-                  <Grid item>
-                    <TextField
-                      disabled={true}
-                      size="small"
-                      sx={{ boxShadow: 2 }}
-                      variant={"filled"}
-                      InputLabelProps={{
-                        style: {
-                          fontFamily: "MontserratMedium",
-                        },
-                      }}
-                      InputProps={{
-                        style: {
-                          fontFamily: "MontserratRegular",
-                        },
-                      }}
-                      value={
-                        jsonMA?.componentes[componenteSelect]?.actividades[
-                          actividadSelect
-                        ]?.metasPorFrecuencia[0]?.trimestre4
-                      }
-                    />
-                  </Grid>
-                </Grid>
               </Grid>
-            </Grid>
-            
-            <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
-            <Typography
-              sx={{
-                fontFamily: "MontserratSemiBold",
-                // fontSize: "1vw",
-                textAlign: "center",
-              }}
-            >
-              CAPTURA AVANCE
-            </Typography>
-            
-          </Grid>
-            <Grid
-              container
-              direction={"row"}
-            >
+
               <Grid
-                container
-                item
-                direction={"row"}
-                sx={{
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                }}
-                gap={2}
-              >
-                <Grid
-                  item
-                  xl={2.5}
-                  lg={2.5}
-                  md={2.5}
-                  sm={12}
-                  xs={12}
-                  direction={"column"}
-                  sx={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Grid item>
-                    <InputLabel sx={queries.medium_text}>
-                    TRIMESTRE 1
-                    </InputLabel>
+                xl={11}
+                lg={11}
+                md={11}
+                sm={11}
+                xs={11}
+                sx={{ display: 'flex', justifyContent: 'space-between',mt:'1vh' }}>
+
+
+                <>
+
+                  <Grid
+                    item
+                    xl={2.5}
+                    lg={2.5}
+                    md={2.5}
+                    sm={11}
+                    xs={11}
+                    direction={"column"}
+                    sx={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                   
+                      <InputLabel sx={{...queries.medium_text,width: '100%'}}>
+                        TRIMESTRE 1
+                      </InputLabel>
+                      <TextField
+                        disabled={true}
+                        size="small"
+                        sx={{ boxShadow: 2,width: '100%' }}
+                        variant={"filled"}
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratMedium",
+                          },
+                        }}
+                        InputProps={{
+                          style: {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                        value={
+                          jsonMA?.componentes[componenteSelect]?.actividades[
+                            actividadSelect
+                          ]?.metasPorFrecuencia[0]?.trimestre1
+                        }
+                      />
+                    
                   </Grid>
 
-                  <Grid item>
-                    <TextField
-                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :((edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1)?false:(edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1||(new Date()>dateTrim[0])))}
+                  <Grid
+                    item
+                    xl={2.5}
+                    lg={2.5}
+                    md={2.5}
+                    sm={11}
+                    xs={11}
+                    direction={"column"}
+                    sx={{
+                      //alignContent: "center",
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                      <InputLabel sx={{...queries.medium_text,width: '100%'}}>
+                        TRIMESTRE 2
+                      </InputLabel>
+                      <TextField
+                        disabled={true}
+                        size="small"
+                        sx={{ boxShadow: 2,width: '100%' }}
+                        variant={"filled"}
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratMedium",
+                          },
+                        }}
+                        InputProps={{
+                          style: {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                        value={
+                          jsonMA?.componentes[componenteSelect]?.actividades[
+                            actividadSelect
+                          ]?.metasPorFrecuencia[0]?.trimestre2
+                        }
+                      />
+                  </Grid>
+
+                  <Grid
+                    item
+                    xl={2.5}
+                    lg={2.5}
+                    md={2.5}
+                    sm={11}
+                    xs={11}
+                    direction={"column"}
+                    sx={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                      <InputLabel sx={{...queries.medium_text,width: '100%'}}>
+                        TRIMESTRE 3
+                      </InputLabel>
+                      <TextField
+                        disabled={true}
+                        size="small"
+                        sx={{ boxShadow: 2,width: '100%' }}
+                        variant={"filled"}
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratMedium",
+                          },
+                        }}
+                        InputProps={{
+                          style: {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                        value={
+                          jsonMA?.componentes[componenteSelect]?.actividades[
+                            actividadSelect
+                          ]?.metasPorFrecuencia[0]?.trimestre3
+                        }
+                      />
+                  </Grid>
+
+                  <Grid
+                    item
+                    xl={2.5}
+                    lg={2.5}
+                    md={2.5}
+                    sm={11}
+                    xs={11}
+                    direction={"column"}
+                    sx={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                      <InputLabel sx={{...queries.medium_text,width: '100%'}}>
+                        TRIMESTRE 4
+                      </InputLabel>
+                      <TextField
+                        disabled={true}
+                        size="small"
+                        sx={{ boxShadow: 2,width: '100%' }}
+                        variant={"filled"}
+                        InputLabelProps={{
+                          style: {
+                            fontFamily: "MontserratMedium",
+                          },
+                        }}
+                        InputProps={{
+                          style: {
+                            fontFamily: "MontserratRegular",
+                          },
+                        }}
+                        value={
+                          jsonMA?.componentes[componenteSelect]?.actividades[
+                            actividadSelect
+                          ]?.metasPorFrecuencia[0]?.trimestre4
+                        }
+                      />
+                  </Grid>
+
+                </>
+              </Grid>
+
+            </Grid>
+            {/* #################################################################### */}
+
+            {/* ############################################################### */}
+            <Grid
+              item
+              container
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
+              sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Grid
+                xl={11}
+                lg={11}
+                md={11}
+                sm={11}
+                xs={11} sx={{ display: 'flex', justifyContent: 'left' }}>
+                <Typography
+                  sx={{
+                    fontFamily: "MontserratSemiBold",
+                    // fontSize: "1vw",
+                    textAlign: "center",
+                  }}
+                >
+                  CAPTURA AVANCE
+                </Typography>
+
+              </Grid>
+
+              <Grid
+                xl={11}
+                lg={11}
+                md={11}
+                sm={11}
+                xs={11}
+                sx={{ display: 'flex', justifyContent: 'space-between',mt:'1vh' }}>
+
+
+                <>
+
+                  <Grid
+                    item
+                    xl={2.5}
+                    lg={2.5}
+                    md={2.5}
+                    sm={11}
+                    xs={11}
+                    direction={"column"}
+                    sx={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                   
+                      <InputLabel sx={{...queries.medium_text,width: '100%'}}>
+                        TRIMESTRE 1
+                      </InputLabel>
+                      <TextField
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false : ((edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1) ? false : (edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre1 || (new Date() > dateTrim[0])))}
                       size="small"
-                      sx={{ boxShadow: 2 }}
+                      sx={{ boxShadow: 2, width:'100%' }}
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
@@ -834,35 +849,31 @@ export const TabActividadRf = ({
                           ?.trimestre1 || ""
                       }
                     />
-                  </Grid>
-                </Grid>
-
-                <Grid
-                  item
-                  xl={2.5}
-                  lg={2.5}
-                  md={2.5}
-                  sm={12}
-                  xs={12}
-                  direction={"column"}
-                  sx={{
-                    //alignContent: "center",
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Grid item>
-                    <InputLabel sx={queries.medium_text}>
-                      TRIMESTRE 2
-                    </InputLabel>
+                    
                   </Grid>
 
-                  <Grid item>
-                    <TextField
-                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :((edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2)?false: (edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2)||!(new Date()<dateTrim[1] && new Date()>dateTrim[0]))}
+                  <Grid
+                    item
+                    xl={2.5}
+                    lg={2.5}
+                    md={2.5}
+                    sm={11}
+                    xs={11}
+                    direction={"column"}
+                    sx={{
+                      //alignContent: "center",
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                      <InputLabel sx={{...queries.medium_text,width: '100%'}}>
+                        TRIMESTRE 2
+                      </InputLabel>
+                      <TextField
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false : ((edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2) ? false : (edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre2) || !(new Date() < dateTrim[1] && new Date() > dateTrim[0]))}
                       size="small"
-                      sx={{ boxShadow: 2 }}
+                      sx={{ boxShadow: 2, width:'100%' }}
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
@@ -882,33 +893,28 @@ export const TabActividadRf = ({
                       }
                     />
                   </Grid>
-                </Grid>
 
-                <Grid
-                  item
-                  xl={2.5}
-                  lg={2.5}
-                  md={2.5}
-                  sm={12}
-                  xs={12}
-                  direction={"column"}
-                  sx={{
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Grid item>
-                    <InputLabel sx={queries.medium_text}>
-                    TRIMESTRE 3
-                    </InputLabel>
-                  </Grid>
-
-                  <Grid item>
-                    <TextField
-                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :(edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3)?false: (edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3)||!(new Date()<dateTrim[2] && new Date()>dateTrim[1])}
+                  <Grid
+                    item
+                    xl={2.5}
+                    lg={2.5}
+                    md={2.5}
+                    sm={11}
+                    xs={11}
+                    direction={"column"}
+                    sx={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                      <InputLabel sx={{...queries.medium_text,width: '100%'}}>
+                        TRIMESTRE 3
+                      </InputLabel>
+                      <TextField
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false : (edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3) ? false : (edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre3) || !(new Date() < dateTrim[2] && new Date() > dateTrim[1])}
                       size="small"
-                      sx={{ boxShadow: 2 }}
+                      sx={{ boxShadow: 2, width:'100%' }}
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
@@ -928,32 +934,28 @@ export const TabActividadRf = ({
                       }
                     />
                   </Grid>
-                </Grid>
-                <Grid
-                  item
-                  xl={2.5}
-                  lg={2.5}
-                  md={2.5}
-                  sm={12}
-                  xs={12}
-                  direction={"column"}
-                  sx={{
-                    //alignContent: "center",
-                    alignItems: "center",
-                    display: "flex",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Grid item>
-                    <InputLabel sx={queries.medium_text}>
-                    TRIMESTRE 4
-                    </InputLabel>
-                  </Grid>
-                  <Grid item>
-                    <TextField
-                      disabled={localStorage.getItem("Rol") === "Administrador" ? false :(edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4)?false:(edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4)||!(new Date()<dateTrim[3] && new Date()>dateTrim[2])}
+
+                  <Grid
+                    item
+                    xl={2.5}
+                    lg={2.5}
+                    md={2.5}
+                    sm={11}
+                    xs={11}
+                    direction={"column"}
+                    sx={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                      <InputLabel sx={{...queries.medium_text,width: '100%'}}>
+                        TRIMESTRE 4
+                      </InputLabel>
+                      <TextField
+                      disabled={localStorage.getItem("Rol") === "Administrador" ? false : (edit && raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4) ? false : (edit && !raffiboolean?.componentes[componenteSelect]?.actividades[actividadSelect].metasPorFrecuencia[0]?.trimestre4) || !(new Date() < dateTrim[3] && new Date() > dateTrim[2])}
                       size="small"
-                      sx={{ boxShadow: 2 }}
+                      sx={{ boxShadow: 2, width:'100%' }}
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
@@ -973,9 +975,12 @@ export const TabActividadRf = ({
                       }
                     />
                   </Grid>
-                </Grid>
+
+                </>
               </Grid>
+
             </Grid>
+            {/* #################################################################### */}
           </Grid>
         </Grid>
       </Grid>

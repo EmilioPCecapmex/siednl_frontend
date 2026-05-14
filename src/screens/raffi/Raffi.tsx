@@ -753,16 +753,16 @@ export const Raffi = () => {
             <Grid
               container
               item
-              xl={8}
-              lg={8}
-              md={8}
-              sm={10}
+              xl={11.5}
+              lg={11.5}
+              md={11.5}
+              sm={11.5}
               xs={11}
               // height="15vh"
               // direction="row"
               sx={{
                 ...(!isSmallScreen
-                  ? { boxShadow: 5, backgroundColor: "#FFFF", borderRadius: 5 }
+                  ? { backgroundColor: "#FFFF", borderRadius: 5 }
                   : { marginBottom: "30px" }),
 
                 justifyContent: "space-evenly",
@@ -789,10 +789,10 @@ export const Raffi = () => {
                 {localStorage.getItem("Rol") === "Administrador" ? (
                   <Grid
                     item
-                    xl={5}
-                    lg={5}
-                    md={5}
-                    sm={5}
+                    xl={3}
+                    lg={3}
+                    md={3}
+                    sm={3}
                     xs={12}
                     sx={{
                       ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
@@ -854,10 +854,10 @@ export const Raffi = () => {
                 ) : null}
                 <Grid
                   item
-                  xl={widthCondition() ? 5 : 11}
-                  lg={widthCondition() ? 5 : 11}
-                  md={widthCondition() ? 5 : 11}
-                  sm={widthCondition() ? 5 : 11}
+                  xl={widthCondition() ? 3 : 11}
+                  lg={widthCondition() ? 3 : 11}
+                  md={widthCondition() ? 3 : 11}
+                  sm={widthCondition() ? 3 : 11}
                   xs={widthCondition() ? 11 : 11}
                 >
                   <FormControl fullWidth>
@@ -927,16 +927,14 @@ export const Raffi = () => {
                     </IconButton>
                   </Grid>
                 )}
-              </Grid>
-
-              <Grid
+                <Grid
                 sx={{ fontFamily: "MontserratRegular" }}
                 item
-                xl={11}
-                lg={10}
-                md={8}
-                sm={11}
-                xs={11}
+                xl={3}
+                lg={3}
+                md={3}
+                sm={3}
+                xs={3}
               >
                 <Paper
                   component="form"
@@ -980,6 +978,9 @@ export const Raffi = () => {
                   </IconButton>
                 </Paper>
               </Grid>
+              </Grid>
+
+              
             </Grid>
             {/* TABLA */}
             <Grid
@@ -994,7 +995,7 @@ export const Raffi = () => {
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 boxShadow: 5,
-                height: "65vh",
+                height: "75vh",
                 direction: "row",
               }}
             >

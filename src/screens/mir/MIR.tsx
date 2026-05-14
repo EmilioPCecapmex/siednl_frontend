@@ -82,7 +82,7 @@ export const MIR = () => {
     setPage(0);
   };
 
-  
+
   const [title_texto, setTitle] = useState("");
 
   const [findTextStr, setFindTextStr] = useState("");
@@ -196,7 +196,7 @@ export const MIR = () => {
 
   const filtrarDatos = () => {
     // eslint-disable-next-line array-callback-return
-    localStorage.setItem("IdNotificacion","")
+    localStorage.setItem("IdNotificacion", "")
 
     getListadoMirs().then(() => {
       let Arrayfiltro: IIMir[];
@@ -263,22 +263,21 @@ export const MIR = () => {
                 <DeleteIcon />
               </IconButton>
             </Tooltip> */}
-
             <DeleteDialogMIR
               disab={
                 v.row.Estado === "En Captura" &&
-                // || row.Estado === "Borrador Capturador"
-                validaFecha &&
-                localStorage.getItem("Rol") === "Capturador"
+                  // || row.Estado === "Borrador Capturador"
+                  validaFecha &&
+                  localStorage.getItem("Rol") === "Capturador"
                   ? false
                   : v.row.Estado === "En Revisión" &&
                     localStorage.getItem("Rol") === "Verificador"
-                  ? false
-                  : (v.row.Estado === "En Autorización" ||
+                    ? false
+                    : (v.row.Estado === "En Autorización" ||
                       v.row.Estado === "Autorizada") &&
-                    localStorage.getItem("Rol") === "Administrador"
-                  ? false
-                  : true
+                      localStorage.getItem("Rol") === "Administrador"
+                      ? false
+                      : true
               }
               id={v.row.Id}
               actualizado={actualizaContador}
@@ -345,19 +344,19 @@ export const MIR = () => {
                       v.row.Estado === "Borrador Capturador") &&
                       validaFecha &&
                       localStorage.getItem("Rol") === "Capturador") ||
-                    (v.row.Estado === "En Revisión" &&
-                      validaFecha &&
-                      localStorage.getItem("Rol") === "Verificador") ||
-                    (v.row.Estado === "Borrador Verificador" &&
-                      validaFecha &&
-                      localStorage.getItem("Rol") === "Verificador") ||
-                    ((v.row.Estado === "En Autorización" ||
-                      v.row.Estado === "Autorizada") &&
-                      validaFecha &&
-                      localStorage.getItem("Rol") === "Administrador") ||
-                    (v.row.Estado === "Borrador Autorizador" &&
-                      validaFecha &&
-                      localStorage.getItem("Rol") === "Administrador")
+                      (v.row.Estado === "En Revisión" &&
+                        validaFecha &&
+                        localStorage.getItem("Rol") === "Verificador") ||
+                      (v.row.Estado === "Borrador Verificador" &&
+                        validaFecha &&
+                        localStorage.getItem("Rol") === "Verificador") ||
+                      ((v.row.Estado === "En Autorización" ||
+                        v.row.Estado === "Autorizada") &&
+                        validaFecha &&
+                        localStorage.getItem("Rol") === "Administrador") ||
+                      (v.row.Estado === "Borrador Autorizador" &&
+                        validaFecha &&
+                        localStorage.getItem("Rol") === "Administrador")
                       ? false
                       : true
                   }
@@ -475,7 +474,7 @@ export const MIR = () => {
           : localStorage.getItem("IdEntidad"),
         setMirs,
         "list-mir",
-        
+
       );
     });
   };
@@ -485,7 +484,7 @@ export const MIR = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [findTextStr]);
 
- 
+
 
   useEffect(() => {
     getListadoMirs();
@@ -559,14 +558,14 @@ export const MIR = () => {
             <Grid
               container
               item
-              xl={8}
-              lg={8}
-              md={8}
-              sm={10}
-              xs={11}
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
+              xs={12}
               sx={{
                 ...(!isSmallScreen
-                  ? { boxShadow: 5, backgroundColor: "#FFFF", borderRadius: 5 }
+                  ? { backgroundColor: "#FFFF", borderRadius: 5 }
                   : { marginBottom: "30px" }),
 
                 justifyContent: "space-evenly",
@@ -593,10 +592,10 @@ export const MIR = () => {
                 {localStorage.getItem("Rol") === "Administrador" ? (
                   <Grid
                     item
-                    xl={5}
-                    lg={5}
-                    md={5}
-                    sm={5}
+                    xl={3}
+                    lg={3}
+                    md={3}
+                    sm={3}
                     xs={12}
                     sx={{
                       ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
@@ -676,10 +675,10 @@ export const MIR = () => {
 
                 <Grid
                   item
-                  xl={widthCondition() ? 5 : 11}
-                  lg={widthCondition() ? 5 : 11}
-                  md={widthCondition() ? 5 : 11}
-                  sm={widthCondition() ? 5 : 11}
+                  xl={widthCondition() ? 3 : 11}
+                  lg={widthCondition() ? 3 : 11}
+                  md={widthCondition() ? 3 : 11}
+                  sm={widthCondition() ? 3 : 11}
                   xs={widthCondition() ? 11 : 11}
                 >
                   <Tooltip
@@ -706,7 +705,7 @@ export const MIR = () => {
                         size="small"
                         value={
                           (localStorage.getItem("Rol") === "Administrador" ||
-                          localStorage.getItem("Rol") === "ADMINISTRADOR"
+                            localStorage.getItem("Rol") === "ADMINISTRADOR"
                             ? estadomir.toUpperCase()
                             : findSelectStr.toUpperCase()) || estados[0]
                         }
@@ -739,46 +738,12 @@ export const MIR = () => {
                     </FormControl>
                   </Tooltip>
                 </Grid>
-
-               
-                  {/* <Grid item xl={1} lg={1} md={1} sm={1} xs={1}>
-                    <IconButton
-                      onClick={() => {
-                        localStorage.setItem("IdNotificacion", "");
-                        buscador(
-                          estadomir,
-                          instituciones?.Label,
-                          setMirs,
-                          "list-mir",
-                        
-                        );
-                      }}
-                    >
-                      <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
-                    </IconButton>
-                  </Grid> */}
-                
-              </Grid>
-
-              <Grid
-                xl={12}
-                lg={12}
-                md={12}
-                sm={12}
-                xs={12}
-                container
-                sx={{
-                  direction: "row",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                }}
-              >
                 <Grid
                   sx={{ fontFamily: "MontserratRegular" }}
                   item
-                  xl={7}
-                  lg={6}
-                  md={6}
+                  xl={3}
+                  lg={3}
+                  md={3}
                   sm={7}
                 >
                   <Paper
@@ -801,12 +766,12 @@ export const MIR = () => {
                       placeholder="Buscar"
                       value={findTextStr}
                       onChange={(e) => {
-                        
+
                         handleChange(e.target.value);
                       }}
                       onKeyPress={(ev) => {
                         if (ev.key === "Enter") {
-                          
+
                           filtrarDatos();
                           ev.preventDefault();
                           return false;
@@ -824,12 +789,12 @@ export const MIR = () => {
                   </Paper>
                 </Grid>
 
-                <Grid item xl={3} lg={3} md={4} sm={4} xs={4}>
+                <Grid item xl={1} lg={1} md={4} sm={4} xs={4}>
                   <Button
                     disabled={
                       localStorage.getItem("Rol") === "Administrador"
-                      ? false
-                      : !validaFecha
+                        ? false
+                        : !validaFecha
                     }
                     className="aceptar"
                     sx={{
@@ -858,33 +823,37 @@ export const MIR = () => {
                       ]);
                       handleClickOpen();
                     }}
-                  > 
+                  >
                     {
-                    localStorage.getItem("Rol") === "Administrador"
-                    ? "AÑADIR REGISTRO"
-                    : !validaFecha 
-              
-                      ? "FECHA DE CAPTURA TERMINADA"
-                      : "AÑADIR REGISTRO" }
+                      localStorage.getItem("Rol") === "Administrador"
+                        ? "AÑADIR REGISTRO"
+                        : !validaFecha
+
+                          ? "FECHA DE CAPTURA TERMINADA"
+                          : "AÑADIR REGISTRO"}
                   </Button>
                 </Grid>
               </Grid>
             </Grid>
 
+
+
+
+
             {/* TABLA */}
 
             <Grid
               item
-              xl={10}
-              lg={10}
-              md={10}
-              sm={10}
-              xs={10}
+              xl={11.5}
+              lg={11.5}
+              md={11.5}
+              sm={11.5}
+              xs={11.5}
               sx={{
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 boxShadow: 5,
-                height: "65vh",
+                height: "80vh",
                 direction: "row",
               }}
             >
@@ -944,15 +913,15 @@ export const MIR = () => {
                           {TableCellFormat(
                             ((row.Estado === "En Captura" ||
                               row.Estado === "Borrador Capturador") &&
-                            localStorage.getItem("Rol") === "Capturador"
+                              localStorage.getItem("Rol") === "Capturador"
                               ? "Borrador Capturador"
                               : row.Estado === "En Revisión" &&
                                 localStorage.getItem("Rol") === "Verificador"
-                              ? "Esperando revisión"
-                              : row.Estado === "En Autorización" &&
-                                localStorage.getItem("Rol") === "Administrador"
-                              ? "En Autorización"
-                              : row.Estado
+                                ? "Esperando revisión"
+                                : row.Estado === "En Autorización" &&
+                                  localStorage.getItem("Rol") === "Administrador"
+                                  ? "En Autorización"
+                                  : row.Estado
                             ).toUpperCase()
                           )}
 
@@ -1016,19 +985,19 @@ export const MIR = () => {
                               <DeleteDialogMIR
                                 disab={
                                   row.Estado === "En Captura" &&
-                                  validaFecha &&
-                                  localStorage.getItem("Rol") === "Capturador"
+                                    validaFecha &&
+                                    localStorage.getItem("Rol") === "Capturador"
                                     ? false
                                     : row.Estado === "En Revisión" &&
                                       localStorage.getItem("Rol") ===
-                                        "Verificador"
-                                    ? false
-                                    : (row.Estado === "En Autorización" ||
+                                      "Verificador"
+                                      ? false
+                                      : (row.Estado === "En Autorización" ||
                                         row.Estado === "Autorizada") &&
-                                      localStorage.getItem("Rol") ===
+                                        localStorage.getItem("Rol") ===
                                         "Administrador"
-                                    ? false
-                                    : true
+                                        ? false
+                                        : true
                                 }
                                 id={row.Id}
                                 actualizado={actualizaContador}
@@ -1053,23 +1022,23 @@ export const MIR = () => {
                                         row.Estado === "Borrador Capturador") &&
                                         validaFecha &&
                                         localStorage.getItem("Rol") ===
-                                          "Capturador") ||
-                                      (row.Estado === "En Revisión" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
+                                        "Capturador") ||
+                                        (row.Estado === "En Revisión" &&
+                                          validaFecha &&
+                                          localStorage.getItem("Rol") ===
                                           "Verificador") ||
-                                      (row.Estado === "Borrador Verificador" &&
-                                        validaFecha &&
-                                        localStorage.getItem("Rol") ===
+                                        (row.Estado === "Borrador Verificador" &&
+                                          validaFecha &&
+                                          localStorage.getItem("Rol") ===
                                           "Verificador") ||
-                                      ((row.Estado === "En Autorización" ||
-                                        row.Estado === "Autorizada") &&
-                                        
-                                        localStorage.getItem("Rol") ===
+                                        ((row.Estado === "En Autorización" ||
+                                          row.Estado === "Autorizada") &&
+
+                                          localStorage.getItem("Rol") ===
                                           "Administrador") ||
-                                      (row.Estado === "Borrador Autorizador" &&
-                                        
-                                        localStorage.getItem("Rol") ===
+                                        (row.Estado === "Borrador Autorizador" &&
+
+                                          localStorage.getItem("Rol") ===
                                           "Administrador")
                                         ? false
                                         : true

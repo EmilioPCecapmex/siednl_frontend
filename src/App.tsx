@@ -7,6 +7,7 @@ import "./Globals.css";
 import { continueSession, sessionValid } from "./funcs/validation";
 import Ayuda from "./screens/Ayuda/Ayuda";
 import { PanelUsuarios } from "./screens/config/PanelUsuarios";
+import { PanelCorreos } from "./screens/config/PanelCorreos";
 import { Settings } from "./screens/config/Settings";
 import { E404 } from "./screens/e404/E404";
 import { Home } from "./screens/home/Home";
@@ -16,6 +17,7 @@ import { FichaTecnica } from "./screens/fichatecnica/FichaTecnica";
 import { MetaAnual } from "./screens/metaAnual/MetaAnual";
 import { MIR } from "./screens/mir/MIR";
 import { ProgramaAnualEvaluacion } from "./screens/programaAnauldeEvaluacion/ProgramaAnualdeEvaluacion";
+import { MSD } from "./screens/MSD/MSD";
 import { Raffi } from "./screens/raffi/Raffi";
 
 function App() {
@@ -62,6 +64,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="home" element={<Home />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="correos" element={<PanelCorreos />} />
         <Route path="users" element={<PanelUsuarios />} />
         <Route path="*" element={<E404 />} />
         <Route path="fichaTecnica" element={<FichaTecnica />} />
@@ -74,6 +77,7 @@ function App() {
         <Route path="metaAnual" element={<MetaAnual />} />
         <Route path="programaAnualEvaluacion" element={<ProgramaAnualEvaluacion />} />
         <Route path="raffi" element={<Raffi />} />
+        <Route path="msd" element={<MSD />} />
         <Route path="notifications" element={<Notification />} />
         <Route path="AdministracionAyudas" element={<Ayuda />} />
 

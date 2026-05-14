@@ -5,12 +5,14 @@ import {
   Grid,
   Autocomplete,
   Typography,
+  InputLabel
 } from "@mui/material";
 import axios from "axios";
 import { IEncabezadoFT, IFTEdit } from "./Interfaces";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { clearInfo } from "../genericComponents/GenericMethods";
+import { queries } from "../../queries";
 
 interface IObjetivoDS {
   Id: string;
@@ -226,14 +228,17 @@ export function TabEncabezado({
           }}
         >
           <Grid
-            xl={5}
-            lg={5}
-            md={5}
-            sm={5}
-            xs={10}
-            item
-            sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
-          >
+                item
+                container
+                xl={5}
+                lg={5}
+                md={5}
+                sm={5}
+                xs={10}
+              >
+            <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+            PROGRAMA SECTORIAL, ESPECIAL O REGIONAL
+            </InputLabel>
             <TextField
               disabled={edit && !ftEditPadre?.encabezado?.programaSER}
               onChange={(a) => {
@@ -245,11 +250,10 @@ export function TabEncabezado({
               }}
               value={clearInfo(encabezado.programaSER)}
                 
-              rows={8}
+              rows={7}
               multiline
               sx={{ width: "90%", boxShadow: 2 }}
               variant={"filled"}
-              label="PROGRAMA SECTORIAL, ESPECIAL O REGIONAL"
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",
@@ -271,8 +275,11 @@ export function TabEncabezado({
             sm={5}
             xs={10}
             item
-            sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
+            container
           >
+            <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+            OBJETIVO SECTORIAL, ESPECIAL O REGIONAL
+            </InputLabel>
             <TextField
               disabled={edit && !ftEditPadre?.encabezado?.programaSER}
               onChange={(a) => {
@@ -286,11 +293,10 @@ export function TabEncabezado({
               value={clearInfo(encabezado.objetivoSER)}
                
                 
-              rows={8}
+              rows={7}
               multiline
               sx={{ width: "90%", boxShadow: 2 }}
               variant={"filled"}
-              label="OBJETIVO SECTORIAL, ESPECIAL O REGIONAL"
               InputLabelProps={{
                 style: {
                   
@@ -306,14 +312,17 @@ export function TabEncabezado({
           </Grid>
 
           <Grid
+            item
+            container
             xl={5}
             lg={5}
             md={5}
             sm={5}
             xs={10}
-            item
-            sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
           >
+            <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+              OBJETIVO ODS
+            </InputLabel>
             <FormControl required fullWidth>
               <Autocomplete
                 clearText="Borrar"
@@ -340,7 +349,6 @@ export function TabEncabezado({
                   <TextField
                     {...params}
                     disabled={edit && !ftEditPadre?.encabezado?.objetivoODS}
-                    label={"OBJETIVO ODS"}
                     variant="standard"
                     InputLabelProps={{
                       style: {
@@ -364,14 +372,17 @@ export function TabEncabezado({
           </Grid>
 
           <Grid
+            item
+            container
             xl={5}
             lg={5}
             md={5}
             sm={5}
             xs={10}
-            item
-            sx={{ fontSize: [10, 10, 10, 13, 15, 18] }}
           >
+            <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+              META ODS
+            </InputLabel>
             <FormControl required fullWidth>
               <Autocomplete
                 clearText="Borrar"
@@ -401,7 +412,6 @@ export function TabEncabezado({
                   <TextField
                     {...params}
                     disabled={edit && !ftEditPadre?.encabezado?.metaODS}
-                    label={"META ODS"}
                     variant="standard"
                     InputLabelProps={{
                       style: {

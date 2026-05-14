@@ -57,8 +57,7 @@ export default function Usuarios({
             alignItems: "center",
           }}
         >
-
-          {banderaCrea == "1" ?
+          {banderaCrea === "1" ?
             <IFrame
               source={
                 "?jwt=" +
@@ -74,7 +73,7 @@ export default function Usuarios({
                 "?jwt=" +
                 getToken() +
                 "&IdApp=" +
-                idApp +
+                 idApp+
                 "&idUsuarioModificado=" +
                 idUsuario
               }

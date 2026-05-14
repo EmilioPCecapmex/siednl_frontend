@@ -7,6 +7,7 @@ import {
   TextField,
   FormControl,
   useMediaQuery,
+  InputLabel,
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Collapse from "@mui/material/Collapse";
@@ -18,6 +19,7 @@ import Radio from "@mui/material/Radio";
 import { IComponenteActividad } from "../tabsMir/interfaces mir/IMIR";
 import { IComponentesFT, IFTEdit } from "./Interfaces";
 import { clearInfo } from "../genericComponents/GenericMethods";
+import { queries } from "../../queries";
 
 export const TabActividadesFT = ({
   edit,
@@ -598,17 +600,16 @@ export const TabActividadesFT = ({
 
           <Grid
             item
+            container
             xl={3.5}
-            lg={3.5}
-            md={3.5}
-            sm={3.5}
-            xs={11}
-            sx={{
-              alignContent: "center",
-              display: "flex",
-              justifyContent: "center",
-            }}
+                lg={3.5}
+                md={3.5}
+                sm={3.5}
+                xs={11}
           >
+            <InputLabel sx={{ ...queries.medium_text, width: '100%' }}>
+              UNIDAD DE MEDIDA
+            </InputLabel>
             <TextField
               disabled={
                 edit &&
@@ -625,7 +626,6 @@ export const TabActividadesFT = ({
 
                 boxShadow: 2,
               }}
-              label={"UNIDAD DE MEDIDA"}
               InputLabelProps={{
                 style: {
                   fontFamily: "MontserratMedium",

@@ -664,16 +664,16 @@ export const MetaAnual = () => {
             <Grid
               container
               item
-              xl={8}
-              lg={8}
-              md={8}
-              sm={10}
+              xl={12}
+              lg={12}
+              md={12}
+              sm={12}
               xs={11}
               // height="15vh"
               // direction="row"
               sx={{
                 ...(!isSmallScreen
-                  ? { boxShadow: 5, backgroundColor: "#FFFF", borderRadius: 5 }
+                  ? {backgroundColor: "#FFFF", borderRadius: 5 }
                   : { marginBottom: "30px" }),
                 justifyContent: "space-evenly",
                 alignItems: "center",
@@ -712,11 +712,11 @@ export const MetaAnual = () => {
                 {localStorage.getItem("Rol") === "Administrador" ? (
                   <Grid
                     item
-                    xl={5}
-                    lg={5}
-                    md={5}
-                    sm={5}
-                    xs={12}
+                    xl={3}
+                    lg={3}
+                    md={3}
+                    sm={3}
+                    xs={3}
                     sx={{
                       ...(!isSmallScreen ? {} : { marginBottom: "5px" }),
                     }}
@@ -796,10 +796,10 @@ export const MetaAnual = () => {
 
                 <Grid
                   item
-                  xl={widthCondition() ? 5 : 11}
-                  lg={widthCondition() ? 5 : 11}
-                  md={widthCondition() ? 5 : 11}
-                  sm={widthCondition() ? 5 : 11}
+                  xl={widthCondition() ? 3 : 11}
+                  lg={widthCondition() ? 3 : 11}
+                  md={widthCondition() ? 3 : 11}
+                  sm={widthCondition() ? 3 : 11}
                   xs={widthCondition() ? 11 : 11}
                 >
                   <FormControl fullWidth>
@@ -856,10 +856,9 @@ export const MetaAnual = () => {
                     <SearchIcon sx={{ fontSize: [20, 20, 20, 25, 25] }} />
                   </IconButton>
                 </Grid> */}
-              </Grid>
+             {/* </Grid>
 
               <Grid
-                // item
                 container
                 xl={12}
                 lg={12}
@@ -871,14 +870,14 @@ export const MetaAnual = () => {
                   justifyContent: "space-around",
                   alignItems: "center",
                 }}
-              >
+              >*/}
                 <Grid
                   sx={{ fontFamily: "MontserratRegular" }}
                   item
-                  xl={validaFecha ? 11 : 7}
-                  lg={validaFecha ? 11 : 6}
-                  md={validaFecha ? 11 : 6}
-                  sm={validaFecha ? 11 : 11}
+                  xl={validaFecha ? 3 : 7}
+                  lg={validaFecha ? 3 : 6}
+                  md={validaFecha ? 3 : 6}
+                  sm={validaFecha ? 3 : 11}
                   xs={validaFecha ? 11 : 11}
                 >
                   <Paper
@@ -959,16 +958,16 @@ export const MetaAnual = () => {
 
             <Grid
               item
-              xl={10}
-              lg={10}
-              md={10}
-              sm={10}
-              xs={10}
+              xl={11.5}
+              lg={11.5}
+              md={11.5}
+              sm={11.5}
+              xs={11.5}
               sx={{
                 backgroundColor: "#FFFF",
                 borderRadius: 5,
                 boxShadow: 5,
-                height: "65vh",
+                height: "80vh",
                 direction: "row",
               }}
             >

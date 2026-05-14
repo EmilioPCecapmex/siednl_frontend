@@ -40,15 +40,23 @@ export const heads: readonly Head[] = [
     },
     {
       id: 4,
+      Desc: "Correos Electrónicos",
+      fnc: "getCorreosElectronicos()",
+      Tabla: "CorreosEnviados",
+      selected: false,
+      tipo: "Catalogos",
+    },
+    {
+      id: 5,
       Desc: "Dimensiones del Indicador",
       fnc: "getDimensionesDelIndicador()",
       Tabla: "DimensionesDelIndicador",
       selected: false,
       tipo: "Catalogos",
     },
-    { id: 5, Desc: "Ejes", fnc: "getEjes()", Tabla: "Ejes", selected: true },
+    { id: 6, Desc: "Ejes", fnc: "getEjes()", Tabla: "Ejes", selected: true },
     {
-      id: 6,
+      id: 7,
       Desc: "Ejes del Plan Nacional de Desarrollo",
       Tabla: "EjesPND",
       fnc: "getEjesPND()",
@@ -56,7 +64,7 @@ export const heads: readonly Head[] = [
       tipo: "Catalogos",
     },
     {
-      id: 7,
+      id: 8,
       Desc: "Estrategias",
       fnc: "getEstrategias()",
       Tabla: "Estrategias ",
@@ -64,7 +72,7 @@ export const heads: readonly Head[] = [
       tipo: "Catalogos",
     },
     {
-      id: 8,
+      id: 9,
       Desc: "Fechas de Captura",
       fnc: "getFechasDeCaptura()",
       Tabla: "FechasDeCaptura",
@@ -72,7 +80,7 @@ export const heads: readonly Head[] = [
       tipo: "Catalogos",
     },
     {
-      id: 9,
+      id: 10,
       Desc: "Fórmulas",
       fnc: "getFormulas()",
       Tabla: "Formulas",
@@ -80,7 +88,7 @@ export const heads: readonly Head[] = [
       tipo: "Catalogos",
     },
     {
-      id: 10,
+      id: 11,
       Desc: "Frecuencias",
       fnc: "getFrecuencias()",
       Tabla: "Frecuencias",
