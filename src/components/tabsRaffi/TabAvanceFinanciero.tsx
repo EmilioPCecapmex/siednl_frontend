@@ -1,4 +1,5 @@
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import axios from "axios";
 import {
   FormControl,
   FormControlLabel,
@@ -106,8 +107,14 @@ export function TabAvanceFinanciero({
   raffiboolean: IRFEdit;
 }) {
   const jsonMir: IMIR = JSON.parse(MIR);
-
+  type Programa = {
+    Id: string;
+    NombrePrograma: string;
+    IdEntidad: string;
+  };
   const [trimestre, setTrimestre] = useState("0");
+  const [programa, setPrograma] = useState<Programa | null>(null);
+  const [vista, setVista] = useState(null);
 
   const [nombrePrograma, setNombrePrograma] = useState("Sin Información");
   const [valorProgramaPresupuestario, setValorProgramaPresupuestario] =
@@ -141,11 +148,16 @@ export function TabAvanceFinanciero({
     new Date(year, 8, 30),
     new Date(year, 11, 31),
   ];
-
+  useEffect(() => {
+    if (programa?.IdEntidad) {
+      getVista();
+    }
+  }, [programa]);
   useEffect(() => {
     if (valorProgramaPresupuestario !== "") {
       setNombrePrograma(avanceFinancieroRF.nombrePrograma);
-
+      getDetallePrograma(); 
+      getVista();
       setValorProgramaPresupuestario(
         avanceFinancieroRF.valorProgramaPresupuestario
       );
@@ -393,6 +405,48 @@ export function TabAvanceFinanciero({
 
   const block = (valor: string) => {
     return valor === "0" || valor === null || valor === "";
+  };
+
+  const getDetallePrograma = async () => {
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/detail-program",
+        {
+          params: {
+            IdPP: jsonMir.encabezado.programa.Id,
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      );
+  
+      if (response.status === 200) {
+        setPrograma(response.data.data); 
+      }
+    } catch (error) {
+      console.error("Error al obtener detalle:", error);
+    }
+  };
+
+  const getVista = async () => {
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_APPLICATION_BACK + "/api/consulta-vista",
+        {
+          params: {
+            str_proy: programa?.IdEntidad,
+          },
+          headers: {
+            Authorization: localStorage.getItem("jwtToken") || "",
+          },
+        }
+      );
+  
+      setVista(response.data.data); 
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   function getTrimestre2() {
@@ -691,7 +745,7 @@ export function TabAvanceFinanciero({
                   }}
                 />
               </Grid>
-
+              
               <Grid item>
                 <TextField
                   fullWidth

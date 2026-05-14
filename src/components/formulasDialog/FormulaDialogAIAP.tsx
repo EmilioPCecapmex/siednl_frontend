@@ -14,7 +14,7 @@ import { IComponenteMA } from "../tabsMetaAnual/Interfaces";
 import { validarNumero } from "../../services/validations";
 import { clearInfo } from "../genericComponents/GenericMethods";
 
-export const FormulaDialogMACA = ({
+export const FormulaDialogAIAP = ({
   open,
   close,
   textoSet,
@@ -46,6 +46,10 @@ export const FormulaDialogMACA = ({
   const [ValorF, setValorF] = useState("");
   const [ValorG, setValorG] = useState("");
   const [ValorH, setValorH] = useState("");
+  const [ValorI, setValorI] = useState("");
+  const [ValorJ, setValorJ] = useState("");
+  const [ValorK, setValorK] = useState("");
+  const [ValorL, setValorL] = useState("");
   const [emptyTxt, setEmptyTxt] = useState(false);
 
  
@@ -61,40 +65,39 @@ export const FormulaDialogMACA = ({
     setValorH("");
   };
 
-  useEffect(() => {
-    if (frecuencia === "trimestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice"))
-    {
-      setValorA(valoresJSON?.metasPorFrecuencia[0]?.trimestre1)
-      setValorB(valoresJSON?.metasPorFrecuencia[0]?.trimestre2)
-      setValorC(valoresJSON?.metasPorFrecuencia[0]?.trimestre3)
-      setValorD(valoresJSON?.metasPorFrecuencia[0]?.trimestre4)
-    }else if(frecuencia === "trimestral")
-    {
-      setValorA(valoresJSON?.valoresPorFrecuencia[0]?.valorA)
-      setValorB(valoresJSON?.valoresPorFrecuencia[0]?.valorB)
-      setValorC(valoresJSON?.valoresPorFrecuencia[0]?.valorC)
-      setValorD(valoresJSON?.valoresPorFrecuencia[0]?.valorD)
-      setValorE(valoresJSON?.valoresPorFrecuencia[0]?.valorE)
-      setValorF(valoresJSON?.valoresPorFrecuencia[0]?.valorF)
-      setValorG(valoresJSON?.valoresPorFrecuencia[0]?.valorG)
-      setValorH(valoresJSON?.valoresPorFrecuencia[0]?.valorH)
-    }else if (frecuencia === "semestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice"))
-    {
-      setValorA(valoresJSON?.metasPorFrecuencia[0]?.semestre1)
-      setValorB(valoresJSON?.metasPorFrecuencia[0]?.semestre2)
+  // useEffect(() => {
+  //   if (frecuencia === "trimestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice"))
+  //   {
+  //     setValorA(valoresJSON?.metasPorFrecuencia[0]?.trimestre1)
+  //     setValorB(valoresJSON?.metasPorFrecuencia[0]?.trimestre2)
+  //     setValorC(valoresJSON?.metasPorFrecuencia[0]?.trimestre3)
+  //     setValorD(valoresJSON?.metasPorFrecuencia[0]?.trimestre4)
+  //   }else if(frecuencia === "trimestral")
+  //   {
+  //     setValorA(valoresJSON?.valoresPorFrecuencia[0]?.valorA)
+  //     setValorB(valoresJSON?.valoresPorFrecuencia[0]?.valorB)
+  //     setValorC(valoresJSON?.valoresPorFrecuencia[0]?.valorC)
+  //     setValorD(valoresJSON?.valoresPorFrecuencia[0]?.valorD)
+  //     setValorE(valoresJSON?.valoresPorFrecuencia[0]?.valorE)
+  //     setValorF(valoresJSON?.valoresPorFrecuencia[0]?.valorF)
+  //     setValorG(valoresJSON?.valoresPorFrecuencia[0]?.valorG)
+  //     setValorH(valoresJSON?.valoresPorFrecuencia[0]?.valorH)
+  //   }else if (frecuencia === "semestral" && (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice"))
+  //   {
+  //     setValorA(valoresJSON?.metasPorFrecuencia[0]?.semestre1)
+  //     setValorB(valoresJSON?.metasPorFrecuencia[0]?.semestre2)
       
-    }else
-    {
-      setValorA(valoresJSON?.valoresPorFrecuencia[0]?.valorA)
-      setValorB(valoresJSON?.valoresPorFrecuencia[0]?.valorB)
-      setValorC(valoresJSON?.valoresPorFrecuencia[0]?.valorC)
-      setValorD(valoresJSON?.valoresPorFrecuencia[0]?.valorD)
+  //   }else
+  //   {
+  //     setValorA(valoresJSON?.metasPorFrecuencia[0])
+  //     setValorB(valoresJSON?.metasPorFrecuencia[0])
+  //     setValorC(valoresJSON?.metasPorFrecuencia[0]?.valorC)
+  //     setValorD(valoresJSON?.metasPorFrecuencia[0]?.valorD)
       
-    }
-  }, [open]);
+  //   }
+  // }, [open]);
 
   const checkValues = () => {
-    if (frecuencia === "trimestral") {
       if (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice") {
         if (
           /^[\s]*$/.test(ValorA) ||
@@ -111,7 +114,11 @@ export const FormulaDialogMACA = ({
               "," +
               parseFloat(ValorC).toFixed(2) +
               "," +
-              parseFloat(ValorD).toFixed(2)
+              parseFloat(ValorD).toFixed(2) +
+              "," +
+              parseFloat(ValorE).toFixed(2) +
+              "," +
+              parseFloat(ValorF).toFixed(2)
               ,""
           );
           limpiaVar();
@@ -126,30 +133,26 @@ export const FormulaDialogMACA = ({
           /^[\s]*$/.test(ValorE) ||
           /^[\s]*$/.test(ValorF) ||
           /^[\s]*$/.test(ValorG) ||
-          /^[\s]*$/.test(ValorH)
+          /^[\s]*$/.test(ValorH) ||
+          /^[\s]*$/.test(ValorI) ||
+          /^[\s]*$/.test(ValorJ) ||
+          /^[\s]*$/.test(ValorK) ||
+          /^[\s]*$/.test(ValorL)
         ) {
           setEmptyTxt(true);
         } else {
-          if (tipo === "Porcentaje") {
+          
             let T1 = (parseFloat(ValorA) / parseFloat(ValorB)) * 100;
             let T2 =
-              ((parseFloat(ValorA) + parseFloat(ValorC)) /
-                (parseFloat(ValorB) + parseFloat(ValorD))) *
-              100;
+            (parseFloat(ValorC) / parseFloat(ValorD)) * 100;
             let T3 =
-              ((parseFloat(ValorA) + parseFloat(ValorC) + parseFloat(ValorE)) /
-                (parseFloat(ValorB) + parseFloat(ValorD) + parseFloat(ValorF))) *
-              100;
+            (parseFloat(ValorE) / parseFloat(ValorF)) * 100;
             let T4 =
-              ((parseFloat(ValorA) +
-                parseFloat(ValorC) +
-                parseFloat(ValorE) +
-                parseFloat(ValorG)) /
-                (parseFloat(ValorB) +
-                  parseFloat(ValorD) +
-                  parseFloat(ValorF) +
-                  parseFloat(ValorH))) *
-              100;
+            (parseFloat(ValorG) / parseFloat(ValorH)) * 100;
+            let T5 =
+            (parseFloat(ValorI) / parseFloat(ValorJ)) * 100;
+            let T6 =
+            (parseFloat(ValorK) / parseFloat(ValorL)) * 100;
             textoSet(
               T1.toFixed(2) +
                 "," +
@@ -157,7 +160,11 @@ export const FormulaDialogMACA = ({
                 "," +
                 T3.toFixed(2) +
                 "," +
-                T4.toFixed(2)
+                T4.toFixed(2) +
+                "," +
+                T5.toFixed(2) +
+                "," +
+                T6.toFixed(2)
                 ,
               ValorA +
               "," +
@@ -173,192 +180,22 @@ export const FormulaDialogMACA = ({
               "," +
               ValorG +
               "," +
-              ValorH
+              ValorH +
+              "," +
+              ValorI +
+              "," +
+              ValorJ +
+              "," +
+              ValorK +
+              "," +
+              ValorL
             );
             limpiaVar();
             close();
-          } else if (tipo === "Tasa") {
-            let T1 =
-              ((parseFloat(ValorA) - parseFloat(ValorB)) / parseFloat(ValorB)) *
-              100;
-            let T2 =
-              ((parseFloat(ValorA) +parseFloat(ValorC) - (parseFloat(ValorB) + parseFloat(ValorD))) /(parseFloat(ValorB) + parseFloat(ValorD))) * 100;
-            let T3 =
-              ((parseFloat(ValorA) + parseFloat(ValorC) + parseFloat(ValorE) -
-                (parseFloat(ValorB) + parseFloat(ValorD) + parseFloat(ValorF))) /
-                (parseFloat(ValorB) + parseFloat(ValorD) + parseFloat(ValorF))) *
-              100;
-            let T4 =
-              ((parseFloat(ValorA) +
-                parseFloat(ValorC) +
-                parseFloat(ValorE) +
-                parseFloat(ValorG) -
-                (parseFloat(ValorB) +
-                  parseFloat(ValorD) +
-                  parseFloat(ValorF) +
-                  parseFloat(ValorH))) /
-                (parseFloat(ValorB) +
-                  parseFloat(ValorD) +
-                  parseFloat(ValorF) +
-                  parseFloat(ValorH))) *
-              100;
-            textoSet(
-              T1.toFixed(2) +
-                "," +
-                T2.toFixed(2) +
-                "," +
-                T3.toFixed(2) +
-                "," +
-                T4.toFixed(2)
-                ,
-              ValorA +
-              "," +
-              ValorB +
-              "," +
-              ValorC +
-              "," +
-              ValorD +
-              "," +
-              ValorE +
-              "," +
-              ValorF +
-              "," +
-              ValorG +
-              "," +
-              ValorH
-            );
-
-            limpiaVar();
-            close();
-          } else if (tipo === "Promedio") {
-            let T1 = parseFloat(ValorA) / parseFloat(ValorB);
-            let T2 =
-              (parseFloat(ValorA) + parseFloat(ValorC)) /
-              (parseFloat(ValorB) + parseFloat(ValorD));
-            let T3 =
-              (parseFloat(ValorA) + parseFloat(ValorC) + parseFloat(ValorE)) /
-              (parseFloat(ValorB) + parseFloat(ValorD) + parseFloat(ValorF));
-            let T4 =
-              (parseFloat(ValorA) +
-                parseFloat(ValorC) +
-                parseFloat(ValorE) +
-                parseFloat(ValorG)) /
-              (parseFloat(ValorB) +
-                parseFloat(ValorD) +
-                parseFloat(ValorF) +
-                parseFloat(ValorH));
-            textoSet(
-              T1.toFixed(2) +
-                "," +
-                T2.toFixed(2) +
-                "," +
-                T3.toFixed(2) +
-                "," +
-                T4.toFixed(2)
-                ,
-              ValorA +
-              "," +
-              ValorB +
-              "," +
-              ValorC +
-              "," +
-              ValorD +
-              "," +
-              ValorE +
-              "," +
-              ValorF +
-              "," +
-              ValorG +
-              "," +
-              ValorH
-            );
-
-            limpiaVar();
-            close();
-          }
-        }
+         
+      
       }
-    } else {
-     
-      if (tipo.toLowerCase() === "indice" || tipo.toLowerCase() === "índice")
-        if (/^[\s]*$/.test(ValorA) || /^[\s]*$/.test(ValorB)) {
-          setEmptyTxt(true);
-        } else {
-          textoSet(
-            parseFloat(ValorA).toFixed(2) + "," + parseFloat(ValorB).toFixed(2),""
-          );
-          limpiaVar();
-          close();
-        }
-      else if (
-        /^[\s]*$/.test(ValorA) ||
-        /^[\s]*$/.test(ValorB) ||
-        /^[\s]*$/.test(ValorC) ||
-        /^[\s]*$/.test(ValorD)
-      ) {
-        setEmptyTxt(true);
-      } else if (tipo === "Porcentaje") {
-        let S1 = (parseFloat(ValorA) / parseFloat(ValorB)) * 100;
-        let S2 =
-          ((parseFloat(ValorA) + parseFloat(ValorC)) /
-            (parseFloat(ValorB) + parseFloat(ValorD))) *
-          100;
-
-        textoSet(S1.toFixed(2) + "," + S2.toFixed(2)
-        ,
-              ValorA +
-              "," +
-              ValorB +
-              "," +
-              ValorC +
-              "," +
-              ValorD);
-
-        limpiaVar();
-        close();
-      } else if (tipo === "Tasa") {
-        let S1 =
-          ((parseFloat(ValorA) - parseFloat(ValorB)) / parseFloat(ValorB)) * 100;
-        let S2 =
-          ((parseFloat(ValorA) +
-            parseFloat(ValorC) -
-            (parseFloat(ValorB) + parseFloat(ValorD))) /
-            (parseFloat(ValorB) + parseFloat(ValorD))) *
-          100;
-          
-        textoSet(S1.toFixed(2) + "," + S2.toFixed(2)
-        ,
-              ValorA +
-              "," +
-              ValorB +
-              "," +
-              ValorC +
-              "," +
-              ValorD);
-
-        limpiaVar();
-        close();
-      } else if (tipo === "Promedio") {
-        let S1 = parseFloat(ValorA) / parseFloat(ValorB);
-        let S2 =
-          (parseFloat(ValorA) + parseFloat(ValorC)) /
-          (parseFloat(ValorB) + parseFloat(ValorD));
-        textoSet(S1.toFixed(2) + "," + S2.toFixed(2)
-        ,
-              ValorA +
-              "," +
-              ValorB +
-              "," +
-              ValorC +
-              "," +
-              ValorD);
-
-        limpiaVar();
-        close();
-      }
-    }
-  };
-
+    }};
 
   useLayoutEffect(() => {
     setEmptyTxt(false);
@@ -386,7 +223,7 @@ export const FormulaDialogMACA = ({
             ? `${elementoA} - Fórmula - ${tipo}`
             : `${"Componente" + " " + (noComponente + 1)} - Fórmula - ${tipo}`}
         </Typography>
-
+            {ValorA}
         <Typography
           sx={{
             fontFamily: "MontserratRegular",
@@ -445,7 +282,7 @@ export const FormulaDialogMACA = ({
             justifyContent: "space-evenly",
           }}
         >
-          {frecuencia === "trimestral" &&
+          {
           (tipo.toLowerCase() === "indice" ||
             tipo.toLowerCase() === "índice") ? (
             <Box
@@ -458,7 +295,7 @@ export const FormulaDialogMACA = ({
                 alignItems: "center",
               }}
             >
-              <Typography>Trimestre 1</Typography>
+              <Typography>Línea base 2021</Typography>
               <TextField
                 // type={"number"}
                 label={"Valor"}
@@ -494,7 +331,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
-              <Typography>Trimestre 2</Typography>
+              <Typography>Dato I</Typography>
               <TextField
                 // type={"number"}
                 label={"Valor"}
@@ -530,7 +367,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
-              <Typography>Trimestre 3</Typography>
+              <Typography>Dato II</Typography>
               <TextField
                 // type={"number"}
                 label={"Valor"}
@@ -566,7 +403,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
-              <Typography>Trimestre 4</Typography>
+              <Typography>Dato III</Typography>
               <TextField
                 // type={"number"}
                 label={"Valor"}
@@ -602,8 +439,80 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
+              <Typography>Dato IV</Typography>
+              <TextField
+                // type={"number"}
+                label={"Valor"}
+                sx={{
+                  width: "80%"
+                }}
+                value={ValorE}
+                error={
+                  parseFloat(ValorE) < 0 ||
+                  (isNaN(parseFloat(ValorE)) && ValorE !== "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(ValorE) < 0 ||
+                  (isNaN(parseFloat(ValorE)) && ValorE !== "")
+                    ? "Introducir valor mayor que 0"
+                    : null
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                  },
+                }}
+                onChange={(c) =>
+                  setValorE(
+                    validarNumero(c.target.value,ValorE)
+                  )
+                }
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+              />
+              <Typography>Anual</Typography>
+              <TextField
+                // type={"number"}
+                label={"Valor"}
+                sx={{
+                  width: "80%"
+                }}
+                value={ValorF}
+                error={
+                  parseFloat(ValorF) < 0 ||
+                  (isNaN(parseFloat(ValorF)) && ValorF !== "")
+                    ? true
+                    : false
+                }
+                helperText={
+                  parseFloat(ValorF) < 0 ||
+                  (isNaN(parseFloat(ValorF)) && ValorF !== "")
+                    ? "Introducir valor mayor que 0"
+                    : null
+                }
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "MontserratSemiBold",
+                  },
+                }}
+                onChange={(c) =>
+                  setValorF(
+                    validarNumero(c.target.value,ValorF)
+                  )
+                }
+                InputProps={{
+                  style: {
+                    fontFamily: "MontserratRegular",
+                  },
+                }}
+              />
             </Box>
-          ) : frecuencia === "trimestral" ? (
+          ) : (
             <Box
               sx={{
                 width: "100%",
@@ -614,7 +523,7 @@ export const FormulaDialogMACA = ({
                 alignItems: "center",
               }}
             >
-              <Typography>Trimestre 1</Typography>
+              <Typography>Línea base 2021</Typography>
               <TextField
                 // type={"number"}
                 label={
@@ -679,7 +588,7 @@ export const FormulaDialogMACA = ({
                 }}
               />
               
-              <Typography>Trimestre 2</Typography>
+              <Typography>Dato I</Typography>
               <TextField
                 // type={"number"}
                 label={
@@ -738,7 +647,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
-              <Typography>Trimestre 3</Typography>
+              <Typography>Dato II</Typography>
               <TextField
                 // type={"number"}
                 label={
@@ -797,7 +706,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
-              <Typography>Trimestre 4</Typography>
+              <Typography>Dato III</Typography>
               <TextField
                 // type={"number"}
                 label={
@@ -856,152 +765,28 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
-              <Typography>Acumulado Anual</Typography>
-
-              <Typography>
-                {parseFloat(ValorA) +
-                  parseFloat(ValorC) +
-                  parseFloat(ValorE) +
-                  parseFloat(ValorG) || 0}
-              </Typography>
-              <Typography>
-                {parseFloat(ValorB) +
-                  parseFloat(ValorD) +
-                  parseFloat(ValorF) +
-                  parseFloat(ValorH) || 0}
-              </Typography>
-            </Box>
-          ) : frecuencia === "semestral" &&
-            (tipo.toLowerCase() === "indice" ||
-              tipo.toLowerCase() === "índice") ? (
-            <Box
-              sx={{
-                width: "80%",
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gridTemplateRows: "repeat(2,1fr)",
-                justifyItems: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography>Semestre 1</Typography>
+              <Typography>Dato IV</Typography>
               <TextField
                 // type={"number"}
-                label={"Valor"}
-                sx={{
-                  width: "95%", mb: 2
-                }}
-                value={ValorA}
-                error={
-                  parseFloat(ValorA) < 0 ||
-                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
-                    ? true
-                    : false
+                label={
+                  <Typography
+                    sx={{ fontFamily: "MontserratMedium" }}
+                  >
+                    {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
+                  </Typography>
                 }
-                helperText={
-                  parseFloat(ValorA) < 0 ||
-                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
-                    ? "Introducir valor mayor que 0"
-                    : null
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratSemiBold",
-                  },
-                }}
-                onChange={(c) =>
-                  setValorA(
-                    validarNumero(c.target.value,ValorA)
-                  )
-                }
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-              />
-              <Typography>Semestre 2</Typography>
-              <TextField
-                // type={"number"}
-                label={"Valor"}
                 sx={{
                   width: "95%"
                 }}
-                value={ValorB}
-                error={
-                  parseFloat(ValorB) < 0 ||
-                  (isNaN(parseFloat(ValorB)) && ValorB !== "")
-                    ? true
-                    : false
-                }
-                helperText={
-                  parseFloat(ValorB) < 0 ||
-                  (isNaN(parseFloat(ValorB)) && ValorB !== "")
-                    ? "Introducir valor mayor que 0"
-                    : null
-                }
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
+                value={ValorI}
                 onChange={(c) =>
-                  setValorB(
-                    validarNumero(c.target.value,ValorB)
-                  )
-                }
-                InputProps={{
-                  style: {
-                    fontFamily: "MontserratRegular",
-                  },
-                }}
-              />
-            </Box>
-          ) : (
-            <Box
-              sx={{
-                width: "100%",
-                display: "grid",
-                gridTemplateColumns: "repeat(3,1fr)",
-                gridTemplateRows: "repeat(4,1fr)",
-                justifyItems: "start",
-                alignItems: "center",
-              }}
-            >
-              <Typography>Semestre 1</Typography>
-              <TextField
-                // type={"number"}
-                label={
-                  <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
-                  >
-                    {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
-                  </Typography>
-                }
-                sx={{
-                  width: "95%", mb: 2
-                }}
-                value={ValorA}
-                error={
-                  parseFloat(ValorA) < 0 ||
-                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
-                    ? true
-                    : false
-                }
-                helperText={
-                  parseFloat(ValorA) < 0 ||
-                  (isNaN(parseFloat(ValorA)) && ValorA !== "")
-                    ? "Introducir valor mayor que 0"
-                    : null
-                }
-                InputLabelProps={{
-                  style: {
-                    fontFamily: "MontserratSemiBold",
-                  },
-                }}
-                onChange={(c) =>
-                  setValorA(
-                    validarNumero(c.target.value,ValorA)
+                  setValorI(
+                    validarNumero(c.target.value,ValorI)
                   )
                 }
                 InputProps={{
@@ -1020,17 +805,17 @@ export const FormulaDialogMACA = ({
                   </Typography>
                 }
                 sx={{
-                  width: "95%", mb: 2
+                  width: "95%"
                 }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={ValorB}
+                value={ValorJ}
                 onChange={(c) =>
-                  setValorB(
-                    validarNumero(c.target.value,ValorB)
+                  setValorJ(
+                    validarNumero(c.target.value,ValorJ)
                   )
                 }
                 InputProps={{
@@ -1039,28 +824,28 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
-              <Typography>Semestre 2</Typography>
+              <Typography>Anual</Typography>
               <TextField
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{
-                      fontFamily: "MontserratMedium"
-                    }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
                 }
-                sx={{ width: "95%" }}
+                sx={{
+                  width: "95%"
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={ValorC}
+                value={ValorK}
                 onChange={(c) =>
-                  setValorC(
-                    validarNumero(c.target.value,ValorC)
+                  setValorK(
+                    validarNumero(c.target.value,ValorK)
                   )
                 }
                 InputProps={{
@@ -1073,23 +858,23 @@ export const FormulaDialogMACA = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{
-                      fontFamily: "MontserratMedium"
-                    }}
+                    sx={{ fontFamily: "MontserratMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
                 }
-                sx={{ width: "95%" }}
+                sx={{
+                  width: "95%"
+                }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "MontserratSemiBold",
                   },
                 }}
-                value={ValorD}
+                value={ValorL}
                 onChange={(c) =>
-                  setValorD(
-                    validarNumero(c.target.value,ValorD)
+                  setValorL(
+                    validarNumero(c.target.value,ValorL)
                   )
                 }
                 InputProps={{
@@ -1098,14 +883,7 @@ export const FormulaDialogMACA = ({
                   },
                 }}
               />
-              <Typography>Acumulado Anual</Typography>
-
-              <Typography>
-                {parseFloat(ValorA) + parseFloat(ValorC) || 0}
-              </Typography>
-              <Typography>
-                {parseFloat(ValorB) + parseFloat(ValorD) || 0}
-              </Typography>
+              
             </Box>
           )}
         </Box>

@@ -833,7 +833,12 @@ export const LateralMenu = ({
                 <Typography
                   sx={{ textAlign: "center", fontFamily: "MontserratSemiBold" }}
                 >
-                  Sistema del Presupuesto Basado en Resultados
+                  
+{menus.some(m => m.Menu === "Programa Anual de Evaluación") 
+  ? <Typography>Plataforma de Programa Anual de Evaluación</Typography>
+  : <Typography>Sistema Integral de Evaluación al Desempeño de Nuevo León</Typography>
+}
+
                 </Typography>
               </Grid>
 

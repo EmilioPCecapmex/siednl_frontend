@@ -656,7 +656,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
                 </Tooltip>
               </Grid>
             </Grid>
-
+                      
             <Grid item sx={{ marginLeft: 1 }}>
               <ButtonAdd agregar={true} handleOpen={() => setOpenAdd(true)} />
             </Grid>

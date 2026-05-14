@@ -1,0 +1,63 @@
+
+import './InsertarPDF.css';
+import axios from "axios";
+import {  useState,   } from "react";
+
+
+
+
+ export const InsertarComponentePDF = ({
+  ruta,
+  nombre,
+  tipo,
+  anio,
+  perteneceA
+}: {
+  ruta: string;
+  nombre: string;
+  tipo: string;
+  anio: string;
+  perteneceA: string;}) => {
+    const getDocumento = async (
+      ROUTE: string,
+      NOMBRE: string,
+      setState: Function
+    ) => {
+    
+      await axios
+        .post(
+          process.env.REACT_APP_APPLICATION_FILES + "/api/ApiDoc/GetByName",
+          {
+            ROUTE: ROUTE,
+            NOMBRE: NOMBRE,
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("jwtToken") || "",
+              responseType: "blob",
+            },
+          }
+        )
+        .then(({ data }) => {
+          setState(data.RESPONSE.FILE);
+        })
+        .catch((r) => { });
+    };
+    
+    
+    const savePDF =(data:string)=>{
+      setArchivoUrl(`data:application/pdf;base64,${data}`);
+    } 
+    getDocumento(ruta,nombre,savePDF);
+    const [archivoUrl, setArchivoUrl] = useState<string>("");
+
+  return (
+    <div className="pdf-contenedor">
+      <iframe
+        className="pdf-iframe"
+        src={archivoUrl}
+        title="Embedded PDF"
+      ></iframe>
+    </div>
+  );
+};

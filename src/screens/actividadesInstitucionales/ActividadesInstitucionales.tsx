@@ -40,6 +40,8 @@ import { listaActividadInstitucional } from "../../services/actividadesinstituci
 import { getInstituciones } from "../../services/instituciones_services/instituciones";
 import { queries } from "../../queries";
 import { getListaAI } from "../../services/actividadesinstitucionales_services/Actividadades_endpoints";
+
+
 export let resumeDefaultAI = true;
 export let setResumeDefaultAI = () => {
   resumeDefaultAI = !resumeDefaultAI;
@@ -109,16 +111,18 @@ const heads: readonly Head[] = [
 
 export const ActividadesInstitucionales = ({}: {}) => {
   const [showResume, setShowResume] = useState(true);
-
+  const [IdEntidad, setIdEntidad] = useState("");
   useEffect(() => {
     setShowResume(true);
   }, [resumeDefaultAI]);
 
   const handleClickOpenTabsActInst = () => {
+    setnewActividad(1);
     setShowResume(false);
   };
 
   const [actionNumber, setActionNumber] = useState(0);
+  const [newActividad, setnewActividad] = useState(0);
   const [opentabs, setOpenTabs] = useState(true);
   const [ai, setAi] = useState<Array<IActividadesInstitucionales>>([]);
   const [aiFiltered, setAiFiltered] = useState<
@@ -438,7 +442,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                   </Paper>
                 </Grid>
 
-                <Grid item xl={5} lg={4} md={3}>
+                {/* <Grid item xl={5} lg={4} md={3}>
                   <Button
                     fullWidth
                     sx={queries.buttonContinuarSolicitudInscripcion}
@@ -474,7 +478,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                   >
                     Buscar
                   </Button>
-                </Grid>
+                </Grid> */}
               </Grid>
 
               <Grid
@@ -530,7 +534,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                   </FormControl>
                 </Grid>
 
-                <Grid item xl={5} lg={4} md={3}>
+                {/* <Grid item xl={5} lg={4} md={3}>
                   <FormControl fullWidth>
                     <InputLabel sx={queries.text}>
                       FILTRO POR ESTADO DE LA RF
@@ -559,7 +563,51 @@ export const ActividadesInstitucionales = ({}: {}) => {
                       ))}
                     </Select>
                   </FormControl>
+                </Grid> */}
+
+
+                <Grid item xl={1} lg={1} md={4} sm={4} xs={4}>
+                  <Button
+                    // disabled={
+                    //   localStorage.getItem("Rol") === "Administrador"
+                    //     ? false
+                    //     : !validaFecha
+                    // }
+                    className="aceptar"
+                    sx={{
+                      width: ["100px", "120px", "160px", "180px", "250px"],
+                      height: ["40px", "40px", "40px", "40px", "50px"],
+                      fontFamily: "MontserratMedium",
+                    }}
+                    onClick={() => {
+                      // setMirEdit([
+                      //   {
+                      //     Id: "",
+                      //     IdEntidad: "",
+                      //     AnioFiscal: "",
+                      //     Entidad: "",
+                      //     Programa: "",
+                      //     Eje: "",
+                      //     Tematica: "",
+                      //     MIR: "",
+                      //     Estado: "",
+                      //     FechaCreacion: "",
+                      //     CreadoPor: "",
+                      //     Conac: "",
+                      //     Consecutivo: "",
+                      //     Opciones: "",
+                      //   },
+                      // ]);
+                      handleClickOpenTabsActInst();
+                    }}
+                  >
+                    
+                          AÑADIR REGISTRO
+                  </Button>
                 </Grid>
+
+
+
               </Grid>
             </Grid>
 
@@ -794,21 +842,21 @@ export const ActividadesInstitucionales = ({}: {}) => {
                               {
                                 <Tooltip title="REGISTRAR ACTIVIDAD INSTITUCIONAL">
                                   <IconButton
-                                    disabled={
-                                      row.Estado === "En Captura" &&
-                                      localStorage.getItem("Rol") ===
-                                        "Capturador"
-                                        ? false
-                                        : row.Estado === "En Revisión" &&
-                                          localStorage.getItem("Rol") ===
-                                            "Verificador"
-                                        ? false
-                                        : row.Estado === "En Autorización" &&
-                                          localStorage.getItem("Rol") ===
-                                            "Administrador"
-                                        ? false
-                                        : true
-                                    }
+                                    // disabled={
+                                    //   row.Estado === "En Captura" &&
+                                    //   localStorage.getItem("Rol") ===
+                                    //     "Capturador"
+                                    //     ? false
+                                    //     : row.Estado === "En Revisión" &&
+                                    //       localStorage.getItem("Rol") ===
+                                    //         "Verificador"
+                                    //     ? false
+                                    //     : row.Estado === "En Autorización" &&
+                                    //       localStorage.getItem("Rol") ===
+                                    //         "Administrador"
+                                    //     ? false
+                                    //     : true
+                                    // }
                                     type="button"
                                     onClick={() => {
                                       setAiEdit([
@@ -865,16 +913,33 @@ export const ActividadesInstitucionales = ({}: {}) => {
             }}
             // gridArea={"main"}
           >
+            {newActividad===0?
+              <TabsActividadesInstitucionales
+                MIR={aiEdit[0].MIR || ""}
+                FT={aiEdit[0].FichaTecnica || ""}
+                AI={aiEdit[0].ActividadInstitucional || ""}
+                opentabs={returnMain}
+                IdMir={aiEdit[0].IdMir || ""}
+                IdFT={aiEdit[0].IdFichaTecnica || ""}
+                IdAI={aiEdit[0].IdActividadInstitucional || ""}
+                returnMain={returnMain}
+                IdEntidad={IdEntidad}
+                setIdEntidad={setIdEntidad}
+              />
+            :
             <TabsActividadesInstitucionales
-              MIR={aiEdit[0].MIR || ""}
-              FT={aiEdit[0].FichaTecnica || ""}
-              AI={aiEdit[0].ActividadInstitucional || ""}
-              opentabs={returnMain}
-              IdMir={aiEdit[0].IdMir || ""}
-              IdFT={aiEdit[0].IdFichaTecnica || ""}
-              IdAI={aiEdit[0].IdActividadInstitucional || ""}
-              returnMain={returnMain}
-            />
+            MIR={""}
+            FT={""}
+            AI={""}
+            opentabs={returnMain}
+            IdMir={""}
+            IdFT={""}
+            IdAI={""}
+            returnMain={returnMain}
+            IdEntidad={""}
+            setIdEntidad={()=>{}}
+          />
+          }
           </Grid>
         )}
       </Grid>
