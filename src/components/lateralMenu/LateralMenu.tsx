@@ -906,7 +906,7 @@ export const LateralMenu = ({
                 </Typography>
                 <Tooltip title={localStorage.getItem("Entidad")}>
                   <Typography
-                    fontFamily={"'Montserrat', sans-serif"}
+                    fontFamily={"'Poppins', sans-serif"}
                     sx={{
                       whiteSpace: "nowrap",
                       overflow: "hidden",

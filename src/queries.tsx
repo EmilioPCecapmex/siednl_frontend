@@ -35,7 +35,7 @@ export const queries = {
   },
   text: {
     fontSize: "2ch",
-    fontFamily: "'Montserrat', sans-serif",
+    fontFamily: "'Poppins', sans-serif",
     alignSelf: "center",
     "@media (max-width: 600px)": {
       // XS (extra small) screen
