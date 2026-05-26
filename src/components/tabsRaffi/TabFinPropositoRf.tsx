@@ -176,7 +176,7 @@ export function TabFinPropositoRF({
           <Typography
             sx={{
               mr: "1vw",
-              fontFamily: "MontserratSemiBold",
+              fontFamily: "PoppinsSemiBold",
               fontSize: [10, 10, 10, 13, 15, 18],
             }}
           >
@@ -195,7 +195,7 @@ export function TabFinPropositoRF({
           <Typography
             sx={{
               mr: "1vw",
-              fontFamily: "MontserratSemiBold",
+              fontFamily: "PoppinsSemiBold",
               fontSize: [10, 10, 10, 13, 15, 18],
             }}
           >
@@ -255,13 +255,13 @@ export function TabFinPropositoRF({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
                 InputProps={{
                  
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
               />
@@ -277,13 +277,13 @@ export function TabFinPropositoRF({
                 value={palabraABuscar1}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
                 InputProps={{
                  
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
               />
@@ -302,13 +302,13 @@ export function TabFinPropositoRF({
                 value={jsonMA.fin.metaAnual}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
                 InputProps={{
                   
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
               />
@@ -331,13 +331,13 @@ export function TabFinPropositoRF({
                 value={fin.valorAvanceFisico}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
                 InputProps={{
                   
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
               />
@@ -397,12 +397,12 @@ export function TabFinPropositoRF({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
               />
@@ -417,13 +417,13 @@ export function TabFinPropositoRF({
                 value={palabraABuscar2}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
                 InputProps={{
                   readOnly: true,
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
               />
@@ -445,13 +445,13 @@ export function TabFinPropositoRF({
                 value={jsonMA.proposito.metaAnual}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
                 InputProps={{
                   
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
               />
@@ -477,13 +477,13 @@ export function TabFinPropositoRF({
                 value={proposito.valorAvanceFisico}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
                 InputProps={{
                   
                   style: {
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   },
                 }}
               />

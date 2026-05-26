@@ -94,13 +94,13 @@ export const DialogMonto = ({
                 //value={descA}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                     
                   },
                 }}
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                     
                   },
                 }}
@@ -127,13 +127,13 @@ export const DialogMonto = ({
                 //value={descA}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                     
                   },
                 }}
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                     
                   },
                 }}

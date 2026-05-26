@@ -183,19 +183,19 @@ export const ComentDialog = ({
                 <TableHead sx={{ backgroundColor: "#edeaea" }}>
                   <TableRow>
                     <TableCell
-                      sx={{ fontFamily: "MontserratBold" }}
+                      sx={{ fontFamily: "PoppinsBold" }}
                       align="center"
                     >
                       USUARIO
                     </TableCell>
                     <TableCell
-                      sx={{ fontFamily: "MontserratBold" }}
+                      sx={{ fontFamily: "PoppinsBold" }}
                       align="center"
                     >
                       COMENTARIO
                     </TableCell>
                     <TableCell
-                      sx={{ fontFamily: "MontserratBold" }}
+                      sx={{ fontFamily: "PoppinsBold" }}
                       align="center"
                     >
                       FECHA DE ENVÍO
@@ -210,7 +210,7 @@ export const ComentDialog = ({
                         <TableRow key={index}>
                           <TableCell
                             sx={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               //   fontSize: ".7vw",
                             }}
                             align="center"
@@ -219,7 +219,7 @@ export const ComentDialog = ({
                           </TableCell>
                           <TableCell
                             sx={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               // fontSize: ".7vw",
                             }}
                             align="center"
@@ -228,7 +228,7 @@ export const ComentDialog = ({
                           </TableCell>
                           <TableCell
                             sx={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               // fontSize: ".7vw",
                             }}
                             align="center"
@@ -245,7 +245,7 @@ export const ComentDialog = ({
                       <TableCell></TableCell>
                       <TableCell
                         sx={{
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                           // fontSize: ".7vw",
                         }}
                         align="center"
@@ -268,7 +268,7 @@ export const ComentDialog = ({
                   rows={3}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   sx={{ width: ["100vw", "100vw", "100vw", "100vw", "100vw"] }}
@@ -324,7 +324,7 @@ export const ComentDialog = ({
                     sx={{ width: "100%" }}
                     onClick={handleClose}
                   >
-                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                       CANCELAR
                     </Typography>
                   </Button>
@@ -355,7 +355,7 @@ export const ComentDialog = ({
                       }
                     }}
                   >
-                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                       AGREGAR
                     </Typography>
                   </Button>
@@ -382,7 +382,7 @@ export const ComentDialog = ({
                 sx={{ width: "100%" }}
                 onClick={handleClose}
               >
-                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                   SALIR
                 </Typography>
               </Button>

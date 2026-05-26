@@ -352,7 +352,7 @@ export default function ModalEditarUsuario({
 
   return (
     <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>
-      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
+      <DialogTitle sx={{ fontFamily: "PoppinsBold" }}>
         {title.toUpperCase()}
       </DialogTitle>
 
@@ -497,7 +497,7 @@ export default function ModalEditarUsuario({
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular" }}
+                      sx={{ fontFamily: "PoppinsRegular" }}
                     >
                       {item.Rol}
                     </MenuItem>

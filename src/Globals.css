@@ -149,7 +149,7 @@ label.textoNormal {
 }
 
 label.textoGridSolicitudes {
-  font-family: 'MMontserratSemiBold', sans-serif;
+  font-family: 'MPoppinsSemiBold', sans-serif;
   /* font-weight: bold; */
   color: rgb(21, 33, 47);
   font-size: 15px;
@@ -183,7 +183,7 @@ label.Typography {
   color: rgb(7, 7, 7);
   margin-right: 2rem;
   /* mr: "2rem" */
-  font-family: "MontserratSemiBold";
+  font-family: "PoppinsSemiBold";
   font-size: 350px;
   width: "32.5%";
 }
@@ -362,7 +362,7 @@ div.FooterLogin {
   /* top:  50px; */
   /* left: 50px; */
   background-color: #f3f6f9;
-  font-family: "MontserratSemiBold2";
+  font-family: "PoppinsSemiBold2";
   color: #808080;
   justify-content: center;
   
@@ -378,7 +378,7 @@ div.ContentLogin {
   bottom: 0%;
   color: #fff;
   background-color: #fff;
-  font-family: "MontserratSemiBold2";
+  font-family: "PoppinsSemiBold2";
   justify-content: center;
 
 }
@@ -393,7 +393,7 @@ div.logoLogin {
   bottom: 0%;
   color: #fff;
   background-color: #fff;
-  font-family: "MontserratSemiBold2";
+  font-family: "PoppinsSemiBold2";
   justify-content: center;
 
 }
@@ -406,7 +406,7 @@ div.ApssLoginElementos {
   /* left: 50px; */
   color: #fff;
   background-color: #EEEEEE;
-  font-family: "MontserratSemiBold2";
+  font-family: "PoppinsSemiBold2";
 
 }
 

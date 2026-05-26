@@ -105,13 +105,13 @@ export const FormulaDialogRF = ({
           justifyContent: "center",
         }}
       >
-        <Typography sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}>
+        <Typography sx={{ fontFamily: "PoppinsBold", fontSize: "1vw" }}>
           {elemento} - Fórmula - {tipo}
         </Typography>
 
         <Typography
           sx={{
-            fontFamily: "MontserratRegular",
+            fontFamily: "PoppinsRegular",
             fontSize: ".6vw",
             width: "90%",
             textAlign: "center",
@@ -132,7 +132,7 @@ export const FormulaDialogRF = ({
         </Typography>
         <Typography
           sx={{
-            fontFamily: "MontserratRegular",
+            fontFamily: "PoppinsRegular",
             fontSize: ".6vw",
             width: "90%",
             textAlign: "center",
@@ -171,7 +171,7 @@ export const FormulaDialogRF = ({
             <TextField
               type={"number"}
               label={
-                <Typography sx={{ fontFamily: "MontserratBold" }}>
+                <Typography sx={{ fontFamily: "PoppinsBold" }}>
                   {"Valor del índice"}
                 </Typography>
               }
@@ -191,7 +191,7 @@ export const FormulaDialogRF = ({
               }
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratSemiBold",
+                  fontFamily: "PoppinsSemiBold",
                   fontSize: ".8vw",
                 },
               }}
@@ -202,7 +202,7 @@ export const FormulaDialogRF = ({
               }
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                   fontSize: ".8vw",
                 },
               }}
@@ -212,14 +212,14 @@ export const FormulaDialogRF = ({
               <TextField
                 type={"number"}
                 label={
-                  <Typography sx={{ fontFamily: "MontserratBold" }}>
+                  <Typography sx={{ fontFamily: "PoppinsBold" }}>
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
                 }
                 sx={{ width: "45%", mr: 1 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                     fontSize: ".8vw",
                   },
                 }}
@@ -231,7 +231,7 @@ export const FormulaDialogRF = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                     fontSize: ".8vw",
                   },
                 }}
@@ -239,14 +239,14 @@ export const FormulaDialogRF = ({
               <TextField
                 type={"number"}
                 label={
-                  <Typography sx={{ fontFamily: "MontserratBold" }}>
+                  <Typography sx={{ fontFamily: "PoppinsBold" }}>
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
                 }
                 sx={{ width: "45%" }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                     fontSize: ".8vw",
                   },
                 }}
@@ -258,7 +258,7 @@ export const FormulaDialogRF = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                     fontSize: ".8vw",
                   },
                 }}
@@ -274,7 +274,7 @@ export const FormulaDialogRF = ({
           className="cancelar"
           onClick={() => close()}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
             Cancelar
           </Typography>
         </Button>
@@ -286,7 +286,7 @@ export const FormulaDialogRF = ({
             
           }
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
             Agregar
           </Typography>
         </Button>

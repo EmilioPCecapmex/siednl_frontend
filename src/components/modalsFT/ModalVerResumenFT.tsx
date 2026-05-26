@@ -29,7 +29,7 @@ export default function ModalVerResumenFT({
     >
       <DialogTitle
         sx={{
-          fontFamily: "MontserratBold",
+          fontFamily: "PoppinsBold",
           borderBottom: 1,
           height: "2vh",
           mb: 2,

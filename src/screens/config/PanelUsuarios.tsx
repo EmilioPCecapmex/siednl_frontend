@@ -315,7 +315,7 @@ export const PanelUsuarios = () => {
                 alignItems="center"
               >
                 <Grid
-                  sx={{ fontFamily: "MontserratRegular" }}
+                  sx={{ fontFamily: "PoppinsRegular" }}
                   item
                   xl={7}
                   lg={4}
@@ -362,7 +362,7 @@ export const PanelUsuarios = () => {
                       width: "10vw",
                       height: "3.3vh",
                       color: "black",
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                       fontSize: "0.6vw",
                     }}
                     onClick={() => {
@@ -414,10 +414,10 @@ export const PanelUsuarios = () => {
                         <TableCell
                           sx={{
                             backgroundColor: "#edeaea",
-                            fontFamily: "MontserratBold",
+                            fontFamily: "PoppinsBold",
                             borderBottom: 0,
                             fontSize: "0.8vw",
-                            // fontFamily: "MontserratRegular",
+                            // fontFamily: "PoppinsRegular",
                             //   fontSize: ".7vw",
                             justifyContent: "center",
                             alignItems: "center",
@@ -442,7 +442,7 @@ export const PanelUsuarios = () => {
                           <TableCell
                             sx={{
                               padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                             align="center"
@@ -454,7 +454,7 @@ export const PanelUsuarios = () => {
                           <TableCell
                             sx={{
                               padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                             align="center"
@@ -466,7 +466,7 @@ export const PanelUsuarios = () => {
                           <TableCell
                             sx={{
                               padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                             align="center"
@@ -479,7 +479,7 @@ export const PanelUsuarios = () => {
                           <TableCell
                             sx={{
                               padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                             align="center"
@@ -492,7 +492,7 @@ export const PanelUsuarios = () => {
                           <TableCell
                             sx={{
                               padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                             align="center"
@@ -505,7 +505,7 @@ export const PanelUsuarios = () => {
                           <TableCell
                             sx={{
                               padding: "1px 15px 1px 0",
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                             align="center"

@@ -194,7 +194,7 @@ export const FormulaDialogMA = ({
       >
         <Typography
           sx={{
-            fontFamily: "MontserratBold",
+            fontFamily: "PoppinsBold",
             fontSize: [10, 10, 10, 15, 18, 18],
           }}
         >
@@ -209,7 +209,7 @@ export const FormulaDialogMA = ({
 
         <Typography
           sx={{
-            fontFamily: "MontserratRegular",
+            fontFamily: "PoppinsRegular",
             fontSize: [10, 10, 10, 13, 14, 18],
             width: "90%",
             textAlign: "center",
@@ -230,7 +230,7 @@ export const FormulaDialogMA = ({
         </Typography>
         <Typography
           sx={{
-            fontFamily: "MontserratRegular",
+            fontFamily: "PoppinsRegular",
             fontSize: [10, 10, 10, 13, 14, 18],
             width: "90%",
             textAlign: "center",
@@ -273,7 +273,7 @@ export const FormulaDialogMA = ({
               label={
                 <Typography
                   sx={{
-                    fontFamily: "MontserratBold",
+                    fontFamily: "PoppinsBold",
                     fontSize: [10, 10, 10, 14, 15, 18],
                   }}
                 >
@@ -298,7 +298,7 @@ export const FormulaDialogMA = ({
               }
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratSemiBold",
+                  fontFamily: "PoppinsSemiBold",
                   
                 },
               }}
@@ -309,7 +309,7 @@ export const FormulaDialogMA = ({
               }
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                   
                 },
               }}
@@ -326,7 +326,7 @@ export const FormulaDialogMA = ({
                 // type={"number"}
 
                 label={
-                  <Typography sx={{ fontFamily: "MontserratBold" }}>
+                  <Typography sx={{ fontFamily: "PoppinsBold" }}>
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
                 }
@@ -335,7 +335,7 @@ export const FormulaDialogMA = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                     
                   },
                 }}
@@ -355,7 +355,7 @@ export const FormulaDialogMA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                    
                   },
                 }}
@@ -365,7 +365,7 @@ export const FormulaDialogMA = ({
                 label={
                   <Typography
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 10, 14, 15, 18]
                     }}
                   >
@@ -375,7 +375,7 @@ export const FormulaDialogMA = ({
                 sx={{ width: "45%" }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                 
                   },
                 }}
@@ -395,7 +395,7 @@ export const FormulaDialogMA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                     
                   },
                 }}
@@ -415,7 +415,7 @@ export const FormulaDialogMA = ({
         >
           <Typography
             sx={{
-              fontFamily: "MontserratMedium",
+              fontFamily: "PoppinsMedium",
               fontSize: [10, 10, 10, 14, 15, 18],
             }}
           >
@@ -429,7 +429,7 @@ export const FormulaDialogMA = ({
         >
           <Typography
             sx={{
-              fontFamily: "MontserratMedium",
+              fontFamily: "PoppinsMedium",
               fontSize: [10, 10, 10, 14, 15, 18],
             }}
           >

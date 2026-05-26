@@ -1,31 +1,61 @@
-@font-face {
-  font-family: "MontserratBold"; /*Can be any text*/
+/* @font-face {
+  font-family: "PoppinsBold";
   src: local("Montserrat-Bold"),
     url("./assets/fonts/Montserrat-Bold.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "MontserratLight"; /*Can be any text*/
+  font-family: "PoppinsLight";
   src: local("Montserrat-Light"),
     url("./assets/fonts/Montserrat-Light.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "MontserratMedium"; /*Can be any text*/
+  font-family: "PoppinsMedium";
   src: local("Montserrat-Medium"),
     url("./assets/fonts/Montserrat-Medium.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "MontserratSemiBold"; /*Can be any text*/
+  font-family: "PoppinsSemiBold"; 
   src: local("Montserrat-SemiBold"),
     url("./assets/fonts/Montserrat-SemiBold.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "MontserratRegular"; /*Can be any text*/
+  font-family: "PoppinsRegular"; 
   src: local("Montserrat-Regular"),
     url("./assets/fonts/Montserrat-Regular.ttf") format("truetype");
+} */
+
+@font-face {
+  font-family: "PoppinsBold";
+  src: local("Poppins-Bold"),
+    url("./assets/fonts/Poppins-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PoppinsSemiBold";
+  src: local("Poppins-SemiBold"),
+    url("./assets/fonts/Poppins-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PoppinsMedium";
+  src: local("Poppins-Medium"),
+    url("./assets/fonts/Poppins-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PoppinsRegular";
+  src: local("Poppins-Regular"),
+    url("./assets/fonts/Poppins-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PoppinsLight";
+  src: local("Poppins-Light"),
+    url("./assets/fonts/Poppins-Light.ttf") format("truetype");
 }
 
 #pswPlaceholder::placeholder {

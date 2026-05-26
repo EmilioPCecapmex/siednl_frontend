@@ -13,11 +13,11 @@ export const E404 = () => {
         backgroundColor: "#F2F2F2",
       }}
     >
-      <Typography sx={{ fontFamily: "MontserratBold", fontSize: "8vw" }}>
+      <Typography sx={{ fontFamily: "PoppinsBold", fontSize: "8vw" }}>
         404
       </Typography>
 
-      <Typography sx={{ fontFamily: "MontserratSemiBold", fontSize: "4vw" }}>
+      <Typography sx={{ fontFamily: "PoppinsSemiBold", fontSize: "4vw" }}>
         Pagina no encontrada
       </Typography>
     </Box>

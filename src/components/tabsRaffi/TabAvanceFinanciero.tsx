@@ -493,13 +493,13 @@ export function TabAvanceFinanciero({
             value={jsonMir.encabezado.programa.Label}
             InputLabelProps={{
               style: {
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
               },
             }}
             InputProps={{
               readOnly: true,
               style: {
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
               },
             }}
           />
@@ -562,12 +562,12 @@ export function TabAvanceFinanciero({
               sx={queries.medium_text}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
                 startAdornment: <AttachMoneyIcon />,
               }}
@@ -593,7 +593,7 @@ export function TabAvanceFinanciero({
             <FormControl fullWidth>
               <InputLabel
                 sx={{
-                  fontFamily: "MontserratBold",
+                  fontFamily: "PoppinsBold",
                 }}
               >
                 CALCULO
@@ -603,13 +603,13 @@ export function TabAvanceFinanciero({
                 onChange={(e) => setSelector(e.target.value)}
                 label="CALCULO"
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 }}
               >
                 <MenuItem value={"MODIFICADO/AUTORIZADO"}>
                   <Typography
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                       fontSize: ["2vh", "2vh", "2vh", "2vh", "2vh"],
                     }}
                   >
@@ -619,7 +619,7 @@ export function TabAvanceFinanciero({
                 <MenuItem value={"DEVENGADO/MODIFICADO"}>
                   <Typography
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                       fontSize: ["2vh", "2vh", "2vh", "2vh", "2vh"],
                     }}
                   >
@@ -629,7 +629,7 @@ export function TabAvanceFinanciero({
                 <MenuItem value={"EJERCIDO/MODIFICADO"}>
                   <Typography
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                       fontSize: ["2vh", "2vh", "2vh", "2vh", "2vh"],
                     }}
                   >
@@ -735,12 +735,12 @@ export function TabAvanceFinanciero({
                   sx={queries.medium_text}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                 />
@@ -777,12 +777,12 @@ export function TabAvanceFinanciero({
                   }
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                 />
@@ -855,12 +855,12 @@ export function TabAvanceFinanciero({
                   sx={queries.medium_text}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                 />
@@ -900,13 +900,13 @@ export function TabAvanceFinanciero({
                   }
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     //readOnly: true,
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                 />
@@ -979,12 +979,12 @@ export function TabAvanceFinanciero({
                   sx={queries.medium_text}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                 />
@@ -1022,12 +1022,12 @@ export function TabAvanceFinanciero({
                   }
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                 />
@@ -1100,12 +1100,12 @@ export function TabAvanceFinanciero({
                   sx={queries.medium_text}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                 />
@@ -1142,13 +1142,13 @@ export function TabAvanceFinanciero({
                   }
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     //readOnly: true,
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                 />
@@ -1244,13 +1244,13 @@ export function TabAvanceFinanciero({
                   sx={queries.medium_text}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     //readOnly: true,
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                 />
@@ -1273,13 +1273,13 @@ export function TabAvanceFinanciero({
                   }
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     //readOnly: true,
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                 />

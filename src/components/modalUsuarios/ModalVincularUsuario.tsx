@@ -325,7 +325,7 @@ export default function ModalVincularUsuario({
 
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => closeModal()}>
-      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
+      <DialogTitle sx={{ fontFamily: "PoppinsBold" }}>
         {title.toUpperCase()}
       </DialogTitle>
 

@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 const tabStyle={
     borderRight: "1px solid #b3afaf",
     color: "black",
-    fontFamily: "MontserratBold",
+    fontFamily: "PoppinsBold",
   }
 
 const GenericTabs = ({ tabsData,tabSelect }:{tabsData:string[];tabSelect:Function}) => {

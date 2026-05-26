@@ -219,7 +219,7 @@ export const TabActividades = ({
         <Typography
           sx={{
             mr: "1vw",
-            fontFamily: "MontserratSemiBold",
+            fontFamily: "PoppinsSemiBold",
             // fontSize: "1vw",
           }}
         >
@@ -317,7 +317,7 @@ export const TabActividades = ({
                     }}
                   >
                     <Typography
-                      sx={{ fontFamily: "MontserratMedium", fontSize: [10, 10, 10, 13, 15, 18], }}
+                      sx={{ fontFamily: "PoppinsMedium", fontSize: [10, 10, 10, 13, 15, 18], }}
                     >
                       COMPONENTE {index + 1}
                     </Typography>
@@ -347,7 +347,7 @@ export const TabActividades = ({
                           <Typography
                             sx={{
                               fontSize: [10, 10, 10, 13, 15, 18],
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                             }}
                           >
                             ACTIVIDAD {index + 1}
@@ -414,7 +414,7 @@ export const TabActividades = ({
                       }}
                     >
                       <Typography
-                        sx={{ fontFamily: "MontserratMedium", 
+                        sx={{ fontFamily: "PoppinsMedium", 
                         fontSize: [10, 10, 10, 13, 15, 18],
                       }}
                       >
@@ -446,7 +446,7 @@ export const TabActividades = ({
                             <Typography
                               sx={{
                                 fontSize: [10, 10, 10, 13, 15, 18],
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               }}
                             >
                               ACTIVIDAD {index + 1}
@@ -478,7 +478,7 @@ export const TabActividades = ({
           >
             <Typography
               sx={{
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 // fontSize: "1vw",
                 textAlign: "center",
               }}
@@ -487,7 +487,7 @@ export const TabActividades = ({
             </Typography>
             <Typography
               sx={{
-                fontFamily: "MontserratLight",
+                fontFamily: "PoppinsLight",
                 // fontSize: ".8vw",
                 textAlign: "center",
               }}
@@ -526,12 +526,12 @@ export const TabActividades = ({
               label={"RESUMEN NARRATIVO"}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               // onChange={(c) => {
@@ -591,12 +591,12 @@ export const TabActividades = ({
               variant="filled"
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               label={"INDICADOR"}
@@ -656,13 +656,13 @@ export const TabActividades = ({
               variant="filled"
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
               }}
               InputProps={{
                 readOnly: true,
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               sx={{
@@ -696,7 +696,7 @@ export const TabActividades = ({
                 width: ["33vh", "30vh", "40vh", "50vh", "50vh"],
                 backgroundColor: "#f0f0f0",
                 boxShadow: 2,
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
                 justifyContent: "space-evenly",
                 alignItems: "center",
               }}
@@ -706,12 +706,12 @@ export const TabActividades = ({
                 value={"TRIMESTRAL"}
                 label={"TRIMESTRAL"}
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 }}
                 control={
                   <Radio
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     }}
                     checked={
                       componentes[componenteSelect].actividades[actividadSelect]
@@ -763,12 +763,12 @@ export const TabActividades = ({
               label={"MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION"}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               onChange={(c) => {
@@ -818,12 +818,12 @@ export const TabActividades = ({
               label={"SUPUESTOS"}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               onChange={(c) => {

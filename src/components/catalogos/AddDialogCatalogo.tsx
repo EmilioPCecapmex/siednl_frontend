@@ -326,7 +326,7 @@ export const AddDialogCatalogo = ({
               direction={"column"}
             >
               <Grid item lg={4}>
-                <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+                <InputLabel sx={{ fontFamily: "PoppinsMedium" }}>
                   MODULO
                 </InputLabel>
                 <FormControl variant="outlined" fullWidth size="small">
@@ -346,7 +346,7 @@ export const AddDialogCatalogo = ({
               </Grid>
 
               <Grid item lg={4}>
-                <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+                <InputLabel sx={{ fontFamily: "PoppinsMedium" }}>
                   INICIO
                 </InputLabel>
                 <FormControl variant="outlined" fullWidth size="small">
@@ -359,14 +359,14 @@ export const AddDialogCatalogo = ({
                     type="date"
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratLight",
+                        fontFamily: "PoppinsLight",
                         borderColor: fechaError ? "red" : undefined,
                       },
                     }}
                     InputLabelProps={{
                       shrink: true,
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     rows={3}
@@ -375,7 +375,7 @@ export const AddDialogCatalogo = ({
               </Grid>
 
               <Grid item lg={4}>
-                <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+                <InputLabel sx={{ fontFamily: "PoppinsMedium" }}>
                   FIN
                 </InputLabel>
 
@@ -389,14 +389,14 @@ export const AddDialogCatalogo = ({
                     type="date"
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratLight",
+                        fontFamily: "PoppinsLight",
                         borderColor: fechaError ? "red" : undefined,
                       },
                     }}
                     InputLabelProps={{
                       shrink: true,
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     rows={3}
@@ -417,7 +417,7 @@ export const AddDialogCatalogo = ({
               onClick={handleCloseFc}
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium",  }}
+                sx={{ fontFamily: "PoppinsMedium",  }}
               >
                 CANCELAR
               </Typography>
@@ -431,7 +431,7 @@ export const AddDialogCatalogo = ({
               //autoFocus
             >
               <Typography
-                sx={{ fontFamily: "MontserratMedium",  }}
+                sx={{ fontFamily: "PoppinsMedium",  }}
               >
                 DE ACUERDO
               </Typography>
@@ -468,7 +468,7 @@ export const AddDialogCatalogo = ({
           >
             <Typography
               sx={{
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 width: "90%",
                 fontSize: [10, 15, 15, 15, 15],
                 textAlign: "center",
@@ -491,7 +491,7 @@ export const AddDialogCatalogo = ({
                 mt: "2vh",
               }}
             >
-              <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+              <InputLabel sx={{ fontFamily: "PoppinsMedium" }}>
                 PROGRAMAS INSTITUCIONALES
               </InputLabel>
               <Select
@@ -501,7 +501,7 @@ export const AddDialogCatalogo = ({
                   setPrograma(x.target.value);
                 }}
                 sx={{
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 }}
               >
                 <MenuItem
@@ -509,7 +509,7 @@ export const AddDialogCatalogo = ({
                   key={0}
                   disabled
                   sx={{
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   }}
                 >
                   SELECCIONA
@@ -519,7 +519,7 @@ export const AddDialogCatalogo = ({
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular" }}
+                      sx={{ fontFamily: "PoppinsRegular" }}
                     >
                       {item.NombrePrograma}
                     </MenuItem>
@@ -534,7 +534,7 @@ export const AddDialogCatalogo = ({
                 mt: "2vh",
               }}
             >
-              <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+              <InputLabel sx={{ fontFamily: "PoppinsMedium" }}>
                 INSTITUCIÓN
               </InputLabel>
               <Select
@@ -542,7 +542,7 @@ export const AddDialogCatalogo = ({
                 label="INSTITUCIÓN"
                 onChange={(x) => setInstitution(x.target.value)}
                 sx={{
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 }}
               >
                 <MenuItem
@@ -550,7 +550,7 @@ export const AddDialogCatalogo = ({
                   key={0}
                   disabled
                   sx={{
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   }}
                 >
                   SELECCIONA
@@ -560,7 +560,7 @@ export const AddDialogCatalogo = ({
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular" }}
+                      sx={{ fontFamily: "PoppinsRegular" }}
                     >
                       {item.Label}
                     </MenuItem>
@@ -585,7 +585,7 @@ export const AddDialogCatalogo = ({
             >
               <Typography
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
@@ -600,7 +600,7 @@ export const AddDialogCatalogo = ({
             >
               <Typography
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
@@ -638,7 +638,7 @@ export const AddDialogCatalogo = ({
           >
             <Typography
               sx={{
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 width: "90%",
                 fontSize: [10, 15, 15, 15, 15],
                 textAlign: "center",
@@ -661,7 +661,7 @@ export const AddDialogCatalogo = ({
                 mt: "2vh",
               }}
             >
-              <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+              <InputLabel sx={{ fontFamily: "PoppinsMedium" }}>
                 UNIDADES ADMINISTRATIVAS
               </InputLabel>
               <Select
@@ -671,7 +671,7 @@ export const AddDialogCatalogo = ({
                   setUnidad(x.target.value);
                 }}
                 sx={{
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 }}
               >
                 <MenuItem
@@ -679,7 +679,7 @@ export const AddDialogCatalogo = ({
                   key={0}
                   disabled
                   sx={{
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   }}
                 >
                   SELECCIONA
@@ -689,7 +689,7 @@ export const AddDialogCatalogo = ({
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular" }}
+                      sx={{ fontFamily: "PoppinsRegular" }}
                     >
                       {item.Unidad}
                     </MenuItem>
@@ -704,7 +704,7 @@ export const AddDialogCatalogo = ({
                 mt: "2vh",
               }}
             >
-              <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+              <InputLabel sx={{ fontFamily: "PoppinsMedium" }}>
                 INSTITUCIÓN
               </InputLabel>
               <Select
@@ -712,7 +712,7 @@ export const AddDialogCatalogo = ({
                 label="INSTITUCIÓN"
                 onChange={(x) => setInstitution(x.target.value)}
                 sx={{
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 }}
               >
                 <MenuItem
@@ -720,7 +720,7 @@ export const AddDialogCatalogo = ({
                   key={0}
                   disabled
                   sx={{
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   }}
                 >
                   SELECCIONA
@@ -730,7 +730,7 @@ export const AddDialogCatalogo = ({
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular" }}
+                      sx={{ fontFamily: "PoppinsRegular" }}
                     >
                       {item.Label}
                     </MenuItem>
@@ -750,7 +750,7 @@ export const AddDialogCatalogo = ({
             <Button className="cancelar" onClick={cerrardialog}>
               <Typography
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
@@ -765,7 +765,7 @@ export const AddDialogCatalogo = ({
             >
               <Typography
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
@@ -834,7 +834,7 @@ export const AddDialogCatalogo = ({
           >
             <Typography
               sx={{
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 width: "90%",
                 fontSize: [10, 15, 15, 15, 15],
                 textAlign: "center",
@@ -865,12 +865,12 @@ export const AddDialogCatalogo = ({
               rows={3}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratLight",
+                  fontFamily: "PoppinsLight",
                 },
               }}
             />
@@ -886,12 +886,12 @@ export const AddDialogCatalogo = ({
               rows={1}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratLight",
+                  fontFamily: "PoppinsLight",
                 },
               }}
             />
@@ -914,12 +914,12 @@ export const AddDialogCatalogo = ({
               rows={1}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratLight",
+                  fontFamily: "PoppinsLight",
                 },
               }}
             />
@@ -930,7 +930,7 @@ export const AddDialogCatalogo = ({
             >
               <InputLabel
                 id="labelInst"
-                sx={{ fontFamily: "MontserratRegular" }}
+                sx={{ fontFamily: "PoppinsRegular" }}
               >
                 INSTITUCIÓN
               </InputLabel>
@@ -941,7 +941,7 @@ export const AddDialogCatalogo = ({
                 onChange={(x) => setInstitution(x.target.value)}
                 style={{
                   marginTop: 1,
-                  fontFamily: "MontserratLight",
+                  fontFamily: "PoppinsLight",
                 }}
                 rows={3}
                 multiline={descripcion.length < 20 ? false : true}
@@ -950,7 +950,7 @@ export const AddDialogCatalogo = ({
                   value={"0"}
                   key={0}
                   disabled
-                  sx={{ fontFamily: "MontserratLight" }}
+                  sx={{ fontFamily: "PoppinsLight" }}
                 >
                   SELECCIONA INSTITUCIÓN
                 </MenuItem>
@@ -959,7 +959,7 @@ export const AddDialogCatalogo = ({
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
-                      sx={{ fontFamily: "MontserratLight" }}
+                      sx={{ fontFamily: "PoppinsLight" }}
                     >
                       {item.Label}
                     </MenuItem>
@@ -979,7 +979,7 @@ export const AddDialogCatalogo = ({
             <Button className="cancelar" onClick={cerrardialog}>
               <Typography
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
@@ -1002,7 +1002,7 @@ export const AddDialogCatalogo = ({
             >
               <Typography
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
@@ -1041,7 +1041,7 @@ export const AddDialogCatalogo = ({
           >
             <Typography
               sx={{
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 width: "90%",
                 fontSize: [10, 15, 15, 15, 15],
                 textAlign: "center",
@@ -1081,12 +1081,12 @@ export const AddDialogCatalogo = ({
               rows={3}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratLight",
+                  fontFamily: "PoppinsLight",
                 },
               }}
             />
@@ -1111,12 +1111,12 @@ export const AddDialogCatalogo = ({
                 rows={3}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratLight",
+                    fontFamily: "PoppinsLight",
                   },
                 }}
               />
@@ -1142,12 +1142,12 @@ export const AddDialogCatalogo = ({
                 rows={3}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratLight",
+                    fontFamily: "PoppinsLight",
                   },
                 }}
               />
@@ -1173,12 +1173,12 @@ export const AddDialogCatalogo = ({
                 rows={3}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratLight",
+                    fontFamily: "PoppinsLight",
                   },
                 }}
               />
@@ -1196,7 +1196,7 @@ export const AddDialogCatalogo = ({
             <Button className="cancelar" onClick={cerrardialog}>
               <Typography
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
@@ -1207,7 +1207,7 @@ export const AddDialogCatalogo = ({
             <Button className="aceptar" onClick={opendialog} autoFocus>
               <Typography
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >

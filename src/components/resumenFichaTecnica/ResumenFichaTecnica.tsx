@@ -44,7 +44,7 @@ export const ResumenFichaTecnica = ({
 
   const sxTitleStyle = {
     fontSize: "1vw",
-    fontFamily: "MontserratSemiBold",
+    fontFamily: "PoppinsSemiBold",
     ml: 1,
   };
 
@@ -68,7 +68,7 @@ export const ResumenFichaTecnica = ({
     width: "38vw",
     display: "flex",
     fontSize: ".8rem",
-    fontFamily: "MontserratRegular",
+    fontFamily: "PoppinsRegular",
     minHeight: "5vh",
     ml: "2vw",
     backgroundColor: "white",
@@ -153,7 +153,7 @@ export const ResumenFichaTecnica = ({
     headerTypography.push(
       <Box key={i}>
         <Typography
-          sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+          sx={{ fontFamily: "PoppinsSemiBold", textAlign: "center" }}
         >
           {headerTextsValue[i]}
         </Typography>
@@ -178,7 +178,7 @@ export const ResumenFichaTecnica = ({
           }}
         >
           <Typography
-            sx={{ fontSize: ".8rem", fontFamily: "MontserratRegular" }}
+            sx={{ fontSize: ".8rem", fontFamily: "PoppinsRegular" }}
           >
             {clasificacionProgramaticaValue[i]}
           </Typography>
@@ -194,7 +194,7 @@ export const ResumenFichaTecnica = ({
           }}
         >
           <Typography
-            sx={{ fontSize: ".8rem", fontFamily: "MontserratRegular" }}
+            sx={{ fontSize: ".8rem", fontFamily: "PoppinsRegular" }}
           >
             {clasificacionProgramaticaValues[i]}
           </Typography>
@@ -208,7 +208,7 @@ export const ResumenFichaTecnica = ({
     generalTitlesDesign1.push(
       <Box key={i} sx={sxTitleDesignPage1}>
         <Typography
-          sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
+          sx={{ ml: 1, fontFamily: "PoppinsBold", textAlign: "center" }}
         >
           {titleColumnsNormalPag1Value[i]}
         </Typography>
@@ -221,7 +221,7 @@ export const ResumenFichaTecnica = ({
     generalTitlesDesign2.push(
       <Box key={i} sx={sxTitleDesignPage1}>
         <Typography
-          sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
+          sx={{ ml: 1, fontFamily: "PoppinsBold", textAlign: "center" }}
         >
           {titleColumnsNormalPag2Value[i]}
         </Typography>
@@ -290,7 +290,7 @@ export const ResumenFichaTecnica = ({
               <Typography
                 sx={{
                   fontSize: "1vw",
-                  fontFamily: "MontserratSemiBold",
+                  fontFamily: "PoppinsSemiBold",
                   ml: 1,
                 }}
               >
@@ -310,7 +310,7 @@ export const ResumenFichaTecnica = ({
               }}
             >
               <Typography
-                sx={{ fontSize: ".8rem", fontFamily: "MontserratRegular" }}
+                sx={{ fontSize: ".8rem", fontFamily: "PoppinsRegular" }}
               >
                 {clasificacionProgramaticaValues[0] +
                   clasificacionProgramaticaValues[1]}
@@ -422,7 +422,7 @@ export const ResumenFichaTecnica = ({
           >
             <Typography
               key={Math.random()}
-              sx={{ fontSize: "1vw", fontFamily: "MontserratSemiBold", ml: 1 }}
+              sx={{ fontSize: "1vw", fontFamily: "PoppinsSemiBold", ml: 1 }}
             >
               {subTitleColumnsNormalPag1Value[i]}
             </Typography>
@@ -443,7 +443,7 @@ export const ResumenFichaTecnica = ({
                 width: "38vw",
                 display: "flex",
                 fontSize: ".8rem",
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
                 minHeight: "5vh",
                 ml: "2vw",
                 backgroundColor: "white",
@@ -552,27 +552,27 @@ export const ResumenFichaTecnica = ({
               }}
             >
               <Typography
-                sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+                sx={{ fontFamily: "PoppinsSemiBold", textAlign: "center" }}
               >
                 GOBIERNO DEL ESTADO DE NUEVO LEÓN
               </Typography>
               <Typography
-                sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+                sx={{ fontFamily: "PoppinsSemiBold", textAlign: "center" }}
               >
                 SECRETARÍA DE FINANZAS Y TESORERÍA GENERAL DEL ESTADO
               </Typography>
               <Typography
-                sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+                sx={{ fontFamily: "PoppinsSemiBold", textAlign: "center" }}
               >
                 PRESUPUESTO BASADO EN RESULTADOS
               </Typography>
               <Typography
-                sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+                sx={{ fontFamily: "PoppinsSemiBold", textAlign: "center" }}
               >
                 FICHA TECNICA DE INDICADORES 2022
               </Typography>
               <Typography
-                sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+                sx={{ fontFamily: "PoppinsSemiBold", textAlign: "center" }}
               >
                 PROGRAMAS PRESUPUESTARIOS
               </Typography>

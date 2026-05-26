@@ -96,7 +96,7 @@ export default function ModalEnviar({
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle
         sx={{
-          fontFamily: "MontserratBold",
+          fontFamily: "PoppinsBold",
           borderBottom: 1,
           fontSize: [18, 20, 15, 20, 15],
           height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
@@ -127,7 +127,7 @@ export default function ModalEnviar({
           <Typography
             sx={{
               fontSize: [15, 15, 15, 15, 15],
-              fontFamily: "MontserratMedium",
+              fontFamily: "PoppinsMedium",
               textAlign: "center",
             }}
           >
@@ -173,7 +173,7 @@ export default function ModalEnviar({
               sx={{ marginRight: "1rem" }}
               onClick={() => handleClose()}
             >
-              <Typography sx={{ fontFamily: "MontserratRegular" }}>
+              <Typography sx={{ fontFamily: "PoppinsRegular" }}>
                 CANCELAR
               </Typography>
             </Button>
@@ -253,7 +253,7 @@ export default function ModalEnviar({
                 setNewComent(false);
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratRegular" }}>
+              <Typography sx={{ fontFamily: "PoppinsRegular" }}>
                 CONFIRMAR
               </Typography>
             </Button>

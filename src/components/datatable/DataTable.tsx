@@ -155,31 +155,31 @@ export const DataTable = ({
         <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontFamily: "MontserratBold"}} align="center" >
+              <TableCell sx={{ fontFamily: "PoppinsBold"}} align="center" >
                 Nombre
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
+              <TableCell sx={{ fontFamily: "PoppinsBold" }} align="center">
                 Correo Electrónico
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
+              <TableCell sx={{ fontFamily: "PoppinsBold" }} align="center">
                 Usuario
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
+              <TableCell sx={{ fontFamily: "PoppinsBold" }} align="center">
                 Cargo
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
+              <TableCell sx={{ fontFamily: "PoppinsBold" }} align="center">
                 Teléfono
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
+              <TableCell sx={{ fontFamily: "PoppinsBold" }} align="center">
                 Celular
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
+              <TableCell sx={{ fontFamily: "PoppinsBold" }} align="center">
                 Institución
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
+              <TableCell sx={{ fontFamily: "PoppinsBold" }} align="center">
                 Tipo de Usuario
               </TableCell>
-              <TableCell sx={{ fontFamily: "MontserratBold" }} align="center">
+              <TableCell sx={{ fontFamily: "PoppinsBold" }} align="center">
                 Acción
               </TableCell>
             </TableRow>
@@ -191,7 +191,7 @@ export const DataTable = ({
               .map((row) => (
                 <TableRow key={row.Id}>
                   <TableCell
-                    sx={{ fontFamily: "MontserratLight", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "PoppinsLight", fontSize: ".7vw" }}
                   >
                     <Box
                       sx={{
@@ -200,7 +200,7 @@ export const DataTable = ({
                         justifyContent: "left",
                         display: "flex",
                         alignItems: "center",
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         fontSize: ".7vw",
                       }}
                     >
@@ -210,7 +210,7 @@ export const DataTable = ({
                           width: "2vw",
                           height: "4vh",
                           fontSize: "0.8vw",
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                           marginRight: "1vw",
                         }}
                       >
@@ -221,43 +221,43 @@ export const DataTable = ({
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }} 
+                    sx={{ fontFamily: "PoppinsRegular", fontSize: ".7vw" }} 
                   >
                     {row.CorreoElectronico}
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "PoppinsRegular", fontSize: ".7vw" }}
                   >
                     {row.NombreUsuario}
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "PoppinsRegular", fontSize: ".7vw" }}
                   >
                     {row.Cargo}
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "PoppinsRegular", fontSize: ".7vw" }}
                   >
                     {row.Telefono}
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "PoppinsRegular", fontSize: ".7vw" }}
                   >
                     {row.Celular}
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "PoppinsRegular", fontSize: ".7vw" }}
                   >
                     {row.NombreInstitucion}
                   </TableCell>
 
                   <TableCell
-                    sx={{ fontFamily: "MontserratRegular", fontSize: ".7vw" }}
+                    sx={{ fontFamily: "PoppinsRegular", fontSize: ".7vw" }}
                   >
                     {row.Rol}
                   </TableCell>

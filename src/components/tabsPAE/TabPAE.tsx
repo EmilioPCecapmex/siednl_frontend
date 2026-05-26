@@ -221,7 +221,7 @@ export const TabPAE = ({
                   >
                     <Typography
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                         fontSize: [15, 15, 15, 15, 15],
                       }}
                     >
@@ -334,7 +334,7 @@ export const TabPAE = ({
                       <TableCell
                         sx={{
                           backgroundColor: "#edeaea",
-                          fontFamily: "MontserratBold",
+                          fontFamily: "PoppinsBold",
                           borderBottom: 0,
                           fontSize: "0.8vw",
                           justifyContent: "center",
@@ -355,7 +355,7 @@ export const TabPAE = ({
                       <TableCell
                         sx={{
                           padding: "1px 15px 1px 0",
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                           fontSize: ["15", "15", "15", "15", "15"],
                         }}
                         align="center"
@@ -367,7 +367,7 @@ export const TabPAE = ({
                       <TableCell
                         sx={{
                           padding: "1px 15px 1px 0",
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                           fontSize: ["15", "15", "15", "15", "15"],
                         }}
                         align="center"
@@ -382,7 +382,7 @@ export const TabPAE = ({
                             <TableCell
                               sx={{
                                 padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                                 fontSize: ["15", "15", "15", "15", "15"],
                               }}
                               align="center"
@@ -405,7 +405,7 @@ export const TabPAE = ({
                                   padding: "4px",
                                   borderRadius: "4px",
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               />
                             </TableCell>
@@ -414,7 +414,7 @@ export const TabPAE = ({
                               onDoubleClick={() => handleDoubleClick(index)}
                               sx={{
                                 padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                                 fontSize: ".7vw",
                               }}
                               align="center"
@@ -447,7 +447,7 @@ export const TabPAE = ({
                         <TableCell
                           sx={{
                             padding: "1px 15px 1px 0",
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                             fontSize: ".7vw",
                           }}
                           align="center"

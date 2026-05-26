@@ -397,7 +397,7 @@ export function TabAccion2({
                   >
                     <Typography
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                         fontSize: [10, 10, 10, 13, 15, 18],
                       }}
                     >
@@ -475,7 +475,7 @@ export function TabAccion2({
                     >
                       <Typography
                         sx={{
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                           fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       >
@@ -526,7 +526,7 @@ export function TabAccion2({
             <Typography
               sx={{
                 mr: "1vw",
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 fontSize: ["2vh", "2vh", "2vh", "3vh", "4vh", "4vh"],
               }}
             >
@@ -571,9 +571,9 @@ export function TabAccion2({
               fullWidth
               rows={4}
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               variant="filled"
               sx={{ boxShadow: 2 }}
               label={"Descripción de la accion"}
@@ -603,9 +603,9 @@ export function TabAccion2({
               multiline
               fullWidth
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               rows={4}
               variant="filled"
               sx={{ boxShadow: 2 }}
@@ -644,9 +644,9 @@ export function TabAccion2({
               rows={4}
               variant="filled"
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               sx={{ boxShadow: 2 }}
               label={"Fórmula de Cálculo"}
               // onClick={() => {
@@ -675,9 +675,9 @@ export function TabAccion2({
               rows={4}
               variant="filled"
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               sx={{ boxShadow: 2 }}
               label={"MV / FI"}
               onChange={(c) => {
@@ -710,9 +710,9 @@ export function TabAccion2({
               sx={{ boxShadow: 2 }}
               label={"Frecuencia"}
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value)
@@ -743,9 +743,9 @@ export function TabAccion2({
               sx={{ boxShadow: 2 }}
               label={"Unidad de medida"}
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value)
@@ -776,9 +776,9 @@ export function TabAccion2({
               sx={{ boxShadow: 2 }}
               label={"Sentido"}
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].sentidoDelIndicador = clearInfo(c.target.value)
@@ -809,9 +809,9 @@ export function TabAccion2({
               sx={{ boxShadow: 2 }}
               label={"Descripción de indicador"}
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               onChange={(c) => {
                 let prevLocal = [...acciones];
                 prevLocal[componentSelect - 1].unidadMedida = clearInfo(c.target.value)
@@ -840,9 +840,9 @@ export function TabAccion2({
               rows={4}
               variant="filled"
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               sx={{ boxShadow: 2 }}
               label={"Medio de Verificación / Fuente de Información"}
               onChange={(c) => {
@@ -938,7 +938,7 @@ export function TabAccion2({
                               <Typography
                                 sx={{
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 LÍNEA BASE 2021
@@ -946,12 +946,12 @@ export function TabAccion2({
                             }
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               },
                             }}
                             InputProps={{
                               style: {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                             onClick={() =>
@@ -970,7 +970,7 @@ export function TabAccion2({
                               <Typography
                                 sx={{
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 DATO I
@@ -978,12 +978,12 @@ export function TabAccion2({
                             }
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               },
                             }}
                             InputProps={{
                               style: {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                             onClick={() =>
@@ -1004,7 +1004,7 @@ export function TabAccion2({
                               <Typography
                                 sx={{
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 DATO II
@@ -1012,12 +1012,12 @@ export function TabAccion2({
                             }
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               },
                             }}
                             InputProps={{
                               style: {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                             onClick={() =>
@@ -1038,7 +1038,7 @@ export function TabAccion2({
                               <Typography
                                 sx={{
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 DATO III
@@ -1046,12 +1046,12 @@ export function TabAccion2({
                             }
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               },
                             }}
                             InputProps={{
                               style: {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                             onClick={() =>
@@ -1072,7 +1072,7 @@ export function TabAccion2({
                               <Typography
                                 sx={{
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 DATO IV
@@ -1080,12 +1080,12 @@ export function TabAccion2({
                             }
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               },
                             }}
                             InputProps={{
                               style: {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                             onClick={() =>
@@ -1106,7 +1106,7 @@ export function TabAccion2({
                               <Typography
                                 sx={{
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 ANUAL
@@ -1114,12 +1114,12 @@ export function TabAccion2({
                             }
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               },
                             }}
                             InputProps={{
                               style: {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                             onClick={() =>
@@ -1152,7 +1152,7 @@ export function TabAccion2({
               //                 <Typography
               //                   sx={{
               //                     fontSize: "0.7vw",
-              //                     fontFamily: "MontserratMedium",
+              //                     fontFamily: "PoppinsMedium",
               //                   }}
               //                 >
               //                   DATO I
@@ -1160,12 +1160,12 @@ export function TabAccion2({
               //               }
               //               InputLabelProps={{
               //                 style: {
-              //                   fontFamily: "MontserratMedium",
+              //                   fontFamily: "PoppinsMedium",
               //                 },
               //               }}
               //               InputProps={{
               //                 style: {
-              //                   fontFamily: "MontserratRegular",
+              //                   fontFamily: "PoppinsRegular",
               //                 },
               //               }}
               //               onClick={() =>
@@ -1186,7 +1186,7 @@ export function TabAccion2({
               //                 <Typography
               //                   sx={{
               //                     fontSize: "0.7vw",
-              //                     fontFamily: "MontserratMedium",
+              //                     fontFamily: "PoppinsMedium",
               //                   }}
               //                 >
               //                   DATO II
@@ -1197,12 +1197,12 @@ export function TabAccion2({
               //               }
               //               InputLabelProps={{
               //                 style: {
-              //                   fontFamily: "MontserratMedium",
+              //                   fontFamily: "PoppinsMedium",
               //                 },
               //               }}
               //               InputProps={{
               //                 style: {
-              //                   fontFamily: "MontserratRegular",
+              //                   fontFamily: "PoppinsRegular",
               //                 },
               //               }}
               //               value={

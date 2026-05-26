@@ -403,7 +403,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                 }}
               >
                 <Grid
-                  sx={{ fontFamily: "MontserratRegular" }}
+                  sx={{ fontFamily: "PoppinsRegular" }}
                   item
                   xl={11}
                   lg={10}
@@ -515,7 +515,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                     >
                       <MenuItem
                         value={"Todos"}
-                        sx={{ fontFamily: "MontserratRegular" }}
+                        sx={{ fontFamily: "PoppinsRegular" }}
                       >
                         TODOS
                       </MenuItem>
@@ -577,7 +577,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                     sx={{
                       width: ["100px", "120px", "160px", "180px", "250px"],
                       height: ["40px", "40px", "40px", "40px", "50px"],
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     }}
                     onClick={() => {
                       // setMirEdit([
@@ -649,10 +649,10 @@ export const ActividadesInstitucionales = ({}: {}) => {
                         <TableCell
                           sx={{
                             backgroundColor: "#edeaea",
-                            fontFamily: "MontserratBold",
+                            fontFamily: "PoppinsBold",
                             borderBottom: 0,
                             fontSize: "0.8vw",
-                            // fontFamily: "MontserratRegular",
+                            // fontFamily: "PoppinsRegular",
                             //   fontSize: ".7vw",
                             justifyContent: "center",
                             alignItems: "center",
@@ -678,7 +678,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                             <TableCell
                               sx={{
                                 padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                                 fontSize: ".7vw",
                               }}
                               align="center"
@@ -690,7 +690,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                             <TableCell
                               sx={{
                                 padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                                 fontSize: ".7vw",
                               }}
                               align="center"
@@ -703,7 +703,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                             <TableCell
                               sx={{
                                 padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                                 fontSize: ".7vw",
                               }}
                               align="center"
@@ -716,7 +716,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                             <TableCell
                               sx={{
                                 padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                                 fontSize: ".7vw",
                               }}
                               align="center"
@@ -729,7 +729,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                             <TableCell
                               sx={{
                                 padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                                 fontSize: ".7vw",
                               }}
                               align="center"
@@ -743,7 +743,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                             <TableCell
                               sx={{
                                 padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                                 fontSize: ".7vw",
                               }}
                               align="center"
@@ -765,7 +765,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                             <TableCell
                               sx={{
                                 padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                                 fontSize: ".7vw",
                               }}
                               align="center"
@@ -779,7 +779,7 @@ export const ActividadesInstitucionales = ({}: {}) => {
                             <TableCell
                               sx={{
                                 padding: "1px 15px 1px 0",
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                                 fontSize: ".7vw",
                               }}
                               align="center"
