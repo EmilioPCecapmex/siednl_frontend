@@ -82,6 +82,8 @@ export const VTrimestralboolean = {
   total: false,
   cuentaPublica: false,
 };
+
+
 export const VPTrimestralboolean = {
   pt1: false,
   pt2: false,
@@ -114,7 +116,27 @@ export function TabAvanceFinanciero({
   };
   const [trimestre, setTrimestre] = useState("0");
   const [programa, setPrograma] = useState<Programa | null>(null);
-  const [vista, setVista] = useState(null);
+  interface VistaFinanciera {
+    PROY_PROG: string;
+    T1_APROBADO: string;
+    T2_APROBADO: string;
+    T3_APROBADO: string;
+    T4_APROBADO: string;
+    T1_MODIFICADO: string;
+    T2_MODIFICADO: string;
+    T3_MODIFICADO: string;
+    T4_MODIFICADO: string;
+    T1_DEVENGADO: string;
+    T2_DEVENGADO: string;
+    T3_DEVENGADO: string;
+    T4_DEVENGADO: string;
+    T1_EJERCIDO: string;
+    T2_EJERCIDO: string;
+    T3_EJERCIDO: string;
+    T4_EJERCIDO: string;
+  }
+  
+  const [vista, setVista] = useState<VistaFinanciera[]>([]);
 
   const [nombrePrograma, setNombrePrograma] = useState("Sin Información");
   const [valorProgramaPresupuestario, setValorProgramaPresupuestario] =
@@ -154,10 +176,16 @@ export function TabAvanceFinanciero({
     }
   }, [programa]);
   useEffect(() => {
+    if (vista && vista.length > 0) {
+      cargaInformacion();
+    }
+  }, [vista]);
+  useEffect(() => {
     if (valorProgramaPresupuestario !== "") {
       setNombrePrograma(avanceFinancieroRF.nombrePrograma);
       getDetallePrograma(); 
       getVista();
+      
       setValorProgramaPresupuestario(
         avanceFinancieroRF.valorProgramaPresupuestario
       );
@@ -275,6 +303,97 @@ export function TabAvanceFinanciero({
   const handleClickOpen = () => {
     setOpenFormulaDialog(true);
   };
+
+
+
+
+
+
+  const cargaInformacion = (
+  ) => {
+    let auxMonto: IVTrimestral;
+    let auxPorcentaje: IVPTrimestral;
+    const datos = vista?.[0];
+    console.log(datos);
+        auxMonto = { ...modificadoAutorizado };
+        auxPorcentaje = { ...PModificadoAutorizado };
+       
+            auxMonto.t1 = { valor1: datos?.T1_MODIFICADO ?? 0, valor2: datos?.T1_APROBADO ?? 0, resultado: datos?.T1_MODIFICADO ?? 0 };
+            auxPorcentaje.pt1 = (parseFloat(datos?.T1_MODIFICADO)/parseFloat(valorProgramaPresupuestario)*100).toString();
+            setModificadoAutorizado(auxMonto);
+            setPModificadoAutorizado(auxPorcentaje);
+
+            
+            auxMonto.t2 = { valor1: datos?.T2_MODIFICADO ?? 0, valor2: datos?.T2_APROBADO ?? 0, resultado: datos?.T2_MODIFICADO ?? 0 };
+            auxPorcentaje.pt2 = (parseFloat(datos?.T2_MODIFICADO)/parseFloat(valorProgramaPresupuestario)*100).toString();
+            setModificadoAutorizado(auxMonto);
+            setPModificadoAutorizado(auxPorcentaje);
+
+           
+            auxMonto.t3 = { valor1: datos?.T3_MODIFICADO ?? 0, valor2: datos?.T3_APROBADO ?? 0, resultado: datos?.T3_MODIFICADO ?? 0 };
+            auxPorcentaje.pt3 = (parseFloat(datos?.T3_MODIFICADO)/parseFloat(valorProgramaPresupuestario)*100).toString();
+            setModificadoAutorizado(auxMonto);
+            setPModificadoAutorizado(auxPorcentaje);
+            
+            auxMonto.t4 = { valor1: datos?.T4_MODIFICADO ?? 0, valor2: datos?.T4_APROBADO ?? 0, resultado: datos?.T4_MODIFICADO ?? 0 };
+            auxPorcentaje.pt4 = (parseFloat(datos?.T4_MODIFICADO)/parseFloat(valorProgramaPresupuestario)*100).toString();
+            setModificadoAutorizado(auxMonto);
+            setPModificadoAutorizado(auxPorcentaje);
+            
+
+        auxMonto = { ...devengadoModificado };
+        auxPorcentaje = { ...PDevengadoModificado };
+       
+        
+            auxMonto.t1 = { valor1: datos?.T1_DEVENGADO ?? 0, valor2: datos?.T1_MODIFICADO ?? 0, resultado: datos?.T1_DEVENGADO?? 0 };
+            auxPorcentaje.pt1 = (parseFloat(datos?.T1_DEVENGADO)/parseFloat(valorProgramaPresupuestario)*100).toString();
+            setDevengadoModificado(auxMonto);
+            setPDevengadoModificado(auxPorcentaje);
+
+            auxMonto.t2 = { valor1: datos?.T2_DEVENGADO ?? 0, valor2: datos?.T2_MODIFICADO ?? 0, resultado: datos?.T2_DEVENGADO?? 0 };
+            auxPorcentaje.pt2 = (parseFloat(datos?.T2_DEVENGADO)/parseFloat(valorProgramaPresupuestario)*100).toString();
+            setDevengadoModificado(auxMonto);
+            setPDevengadoModificado(auxPorcentaje);
+
+          
+            auxMonto.t3 = { valor1: datos?.T3_DEVENGADO ?? 0, valor2: datos?.T3_MODIFICADO ?? 0, resultado: datos?.T3_DEVENGADO?? 0 };
+            auxPorcentaje.pt3 = (parseFloat(datos?.T3_DEVENGADO)/parseFloat(valorProgramaPresupuestario)*100).toString();
+            setDevengadoModificado(auxMonto);
+            setPDevengadoModificado(auxPorcentaje);
+
+           
+            auxMonto.t4 = { valor1: datos?.T4_DEVENGADO ?? 0, valor2: datos?.T4_MODIFICADO ?? 0, resultado: datos?.T4_DEVENGADO?? 0 };
+            auxPorcentaje.pt4 = (parseFloat(datos?.T4_DEVENGADO)/parseFloat(valorProgramaPresupuestario)*100).toString();
+            setDevengadoModificado(auxMonto);
+            setPDevengadoModificado(auxPorcentaje);
+
+          
+        auxMonto = { ...ejercidoModificado };
+        auxPorcentaje = { ...PEjercidoModificado };
+       
+            auxMonto.t1 = { valor1: datos?.T1_EJERCIDO ?? 0, valor2: datos?.T1_MODIFICADO ?? 0, resultado: datos?.T1_EJERCIDO?? 0 };
+            auxPorcentaje.pt1 = (parseFloat(datos?.T1_EJERCIDO)/parseFloat(valorProgramaPresupuestario)*100).toString();
+            setEjercidoModificado(auxMonto);
+            setPEjercidoModificado(auxPorcentaje);
+
+           
+            auxMonto.t2 = { valor1: datos?.T2_EJERCIDO ?? 0, valor2: datos?.T2_MODIFICADO ?? 0, resultado: datos?.T2_EJERCIDO?? 0 };
+            auxPorcentaje.pt2 = (parseFloat(datos?.T2_EJERCIDO)/parseFloat(valorProgramaPresupuestario)*100).toString();
+            setEjercidoModificado(auxMonto);
+            setPEjercidoModificado(auxPorcentaje);
+
+           
+            auxMonto.t3 = { valor1: datos?.T3_EJERCIDO ?? 0, valor2: datos?.T3_MODIFICADO ?? 0, resultado: datos?.T3_EJERCIDO?? 0 };
+            auxPorcentaje.pt3 = (parseFloat(datos?.T3_EJERCIDO)/parseFloat(valorProgramaPresupuestario)*100).toString();
+            setEjercidoModificado(auxMonto);
+            setPEjercidoModificado(auxPorcentaje);
+           
+            auxMonto.t4 = { valor1: datos?.T4_EJERCIDO ?? 0, valor2: datos?.T4_MODIFICADO ?? 0, resultado: datos?.T4_EJERCIDO?? 0 };
+            auxPorcentaje.pt4 = (parseFloat(datos?.T4_EJERCIDO)/parseFloat(valorProgramaPresupuestario)*100).toString();
+            setEjercidoModificado(auxMonto);
+            setPEjercidoModificado(auxPorcentaje);
+           
+    }
 
   const assignValue = (
     valor: string,
