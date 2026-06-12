@@ -248,7 +248,7 @@ export function TabFinProposito({
           <Typography
             sx={{
               mr: "1vw",
-              fontFamily: "MontserratSemiBold",
+              fontFamily: "PoppinsSemiBold",
               fontSize: [10, 10, 15, 18, 25, 25],
             }}
           >
@@ -312,7 +312,7 @@ export function TabFinProposito({
                 <Typography
                   sx={{
                     fontSize: [10, 10, 12, 15, 18, 20],
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   }}
                 >
                   FIN
@@ -347,7 +347,7 @@ export function TabFinProposito({
               >
                 <Typography
                   sx={{
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     fontSize: [10, 10, 12, 15, 18, 20],
                   }}
                 >
@@ -407,7 +407,7 @@ export function TabFinProposito({
                     >
                       <Typography
                         sx={{
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                           fontSize: [10, 10, 12, 15, 18, 20],
                         }}
                       >
@@ -442,7 +442,7 @@ export function TabFinProposito({
                       >
                         <Typography
                           sx={{
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                             fontSize: [10, 10, 12, 15, 18, 20],
                           }}
                         >
@@ -482,12 +482,12 @@ export function TabFinProposito({
                   label={"RESUMEN NARRATIVO"}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   onChange={(c) => {
@@ -527,12 +527,12 @@ export function TabFinProposito({
                   variant="filled"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   onBlur={() =>
@@ -580,13 +580,13 @@ export function TabFinProposito({
                   variant="filled"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     readOnly: true,
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   sx={{
@@ -618,7 +618,7 @@ export function TabFinProposito({
                     width: ["33vh", "30vh", "40vh", "50vh", "50vh"],
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                     //top: ["1vh", "none", "none", "none", "none", "none"]
@@ -629,7 +629,7 @@ export function TabFinProposito({
                     value={"ANUAL"}
                     label={"ANUAL"}
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     }}
                     control={
                       <Radio
@@ -647,7 +647,7 @@ export function TabFinProposito({
                     value={"BIENAL"}
                     label={"BIENAL"}
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     }}
                     control={
                       <Radio
@@ -689,12 +689,12 @@ export function TabFinProposito({
                   }}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   label={"MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION"}
@@ -736,12 +736,12 @@ export function TabFinProposito({
                   label={"SUPUESTOS"}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   onChange={(c) => {
@@ -797,7 +797,7 @@ export function TabFinProposito({
                   >
                     <Typography
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                         fontSize: [10, 10, 10, 13, 15, 18],
                       }}
                     >
@@ -833,7 +833,7 @@ export function TabFinProposito({
                       <Typography
                         sx={{
                           fontSize: [10, 10, 10, 13, 15, 18],
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         }}
                       >
                         PROPÓSITO
@@ -874,12 +874,12 @@ export function TabFinProposito({
                   label={"RESUMEN NARRATIVO"}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   onChange={(c) => {
@@ -920,12 +920,12 @@ export function TabFinProposito({
                   variant="filled"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   onBlur={() =>
@@ -975,13 +975,13 @@ export function TabFinProposito({
                   variant="filled"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     readOnly: true,
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   sx={{
@@ -1012,7 +1012,7 @@ export function TabFinProposito({
                     backgroundColor: "#f0f0f0",
                     width: ["33vh", "30vh", "40vh", "50vh", "50vh"],
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
@@ -1022,7 +1022,7 @@ export function TabFinProposito({
                     value={"ANUAL"}
                     label={"ANUAL"}
                     sx={{
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     }}
                     control={
                       <Radio
@@ -1067,12 +1067,12 @@ export function TabFinProposito({
                   }}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   label={"MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION"}
@@ -1115,12 +1115,12 @@ export function TabFinProposito({
                   label={"SUPUESTOS"}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   onChange={(c) => {

@@ -17,7 +17,7 @@ export default function MUIXDataGrid(props: any) {
       <ThemeProvider theme={theme}>
         <DataGrid
         sx={{
-        fontFamily: "MontserratMedium",
+        fontFamily: "PoppinsMedium",
         }}
         getRowHeight={() => "auto"}
 

@@ -22,7 +22,7 @@ export const TableCellFormat = (data: any) => {
       <TableCell
         sx={{
           padding: "1px 15px 1px 0",
-          fontFamily: "MontserratRegular",
+          fontFamily: "PoppinsRegular",
           fontSize: [10, 10, 10, 15, 15, 18],
           textAlign: "center",
         }}

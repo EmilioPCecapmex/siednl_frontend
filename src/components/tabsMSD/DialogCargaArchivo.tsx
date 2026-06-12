@@ -124,7 +124,7 @@ export function DialogCargaArchivo({
                   <li {...props} key={option}>
                     <p
                       style={{
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         fontSize: "15",
                       }}
                     >
@@ -140,13 +140,13 @@ export function DialogCargaArchivo({
                   variant="standard"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                       fontSize: "15",
                     },
                   }}
                   sx={{
                     "& .MuiAutocomplete-input": {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                 ></TextField>
@@ -159,7 +159,7 @@ export function DialogCargaArchivo({
             <br />
             <Typography
               sx={{
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
                 fontSize: [15, 15, 15, 15, 15],
               }}
             >
@@ -175,7 +175,7 @@ export function DialogCargaArchivo({
                 border: "1px solid #ccc",
                 padding: "4px",
                 borderRadius: "4px",
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
               }}
             />
             <Tooltip title="Agregar Archivo">

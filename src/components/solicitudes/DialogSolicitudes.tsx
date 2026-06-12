@@ -200,7 +200,7 @@ export const DialogSolicitudes = ({
                                 fullWidth
                                 sx={{ bgcolor: "#fff", borderRadius: ".4vw", boxShadow: "15" }}
                             >
-                                <InputLabel><Typography sx={{ fontFamily: 'MontserratBold' }}>
+                                <InputLabel><Typography sx={{ fontFamily: 'PoppinsBold' }}>
                                     Filtro por aplicación
                                 </Typography></InputLabel>
                                 <Select value={filtroSelected} label="Filtar---por---aplicacion" onChange={(c) => { filtroXApp(parseInt(c.target.value.toString())) }}>
@@ -270,12 +270,12 @@ export const DialogSolicitudes = ({
 
                                                             <Box sx={{ display: 'flex', width: '100%', alignItems: 'center' }}>
                                                                 <Typography
-                                                                    sx={{ display: 'inline', fontFamily: 'MontserratSemiBold' }}
+                                                                    sx={{ display: 'inline', fontFamily: 'PoppinsSemiBold' }}
                                                                     color="text.primary"
                                                                 >
                                                                     {"NOMBRE:"}
                                                                 </Typography>
-                                                                <Typography sx={{ fontFamily: 'MontserratMedium', ml: 1, fontSize: '.9rem' }}>
+                                                                <Typography sx={{ fontFamily: 'PoppinsMedium', ml: 1, fontSize: '.9rem' }}>
                                                                     {item.NombreUsuario?.toUpperCase()}
                                                                 </Typography>
                                                             </Box>
@@ -283,12 +283,12 @@ export const DialogSolicitudes = ({
 
                                                             <Box sx={{ display: 'flex', width: '100%', alignItems: 'center' }}>
                                                                 <Typography
-                                                                    sx={{ display: 'inline', fontFamily: 'MontserratSemiBold' }}
+                                                                    sx={{ display: 'inline', fontFamily: 'PoppinsSemiBold' }}
                                                                     color="text.primary"
                                                                 >
                                                                     {"TIPO DE SOLICITUD:"}
                                                                 </Typography>
-                                                                <Typography sx={{ fontFamily: 'MontserratMedium', ml: 1, fontSize: '.9rem' }}>
+                                                                <Typography sx={{ fontFamily: 'PoppinsMedium', ml: 1, fontSize: '.9rem' }}>
                                                                     {item.tipoSoli?.toUpperCase()}
                                                                 </Typography>
                                                             </Box>
@@ -296,23 +296,23 @@ export const DialogSolicitudes = ({
 
                                                             <Box sx={{ display: 'flex', width: '100%', alignItems: 'center' }}>
                                                                 <Typography
-                                                                    sx={{ display: 'inline', fontFamily: 'MontserratSemiBold' }}
+                                                                    sx={{ display: 'inline', fontFamily: 'PoppinsSemiBold' }}
                                                                     color="text.primary"
                                                                 >
                                                                     {"SOLICITANTE:"}
                                                                 </Typography>
-                                                                <Typography sx={{ fontFamily: 'MontserratMedium', ml: 1, fontSize: '.9rem' }}>
+                                                                <Typography sx={{ fontFamily: 'PoppinsMedium', ml: 1, fontSize: '.9rem' }}>
                                                                     {item.NombreSolicitante?.toUpperCase()}
                                                                 </Typography>
                                                             </Box>
                                                             <Box sx={{ display: 'flex', width: '100%', alignItems: 'center' }}>
                                                                 <Typography
-                                                                    sx={{ display: 'inline', fontFamily: 'MontserratSemiBold' }}
+                                                                    sx={{ display: 'inline', fontFamily: 'PoppinsSemiBold' }}
                                                                     color="text.primary"
                                                                 >
                                                                     {"Estado:"}
                                                                 </Typography>
-                                                                <Typography sx={{ fontFamily: 'MontserratMedium', ml: 1, fontSize: '.9rem' }}>
+                                                                <Typography sx={{ fontFamily: 'PoppinsMedium', ml: 1, fontSize: '.9rem' }}>
                                                                     {parseInt(item.Estatus) === 0 ? "PENDIENTE" : null}
                                                                     {parseInt(item.Estatus) === 1 ? "ACEPTADO" : null}
                                                                     {parseInt(item.Estatus) === 2 ? "RECHAZADO" : null}
@@ -342,28 +342,28 @@ export const DialogSolicitudes = ({
                                     {selectedIndex < 0 ?
                                         <Box sx={{ width: "100%", height: "80%", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
                                             <InfoTwoToneIcon sx={{ width: "100%", height: "80%", opacity: "20%" }} />
-                                            <Typography sx={{ fontFamily: 'MontserratSemiBold' }}>Sin información</Typography>
-                                            <Typography sx={{ fontFamily: 'MontserratSemiBold' }}>Seleccione un registro para visualizar la información</Typography>
+                                            <Typography sx={{ fontFamily: 'PoppinsSemiBold' }}>Sin información</Typography>
+                                            <Typography sx={{ fontFamily: 'PoppinsSemiBold' }}>Seleccione un registro para visualizar la información</Typography>
                                         </Box> :
                                         <Box sx={{ width: "98%", height: "95%", display: "flex", alignItems: "flex-start", justifyContent: "center", flexDirection: "column", bgcolor: "#fff", borderRadius: "15px" }}>
                                             <Box sx={{ width: "98%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
                                                 <Box sx={{ width: "90%", height: "15%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>Aplicación</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>Aplicación</Typography>}
                                                         InputLabelProps={{}}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "32.5%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "32.5%" }}
                                                         value={detalleSolicitud[0]?.NombreApp || ''}
                                                         variant="standard" />
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>SOLICITADO POR</Typography>}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "30%" }}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>SOLICITADO POR</Typography>}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "30%" }}
                                                         value={detalleSolicitud[0]?.NombreSolicitante || ''}
                                                         variant="standard" />
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>FECHA DE REGISTRO</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>FECHA DE REGISTRO</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "13.5%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "13.5%" }}
                                                         value={detalleSolicitud[0]?.FechaDeCreacion.split("T")[0] || ''}
                                                         variant="standard" />
 
@@ -376,73 +376,73 @@ export const DialogSolicitudes = ({
                                                 </Box>
                                                 <Box sx={{ width: "90%", height: "15%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>NOMBRE(S)</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>NOMBRE(S)</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "25%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "25%" }}
                                                         value={detalleSolicitud[0]?.Nombre || ''} variant="standard" />
 
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>APELLIDO PATERNO</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>APELLIDO PATERNO</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "25%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "25%" }}
                                                         value={detalleSolicitud[0]?.ApellidoPaterno || ''} variant="standard" />
 
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>APELLIDO MATERNO</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>APELLIDO MATERNO</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "25%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "25%" }}
                                                         value={detalleSolicitud[0]?.ApellidoMaterno || ''}
                                                         variant="standard" />
                                                 </Box>
                                                 <Box sx={{ width: "90%", height: "15%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>USUARIO</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>USUARIO</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "20%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "20%" }}
                                                         value={detalleSolicitud[0]?.NombreUsuario || ''}
                                                         variant="standard" />
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>CORREO ELECTRÓNICO</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>CORREO ELECTRÓNICO</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "25%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "25%" }}
                                                         value={detalleSolicitud[0]?.CorreoElectronico || ''}
                                                         variant="standard" />
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>CELULAR</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>CELULAR</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "20%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "20%" }}
                                                         value={detalleSolicitud[0]?.Celular || ''}
                                                         variant="standard" />
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>Puesto</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>Puesto</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "15%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "15%" }}
                                                         value={detalleSolicitud[0]?.Puesto || ''}
                                                         variant="standard" />
                                                 </Box>
                                                 <Box sx={{ width: "90%", height: "15%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>CURP</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>CURP</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "25%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "25%" }}
                                                         value={detalleSolicitud[0]?.Curp || ''}
                                                         variant="standard" />
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>RFC</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>RFC</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "25%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "25%" }}
                                                         value={detalleSolicitud[0]?.Rfc || ''}
                                                         variant="standard" />
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>TÉLEFONO</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>TÉLEFONO</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "15%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "15%" }}
                                                         value={detalleSolicitud[0]?.Telefono || ''}
                                                         variant="standard" />
                                                     <TextField
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>EXTENSIÓN</Typography>}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>EXTENSIÓN</Typography>}
                                                         InputProps={{ readOnly: true, }}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "10%" }}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "10%" }}
                                                         value={detalleSolicitud[0]?.Ext || ''}
                                                         variant="standard" />
                                                 </Box>
@@ -451,8 +451,8 @@ export const DialogSolicitudes = ({
                                                     <TextField
                                                         multiline
                                                         rows={8}
-                                                        label={<Typography sx={{ fontFamily: 'MontserratSemiBold', }}>INFORMACIÓN ADICIONAL</Typography>}
-                                                        sx={{ fontFamily: 'MontserratSemiBold', fontSize: "1.5vw", width: "90%" }}
+                                                        label={<Typography sx={{ fontFamily: 'PoppinsSemiBold', }}>INFORMACIÓN ADICIONAL</Typography>}
+                                                        sx={{ fontFamily: 'PoppinsSemiBold', fontSize: "1.5vw", width: "90%" }}
                                                         value={detalleSolicitud[0]?.DatosAdicionales || ''}
                                                         variant="filled" />
                                                 </Box>
@@ -511,8 +511,8 @@ export const DialogSolicitudes = ({
                         <Box sx={{ width: "70%", height: "100%", bgcolor: "#ECE8DA", borderRadius: "15px", opacity: "80%", display: "flex", alignItems: "flex-end", justifyContent: "center", flexDirection: "column", boxShadow: "15" }}>
                             <Box sx={{ width: "100%", height: "80%", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
                                 <InfoTwoToneIcon sx={{ width: "100%", height: "80%", opacity: "20%" }} />
-                                <Typography fontFamily="MontserratBold">Sin información</Typography>
-                                <Typography fontFamily="MontserratBold">Seleccione un registro para visualizar la información</Typography>
+                                <Typography fontFamily="PoppinsBold">Sin información</Typography>
+                                <Typography fontFamily="PoppinsBold">Seleccione un registro para visualizar la información</Typography>
                             </Box>
                         </Box>
                     }

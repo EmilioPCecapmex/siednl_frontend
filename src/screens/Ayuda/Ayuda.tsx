@@ -315,7 +315,7 @@ const Ayuda = () => {
               width: ["80px", "120px", "160px", "180px", "250px"],
               height: ["30px", "20px", "30px", "40px", "50px"],
               color: "black",
-              fontFamily: "MontserratMedium",
+              fontFamily: "PoppinsMedium",
               fontSize: [5, 7, 10, 12, 16, 20],
             }}
             onClick={() => {

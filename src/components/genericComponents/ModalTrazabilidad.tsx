@@ -169,7 +169,7 @@ export const MostrarLista = ({ st, Id }: { st: string; Id: string }) => {
                 alignItems: "center",
               }}
             >
-              <Typography fontFamily={"'Montserrat', sans-serif"}
+              <Typography fontFamily={"'Poppins', sans-serif"}
                 sx={{
                   whiteSpace: "nowrap",
                   overflow: "hidden",

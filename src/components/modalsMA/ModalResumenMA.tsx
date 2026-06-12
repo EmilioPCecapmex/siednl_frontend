@@ -130,7 +130,7 @@ export function TabResumenMIR({
     >
       <DialogTitle
         sx={{
-          fontFamily: "MontserratBold",
+          fontFamily: "PoppinsBold",
           borderBottom: 1,
           mb: 2,
         }}
@@ -166,7 +166,7 @@ export function TabResumenMIR({
           }}
         >
           <Grid sx={{ p: 5, display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ fontFamily: "MontserratBold", borderBottom: 1 }}>
+            <Typography sx={{ fontFamily: "PoppinsBold", borderBottom: 1 }}>
               DATOS GENERALES
             </Typography>
 
@@ -183,12 +183,12 @@ export function TabResumenMIR({
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                 >
                   EJERCICIO FISCAL:
                 </Typography>
                 <Typography
-                  sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                 >
                   {encabezado?.ejercicioFiscal.Label === "Selecciona"
                     ? ""
@@ -208,12 +208,12 @@ export function TabResumenMIR({
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                 >
                   INSTITUCIÓN:
                 </Typography>
                 <Typography
-                  sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                 >
                   {encabezado?.entidad.Label === "Selecciona"
                     ? ""
@@ -234,12 +234,12 @@ export function TabResumenMIR({
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                 >
                   PROGRAMA:
                 </Typography>
                 <Typography
-                  sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                 >
                   {encabezado?.programa.Label === "Selecciona"
                     ? ""
@@ -259,12 +259,12 @@ export function TabResumenMIR({
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                 >
                   EJE:
                 </Typography>
                 <Typography
-                  sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                 >
                   {encabezado?.eje.Label === "Selecciona" ? "" : encabezado?.eje.Label}
                 </Typography>
@@ -284,12 +284,12 @@ export function TabResumenMIR({
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                 >
                   TEMÁTICA:
                 </Typography>
                 <Typography
-                  sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                 >
                   {encabezado?.tema.Label === "Selecciona" ? "" : encabezado?.tema.Label}
                 </Typography>
@@ -307,12 +307,12 @@ export function TabResumenMIR({
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                 >
                   OBJETIVO:
                 </Typography>
                 <Typography
-                  sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                 >
                   {encabezado?.objetivo.Label === "Selecciona"
                     ? ""
@@ -334,12 +334,12 @@ export function TabResumenMIR({
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                 >
                   ESTRATEGIA:
                 </Typography>
                 <Typography
-                  sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                 >
                   {encabezado?.estrategia.Label === "Selecciona"
                     ? ""
@@ -359,12 +359,12 @@ export function TabResumenMIR({
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                  sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                 >
                   BENEFICIARIO:
                 </Typography>
                 <Typography
-                  sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                  sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                 >
                   {encabezado?.beneficiario.Label === "Selecciona"
                     ? ""
@@ -384,7 +384,7 @@ export function TabResumenMIR({
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 LINEAS DE ACCIÓN:
               </Typography>
               <Grid>
@@ -394,7 +394,7 @@ export function TabResumenMIR({
                       <Typography
                         key={x}
                         sx={{
-                          fontFamily: "MontserratLight",
+                          fontFamily: "PoppinsLight",
                           width: "100%",
                           borderBottom: "1px solid lightGrey",
                           "&:last-Child": { borderBottom: 0 },
@@ -413,7 +413,7 @@ export function TabResumenMIR({
             {showSt === "Fin" ? (
               <Grid>
                 <Typography
-                  sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+                  sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
                 >
                   FIN
                 </Typography>
@@ -429,12 +429,12 @@ export function TabResumenMIR({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                   >
                     RESUMEN NARRATIVO:
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                   >
                     {fin?.resumen}
                   </Typography>
@@ -451,12 +451,12 @@ export function TabResumenMIR({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                   >
                     INDICADOR:
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                   >
                     {fin?.indicador}
                   </Typography>
@@ -473,12 +473,12 @@ export function TabResumenMIR({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                   >
                     FÓRMULA:
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                   >
                     {fin?.formula}
                   </Typography>
@@ -495,12 +495,12 @@ export function TabResumenMIR({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                   >
                     FRECUENCIA:
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                   >
                     {fin?.frecuencia}
                   </Typography>
@@ -517,12 +517,12 @@ export function TabResumenMIR({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                   >
                     MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION:
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                   >
                     {fin?.medios}
                   </Typography>
@@ -539,12 +539,12 @@ export function TabResumenMIR({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                   >
                     SUPUESTOS:
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                   >
                     {fin?.supuestos}
                   </Typography>
@@ -553,7 +553,7 @@ export function TabResumenMIR({
             ) : showSt === "Proposito" ? (
               <Grid>
                 <Typography
-                  sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+                  sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
                 >
                   PROPÓSITO:
                 </Typography>
@@ -569,12 +569,12 @@ export function TabResumenMIR({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                   >
                     RESUMEN NARRATIVO:
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                   >
                     {proposito?.resumen}
                   </Typography>
@@ -591,12 +591,12 @@ export function TabResumenMIR({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                   >
                     INDICADOR:
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                   >
                     {proposito?.indicador}
                   </Typography>
@@ -613,12 +613,12 @@ export function TabResumenMIR({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                   >
                     FÓRMULA:
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                   >
                     {proposito?.formula}
                   </Typography>
@@ -635,12 +635,12 @@ export function TabResumenMIR({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                   >
                     FRECUENCIA:
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                   >
                     {proposito?.frecuencia}
                   </Typography>
@@ -657,12 +657,12 @@ export function TabResumenMIR({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                   >
                     MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION:
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                   >
                     {proposito?.medios_verificacion}
                   </Typography>
@@ -679,12 +679,12 @@ export function TabResumenMIR({
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                    sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                   >
                     SUPUESTOS:
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                    sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                   >
                     {proposito?.supuestos}
                   </Typography>
@@ -693,7 +693,7 @@ export function TabResumenMIR({
             ) : showSt === "Componentes" ? (
               <Grid>
                 <Typography
-                  sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+                  sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
                 >
                   COMPONENTES
                 </Typography>
@@ -703,7 +703,7 @@ export function TabResumenMIR({
                     <Grid key={index}>
                       <Typography
                         sx={{
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                           borderBottom: 1,
                           mt: 5,
                           textAlign: "center",
@@ -723,12 +723,12 @@ export function TabResumenMIR({
                         }}
                       >
                         <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                          sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                         >
                           RESUMEN NARRATIVO:
                         </Typography>
                         <Typography
-                          sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                          sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                         >
                           {Componentes[index - 1]?.resumen}
                         </Typography>
@@ -745,12 +745,12 @@ export function TabResumenMIR({
                         }}
                       >
                         <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                          sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                         >
                           INDICADOR:
                         </Typography>
                         <Typography
-                          sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                          sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                         >
                           {Componentes[index - 1]?.indicador}
                         </Typography>
@@ -767,12 +767,12 @@ export function TabResumenMIR({
                         }}
                       >
                         <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                          sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                         >
                           FÓRMULA:
                         </Typography>
                         <Typography
-                          sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                          sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                         >
                           {Componentes[index - 1]?.formula}
                         </Typography>
@@ -789,12 +789,12 @@ export function TabResumenMIR({
                         }}
                       >
                         <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                          sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                         >
                           FRECUENCIA:
                         </Typography>
                         <Typography
-                          sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                          sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                         >
                           {Componentes[index - 1]?.frecuencia}
                         </Typography>
@@ -811,12 +811,12 @@ export function TabResumenMIR({
                         }}
                       >
                         <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                          sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                         >
                           MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION:
                         </Typography>
                         <Typography
-                          sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                          sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                         >
                           {Componentes[index - 1]?.medios}
                         </Typography>
@@ -833,12 +833,12 @@ export function TabResumenMIR({
                         }}
                       >
                         <Typography
-                          sx={{ fontFamily: "MontserratMedium", width: "20%" }}
+                          sx={{ fontFamily: "PoppinsMedium", width: "20%" }}
                         >
                           SUPUESTOS:
                         </Typography>
                         <Typography
-                          sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                          sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                         >
                           {Componentes[index - 1]?.supuestos}
                         </Typography>
@@ -850,7 +850,7 @@ export function TabResumenMIR({
             ) : showSt === "Actividades" ? (
               <Grid>
                 <Typography
-                  sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+                  sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
                 >
                   ACTIVIDADES
                 </Typography>
@@ -861,7 +861,7 @@ export function TabResumenMIR({
                       <Grid key={indexActividades}>
                         <Typography
                           sx={{
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                             borderBottom: 1,
                             mt: 5,
                             textAlign: "center",
@@ -883,14 +883,14 @@ export function TabResumenMIR({
                         >
                           <Typography
                             sx={{
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                               width: "20%",
                             }}
                           >
                             RESUMEN NARRATIVO:
                           </Typography>
                           <Typography
-                            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                            sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                           >
                             {cValor[0].componentes[
                               indexComponentes
@@ -912,14 +912,14 @@ export function TabResumenMIR({
                         >
                           <Typography
                             sx={{
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                               width: "20%",
                             }}
                           >
                             INDICADOR:
                           </Typography>
                           <Typography
-                            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                            sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                           >
                             {actividades[indexActividades].indicador}
                           </Typography>
@@ -937,14 +937,14 @@ export function TabResumenMIR({
                         >
                           <Typography
                             sx={{
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                               width: "20%",
                             }}
                           >
                             FÓRMULA:
                           </Typography>
                           <Typography
-                            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                            sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                           >
                             {actividades[indexActividades].formula}
                           </Typography>
@@ -962,14 +962,14 @@ export function TabResumenMIR({
                         >
                           <Typography
                             sx={{
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                               width: "20%",
                             }}
                           >
                             FRECUENCIA:
                           </Typography>
                           <Typography
-                            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                            sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                           >
                             {actividades[indexActividades]?.frecuencia}
                           </Typography>
@@ -987,14 +987,14 @@ export function TabResumenMIR({
                         >
                           <Typography
                             sx={{
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                               width: "20%",
                             }}
                           >
                             MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION:
                           </Typography>
                           <Typography
-                            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                            sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                           >
                             {actividades[indexActividades].medios}
                           </Typography>
@@ -1012,14 +1012,14 @@ export function TabResumenMIR({
                         >
                           <Typography
                             sx={{
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                               width: "20%",
                             }}
                           >
                             SUPUESTOS:
                           </Typography>
                           <Typography
-                            sx={{ fontFamily: "MontserratLight", width: "80%" }}
+                            sx={{ fontFamily: "PoppinsLight", width: "80%" }}
                           >
                             {actividades[indexActividades].supuestos}
                           </Typography>

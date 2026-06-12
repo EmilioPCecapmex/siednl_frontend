@@ -175,7 +175,7 @@ export const TabResumenRF = ({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+            sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
           >
             AVANCE FINANCIERO
           </Typography>
@@ -216,13 +216,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               VALOR DEL PROGRAMA PRESUPUESTARIO
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.valorProgramaPresupuestario}
             </Typography>
           </Grid>
@@ -258,13 +258,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               NOMBRE DEL PROGRAMA
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {jsonMIR.encabezado.programa.Label}
             </Typography>
           </Grid>
@@ -288,7 +288,7 @@ export const TabResumenRF = ({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+            sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
           >
             AVANCE FINANCIERO - DEVENGADO/MODIFICADO
           </Typography>
@@ -344,13 +344,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO DEVENGADO/MODIFICADO T1
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.devengadoModificado.t1.resultado}
             </Typography>
           </Grid>
@@ -406,13 +406,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO DEVENGADO/MODIFICADO T2
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.devengadoModificado.t2.resultado}
             </Typography>
           </Grid>
@@ -468,13 +468,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO DEVENGADO/MODIFICADO T3
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.devengadoModificado.t3.resultado}
             </Typography>
           </Grid>
@@ -530,13 +530,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO DEVENGADO/MODIFICADO T4
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.devengadoModificado.t4.resultado}
             </Typography>
           </Grid>
@@ -589,13 +589,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO DEVENGADO/MODIFICADO CUENTA PUBLICA
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.devengadoModificado.cuentaPublica}
             </Typography>
           </Grid>
@@ -624,13 +624,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE DEVENGADO/MODIFICADO T1
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt1}
             </Typography>
           </Grid>
@@ -659,13 +659,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE DEVENGADO/MODIFICADO T2
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt2}
             </Typography>
           </Grid>
@@ -694,13 +694,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE DEVENGADO/MODIFICADO T3
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt3}
             </Typography>
           </Grid>
@@ -729,13 +729,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE DEVENGADO/MODIFICADO T4
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.porcentaje.porcentajeDevengadoModificado.pt4}
             </Typography>
           </Grid>
@@ -764,13 +764,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE DEVENGADO/MODIFICADO CUENTA PUBLICA
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {
                 RF.avanceFinanciero.porcentaje.porcentajeDevengadoModificado
                   .porcentajeCuentaPublica
@@ -797,7 +797,7 @@ export const TabResumenRF = ({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+            sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
           >
             AVANCE FINANCIERO - MODIFICADO/AUTORIZADO
           </Typography>
@@ -840,13 +840,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO MODIFICADO/AUTORIZADO T1
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.modificadoAutorizado.t1.resultado}
             </Typography>
           </Grid>
@@ -889,13 +889,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO MODIFICADO/AUTORIZADO T2
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.modificadoAutorizado.t2.resultado}
             </Typography>
           </Grid>
@@ -938,13 +938,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO MODIFICADO/AUTORIZADO T3
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.modificadoAutorizado.t3.resultado}
             </Typography>
           </Grid>
@@ -987,13 +987,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO MODIFICADO/AUTORIZADO T4
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.modificadoAutorizado.t4.resultado}
             </Typography>
           </Grid>
@@ -1033,13 +1033,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO MODIFICADO/AUTORIZADO CUENTA PUBLICA
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.modificadoAutorizado.cuentaPublica}
             </Typography>
           </Grid>
@@ -1068,13 +1068,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE MODIFICADO/AUTORIZADO T1
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {
                 RF.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado
                   .pt1
@@ -1106,13 +1106,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE MODIFICADO/AUTORIZADO T2
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {
                 RF.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado
                   .pt2
@@ -1144,13 +1144,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE MODIFICADO/AUTORIZADO T3
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {
                 RF.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado
                   .pt3
@@ -1182,13 +1182,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE MODIFICADO/AUTORIZADO T4
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {
                 RF.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado
                   .pt4
@@ -1220,13 +1220,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE MODIFICADO/AUTORIZADO CUENTA PUBLICA
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {
                 RF.avanceFinanciero.porcentaje.porcentajeModificadoAutorizado
                   .porcentajeCuentaPublica
@@ -1253,7 +1253,7 @@ export const TabResumenRF = ({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+            sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
           >
             AVANCE FINANCIERO - EJERCIDO/MODIFICADO
           </Typography>
@@ -1296,13 +1296,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO EJERCIDO/MODIFICADO T1
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.ejercidoModificado.t1.resultado}
             </Typography>
           </Grid>
@@ -1345,13 +1345,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO EJERCIDO/MODIFICADO T2
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.ejercidoModificado.t2.resultado}
             </Typography>
           </Grid>
@@ -1394,13 +1394,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO EJERCIDO/MODIFICADO T3
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.ejercidoModificado.t3.resultado}
             </Typography>
           </Grid>
@@ -1443,13 +1443,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO EJERCIDO/MODIFICADO T4
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.ejercidoModificado.t4.resultado}
             </Typography>
           </Grid>
@@ -1488,13 +1488,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MONTO EJERCIDO/MODIFICADO CUENTA PUBLICA
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.monto.ejercidoModificado.cuentaPublica}
             </Typography>
           </Grid>
@@ -1523,13 +1523,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE EJERCIDO/MODIFICADO T1
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt1}
             </Typography>
           </Grid>
@@ -1558,13 +1558,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE EJERCIDO/MODIFICADO T2
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt2}
             </Typography>
           </Grid>
@@ -1593,13 +1593,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE EJERCIDO/MODIFICADO T3
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt3}
             </Typography>
           </Grid>
@@ -1628,13 +1628,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE EJERCIDO/MODIFICADO T4
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.avanceFinanciero.porcentaje.porcentajeEjercidoModificado.pt4}
             </Typography>
           </Grid>
@@ -1663,13 +1663,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               PORCENTAJE EJERCIDO/MODIFICADO CUENTA PUBLICA
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {
                 RF.avanceFinanciero.porcentaje.porcentajeEjercidoModificado
                   .porcentajeCuentaPublica
@@ -1699,7 +1699,7 @@ export const TabResumenRF = ({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+            sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
           >
             FIN
           </Typography>
@@ -1735,13 +1735,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               AÑO DEL AVANCE FISICO
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.fin.añoAvanceFisico}
             </Typography>
           </Grid>
@@ -1777,13 +1777,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               VALOR DEL AVANCE FISICO
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.fin.valorAvanceFisico}
             </Typography>
           </Grid>
@@ -1810,7 +1810,7 @@ export const TabResumenRF = ({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+            sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
           >
             Proposito
           </Typography>
@@ -1846,13 +1846,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               AÑO DEL AVANCE FISICO
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.proposito.añoAvanceFisico}
             </Typography>
           </Grid>
@@ -1888,13 +1888,13 @@ export const TabResumenRF = ({
             </Grid>
           )}
           <Grid item xl={3} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               VALOR DEL AVANCE FISICO
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {RF.proposito.valorAvanceFisico}
             </Typography>
           </Grid>
@@ -1921,7 +1921,7 @@ export const TabResumenRF = ({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+            sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
           >
             Componente
           </Typography>
@@ -1950,7 +1950,7 @@ export const TabResumenRF = ({
               <Grid item>
                 <Typography
                   sx={{
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     borderBottom: 1,
                     mt: 1,
                     textAlign: "center",
@@ -2001,13 +2001,13 @@ export const TabResumenRF = ({
                   )}
 
                   <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                       SEMESTRE1:
                     </Typography>
                   </Grid>
 
                   <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                    <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                       {componente?.metasPorFrecuencia[0]?.semestre1}
                     </Typography>
                   </Grid>
@@ -2035,13 +2035,13 @@ export const TabResumenRF = ({
                   )}
 
                   <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                       SEMESTRE2:
                     </Typography>
                   </Grid>
 
                   <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                    <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                       {componente?.metasPorFrecuencia[0]?.semestre2}
                     </Typography>
                   </Grid>
@@ -2087,13 +2087,13 @@ export const TabResumenRF = ({
                   )}
 
                   <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                       TRIMESTRE1:
                     </Typography>
                   </Grid>
 
                   <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                    <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                       {componente?.metasPorFrecuencia[0]?.trimestre1}
                     </Typography>
                   </Grid>
@@ -2121,13 +2121,13 @@ export const TabResumenRF = ({
                   )}
 
                   <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                       TRIMESTRE2:
                     </Typography>
                   </Grid>
 
                   <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                    <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                       {componente?.metasPorFrecuencia[0]?.trimestre2}
                     </Typography>
                   </Grid>
@@ -2155,13 +2155,13 @@ export const TabResumenRF = ({
                   )}
 
                   <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                       TRIMESTRE3:
                     </Typography>
                   </Grid>
 
                   <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                    <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                       {componente?.metasPorFrecuencia[0]?.trimestre3}
                     </Typography>
                   </Grid>
@@ -2189,13 +2189,13 @@ export const TabResumenRF = ({
                   )}
 
                   <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                       TRIMESTRE4:
                     </Typography>
                   </Grid>
 
                   <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                    <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                       {componente?.metasPorFrecuencia[0]?.trimestre4}
                     </Typography>
                   </Grid>
@@ -2222,7 +2222,7 @@ export const TabResumenRF = ({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+            sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
           >
             ACTIVIDADES
           </Typography>
@@ -2256,7 +2256,7 @@ export const TabResumenRF = ({
                   <Grid item>
                     <Typography
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                         borderBottom: 1,
                         mt: 1,
                         textAlign: "center",
@@ -2309,13 +2309,13 @@ export const TabResumenRF = ({
                     )}
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         TRIMESTRE1:
                       </Typography>
                     </Grid>
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                         {actividad?.metasPorFrecuencia[0]?.trimestre1}
                       </Typography>
                     </Grid>
@@ -2345,13 +2345,13 @@ export const TabResumenRF = ({
                     )}
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         TRIMESTRE2:
                       </Typography>
                     </Grid>
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                         {actividad?.metasPorFrecuencia[0]?.trimestre2}
                       </Typography>
                     </Grid>
@@ -2381,13 +2381,13 @@ export const TabResumenRF = ({
                     )}
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         TRIMESTRE3:
                       </Typography>
                     </Grid>
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                         {actividad?.metasPorFrecuencia[0]?.trimestre3}
                       </Typography>
                     </Grid>
@@ -2417,13 +2417,13 @@ export const TabResumenRF = ({
                     )}
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         TRIMESTRE4:
                       </Typography>
                     </Grid>
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                         {actividad?.metasPorFrecuencia[0]?.trimestre4}
                       </Typography>
                     </Grid>
@@ -2477,7 +2477,7 @@ export const TabResumenRF = ({
             className="cancelar"
             onClick={() => showResume()}
           >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               CANCELAR
             </Typography>
           </Button>
@@ -2503,7 +2503,7 @@ export const TabResumenRF = ({
             className="aceptar"
             onClick={() => setOpenModalSolicitarModif(true)}
           >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               SOLICITAR MODIFICACIÓN
             </Typography>
           </Button>
@@ -2540,7 +2540,7 @@ export const TabResumenRF = ({
               creaRF(estado);
             }}
           >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               GUARDAR BORRADOR
             </Typography>
           </Button>
@@ -2566,7 +2566,7 @@ export const TabResumenRF = ({
             onClick={() => setOpenModalEnviar(true)}
             className="aceptar"
           >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               {localStorage.getItem("Rol") === "Administrador"
                 ? estadorf === "Autorizada"
                   ? "MODIFICAR RF AUTORIZADA"

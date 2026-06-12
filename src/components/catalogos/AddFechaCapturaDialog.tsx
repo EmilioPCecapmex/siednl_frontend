@@ -171,7 +171,7 @@ export const CapturarFechas = ({
           >
             
             <Grid item lg={4}>
-            <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+            <InputLabel sx={{ fontFamily: "PoppinsMedium" }}>
                 Modulo
               </InputLabel>
               <FormControl variant="outlined" fullWidth size="small">
@@ -192,7 +192,7 @@ export const CapturarFechas = ({
             
 
             <Grid item lg={4}>
-               <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+               <InputLabel sx={{ fontFamily: "PoppinsMedium" }}>
                Inicio
               </InputLabel> 
               <FormControl variant="outlined" fullWidth size="small">
@@ -210,14 +210,14 @@ export const CapturarFechas = ({
                   type="date"
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratLight",
+                      fontFamily: "PoppinsLight",
                       borderColor: fechaError ? "red" : undefined,
                     },
                   }}
                   InputLabelProps={{
                     shrink: true,
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   rows={3}
@@ -226,7 +226,7 @@ export const CapturarFechas = ({
             </Grid>
 
             <Grid item lg={4}>
-               <InputLabel sx={{ fontFamily: "MontserratMedium" }}>
+               <InputLabel sx={{ fontFamily: "PoppinsMedium" }}>
                 Fin
               </InputLabel> 
 
@@ -241,14 +241,14 @@ export const CapturarFechas = ({
                   type="date"
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratLight",
+                      fontFamily: "PoppinsLight",
                       borderColor: fechaError ? "red" : undefined,
                     },
                   }}
                   InputLabelProps={{
                     shrink: true,
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   rows={3}
@@ -269,7 +269,7 @@ export const CapturarFechas = ({
             onClick={handleClose}
           >
             <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              sx={{ fontFamily: "PoppinsMedium", fontSize: ".7vw" }}
             >
               Cancelar
             </Typography>
@@ -281,7 +281,7 @@ export const CapturarFechas = ({
             //autoFocus
           >
             <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              sx={{ fontFamily: "PoppinsMedium", fontSize: ".7vw" }}
             >
               De Acuerdo
             </Typography>

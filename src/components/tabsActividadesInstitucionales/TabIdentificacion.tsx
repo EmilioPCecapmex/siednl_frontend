@@ -166,7 +166,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                   },
                 }}
               >
-                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                   Identificación
                 </Typography>
               </ListItemButton>
@@ -184,7 +184,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                   },
                 }}
               >
-                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                   Alineación
                 </Typography>
               </ListItemButton>
@@ -202,7 +202,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                   },
                 }}
               >
-                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                   Objetivos
                 </Typography>
               </ListItemButton>
@@ -249,7 +249,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         },
                       }}
                     >
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         Identificación
                       </Typography>
                     </ListItemButton>
@@ -267,7 +267,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         },
                       }}
                     >
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         Alineación
                       </Typography>
                     </ListItemButton>
@@ -285,7 +285,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         },
                       }}
                     >
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         Objetivos
                       </Typography>
                     </ListItemButton>
@@ -309,7 +309,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                   }}
                 >
                   <Typography
-                    sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
+                    sx={{ fontFamily: "PoppinsBold", fontSize: "1vw" }}
                   >
                     Identificación
                   </Typography>
@@ -353,7 +353,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         <li {...props} key={option.Id}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                           >
@@ -369,12 +369,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                       ></TextField>
@@ -421,7 +421,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         <li {...props} key={Math.random()}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                           >
@@ -443,12 +443,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         label="INSTITUCIÓN"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                       />
@@ -489,7 +489,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         <li {...props} key={option.Id}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                           >
@@ -505,12 +505,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                       ></TextField>
@@ -621,7 +621,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         <li {...props} key={Math.random()}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                           >
@@ -637,12 +637,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                       ></TextField>
@@ -673,7 +673,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         <li {...props} key={Math.random()}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                           >
@@ -689,12 +689,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                       ></TextField>
@@ -725,7 +725,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         <li {...props} key={Math.random()}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                           >
@@ -741,12 +741,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                       ></TextField>
@@ -778,7 +778,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         <li {...props} key={Math.random()}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                           >
@@ -794,12 +794,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                       ></TextField>
@@ -830,7 +830,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         <li {...props} key={Math.random()}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                           >
@@ -846,12 +846,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                       ></TextField>
@@ -882,7 +882,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         <li {...props} key={Math.random()}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                           >
@@ -898,12 +898,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                       ></TextField>
@@ -936,7 +936,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         },
                       }}
                     >
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         Identificación
                       </Typography>
                     </ListItemButton>
@@ -954,7 +954,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         },
                       }}
                     >
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         Alineación
                       </Typography>
                     </ListItemButton>
@@ -972,7 +972,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         },
                       }}
                     >
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         Objetivos
                       </Typography>
                     </ListItemButton>
@@ -982,7 +982,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                 </List>
               )}
               {/* <Typography
-                    sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}
+                    sx={{ fontFamily: "PoppinsBold", fontSize: "1vw" }}
                   >
                     Alineación
                   </Typography> */}
@@ -1009,7 +1009,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         <li {...props} key={Math.random()}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                           >
@@ -1025,12 +1025,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                       ></TextField>
@@ -1051,7 +1051,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         <li {...props} key={Math.random()}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                           >
@@ -1067,12 +1067,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                       ></TextField>
@@ -1093,7 +1093,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         <li {...props} key={Math.random()}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               fontSize: ".7vw",
                             }}
                           >
@@ -1109,12 +1109,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                           },
                         }}
                         sx={{
                           "& .MuiAutocomplete-input": {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                       ></TextField>
@@ -1142,12 +1142,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                     label={"Programa Sectorial"}
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     onChange={(c) => {
@@ -1173,12 +1173,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                     label={"Objetivo Programa Sectorial"}
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     onChange={(c) => {
@@ -1214,9 +1214,9 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                   variant="filled"
                   sx={{ width: "80%", GridShadow: 2 }}
                   InputLabelProps={{
-                    style: { fontFamily: "MontserratBold" },
+                    style: { fontFamily: "PoppinsBold" },
                   }}
-                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+                  InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
                   label={"OBJETIVO PRPGRAMA SECTORIAL"}
                   // value={objetivosActividadInstitucional.objetivoGeneral}
                   // onChange={(c) => {
@@ -1247,9 +1247,9 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                   variant="filled"
                   sx={{ width: "80%", GridShadow: 2 }}
                   InputLabelProps={{
-                    style: { fontFamily: "MontserratBold" },
+                    style: { fontFamily: "PoppinsBold" },
                   }}
-                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+                  InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
                   label={"PROGRAMA SECTORIAL"}
                   // value={objetivosActividadInstitucional.objetivoGeneral}
                   // onChange={(c) => {
@@ -1280,12 +1280,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                     label={"Meta 1"}
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     onChange={(c) => {
@@ -1311,12 +1311,12 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                     label={"Meta 2"}
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     onChange={(c) => {
@@ -1357,7 +1357,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         },
                       }}
                     >
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         Identificación
                       </Typography>
                     </ListItemButton>
@@ -1375,7 +1375,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         },
                       }}
                     >
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         Alineación
                       </Typography>
                     </ListItemButton>
@@ -1393,7 +1393,7 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                         },
                       }}
                     >
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         Objetivos
                       </Typography>
                     </ListItemButton>
@@ -1421,8 +1421,8 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                   rows={6}
                   variant="filled"
                   fullWidth
-                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
-                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+                  InputLabelProps={{ style: { fontFamily: "PoppinsBold" } }}
+                  InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
                   label={"Objetivo General"}
                   //value={objetivosActividadInstitucional.objetivoGeneral}
                   onChange={(c) => {
@@ -1453,8 +1453,8 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                   rows={6}
                   variant="filled"
                   label={"Objetivo Especifico 1"}
-                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
-                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+                  InputLabelProps={{ style: { fontFamily: "PoppinsBold" } }}
+                  InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
                 //  value={objetivosActividadInstitucional.objetivoEspecifico1}
                   onChange={(c) => {
                     // setobjetivosActividadInstitucional({
@@ -1485,8 +1485,8 @@ export function TabIdentificacion({ AI }: { AI: string }) {
                   variant="filled"
                   label={"Objetivo Especifico 2"}
                  // value={objetivosActividadInstitucional.objetivoEspecifico2}
-                  InputLabelProps={{ style: { fontFamily: "MontserratBold" } }}
-                  InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+                  InputLabelProps={{ style: { fontFamily: "PoppinsBold" } }}
+                  InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
                   onChange={(c) => {
                     // setobjetivosActividadInstitucional({
                     //   ...objetivosActividadInstitucional,

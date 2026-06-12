@@ -140,7 +140,7 @@ label.nombre-archivo {
 }
 
 label.textoNormal {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   /* font-weight: bold; */
   color: rgb(21, 33, 47);
   font-size: 13px;
@@ -149,7 +149,7 @@ label.textoNormal {
 }
 
 label.textoGridSolicitudes {
-  font-family: 'MMontserratSemiBold', sans-serif;
+  font-family: 'MPoppinsSemiBold', sans-serif;
   /* font-weight: bold; */
   color: rgb(21, 33, 47);
   font-size: 15px;
@@ -160,7 +160,7 @@ label.textoGridSolicitudes {
 
 .menu-Typography {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
@@ -183,7 +183,7 @@ label.Typography {
   color: rgb(7, 7, 7);
   margin-right: 2rem;
   /* mr: "2rem" */
-  font-family: "MontserratSemiBold";
+  font-family: "PoppinsSemiBold";
   font-size: 350px;
   width: "32.5%";
 }
@@ -205,7 +205,7 @@ button.cerrar {
 
 button.registrar-usuario {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: rgb(175, 140, 85);
   color: rgb(255, 255, 255);
   font-size: 15px;
@@ -214,7 +214,7 @@ button.registrar-usuario {
 
 button.registrar-usuario:hover {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: rgb(175, 140, 85);
   color: rgb(21, 33, 47);
   font-size: 15px;
@@ -223,7 +223,7 @@ button.registrar-usuario:hover {
 
 button.registrar-app {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: rgb(175, 140, 85);
   color: rgb(21, 33, 47);
   font-size: 12px;
@@ -234,7 +234,7 @@ button.registrar-app {
 
 button.cancelarAppLogin {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: rgb(175, 140, 85);
   color: #fff;
   font-size: 15px;
@@ -243,7 +243,7 @@ button.cancelarAppLogin {
 
 button.cancelarAppLogin:hover {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: rgba(175, 140, 85, 0.6);
   color: #000;
   font-size: 15px;
@@ -252,7 +252,7 @@ button.cancelarAppLogin:hover {
 
 button.AceptarAppLogin {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: #15212f;
   color: #fff;
   font-size: 14px;
@@ -261,7 +261,7 @@ button.AceptarAppLogin {
 
 button.AceptarAppLogin:hover {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: rgba(47, 47, 47, 0.2);
   color: #000;
   font-size: 14px;
@@ -269,7 +269,7 @@ button.AceptarAppLogin:hover {
 }
 
 button.aceptar {
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: 'Poppins', sans-serif !important;
   background-color: #15212f !important;
   color: #fff !important;
   text-transform: none !important;
@@ -284,7 +284,7 @@ button.aceptar:hover {
 
 button.cancelar {
 
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: 'Poppins', sans-serif !important;
   background-color: rgb(175, 140, 85) !important;
   color: #fff !important;
   text-transform: none !important;
@@ -294,7 +294,7 @@ button.cancelar {
 
 button.cancelar:hover {
 
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: 'Poppins', sans-serif !important;
   background-color: rgba(175, 140, 85, 0.6) !important;
   color: #000 !important;
   text-transform: none !important;
@@ -304,7 +304,7 @@ button.cancelar:hover {
 
 button.Solicitudes-cancelar-usuario {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: rgb(21, 33, 47);
   color: #ffffff;
 
@@ -312,7 +312,7 @@ button.Solicitudes-cancelar-usuario {
 
 button.Solicitudes-cancelar-usuario:hover {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: rgba(21, 33, 47, 0.854);
   color: rgb(255, 255, 255);
   font-size: 12px;
@@ -321,7 +321,7 @@ button.Solicitudes-cancelar-usuario:hover {
 
 button.BotonColorPrimario {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: rgba(176, 140, 85, 0.892);
   color: rgb(21, 33, 47);
   font-size: 12px;
@@ -362,7 +362,7 @@ div.FooterLogin {
   /* top:  50px; */
   /* left: 50px; */
   background-color: #f3f6f9;
-  font-family: "MontserratSemiBold2";
+  font-family: "PoppinsSemiBold2";
   color: #808080;
   justify-content: center;
   
@@ -378,7 +378,7 @@ div.ContentLogin {
   bottom: 0%;
   color: #fff;
   background-color: #fff;
-  font-family: "MontserratSemiBold2";
+  font-family: "PoppinsSemiBold2";
   justify-content: center;
 
 }
@@ -393,7 +393,7 @@ div.logoLogin {
   bottom: 0%;
   color: #fff;
   background-color: #fff;
-  font-family: "MontserratSemiBold2";
+  font-family: "PoppinsSemiBold2";
   justify-content: center;
 
 }
@@ -406,7 +406,7 @@ div.ApssLoginElementos {
   /* left: 50px; */
   color: #fff;
   background-color: #EEEEEE;
-  font-family: "MontserratSemiBold2";
+  font-family: "PoppinsSemiBold2";
 
 }
 
@@ -444,7 +444,7 @@ div.GridAplicacionesAcceso:hover {
 
 h5.LoginBienvenidoTitulo {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 25px;
   color: rgb(21, 33, 47);
   text-align: center;
@@ -454,7 +454,7 @@ h5.LoginBienvenidoTitulo {
 
 h5.LoginBienvenidoContenido {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 20px;
   color: rgb(21, 33, 47);
   text-align: center;
@@ -466,7 +466,7 @@ h5.LoginBienvenidoContenido {
 
 h5.NombreApp {
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 20px;
   color: rgb(21, 33, 47);
   text-align: center;
@@ -475,7 +475,7 @@ h5.NombreApp {
 
 h5.DescripcionApp {
   padding-top: 20px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 12px;
   color: rgb(21, 33, 47);
   text-align: justify;

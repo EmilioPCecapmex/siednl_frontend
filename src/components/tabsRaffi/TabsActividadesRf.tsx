@@ -227,7 +227,7 @@ export const TabActividadRf = ({
           <Typography
             sx={{
               mr: "1vw",
-              fontFamily: "MontserratSemiBold",
+              fontFamily: "PoppinsSemiBold",
               fontSize: [10, 10, 10, 13, 15, 18],
             }}
           >
@@ -298,7 +298,7 @@ export const TabActividadRf = ({
                     >
                       <Typography
                         sx={{
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                           fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       >
@@ -330,7 +330,7 @@ export const TabActividadRf = ({
                             <Typography
                               sx={{
                                 fontSize: [8, 9, 10, 13, 15, 18],
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               }}
                             >
                               ACTIVIDAD {index + 1}
@@ -382,7 +382,7 @@ export const TabActividadRf = ({
                 xs={11} sx={{ display: 'flex', justifyContent: 'left' }}>
                 <Typography
                   sx={{
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                     // fontSize: "1vw",
                     textAlign: "center",
                   }}
@@ -421,12 +421,12 @@ export const TabActividadRf = ({
                     variant={"filled"}
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     value={jsonMA?.componentes[componenteSelect]?.metaAnual || ""}
@@ -454,12 +454,12 @@ export const TabActividadRf = ({
                     variant={"filled"}
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     value={jsonMA?.componentes[componenteSelect]?.lineaBase || ""}
@@ -506,7 +506,7 @@ export const TabActividadRf = ({
                       >
                         <Typography
                           sx={{
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
 
                           }}
                         >
@@ -545,7 +545,7 @@ export const TabActividadRf = ({
                               <Typography
                                 sx={{
 
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 ACTIVIDAD {index + 1}
@@ -580,7 +580,7 @@ export const TabActividadRf = ({
                 xs={11} sx={{ display: 'flex', justifyContent: 'left' }}>
                 <Typography
                   sx={{
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                     // fontSize: "1vw",
                     textAlign: "center",
                   }}
@@ -626,12 +626,12 @@ export const TabActividadRf = ({
                         variant={"filled"}
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           },
                         }}
                         InputProps={{
                           style: {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                         value={
@@ -668,12 +668,12 @@ export const TabActividadRf = ({
                         variant={"filled"}
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           },
                         }}
                         InputProps={{
                           style: {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                         value={
@@ -708,12 +708,12 @@ export const TabActividadRf = ({
                         variant={"filled"}
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           },
                         }}
                         InputProps={{
                           style: {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                         value={
@@ -748,12 +748,12 @@ export const TabActividadRf = ({
                         variant={"filled"}
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           },
                         }}
                         InputProps={{
                           style: {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                         value={
@@ -788,7 +788,7 @@ export const TabActividadRf = ({
                 xs={11} sx={{ display: 'flex', justifyContent: 'left' }}>
                 <Typography
                   sx={{
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                     // fontSize: "1vw",
                     textAlign: "center",
                   }}
@@ -834,12 +834,12 @@ export const TabActividadRf = ({
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         },
                       }}
                       InputProps={{
                         style: {
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         },
                       }}
                       onClick={() => handleClickOpen("trimestre1")}
@@ -877,12 +877,12 @@ export const TabActividadRf = ({
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         },
                       }}
                       InputProps={{
                         style: {
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         },
                       }}
                       onClick={() => handleClickOpen("trimestre2")}
@@ -918,12 +918,12 @@ export const TabActividadRf = ({
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         },
                       }}
                       InputProps={{
                         style: {
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         },
                       }}
                       onClick={() => handleClickOpen("trimestre3")}
@@ -959,12 +959,12 @@ export const TabActividadRf = ({
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         },
                       }}
                       InputProps={{
                         style: {
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         },
                       }}
                       onClick={() => handleClickOpen("trimestre4")}

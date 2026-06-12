@@ -218,7 +218,7 @@ export const FormulaDialogAIAP = ({
           justifyContent: "center",
         }}
       >
-        <Typography sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}>
+        <Typography sx={{ fontFamily: "PoppinsBold", fontSize: "1vw" }}>
           {elementoA
             ? `${elementoA} - Fórmula - ${tipo}`
             : `${"Componente" + " " + (noComponente + 1)} - Fórmula - ${tipo}`}
@@ -226,7 +226,7 @@ export const FormulaDialogAIAP = ({
             {ValorA}
         <Typography
           sx={{
-            fontFamily: "MontserratRegular",
+            fontFamily: "PoppinsRegular",
             fontSize: ".6vw",
             width: "95%",
             textAlign: "center",
@@ -247,7 +247,7 @@ export const FormulaDialogAIAP = ({
         </Typography>
         <Typography
           sx={{
-            fontFamily: "MontserratRegular",
+            fontFamily: "PoppinsRegular",
             fontSize: ".6vw",
             width: "95%",
             textAlign: "center",
@@ -317,7 +317,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -327,7 +327,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -353,7 +353,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -363,7 +363,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -389,7 +389,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -399,7 +399,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -425,7 +425,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -435,7 +435,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -461,7 +461,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -471,7 +471,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -497,7 +497,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -507,7 +507,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -530,7 +530,7 @@ export const FormulaDialogAIAP = ({
                   <Typography
                     sx={{
                      
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
@@ -546,7 +546,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -556,14 +556,14 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
               <TextField
                 // type={"number"}
                 label={
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
                 }
@@ -572,7 +572,7 @@ export const FormulaDialogAIAP = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorB}
@@ -583,7 +583,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -593,7 +593,7 @@ export const FormulaDialogAIAP = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -603,7 +603,7 @@ export const FormulaDialogAIAP = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorC}
@@ -614,7 +614,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -622,7 +622,7 @@ export const FormulaDialogAIAP = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -632,7 +632,7 @@ export const FormulaDialogAIAP = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorD}
@@ -643,7 +643,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -652,7 +652,7 @@ export const FormulaDialogAIAP = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -662,7 +662,7 @@ export const FormulaDialogAIAP = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorE}
@@ -673,7 +673,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -681,7 +681,7 @@ export const FormulaDialogAIAP = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -691,7 +691,7 @@ export const FormulaDialogAIAP = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorF}
@@ -702,7 +702,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -711,7 +711,7 @@ export const FormulaDialogAIAP = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -721,7 +721,7 @@ export const FormulaDialogAIAP = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorG}
@@ -732,7 +732,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -740,7 +740,7 @@ export const FormulaDialogAIAP = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -750,7 +750,7 @@ export const FormulaDialogAIAP = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorH}
@@ -761,7 +761,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -770,7 +770,7 @@ export const FormulaDialogAIAP = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -780,7 +780,7 @@ export const FormulaDialogAIAP = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorI}
@@ -791,7 +791,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -799,7 +799,7 @@ export const FormulaDialogAIAP = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -809,7 +809,7 @@ export const FormulaDialogAIAP = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorJ}
@@ -820,7 +820,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -829,7 +829,7 @@ export const FormulaDialogAIAP = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -839,7 +839,7 @@ export const FormulaDialogAIAP = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorK}
@@ -850,7 +850,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -858,7 +858,7 @@ export const FormulaDialogAIAP = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -868,7 +868,7 @@ export const FormulaDialogAIAP = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorL}
@@ -879,7 +879,7 @@ export const FormulaDialogAIAP = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -897,7 +897,7 @@ export const FormulaDialogAIAP = ({
         }}
       >
         <Button className="cancelar" onClick={() => close()}>
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
             Cancelar
           </Typography>
         </Button>
@@ -908,7 +908,7 @@ export const FormulaDialogAIAP = ({
             checkValues();
           }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
             Agregar
           </Typography>
         </Button>

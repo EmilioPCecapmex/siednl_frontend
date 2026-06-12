@@ -214,7 +214,7 @@ export default function NotificationsPanel({
                         <Grid>
                           <Typography
                             sx={{
-                              fontFamily: "MontserratSemiBold",
+                              fontFamily: "PoppinsSemiBold",
 
                               color: "#af8c55",
                             }}
@@ -226,7 +226,7 @@ export default function NotificationsPanel({
                         <Grid>
                           <Typography
                             sx={{
-                              fontFamily: "MontserratLight",
+                              fontFamily: "PoppinsLight",
 
                               //ml: "1vw",
                               mt: "1vh",
@@ -239,7 +239,7 @@ export default function NotificationsPanel({
                         <Grid>
                           <Typography
                             sx={{
-                              fontFamily: "MontserratLight",
+                              fontFamily: "PoppinsLight",
 
                               //ml: "1vw",
                               mt: "1vh",
@@ -334,7 +334,7 @@ export default function NotificationsPanel({
           ) : (
             <Typography
               sx={{
-                fontFamily: "MontserratLight",
+                fontFamily: "PoppinsLight",
                 fontSize: ".9vw",
                 ml: "1vw",
                 mt: "1vh",

@@ -808,7 +808,7 @@ export default function ModalEnviarMIR({
     >
       <DialogTitle
         sx={{
-          fontFamily: "MontserratBold",
+          fontFamily: "PoppinsBold",
           borderBottom: 1,
           fontSize: [18, 20, 15, 20, 15],
           height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
@@ -839,7 +839,7 @@ export default function ModalEnviarMIR({
           <Typography
             sx={{
               fontSize: [15, 15, 15, 15, 15],
-              fontFamily: "MontserratMedium",
+              fontFamily: "PoppinsMedium",
               textAlign: "center",
             }}
           >
@@ -888,7 +888,7 @@ export default function ModalEnviarMIR({
               sx={{ marginRight: "1rem" }} // Agregar un margen a la derecha del botón
               onClick={() => handleClose(false)}
             >
-              <Typography sx={{ fontFamily: "MontserratRegular" }}>
+              <Typography sx={{ fontFamily: "PoppinsRegular" }}>
                 CANCELAR
               </Typography>
             </Button>
@@ -912,7 +912,7 @@ export default function ModalEnviarMIR({
                 RestructuraMAyFT();
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratRegular" }}>
+              <Typography sx={{ fontFamily: "PoppinsRegular" }}>
                 CONFIRMAR
               </Typography>
             </Button>

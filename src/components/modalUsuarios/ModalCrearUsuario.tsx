@@ -319,7 +319,7 @@ export default function ModalCrearUsuario({
 
   return (
     <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>
-      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
+      <DialogTitle sx={{ fontFamily: "PoppinsBold" }}>
         {title.toUpperCase()}
       </DialogTitle>
 
@@ -461,7 +461,7 @@ export default function ModalCrearUsuario({
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular" }}
+                      sx={{ fontFamily: "PoppinsRegular" }}
                     >
                       {item.Rol}
                     </MenuItem>

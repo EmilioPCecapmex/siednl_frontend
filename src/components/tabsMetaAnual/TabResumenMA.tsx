@@ -352,7 +352,7 @@ export function TabResumenMA({
         >
           <Typography
             sx={{
-              fontFamily: "MontserratBold",
+              fontFamily: "PoppinsBold",
               borderBottom: 1,
               mt: 1,
               textTransform: "uppercase",
@@ -402,13 +402,13 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               META ANUAL:
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.fin?.metaAnual}
             </Typography>
           </Grid>
@@ -448,13 +448,13 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               LÍNEA BASE:
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.fin?.lineaBase}
             </Typography>
           </Grid>
@@ -496,7 +496,7 @@ export function TabResumenMA({
           )}
 
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               {JSON.parse(MIR).fin.indicador.toLowerCase().includes("indice") ||
               JSON.parse(MIR).fin.indicador.toLowerCase().includes("índice")
                 ? "ÍNDICE: "
@@ -505,7 +505,7 @@ export function TabResumenMA({
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.fin?.valorNumerador}
             </Typography>
           </Grid>
@@ -553,13 +553,13 @@ export function TabResumenMA({
               </Grid>
             )}
             <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                 VALOR DENOMINADOR:
               </Typography>
             </Grid>
 
             <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight" }}>
                 {maPadre.fin?.valorDenominador}
               </Typography>
             </Grid>
@@ -604,13 +604,13 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
              SENTIDO DEL INDICADOR:
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.fin?.sentidoDelIndicador}
             </Typography>
           </Grid>
@@ -654,13 +654,13 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR:
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.fin?.unidadResponsable}
             </Typography>
           </Grid>
@@ -701,12 +701,12 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               DESCRIPCIÓN DEL INDICADOR:
             </Typography>
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.fin?.descIndicador}
             </Typography>
           </Grid>
@@ -747,12 +747,12 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               DESCRIPCIÓN DEL NUMERADOR:
             </Typography>
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.fin?.descNumerador}
             </Typography>
           </Grid>
@@ -796,13 +796,13 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               DESCRIPCIÓN DEL DENOMINADOR:
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.fin?.descDenominador}
             </Typography>
           </Grid>
@@ -826,7 +826,7 @@ export function TabResumenMA({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+            sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
           >
             PROPÓSITO
           </Typography>
@@ -869,13 +869,13 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               META ANUAL:
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.proposito?.metaAnual}
             </Typography>
           </Grid>
@@ -919,12 +919,12 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               LINEA BASE:
             </Typography>
           </Grid>
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.proposito.lineaBase}
             </Typography>
           </Grid>
@@ -968,7 +968,7 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               {JSON.parse(MIR)
                 .proposito.indicador.toLowerCase()
                 .includes("indice") ||
@@ -981,7 +981,7 @@ export function TabResumenMA({
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.proposito?.valorNumerador}
             </Typography>
           </Grid>
@@ -1030,13 +1030,13 @@ export function TabResumenMA({
             )}
 
             <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                 VALOR DENOMINADOR:
               </Typography>
             </Grid>
 
             <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-              <Typography sx={{ fontFamily: "MontserratLight" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight" }}>
                 {maPadre.proposito?.valorDenominador}
               </Typography>
             </Grid>
@@ -1081,13 +1081,13 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
              SENTIDO DEL INDICADOR:
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.proposito?.sentidoDelIndicador}
             </Typography>
           </Grid>
@@ -1131,13 +1131,13 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR:
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.proposito?.unidadResponsable}
             </Typography>
           </Grid>
@@ -1180,13 +1180,13 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               DESCRIPCIÓN DEL INDICADOR:
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.proposito?.descIndicador}
             </Typography>
           </Grid>
@@ -1230,13 +1230,13 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               DESCRIPCIÓN DEL NUMERADOR:
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.proposito?.descNumerador}
             </Typography>
           </Grid>
@@ -1280,13 +1280,13 @@ export function TabResumenMA({
             </Grid>
           )}
           <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               DESCRIPCIÓN DEL DENOMINADOR:
             </Typography>
           </Grid>
 
           <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-            <Typography sx={{ fontFamily: "MontserratLight" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight" }}>
               {maPadre.proposito?.descDenominador}
             </Typography>
           </Grid>
@@ -1309,7 +1309,7 @@ export function TabResumenMA({
           }}
         >
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: 5 }}
+            sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: 5 }}
           >
             Componentes
           </Typography>
@@ -1339,7 +1339,7 @@ export function TabResumenMA({
               <Grid item>
                 <Typography
                   sx={{
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     borderBottom: 1,
                     mt: 5,
                     textAlign: "center",
@@ -1386,13 +1386,13 @@ export function TabResumenMA({
                   </Grid>
                 )}
                 <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                     META ANUAL:
                   </Typography>
                 </Grid>
 
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                  <Typography sx={{ fontFamily: "PoppinsLight" }}>
                     {componente?.metaAnual}
                   </Typography>
                 </Grid>
@@ -1440,12 +1440,12 @@ export function TabResumenMA({
                   </Grid>
                 )}
                 <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                     LÍNEA BASE:
                   </Typography>
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                  <Typography sx={{ fontFamily: "PoppinsLight" }}>
                     {componente?.lineaBase}
                   </Typography>
                 </Grid>
@@ -1471,7 +1471,7 @@ export function TabResumenMA({
               >
                 <Typography
                   sx={{
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   }}
                 >
                  METAS POR FRECUENCIA
@@ -1531,13 +1531,13 @@ export function TabResumenMA({
 
                     
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                        SEMESTRE 1:
                       </Typography>
                     </Grid>
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                         {componente?.metasPorFrecuencia[0]?.semestre1}
                       </Typography>
                     </Grid>
@@ -1573,13 +1573,13 @@ export function TabResumenMA({
                     )}
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         SEMESTRE  2:
                       </Typography>
                     </Grid>
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                         {componente?.metasPorFrecuencia[0]?.semestre2}
                       </Typography>
                     </Grid>
@@ -1635,13 +1635,13 @@ export function TabResumenMA({
                     )}
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         TRIMESTRE 1:
                       </Typography>
                     </Grid>
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                         {componente?.metasPorFrecuencia[0]?.trimestre1}
                       </Typography>
                     </Grid>
@@ -1676,13 +1676,13 @@ export function TabResumenMA({
                       </Grid>
                     )}
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         TRIMESTRE 2:
                       </Typography>
                     </Grid>
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                         {componente?.metasPorFrecuencia[0]?.trimestre2}
                       </Typography>
                     </Grid>
@@ -1717,13 +1717,13 @@ export function TabResumenMA({
                       </Grid>
                     )}
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         TRIMESTRE 3:
                       </Typography>
                     </Grid>
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                         {componente?.metasPorFrecuencia[0]?.trimestre3}
                       </Typography>
                     </Grid>
@@ -1758,13 +1758,13 @@ export function TabResumenMA({
                       </Grid>
                     )}
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                      <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                         TRIMESTRE 4:
                       </Typography>
                     </Grid>
 
                     <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                      <Typography sx={{ fontFamily: "MontserratLight", ml: 1 }}>
+                      <Typography sx={{ fontFamily: "PoppinsLight", ml: 1 }}>
                         {componente?.metasPorFrecuencia[0]?.trimestre4}
                       </Typography>
                     </Grid>
@@ -1809,7 +1809,7 @@ export function TabResumenMA({
                   </Grid>
                 )}
                 <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                     {JSON.parse(MIR)
                       .componentes[index - 1]?.indicador.toUpperCase()
                       .includes("INDICE") ||
@@ -1821,7 +1821,7 @@ export function TabResumenMA({
                   </Typography>
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                  <Typography sx={{ fontFamily: "PoppinsLight" }}>
                     {componente?.valorNumerador}
                   </Typography>
                 </Grid>
@@ -1867,12 +1867,12 @@ export function TabResumenMA({
                     </Grid>
                   )}
                   <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                       VALOR DENOMINADOR:
                     </Typography>
                   </Grid>
                   <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                    <Typography sx={{ fontFamily: "MontserratLight" }}>
+                    <Typography sx={{ fontFamily: "PoppinsLight" }}>
                       {componente?.valorDenominador}
                     </Typography>
                   </Grid>
@@ -1918,13 +1918,13 @@ export function TabResumenMA({
                   </Grid>
                 )}
                 <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                    SENTIDO DEL INDICADOR:
                   </Typography>
                 </Grid>
 
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                  <Typography sx={{ fontFamily: "PoppinsLight" }}>
                     {componente?.sentidoDelIndicador}
                   </Typography>
                 </Grid>
@@ -1967,12 +1967,12 @@ export function TabResumenMA({
                   </Grid>
                 )}
                 <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                     UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR:
                   </Typography>
                 </Grid>
                 <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                  <Typography sx={{ fontFamily: "PoppinsLight" }}>
                     {componente?.unidadResponsable}
                   </Typography>
                 </Grid>
@@ -2015,12 +2015,12 @@ export function TabResumenMA({
                   </Grid>
                 )}
                 <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                     DESCRIPCIÓN DEL INDICADOR:
                   </Typography>
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                  <Typography sx={{ fontFamily: "PoppinsLight" }}>
                     {componente?.descIndicador}
                   </Typography>
                 </Grid>
@@ -2063,12 +2063,12 @@ export function TabResumenMA({
                   </Grid>
                 )}
                 <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                     DESCRIPCIÓN DEL NUMERADOR:
                   </Typography>
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                  <Typography sx={{ fontFamily: "PoppinsLight" }}>
                     {componente?.descNumerador}
                   </Typography>
                 </Grid>
@@ -2110,12 +2110,12 @@ export function TabResumenMA({
                   </Grid>
                 )}
                 <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                     DESCRIPCIÓN DEL DENOMINADOR:
                   </Typography>
                 </Grid>
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                  <Typography sx={{ fontFamily: "MontserratLight" }}>
+                  <Typography sx={{ fontFamily: "PoppinsLight" }}>
                     {componente?.descDenominador}
                   </Typography>
                 </Grid>
@@ -2143,7 +2143,7 @@ export function TabResumenMA({
         >
           <Typography
             sx={{
-              fontFamily: "MontserratBold",
+              fontFamily: "PoppinsBold",
               borderBottom: 1,
               mt: 1,
               textTransform: "uppercase",
@@ -2182,7 +2182,7 @@ export function TabResumenMA({
                     <Grid item>
                       <Typography
                         sx={{
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                           borderBottom: 1,
                           mt: 1,
                           textAlign: "center",
@@ -2233,12 +2233,12 @@ export function TabResumenMA({
                         </Grid>
                       )}
                       <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                           META ANUAL:
                         </Typography>
                       </Grid>
                       <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratLight" }}>
+                        <Typography sx={{ fontFamily: "PoppinsLight" }}>
                           {actividad.metaAnual}
                         </Typography>
                       </Grid>
@@ -2292,12 +2292,12 @@ export function TabResumenMA({
                         </Grid>
                       )}
                       <Grid item xl={1} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                           LÍNEA BASE:
                         </Typography>
                       </Grid>
                       <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratLight" }}>
+                        <Typography sx={{ fontFamily: "PoppinsLight" }}>
                           {actividad.lineaBase}
                         </Typography>
                       </Grid>
@@ -2323,7 +2323,7 @@ export function TabResumenMA({
                     >
                       <Typography
                         sx={{
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         }}
                       >
                        METAS POR FRECUENCIA
@@ -2389,13 +2389,13 @@ export function TabResumenMA({
                           </Grid>
                         )}
                         <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                             TRIMESTRE 1:
                           </Typography>
                         </Grid>
                         <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                           <Typography
-                            sx={{ fontFamily: "MontserratLight", ml: 1 }}
+                            sx={{ fontFamily: "PoppinsLight", ml: 1 }}
                           >
                             {actividad.metasPorFrecuencia[0].trimestre1}
                           </Typography>
@@ -2443,13 +2443,13 @@ export function TabResumenMA({
                           </Grid>
                         )}
                         <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                             TRIMESTRE 2:
                           </Typography>
                         </Grid>
                         <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                           <Typography
-                            sx={{ fontFamily: "MontserratLight", ml: 1 }}
+                            sx={{ fontFamily: "PoppinsLight", ml: 1 }}
                           >
                             {actividad.metasPorFrecuencia[0].trimestre2}
                           </Typography>
@@ -2497,13 +2497,13 @@ export function TabResumenMA({
                           </Grid>
                         )}
                         <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                             TRIMESTRE 3:
                           </Typography>
                         </Grid>
                         <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                           <Typography
-                            sx={{ fontFamily: "MontserratLight", ml: 1 }}
+                            sx={{ fontFamily: "PoppinsLight", ml: 1 }}
                           >
                             {actividad.metasPorFrecuencia[0].trimestre3}
                           </Typography>
@@ -2552,13 +2552,13 @@ export function TabResumenMA({
                         )}
 
                         <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
-                          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                             TRIMESTRE 4:
                           </Typography>
                         </Grid>
                         <Grid item xl={1} lg={1} md={12} sm={12} xs={12}>
                           <Typography
-                            sx={{ fontFamily: "MontserratLight", ml: 1 }}
+                            sx={{ fontFamily: "PoppinsLight", ml: 1 }}
                           >
                             {actividad.metasPorFrecuencia[0].trimestre4}
                           </Typography>
@@ -2614,7 +2614,7 @@ export function TabResumenMA({
                         </Grid>
                       )}
                       <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                           {JSON.parse(MIR)
                             .componentes[indexComponentes].actividades[
                               indexActividades
@@ -2630,7 +2630,7 @@ export function TabResumenMA({
                         </Typography>
                       </Grid>
                       <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratLight" }}>
+                        <Typography sx={{ fontFamily: "PoppinsLight" }}>
                           {actividad.valorNumerador}
                         </Typography>
                       </Grid>
@@ -2696,12 +2696,12 @@ export function TabResumenMA({
                           </Grid>
                         )}
                         <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                             VALOR DENOMINADOR:
                           </Typography>
                         </Grid>
                         <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                          <Typography sx={{ fontFamily: "MontserratLight" }}>
+                          <Typography sx={{ fontFamily: "PoppinsLight" }}>
                             {actividad.valorDenominador}
                           </Typography>
                         </Grid>
@@ -2758,12 +2758,12 @@ export function TabResumenMA({
                         </Grid>
                       )}
                       <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                          SENTIDO DEL INDICADOR:
                         </Typography>
                       </Grid>
                       <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratLight" }}>
+                        <Typography sx={{ fontFamily: "PoppinsLight" }}>
                           {actividad.sentidoDelIndicador}
                         </Typography>
                       </Grid>
@@ -2819,12 +2819,12 @@ export function TabResumenMA({
                         </Grid>
                       )}
                       <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                           UNIDAD RESPONSABLE DE REPORTAR EL INDICADOR:
                         </Typography>
                       </Grid>
                       <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratLight" }}>
+                        <Typography sx={{ fontFamily: "PoppinsLight" }}>
                           {actividad.unidadResponsable}
                         </Typography>
                       </Grid>
@@ -2878,12 +2878,12 @@ export function TabResumenMA({
                         </Grid>
                       )}
                       <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                           DESCRIPCIÓN DEL INDICADOR:
                         </Typography>
                       </Grid>
                       <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratLight" }}>
+                        <Typography sx={{ fontFamily: "PoppinsLight" }}>
                           {actividad.descIndicador}
                         </Typography>
                       </Grid>
@@ -2937,12 +2937,12 @@ export function TabResumenMA({
                         </Grid>
                       )}
                       <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                           DESCRIPCIÓN DEL NUMERADOR:
                         </Typography>
                       </Grid>
                       <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratLight" }}>
+                        <Typography sx={{ fontFamily: "PoppinsLight" }}>
                           {actividad.descNumerador}
                         </Typography>
                       </Grid>
@@ -2997,12 +2997,12 @@ export function TabResumenMA({
                         </Grid>
                       )}
                       <Grid item xl={2} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                        <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                           DESCRIPCIÓN DEL DENOMINADOR:
                         </Typography>
                       </Grid>
                       <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                        <Typography sx={{ fontFamily: "MontserratLight" }}>
+                        <Typography sx={{ fontFamily: "PoppinsLight" }}>
                           {actividad.descDenominador}
                         </Typography>
                       </Grid>
@@ -3055,7 +3055,7 @@ export function TabResumenMA({
             onClick={() => showResume()}
             sx={{ width: !isSmallScreen ? "100%" : "auto" }}
           >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               CANCELAR
             </Typography>
           </Button>
@@ -3083,7 +3083,7 @@ export function TabResumenMA({
             sx={{ width: !isSmallScreen ? "100%" : "auto" }}
             onClick={() => setOpenModalSolicitarModif(true)}
           >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
             SOLICITAR MODIFICACIÓN
             </Typography>
           </Button>
@@ -3121,7 +3121,7 @@ export function TabResumenMA({
               creaMA(estado);
             }}
           >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               GUARDAR BORRADOR
             </Typography>
           </Button>
@@ -3148,7 +3148,7 @@ export function TabResumenMA({
               setOpenModalEnviar(true);
             }}
           >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
             {localStorage.getItem("Rol") === "Administrador"
                 ? estadoma === "Autorizada"
                   ? "MODIFICAR MA AUTORIZADA"
