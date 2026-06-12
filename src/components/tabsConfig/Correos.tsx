@@ -116,7 +116,7 @@ const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
         <Typography
           sx={{
             mr: "1vw",
-            fontFamily: "MontserratSemiBold",
+            fontFamily: "PoppinsSemiBold",
             fontSize: [10, 15, 18, 22, 22, 25],
           }}
         >
@@ -171,13 +171,13 @@ const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
             variant={"filled"}
             InputLabelProps={{
               style: {
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
                 
               },
             }}
             InputProps={{
               style: {
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
               },
             }}
           ></TextField>
@@ -211,13 +211,13 @@ const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
             variant={"filled"}
             InputLabelProps={{
               style: {
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
                 
               },
             }}
             InputProps={{
               style: {
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
               },
             }}
           ></TextField>
@@ -251,13 +251,13 @@ const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
             variant={"filled"}
             InputLabelProps={{
               style: {
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
                 
               },
             }}
             InputProps={{
               style: {
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
               },
             }}
           ></TextField>
@@ -291,13 +291,13 @@ const isSmallScreen = useMediaQuery(theme.breakpoints.up("sm"));
             variant={"filled"}
             InputLabelProps={{
               style: {
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
                 
               },
             }}
             InputProps={{
               style: {
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
               },
             }}
           ></TextField>

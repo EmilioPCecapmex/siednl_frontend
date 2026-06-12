@@ -34,7 +34,7 @@ export const FinFechaTecnica = ({
 
   const sxTitleStyle = {
     fontSize: "1vw",
-    fontFamily: "MontserratSemiBold",
+    fontFamily: "PoppinsSemiBold",
     ml: 1,
   };
 
@@ -58,7 +58,7 @@ export const FinFechaTecnica = ({
     width: "38vw",
     display: "flex",
     fontSize: ".8rem",
-    fontFamily: "MontserratRegular",
+    fontFamily: "PoppinsRegular",
     minHeight: "5vh",
     ml: "2vw",
     backgroundColor: "white",
@@ -68,13 +68,13 @@ export const FinFechaTecnica = ({
   //SMALL BOXES
   const sxTitleSmallBoxes = {
     fontSize: ".9vw",
-    fontFamily: "MontserratSemiBold",
+    fontFamily: "PoppinsSemiBold",
     textAlign: "center",
   };
 
   const sxResultSmallBoxes = {
     fontSize: ".8rem",
-    fontFamily: "MontserratRegular",
+    fontFamily: "PoppinsRegular",
     textAlign: "center",
   };
 
@@ -177,7 +177,7 @@ export const FinFechaTecnica = ({
     headerTypography.push(
       <Box key={i}>
         <Typography
-          sx={{ fontFamily: "MontserratSemiBold", textAlign: "center" }}
+          sx={{ fontFamily: "PoppinsSemiBold", textAlign: "center" }}
         >
           {headerTextsValue[i]}
         </Typography>
@@ -190,7 +190,7 @@ export const FinFechaTecnica = ({
     generalTitlesDesign1.push(
       <Box key={i} sx={sxTitleDesignPage1}>
         <Typography
-          sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
+          sx={{ ml: 1, fontFamily: "PoppinsBold", textAlign: "center" }}
         >
           {titleColumnsNormalPag1Value[i]}
         </Typography>
@@ -203,7 +203,7 @@ export const FinFechaTecnica = ({
     generalTitlesDesign2.push(
       <Box key={i} sx={sxTitleDesignPage1}>
         <Typography
-          sx={{ ml: 1, fontFamily: "MontserratBold", textAlign: "center" }}
+          sx={{ ml: 1, fontFamily: "PoppinsBold", textAlign: "center" }}
         >
           {titleColumnsNormalPag2Value[i]}
         </Typography>
@@ -319,7 +319,7 @@ export const FinFechaTecnica = ({
           mb: ".3vw",
         }}
       >
-        <Typography sx={{ fontSize: "1vw", fontFamily: "MontserratBold" }}>
+        <Typography sx={{ fontSize: "1vw", fontFamily: "PoppinsBold" }}>
           FIN
         </Typography>
       </Box>
@@ -351,7 +351,7 @@ export const FinFechaTecnica = ({
               height: "10vh",
               display: "flex",
               fontSize: ".8rem",
-              fontFamily: "MontserratRegular",
+              fontFamily: "PoppinsRegular",
               minHeight: "5vh",
               backgroundColor: "white",
               textAlign: "justify",
@@ -958,7 +958,7 @@ export const FinFechaTecnica = ({
                 display: "flex",
                 fontSize: ".7rem",
                 textAlign: "justify",
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
                 backgroundColor: "white",
               }}
             >
@@ -983,7 +983,7 @@ export const FinFechaTecnica = ({
                 display: "flex",
                 fontSize: ".7rem",
                 textAlign: "justify",
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
                 backgroundColor: "white",
               }}
             >
@@ -1030,7 +1030,7 @@ export const FinFechaTecnica = ({
               sx={{
                 width: "90%",
                 fontSize: ".7rem",
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
                 minHeight: "5vh",
                 backgroundColor: "white",
                 textAlign: "justify",
@@ -1055,7 +1055,7 @@ export const FinFechaTecnica = ({
               sx={{
                 width: "90%",
                 fontSize: ".7rem",
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
                 textAlign: "justify",
                 backgroundColor: "white",
               }}
@@ -1104,7 +1104,7 @@ export const FinFechaTecnica = ({
               sx={{
                 width: "90%",
                 fontSize: ".7rem",
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
                 minHeight: "5vh",
                 backgroundColor: "white",
                 textAlign: "justify",
@@ -1129,7 +1129,7 @@ export const FinFechaTecnica = ({
               sx={{
                 width: "90%",
                 fontSize: ".7rem",
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
                 minHeight: "5vh",
                 backgroundColor: "white",
                 textAlign: "justify",
@@ -1179,7 +1179,7 @@ export const FinFechaTecnica = ({
                 width: "90%",
                 display: "flex",
                 fontSize: ".7rem",
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
                 minHeight: "5vh",
                 backgroundColor: "white",
                 textAlign: "justify",
@@ -1206,7 +1206,7 @@ export const FinFechaTecnica = ({
                 width: "90%",
                 display: "flex",
                 fontSize: ".7rem",
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
                 minHeight: "5vh",
                 backgroundColor: "white",
                 textAlign: "justify",
@@ -1251,7 +1251,7 @@ export const FinFechaTecnica = ({
             }}
           >
             <Typography
-              sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+              sx={{ fontSize: ".7rem", fontFamily: "PoppinsRegular" }}
             >
               {jsonMA.fin.valorNumerador}
             </Typography>
@@ -1268,7 +1268,7 @@ export const FinFechaTecnica = ({
             }}
           >
             <Typography
-              sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+              sx={{ fontSize: ".7rem", fontFamily: "PoppinsRegular" }}
             >
               {jsonMA.fin.valorDenominador}
             </Typography>
@@ -1289,7 +1289,7 @@ export const FinFechaTecnica = ({
           mb: ".3vw",
         }}
       >
-        <Typography sx={{ fontSize: "1vw", fontFamily: "MontserratBold" }}>
+        <Typography sx={{ fontSize: "1vw", fontFamily: "PoppinsBold" }}>
           SUPUESTO
         </Typography>
       </Box>
@@ -1320,7 +1320,7 @@ export const FinFechaTecnica = ({
               height: "10vh",
               display: "flex",
               fontSize: ".8rem",
-              fontFamily: "MontserratRegular",
+              fontFamily: "PoppinsRegular",
               minHeight: "5vh",
               backgroundColor: "white",
               textAlign: "justify",

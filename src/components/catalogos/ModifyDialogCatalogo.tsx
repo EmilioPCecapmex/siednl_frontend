@@ -178,7 +178,7 @@ export const ModifyDialogCatalogos = ({
           >
             <Typography
               sx={{
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 width: "90%",
                 fontSize: [10, 15, 15, 15, 15],
                 textAlign: "center",
@@ -202,7 +202,7 @@ export const ModifyDialogCatalogos = ({
               }
               InputProps={{
                 style: {
-                  fontFamily: "MontserratLight",
+                  fontFamily: "PoppinsLight",
                 },
               }}
               rows={3}
@@ -251,7 +251,7 @@ export const ModifyDialogCatalogos = ({
             }}
           >
             <Button className="cacelar" onClick={cerrardialog}>
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                 CANCELAR
               </Typography>
             </Button>
@@ -261,7 +261,7 @@ export const ModifyDialogCatalogos = ({
               onClick={ModifyPorCatalogoProgramasP}
               autoFocus
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                 DE ACUERDO
               </Typography>
             </Button>
@@ -315,7 +315,7 @@ export const ModifyDialogCatalogos = ({
           >
             <Typography
               sx={{
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 width: "90%",
                 fontSize: [10, 15, 15, 15, 15],
                 textAlign: "center",
@@ -339,7 +339,7 @@ export const ModifyDialogCatalogos = ({
               }
               InputProps={{
                 style: {
-                  fontFamily: "MontserratLight",
+                  fontFamily: "PoppinsLight",
                 },
               }}
               rows={5}
@@ -372,7 +372,7 @@ export const ModifyDialogCatalogos = ({
             >
               <Typography
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >
@@ -388,7 +388,7 @@ export const ModifyDialogCatalogos = ({
             >
               <Typography
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                   fontSize: [10, 15, 15, 15, 15],
                 }}
               >

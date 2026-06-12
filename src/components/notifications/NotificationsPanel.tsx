@@ -289,7 +289,7 @@ export default function NotificationsPanel({
           ) : (
             <Typography
               sx={{
-                fontFamily: "MontserratLight",
+                fontFamily: "PoppinsLight",
                 fontSize: ".9vw",
                 ml: "1vw",
                 mt: "1vh",

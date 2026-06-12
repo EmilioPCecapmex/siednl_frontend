@@ -825,7 +825,7 @@ export const Raffi = () => {
                         renderOption={(props, option) => {
                           return (
                             <li {...props} key={option.Id}>
-                              <p style={{ fontFamily: "MontserratRegular" }}>
+                              <p style={{ fontFamily: "PoppinsRegular" }}>
                                 {option.Nombre}
                               </p>
                             </li>
@@ -838,12 +838,12 @@ export const Raffi = () => {
                             variant="standard"
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratSemiBold",
+                                fontFamily: "PoppinsSemiBold",
                               },
                             }}
                             sx={{
                               "& .MuiAutocomplete-input": {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                           />
@@ -901,12 +901,12 @@ export const Raffi = () => {
                           variant="standard"
                           InputLabelProps={{
                             style: {
-                              fontFamily: "MontserratSemiBold",
+                              fontFamily: "PoppinsSemiBold",
                             },
                           }}
                           sx={{
                             "& .MuiAutocomplete-input": {
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                             },
                           }}
                         ></TextField>
@@ -934,7 +934,7 @@ export const Raffi = () => {
                   </Grid>
                 )}
                 <Grid
-                sx={{ fontFamily: "MontserratRegular" }}
+                sx={{ fontFamily: "PoppinsRegular" }}
                 item
                 xl={3}
                 lg={3}
@@ -1038,7 +1038,7 @@ export const Raffi = () => {
                         <TableCell
                           sx={{
                             backgroundColor: "#edeaea",
-                            fontFamily: "MontserratBold",
+                            fontFamily: "PoppinsBold",
                             borderBottom: 0,
                             fontSize: [10, 10, 10, 15, 16, 18],
                             justifyContent: "center",

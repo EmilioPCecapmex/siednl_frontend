@@ -621,7 +621,7 @@ export const MIR = () => {
                               <li {...props} key={option.Id}>
                                 <p
                                   style={{
-                                    fontFamily: "MontserratRegular",
+                                    fontFamily: "PoppinsRegular",
                                   }}
                                 >
                                   {option.Label}
@@ -636,12 +636,12 @@ export const MIR = () => {
                               variant="standard"
                               InputLabelProps={{
                                 style: {
-                                  fontFamily: "MontserratSemiBold",
+                                  fontFamily: "PoppinsSemiBold",
                                 },
                               }}
                               sx={{
                                 "& .MuiAutocomplete-input": {
-                                  fontFamily: "MontserratRegular",
+                                  fontFamily: "PoppinsRegular",
                                 },
                               }}
                             />
@@ -710,12 +710,12 @@ export const MIR = () => {
                             variant="standard"
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratSemiBold",
+                                fontFamily: "PoppinsSemiBold",
                               },
                             }}
                             sx={{
                               "& .MuiAutocomplete-input": {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                           ></TextField>
@@ -725,7 +725,7 @@ export const MIR = () => {
                   </Tooltip>
                 </Grid>
                 <Grid
-                  sx={{ fontFamily: "MontserratRegular",display:'flex',justifyContent:'center' }}
+                  sx={{ fontFamily: "PoppinsRegular" }}
                   item
                   xl={2.8}
                     lg={2.8}
@@ -794,7 +794,7 @@ export const MIR = () => {
                     sx={{
                       width: ["100px", "120px", "160px", "180px", "250px"],
                       height: ["40px", "40px", "40px", "40px", "50px"],
-                     
+                      fontFamily: "PoppinsMedium",
                     }}
                     onClick={() => {
                       setMirEdit([
@@ -884,7 +884,7 @@ export const MIR = () => {
                         <TableCell
                           sx={{
                             backgroundColor: "#edeaea",
-                            fontFamily: "MontserratBold",
+                            fontFamily: "PoppinsBold",
                             borderBottom: 0,
                             fontSize: [10, 10, 10, 15, 16, 18],
                             textAlign: "center",

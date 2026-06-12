@@ -301,7 +301,7 @@ export function TabFinPropositoMA({
   }, [valueProposito]);
 
   const style = {
-    fontFamily: "MontserratSemiBold",
+    fontFamily: "PoppinsSemiBold",
     fontSize: "14px", // Tamaño de fuente predeterminado
 
     // Media queries definidas como objetos separados y combinadas con merge
@@ -374,7 +374,7 @@ export function TabFinPropositoMA({
           <Typography
             sx={{
               mr: "1vw",
-              fontFamily: "MontserratSemiBold",
+              fontFamily: "PoppinsSemiBold",
               fontSize: "1.5vw",
             }}
           >
@@ -437,7 +437,7 @@ export function TabFinPropositoMA({
               >
                 <Typography
                   sx={{
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     fontSize: [10, 10, 10, 13, 15, 18],
                   }}
                 >
@@ -473,7 +473,7 @@ export function TabFinPropositoMA({
               >
                 <Typography
                   sx={{
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     fontSize: [10, 10, 10, 13, 15, 18],
                   }}
                 >
@@ -526,7 +526,7 @@ export function TabFinPropositoMA({
                     >
                       <Typography
                         sx={{
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                           fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       >
@@ -560,7 +560,7 @@ export function TabFinPropositoMA({
                       >
                         <Typography
                           sx={{
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                             fontSize: [10, 10, 10, 13, 15, 18],
                           }}
                         >
@@ -597,12 +597,12 @@ export function TabFinPropositoMA({
 
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   value={JSON.parse(MIR).fin.resumen}
@@ -640,7 +640,7 @@ export function TabFinPropositoMA({
                         <li {...props} key={option.Id}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               //fontSize: ".7vw",
                             }}
                           >
@@ -656,12 +656,12 @@ export function TabFinPropositoMA({
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                             //fontSize: "1vw",
                           },
                         }}
                         sx={{
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                           fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       ></TextField>
@@ -715,12 +715,12 @@ export function TabFinPropositoMA({
                     variant={"filled"}
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     onClick={() =>
@@ -776,12 +776,12 @@ export function TabFinPropositoMA({
                     }
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     onChange={(c) => {
@@ -827,12 +827,12 @@ export function TabFinPropositoMA({
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         },
                       }}
                       InputProps={{
                         style: {
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         },
                       }}
                       onClick={() =>
@@ -871,12 +871,12 @@ export function TabFinPropositoMA({
 
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           },
                         }}
                         InputProps={{
                           style: {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                         onClick={() =>
@@ -912,12 +912,12 @@ export function TabFinPropositoMA({
 
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           },
                         }}
                         InputProps={{
                           style: {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                         onClick={() =>
@@ -969,7 +969,7 @@ export function TabFinPropositoMA({
                     sx={{
                       backgroundColor: "#f0f0f0",
                       boxShadow: 6,
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                       justifyContent: "center",
                       alignItems: "center",width:'100%'
                     }}
@@ -981,14 +981,14 @@ export function TabFinPropositoMA({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           ASCENDENTE
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium"
+                        fontFamily: "PoppinsMedium"
                       }}
                       control={
                         <Radio
@@ -1007,7 +1007,7 @@ export function TabFinPropositoMA({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           DESCENDENTE
@@ -1032,7 +1032,7 @@ export function TabFinPropositoMA({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NORMAL
@@ -1077,12 +1077,12 @@ export function TabFinPropositoMA({
                     InputLabelProps={{
                       style: {
 
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         textAlign: 'center',
                         justifyContent: "center",
                       },
@@ -1122,12 +1122,12 @@ export function TabFinPropositoMA({
                     
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     onChange={(c) => {
@@ -1164,12 +1164,12 @@ export function TabFinPropositoMA({
                   
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   onChange={(c) => {
@@ -1217,7 +1217,7 @@ export function TabFinPropositoMA({
                         <li {...props} key={option.Id}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               //fontSize: ".7vw",
                             }}
                           >
@@ -1233,12 +1233,12 @@ export function TabFinPropositoMA({
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                             //fontSize: "1vw",
                           },
                         }}
                         sx={{
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                           fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       ></TextField>
@@ -1301,7 +1301,7 @@ export function TabFinPropositoMA({
                     >
                       <Typography
                         sx={{
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                           fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       >
@@ -1335,7 +1335,7 @@ export function TabFinPropositoMA({
                       >
                         <Typography
                           sx={{
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                             fontSize: [10, 10, 10, 13, 15, 18],
                           }}
                         >
@@ -1372,12 +1372,12 @@ export function TabFinPropositoMA({
 
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   value={JSON.parse(MIR).proposito.resumen}
@@ -1415,7 +1415,7 @@ export function TabFinPropositoMA({
                         <li {...props} key={option.Id}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               //fontSize: ".7vw",
                             }}
                           >
@@ -1431,12 +1431,12 @@ export function TabFinPropositoMA({
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                             //fontSize: "1vw",
                           },
                         }}
                         sx={{
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                           fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       ></TextField>
@@ -1490,12 +1490,12 @@ export function TabFinPropositoMA({
                     variant={"filled"}
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     onClick={() =>
@@ -1551,12 +1551,12 @@ export function TabFinPropositoMA({
                     }
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     onChange={(c) => {
@@ -1602,12 +1602,12 @@ export function TabFinPropositoMA({
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         },
                       }}
                       InputProps={{
                         style: {
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         },
                       }}
                       onClick={() =>
@@ -1646,12 +1646,12 @@ export function TabFinPropositoMA({
 
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           },
                         }}
                         InputProps={{
                           style: {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                         onClick={() =>
@@ -1687,12 +1687,12 @@ export function TabFinPropositoMA({
 
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           },
                         }}
                         InputProps={{
                           style: {
-                            fontFamily: "MontserratRegular",
+                            fontFamily: "PoppinsRegular",
                           },
                         }}
                         onClick={() =>
@@ -1744,7 +1744,7 @@ export function TabFinPropositoMA({
                     sx={{
                       backgroundColor: "#f0f0f0",
                       boxShadow: 6,
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                       justifyContent: "center",
                       alignItems: "center",width:'100%'
                     }}
@@ -1756,14 +1756,14 @@ export function TabFinPropositoMA({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           ASCENDENTE
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium"
+                        fontFamily: "PoppinsMedium"
                       }}
                       control={
                         <Radio
@@ -1782,7 +1782,7 @@ export function TabFinPropositoMA({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           DESCENDENTE
@@ -1807,7 +1807,7 @@ export function TabFinPropositoMA({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NORMAL
@@ -1852,12 +1852,12 @@ export function TabFinPropositoMA({
                     InputLabelProps={{
                       style: {
 
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         textAlign: 'center',
                         justifyContent: "center",
                       },
@@ -1897,12 +1897,12 @@ export function TabFinPropositoMA({
                     
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       },
                     }}
                     InputProps={{
                       style: {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                     onChange={(c) => {
@@ -1939,12 +1939,12 @@ export function TabFinPropositoMA({
                   
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   onChange={(c) => {
@@ -1992,7 +1992,7 @@ export function TabFinPropositoMA({
                         <li {...props} key={option.Id}>
                           <p
                             style={{
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                               //fontSize: ".7vw",
                             }}
                           >
@@ -2008,12 +2008,12 @@ export function TabFinPropositoMA({
                         variant="standard"
                         InputLabelProps={{
                           style: {
-                            fontFamily: "MontserratSemiBold",
+                            fontFamily: "PoppinsSemiBold",
                             //fontSize: "1vw",
                           },
                         }}
                         sx={{
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                           fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       ></TextField>

@@ -89,7 +89,7 @@ export function TabFinPropositoFT({
           <Typography
             sx={{
               mr: "1vw",
-              fontFamily: "MontserratSemiBold",
+              fontFamily: "PoppinsSemiBold",
               fontSize: [10, 10, 15, 18, 25, 25],
             }}
           >
@@ -153,7 +153,7 @@ export function TabFinPropositoFT({
                 <Typography
                   sx={{
                     fontSize: [10, 10, 12, 15, 18, 20],
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   }}
                 >
                   FIN
@@ -188,7 +188,7 @@ export function TabFinPropositoFT({
                 <Typography
                   sx={{
                     fontSize: [10, 10, 12, 15, 18, 20],
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                   }}
                 >
                   PROPÓSITO
@@ -241,7 +241,7 @@ export function TabFinPropositoFT({
                       <Typography
                         sx={{
                           fontSize: [10, 10, 12, 15, 18, 20],
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         }}
                       >
                         FIN
@@ -276,7 +276,7 @@ export function TabFinPropositoFT({
                       <Typography
                         sx={{
                           fontSize: [10, 10, 12, 15, 18, 20],
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         }}
                       >
                         PROPÓSITO
@@ -289,7 +289,7 @@ export function TabFinPropositoFT({
               <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
                 <Typography
                   sx={{
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                     // fontSize: "1vw",
                     textAlign: "center",
                   }}
@@ -317,14 +317,14 @@ export function TabFinPropositoFT({
                     //
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -337,14 +337,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           ESTRATÉGICO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -363,14 +363,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           DE GESTIÓN
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -406,14 +406,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -432,14 +432,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           EFICIENCIA
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -458,14 +458,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           EFICACIA
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -484,14 +484,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           CALIDAD
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -511,14 +511,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           ECONOMÍA
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -560,13 +560,13 @@ export function TabFinPropositoFT({
                   }}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                       //fontSize: "1vw",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   value={fin.unidadDeMedida}
@@ -597,14 +597,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -617,14 +617,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           SI
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -643,14 +643,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -686,14 +686,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -706,14 +706,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           SI
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -732,14 +732,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -775,14 +775,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -795,14 +795,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           SI
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -821,14 +821,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -864,14 +864,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -884,14 +884,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           SI
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -910,14 +910,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -953,14 +953,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -973,14 +973,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           SI
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -999,14 +999,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1042,14 +1042,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -1062,14 +1062,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           SI
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1088,14 +1088,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1114,14 +1114,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NA
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1183,7 +1183,7 @@ export function TabFinPropositoFT({
                       <Typography
                         sx={{
                           fontSize: [10, 10, 12, 15, 18, 20],
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         }}
                       >
                         FIN
@@ -1218,7 +1218,7 @@ export function TabFinPropositoFT({
                       <Typography
                         sx={{
                           fontSize: [10, 10, 12, 15, 18, 20],
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         }}
                       >
                         PROPÓSITO
@@ -1232,7 +1232,7 @@ export function TabFinPropositoFT({
               <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
                 <Typography
                   sx={{
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                     // fontSize: "1vw",
                     textAlign: "center",
                   }}
@@ -1259,14 +1259,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -1279,14 +1279,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           ESTRATÉGICO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1308,14 +1308,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           DE GESTIÓN
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1354,14 +1354,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -1380,14 +1380,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           EFICIENCIA
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1409,14 +1409,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           EFICACIA
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1438,14 +1438,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           CALIDAD
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1468,14 +1468,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           ECONOMÍA
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1517,13 +1517,13 @@ export function TabFinPropositoFT({
                   label={"UNIDAD DE MEDIDA"}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                       //fontSize: "1vw",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                   value={proposito.unidadDeMedida}
@@ -1555,14 +1555,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -1575,14 +1575,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           SI
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1603,14 +1603,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1648,14 +1648,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -1668,14 +1668,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           SI
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1696,14 +1696,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1740,14 +1740,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -1760,14 +1760,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           SI
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1788,14 +1788,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1832,14 +1832,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -1852,14 +1852,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           SI
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1880,14 +1880,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1925,14 +1925,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -1945,14 +1945,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           SI
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -1973,14 +1973,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -2018,14 +2018,14 @@ export function TabFinPropositoFT({
                   sx={{
                     backgroundColor: "#f0f0f0",
                     boxShadow: 2,
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     justifyContent: "space-evenly",
                     alignItems: "center",
                   }}
                 >
                   <FormLabel
                     sx={{
-                      fontFamily: "MontserratBold",
+                      fontFamily: "PoppinsBold",
                       fontSize: [10, 10, 13, 15, 18],
                     }}
                   >
@@ -2038,14 +2038,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           SI
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -2066,14 +2066,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NO
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio
@@ -2094,14 +2094,14 @@ export function TabFinPropositoFT({
                         <Typography
                           sx={{
                             fontSize: [10, 10, 11, 12, 13],
-                            fontFamily: "MontserratMedium",
+                            fontFamily: "PoppinsMedium",
                           }}
                         >
                           NA
                         </Typography>
                       }
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                       }}
                       control={
                         <Radio

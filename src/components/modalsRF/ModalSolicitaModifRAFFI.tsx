@@ -450,7 +450,7 @@ export default function ModalSolicitaModifRF({
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle
         sx={{
-          fontFamily: "MontserratBold",
+          fontFamily: "PoppinsBold",
           borderBottom: 1,
           fontSize: [18, 20, 15, 20, 15],
           height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
@@ -478,7 +478,7 @@ export default function ModalSolicitaModifRF({
           <Typography
             sx={{
               fontSize: [15, 15, 15, 15, 15],
-              fontFamily: "MontserratMedium",
+              fontFamily: "PoppinsMedium",
               textAlign: "center",
             }}
           >
@@ -511,7 +511,7 @@ export default function ModalSolicitaModifRF({
                   <li {...props} key={option.IdUsuario}>
                     <p
                       style={{
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       }}
                     >
                       {option.Rol +
@@ -534,12 +534,12 @@ export default function ModalSolicitaModifRF({
                   variant="standard"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                     },
                   }}
                   sx={{
                     "& .MuiAutocomplete-input": {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                 ></TextField>
@@ -598,7 +598,7 @@ export default function ModalSolicitaModifRF({
               //sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
               onClick={() => handleClose()}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                 CANCELAR
               </Typography>
             </Button>
@@ -616,7 +616,7 @@ export default function ModalSolicitaModifRF({
                 handleClose();
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                 {coment === "" ? "ENVIAR SIN COMENTARIOS" : "CONFIRMAR"}
               </Typography>
             </Button>

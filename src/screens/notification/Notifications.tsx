@@ -275,7 +275,7 @@ export const Notification = () => {
           <FormControl>
             <InputLabel
               id="UsuarioLabel"
-              sx={{ fontFamily: "MontserratSemiBold" }}
+              sx={{ fontFamily: "PoppinsSemiBold" }}
             >
               Usuario
             </InputLabel>
@@ -288,7 +288,7 @@ export const Notification = () => {
               value={usuarioSeleccionado || ""}
             >
               <MenuItem value="00-00">
-                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                   Todos
                 </Typography>
               </MenuItem>
@@ -296,7 +296,7 @@ export const Notification = () => {
               {usuarios?.map((item) => {
                 return (
                   <MenuItem key={item.Id} value={item.Id}>
-                    <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                    <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                       {item.Nombre +
                         " " +
                         item.ApellidoPaterno +
@@ -317,12 +317,12 @@ export const Notification = () => {
             sx={{ width: "70%" }}
             InputLabelProps={{
               style: {
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
               },
             }}
             InputProps={{
               style: {
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
               },
             }}
             onChange={(v) => setTitulo(v.target.value)}
@@ -336,7 +336,7 @@ export const Notification = () => {
             rows={7}
             InputLabelProps={{
               style: {
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
               },
             }}
             label="Mensaje"
@@ -347,7 +347,7 @@ export const Notification = () => {
             helperText={errorForm.type === "mensaje" ? errorForm.text : null}
             InputProps={{
               style: {
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
               },
             }}
           />
@@ -363,7 +363,7 @@ export const Notification = () => {
               }
               label={
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+                  sx={{ fontFamily: "PoppinsMedium", fontSize: ".7vw" }}
                 >
                   Enviar notificación por email
                 </Typography>
@@ -377,7 +377,7 @@ export const Notification = () => {
             onClick={() => revisaForm()}
           >
             <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              sx={{ fontFamily: "PoppinsMedium", fontSize: ".7vw" }}
             >
               Enviar
             </Typography>
@@ -400,7 +400,7 @@ export const Notification = () => {
         >
           <Typography
             sx={{
-              fontFamily: "MontserratSemiBold",
+              fontFamily: "PoppinsSemiBold",
               fontSize: ".8vw",
               width: "100%",
               color: "#616161",
@@ -418,7 +418,7 @@ export const Notification = () => {
                 border: 1,
                 borderRadius: 5,
                 borderColor: "#ccc",
-                fontFamily: "MontserratLight",
+                fontFamily: "PoppinsLight",
                 fontSize: ".7vw",
                 m: 1,
               }}
@@ -437,7 +437,7 @@ export const Notification = () => {
           >
             <Typography
               sx={{
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 fontSize: ".7vw",
                 width: "20%",
                 textAlign: "center",
@@ -447,7 +447,7 @@ export const Notification = () => {
             </Typography>
             <Typography
               sx={{
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 fontSize: ".7vw",
                 width: "20%",
                 textAlign: "center",
@@ -457,7 +457,7 @@ export const Notification = () => {
             </Typography>
             <Typography
               sx={{
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 fontSize: ".7vw",
                 width: "20%",
                 textAlign: "center",
@@ -467,7 +467,7 @@ export const Notification = () => {
             </Typography>
             <Typography
               sx={{
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 fontSize: ".7vw",
                 width: "15%",
                 textAlign: "center",
@@ -477,7 +477,7 @@ export const Notification = () => {
             </Typography>
             <Typography
               sx={{
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 fontSize: ".7vw",
                 width: "25%",
                 textAlign: "center",
@@ -513,7 +513,7 @@ export const Notification = () => {
                   <TableRow key={row.Id || 0}>
                     <TableCell
                       sx={{
-                        fontFamily: "MontserratLight",
+                        fontFamily: "PoppinsLight",
                         width: "20%",
                         textAlign: "center",
                       }}
@@ -524,7 +524,7 @@ export const Notification = () => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        fontFamily: "MontserratLight",
+                        fontFamily: "PoppinsLight",
                         width: "20%",
                         textAlign: "center",
                       }}
@@ -537,7 +537,7 @@ export const Notification = () => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        fontFamily: "MontserratLight",
+                        fontFamily: "PoppinsLight",
                         width: "20%",
                         textAlign: "center",
                       }}
@@ -552,7 +552,7 @@ export const Notification = () => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        fontFamily: "MontserratLight",
+                        fontFamily: "PoppinsLight",
                         width: "15%",
                         textAlign: "center",
                       }}
@@ -563,7 +563,7 @@ export const Notification = () => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        fontFamily: "MontserratLight",
+                        fontFamily: "PoppinsLight",
                         width: "25%",
                         textAlign: "center",
                       }}

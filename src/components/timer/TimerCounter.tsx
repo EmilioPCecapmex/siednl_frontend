@@ -93,7 +93,7 @@ export const TimerCounter = () => {
   return (
     // <Box
     //   sx={{
-    //     fontFamily: "MontserratMedium",
+    //     fontFamily: "PoppinsMedium",
     //     fontSize: ".8vw",
     //     width: "2vw",
     //     height: "100%",

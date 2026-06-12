@@ -34,7 +34,7 @@ export const CompFichaTecnica = ({
 
   const sxTitleStyle = {
     fontSize: "1vw",
-    fontFamily: "MontserratSemiBold",
+    fontFamily: "PoppinsSemiBold",
     ml: 1,
   };
 
@@ -58,7 +58,7 @@ export const CompFichaTecnica = ({
     width: "38vw",
     display: "flex",
     fontSize: ".8rem",
-    fontFamily: "MontserratRegular",
+    fontFamily: "PoppinsRegular",
     minHeight: "5vh",
     ml: "2vw",
     backgroundColor: "white",
@@ -68,13 +68,13 @@ export const CompFichaTecnica = ({
   //SMALL BOXES
   const sxTitleSmallBoxes = {
     fontSize: ".9vw",
-    fontFamily: "MontserratSemiBold",
+    fontFamily: "PoppinsSemiBold",
     textAlign: "center",
   };
 
   const sxResultSmallBoxes = {
     fontSize: ".8rem",
-    fontFamily: "MontserratRegular",
+    fontFamily: "PoppinsRegular",
     textAlign: "center",
   };
 
@@ -230,7 +230,7 @@ export const CompFichaTecnica = ({
                 >
                   <Typography
                     sx={{
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                       textAlign: "center",
                     }}
                   >
@@ -238,7 +238,7 @@ export const CompFichaTecnica = ({
                   </Typography>
                   <Typography
                     sx={{
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                       textAlign: "center",
                     }}
                   >
@@ -246,7 +246,7 @@ export const CompFichaTecnica = ({
                   </Typography>
                   <Typography
                     sx={{
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                       textAlign: "center",
                     }}
                   >
@@ -254,7 +254,7 @@ export const CompFichaTecnica = ({
                   </Typography>
                   <Typography
                     sx={{
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                       textAlign: "center",
                     }}
                   >
@@ -262,7 +262,7 @@ export const CompFichaTecnica = ({
                   </Typography>
                   <Typography
                     sx={{
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                       textAlign: "center",
                     }}
                   >
@@ -286,7 +286,7 @@ export const CompFichaTecnica = ({
               }}
             >
               <Typography
-                sx={{ fontSize: "1vw", fontFamily: "MontserratBold" }}
+                sx={{ fontSize: "1vw", fontFamily: "PoppinsBold" }}
               >
                 COMPONENTE {jsonMir.componentes[index].componentes}
               </Typography>
@@ -319,7 +319,7 @@ export const CompFichaTecnica = ({
                     height: "10vh",
                     display: "flex",
                     fontSize: ".8rem",
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                     minHeight: "5vh",
                     backgroundColor: "white",
                     textAlign: "justify",
@@ -333,7 +333,7 @@ export const CompFichaTecnica = ({
               <Typography
                 sx={{
                   ml: 1,
-                  fontFamily: "MontserratBold",
+                  fontFamily: "PoppinsBold",
                   textAlign: "center",
                 }}
               >
@@ -644,7 +644,7 @@ export const CompFichaTecnica = ({
               <Typography
                 sx={{
                   ml: 1,
-                  fontFamily: "MontserratBold",
+                  fontFamily: "PoppinsBold",
                   textAlign: "center",
                 }}
               >
@@ -897,7 +897,7 @@ export const CompFichaTecnica = ({
               <Typography
                 sx={{
                   ml: 1,
-                  fontFamily: "MontserratBold",
+                  fontFamily: "PoppinsBold",
                   textAlign: "center",
                 }}
               >
@@ -954,7 +954,7 @@ export const CompFichaTecnica = ({
                       display: "flex",
                       fontSize: ".7rem",
                       textAlign: "justify",
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       backgroundColor: "white",
                     }}
                   >
@@ -1001,7 +1001,7 @@ export const CompFichaTecnica = ({
                       display: "flex",
                       fontSize: ".7rem",
                       textAlign: "justify",
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       backgroundColor: "white",
                     }}
                   >
@@ -1067,7 +1067,7 @@ export const CompFichaTecnica = ({
                     sx={{
                       width: "90%",
                       fontSize: ".7rem",
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       minHeight: "5vh",
                       backgroundColor: "white",
                       textAlign: "justify",
@@ -1092,7 +1092,7 @@ export const CompFichaTecnica = ({
                     sx={{
                       width: "90%",
                       fontSize: ".7rem",
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       textAlign: "justify",
                       backgroundColor: "white",
                     }}
@@ -1141,7 +1141,7 @@ export const CompFichaTecnica = ({
                     sx={{
                       width: "90%",
                       fontSize: ".7rem",
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       minHeight: "5vh",
                       backgroundColor: "white",
                       textAlign: "justify",
@@ -1166,7 +1166,7 @@ export const CompFichaTecnica = ({
                     sx={{
                       width: "90%",
                       fontSize: ".7rem",
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       minHeight: "5vh",
                       backgroundColor: "white",
                       textAlign: "justify",
@@ -1216,7 +1216,7 @@ export const CompFichaTecnica = ({
                       width: "90%",
                       display: "flex",
                       fontSize: ".7rem",
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       minHeight: "5vh",
                       backgroundColor: "white",
                       textAlign: "justify",
@@ -1242,7 +1242,7 @@ export const CompFichaTecnica = ({
                       width: "90%",
                       display: "flex",
                       fontSize: ".7rem",
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       minHeight: "5vh",
                       backgroundColor: "white",
                       textAlign: "justify",
@@ -1285,7 +1285,7 @@ export const CompFichaTecnica = ({
                   }}
                 >
                   <Typography
-                    sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+                    sx={{ fontSize: ".7rem", fontFamily: "PoppinsRegular" }}
                   >
                     {jsonMA.componentes[index].valorNumerador}
                   </Typography>
@@ -1302,7 +1302,7 @@ export const CompFichaTecnica = ({
                   }}
                 >
                   <Typography
-                    sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+                    sx={{ fontSize: ".7rem", fontFamily: "PoppinsRegular" }}
                   >
                     {jsonMA.componentes[index].valorDenominador}
                   </Typography>
@@ -1323,7 +1323,7 @@ export const CompFichaTecnica = ({
               }}
             >
               <Typography
-                sx={{ fontSize: "1vw", fontFamily: "MontserratBold" }}
+                sx={{ fontSize: "1vw", fontFamily: "PoppinsBold" }}
               >
                 SUPUESTO
               </Typography>
@@ -1355,7 +1355,7 @@ export const CompFichaTecnica = ({
                     height: "10vh",
                     display: "flex",
                     fontSize: ".8rem",
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                     minHeight: "5vh",
                     backgroundColor: "white",
                     textAlign: "justify",
@@ -1369,7 +1369,7 @@ export const CompFichaTecnica = ({
               <Typography
                 sx={{
                   ml: 1,
-                  fontFamily: "MontserratBold",
+                  fontFamily: "PoppinsBold",
                   textAlign: "center",
                 }}
               >
@@ -1696,7 +1696,7 @@ export const CompFichaTecnica = ({
               <Typography
                 sx={{
                   ml: 1,
-                  fontFamily: "MontserratBold",
+                  fontFamily: "PoppinsBold",
                   textAlign: "center",
                 }}
               >

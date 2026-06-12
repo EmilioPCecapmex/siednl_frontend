@@ -381,7 +381,7 @@ export const FormulaDialogMACA = ({
           justifyContent: "center",
         }}
       >
-        <Typography sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}>
+        <Typography sx={{ fontFamily: "PoppinsBold", fontSize: "1vw" }}>
           {elementoA
             ? `${elementoA} - Fórmula - ${tipo}`
             : `${"Componente" + " " + (noComponente + 1)} - Fórmula - ${tipo}`}
@@ -389,7 +389,7 @@ export const FormulaDialogMACA = ({
 
         <Typography
           sx={{
-            fontFamily: "MontserratRegular",
+            fontFamily: "PoppinsRegular",
             fontSize: ".6vw",
             width: "95%",
             textAlign: "center",
@@ -410,7 +410,7 @@ export const FormulaDialogMACA = ({
         </Typography>
         <Typography
           sx={{
-            fontFamily: "MontserratRegular",
+            fontFamily: "PoppinsRegular",
             fontSize: ".6vw",
             width: "95%",
             textAlign: "center",
@@ -480,7 +480,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -490,7 +490,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -516,7 +516,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -526,7 +526,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -552,7 +552,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -562,7 +562,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -588,7 +588,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -598,7 +598,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -621,7 +621,7 @@ export const FormulaDialogMACA = ({
                   <Typography
                     sx={{
                      
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
@@ -637,7 +637,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -647,14 +647,14 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
               <TextField
                 // type={"number"}
                 label={
-                  <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                  <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
                 }
@@ -663,7 +663,7 @@ export const FormulaDialogMACA = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorB}
@@ -674,7 +674,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -684,7 +684,7 @@ export const FormulaDialogMACA = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -694,7 +694,7 @@ export const FormulaDialogMACA = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorC}
@@ -705,7 +705,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -713,7 +713,7 @@ export const FormulaDialogMACA = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -723,7 +723,7 @@ export const FormulaDialogMACA = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorD}
@@ -734,7 +734,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -743,7 +743,7 @@ export const FormulaDialogMACA = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -753,7 +753,7 @@ export const FormulaDialogMACA = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorE}
@@ -764,7 +764,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -772,7 +772,7 @@ export const FormulaDialogMACA = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -782,7 +782,7 @@ export const FormulaDialogMACA = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorF}
@@ -793,7 +793,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -802,7 +802,7 @@ export const FormulaDialogMACA = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -812,7 +812,7 @@ export const FormulaDialogMACA = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorG}
@@ -823,7 +823,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -831,7 +831,7 @@ export const FormulaDialogMACA = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -841,7 +841,7 @@ export const FormulaDialogMACA = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorH}
@@ -852,7 +852,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -906,7 +906,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -916,7 +916,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -942,7 +942,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -952,7 +952,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -973,7 +973,7 @@ export const FormulaDialogMACA = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
                   </Typography>
@@ -996,7 +996,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 onChange={(c) =>
@@ -1006,7 +1006,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -1014,7 +1014,7 @@ export const FormulaDialogMACA = ({
                 // type={"number"}
                 label={
                   <Typography
-                    sx={{ fontFamily: "MontserratMedium" }}
+                    sx={{ fontFamily: "PoppinsMedium" }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
                   </Typography>
@@ -1024,7 +1024,7 @@ export const FormulaDialogMACA = ({
                 }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorB}
@@ -1035,7 +1035,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -1045,7 +1045,7 @@ export const FormulaDialogMACA = ({
                 label={
                   <Typography
                     sx={{
-                      fontFamily: "MontserratMedium"
+                      fontFamily: "PoppinsMedium"
                     }}
                   >
                     {tipo === "Tasa" ? "Valor T" : "Valor del numerador"}
@@ -1054,7 +1054,7 @@ export const FormulaDialogMACA = ({
                 sx={{ width: "95%" }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorC}
@@ -1065,7 +1065,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -1074,7 +1074,7 @@ export const FormulaDialogMACA = ({
                 label={
                   <Typography
                     sx={{
-                      fontFamily: "MontserratMedium"
+                      fontFamily: "PoppinsMedium"
                     }}
                   >
                     {tipo === "Tasa" ? "Valor T-1" : "Valor del denominador"}
@@ -1083,7 +1083,7 @@ export const FormulaDialogMACA = ({
                 sx={{ width: "95%" }}
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                   },
                 }}
                 value={ValorD}
@@ -1094,7 +1094,7 @@ export const FormulaDialogMACA = ({
                 }
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                   },
                 }}
               />
@@ -1119,7 +1119,7 @@ export const FormulaDialogMACA = ({
         }}
       >
         <Button className="cancelar" onClick={() => close()}>
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
             Cancelar
           </Typography>
         </Button>
@@ -1130,7 +1130,7 @@ export const FormulaDialogMACA = ({
             checkValues();
           }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
             Agregar
           </Typography>
         </Button>

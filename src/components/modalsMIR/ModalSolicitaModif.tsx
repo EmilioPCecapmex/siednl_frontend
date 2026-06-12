@@ -599,7 +599,7 @@ const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
     <Dialog fullWidth maxWidth="md" open={open} onClose={() => handleClose()}>
       <DialogTitle
         sx={{
-          fontFamily: "MontserratBold",
+          fontFamily: "PoppinsBold",
           borderBottom: 1,
           fontSize: [18, 20, 15, 20, 15],
           height: ["12vh", "10vh", "8vh", "8vh", "8vh"],
@@ -627,7 +627,7 @@ const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
           <Typography
             sx={{
               fontSize: [15, 15, 15, 15, 15],
-              fontFamily: "MontserratMedium",
+              fontFamily: "PoppinsMedium",
               textAlign: "center",
             }}
           >
@@ -664,7 +664,7 @@ const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
                   <li {...props} key={option.IdUsuario}>
                     <p
                       style={{
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       }}
                     >
                       {option.Rol +
@@ -687,12 +687,12 @@ const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
                   variant="standard"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                     },
                   }}
                   sx={{
                     "& .MuiAutocomplete-input": {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                 ></TextField>
@@ -743,7 +743,7 @@ const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
              // sx={{ marginBottom: isSmScreen ? "1rem" : 0 }} // Añade margen inferior solo cuando la pantalla es sm o más pequeña
               onClick={() => handleClose()}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                 CANCELAR
               </Typography>
             </Button>
@@ -761,7 +761,7 @@ const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'));
                 handleClose();
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                 {coment === "" ? "ENVIAR SIN COMENTARIOS" : "CONFIRMAR"}
               </Typography>
             </Button>

@@ -828,7 +828,7 @@ export const TutorialBox = ({
           >
             <Typography
               sx={{
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
                 width: "90%",
                 textAlign: "center",
                 mt: "1vh",
@@ -843,7 +843,7 @@ export const TutorialBox = ({
               {tutorialPosition === initialState ? null : (
                 <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={() => backButton()}>
                   <Typography
-                    sx={{ fontFamily: "MontserratSemiBold", fontSize: ".6vw" }}
+                    sx={{ fontFamily: "PoppinsSemiBold", fontSize: ".6vw" }}
                   >
                     Anterior
                   </Typography>
@@ -858,7 +858,7 @@ export const TutorialBox = ({
                 onClick={() => setTutorialPosition(tutorialPosition + 1)}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratSemiBold", fontSize: ".6vw" }}
+                  sx={{ fontFamily: "PoppinsSemiBold", fontSize: ".6vw" }}
                 >
                   {tutorialPosition + 1 === endState
                     ? "Finalizar"

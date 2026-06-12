@@ -257,7 +257,7 @@ export const TabComponenteRf = ({
         <Typography
           sx={{
             mr: "1vw",
-            fontFamily: "MontserratSemiBold",
+            fontFamily: "PoppinsSemiBold",
 
             fontSize: [8, 10, 10, 13, 15, 18],
           }}
@@ -327,7 +327,7 @@ export const TabComponenteRf = ({
                   >
                     <Typography
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                         fontSize: [10, 10, 10, 13, 15, 18],
                       }}
                     >
@@ -389,7 +389,7 @@ export const TabComponenteRf = ({
                     >
                       <Typography
                         sx={{
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                           fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       >
@@ -421,7 +421,7 @@ export const TabComponenteRf = ({
               xs={11} sx={{ display: 'flex', justifyContent: 'left' }}>
               <Typography
                 sx={{
-                  fontFamily: "MontserratSemiBold",
+                  fontFamily: "PoppinsSemiBold",
                   // fontSize: "1vw",
                   textAlign: "center",
                 }}
@@ -459,12 +459,12 @@ export const TabComponenteRf = ({
                   variant={"filled"}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
 
@@ -493,12 +493,12 @@ export const TabComponenteRf = ({
                   variant={"filled"}
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratMedium",
+                      fontFamily: "PoppinsMedium",
                     },
                   }}
                   InputProps={{
                     style: {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
 
@@ -528,7 +528,7 @@ export const TabComponenteRf = ({
               xs={11} sx={{ display: 'flex', justifyContent: 'left' }}>
               <Typography
                 sx={{
-                  fontFamily: "MontserratSemiBold",
+                  fontFamily: "PoppinsSemiBold",
                   // fontSize: "1vw",
                   textAlign: "center",
                 }}
@@ -571,12 +571,12 @@ export const TabComponenteRf = ({
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         },
                       }}
                       InputProps={{
                         style: {
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         },
                       }}
                       value={
@@ -610,12 +610,12 @@ export const TabComponenteRf = ({
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         },
                       }}
                       InputProps={{
                         style: {
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         },
                       }}
                       value={
@@ -660,12 +660,12 @@ export const TabComponenteRf = ({
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         },
                       }}
                       InputProps={{
                         style: {
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         },
                       }}
                       value={
@@ -703,12 +703,12 @@ export const TabComponenteRf = ({
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         },
                       }}
                       InputProps={{
                         style: {
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         },
                       }}
                       value={
@@ -746,12 +746,12 @@ export const TabComponenteRf = ({
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         },
                       }}
                       InputProps={{
                         style: {
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         },
                       }}
                       value={
@@ -788,12 +788,12 @@ export const TabComponenteRf = ({
                       variant={"filled"}
                       InputLabelProps={{
                         style: {
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                         },
                       }}
                       InputProps={{
                         style: {
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         },
                       }}
                       value={
@@ -830,7 +830,7 @@ export const TabComponenteRf = ({
               xs={11} sx={{ display: 'flex', justifyContent: 'left' }}>
               <Typography
                 sx={{
-                  fontFamily: "MontserratSemiBold",
+                  fontFamily: "PoppinsSemiBold",
                   // fontSize: "1vw",
                   textAlign: "center",
                 }}
@@ -873,12 +873,12 @@ export const TabComponenteRf = ({
                           variant={"filled"}
                           InputLabelProps={{
                             style: {
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                             },
                           }}
                           InputProps={{
                             style: {
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                             },
                           }}
 
@@ -917,12 +917,12 @@ export const TabComponenteRf = ({
                           variant={"filled"}
                           InputLabelProps={{
                             style: {
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                             },
                           }}
                           InputProps={{
                             style: {
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                             },
                           }}
                           onClick={() => handleClickOpen("semestre2")}
@@ -963,12 +963,12 @@ export const TabComponenteRf = ({
                           variant={"filled"}
                           InputLabelProps={{
                             style: {
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                             },
                           }}
                           InputProps={{
                             style: {
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                             },
                           }}
                           onClick={() => handleClickOpen("trimestre1")}
@@ -1007,12 +1007,12 @@ export const TabComponenteRf = ({
                           variant={"filled"}
                           InputLabelProps={{
                             style: {
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                             },
                           }}
                           InputProps={{
                             style: {
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                             },
                           }}
                           onClick={() => handleClickOpen("trimestre2")}
@@ -1050,12 +1050,12 @@ export const TabComponenteRf = ({
                           variant={"filled"}
                           InputLabelProps={{
                             style: {
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                             },
                           }}
                           InputProps={{
                             style: {
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                             },
                           }}
                           onClick={() => handleClickOpen("trimestre3")}
@@ -1093,12 +1093,12 @@ export const TabComponenteRf = ({
                           variant={"filled"}
                           InputLabelProps={{
                             style: {
-                              fontFamily: "MontserratMedium",
+                              fontFamily: "PoppinsMedium",
                             },
                           }}
                           InputProps={{
                             style: {
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                             },
                           }}
                           onClick={() => handleClickOpen("trimestre4")}

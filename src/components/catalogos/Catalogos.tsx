@@ -601,7 +601,7 @@ export const Catalogos = ({ defSelected }: { defSelected: string }) => {
           >
             <Tooltip title={opcionCatalogo}>
               <Typography
-                fontFamily={"'Montserrat', sans-serif"}
+                fontFamily={"'Poppins', sans-serif"}
                 sx={{
                   whiteSpace: "nowrap",
                   overflow: "hidden",

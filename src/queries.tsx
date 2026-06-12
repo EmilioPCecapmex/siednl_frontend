@@ -35,7 +35,7 @@ export const queries = {
   },
   text: {
     fontSize: "2ch",
-    fontFamily: "'Montserrat', sans-serif",
+    fontFamily: "'Poppins', sans-serif",
     alignSelf: "center",
     "@media (max-width: 600px)": {
       // XS (extra small) screen
@@ -48,7 +48,7 @@ export const queries = {
   },
    italic_text: {
     fontSize: "2ch",
-    fontFamily: "MontserratRegular",
+    fontFamily: "PoppinsRegular",
     fontStyle: "oblique",
     "@media (max-width: 600px)": {
       // XS (extra small) screen
@@ -61,7 +61,7 @@ export const queries = {
   },
   medium_text: {
     fontSize: "2ch",
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     "@media (max-width: 600px)": {
       // XS (extra small) screen
       fontSize: "1rem",
@@ -73,7 +73,7 @@ export const queries = {
   },
   bold_text: {
     fontSize: "1.8ch",
-    fontFamily: "MontserratBold",
+    fontFamily: "PoppinsBold",
     "@media (max-width: 600px)": {
       // XS (extra small) screen
       fontSize: "1rem",

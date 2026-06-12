@@ -187,7 +187,7 @@ export const TabComponente = ({
         <Typography
           sx={{
             mr: "1vw",
-            fontFamily: "MontserratSemiBold",
+            fontFamily: "PoppinsSemiBold",
             fontSize: ["3vh", "10", "13", "14", "15", "18"],
           }}
         >
@@ -273,7 +273,7 @@ export const TabComponente = ({
                     }}
                   >
                     <Typography
-                      sx={{ fontFamily: "MontserratMedium", fontSize: "1vw" }}
+                      sx={{ fontFamily: "PoppinsMedium", fontSize: "1vw" }}
                     >
                       COMPONENTE {index + 1}
                     </Typography>
@@ -330,7 +330,7 @@ export const TabComponente = ({
                       }}
                     >
                       <Typography
-                        sx={{ fontFamily: "MontserratMedium", fontSize: "6vw" }}
+                        sx={{ fontFamily: "PoppinsMedium", fontSize: "6vw" }}
                       >
                         COMPONENTE {index + 1}
                       </Typography>
@@ -369,12 +369,12 @@ export const TabComponente = ({
               label={"RESUMEN NARRATIVO"}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               onChange={(c) => {
@@ -414,12 +414,12 @@ export const TabComponente = ({
               variant="filled"
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               // onBlur={() => evalueTxtIndicador()}
@@ -464,13 +464,13 @@ export const TabComponente = ({
               variant="filled"
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
               }}
               InputProps={{
                 readOnly: true,
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               sx={{
@@ -503,7 +503,7 @@ export const TabComponente = ({
                 width: ["33vh", "30vh", "40vh", "50vh", "50vh"],
                 backgroundColor: "#f0f0f0",
                 boxShadow: 2,
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
                 justifyContent: "space-evenly",
                 alignItems: "center",
               }}
@@ -513,7 +513,7 @@ export const TabComponente = ({
                 value={"SEMESTRAL"}
                 label={"SEMESTRAL"}
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 }}
                 control={
                   <Radio
@@ -535,7 +535,7 @@ export const TabComponente = ({
                 value={"TRIMESTRAL"}
                 label={"TRIMESTRAL"}
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 }}
                 control={
                   <Radio
@@ -584,12 +584,12 @@ export const TabComponente = ({
               label={"MEDIOS DE VERIFICACIÓN Y FUENTE INFORMACION"}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               onChange={(c) => {
@@ -631,12 +631,12 @@ export const TabComponente = ({
               label={"SUPUESTOS"}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
               onChange={(c) => {

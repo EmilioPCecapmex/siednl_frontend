@@ -110,7 +110,7 @@ export const SettingsCard = ({ showConfig }: { showConfig: Function }) => {
             >
               <Typography
                 sx={{
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                   color: "#000",
                   "@media (max-width: 600px)": {
                     fontSize: "2vw", // Pantalla extra pequeña (xs y sm)

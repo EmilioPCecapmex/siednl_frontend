@@ -693,7 +693,7 @@ export const MetaAnual = () => {
                 size="small"
                 value={findTextStr}
                 label="Busqueda"
-                sx={{ width: "100%", fontFamily: "MontserratRegular" }}
+                sx={{ width: "100%", fontFamily: "PoppinsRegular" }}
                 variant="outlined"
                 onChange={(v) => {
                   setFindTextStr(v.target.value);
@@ -763,7 +763,7 @@ export const MetaAnual = () => {
                               <li {...props} key={option.Id}>
                                 <p
                                   style={{
-                                    fontFamily: "MontserratRegular",
+                                    fontFamily: "PoppinsRegular",
                                   }}
                                 >
                                   {option.Label}
@@ -778,12 +778,12 @@ export const MetaAnual = () => {
                               variant="standard"
                               InputLabelProps={{
                                 style: {
-                                  fontFamily: "MontserratSemiBold",
+                                  fontFamily: "PoppinsSemiBold",
                                 },
                               }}
                               sx={{
                                 "& .MuiAutocomplete-input": {
-                                  fontFamily: "MontserratRegular",
+                                  fontFamily: "PoppinsRegular",
                                 },
                               }}
                             ></TextField>
@@ -838,12 +838,12 @@ export const MetaAnual = () => {
                           variant="standard"
                           InputLabelProps={{
                             style: {
-                              fontFamily: "MontserratSemiBold",
+                              fontFamily: "PoppinsSemiBold",
                             },
                           }}
                           sx={{
                             "& .MuiAutocomplete-input": {
-                              fontFamily: "MontserratRegular",
+                              fontFamily: "PoppinsRegular",
                             },
                           }}
                         ></TextField>
@@ -878,7 +878,7 @@ export const MetaAnual = () => {
                 }}
               >*/}
                 <Grid
-                  sx={{ fontFamily: "MontserratRegular" }}
+                  sx={{ fontFamily: "PoppinsRegular" }}
                   item
                   xl={validaFecha ? 3 : 7}
                   lg={validaFecha ? 3 : 6}
@@ -930,7 +930,7 @@ export const MetaAnual = () => {
                   ""
                 ) : (
                   <Grid
-                    sx={{ fontFamily: "MontserratRegular" }}
+                    sx={{ fontFamily: "PoppinsRegular" }}
                     item
                     xl={4}
                     lg={3}
@@ -947,7 +947,7 @@ export const MetaAnual = () => {
                         width: ["80px", "120px", "160px", "180px", "250px"],
                         height: ["30px", "20px", "30px", "40px", "50px"],
                         //color: "black",
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                         fontSize: [5, 7, 10, 12, 16, 20],
                       }}
                     >
@@ -1010,10 +1010,10 @@ export const MetaAnual = () => {
                         <TableCell
                           sx={{
                             backgroundColor: "#edeaea",
-                            fontFamily: "MontserratBold",
+                            fontFamily: "PoppinsBold",
                             borderBottom: 0,
                             fontSize: [10, 10, 10, 15, 16, 18],
-                            // fontFamily: "MontserratRegular",
+                            // fontFamily: "PoppinsRegular",
                             //   fontSize: ".7vw",
                             justifyContent: "center",
                             alignItems: "center",

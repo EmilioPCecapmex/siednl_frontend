@@ -36,7 +36,7 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
         }}
       >
         <Grid sx={{ p: 5, display: "flex", flexDirection: "column" }}>
-          <Typography sx={{ fontFamily: "MontserratBold", borderBottom: 1 }}>
+          <Typography sx={{ fontFamily: "PoppinsBold", borderBottom: 1 }}>
             Identificación
           </Typography>
 
@@ -52,10 +52,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Ejercicio Fiscal:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
                 {AI.encabezado?.ejercicioFiscal?.Label}
               </Typography>
             </Grid>
@@ -71,10 +71,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Ente Público:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.encabezado?.entidad?.Label}
               </Typography>
             </Grid>
@@ -91,10 +91,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Programa:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.encabezado?.programa?.Label}
               </Typography>
             </Grid>
@@ -110,10 +110,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Unidad Responsable:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.encabezado?.programa?.Label}
               </Typography>
             </Grid>
@@ -131,10 +131,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 CONAC:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.encabezado?.conac}
               </Typography>
             </Grid>
@@ -150,10 +150,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Clasificación Programática
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.encabezado?.consecutivo}
               </Typography>
             </Grid>
@@ -171,10 +171,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Sujeto a ROP o LOP
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
                 
               </Typography>
             </Grid>
@@ -190,10 +190,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Anticorrupción:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.encabezado?.anticorrupcion}
               </Typography>
             </Grid>
@@ -210,10 +210,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
               borderColor: "#cfcfcf",
             }}
           >
-            <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
               Indicador de Género
             </Typography>
-            <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+            <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               
             </Typography>
           </Grid>
@@ -231,10 +231,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Beneficiario
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               
               </Typography>
             </Grid>
@@ -250,10 +250,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Objetivo:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.encabezado?.objetivo?.Label}
               </Typography>
             </Grid>
@@ -270,10 +270,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Objetivo Desarrollo Sostenible
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
                 
               </Typography>
             </Grid>
@@ -283,7 +283,7 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
 
           
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: "3vh" }}
+            sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: "3vh" }}
           >
             Acción 1
           </Typography>
@@ -300,10 +300,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Descripción de la acción
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.descripcion}
               </Typography>
             </Grid>
@@ -321,10 +321,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Nombre del Indicador
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.indicador}
               </Typography>
             </Grid>
@@ -339,10 +339,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Fórmula de Cálculo
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.formulaCalculo}
               </Typography>
             </Grid>
@@ -357,10 +357,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 MV / FI
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.mv}
               </Typography>
             </Grid>
@@ -378,10 +378,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Frecuencia:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.frecuencia}
               </Typography>
             </Grid>
@@ -396,10 +396,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Unidad de medida
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.unidadMedida}
               </Typography>
             </Grid>
@@ -417,10 +417,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Sentido:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.sentidoDelIndicador}
               </Typography>
             </Grid>
@@ -437,10 +437,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Descripción de indicador:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.descIndicador}
               </Typography>
             </Grid>
@@ -457,10 +457,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Línea Base 2021
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.metasPorFrecuencia[0]?.lineaBase}
               </Typography>
             </Grid>
@@ -478,10 +478,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Dato I
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.metasPorFrecuencia[0]?.trimestre1}
               </Typography>
             </Grid>
@@ -498,10 +498,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Dato II
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.metasPorFrecuencia[0]?.trimestre2}
               </Typography>
             </Grid>
@@ -518,10 +518,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Dato III
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.metasPorFrecuencia[0]?.trimestre3}
               </Typography>
             </Grid>
@@ -538,10 +538,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Dato IV
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.metasPorFrecuencia[0]?.trimestre4}
               </Typography>
             </Grid>
@@ -557,17 +557,17 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Anual
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.metasPorFrecuencia[0]?.anual}
               </Typography>
             </Grid>
           </Grid>
 
           <Typography
-            sx={{ fontFamily: "MontserratBold", borderBottom: 1, mt: "3vh" }}
+            sx={{ fontFamily: "PoppinsBold", borderBottom: 1, mt: "3vh" }}
           >
             Programa 1
           </Typography>
@@ -584,10 +584,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Descripción del programa
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.descripcion}
               </Typography>
             </Grid>
@@ -605,10 +605,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Nombre del Indicador
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.indicador}
               </Typography>
             </Grid>
@@ -623,10 +623,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Fórmula de Cálculo
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.formulaCalculo}
               </Typography>
             </Grid>
@@ -641,10 +641,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 MV / FI
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.mv}
               </Typography>
             </Grid>
@@ -662,10 +662,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Frecuencia:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.frecuencia}
               </Typography>
             </Grid>
@@ -680,10 +680,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Unidad de medida
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.unidadMedida}
               </Typography>
             </Grid>
@@ -701,10 +701,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Sentido:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.sentidoDelIndicador}
               </Typography>
             </Grid>
@@ -721,10 +721,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Descripción de indicador:
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.descIndicador}
               </Typography>
             </Grid>
@@ -741,10 +741,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Línea Base 2021
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.metasPorFrecuencia[0]?.lineaBase}
               </Typography>
             </Grid>
@@ -762,10 +762,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Dato I
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.metasPorFrecuencia[0]?.trimestre1}
               </Typography>
             </Grid>
@@ -782,10 +782,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Dato II
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.metasPorFrecuencia[0]?.trimestre2}
               </Typography>
             </Grid>
@@ -802,10 +802,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Dato III
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.metasPorFrecuencia[0]?.trimestre3}
               </Typography>
             </Grid>
@@ -822,10 +822,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Dato IV
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.metasPorFrecuencia[0]?.trimestre4}
               </Typography>
             </Grid>
@@ -841,10 +841,10 @@ export function TabResumen({ AI,showResume }: { AI:IAI;showResume: Function }) {
                 borderColor: "#cfcfcf",
               }}
             >
-              <Typography sx={{ fontFamily: "MontserratMedium", width: "20%" }}>
+              <Typography sx={{ fontFamily: "PoppinsMedium", width: "20%" }}>
                 Anual
               </Typography>
-              <Typography sx={{ fontFamily: "MontserratLight", width: "80%" }}>
+              <Typography sx={{ fontFamily: "PoppinsLight", width: "80%" }}>
               {AI.acciones[0]?.programas[0]?.metasPorFrecuencia[0]?.anual}
               </Typography>
             </Grid>

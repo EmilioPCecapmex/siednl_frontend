@@ -120,7 +120,7 @@ export const DeleteCompActMir = ({
         >
           <Typography
             sx={{
-              fontFamily: "MontserratSemiBold",
+              fontFamily: "PoppinsSemiBold",
               width: "90%",
               fontSize: "1vw",
               textAlign: "center",
@@ -135,7 +135,7 @@ export const DeleteCompActMir = ({
           </Typography>
 
           {metaAnual || fichaTecnica || Raffi ? (
-            <Typography sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium", fontSize: ".8vw" }}>
               {tipoelemento === "componente" ? (
                 <InformationSection
                   text="Toma en cuenta que dicho componente puede contener información dentro de los siguientes apartados"
@@ -168,7 +168,7 @@ export const DeleteCompActMir = ({
         >
           <Button sx={queries.buttonCancelarSolicitudInscripcion} onClick={handleClose}>
             <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              sx={{ fontFamily: "PoppinsMedium", fontSize: ".7vw" }}
             >
               Cancelar
             </Typography>
@@ -183,7 +183,7 @@ export const DeleteCompActMir = ({
             autoFocus
           >
             <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".7vw" }}
+              sx={{ fontFamily: "PoppinsMedium", fontSize: ".7vw" }}
             >
               De Acuerdo
             </Typography>

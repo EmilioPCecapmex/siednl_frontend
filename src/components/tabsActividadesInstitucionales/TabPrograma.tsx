@@ -556,7 +556,7 @@ export function TabPrograma({
                   >
                     <Typography
                       sx={{
-                        fontFamily: "MontserratMedium",
+                        fontFamily: "PoppinsMedium",
                         fontSize: [10, 10, 10, 13, 15, 18],
                       }}
                     >
@@ -634,7 +634,7 @@ export function TabPrograma({
                     >
                       <Typography
                         sx={{
-                          fontFamily: "MontserratMedium",
+                          fontFamily: "PoppinsMedium",
                           fontSize: [10, 10, 10, 13, 15, 18],
                         }}
                       >
@@ -685,7 +685,7 @@ export function TabPrograma({
             <Typography
               sx={{
                 mr: "1vw",
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 fontSize: ["2vh", "2vh", "2vh", "3vh", "4vh", "4vh"],
               }}
             >
@@ -731,9 +731,9 @@ export function TabPrograma({
               fullWidth
               rows={4}
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               variant="filled"
               sx={{ boxShadow: 2 }}
               label={"Descripción del programa"}
@@ -766,9 +766,9 @@ export function TabPrograma({
               multiline
               fullWidth
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               rows={4}
               variant="filled"
               sx={{ boxShadow: 2 }}
@@ -809,9 +809,9 @@ export function TabPrograma({
               rows={4}
               variant="filled"
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               sx={{ boxShadow: 2 }}
               label={"Fórmula de Cálculo"}
               onClick={() => {
@@ -840,9 +840,9 @@ export function TabPrograma({
               rows={4}
               variant="filled"
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               sx={{ boxShadow: 2 }}
               label={"MV / FI"}
               // onChange={(c) => {
@@ -883,9 +883,9 @@ export function TabPrograma({
               sx={{ boxShadow: 2 }}
               label={"Frecuencia"}
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               onChange={(c) => {
                 let y = [...acciones];
                 y[componentSelect-1].programas[programaSelect-1].frecuencia =
@@ -918,9 +918,9 @@ export function TabPrograma({
               sx={{ boxShadow: 2 }}
               label={"Unidad de medida"}
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               onChange={(c) => {
                 let y = [...acciones];
                 y[componentSelect-1].programas[programaSelect-1].unidadMedida =
@@ -953,9 +953,9 @@ export function TabPrograma({
               sx={{ boxShadow: 2 }}
               label={"Sentido"}
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               onChange={(c) => {
                 let y = [...acciones];
                 y[componentSelect-1].programas[programaSelect-1].sentidoDelIndicador =
@@ -988,9 +988,9 @@ export function TabPrograma({
               sx={{ boxShadow: 2 }}
               label={"Descripción de indicador"}
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               onChange={(c) => {
                 let y = [...acciones];
                 y[componentSelect-1].programas[programaSelect-1].descIndicador =
@@ -1021,9 +1021,9 @@ export function TabPrograma({
               rows={4}
               variant="filled"
               InputLabelProps={{
-                style: { fontFamily: "MontserratSemiBold" },
+                style: { fontFamily: "PoppinsSemiBold" },
               }}
-              InputProps={{ style: { fontFamily: "MontserratRegular" } }}
+              InputProps={{ style: { fontFamily: "PoppinsRegular" } }}
               sx={{ boxShadow: 2 }}
               label={"Medio de Verificación / Fuente de Información"}
               onChange={(c) => {
@@ -1119,7 +1119,7 @@ export function TabPrograma({
                               <Typography
                                 sx={{
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 LÍNEA BASE 2021
@@ -1127,12 +1127,12 @@ export function TabPrograma({
                             }
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               },
                             }}
                             InputProps={{
                               style: {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                             onClick={() =>
@@ -1153,7 +1153,7 @@ export function TabPrograma({
                               <Typography
                                 sx={{
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 DATO I
@@ -1161,12 +1161,12 @@ export function TabPrograma({
                             }
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               },
                             }}
                             InputProps={{
                               style: {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                             onClick={() =>
@@ -1186,7 +1186,7 @@ export function TabPrograma({
                               <Typography
                                 sx={{
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 DATO II
@@ -1194,12 +1194,12 @@ export function TabPrograma({
                             }
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               },
                             }}
                             InputProps={{
                               style: {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                             onClick={() =>
@@ -1219,7 +1219,7 @@ export function TabPrograma({
                               <Typography
                                 sx={{
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 DATO III
@@ -1227,12 +1227,12 @@ export function TabPrograma({
                             }
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               },
                             }}
                             InputProps={{
                               style: {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                             onClick={() =>
@@ -1252,7 +1252,7 @@ export function TabPrograma({
                               <Typography
                                 sx={{
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 DATO IV
@@ -1260,12 +1260,12 @@ export function TabPrograma({
                             }
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               },
                             }}
                             InputProps={{
                               style: {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                             onClick={() =>
@@ -1285,7 +1285,7 @@ export function TabPrograma({
                               <Typography
                                 sx={{
                                   fontSize: "0.7vw",
-                                  fontFamily: "MontserratMedium",
+                                  fontFamily: "PoppinsMedium",
                                 }}
                               >
                                 ANUAL
@@ -1293,12 +1293,12 @@ export function TabPrograma({
                             }
                             InputLabelProps={{
                               style: {
-                                fontFamily: "MontserratMedium",
+                                fontFamily: "PoppinsMedium",
                               },
                             }}
                             InputProps={{
                               style: {
-                                fontFamily: "MontserratRegular",
+                                fontFamily: "PoppinsRegular",
                               },
                             }}
                             onClick={() =>
@@ -1330,7 +1330,7 @@ export function TabPrograma({
               //                 <Typography
               //                   sx={{
               //                     fontSize: "0.7vw",
-              //                     fontFamily: "MontserratMedium",
+              //                     fontFamily: "PoppinsMedium",
               //                   }}
               //                 >
               //                   DATO I
@@ -1338,12 +1338,12 @@ export function TabPrograma({
               //               }
               //               InputLabelProps={{
               //                 style: {
-              //                   fontFamily: "MontserratMedium",
+              //                   fontFamily: "PoppinsMedium",
               //                 },
               //               }}
               //               InputProps={{
               //                 style: {
-              //                   fontFamily: "MontserratRegular",
+              //                   fontFamily: "PoppinsRegular",
               //                 },
               //               }}
               //               onClick={() =>
@@ -1364,7 +1364,7 @@ export function TabPrograma({
               //                 <Typography
               //                   sx={{
               //                     fontSize: "0.7vw",
-              //                     fontFamily: "MontserratMedium",
+              //                     fontFamily: "PoppinsMedium",
               //                   }}
               //                 >
               //                   DATO II
@@ -1375,12 +1375,12 @@ export function TabPrograma({
               //               }
               //               InputLabelProps={{
               //                 style: {
-              //                   fontFamily: "MontserratMedium",
+              //                   fontFamily: "PoppinsMedium",
               //                 },
               //               }}
               //               InputProps={{
               //                 style: {
-              //                   fontFamily: "MontserratRegular",
+              //                   fontFamily: "PoppinsRegular",
               //                 },
               //               }}
               //               value={

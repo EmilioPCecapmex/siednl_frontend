@@ -101,7 +101,7 @@ export const DeleteDialogCatalogos = ({
         >
           <Typography
             sx={{
-              fontFamily: "MontserratSemiBold",
+              fontFamily: "PoppinsSemiBold",
               width: "90%",
               fontSize: [10, 15, 15, 15, 15],
               textAlign: "center",
@@ -118,7 +118,7 @@ export const DeleteDialogCatalogos = ({
             justifyContent: "center",
           }}
         >
-          <Typography sx={{ fontFamily: "MontserratLight", fontSize: [10, 15, 15, 15, 15], }}>
+          <Typography sx={{ fontFamily: "PoppinsLight", fontSize: [10, 15, 15, 15, 15], }}>
             {deleteText}
           </Typography>
         </DialogContent>
@@ -132,7 +132,7 @@ export const DeleteDialogCatalogos = ({
         >
           <Button className="cancelar" onClick={cerrardialog}>
             <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: [10, 15, 15, 15, 15], }}
+              sx={{ fontFamily: "PoppinsMedium", fontSize: [10, 15, 15, 15, 15], }}
             >
               Cancelar
             </Typography>
@@ -140,7 +140,7 @@ export const DeleteDialogCatalogos = ({
 
           <Button className="aceptar" onClick={opendialog} color="error" autoFocus>
             <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: [10, 15, 15, 15, 15], }}
+              sx={{ fontFamily: "PoppinsMedium", fontSize: [10, 15, 15, 15, 15], }}
             >
               De Acuerdo
             </Typography>

@@ -100,7 +100,7 @@ export default function NotificationsPanel({
                 >
                   <Typography
                     sx={{
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
 
                       color: "#af8c55",
                     }}
@@ -140,7 +140,7 @@ export default function NotificationsPanel({
                   >
                     <Typography
                       sx={{
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
 
                         color: "blue",
                       }}
@@ -152,7 +152,7 @@ export default function NotificationsPanel({
 
                   {/* <Typography
                     sx={{
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                       fontSize: ".5vw",
                       color: "#909090",
                     }}
@@ -173,7 +173,7 @@ export default function NotificationsPanel({
                 >
                   <Typography
                     sx={{
-                      fontFamily: "MontserratLight",
+                      fontFamily: "PoppinsLight",
 
                       ml: "1vw",
                       mt: "1vh",
@@ -216,7 +216,7 @@ export default function NotificationsPanel({
       ) : (
         <Typography
           sx={{
-            fontFamily: "MontserratLight",
+            fontFamily: "PoppinsLight",
             fontSize: ".9vw",
             ml: "1vw",
             mt: "1vh",
@@ -297,7 +297,7 @@ export default function NotificationsPanel({
           //   borderColor: "#fff",
           // }}
         >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
             TUS NOTIFICACIONES
           </Typography>
         </Grid>

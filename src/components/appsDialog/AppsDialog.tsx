@@ -167,7 +167,7 @@ export const AppsDialog = ({
             borderColor: "#cbcbcb",
           }}
         >
-          <Typography sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}>
+          <Typography sx={{ fontFamily: "PoppinsBold", fontSize: "1vw" }}>
             Vincular Usuario - Institución
           </Typography>
         </Box>
@@ -195,7 +195,7 @@ export const AppsDialog = ({
                 <li {...props} key={option.Id}>
                   <div
                     style={{
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                       fontSize: ".8vw",
                     }}
                   >
@@ -203,7 +203,7 @@ export const AppsDialog = ({
                     <br></br>
                     <div
                       style={{
-                        fontFamily: "MontserratLight",
+                        fontFamily: "PoppinsLight",
                         fontSize: ".6vw",
                       }}
                     >
@@ -236,7 +236,7 @@ export const AppsDialog = ({
         >
           <Button sx={queries.buttonCancelarSolicitudInscripcion} color="error" onClick={handleClose}>
             <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+              sx={{ fontFamily: "PoppinsMedium", fontSize: ".8vw" }}
             >
               Cancelar
             </Typography>
@@ -244,7 +244,7 @@ export const AppsDialog = ({
 
           <Button sx={queries.buttonContinuarSolicitudInscripcion} onClick={verifica} autoFocus>
             <Typography
-              sx={{ fontFamily: "MontserratMedium", fontSize: ".8vw" }}
+              sx={{ fontFamily: "PoppinsMedium", fontSize: ".8vw" }}
             >
               De Acuerdo
             </Typography>

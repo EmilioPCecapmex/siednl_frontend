@@ -98,7 +98,7 @@ export const WelcomeBox = () => {
             alignItems:"center",
             flexDirection:"column"
           }}>
-            <Typography sx={{fontFamily:"MontserratSemiBold", fontSize:"2vw"}}> ¡Hola {localStorage.getItem("NombreUsuario")}!</Typography>
+            <Typography sx={{fontFamily:"PoppinsSemiBold", fontSize:"2vw"}}> ¡Hola {localStorage.getItem("NombreUsuario")}!</Typography>
           </Box>
           <Box sx={{
             width:"32vw",
@@ -107,7 +107,7 @@ export const WelcomeBox = () => {
             justifyContent:"center",
             alignItems:"center"
           }}>
-            <Typography textAlign={"center"} sx={{fontFamily:"MontserratRegular", fontSize:"0.9vw"}}>
+            <Typography textAlign={"center"} sx={{fontFamily:"PoppinsRegular", fontSize:"0.9vw"}}>
               Recuerda que puedes acceder a la sección de ayuda dando click al
               botón de ayuda que esta donde te señala la flecha
             </Typography>
@@ -119,7 +119,7 @@ export const WelcomeBox = () => {
             width: "10vw",
             height: "4vh",
             color: "black",
-            fontFamily: "MontserratMedium",
+            fontFamily: "PoppinsMedium",
             fontSize: "0.6vw",
             margin:"1vw"
           }}

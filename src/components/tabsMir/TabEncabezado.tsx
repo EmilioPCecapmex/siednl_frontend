@@ -310,7 +310,7 @@ export function TabEncabezado({
         }}
       >
          <Button href="/files/MIR_2023.xlsx" target="_blank" download>
-          <Typography sx={{ fontFamily: "MontserratMedium", color: "#616161" }}>
+          <Typography sx={{ fontFamily: "PoppinsMedium", color: "#616161" }}>
             Plantilla
           </Typography>
         </Button> 
@@ -362,7 +362,7 @@ export function TabEncabezado({
                   <li {...props} key={option.Id}>
                     <p
                       style={{
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       }}
                     >
                       {option.Label}
@@ -377,12 +377,12 @@ export function TabEncabezado({
                   variant="standard"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                     },
                   }}
                   sx={{
                     "& .MuiAutocomplete-input": {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                 ></TextField>
@@ -423,7 +423,7 @@ export function TabEncabezado({
                   <li {...props} key={option.Id}>
                     <p
                       style={{
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       }}
                     >
                       {option.Label?.toUpperCase()}
@@ -439,12 +439,12 @@ export function TabEncabezado({
                   variant="standard"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                     },
                   }}
                   sx={{
                     "& .MuiAutocomplete-input": {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       textTransform: "uppercase",
                     },
                   }}
@@ -501,7 +501,7 @@ export function TabEncabezado({
                   <li {...props} key={option.Id}>
                     <p
                       style={{
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       }}
                     >
                       {option.Label}
@@ -517,12 +517,12 @@ export function TabEncabezado({
                   variant="standard"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                     },
                   }}
                   sx={{
                     "& .MuiAutocomplete-input": {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                 ></TextField>
@@ -632,7 +632,7 @@ export function TabEncabezado({
                   <li {...props} key={option.Id}>
                     <p
                       style={{
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       }}
                     >
                       {option.Label}
@@ -647,12 +647,12 @@ export function TabEncabezado({
                   variant="standard"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                     },
                   }}
                   sx={{
                     "& .MuiAutocomplete-input": {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                 />
@@ -702,7 +702,7 @@ export function TabEncabezado({
                   <li {...props} key={option.Id}>
                     <p
                       style={{
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       }}
                     >
                       {option.Label.toUpperCase()}
@@ -717,12 +717,12 @@ export function TabEncabezado({
                   variant="standard"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                     },
                   }}
                   sx={{
                     "& .MuiAutocomplete-input": {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       textTransform: "uppercase",
                     },
                   }}
@@ -767,7 +767,7 @@ export function TabEncabezado({
                   <li {...props} key={option.Id}>
                     <p
                       style={{
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       }}
                     >
                       {option.Label.toUpperCase()}
@@ -782,12 +782,12 @@ export function TabEncabezado({
                   variant="standard"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                     },
                   }}
                   sx={{
                     "& .MuiAutocomplete-input": {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       textTransform: "uppercase",
                     },
                   }}
@@ -834,7 +834,7 @@ export function TabEncabezado({
                   <li {...props} key={option.Id}>
                     <p
                       style={{
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       }}
                     >
                       {option.Label}
@@ -849,12 +849,12 @@ export function TabEncabezado({
                   variant="standard"
                   InputLabelProps={{
                     style: {
-                      fontFamily: "MontserratSemiBold",
+                      fontFamily: "PoppinsSemiBold",
                     },
                   }}
                   sx={{
                     "& .MuiAutocomplete-input": {
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                     },
                   }}
                 />
@@ -904,7 +904,7 @@ export function TabEncabezado({
                     <li {...props} key={option.Id}>
                       <p
                         style={{
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         }}
                       >
                         {option.Label.toUpperCase()}
@@ -921,12 +921,12 @@ export function TabEncabezado({
                     variant="standard"
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                       },
                     }}
                     sx={{
                       "& .MuiAutocomplete-input": {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         textTransform: "uppercase",
                       },
                     }}
@@ -985,7 +985,7 @@ export function TabEncabezado({
                     <li {...props} key={option.Id}>
                       <p
                         style={{
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         }}
                       >
                         {option.Label}
@@ -1012,12 +1012,12 @@ export function TabEncabezado({
                     }}
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                       },
                     }}
                     sx={{
                       "& .MuiAutocomplete-input": {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                   ></TextField>

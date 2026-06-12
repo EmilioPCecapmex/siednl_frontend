@@ -36,22 +36,22 @@ export const lstXl = {
     width: 100,
     height: 100,
     fontSize: "1.5vw",
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     boxShadow: 4,
   },
   userInfoBox: {
     textAlign: "center",
     fontSize: ".8vw",
-    fontFamily: "MontserratBold",
+    fontFamily: "PoppinsBold",
   },
   rolStyle: {
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: ".7vw",
     fontStyle: "oblique",
   },
   
   institucionStyle: {
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     display: "flex",
     fontSize: ".5vw",
     justifyContent: "center",
@@ -70,7 +70,7 @@ export const lstXl = {
   selectInstitucionStyle: {
     width: "100%",
     textAlign: "center",
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: ".7vw",
   },
   dividerBox: {
@@ -100,14 +100,14 @@ export const lstXl = {
   },
   iconMenuList: { color: "#15212f", width: "2vw" },
   firstItemsStyle: {
-    fontFamily: "MontserratLight",
+    fontFamily: "PoppinsLight",
     fontSize: ".9vw",
     ml: "1vw",
     
   },
-  subMenuItemsText: { fontFamily: "MontserratLight", fontSize: ".9vw" },
+  subMenuItemsText: { fontFamily: "PoppinsLight", fontSize: ".9vw" },
   bottomItemsStyle: {
-    fontFamily: "MontserratLight",
+    fontFamily: "PoppinsLight",
     fontSize: ".9vw",
     ml: "1vw",
   },
@@ -151,21 +151,21 @@ export const lstLg = {
     width: 70,
     height: 70,
     fontSize: "2vw",
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     boxShadow: 4,
   },
   userInfoBox: {
     textAlign: "center",
     fontSize: "1vw",
-    fontFamily: "MontserratBold",
+    fontFamily: "PoppinsBold",
   },
   rolStyle: {
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: "1vw",
     fontStyle: "oblique",
   },
   institucionStyle: {
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: "1vw",
     alignItems: "center",
     display: "flex",
@@ -185,7 +185,7 @@ export const lstLg = {
   selectInstitucionStyle: {
     width: "100%",
     textAlign: "center",
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: "1.3vw",
   },
   dividerBox: {
@@ -215,13 +215,13 @@ export const lstLg = {
   },
   iconMenuList: { color: "#15212f", width: "3vw" },
   firstItemsStyle: {
-    fontFamily: "MontserratLight",
+    fontFamily: "PoppinsLight",
     fontSize: "1.2vw",
     ml: "1vw",
   },
-  subMenuItemsText: { fontFamily: "MontserratLight", fontSize: "1.2vw" },
+  subMenuItemsText: { fontFamily: "PoppinsLight", fontSize: "1.2vw" },
   bottomItemsStyle: {
-    fontFamily: "MontserratLight",
+    fontFamily: "PoppinsLight",
     fontSize: "1.2vw",
     ml: "1vw",
   },
@@ -265,21 +265,21 @@ export const lstMd = {
     width: 80,
     height: 80,
     fontSize: "3vw",
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     boxShadow: 4,
   },
   userInfoBox: {
     textAlign: "center",
     fontSize: "1.3vw",
-    fontFamily: "MontserratBold",
+    fontFamily: "PoppinsBold",
   },
   rolStyle: {
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: "1.15vw",
     fontStyle: "oblique",
   },
   institucionStyle: {
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: ".9vw",
     textAlign: "center",
     display: "flex",
@@ -299,7 +299,7 @@ export const lstMd = {
   selectInstitucionStyle: {
     width: "100%",
     textAlign: "center",
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: "1vw",
   },
   dividerBox: {
@@ -329,13 +329,13 @@ export const lstMd = {
   },
   iconMenuList: { color: "#15212f", width: "3vw" },
   firstItemsStyle: {
-    fontFamily: "MontserratLight",
+    fontFamily: "PoppinsLight",
     fontSize: "1.3vw",
     ml: "1vw",
   },
-  subMenuItemsText: { fontFamily: "MontserratLight", fontSize: "1.1vw" },
+  subMenuItemsText: { fontFamily: "PoppinsLight", fontSize: "1.1vw" },
   bottomItemsStyle: {
-    fontFamily: "MontserratLight",
+    fontFamily: "PoppinsLight",
     fontSize: "1.3vw",
     ml: "1vw",
   },
@@ -379,22 +379,22 @@ export const lstSm = {
     width: 60,
     height: 60,
     fontSize: "3.5vw",
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     boxShadow: 4,
   },
   userInfoBox: {
     textAlign: "center",
     fontSize: "2vw",
-    fontFamily: "MontserratBold",
+    fontFamily: "PoppinsBold",
   },
   rolStyle: {
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: "1.7vw",
     fontStyle: "oblique",
   },
   ///////////////////////////////////////////////
   institucionStyle: {
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: "1.5vw",
     alignItems: "center",
     display: "flex",
@@ -415,7 +415,7 @@ export const lstSm = {
   selectInstitucionStyle: {
     width: "100%",
     textAlign: "center",
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: "2vw",
   },
   dividerBox: {
@@ -445,17 +445,17 @@ export const lstSm = {
   },
   iconMenuList: { color: "#15212f", width: "3vw" },
   firstItemsStyle: {
-    fontFamily: "MontserratLight",
+    fontFamily: "PoppinsLight",
     fontSize: "2vw",
     ml: "2vw",
   },
   subMenuItemsText: {
-    fontFamily: "MontserratLight",
+    fontFamily: "PoppinsLight",
     fontSize: "1.8vw",
     ml: "2vw",
   },
   bottomItemsStyle: {
-    fontFamily: "MontserratLight",
+    fontFamily: "PoppinsLight",
     fontSize: "2vw",
     ml: "2vw",
   },
@@ -499,22 +499,22 @@ export const lstXs = {
     width: 60,
     height: 60,
     fontSize: "5.5vw",
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     boxShadow: 4,
   },
   userInfoBox: {
     textAlign: "center",
     fontSize: "4vw",
-    fontFamily: "MontserratBold",
+    fontFamily: "PoppinsBold",
   },
   rolStyle: {
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: "3vw",
     fontStyle: "oblique",
   },
   ///////////////////////////////////////////////
   institucionStyle: {
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: "3vw",
     alignItems: "center",
     display: "flex",
@@ -535,7 +535,7 @@ export const lstXs = {
   selectInstitucionStyle: {
     width: "100%",
     textAlign: "center",
-    fontFamily: "MontserratMedium",
+    fontFamily: "PoppinsMedium",
     fontSize: "3vw",
   },
   dividerBox: {
@@ -565,17 +565,17 @@ export const lstXs = {
   },
   iconMenuList: { color: "#15212f", width: "3vw" },
   firstItemsStyle: {
-    fontFamily: "MontserratLight",
+    fontFamily: "PoppinsLight",
     fontSize: "3vw",
     ml: "6vw",
   },
   subMenuItemsText: {
-    fontFamily: "MontserratLight",
+    fontFamily: "PoppinsLight",
     fontSize: "3vw",
     ml: "6vw",
   },
   bottomItemsStyle: {
-    fontFamily: "MontserratLight",
+    fontFamily: "PoppinsLight",
     fontSize: "3vw",
     ml: "6vw",
   },

@@ -359,7 +359,7 @@ export default function ModalEditarSolicitud({
 
   return (
     <Dialog fullWidth maxWidth="lg" open={open} onClose={() => handleClose()}>
-      <DialogTitle sx={{ fontFamily: "MontserratBold" }}>
+      <DialogTitle sx={{ fontFamily: "PoppinsBold" }}>
         EDITAR SOLICITUD
       </DialogTitle>
 
@@ -504,7 +504,7 @@ export default function ModalEditarSolicitud({
                     <MenuItem
                       value={item.Id}
                       key={item.Id}
-                      sx={{ fontFamily: "MontserratRegular" }}
+                      sx={{ fontFamily: "PoppinsRegular" }}
                     >
                       {item.Rol}
                     </MenuItem>

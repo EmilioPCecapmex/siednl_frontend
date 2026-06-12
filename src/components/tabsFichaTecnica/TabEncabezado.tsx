@@ -182,7 +182,7 @@ export function TabEncabezado({
         <Typography
           sx={{
             mr: "1vw",
-            fontFamily: "MontserratSemiBold",
+            fontFamily: "PoppinsSemiBold",
             fontSize: [10, 15, 18, 22, 22, 25],
           }}
         >
@@ -194,7 +194,7 @@ export function TabEncabezado({
       <Grid sx={{ width: "90%", gridColumn: "1/4" }}>
         <Typography
           sx={{
-            fontFamily: "MontserratSemiBold",
+            fontFamily: "PoppinsSemiBold",
             // fontSize: "1vw",
             textAlign: "center",
           }}
@@ -256,13 +256,13 @@ export function TabEncabezado({
               variant={"filled"}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                   
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
             ></TextField>
@@ -300,12 +300,12 @@ export function TabEncabezado({
               InputLabelProps={{
                 style: {
                   
-                  fontFamily: "MontserratMedium",
+                  fontFamily: "PoppinsMedium",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                 },
               }}
             ></TextField>
@@ -337,7 +337,7 @@ export function TabEncabezado({
                     <li {...props} key={option.Id}>
                       <p
                         style={{
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         }}
                       >
                         {option.ObjetivoDS}
@@ -352,12 +352,12 @@ export function TabEncabezado({
                     variant="standard"
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                       },
                     }}
                     sx={{
                       "& .MuiAutocomplete-input": {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                   ></TextField>
@@ -400,7 +400,7 @@ export function TabEncabezado({
                     <li {...props} key={option.Id}>
                       <p
                         style={{
-                          fontFamily: "MontserratRegular",
+                          fontFamily: "PoppinsRegular",
                         }}
                       >
                         {option.MetaODS}
@@ -415,12 +415,12 @@ export function TabEncabezado({
                     variant="standard"
                     InputLabelProps={{
                       style: {
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                       },
                     }}
                     sx={{
                       "& .MuiAutocomplete-input": {
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                       },
                     }}
                   ></TextField>

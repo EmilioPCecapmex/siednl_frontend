@@ -160,13 +160,13 @@ export const DialogFinPropositoRaffi = ({
               }
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratSemiBold",
+                  fontFamily: "PoppinsSemiBold",
                   
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                   
                 },
               }}
@@ -190,13 +190,13 @@ export const DialogFinPropositoRaffi = ({
                 }
                 InputLabelProps={{
                   style: {
-                    fontFamily: "MontserratSemiBold",
+                    fontFamily: "PoppinsSemiBold",
                     
                   },
                 }}
                 InputProps={{
                   style: {
-                    fontFamily: "MontserratRegular",
+                    fontFamily: "PoppinsRegular",
                     
                   },
                 }}

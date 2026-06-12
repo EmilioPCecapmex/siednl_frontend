@@ -407,7 +407,7 @@ export const LateralMenu = ({
               borderColor: "#ccc",
             }}
           >
-            <Typography sx={{ fontFamily: "MontserratMedium" }}>
+            <Typography sx={{ fontFamily: "PoppinsMedium" }}>
               MODIFICAR CONTRASEÑA
             </Typography>
           </Grid>
@@ -436,12 +436,12 @@ export const LateralMenu = ({
               type="password"
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratLight",
+                  fontFamily: "PoppinsLight",
                 },
               }}
               InputProps={{
                 style: {
-                  fontFamily: "MontserratLight",
+                  fontFamily: "PoppinsLight",
                 },
               }}
               onChange={(v) => setNewPassword(v.target.value)}
@@ -468,7 +468,7 @@ export const LateralMenu = ({
                 onClick={() => handleClosePasswordChange()}
                 variant="outlined"
               >
-                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                   CANCELAR
                 </Typography>
               </Button>
@@ -476,7 +476,7 @@ export const LateralMenu = ({
 
             <Grid item>
               <Button className="aceptar" onClick={() => cambiarContrasena()}>
-                <Typography sx={{ fontFamily: "MontserratMedium" }}>
+                <Typography sx={{ fontFamily: "PoppinsMedium" }}>
                   CAMBIAR
                 </Typography>{" "}
               </Button>
@@ -831,7 +831,7 @@ export const LateralMenu = ({
                 }}
               >
                 <Typography
-                  sx={{ textAlign: "center", fontFamily: "MontserratSemiBold" }}
+                  sx={{ textAlign: "center", fontFamily: "PoppinsSemiBold" }}
                 >
                   
 {menus.some(m => m.Menu === "Programa Anual de Evaluación") 
@@ -861,7 +861,7 @@ export const LateralMenu = ({
                     width: "11vh",
                     height: "11vh",
                     fontSize: "1.5vw",
-                    fontFamily: "MontserratMedium",
+                    fontFamily: "PoppinsMedium",
                     boxShadow: 4,
                   }}
                 >
@@ -900,13 +900,13 @@ export const LateralMenu = ({
                 }}
               >
                 <Typography
-                  sx={{ fontFamily: "MontserratMedium", display: "flex" }}
+                  sx={{ fontFamily: "PoppinsMedium", display: "flex" }}
                 >
                   INSTITUCION ASIGNADA
                 </Typography>
                 <Tooltip title={localStorage.getItem("Entidad")}>
                   <Typography
-                    fontFamily={"'Montserrat', sans-serif"}
+                    fontFamily={"'Poppins', sans-serif"}
                     sx={{
                       whiteSpace: "nowrap",
                       overflow: "hidden",

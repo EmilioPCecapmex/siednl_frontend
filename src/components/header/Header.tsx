@@ -32,7 +32,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
         <Breadcrumbs
           aria-label="breadcrumb"
           sx={{
-            fontFamily: "MontserratBold",
+            fontFamily: "PoppinsBold",
             fontSize: ["4vw","3vw","3vw","1.5vw","1.5vw",],
             color: "white",
           }}
@@ -61,7 +61,7 @@ export const Header = ({ details }: { details: BreadcrumbsDetails }) => {
             <Typography
               //color="text.primary"
               sx={{
-                fontFamily: "MontserratMedium",
+                fontFamily: "PoppinsMedium",
                 fontSize: "1.5vw",
                 cursor: "pointer",
               }}

@@ -51,7 +51,7 @@ export const ActFichaTecnica = ({
 
   const sxTitleStyle = {
     fontSize: "1vw",
-    fontFamily: "MontserratSemiBold",
+    fontFamily: "PoppinsSemiBold",
     ml: 1,
   };
 
@@ -75,7 +75,7 @@ export const ActFichaTecnica = ({
     width: "38vw",
     display: "flex",
     fontSize: ".8rem",
-    fontFamily: "MontserratRegular",
+    fontFamily: "PoppinsRegular",
     minHeight: "5vh",
     ml: "2vw",
     backgroundColor: "white",
@@ -85,13 +85,13 @@ export const ActFichaTecnica = ({
   //SMALL BOXES
   const sxTitleSmallBoxes = {
     fontSize: ".9vw",
-    fontFamily: "MontserratSemiBold",
+    fontFamily: "PoppinsSemiBold",
     textAlign: "center",
   };
 
   const sxResultSmallBoxes = {
     fontSize: ".8rem",
-    fontFamily: "MontserratRegular",
+    fontFamily: "PoppinsRegular",
     textAlign: "center",
   };
 
@@ -247,7 +247,7 @@ export const ActFichaTecnica = ({
                   >
                     <Typography
                       sx={{
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                         textAlign: "center",
                       }}
                     >
@@ -255,7 +255,7 @@ export const ActFichaTecnica = ({
                     </Typography>
                     <Typography
                       sx={{
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                         textAlign: "center",
                       }}
                     >
@@ -263,7 +263,7 @@ export const ActFichaTecnica = ({
                     </Typography>
                     <Typography
                       sx={{
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                         textAlign: "center",
                       }}
                     >
@@ -271,7 +271,7 @@ export const ActFichaTecnica = ({
                     </Typography>
                     <Typography
                       sx={{
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                         textAlign: "center",
                       }}
                     >
@@ -279,7 +279,7 @@ export const ActFichaTecnica = ({
                     </Typography>
                     <Typography
                       sx={{
-                        fontFamily: "MontserratSemiBold",
+                        fontFamily: "PoppinsSemiBold",
                         textAlign: "center",
                       }}
                     >
@@ -303,7 +303,7 @@ export const ActFichaTecnica = ({
                 }}
               >
                 <Typography
-                  sx={{ fontSize: "1vw", fontFamily: "MontserratBold" }}
+                  sx={{ fontSize: "1vw", fontFamily: "PoppinsBold" }}
                 >
                   ACTIVIDAD {jsonMir.componentes[indexComponentes].actividades[indexActividades].actividad}
                 </Typography>
@@ -336,7 +336,7 @@ export const ActFichaTecnica = ({
                       height: "10vh",
                       display: "flex",
                       fontSize: ".8rem",
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       minHeight: "5vh",
                       backgroundColor: "white",
                       textAlign: "justify",
@@ -350,7 +350,7 @@ export const ActFichaTecnica = ({
                 <Typography
                   sx={{
                     ml: 1,
-                    fontFamily: "MontserratBold",
+                    fontFamily: "PoppinsBold",
                     textAlign: "center",
                   }}
                 >
@@ -662,7 +662,7 @@ export const ActFichaTecnica = ({
                 <Typography
                   sx={{
                     ml: 1,
-                    fontFamily: "MontserratBold",
+                    fontFamily: "PoppinsBold",
                     textAlign: "center",
                   }}
                 >
@@ -915,7 +915,7 @@ export const ActFichaTecnica = ({
                 <Typography
                   sx={{
                     ml: 1,
-                    fontFamily: "MontserratBold",
+                    fontFamily: "PoppinsBold",
                     textAlign: "center",
                   }}
                 >
@@ -972,7 +972,7 @@ export const ActFichaTecnica = ({
                         display: "flex",
                         fontSize: ".7rem",
                         textAlign: "justify",
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         backgroundColor: "white",
                       }}
                     >
@@ -1019,7 +1019,7 @@ export const ActFichaTecnica = ({
                         display: "flex",
                         fontSize: ".7rem",
                         textAlign: "justify",
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         backgroundColor: "white",
                       }}
                     >
@@ -1085,7 +1085,7 @@ export const ActFichaTecnica = ({
                       sx={{
                         width: "90%",
                         fontSize: ".7rem",
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         minHeight: "5vh",
                         backgroundColor: "white",
                         textAlign: "justify",
@@ -1110,7 +1110,7 @@ export const ActFichaTecnica = ({
                       sx={{
                         width: "90%",
                         fontSize: ".7rem",
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         textAlign: "justify",
                         backgroundColor: "white",
                       }}
@@ -1159,7 +1159,7 @@ export const ActFichaTecnica = ({
                       sx={{
                         width: "90%",
                         fontSize: ".7rem",
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         minHeight: "5vh",
                         backgroundColor: "white",
                         textAlign: "justify",
@@ -1184,7 +1184,7 @@ export const ActFichaTecnica = ({
                       sx={{
                         width: "90%",
                         fontSize: ".7rem",
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         minHeight: "5vh",
                         backgroundColor: "white",
                         textAlign: "justify",
@@ -1234,7 +1234,7 @@ export const ActFichaTecnica = ({
                         width: "90%",
                         display: "flex",
                         fontSize: ".7rem",
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         minHeight: "5vh",
                         backgroundColor: "white",
                         textAlign: "justify",
@@ -1260,7 +1260,7 @@ export const ActFichaTecnica = ({
                         width: "90%",
                         display: "flex",
                         fontSize: ".7rem",
-                        fontFamily: "MontserratRegular",
+                        fontFamily: "PoppinsRegular",
                         minHeight: "5vh",
                         backgroundColor: "white",
                         textAlign: "justify",
@@ -1303,7 +1303,7 @@ export const ActFichaTecnica = ({
                     }}
                   >
                     <Typography
-                      sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+                      sx={{ fontSize: ".7rem", fontFamily: "PoppinsRegular" }}
                     >
                       {jsonMA.componentes[indexComponentes].actividades[indexActividades].valorNumerador}
                     </Typography>
@@ -1320,7 +1320,7 @@ export const ActFichaTecnica = ({
                     }}
                   >
                     <Typography
-                      sx={{ fontSize: ".7rem", fontFamily: "MontserratRegular" }}
+                      sx={{ fontSize: ".7rem", fontFamily: "PoppinsRegular" }}
                     >
                       {jsonMA.componentes[indexComponentes].actividades[indexActividades].valorDenominador}
                     </Typography>
@@ -1341,7 +1341,7 @@ export const ActFichaTecnica = ({
                 }}
               >
                 <Typography
-                  sx={{ fontSize: "1vw", fontFamily: "MontserratBold" }}
+                  sx={{ fontSize: "1vw", fontFamily: "PoppinsBold" }}
                 >
                   SUPUESTO
                 </Typography>
@@ -1373,7 +1373,7 @@ export const ActFichaTecnica = ({
                       height: "10vh",
                       display: "flex",
                       fontSize: ".8rem",
-                      fontFamily: "MontserratRegular",
+                      fontFamily: "PoppinsRegular",
                       minHeight: "5vh",
                       backgroundColor: "white",
                       textAlign: "justify",
@@ -1387,7 +1387,7 @@ export const ActFichaTecnica = ({
                 <Typography
                   sx={{
                     ml: 1,
-                    fontFamily: "MontserratBold",
+                    fontFamily: "PoppinsBold",
                     textAlign: "center",
                   }}
                 >
@@ -1714,7 +1714,7 @@ export const ActFichaTecnica = ({
                 <Typography
                   sx={{
                     ml: 1,
-                    fontFamily: "MontserratBold",
+                    fontFamily: "PoppinsBold",
                     textAlign: "center",
                   }}
                 >

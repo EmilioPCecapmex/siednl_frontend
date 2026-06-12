@@ -111,13 +111,13 @@ export const FormulaDialog = ({
           justifyContent: "center",
         }}
       >
-        <Typography sx={{ fontFamily: "MontserratBold", fontSize: "1vw" }}>
+        <Typography sx={{ fontFamily: "PoppinsBold", fontSize: "1vw" }}>
           {elemento} - Fórmula - {tipo}
         </Typography>
 
         <Typography
           sx={{
-            fontFamily: "MontserratRegular",
+            fontFamily: "PoppinsRegular",
             fontSize: ".6vw",
             width: "90%",
             textAlign: "center",
@@ -163,7 +163,7 @@ export const FormulaDialog = ({
             value={descA}
             InputLabelProps={{
               style: {
-                fontFamily: "MontserratSemiBold",
+                fontFamily: "PoppinsSemiBold",
                 //fontSize: ".8vw",
               },
             }}
@@ -174,7 +174,7 @@ export const FormulaDialog = ({
             }
             InputProps={{
               style: {
-                fontFamily: "MontserratRegular",
+                fontFamily: "PoppinsRegular",
                // fontSize: ".8vw",
               },
             }}
@@ -190,7 +190,7 @@ export const FormulaDialog = ({
               sx={{ width: "45%" }}
               InputLabelProps={{
                 style: {
-                  fontFamily: "MontserratSemiBold",
+                  fontFamily: "PoppinsSemiBold",
                 //  fontSize: ".8vw",
                 },
               }}
@@ -204,7 +204,7 @@ export const FormulaDialog = ({
               }
               InputProps={{
                 style: {
-                  fontFamily: "MontserratRegular",
+                  fontFamily: "PoppinsRegular",
                   //fontSize: ".8vw",
                 },
               }}
@@ -221,14 +221,14 @@ export const FormulaDialog = ({
         <Button 
         className="cancelar"
         onClick={() => close()} >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
             Cancelar
           </Typography>
         </Button>
         <Button  
         className="aceptar"
         onClick={() => checkValues()} >
-          <Typography sx={{ fontFamily: "MontserratMedium" }}>
+          <Typography sx={{ fontFamily: "PoppinsMedium" }}>
             Agregar
           </Typography>
         </Button>

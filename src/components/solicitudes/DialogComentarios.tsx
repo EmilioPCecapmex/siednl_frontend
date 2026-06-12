@@ -92,17 +92,17 @@ export const DialogComentarios = ({
             <TableHead sx={{ width: "100%" }}>
               <TableRow sx={{ width: "100%", backgroundColor: "#d6d6d6" }}>
                 <TableCell align="center" sx={{ width: "33%" }}>
-                  <Typography sx={{ fontFamily: "MontserratBold" }}>
+                  <Typography sx={{ fontFamily: "PoppinsBold" }}>
                     USUARIO
                   </Typography>
                 </TableCell>
                 <TableCell align="center" sx={{ width: "34s%" }}>
-                  <Typography sx={{ fontFamily: "MontserratBold" }}>
+                  <Typography sx={{ fontFamily: "PoppinsBold" }}>
                     COMENTARIO
                   </Typography>
                 </TableCell>
                 <TableCell align="center" sx={{ width: "33%" }}>
-                  <Typography sx={{ fontFamily: "MontserratBold" }}>
+                  <Typography sx={{ fontFamily: "PoppinsBold" }}>
                    FECHA
                   </Typography>
                 </TableCell>
@@ -114,17 +114,17 @@ export const DialogComentarios = ({
                 return (
                   <TableRow sx={{ width: "100%" }}>
                     <TableCell align="center" sx={{ width: "33%" }}>
-                      <Typography sx={{ fontFamily: "MontserratRegular" }}>
+                      <Typography sx={{ fontFamily: "PoppinsRegular" }}>
                         {row.NombreCreador}
                       </Typography>
                     </TableCell>
                     <TableCell align="center" sx={{ width: "34s%" }}>
-                      <Typography sx={{ fontFamily: "MontserratRegular" }}>
+                      <Typography sx={{ fontFamily: "PoppinsRegular" }}>
                         {row.Comentario}
                       </Typography>
                     </TableCell>
                     <TableCell align="center" sx={{ width: "33%" }}>
-                      <Typography sx={{ fontFamily: "MontserratRegular" }}>
+                      <Typography sx={{ fontFamily: "PoppinsRegular" }}>
                         {moment(row.FechaDeCreacion, moment.ISO_8601)
                           .format("DD/MM/YYYY HH:mm:SS")
                           .toString()}
@@ -146,7 +146,7 @@ export const DialogComentarios = ({
               justifyContent: "center",
             }}
           >
-            <Typography sx={{ fontFamily: "MontserratRegular" }}>
+            <Typography sx={{ fontFamily: "PoppinsRegular" }}>
               SIN COMENTARIO
             </Typography>
           </Box>

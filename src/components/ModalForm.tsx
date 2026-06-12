@@ -23,7 +23,7 @@ const ModalForm = ({ children, title, handleClose }: Props) => {
 
 
               <Typography
-                fontFamily={"'Montserrat', sans-serif"}
+                fontFamily={"'Poppins', sans-serif"}
                 sx={{
                   whiteSpace: "nowrap",
                   overflow: "hidden",
